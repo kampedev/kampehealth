@@ -15,81 +15,219 @@
     <div class="admin-sidebar-wrapper js-scrollbar">
         <ul class="menu">
             <li class="menu-item active ">
-                <a href="#" class="open-dropdown menu-link">
+                <a href="/client-dashboard" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Dashboard
+                                                </span>
+
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-home "></i>
+                                            </span>
+                </a>
+
+            </li>
+
+            <li class="menu-item">
+                <a href="/fund-manager" class="open-dropdown menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Fund Manager
+                                                </span>
+
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-credit-card "></i>
+                                            </span>
+                </a>
+            </li>
+
+            <li class="menu-item ">
+                <a href="#" class="open-dropdown menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Plans Manager
                                                     <span class="menu-arrow"></span>
                                                 </span>
 
                                             </span>
                     <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-activity "></i>
+                                                 <i class="icon-placeholder mdi mdi-checkbook "></i>
                                             </span>
                 </a>
                 <!--submenu-->
                 <ul class="sub-menu">
 
-                    <li class="menu-item ">
-                        <a href="index.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Dashboard 1</span>
+                    <li class="menu-item">
+                        <a href="/plans" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">Add Plan
+                                                </span>
                                             </span>
                             <span class="menu-icon">
-                                                <i class="icon-placeholder  fe fe-zap ">
 
-                                                </i>
+                                                    <i class="icon-placeholder  fe fe-edit"></i>
                                             </span>
                         </a>
                     </li>
+
                     <li class="menu-item">
-                        <a href="dashboard-02.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Dashboard 2</span>
+                        <a href="/plans" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">View Plans
+                                                </span>
                                             </span>
                             <span class="menu-icon">
-                                                <i class="icon-placeholder fe fe-edit-2 ">
 
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="dashboard-03.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Dashboard 3</span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  fe fe-compass">
-
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="dashboard-04.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Dashboard 4</span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  fe fe-shopping-cart">
-
-                                                </i>
+                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
                                             </span>
                         </a>
                     </li>
 
                 </ul>
             </li>
+
             <li class="menu-item ">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Forms
+                                                <span class="menu-name">Clients
                                                     <span class="menu-arrow"></span>
                                                 </span>
 
                                             </span>
                     <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-edit "></i>
+                                                 <i class="icon-placeholder fe fe-users "></i>
+                                            </span>
+                </a>
+                <!--submenu-->
+                <ul class="sub-menu">
+
+                    <li class="menu-item">
+                        <a href="/add-client" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">Add Client
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder fe fe-edit"></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="forms.html" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">View Clients
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+                        <li class="menu-item ">
+                            <a href="#" class="open-dropdown menu-link">
+                                    <span class="menu-label">
+                                                            <span class="menu-name">Dependents
+                                                                <span class="menu-arrow"></span>
+                                                            </span>
+
+                                                        </span>
+                                <span class="menu-icon">
+                                                             <i class="icon-placeholder fe fe-users "></i>
+                                                        </span>
+                            </a>
+                            <!--submenu-->
+                            <ul class="sub-menu">
+
+                                <li class="menu-item">
+                                    <a href="/add-dependents" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Add Dependents
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder fe fe-edit"></i>
+                                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="menu-item">
+                                    <a href="/add-dependents" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">View Dependents
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder mdi mdi-view-day "></i>
+                                                        </span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+            <li class="menu-item ">
+                <a href="#" class="open-dropdown menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Employees
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-briefcase "></i>
+                                            </span>
+                </a>
+                <!--submenu-->
+                <ul class="sub-menu">
+
+                    <li class="menu-item">
+                        <a href="/add-employee" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">Add Employee
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder fe fe-edit "></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="/add-employee" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">View Employees
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="menu-item ">
+                <a href="#" class="open-dropdown menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Claims Manager
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-grid"></i>
                                             </span>
                 </a>
                 <!--submenu-->
@@ -98,1131 +236,63 @@
                     <li class="menu-item">
                         <a href="forms.html" class=" menu-link">
                                         <span class="menu-label">
-                                                <span class="menu-name">Basic
+                                                <span class="menu-name">Make Claim
                                                 </span>
                                             </span>
                             <span class="menu-icon">
 
-                                                    <i class="icon-placeholder mdi mdi-checkbook "></i>
+                                                    <i class="icon-placeholder fe fe-edit "></i>
                                             </span>
                         </a>
                     </li>
+
                     <li class="menu-item">
-                        <a href="forms-custom.html" class=" menu-link">
+                        <a href="forms.html" class=" menu-link">
                                         <span class="menu-label">
-                                                <span class="menu-name">Custom Controls
+                                                <span class="menu-name">View Claims
                                                 </span>
                                             </span>
                             <span class="menu-icon">
 
-                                                    <i class="icon-placeholder mdi mdi-checkbox-multiple-marked-circle "></i>
+                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
                                             </span>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="forms-advance.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Advance
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-calendar-edit "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="forms-wizard.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Wizard
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-step-forward  "></i>
-                                            </span>
-                        </a>
-                    </li>
-
 
                 </ul>
             </li>
-            <li class="menu-item ">
+
+            <li class="menu-item active ">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">UI Elements
-                                                    <span class="menu-arrow"></span>
+                                                <span class="menu-name">Complaints
                                                 </span>
 
                                             </span>
                     <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-zap "></i>
+                                                 <i class="icon-placeholder fe fe-thumbs-down "></i>
                                             </span>
                 </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="alerts.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Alerts </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-A
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="avatar.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Avatar </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-A
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="buttons.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Buttons </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-B
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item  ">
-                        <a href="cards.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Cards
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-cards-outline  "></i>
-                                            </span>
-                        </a>
-                    </li>
-
-                    <li class="menu-item">
-                        <a href="icons.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Icons
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-alien "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="modal.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Modals </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-M
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="notification.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Notification </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-N
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="typography.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Typography </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-T
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="tabs.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Tabs  </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-T
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="sweetalert.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Sweet Alert  </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-S
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="accordian.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Accordian  </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-A
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="tooltip.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Tooltips </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-T
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="color.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Colors
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-format-color-fill "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="spinners.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Spinners </span>
-                                            </span>
-                            <span class="menu-icon">
-                                    <i class="icon-placeholder mdi mdi-loading mdi-spin"></i>
-
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="blockui.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Block UI
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-B
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="jstree.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Js Tree
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-T
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="wireframe.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Wireframe </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-W
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Widgets
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-<span class="menu-info"> 👌 New Widgets  </span>
-                                            </span>
-                    <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-toggle-left"></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-
-                    <li class="menu-item">
-                        <a href="widget-01.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Widget 01
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-webpack "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="widget-02.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                  <span class="menu-name">Widget 02
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-webpack"></i>
-                                            </span>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </li>
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                 <span class="menu-name">Apps
-                                                     ⚡
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                            </span>
-                    <span class="menu-icon">
-                                                <i class="icon-placeholder fe fe-aperture "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="kanban.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Kanban
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder fe fe-watch"></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item ">
-                        <a href="chat.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Chat
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder fe fe-message-square"></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="mail.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Mail
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder fe fe-mail "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="guide.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Guides
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder fe fe-book "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="todo.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Todo
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder fe fe-list "></i>
-                                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Pages
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                                <span class="menu-info">Extra Pages</span>
-                                            </span>
-                    <span class="menu-icon">
-                                                <i class="icon-placeholder fe fe-folder-plus "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="profile.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Profile </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    P
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="timeline.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Timeline </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    T
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="contacts.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Contacts </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    C
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="login.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Login </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    L
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="signup.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Sign Up </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    S
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="reset.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Reset Password </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    R
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="logout.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Logout </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    L
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="setting.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Settings </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    <i class="icon  mdi mdi-settings"></i>
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="status.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Status Page </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    S
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-
-
-
-                </ul>
             </li>
 
-
-
-
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Charts
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-
-                                            </span>
-                    <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-bar-chart-2 "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-
-                    <li class="menu-item">
-                        <a href="apexchart.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Apex Charts
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-chart-gantt "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="chartjs.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Chartsjs
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-chart-bar "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="googlechart.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Google Charts
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder mdi mdi-google "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="chartist.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Chartist
-                                                </span>
-                                            </span>
-
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                     <i class="icon-placeholder mdi mdi-chart-arc "></i>
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </li>
-
-
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Tables
-                                                      <span class="menu-arrow"></span>
-
-                                                </span>
-
-                                            </span>
-                    <span class="menu-icon">
-                                                <i class="icon-placeholder fe fe-database"></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="table.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Table
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-format-list-bulleted "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" class="open-dropdown menu-link">
-                         <span class="menu-label">
-                                                <span class="menu-name">Datatable
-                                                      <span class="menu-arrow"></span>
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-format-list-bulleted "></i>
-                                            </span>
-                        </a>
-                        <!--submenu-->
-                        <ul class="sub-menu">
-                            <li class="menu-item">
-                                <a href="datatable.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Basic </span>
-                                            </span>
-                                    <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    b
-                                                </i>
-                                            </span>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="datatable-height.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Variable Height </span>
-                                            </span>
-                                    <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    h
-                                                </i>
-                                            </span>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="datatable-multi.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Multi select </span>
-                                            </span>
-                                    <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    M
-                                                </i>
-                                            </span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Maps
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                            </span>
-                    <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-map"></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-
-                    <li class="menu-item">
-                        <a href="mapael.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Vector Maps
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-map-search-outline "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="google-maps.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                  <span class="menu-name">Google Maps
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-google"></i>
-                                            </span>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </li>
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Calender
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-
-                                            </span>
-                    <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-calendar "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-
-                    <li class="menu-item">
-                        <a href="calender.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Calender
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-calendar "></i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="calender-create.html" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Calender Edit
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-calendar-edit "></i>
-                                            </span>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </li>
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Invoices
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                            </span>
-                    <span class="menu-icon">
-                                                <i class="icon-placeholder fe fe-dollar-sign "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="invoice.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Invoice View </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    I
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-
-                    <li class="menu-item">
-                        <a href="invoice-single.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Single Invoice </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    S
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Editors
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                            </span>
-                    <span class="menu-icon">
-                                                <i class="icon-placeholder fe fe-file-text "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="tinymce.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">TinyMCE </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    T
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-
-                    <li class="menu-item">
-                        <a href="summernote.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Summernote </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    S
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-
-                    <li class="menu-item">
-                        <a href="trumbowyg.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name"> Trumbowyg </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    T
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                 <span class="menu-name">Error Pages
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                                <span class="menu-info">404,503 etc</span>
-                                            </span>
-                    <span class="menu-icon">
-                                                <i class="icon-placeholder mdi mdi-pac-man "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="404.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">404 </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    Er
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="502.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">502 </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    Er
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="503.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">503 </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    Er
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="403.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">403 </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    Er
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item  ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Emails
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-<span class="menu-info"> 🌈 New  </span>
-                                            </span>
-                    <span class="menu-icon">
-
-                                                 <i class="icon-placeholder mdi mdi-mailbox-open-outline "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-
-                    <li class="menu-item ">
-                        <a href="emails/confirm-mail.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Confirm Email</span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-C
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item ">
-                        <a href="emails/password-reset.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Password Reset </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-P
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item ">
-                        <a href="emails/confirm-subscription.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Subscription Email</span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-S
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item ">
-                        <a href="emails/message.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Notification</span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder   ">
-N
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                 <span class="menu-name">Forums
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                        </span>
-                    <span class="menu-icon">
-                                                <i class="icon-placeholder mdi mdi-chat "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="forum-home.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Forum Home </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    <i class="icon mdi mdi-chat"></i>
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="forum-thread.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Forum Thread </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    <i class="icon mdi mdi-message-reply"></i>
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="forum-discussion.html" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Discussion </span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    <i class="icon mdi mdi-message-bulleted"></i>
-                                                </i>
-                                            </span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-            <li class="menu-item ">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                 <span class="menu-name">Menus
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                                <span class="menu-info">Contains submenu</span>
-                                            </span>
-                    <span class="menu-icon">
-                                                <i class="icon-placeholder fe fe-bookmark "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="#" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Menu Level </span>
-                                                <span class="menu-info">500 New Events</span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    Sb
-                                                </i>
-                                            </span>
-                        </a>
-
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                 <span class="menu-name">Menus
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                                <span class="menu-info">Contains submenu</span>
-                                            </span>
-                            <span class="menu-icon">
-                                                <i class="icon-placeholder mdi mdi-link-variant "></i>
-                                            </span>
-                        </a>
-                        <!--submenu-->
-                        <ul class="sub-menu">
-                            <li class="menu-item">
-                                <a href="#" class=" menu-link">
-                                            <span class="menu-label">
-                                                <span class="menu-name">Menu Level </span>
-                                                <span class="menu-info">500 New Events</span>
-                                            </span>
-                                    <span class="menu-icon">
-                                                <i class="icon-placeholder  ">
-                                                    Sb
-                                                </i>
-                                            </span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-
-                </ul>
-            </li>
         </ul>
 
     </div>
 
 </aside>
 
+<Header/>
+
   </div>
 </template>
 
 <script>
-
+  import Header from '@/views/Header.vue'
 
 export default {
 
   components: {
-    // HelloWorld
+    Header
   },
   data(){
 

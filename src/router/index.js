@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/auth/Login.vue'
+import OnboardClient from '../views/onboarding/OnboardClient.vue'
 import Dashboard from '../views/clients/Dashboard.vue'
 import AddClient from '../views/clients/AddClient.vue'
 import ProviderDashboard from '../views/providers/Dashboard.vue'
@@ -10,6 +11,9 @@ import AddEmployee from '../views/employees/AddEmployee.vue'
 import AddDependents from '../views/dependents/AddDependents.vue'
 import Plans from '../views/plans/Plans.vue'
 import Funds from '../views/funds/Funds.vue'
+import StateDashboard from '../views/shis/StateDashboard.vue'
+import AddClaim from '../views/claims/AddClaim.vue'
+import AddComplaint from '../views/complaints/AddComplaint.vue'
 
 Vue.use(VueRouter)
 
@@ -32,6 +36,10 @@ const routes = [
     component: Login
   },
   {
+    path: '/onboard-client',
+    component: OnboardClient
+  },
+  {
     path: '/client-dashboard',
     component: Dashboard
   },
@@ -48,6 +56,10 @@ const routes = [
     component: HDashboard
   },
   {
+    path: '/state-dashboard',
+    component: StateDashboard
+  },
+  {
     path: '/add-employee',
     component: AddEmployee
   },
@@ -62,6 +74,14 @@ const routes = [
   {
     path: '/fund-manager',
     component: Funds
+  },
+  {
+    path: '/add-claim',
+    component: AddClaim
+  },
+  {
+    path: '/add-complaint',
+    component: AddComplaint
   },
 ]
 

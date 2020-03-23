@@ -1,6 +1,6 @@
 <template >
-  <div class="jumbo-page">
-<main class="admin-main  ">
+  <body class="jumbo-page">
+<main class="admin-main">
     <div class="container-fluid">
         <div class="row ">
             <div class="col-lg-4  bg-white">
@@ -45,7 +45,7 @@
     </div>
 </main>
 
-  </div>
+  </body>
 </template>
 
 <script>

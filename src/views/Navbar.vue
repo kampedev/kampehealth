@@ -14,22 +14,22 @@
     </div>
     <div class="admin-sidebar-wrapper js-scrollbar">
         <ul class="menu">
+
             <li class="menu-item active ">
-                <a href="/client-dashboard" class="open-dropdown menu-link">
+                <a href="/client-dashboard" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Dashboard
                                                 </span>
-
                                             </span>
                     <span class="menu-icon">
                                                  <i class="icon-placeholder fe fe-home "></i>
                                             </span>
                 </a>
-
             </li>
 
+
             <li class="menu-item">
-                <a href="/fund-manager" class="open-dropdown menu-link">
+                <a href="/fund-manager" class="menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Fund Manager
                                                 </span>
@@ -234,7 +234,7 @@
                 <ul class="sub-menu">
 
                     <li class="menu-item">
-                        <a href="forms.html" class=" menu-link">
+                        <a href="/add-claim" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">Make Claim
                                                 </span>
@@ -247,7 +247,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="forms.html" class=" menu-link">
+                        <a href="/add-claim" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">View Claims
                                                 </span>
@@ -263,7 +263,7 @@
             </li>
 
             <li class="menu-item active ">
-                <a href="#" class="open-dropdown menu-link">
+                <a href="add-complaint" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Complaints
                                                 </span>

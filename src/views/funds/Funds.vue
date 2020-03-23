@@ -132,10 +132,9 @@
                             <tr>
                                 <th>Avatar</th>
                                 <th>Name</th>
-                                <th>Position</th>
-
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Transaction Reference</th>
+                                <th>Date</th>
+                                <th>Amount</th>
                             </tr>
                             </thead>
                             <tbody>

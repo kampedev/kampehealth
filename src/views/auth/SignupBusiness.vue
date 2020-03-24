@@ -14,29 +14,49 @@
 
                                 </p>
                                 <p class="admin-brand-content">
-                                    atmos
+                                    HIP
                                 </p>
                             </div>
-                            <h3 class="text-center p-b-20 fw-400">Register</h3>
+                            <h3 class="text-center p-b-20 fw-400">Register as a Client</h3>
 
                             <div class="form-row">
-
+                              <div class="form-group floating-label col-md-6 col-sm-12">
+                                  <label>First Name</label>
+                                  <input type="text" required class="form-control" placeholder="First Name">
+                              </div>
+                              <div class="form-group floating-label col-md-6 col-sm-12">
+                                  <label>Last Name</label>
+                                  <input type="text" required class="form-control" placeholder="Last Name">
+                              </div>
                                 <div class="form-group floating-label col-md-12">
                                     <label>Email</label>
                                     <input type="email" required class="form-control" placeholder="Email">
-
                                 </div>
                                 <div class="form-group floating-label col-md-12">
+                                    <label>Phone Number</label>
+                                    <input type="text" required class="form-control" placeholder="Phone Number">
+                                </div>
+                                <div class="form-group floating-label col-md-6 col-sm-12">
                                     <label>Password</label>
                                     <input type="password" required class="form-control " id="password"
-                                            >
+                                       placeholder="Password">
                                 </div>
-                            </div>
-                            <div class="form-group floating-label">
+                            <div class="form-group floating-label col-md-6 col-sm-12">
                                 <label>Password Again</label>
                                 <input type="password" class="form-control" required id="confirm_password"
                                        placeholder="Password Again">
                             </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Account Type</label>
+
+                                <select class="form-control">
+                                 <option>Client</option>
+                                 <option>Provider</option>
+                                 <option>HMO</option>
+                             </select>
+                          </div>
+
                             <div class="form-row">
                                 <div class="form-group floating-label col-md-6">
                                     <label>City</label>
@@ -44,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group floating-label col-md-6">
-                                    <label>Zip</label>
+                                    <label>Ward</label>
                                     <input type="text" class="form-control" placeholder="Zip">
                                 </div>
                             </div>

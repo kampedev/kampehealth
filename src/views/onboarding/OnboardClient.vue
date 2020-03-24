@@ -15,7 +15,7 @@
                                     <img src="assets/img/logo.svg" alt="">
                                 </div>
                             </div>
-                            <form id="commentForm" method="get" action="forms-wizard.html" class="form-horizontal">
+                            <!-- <form id="commentForm" method="get" action="forms-wizard.html" class="form-horizontal">
                                 <div id="rootwizard">
 
                                     <ul class="nav nav-pills nav-justified">
@@ -30,27 +30,26 @@
                                         <div class="tab-pane p-t-20 p-b-20" id="tab1">
 
                                             <h3>
-                                                <span class="align-middle">Welcome Fella,</span></h3>
+                                                <span class="align-middle">Welcome Linda, Complete your profile here</span></h3>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                                       aria-describedby="emailHelp" placeholder="Enter email">
-                                                <small id="emailHelp" class="form-text text-muted">We'll never
-                                                    share your email with anyone else.
-                                                </small>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control"
-                                                       id="exampleInputPassword1"  >
-                                            </div>
+                                              <label for="inputCity">Select HMO</label>
+                                                  <select class="form-control">
+                                                   <option>Axard</option>
+                                                   <option>Stanbic</option>
+                                                   <option>Livly</option>
+                                               </select>
 
-                                            <div class="custom-control custom-checkbox">
-                                                <input checked type="checkbox" class="custom-control-input"
-                                                       id="customCheck1">
-                                                <label class="custom-control-label" for="customCheck1">Agree to
-                                                    the terms and conditions.</label>
                                             </div>
+                                            <div class="form-group">
+                                              <label for="inputCity">Select Provider</label>
+
+                                                  <select class="form-control">
+                                                   <option>General Hospital</option>
+                                                   <option>Hospital 2</option>
+                                                   <option>Hospital 3</option>
+                                               </select>
+                                            </div>
+                                            <a class="nav-link" href="#tab2" data-toggle="tab">Proceed</a>
 
                                         </div>
                                         <div class="tab-pane p-t-20 p-b-20" id="tab2">
@@ -87,66 +86,14 @@
                                                     </span>
                                                 </label>
                                             </div>
+                                            <a class="btn" href="#tab3" data-toggle="tab">Proceed</a>
 
                                         </div>
                                         <div class="tab-pane p-t-20 p-b-20" id="tab3">
                                             <div class="row">
+
                                                 <div class="col m-b-30">
-                                                    <div class="option-box-column">
-                                                        <input id="radio-column-1" name="column-radio"
-                                                               type="radio">
-                                                        <label for="radio-column-1">
-                                                            <span class="radio-content ">
-                                                                <span class="p-all-15 d-block">
-                                                                    <span class="m-b-20">
-                                                                        <img src="assets/img/cake.png" alt="">
-                                                                    </span>
-                                                                    <span class="list-group">
-                                                                        <span class="list-group-item">2 Cups of
-                                                                            Icecream Daily
-                                                                        </span>
-                                                                        <span class="list-group-item">1 Surprise
-                                                                            Cake
-                                                                        </span>
-
-                                                                    </span>
-                                                                </span>
-
-                                                                <span class="radio-highlight d-block">
-                                                                    Cup Cakes
-                                                                </span>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col m-b-30">
-                                                    <div class="option-box-column">
-                                                        <input id="radio-column-2" name="column-radio"
-                                                               type="radio">
-                                                        <label for="radio-column-2">
-                                                            <span class="radio-content ">
-                                                                <span class="p-all-15 d-block">
-                                                                    <span class="m-b-20">
-                                                                        <img src="assets/img/iceccream-bowl.png"
-                                                                             alt="">
-                                                                    </span>
-                                                                    <span class="list-group">
-                                                                        <span class="list-group-item">1 Cups of
-                                                                            Icecream Daily
-                                                                        </span>
-                                                                        <span class="list-group-item">5 Surprise
-                                                                            Cakes
-                                                                        </span>
-
-                                                                    </span>
-                                                                </span>
-
-                                                                <span class="radio-highlight d-block">
-                                                                    Ice Cream
-                                                                </span>
-                                                            </span>
-                                                        </label>
-                                                    </div>
+                                            <button class="btn">Payment 5,000</button>
                                                 </div>
 
                                             </div>
@@ -159,9 +106,11 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </form>
+                            </form> -->
+                            <p>ss</p>
+
                             <p class="text-center">
-                                <a href="index.html" class="text-underline">Back to Dashboard</a>
+                                <a href="/client-dashboard" class="text-underline">Back to Dashboard</a>
                             </p>
                         </div>
                     </div>

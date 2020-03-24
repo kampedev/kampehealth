@@ -1,0 +1,165 @@
+<template>
+  <body class=jumbo-page>
+
+<main class="admin-main  ">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-lg-4  bg-white">
+                <div class="row align-items-center m-h-100">
+                    <div class="mx-auto col-md-8">
+                        <!-- <form class="needs-validation" action="#"> -->
+                            <div class="p-b-20 text-center">
+                                <p>
+                                    <img src="assets/img/logo.svg" width="80" alt="">
+
+                                </p>
+                                <p class="admin-brand-content">
+                                    HIP
+                                </p>
+                            </div>
+                            <h3 class="text-center p-b-20 fw-400">Register as a Client</h3>
+
+                            <div class="form-row">
+                              <div class="form-group floating-label col-md-6 col-sm-12">
+                                  <label>First Name</label>
+                                  <input type="text" required class="form-control" placeholder="First Name" v-model="register.firstname">
+                              </div>
+                              <div class="form-group floating-label col-md-6 col-sm-12">
+                                  <label>Last Name</label>
+                                  <input type="text" required class="form-control" placeholder="Last Name" v-model="register.lastname">
+                              </div>
+                                <div class="form-group floating-label col-md-12">
+                                    <label>Email</label>
+                                    <input type="email" required class="form-control" placeholder="Email" v-model="register.email">
+                                </div>
+                                <div class="form-group floating-label col-md-12">
+                                    <label>Phone Number</label>
+                                    <input type="text" required class="form-control" placeholder="Phone Number" v-model="register.phone_number">
+                                </div>
+                                <div class="form-group floating-label col-md-6 col-sm-12">
+                                    <label>Password</label>
+                                    <input type="password" required class="form-control " id="password"
+                                       placeholder="Password" v-model="register.password">
+                                </div>
+                            <div class="form-group floating-label col-md-6 col-sm-12">
+                                <label>Password Again</label>
+                                <input type="password" class="form-control" required id="confirm_password"
+                                       placeholder="Password Again" v-model="register.password_confirmation">
+                            </div>
+                          </div>
+
+                            <div class="form-row">
+                                <div class="form-group floating-label col-md-6">
+                                    <label>State</label>
+                                    <input type="text" class="form-control" placeholder="State">
+                                </div>
+
+                                <div class="form-group floating-label col-md-6">
+                                    <label>LGA</label>
+                                    <input type="text" class="form-control" placeholder="LGA">
+                                </div>
+                            </div>
+                            <!-- <p class="">
+                                <label class="cstm-switch">
+                                    <input type="checkbox" checked name="option" value="1" class="cstm-switch-input">
+                                    <span class="cstm-switch-indicator "></span>
+                                    <span class="cstm-switch-description">  I agree to the Terms and Privacy. </span>
+                                </label>
+
+
+                            </p> -->
+
+                            <button @click="registerUser" class="btn btn-primary btn-block btn-lg">Create Account</button>
+
+                        <!-- </form> -->
+
+                        <p class="text-right p-t-10">
+                          <router-link :to="{ path: '/login' }">
+                            <span class="text-underline">Already a user?</span>
+                          </router-link>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-8 d-none d-md-block bg-cover" style="background-image: url('assets/img/auth.svg');">
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="vld-parent">
+     <loading :active.sync="isLoading"
+     loader="dots"
+     :can-cancel="true"
+     :is-full-page="fullPage"></loading>
+ </div>
+
+  </body>
+</template>
+
+<script>
+  // Import component
+     import Loading from 'vue-loading-overlay';
+     // Import stylesheet
+     import 'vue-loading-overlay/dist/vue-loading.css';
+     // Init plugin
+
+export default {
+  name: 'Home',
+  components: {
+    Loading
+  },
+  data(){
+  return{
+    isLoading: false,
+    fullPage: true,
+    register:{
+              firstname:"",
+              lastname:"",
+              email:"",
+              type:"client",
+              phone_number:"",
+              password:"",
+              password_confirmation:""
+          }
+  }
+  },
+  beforeMount(){
+
+  },
+  methods:{
+    registerUser(){
+        this.isLoading = true;
+        this.axios.post('/api/v1/auth/register',this.register)
+        .then(response=>{
+          localStorage.setItem('user',JSON.stringify(this.register))
+          localStorage.setItem('jwt',response.data.access_token)
+          if (localStorage.getItem('jwt') != null){
+                        this.$emit('loggedIn')
+                        if(this.$route.params.nextUrl != null){
+                            this.$router.push(this.$route.params.nextUrl)
+                        }
+                        else{
+                            this.$router.push('/login')
+                        }
+                    }
+            console.log(response);
+            this.$router.push('/login');
+            this.isLoading = false;
+            // this.$toasted.global.signup().goAway(3000);
+
+        })
+        .catch(error=>{
+            console.log(error.response)
+            this.isLoading = false;
+            // this.$toasted.global.errorMessage().goAway(3000);
+        })
+    }
+  },
+  created(){
+
+  }
+}
+</script>

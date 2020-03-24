@@ -114,7 +114,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="forms.html" class=" menu-link">
+                        <a href="/add-client" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">View Clients
                                                 </span>

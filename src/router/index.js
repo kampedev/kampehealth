@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/auth/Login.vue'
+import SelectType from '../views/auth/SelectType.vue'
+import SignupClient from '../views/auth/SignupClient.vue'
 import OnboardClient from '../views/onboarding/OnboardClient.vue'
 import Dashboard from '../views/clients/Dashboard.vue'
 import AddClient from '../views/clients/AddClient.vue'
@@ -34,6 +36,14 @@ const routes = [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/select-type',
+    component: SelectType
+  },
+  {
+    path: '/signup-client',
+    component: SignupClient
   },
   {
     path: '/onboard-client',

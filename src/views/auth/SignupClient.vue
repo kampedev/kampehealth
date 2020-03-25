@@ -148,13 +148,15 @@ export default {
             console.log(response);
             this.$router.push('/login');
             this.isLoading = false;
-            // this.$toasted.global.signup().goAway(3000);
+            // localStorage.setItem('jwt',token);
+            this.$breadstick.notify("🥞 Welcome to Hip", {position: "top-right"});
 
         })
         .catch(error=>{
             console.log(error.response)
             this.isLoading = false;
-            // this.$toasted.global.errorMessage().goAway(3000);
+            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+
         })
     }
   },

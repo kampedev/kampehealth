@@ -51,49 +51,41 @@
                                                         <div class="form-row">
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputEmail4">First Name</label>
-                                                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Email">
+                                                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Email" v-model="dependent.firstname">
                                                              </div>
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputPassword4">Last Name</label>
-                                                                 <input type="text" class="form-control" id="inputPassword4"  >
+                                                                 <input type="text" class="form-control" id="inputPassword4"  v-model="dependent.lastname" >
                                                              </div>
                                                          </div>
                                                          <div class="form-row">
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputEmail4">Email</label>
-                                                                  <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                                                  <input type="email" class="form-control" id="inputEmail4" placeholder="Email"  v-model="dependent.email">
                                                               </div>
                                                               <div class="form-group col-md-6">
-                                                                  <label for="inputPassword4">Password</label>
-                                                                  <input type="password" class="form-control" id="inputPassword4"  >
+                                                                  <label for="inputPassword4">Phone Number</label>
+                                                                  <input type="text" class="form-control" id="inputPassword4"  v-model="dependent.phone_number" >
                                                               </div>
                                                           </div>
-                                                          <div class="form-group">
-                                                             <label for="inputAddress">Address</label>
-                                                             <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                                                         </div>
 
                                                          <div class="form-row">
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputCity">City</label>
-                                                                 <input type="text" class="form-control" id="inputCity">
 
-
-                                                             </div>
 
                                                              <div class="form-group col-md-6">
                                                                <label for="inputCity">Relationship type</label>
 
-                                                                   <select class="form-control">
-                                                                    <option>Parent</option>
-                                                                    <option>Sibling</option>
-                                                                    <option>Spouse</option>
+                                                                   <select class="form-control"  v-model="dependent.relationShipType">
+                                                                    <option id="Parent">Parent</option>
+                                                                    <option id="Sibling">Sibling</option>
+                                                                    <option id="Spouse">Spouse</option>
+                                                                    <option id="Spouse">Child</option>
                                                                 </select>
                                                              </div>
                                                          </div>
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary">Submit</button>
+                                                             <button class="btn btn-primary" @click="addDependant">Submit</button>
                                                          </div>
 
                            </div>
@@ -102,12 +94,12 @@
 
 
 
-                   <div class="col-lg-4 col-md-6">
+                   <div class="col-lg-4 col-md-6" v-for="dependent in dependents" v-bind:key="dependent.id">
                        <div class="card m-b-30">
                            <div class="card-header">
 
                                <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#">Clerk</a>
+                                   <a class="badge badge-soft-success" href="#">{{dependent.relationShipType}}</a>
 
                                </div>
                            </div>
@@ -119,17 +111,15 @@
                                                 alt="name">
                                        </div>
                                    </div>
-                                   <h3 class="p-t-10 searchBy-name">Isaac Williams</h3>
+                                   <h3 class="p-t-10 searchBy-name">{{dependent.firstname}} {{dependent.lastname}}</h3>
                                </div>
                                <div class="text-muted text-center m-b-10">
-                                   React, VUE , WebGL <a class="btn btn-sm btn-white">View</a>
+                                  {{dependent.phone_number}}
 
                                </div>
 
-
                                <p class="text-muted text-center">
-                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet at
-                                   odio quod rem rerum temporibus veniam vero.
+                                  General Hospital Abuja
                                </p>
                                <div class="row text-center p-b-10">
                                    <div class="col">
@@ -152,124 +142,17 @@
                            </div>
                        </div>
                    </div>
-                   <div class="col-lg-4 col-md-6">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-
-                               <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#">Operator</a>
-
-                               </div>
-                           </div>
-                           <div class="card-body">
-                               <div class="text-center">
-                                   <div>
-                                       <div class="avatar avatar-xl avatar-dnd">
-                                           <img class="avatar-img rounded-circle" src="assets/img/users/user-8.jpg"
-                                                alt="name">
-                                       </div>
-                                   </div>
-                                   <h3 class="p-t-10 searchBy-name">Joseph Simard</h3>
-                               </div>
-                               <div class="text-muted text-center m-b-10">
-                                   Tweenjs, Pulse <a class="btn btn-sm btn-white">View</a>
-
-                               </div>
-
-
-                               <p class="text-muted text-center">
-                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet at
-                                   odio quod rem rerum temporibus veniam vero.
-                               </p>
-                               <div class="row text-center p-b-10">
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="mdi mdi-account-group"></h3>
-                                           <div class="text-overline">Teams</div>
-
-                                       </a>
-                                   </div>
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="mdi mdi-check-all"></h3>
-                                           <div class="text-overline">Tasks</div>
-
-                                       </a>
-
-                                   </div>
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="mdi mdi-email-outline"></h3>
-                                           <div class="text-overline">Message</div>
-
-                                       </a>
-
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                   <div class="col-lg-4 col-md-6">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-
-                               <div class="card-controls">
-                                   <a class="badge badge-soft-danger" href="#">FINANCE</a>
-
-                               </div>
-                           </div>
-                           <div class="card-body">
-                               <div class="text-center">
-                                   <div>
-                                       <div class="avatar avatar-xl avatar-offline">
-                                           <img class="avatar-img rounded-circle" src="assets/img/users/user-10.jpg"
-                                                alt="name">
-                                       </div>
-                                   </div>
-                                   <h3 class="p-t-10 searchBy-name">Kingston Gauthier</h3>
-                               </div>
-                               <div class="text-muted text-center m-b-10">
-                                   Tally, SAP <a class="btn btn-sm btn-white">View</a>
-
-                               </div>
-
-
-                               <p class="text-muted text-center">
-                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet at
-                                   odio quod rem rerum temporibus veniam vero.
-                               </p>
-                               <div class="row text-center p-b-10">
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="mdi mdi-account-group"></h3>
-                                           <div class="text-overline">Teams</div>
-
-                                       </a>
-                                   </div>
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="mdi mdi-check-all"></h3>
-                                           <div class="text-overline">Tasks</div>
-
-                                       </a>
-
-                                   </div>
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="mdi mdi-email-outline"></h3>
-                                           <div class="text-overline">Message</div>
-
-                                       </a>
-
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-
 
                </div>
            </div>
+
+
+           <div class="vld-parent">
+                <loading :active.sync="isLoading"
+                loader="dots"
+                :can-cancel="true"
+                :is-full-page="fullPage"></loading>
+            </div>
 
        </section>
    </section>
@@ -277,24 +160,122 @@
 
 <script>
   import Navbar from '@/views/Navbar.vue'
+  // Import component
+     import Loading from 'vue-loading-overlay';
+     // Import stylesheet
+     import 'vue-loading-overlay/dist/vue-loading.css';
+     // Init plugin
+
 
 export default {
   components: {
-     Navbar
+     Navbar, Loading
   },
   data(){
     return{
-
+      user:null,
+      dependents:"",
+      edit:false,
+      isLoading: false,
+      fullPage: true,
+      dependent:{
+        firstname:"",
+        lastname:"",
+        email:"",
+        phone_number:"",
+        relationShipType:""
+      }
     }
   },
   beforeMount(){
 
   },
   methods:{
+    getDependents(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+      this.axios.get(`/api/v1/auth/allDependantUser/${this.user.id}`)
+                  .then(response => {
+                      this.dependents = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+
+    addDependant(){
+
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+      if (this.edit === false) {
+      // Add dependent
+      this.isLoading = true;
+      this.axios.post('/api/v1/auth/addDependant',{
+
+        firstname: this.dependent.firstname,
+        lastname: this.dependent.lastname,
+        relationShipType: this.dependent.relationShipType,
+        user_id: this.user.id,
+        email: this.dependent.email,
+        phone_number: this.dependent.phone_number,
+      })
+
+      .then(response=>{
+          console.log(response);
+          this.clearIt();
+          this.getDependents();
+          this.isLoading = false;
+          this.$breadstick.notify("Dependent added Successfuly!", {position: "top-right"});
+
+
+      })
+      .catch(error=>{
+          console.log(error.response)
+      })
+      }else {
+      // Update
+      this.isLoading = true;
+      this.axios.put('/api/v1/auth/addDependant',{
+
+        topic_id: this.topic.id,
+        topic_name: this.topic.topic_name,
+        // module_id: this.course.id,
+        module_id: this.$route.params.id,
+        topic_content: this.topic.topic_content,
+        video: this.topic.video,
+        audio: this.audio,
+        doc: this.doc,
+
+      })
+
+      .then(response=>{
+          console.log(response);
+          this.clearIt();
+          this.fetchModule();
+          this.edit = true;
+          this.isLoading = false;
+          this.$toasted.global.crudUpdated().goAway(1500);
+
+      })
+      .catch(error=>{
+          console.log(error.response)
+      })
+
+      }
+    },
+
+    clearIt(){
+
+      this.dependent.firstname = "";
+      this.dependent.lastname = "";
+      this.dependent.email = "";
+      this.dependent.phone_number ="";
+    },
 
   },
   created(){
-
+    this.getDependents()
   }
 
 }

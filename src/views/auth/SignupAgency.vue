@@ -7,7 +7,6 @@
             <div class="col-lg-4  bg-white">
                 <div class="row align-items-center m-h-100">
                     <div class="mx-auto col-md-8">
-                        <form class="needs-validation" action="#">
                             <div class="p-b-20 text-center">
                                 <p>
                                     <img src="assets/img/logo.svg" width="80" alt="">
@@ -22,38 +21,38 @@
                             <div class="form-row">
                               <div class="form-group floating-label col-md-6 col-sm-12">
                                   <label>First Name</label>
-                                  <input type="text" required class="form-control" placeholder="First Name">
+                                  <input type="text" required class="form-control" placeholder="First Name" v-model="register.firstname">
                               </div>
                               <div class="form-group floating-label col-md-6 col-sm-12">
                                   <label>Last Name</label>
-                                  <input type="text" required class="form-control" placeholder="Last Name">
+                                  <input type="text" required class="form-control" placeholder="Last Name" v-model="register.lastname">
                               </div>
                                 <div class="form-group floating-label col-md-12">
                                     <label>Email</label>
-                                    <input type="email" required class="form-control" placeholder="Email">
+                                    <input type="email" required class="form-control" placeholder="Email" v-model="register.email">
                                 </div>
                                 <div class="form-group floating-label col-md-12">
                                     <label>Phone Number</label>
-                                    <input type="text" required class="form-control" placeholder="Phone Number">
+                                    <input type="text" required class="form-control" placeholder="Phone Number" v-model="register.phone_number">
                                 </div>
                                 <div class="form-group floating-label col-md-6 col-sm-12">
                                     <label>Password</label>
                                     <input type="password" required class="form-control " id="password"
-                                       placeholder="Password">
+                                       placeholder="Password" v-model="register.password">
                                 </div>
                             <div class="form-group floating-label col-md-6 col-sm-12">
                                 <label>Password Again</label>
                                 <input type="password" class="form-control" required id="confirm_password"
-                                       placeholder="Password Again">
+                                       placeholder="Password Again" v-model="register.password_confirmation">
                             </div>
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputCity">Account Type</label>
+                            <label for="inputCity">Account Type {{agency}}</label>
 
-                                <select class="form-control">
-                                 <option>Client</option>
-                                 <option>Provider</option>
-                                 <option>HMO</option>
+                                <select class="form-control" v-model="register.agency">
+                                 <option id="shis">SHIS</option>
+                                 <option id="provider">Provider</option>
+                                 <option id="provider">HMO</option>
                              </select>
                           </div>
 
@@ -75,12 +74,10 @@
                                     <span class="cstm-switch-description">  I agree to the Terms and Privacy. </span>
                                 </label>
 
-
                             </p>
 
-                            <button type="submit" class="btn btn-primary btn-block btn-lg">Create Account</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg"  @click="registerUser">Create Account</button>
 
-                        </form>
                         <p class="text-right p-t-10">
                             <a href="#!" class="text-underline">Already a user?</a>
                         </p>
@@ -94,25 +91,81 @@
         </div>
     </div>
 </main>
+
+
+<div class="vld-parent">
+     <loading :active.sync="isLoading"
+     loader="dots"
+     :can-cancel="true"
+     :is-full-page="fullPage"></loading>
+ </div>
+
   </body>
 </template>
 
 <script>
 
+  // Import component
+     import Loading from 'vue-loading-overlay';
+     // Import stylesheet
+     import 'vue-loading-overlay/dist/vue-loading.css';
+     // Init plugin
 
 export default {
   name: 'Home',
   components: {
-    // HelloWorld
+     Loading
   },
   data(){
+    return{
+      isLoading: false,
+      fullPage: true,
+      register:{
+                firstname:"",
+                lastname:"",
+                email:"",
+                type:"client",
+                phone_number:"",
+                agency:"",
+                password:"",
+                password_confirmation:""
+            }
+    }
 
   },
   beforeMount(){
 
   },
   methods:{
+    registerUser(){
+        this.isLoading = true;
+        this.axios.post('/api/v1/auth/register',this.register)
+        .then(response=>{
+          localStorage.setItem('user',JSON.stringify(this.register))
+          localStorage.setItem('jwt',response.data.access_token)
+          if (localStorage.getItem('jwt') != null){
+                        this.$emit('loggedIn')
+                        if(this.$route.params.nextUrl != null){
+                            this.$router.push(this.$route.params.nextUrl)
+                        }
+                        else{
+                            this.$router.push('/login')
+                        }
+                    }
+            console.log(response);
+            this.$router.push('/login');
+            this.isLoading = false;
+            // localStorage.setItem('jwt',token);
+            this.$breadstick.notify("🥞 Welcome to Hip", {position: "top-right"});
 
+        })
+        .catch(error=>{
+            console.log(error.response)
+            this.isLoading = false;
+            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+
+        })
+    }
   },
   created(){
 

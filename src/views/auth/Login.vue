@@ -29,7 +29,6 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-block btn-lg" @click="logIn">Login</button>
-                            <p>aa {{jwt}}</p>
                         <p class="text-right p-t-10">
                             <a href="#!" class="text-underline">Forgot Password?</a>
                         </p>
@@ -44,65 +43,100 @@
     </div>
 </main>
 
+
+<div class="vld-parent">
+     <loading :active.sync="isLoading"
+     loader="dots"
+     :can-cancel="true"
+     :is-full-page="fullPage"></loading>
+ </div>
+
   </body>
 </template>
 
 <script>
+  // Import component
+     import Loading from 'vue-loading-overlay';
+     // Import stylesheet
+     import 'vue-loading-overlay/dist/vue-loading.css';
+     // Init plugin
+
 export default {
+  components: {
+    Loading
+  },
   data(){
     return{
       email:"",
       password:"",
-      jwt:""
+      isLoading: false,
+      fullPage: true,
+      auth_user:""
+
     }
   },
   beforeMount(){
 
   },
   methods:{
+
+    getUser(){
+      this.axios.get(`/api/v1/auth/user`)
+                  .then(response => {
+                      this.auth_user = response.data.data
+                      console.log(response)
+                       localStorage.setItem('user',JSON.stringify(response.data.data))
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+
     logIn(){
-    // this.isLoading = true;
-  this.axios.post('/api/v1/auth/login',{email:this.email,password:this.password})
-  .then(response=>{
-    console.log(response)
-      let token= response.data.access_token;
+            this.isLoading = true;
+            this.axios.post('/api/v1/auth/login',{email:this.email,password:this.password})
+            .then(response=>{
+              console.log(response)
+                let token= response.data.token;
 
-      // let admin = response.data.user.is_admin
-      // this.isLoading = false;
-      // this.$toasted.global.login().goAway(1500);
+                // let admin = response.data.user.is_admin
+                // this.isLoading = false;
+                // this.$toasted.global.login().goAway(1500);
 
-      if(token){
-         // localStorage.setItem('jwt',token);
-        // localStorage.setItem('user',JSON.stringify(response.data.user))
-         if (localStorage.getItem('jwt') != null){
-                       this.$emit('loggedIn')
-                       if(this.$route.params.nextUrl != null){
+                if(token){
+                   localStorage.setItem('jwt',token);
+                   this.getUser()
+                   this.$breadstick.notify("🥞 Welcome!", {position: "top-right"});
+                  // localStorage.setItem('user',JSON.stringify(response.data.user))
+                   if (localStorage.getItem('jwt') != null){
+                                 this.$router.push('/dashboard')
+                                 if(this.$route.params.nextUrl != null){
 
-                         this.$router.push(this.$route.params.nextUrl)
+                                   this.$router.push(this.$route.params.nextUrl)
 
-                       }
-                       else {
-
-                            //  if(admin == true){
-                            //    // this.$toasted.global.login().goAway(1500);
-                            //   this.$router.push('/admin')
-                            // }
-
-                          // else {
-                          //    // this.$toasted.global.login().goAway(1500);
-                          //     this.$router.push('/my-profile')
-                          //     // this.$router.go('dashboard')
-                          // }
-                       }
-                   }
-                 }
-      })
-      .catch(error=>{
-          console.log(error.response)
-          this.isLoading = false;
-          this.$toasted.global.errorLogin().goAway(3000);
-      })
-    }
+                                 }
+                                 // else {
+                                 //
+                                 //       if(admin == true){
+                                 //         // this.$toasted.global.login().goAway(1500);
+                                 //        this.$router.push('/admin')
+                                 //      }
+                                 //
+                                 //    else {
+                                 //       // this.$toasted.global.login().goAway(1500);
+                                 //        this.$router.push('/client-dashboard')
+                                 //        this.$router.go('client-dashboard')
+                                 //    }
+                                 // }
+                             }
+                           }
+                })
+                .catch(error=>{
+                    console.log(error.response)
+                    this.isLoading = false;
+                    // this.$toasted.global.errorLogin().goAway(3000);
+                })
+              }
   },
   created(){
 

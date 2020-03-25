@@ -16,7 +16,7 @@
         <ul class="menu">
 
             <li class="menu-item active ">
-                <a href="/client-dashboard" class=" menu-link">
+                <a href="/dashboard" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Dashboard
                                                 </span>

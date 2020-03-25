@@ -163,6 +163,9 @@ export default {
   data(){
     return{
       editor: ClassicEditor,
+      editorConfig: {
+                   // The configuration of the editor.
+               },
       user:null,
       edit:false,
       isLoading: false,
@@ -254,7 +257,6 @@ export default {
         },
 
         clearIt(){
-
           this.complaint.title = "";
           this.complaint.description = "";
           this.complaint.type = "";

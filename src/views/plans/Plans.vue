@@ -50,35 +50,34 @@
 
                                                         <div class="form-row">
                                                              <div class="form-group col-md-6">
-                                                                 <label for="inputEmail4">Plan Name</label>
-                                                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Name">
+                                                                 <label for="inputEmail4">Plan Title</label>
+                                                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Name" v-model="plan.title">
                                                              </div>
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputPassword4">Plan Price</label>
-                                                                 <input type="text" class="form-control" id="inputPassword4"  >
+                                                                 <input type="text" class="form-control" id="inputPassword4"  v-model="plan.cost" >
                                                              </div>
                                                          </div>
 
                                                          <div class="form-row">
-                                                             <!-- <div class="form-group col-md-6">
-                                                                 <label for="inputCity">City</label>
-                                                                 <input type="text" class="form-control" id="inputCity">
-
-                                                             </div> -->
 
                                                              <div class="form-group col-md-6">
                                                                <label for="inputCity">Plan Interval</label>
 
-                                                                   <select class="form-control">
-                                                                    <option>Yearly</option>
-                                                                    <option>Monthly</option>
-                                                                    <option>Weekly</option>
+                                                                   <select class="form-control"  v-model="plan.plan_inteval">
+                                                                    <option id="yearly">Yearly</option>
+                                                                    <option id="monthly">Monthly</option>
+                                                                    <option id="weekly">Weekly</option>
+                                                                    <option id="daily">Daily</option>
                                                                 </select>
                                                              </div>
                                                          </div>
+                                                         <div class="form-group">
+                                                           <ckeditor :editor="editor" v-model="plan.description" :config="editorConfig"></ckeditor>
+                                                         </div>
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary">Submit</button>
+                                                             <button class="btn btn-primary" @click="addPlan">Submit</button>
                                                          </div>
 
                            </div>
@@ -135,7 +134,12 @@
                        </div>
                    </div>
 
-              
+                   <div class="vld-parent">
+                        <loading :active.sync="isLoading"
+                        loader="dots"
+                        :can-cancel="true"
+                        :is-full-page="fullPage"></loading>
+                    </div>
 
 
                </div>
@@ -149,14 +153,33 @@
   import Navbar from '@/views/Navbar.vue'
   import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+  // Import component
+     import Loading from 'vue-loading-overlay';
+     // Import stylesheet
+     import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   components: {
-     Navbar
+     Navbar, Loading
   },
   data(){
     return{
       editor: ClassicEditor,
+      editorConfig: {
+                   // The configuration of the editor.
+               },
+      user:null,
+      edit:false,
+      isLoading: false,
+      fullPage: true,
+      plans:"",
+      plan:{
+        agency_id:"",
+        title:"",
+        description:"",
+        plan_inteval:"",
+        cost:""
+      }
 
     }
   },
@@ -164,6 +187,74 @@ export default {
 
   },
   methods:{
+
+            addPlan(){
+
+              this.user = JSON.parse(localStorage.getItem('user'))
+
+              if (this.edit === false) {
+              // Add comp
+              this.isLoading = true;
+              this.axios.post('/api/v1/auth/addPlan',{
+
+                agency_id: this.user.id,
+                title: this.plan.title,
+                description: this.plan.description,
+                plan_inteval: this.plan.plan_inteval,
+                cost: this.plan.cost
+
+              })
+
+              .then(response=>{
+                  console.log(response);
+                  this.clearIt();
+                  // this.getComplaints();
+                  this.isLoading = false;
+                  this.$breadstick.notify("Plan added Successfuly!", {position: "top-right"});
+
+
+              })
+              .catch(error=>{
+                  console.log(error.response)
+              })
+              }else {
+              // Update
+              this.isLoading = true;
+              this.axios.put('/api/v1/auth/addPlan',{
+
+                topic_id: this.topic.id,
+                topic_name: this.topic.topic_name,
+                // module_id: this.course.id,
+                module_id: this.$route.params.id,
+                topic_content: this.topic.topic_content,
+                video: this.topic.video,
+                audio: this.audio,
+                doc: this.doc,
+
+              })
+
+              .then(response=>{
+                  console.log(response);
+                  this.clearIt();
+                  this.fetchModule();
+                  this.edit = true;
+                  this.isLoading = false;
+                  this.$toasted.global.crudUpdated().goAway(1500);
+
+              })
+              .catch(error=>{
+                  console.log(error.response)
+              })
+
+              }
+            },
+            clearIt(){
+
+              this.plan.title = "";
+              this.plan.description = "";
+              this.plan.cost = "";
+              this.plan.plan_inteval ="";
+            },
 
   },
   created(){

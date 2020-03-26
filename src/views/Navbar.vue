@@ -263,6 +263,18 @@
             </li>
 
             <li class="menu-item active ">
+                <a href="add-agency" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Add Agency
+                                                </span>
+
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-briefcase "></i>
+                                            </span>
+                </a>
+            </li>
+            <li class="menu-item active ">
                 <a href="add-complaint" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Complaints

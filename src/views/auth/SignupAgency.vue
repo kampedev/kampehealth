@@ -16,7 +16,7 @@
                                     HIP
                                 </p>
                             </div>
-                            <h3 class="text-center p-b-20 fw-400">Register as a Client</h3>
+                            <h3 class="text-center p-b-20 fw-400">Register as a Business</h3>
 
                             <div class="form-row">
                               <div class="form-group floating-label col-md-6 col-sm-12">
@@ -47,12 +47,12 @@
                             </div>
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputCity">Account Type {{agency}}</label>
+                            <label for="inputCity">Account Type {{register.type}}</label>
 
-                                <select class="form-control" v-model="register.agency">
-                                 <option id="shis">SHIS</option>
-                                 <option id="provider">Provider</option>
-                                 <option id="provider">HMO</option>
+                                <select class="form-control" v-model="register.type">
+                                 <option id="shis">shis</option>
+                                 <option id="provider">provider</option>
+                                 <option id="hmo">hmo</option>
                              </select>
                           </div>
 
@@ -124,9 +124,8 @@ export default {
                 firstname:"",
                 lastname:"",
                 email:"",
-                type:"client",
                 phone_number:"",
-                agency:"",
+                type:"",
                 password:"",
                 password_confirmation:""
             }

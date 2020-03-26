@@ -24,7 +24,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Revenue</p>
-                                <h1 class="fw-400">$1,500</h1>
+                                <h1 class="fw-400">&#8358;1,500</h1>
                             </div>
                         </div>
                     </div>

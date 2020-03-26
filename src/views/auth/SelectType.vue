@@ -43,7 +43,7 @@
                 <!--widget card ends-->
               </router-link>
 
-                <router-link :to="{ path: '/signup-client' }">
+                <router-link :to="{ path: '/signup-agency' }">
                                   <!--widget card begin-->
                     <div class="card m-b-30 bg-white">
                         <div class="card-body text-dark">

@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Dependents</h3>
+                       <h3>Agencies</h3>
                        <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Employees" type="search"
@@ -45,47 +45,26 @@
                            <div class="card-body">
                                <div class="text-center">
 
-                                   <h3 class="p-t-10 searchBy-name">Add Dependent</h3>
+                                   <h3 class="p-t-10 searchBy-name">Add Agency</h3>
                                </div>
 
-                                                        <div class="form-row">
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputEmail4">First Name</label>
-                                                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Email" v-model="dependent.firstname">
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputPassword4">Last Name</label>
-                                                                 <input type="text" class="form-control" id="inputPassword4"  v-model="dependent.lastname" >
-                                                             </div>
-                                                         </div>
-                                                         <div class="form-row">
-                                                              <div class="form-group col-md-6">
-                                                                  <label for="inputEmail4">Email</label>
-                                                                  <input type="email" class="form-control" id="inputEmail4" placeholder="Email"  v-model="dependent.email">
-                                                              </div>
-                                                              <div class="form-group col-md-6">
-                                                                  <label for="inputPassword4">Phone Number</label>
-                                                                  <input type="text" class="form-control" id="inputPassword4"  v-model="dependent.phone_number" >
-                                                              </div>
-                                                          </div>
+                               <div class="form-row">
 
-                                                         <div class="form-row">
+                                 <!-- <p v-for="hmo in hmos" v-bind:key="hmo.id">rr {{hmo.agency_name}}</p> -->
 
+                                   <div class="form-group col-md-12">
+                                     <label for="inputCity">Agency</label>
 
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Relationship type</label>
+                                         <select class="form-control"  v-model="agency_id">
+                                          <option id="Parent" v-for="hmo in hmos" v-bind:key="hmo.id" :value="hmo.id">{{hmo.agency_name}}</option>
 
-                                                                   <select class="form-control"  v-model="dependent.relationShipType">
-                                                                    <!-- <option id="Parent">Parent</option> -->
-                                                                    <!-- <option id="Sibling">Sibling</option> -->
-                                                                    <option id="Spouse">Spouse</option>
-                                                                    <option id="ward">Ward</option>
-                                                                </select>
-                                                             </div>
-                                                         </div>
+                                      </select>
+                                   </div>
+                               </div>
+
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary" @click="addDependant">Submit</button>
+                                                             <button class="btn btn-primary" @click="addAgency">Submit</button>
                                                          </div>
 
                            </div>
@@ -94,7 +73,7 @@
 
 
 
-                   <div class="col-lg-4 col-md-6" v-for="dependent in dependents" v-bind:key="dependent.id">
+                   <!-- <div class="col-lg-4 col-md-6" v-for="dependent in dependents" v-bind:key="dependent.id">
                        <div class="card m-b-30">
                            <div class="card-header">
 
@@ -141,7 +120,7 @@
                                </div>
                            </div>
                        </div>
-                   </div>
+                   </div> -->
 
                </div>
            </div>
@@ -174,21 +153,24 @@ export default {
   data(){
     return{
       user:null,
-      dependents:"",
+      hmos:"",
       edit:false,
       isLoading: false,
       fullPage: true,
-      dependent:{
-        firstname:"",
-        lastname:"",
-        email:"",
-        phone_number:"",
-        relationShipType:""
-      }
+      agency_id:""
     }
   },
   beforeMount(){
+    this.user = JSON.parse(localStorage.getItem('user'))
 
+    this.axios.get(`/api/v1/auth/allHmo`)
+                .then(response => {
+                    this.hmos = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
   },
   methods:{
     getDependents(){
@@ -204,29 +186,26 @@ export default {
                   })
     },
 
-    addDependant(){
+    addAgency(){
 
       this.user = JSON.parse(localStorage.getItem('user'))
 
       if (this.edit === false) {
       // Add dependent
       this.isLoading = true;
-      this.axios.post('/api/v1/auth/addDependant',{
+      this.axios.post('/api/v1/auth/allHmo',{
 
-        firstname: this.dependent.firstname,
-        lastname: this.dependent.lastname,
-        relationShipType: this.dependent.relationShipType,
-        user_id: this.user.id,
-        email: this.dependent.email,
-        phone_number: this.dependent.phone_number,
+        provider_id: this.user.id,
+        agency_id: this.agency_id,
+        status: false,
       })
 
       .then(response=>{
           console.log(response);
           this.clearIt();
-          this.getDependents();
+          // this.getDependents();
           this.isLoading = false;
-          this.$breadstick.notify("Dependent added Successfuly!", {position: "top-right"});
+          this.$breadstick.notify("Agency added Successfully!", {position: "top-right"});
 
 
       })
@@ -267,15 +246,13 @@ export default {
 
     clearIt(){
 
-      this.dependent.firstname = "";
-      this.dependent.lastname = "";
-      this.dependent.email = "";
-      this.dependent.phone_number ="";
+      this.agency_id = "";
+
     },
 
   },
   created(){
-    this.getDependents()
+    // this.getDependents()
   }
 
 }

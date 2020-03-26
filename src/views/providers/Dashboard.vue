@@ -10,7 +10,7 @@
 
             <div class="row">
                 <div class="col-12 m-b-20">
-                    <h5 class="spacer-top">Hello, General Hospital</h5>
+                    <h5 class="spacer-top">{{auth_user.agency_name}}</h5>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="card m-b-30">
@@ -24,7 +24,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Revenue</p>
-                                <h1 class="fw-400">$1,500</h1>
+                                <h1 class="fw-400">&#8358;1,500</h1>
                             </div>
                         </div>
                     </div>
@@ -435,10 +435,20 @@ export default {
      Navbar
   },
   data(){
-
+    return{
+      user:null,
+      auth_user:""
+    }
   },
   beforeMount(){
-
+    this.axios.get(`/api/v1/auth/user`)
+                .then(response => {
+                    this.auth_user = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
   },
   methods:{
 

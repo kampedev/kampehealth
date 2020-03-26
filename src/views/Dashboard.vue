@@ -1,18 +1,18 @@
 <template>
   <div >
-    <div class="" v-if="auth_user.type == 'client'">
+    <div class="" v-if="user.type == 'client'">
       <UserDashboard/>
     </div>
 
-    <div class=""  v-if="auth_user.type == 'hmo'">
+    <div class=""  v-if="user.type == 'hmo'">
       <HmoDashboard/>
     </div>
 
-    <div class=""  v-if="auth_user.type == 'shis'">
+    <div class=""  v-if="user.type == 'shis'">
       <ShisDashboard/>
     </div>
 
-    <div class=""  v-if="auth_user.type == 'provider'">
+    <div class=""  v-if="user.type == 'provider'">
       <ProviderDashboard/>
     </div>
 
@@ -32,19 +32,21 @@ export default {
   },
   data(){
     return{
-      auth_user:""
+      user:null
 
     }
   },
   beforeMount(){
-    this.axios.get(`/api/v1/auth/user`)
-                .then(response => {
-                    this.auth_user = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+    this.user = JSON.parse(localStorage.getItem('user'))
+
+    // this.axios.get(`/api/v1/auth/user`)
+    //             .then(response => {
+    //                 this.auth_user = response.data.data
+    //                 console.log(response)
+    //             })
+    //             .catch(error => {
+    //                 console.error(error);
+    //             })
   },
   methods:{
 

@@ -105,29 +105,32 @@ export default {
 
                 if(token){
                    localStorage.setItem('jwt',token);
-                   this.getUser()
+
                    this.$breadstick.notify("🥞 Welcome!", {position: "top-right"});
+
                   // localStorage.setItem('user',JSON.stringify(response.data.user))
                    if (localStorage.getItem('jwt') != null){
-                                 this.$router.push('/dashboard')
+                     this.getUser()
+
+                                 // this.$router.push('/dashboard')
                                  if(this.$route.params.nextUrl != null){
 
                                    this.$router.push(this.$route.params.nextUrl)
 
                                  }
-                                 // else {
-                                 //
-                                 //       if(admin == true){
-                                 //         // this.$toasted.global.login().goAway(1500);
-                                 //        this.$router.push('/admin')
-                                 //      }
-                                 //
-                                 //    else {
-                                 //       // this.$toasted.global.login().goAway(1500);
-                                 //        this.$router.push('/client-dashboard')
-                                 //        this.$router.go('client-dashboard')
-                                 //    }
-                                 // }
+                                 else {
+
+                                      //  if(admin == true){
+                                      //    // this.$toasted.global.login().goAway(1500);
+                                      //   this.$router.push('/admin')
+                                      // }
+
+                                    // else {
+                                       // this.$toasted.global.login().goAway(1500);
+                                        this.$router.push('/dashboard')
+                                        // this.$router.go('/dashboard')
+                                    // }
+                                 }
                              }
                            }
                 })

@@ -18,9 +18,10 @@ import Funds from '../views/funds/Funds.vue'
 import StateDashboard from '../views/shis/StateDashboard.vue'
 import AddClaim from '../views/claims/AddClaim.vue'
 import AddComplaint from '../views/complaints/AddComplaint.vue'
+import AddAgency from '../views/providers/AddAgency.vue'
+import Settings from '../views/auth/Settings.vue'
 
 Vue.use(VueRouter)
-
 
 const routes = [
   {
@@ -55,6 +56,13 @@ const routes = [
   {
     path: '/onboard-client',
     component: OnboardClient,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/user-settings',
+    component: Settings,
     meta: {
         requiresAuth: true,
       },
@@ -139,6 +147,13 @@ const routes = [
   {
     path: '/add-complaint',
     component: AddComplaint,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/add-agency',
+    component: AddAgency,
     meta: {
         requiresAuth: true,
       },

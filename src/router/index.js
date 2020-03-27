@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/auth/Login.vue'
+import Pusher from '../views/auth/Pusher.vue'
 import SelectType from '../views/auth/SelectType.vue'
 import SignupClient from '../views/auth/SignupClient.vue'
 import SignupAgency from '../views/auth/SignupAgency.vue'
@@ -40,6 +41,10 @@ const routes = [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/pusher',
+    component: Pusher
   },
   {
     path: '/select-type',

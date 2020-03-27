@@ -73,32 +73,35 @@
 
 
 
-                   <!-- <div class="col-lg-4 col-md-6" v-for="dependent in dependents" v-bind:key="dependent.id">
+                   <div class="col-lg-4 col-md-6" v-for="agency in agencies" v-bind:key="agency.id">
                        <div class="card m-b-30">
                            <div class="card-header">
 
                                <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#">{{dependent.relationShipType}}</a>
+                                   <a class="badge badge-soft-success" href="#" v-if="agency.status == 1">approved</a>
+                                   <a class="badge badge-soft-warning" href="#" v-if="agency.status == 0">pending</a>
+
+
 
                                </div>
                            </div>
                            <div class="card-body">
                                <div class="text-center">
-                                   <div>
+                                   <!-- <div>
                                        <div class="avatar avatar-xl avatar-away">
                                            <img class="avatar-img rounded-circle" src="assets/img/users/user-7.jpg"
                                                 alt="name">
                                        </div>
-                                   </div>
-                                   <h3 class="p-t-10 searchBy-name">{{dependent.firstname}} {{dependent.lastname}}</h3>
+                                   </div> -->
+                                   <h3 class="p-t-10 searchBy-name">{{agency.agency_name}}</h3>
                                </div>
                                <div class="text-muted text-center m-b-10">
-                                  {{dependent.phone_number}}
+                                  {{agency.phone_number}}
 
                                </div>
 
                                <p class="text-muted text-center">
-                                  General Hospital Abuja
+
                                </p>
                                <div class="row text-center p-b-10">
                                    <div class="col">
@@ -120,7 +123,7 @@
                                </div>
                            </div>
                        </div>
-                   </div> -->
+                   </div>
 
                </div>
            </div>
@@ -154,6 +157,7 @@ export default {
     return{
       user:null,
       hmos:"",
+      agencies:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -173,12 +177,11 @@ export default {
                 })
   },
   methods:{
-    getDependents(){
+    getHmo(){
       this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/allDependantUser/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/hmoProvider/${this.user.id}`)
                   .then(response => {
-                      this.dependents = response.data.data
+                      this.agencies = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -193,7 +196,7 @@ export default {
       if (this.edit === false) {
       // Add dependent
       this.isLoading = true;
-      this.axios.post('/api/v1/auth/allHmo',{
+      this.axios.post('/api/v1/auth/providerApply',{
 
         provider_id: this.user.id,
         agency_id: this.agency_id,
@@ -203,7 +206,7 @@ export default {
       .then(response=>{
           console.log(response);
           this.clearIt();
-          // this.getDependents();
+          this.getHmo();
           this.isLoading = false;
           this.$breadstick.notify("Agency added Successfully!", {position: "top-right"});
 
@@ -252,7 +255,7 @@ export default {
 
   },
   created(){
-    // this.getDependents()
+    this.getHmo()
   }
 
 }

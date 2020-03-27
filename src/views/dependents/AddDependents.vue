@@ -146,7 +146,6 @@
                </div>
            </div>
 
-
            <div class="vld-parent">
                 <loading :active.sync="isLoading"
                 loader="dots"

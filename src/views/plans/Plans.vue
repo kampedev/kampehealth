@@ -49,7 +49,7 @@
                                </div>
 
                                                         <div class="form-row">
-                                                             <div class="form-group col-md-6">
+                                                             <div class="form-group col-md-12">
                                                                  <label for="inputEmail4">Plan Title</label>
                                                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Name" v-model="plan.title">
                                                              </div>
@@ -86,12 +86,12 @@
 
 
 
-                   <div class="col-lg-4 col-md-6">
+                   <div class="col-lg-4 col-md-6" v-for="plan in plans" v-bind:key="plan.id">
                        <div class="card m-b-30">
                            <div class="card-header">
 
                                <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#">1,200</a>
+                                   <a class="badge badge-soft-success" href="#">{{plan.cost}}</a>
 
                                </div>
                            </div>
@@ -100,17 +100,15 @@
                                    <div>
 
                                    </div>
-                                   <h3 class="p-t-10 searchBy-name">Gold Plan</h3>
+                                   <h3 class="p-t-10 searchBy-name">{{plan.title}}</h3>
                                </div>
                                <div class="text-muted text-center m-b-10">
-                                  Monthly
-
+                                  {{plan.plan_inteval}}
                                </div>
 
 
                                <p class="text-muted text-center">
-                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet at
-                                   odio quod rem rerum temporibus veniam vero.
+
                                </p>
                                <div class="row text-center p-b-10">
                                    <div class="col">
@@ -184,12 +182,30 @@ export default {
     }
   },
   beforeMount(){
-
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.axios.get(`/api/v1/auth/planAgency/${this.user.id}`)
+                .then(response => {
+                    this.plans = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
   },
   methods:{
 
+      getPlans(){
+        this.user = JSON.parse(localStorage.getItem('user'))
+        this.axios.get(`/api/v1/auth/planAgency/${this.user.id}`)
+                    .then(response => {
+                        this.plans = response.data.data
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      },
             addPlan(){
-
               this.user = JSON.parse(localStorage.getItem('user'))
 
               if (this.edit === false) {
@@ -208,7 +224,7 @@ export default {
               .then(response=>{
                   console.log(response);
                   this.clearIt();
-                  // this.getComplaints();
+                  this.getPlans();
                   this.isLoading = false;
                   this.$breadstick.notify("Plan added Successfuly!", {position: "top-right"});
 
@@ -258,7 +274,7 @@ export default {
 
   },
   created(){
-
+    this.getPlans()
   }
 
 }

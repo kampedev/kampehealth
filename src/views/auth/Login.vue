@@ -86,6 +86,8 @@ export default {
                       this.auth_user = response.data.data
                       console.log(response)
                        localStorage.setItem('user',JSON.stringify(response.data.data))
+                       // let type = response.data.data.type
+
                   })
                   .catch(error => {
                       console.error(error);
@@ -110,9 +112,13 @@ export default {
 
                   // localStorage.setItem('user',JSON.stringify(response.data.user))
                    if (localStorage.getItem('jwt') != null){
-                     this.getUser()
 
-                                 // this.$router.push('/dashboard')
+
+                        // this.getUser()
+
+                        // if (localStorage.getItem('user') != null) {
+
+                                 this.$router.push('/pusher')
                                  if(this.$route.params.nextUrl != null){
 
                                    this.$router.push(this.$route.params.nextUrl)
@@ -120,18 +126,16 @@ export default {
                                  }
                                  else {
 
-                                      //  if(admin == true){
-                                      //    // this.$toasted.global.login().goAway(1500);
-                                      //   this.$router.push('/admin')
-                                      // }
+                                         // this.$toasted.global.login().goAway(1500);
+                                        this.$router.push('/pusher')
 
-                                    // else {
-                                       // this.$toasted.global.login().goAway(1500);
-                                        this.$router.push('/dashboard')
-                                        // this.$router.go('/dashboard')
-                                    // }
+
                                  }
-                             }
+                             // }
+                           }
+
+
+
                            }
                 })
                 .catch(error=>{

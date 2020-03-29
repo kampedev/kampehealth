@@ -42,7 +42,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Clients</p>
-                                <h1 class="fw-400">5,200</h1>
+                                <h1 class="fw-400">{{clients.length | numeral('0,0')}}</h1>
                             </div>
                         </div>
                     </div>
@@ -171,24 +171,20 @@
                             <tr>
                                 <th>Avatar</th>
                                 <th>Name</th>
-                                <th>Position</th>
-
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>E mail</th>
+                                <th>Phone Number</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr v-for="client in clients" v-bind:key="client.id">
                                 <td>
                                     <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
                                                                         class="avatar-img avatar-sm rounded-circle"
                                                                         alt=""></div>
                                 </td>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
+                                <td>{{client.firstname}} {{client.lastname}}</td>
+                                <td>{{client.email}}</td>
+                                <td>{{client.phone_number}}</td>
                             </tr>
 
 
@@ -265,6 +261,7 @@ export default {
       auth_user:"",
       agencies:"",
       claims:"",
+      clients:"",
     }
   },
   beforeMount(){
@@ -289,6 +286,17 @@ export default {
                       console.error(error);
                   })
     },
+    getClients(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.id}`)
+                  .then(response => {
+                      this.clients = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
     getClaims(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/claminByProvider${this.user.id}`)
@@ -305,6 +313,7 @@ export default {
   created(){
     this.getHmo()
     this.getClaims()
+    this.getClients()
 
   }
 }

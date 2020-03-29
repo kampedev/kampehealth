@@ -55,7 +55,7 @@
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputPassword4">Select Agency</label>
                                                                  <select class="form-control"  v-model="claim.agency_id">
-                                                                  <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.created_at}}</option>
+                                                                  <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.agency_name}}</option>
 
                                                               </select>
                                                              </div>
@@ -213,17 +213,17 @@ export default {
     //   this.claim.diagnosis = "",
     // },
 
-// getClaims(){
-//   this.user = JSON.parse(localStorage.getItem('user'))
-//   this.axios.get(`/api/v1/auth/hmoProvider/${this.user.id}`)
-//               .then(response => {
-//                   this.claims = response.data.data
-//                   console.log(response)
-//               })
-//               .catch(error => {
-//                   console.error(error);
-//               })
-// },
+getClaims(){
+  this.user = JSON.parse(localStorage.getItem('user'))
+  this.axios.get(`/api/v1/auth/hmoProvider/${this.user.id}`)
+              .then(response => {
+                  this.claims = response.data.data
+                  console.log(response)
+              })
+              .catch(error => {
+                  console.error(error);
+              })
+},
 
 getHmo(){
   this.user = JSON.parse(localStorage.getItem('user'))
@@ -258,7 +258,7 @@ makeClaim(){
         .then(response=>{
             console.log(response);
             // this.clearIt();
-            // this.getAgencies();
+            this.getClaims();
             this.isLoading = false;
             this.$breadstick.notify("Claim added Successfuly!", {position: "top-right"});
 

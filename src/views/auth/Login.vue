@@ -107,31 +107,11 @@ export default {
 
                 if(token){
                    localStorage.setItem('jwt',token);
-
-                   this.$breadstick.notify("🥞 Welcome!", {position: "top-right"});
-
-                  // localStorage.setItem('user',JSON.stringify(response.data.user))
+                   this.$breadstick.notify("🥞 Welcome to HIP!", {position: "top-right"});
                    if (localStorage.getItem('jwt') != null){
 
-
-                        // this.getUser()
-
-                        // if (localStorage.getItem('user') != null) {
-
                                  this.$router.push('/pusher')
-                                 if(this.$route.params.nextUrl != null){
-
-                                   this.$router.push(this.$route.params.nextUrl)
-
-                                 }
-                                 else {
-
-                                         // this.$toasted.global.login().goAway(1500);
-                                        this.$router.push('/pusher')
-
-
-                                 }
-                             // }
+                                
                            }
 
 

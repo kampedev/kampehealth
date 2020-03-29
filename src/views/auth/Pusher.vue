@@ -42,6 +42,7 @@ export default {
                        this.$router.push('/shis-dashboard')
 
                      }
+                     this.$router.go()
 
                 })
                 .catch(error => {

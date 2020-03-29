@@ -275,6 +275,18 @@
                 </a>
             </li>
             <li class="menu-item active ">
+                <a href="my-providers" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">My Providers
+                                                </span>
+
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-activity"></i>
+                                            </span>
+                </a>
+            </li>
+            <li class="menu-item active ">
                 <a href="add-complaint" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Complaints

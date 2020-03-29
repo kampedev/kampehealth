@@ -56,9 +56,9 @@
                                                                <label for="inputCity">Type</label>
 
                                                                    <select class="form-control" v-model="complaint.type">
-                                                                    <option id="Bad Service">Bad Service</option>
-                                                                    <option id="Poor Facilities">Poor Facilities</option>
-                                                                    <option id="Unprofessional">Unprofessional</option>
+                                                                    <option id="Quality of Service">Quality of Service</option>
+                                                                    <option id="Financial Issue">Financial Issue</option>
+                                                                    <option id="Administrative">Administrative</option>
                                                                 </select>
                                                              </div>
 

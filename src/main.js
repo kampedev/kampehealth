@@ -8,14 +8,14 @@ import VueAxios from 'vue-axios'
 import VueCookies from 'vue-cookies'
 import { BreadstickBakery } from 'breadstick'
 import VueFilterDateFormat from 'vue-filter-date-format';
-
+import vueNumeralFilterInstaller from 'vue-numeral-filter';
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
 Vue.use(VueCookies)
 Vue.use(BreadstickBakery)
 Vue.use(VueFilterDateFormat);
-
+Vue.use(vueNumeralFilterInstaller);
 
 window.axios=axios
 // axios.defaults.baseURL = 'http://159.89.55.3';

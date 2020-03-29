@@ -126,6 +126,7 @@ export default {
                 email:"",
                 phone_number:"",
                 type:"",
+                role:0,
                 password:"",
                 password_confirmation:""
             }

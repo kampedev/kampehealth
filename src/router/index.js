@@ -9,9 +9,12 @@ import SignupAgency from '../views/auth/SignupAgency.vue'
 import OnboardClient from '../views/onboarding/OnboardClient.vue'
 import AllDashboard from '../views/Dashboard.vue'
 import Dashboard from '../views/clients/Dashboard.vue'
+import Subscribe from '../views/clients/Subscribe.vue'
 import AddClient from '../views/clients/AddClient.vue'
 import ProviderDashboard from '../views/providers/Dashboard.vue'
 import HDashboard from '../views/hmos/Dashboard.vue'
+import ListProviders from '../views/providers/ListProviders.vue'
+import SingleProvider from '../views/providers/SingleProvider.vue'
 import AddEmployee from '../views/employees/AddEmployee.vue'
 import AddDependents from '../views/dependents/AddDependents.vue'
 import Plans from '../views/plans/Plans.vue'
@@ -87,6 +90,13 @@ const routes = [
       },
   },
   {
+    path: '/subscribe',
+    component: Subscribe,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
     path: '/add-client',
     component: AddClient,
     meta: {
@@ -103,6 +113,20 @@ const routes = [
   {
     path: '/hmo-dashboard',
     component: HDashboard,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/my-providers',
+    component: ListProviders,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/provider',
+    component: SingleProvider,
     meta: {
         requiresAuth: true,
       },

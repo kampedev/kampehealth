@@ -12,6 +12,28 @@
                 <div class="col-12 m-b-20">
                     <h5 class="spacer-top">Hello, {{auth_user.firstname}}</h5>
                 </div>
+
+              <div class="row col-md-12"  v-if="myplan.length < 1">
+                <div class="col-md-6">
+                  <div class="alert alert-border-warning  alert-dismissible fade show" role="alert">
+                                  <div class="d-flex">
+                                      <div class="icon">
+                                          <i class="icon mdi mdi-alert-circle-outline"></i>
+                                      </div>
+                                      <div class="content">
+                                          <strong>No active Plan</strong>
+                                          <router-link :to="{ path: '/subscribe'  }">
+                                            click to subscribe to a plan
+                                           </router-link>
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                </div>
+              </div>
+
                 <div class="col-lg-4 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
@@ -48,7 +70,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" v-if="myplan.length >= 1">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -60,7 +82,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Plan</p>
-                                <h1 class="fw-400">Diamond </h1>
+                                <h1 class="fw-400" >Diamond </h1>
                             </div>
                         </div>
                     </div>
@@ -153,6 +175,7 @@ export default {
     return{
       auth_user:"",
       dependents:"",
+      myplan:"",
       complaints:"",
       user:null
 
@@ -183,6 +206,18 @@ export default {
                       console.error(error);
                   })
     },
+    getPlan(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+      this.axios.get(`/api/v1/auth/userSubscribedPlan`)
+                  .then(response => {
+                      this.myplan = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
     getComplaints(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
@@ -200,6 +235,7 @@ export default {
   created(){
     this.getDependents()
     this.getComplaints()
+    this.getPlan()
   }
 }
 </script>

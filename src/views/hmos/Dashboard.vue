@@ -42,7 +42,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Clients</p>
-                                <h1 class="fw-400">5,200</h1>
+                                <h1 class="fw-400">{{clients.length}}</h1>
                             </div>
                         </div>
                     </div>
@@ -184,28 +184,33 @@
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
-                                <th>Avatar</th>
                                 <th>Name</th>
-                                <th>Position</th>
-
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>E mail</th>
+                                <th>Phone Number</th>
+                                <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr v-for="client in clients" v-bind:key="client.id">
                                 <td>
                                     <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
                                                                         class="avatar-img avatar-sm rounded-circle"
                                                                         alt=""></div>
                                 </td>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
+                                <td>{{client.firstname}} {{client.lastname}}</td>
+                                <td>{{client.email}}</td>
 
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
+                                <td>{{client.phone_number}}</td>
+                                <td>
+                                  <span v-if="client.status == 1">
+                                    <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">active</button>
+                                    </span>
+                                   <span v-if="client.status != 1">
+                                   <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">inactive</button>
+                                </span>
+                                </td>
                             </tr>
-                          
+
                             </tbody>
                         </table>
 
@@ -231,7 +236,7 @@
                                 </td>
                                 <td>{{claim.diagnosis}} </td>
                                 <td>{{claim.seen_date}}</td>
-                                <td>{{claim.cost}}</td>
+                                <td>{{claim.cost | numeral('0,0.00')}}</td>
                                 <td>
                                   <span v-if="claim.status == 1">
                                     <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
@@ -254,7 +259,6 @@
 
     </section>
 </main>
-
 
     </div>
 
@@ -322,12 +326,24 @@ export default {
                   .catch(error => {
                       console.error(error);
                   })
+    },
+    getClients(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
+                  .then(response => {
+                      this.clients = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
     }
   },
   created(){
     this.getProviders()
     this.getClaims()
     this.getPlans()
+    this.getClients()
   }
 }
 </script>

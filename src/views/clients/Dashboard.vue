@@ -46,7 +46,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Wallet</p>
-                                <h1 class="fw-400">&#8358;1,500</h1>
+                                <h1 class="fw-400"> <i class="mdi mdi-currency-ngn"></i>{{wallet.amount  | numeral('0,0.00')}}</h1>
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,8 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6" v-if="myplan.length >= 1">
-                    <div class="card m-b-30">
+                <div class="col-lg-4 col-md-6" >
+                    <div class="card m-b-30" >
                         <div class="card-body">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
@@ -82,7 +82,8 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Plan</p>
-                                <h1 class="fw-400" >Diamond </h1>
+                                <h1 class="fw-400"  v-for="plan in myplan" v-bind:key="plan.id">{{plan.title}} </h1>
+                                <p v-if="myplan.length < 1">No active Subscription</p>
                             </div>
                         </div>
                     </div>
@@ -176,6 +177,7 @@ export default {
       auth_user:"",
       dependents:"",
       myplan:"",
+      wallet:"",
       complaints:"",
       user:null
 
@@ -229,6 +231,18 @@ export default {
                   .catch(error => {
                       console.error(error);
                   })
+    },
+    getWallet(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+      this.axios.get(`/api/v1/auth/getUserWallet`)
+                  .then(response => {
+                      this.wallet = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
     }
 
   },
@@ -236,6 +250,7 @@ export default {
     this.getDependents()
     this.getComplaints()
     this.getPlan()
+    this.getWallet()
   }
 }
 </script>

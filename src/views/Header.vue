@@ -70,7 +70,7 @@
                     </a>
                     <a class="dropdown-item" href="#">  Help </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" @click="logOut"> Logout</a>
+                    <a class="dropdown-item" href="/login" @click="logOut"> Logout</a>
                 </div>
             </li>
 

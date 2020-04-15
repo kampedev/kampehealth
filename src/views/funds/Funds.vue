@@ -122,92 +122,203 @@
             </div>
 
 
+            <div>
+                      <div class="container">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="card">
+                                      <div class="card-body">
+                                          <div class="row m-b-20">
+                                              <div class="col-md-6 my-auto">
+                                                  <h4 class="m-0">Summary</h4>
+                                              </div>
+                                              <div class="col-md-6 text-right my-auto">
+                                                  <div class="btn-group" role="group" aria-label="Basic example">
+                                                      <button type="button" class="btn btn-white shadow-none js-datepicker"><i
+                                                                  class="mdi mdi-calendar"></i> Pick Date
+                                                      </button>
 
-            <div class="row">
-                <div class="col-md-12 m-b-30">
-                    <h5> <i class="fe fe-credit-card"></i> All Payments</h5>
-                    <div class="table-responsive">
-                        <table class="table align-td-middle table-card">
-                            <thead>
-                            <tr>
-                                <th>Avatar</th>
-                                <th>Name</th>
-                                <th>Transaction Reference</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
+                                                      <button type="button" class="btn btn-white shadow-none">All</button>
+                                                      <button type="button" class="btn btn-white shadow-none">Paid</button>
+                                                      <button type="button" class="btn btn-white shadow-none">UnPaid</button>
+                                                  </div>
 
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-2.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
+                                              </div>
+                                          </div>
+                                          <div class="row ">
+                                              <div class="col-md-12 p-0">
 
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-3.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
+                                                  <div class="table-responsive">
+                                                      <table class="table table-hover">
+                                                          <thead class="">
+                                                          <tr>
+                                                              <th scope="col">#</th>
+                                                              <th scope="col">Date</th>
+                                                              <th scope="col">Invoice Number</th>
+                                                              <th scope="col">Recipient</th>
+                                                              <th scope="col">Status</th>
+                                                              <th scope="col">Amount</th>
+                                                              <th scope="col">Action</th>
+                                                          </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                          <tr>
+                                                              <td class="align-middle">
+                                                                  <div class="avatar avatar-xs ">
+                                                                      <img class="rounded-circle avatar-img"
+                                                                           src="assets/img/logos/stripe.jpg" alt="">
+                                                                  </div>
+                                                              </td>
+                                                              <td class="align-middle">12-Sept-2018</td>
+                                                              <td class="align-middle">#987121</td>
+                                                              <td class="align-middle">atmos@stripe.com</td>
+                                                              <td class="align-middle"><span class=" text-success"><i
+                                                                              class="mdi mdi-check-circle "></i> Paid</span></td>
+                                                              <td class="align-middle"><h6 class=" m-0">$3500</h6></td>
+                                                              <td class="align-middle">
+                                                                  <div class="input-group ">
+                                                                      <div class="input-group-prepend">
+                                                                          <a href="invoice-single.html" class="btn btn-white">View
+                                                                              Invoice</a>
+                                                                          <button type="button"
+                                                                                  class="btn btn-white dropdown-toggle dropdown-toggle-split rounded-right"
+                                                                                  data-toggle="dropdown" aria-haspopup="true"
+                                                                                  aria-expanded="false">
+                                                                              <span class="sr-only">Toggle Dropdown</span>
+                                                                          </button>
+                                                                          <div class="dropdown-menu dropdown-menu-right">
+                                                                              <a class="dropdown-item" href="#">Action</a>
+                                                                              <a class="dropdown-item" href="#">Another action</a>
+                                                                              <a class="dropdown-item" href="#">Something else
+                                                                                  here</a>
+                                                                              <div role="separator"
+                                                                                   class="dropdown-divider"></div>
+                                                                              <a class="dropdown-item" href="#">Separated link</a>
+                                                                          </div>
+                                                                      </div>
 
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                            </tr>
+                                                                  </div>
+                                                              </td>
+                                                          </tr>
 
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-5.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
+                                                          <tr>
+                                                              <td class="align-middle">
+                                                                  <div class="avatar avatar-xs ">
+                                                                      <img class="rounded-circle avatar-img"
+                                                                           src="assets/img/logos/mailchimp.jpg" alt="">
+                                                                  </div>
+                                                              </td>
+                                                              <td class="align-middle">13-Aug-2018</td>
+                                                              <td class="align-middle">#987123</td>
+                                                              <td class="align-middle">thomas@mailchimp.com</td>
+                                                              <td class="align-middle"><span class=" text-danger"><i
+                                                                              class="mdi mdi-close-circle "></i> Un-Paid</span>
+                                                              </td>
+                                                              <td class="align-middle"><h6 class=" m-0">$6500</h6></td>
+                                                              <td class="align-middle">
+                                                                  <div class="input-group ">
+                                                                      <div class="input-group-prepend">
+                                                                          <a href="invoice-single.html" class="btn btn-white">View
+                                                                              Invoice</a>
+                                                                          <button type="button"
+                                                                                  class="btn btn-white dropdown-toggle dropdown-toggle-split rounded-right"
+                                                                                  data-toggle="dropdown" aria-haspopup="true"
+                                                                                  aria-expanded="false">
+                                                                              <span class="sr-only">Toggle Dropdown</span>
+                                                                          </button>
+                                                                          <div class="dropdown-menu dropdown-menu-right">
+                                                                              <a class="dropdown-item" href="#">Action</a>
+                                                                              <a class="dropdown-item" href="#">Another action</a>
+                                                                              <a class="dropdown-item" href="#">Something else
+                                                                                  here</a>
+                                                                              <div role="separator"
+                                                                                   class="dropdown-divider"></div>
+                                                                              <a class="dropdown-item" href="#">Separated link</a>
+                                                                          </div>
+                                                                      </div>
 
-                                <td>2008/11/28</td>
-                                <td>$162,700</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-6.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Brielle Williamson</td>
-                                <td>Integration Specialist</td>
-
-                                <td>2012/12/02</td>
-                                <td>$372,000</td>
-                            </tr>
+                                                                  </div>
+                                                              </td>
+                                                          </tr>
 
 
-                            </tbody>
-                        </table>
+                                                          <tr>
+                                                              <td class="align-middle">
+                                                                  <div class="avatar avatar-xs ">
+                                                                      <img class="rounded-circle avatar-img"
+                                                                           src="assets/img/logos/tinder.jpg" alt="">
+                                                                  </div>
+                                                              </td>
+                                                              <td class="align-middle">19-Jan-2019</td>
+                                                              <td class="align-middle">#987118</td>
+                                                              <td class="align-middle">sasha@tinder.com</td>
+                                                              <td class="align-middle"><span class=" text-dark"><i
+                                                                              class="mdi mdi-watch "></i> Scheduled</span></td>
+                                                              <td class="align-middle"><h6 class=" m-0">$5800</h6></td>
+                                                              <td class="align-middle">
+                                                                  <div class="input-group ">
+                                                                      <div class="input-group-prepend">
+                                                                          <a href="invoice-single.html" class="btn btn-white">View
+                                                                              Invoice</a>
+                                                                          <button type="button"
+                                                                                  class="btn btn-white dropdown-toggle dropdown-toggle-split rounded-right"
+                                                                                  data-toggle="dropdown" aria-haspopup="true"
+                                                                                  aria-expanded="false">
+                                                                              <span class="sr-only">Toggle Dropdown</span>
+                                                                          </button>
+                                                                          <div class="dropdown-menu dropdown-menu-right">
+                                                                              <a class="dropdown-item" href="#">Action</a>
+                                                                              <a class="dropdown-item" href="#">Another action</a>
+                                                                              <a class="dropdown-item" href="#">Something else
+                                                                                  here</a>
+                                                                              <div role="separator"
+                                                                                   class="dropdown-divider"></div>
+                                                                              <a class="dropdown-item" href="#">Separated link</a>
+                                                                          </div>
+                                                                      </div>
 
-                    </div>
-                </div>
+                                                                  </div>
+                                                              </td>
+                                                          </tr>
 
-            </div>
+
+                                                        
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+
+                                              </div>
+                                              <div class="col-auto ml-auto">
+                                                  <div>
+                                                      <nav class="">
+                                                          <ul class="pagination">
+                                                              <li class="page-item disabled">
+                                                                  <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                                              </li>
+                                                              <li class="page-item active"><a class="page-link" href="#">1</a>
+                                                              </li>
+                                                              <li class="page-item ">
+                                                                  <a class="page-link" href="#">2 <span
+                                                                              class="sr-only">(current)</span></a>
+                                                              </li>
+                                                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                              <li class="page-item">
+                                                                  <a class="page-link" href="#">Next</a>
+                                                              </li>
+                                                          </ul>
+                                                      </nav>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
 
 
         </div>

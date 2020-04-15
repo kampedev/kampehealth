@@ -37,6 +37,7 @@
 
                                    <h3 class="p-t-10 searchBy-name">Make Subscription</h3>
                                </div> -->
+                               <!-- pp{{hmos}} -->
 
                                                         <div class="form-row">
                                                              <div class="form-group col-md-6">
@@ -56,14 +57,27 @@
                                                               <div class="form-group col-md-6">
                                                                 <label for="inputPassword4">Select Plan</label>
                                                                 <select class="form-control"  v-model="plan_id">
-                                                                 <option id="Parent" v-for="plan in plans" v-bind:key="plan.id" :value="plan.id">{{plan.title}} ({{plan.cost | numeral('0,0')}})</option>
+                                                                 <option id="Parent" v-for="plan in plans" v-bind:key="plan.id" :value="plan.id">{{plan.title}}  (&#8358;{{plan.cost | numeral('0,0')}})</option>
                                                                </select>
                                                               </div>
 
                                                           </div>
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary" @click="makeSubscribe">Submit</button>
+                                                           <paystack
+                                                                  :amount="100*100"
+                                                                  :email="user.email"
+                                                                  :paystackkey="paystackkey"
+                                                                  :reference="reference"
+                                                                  :callback="callback"
+                                                                  :close="close"
+                                                                  :embed="false"
+                                                              >
+                                                             <button class="btn btn-primary" v-if="agency_id != '' && provider_id != '' && plan_id != ''">Submit and Proceed to Pay</button>
+                                                           </paystack>
+
+                                                             <button class="btn btn-primary" disabled v-if="agency_id == '' && provider_id == '' && plan_id == ''">
+                                                               Submit</button>
                                                          </div>
 
                            </div>
@@ -136,10 +150,11 @@
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
+     import paystack from 'vue-paystack';
 
 export default {
   components: {
-     Navbar, Loading
+     Navbar, Loading, paystack
   },
   data(){
     return{
@@ -147,6 +162,7 @@ export default {
       agency_id:"",
       provider_id:"",
       plan_id:"",
+      paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
       providers:"",
       plans:"",
       myplan:"",
@@ -167,8 +183,26 @@ export default {
                 })
 
   },
+  computed: {
+     reference(){
+       let text = "";
+       let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+       for( let i=0; i < 10; i++ )
+         text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+       return text;
+     }
+   },
   methods:{
 
+    callback: function(response){
+      this.makeSubscribe()
+      console.log(response)
+    },
+    close: function(){
+        console.log("Payment closed")
+    },
     getProviders(agency_id){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/providerAgency/${agency_id}`)
@@ -212,6 +246,7 @@ export default {
         console.log(error.response)
     })
   },
+
   getMyPlan(){
     this.user = JSON.parse(localStorage.getItem('user'))
     this.axios.get(`/api/v1/auth/userSubscribedPlan`)

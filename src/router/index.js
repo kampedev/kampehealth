@@ -24,6 +24,7 @@ import AddClaim from '../views/claims/AddClaim.vue'
 import AddComplaint from '../views/complaints/AddComplaint.vue'
 import AddAgency from '../views/providers/AddAgency.vue'
 import Settings from '../views/auth/Settings.vue'
+import ClientFunds from '../views/funds/ClientFunds.vue'
 
 Vue.use(VueRouter)
 
@@ -183,6 +184,13 @@ const routes = [
   {
     path: '/add-agency',
     component: AddAgency,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/my-funds',
+    component: ClientFunds,
     meta: {
         requiresAuth: true,
       },

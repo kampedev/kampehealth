@@ -778,7 +778,7 @@
   </footer>
 </body>
 </template>
-<style>
+<style  lang="css" scoped>
 @import 'https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css';
 
 </style>

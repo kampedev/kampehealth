@@ -56,24 +56,25 @@
                                                          <div class="form-row">
                                                               <div class="form-group col-md-6">
                                                                 <label for="inputPassword4">Select Plan</label>
-                                                                <select class="form-control"  v-model="plan_id">
+                                                                <select class="form-control"  v-model="plan_id" @change="getSinglePlan(plan_id)">
                                                                  <option id="Parent" v-for="plan in plans" v-bind:key="plan.id" :value="plan.id">{{plan.title}}  (&#8358;{{plan.cost | numeral('0,0')}})</option>
                                                                </select>
                                                               </div>
 
                                                           </div>
 
-                                                         <div class="form-group">
+                                                         <div class="form-group" v-for="single in singleplan" v-bind:key="single.id">
                                                            <paystack
-                                                                  :amount="100*100"
+                                                                  :amount="single.cost*100"
                                                                   :email="user.email"
                                                                   :paystackkey="paystackkey"
                                                                   :reference="reference"
                                                                   :callback="callback"
                                                                   :close="close"
                                                                   :embed="false"
+                                                                  v-if="agency_id != '' && provider_id != '' && plan_id != ''"
                                                               >
-                                                             <button class="btn btn-primary" v-if="agency_id != '' && provider_id != '' && plan_id != ''">Submit and Proceed to Pay</button>
+                                                             <button class="btn btn-primary" >Submit and Proceed to Pay {{single.cost}}</button>
                                                            </paystack>
 
                                                              <button class="btn btn-primary" disabled v-if="agency_id == '' && provider_id == '' && plan_id == ''">
@@ -111,14 +112,14 @@
                                    <div class="col">
                                        <a href="#">
                                            <h3 class="fe fe-edit"></h3>
-                                           <div class="text-overline">Edit</div>
+                                           <div class="text-overline">change plan</div>
 
                                        </a>
                                    </div>
                                    <div class="col">
                                        <a href="#">
-                                           <h3 class="fe fe-eye"></h3>
-                                           <div class="text-overline">View</div>
+                                           <h3 class="fe fe-trash-2"></h3>
+                                           <div class="text-overline">delete plan</div>
 
                                        </a>
 
@@ -164,6 +165,7 @@ export default {
       plan_id:"",
       paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
       providers:"",
+      singleplan:"",
       plans:"",
       myplan:"",
       user:null,
@@ -225,6 +227,17 @@ export default {
                       console.error(error);
                   })
     },
+    getSinglePlan(plan_id){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/detailedPlan/${plan_id}`)
+                  .then(response => {
+                      this.singleplan = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
     makeSubscribe(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true;
@@ -238,6 +251,7 @@ export default {
     .then(response=>{
         console.log(response);
         this.getMyPlan()
+        this.payForPlan()
         this.$breadstick.notify("Subscription completed Successfully!", {position: "top-right"});
         this.isLoading = false;
 
@@ -246,6 +260,21 @@ export default {
         console.log(error.response)
     })
   },
+  payForPlan(){
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.isLoading = true;
+  this.axios.post('/api/v1/auth/payForPlan')
+  .then(response=>{
+      console.log(response);
+      this.getMyPlan()
+      this.$breadstick.notify("Payment made Successfully!", {position: "top-right"});
+      this.isLoading = false;
+
+  })
+  .catch(error=>{
+      console.log(error.response)
+  })
+},
 
   getMyPlan(){
     this.user = JSON.parse(localStorage.getItem('user'))

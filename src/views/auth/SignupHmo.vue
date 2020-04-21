@@ -17,7 +17,7 @@
                                     HIP
                                 </p>
                             </div>
-                            <h3 class="text-center p-b-20 fw-400">Register as a Client</h3>
+                            <h3 class="text-center p-b-20 fw-400">Register as a HMO</h3>
 
                             <div class="form-row">
                               <div class="form-group floating-label col-md-6 col-sm-12">
@@ -128,7 +128,7 @@ export default {
               firstname:"",
               lastname:"",
               email:"",
-              type:"client",
+              type:"hmo",
               phone_number:"",
               state:"",
               localgovt:"",

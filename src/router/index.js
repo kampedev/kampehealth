@@ -5,6 +5,9 @@ import Login from '../views/auth/Login.vue'
 import Pusher from '../views/auth/Pusher.vue'
 import SelectType from '../views/auth/SelectType.vue'
 import SignupClient from '../views/auth/SignupClient.vue'
+import SignupState from '../views/auth/SignupState.vue'
+import SignupHmo from '../views/auth/SignupHmo.vue'
+import SignupProvider from '../views/auth/SignupProvider.vue'
 import SignupAgency from '../views/auth/SignupAgency.vue'
 import OnboardClient from '../views/onboarding/OnboardClient.vue'
 import AllDashboard from '../views/Dashboard.vue'
@@ -57,6 +60,18 @@ const routes = [
   {
     path: '/signup-client',
     component: SignupClient
+  },
+  {
+    path: '/signup-state',
+    component: SignupState
+  },
+  {
+    path: '/signup-hmo',
+    component: SignupHmo
+  },
+  {
+    path: '/signup-provider',
+    component: SignupProvider
   },
   {
     path: '/signup-agency',

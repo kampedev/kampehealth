@@ -32,6 +32,10 @@
                         <p class="text-right p-t-10">
                             <a href="#!" class="text-underline">Forgot Password?</a>
                         </p>
+
+                        <p class="text-right p-t-10">
+                            <a href="/select-type" class=" btn btn-link">or Sign up</a>
+                        </p>
                     </div>
 
                 </div>
@@ -111,7 +115,7 @@ export default {
                    if (localStorage.getItem('jwt') != null){
 
                                  this.$router.push('/pusher')
-                                
+
                            }
 
 

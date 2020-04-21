@@ -17,7 +17,7 @@
                                     HIP
                                 </p>
                             </div>
-                            <h3 class="text-center p-b-20 fw-400">Register as a Client</h3>
+                            <h3 class="text-center p-b-20 fw-400">Register as a State</h3>
 
                             <div class="form-row">
                               <div class="form-group floating-label col-md-6 col-sm-12">
@@ -49,20 +49,20 @@
                           </div>
 
                           <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                               <label for="inputCity">States</label>
 
                                   <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                    <option v-for="state in states" v-bind:key="state.id" :value="state.name">{{state.name}}</option>
                                </select>
                             </div>
-                            <div class="form-group col-md-6">
+                            <!-- <div class="form-group col-md-6">
                               <label for="inputCity">LGA</label>
 
                                   <select class="form-control"  v-model="register.localgovt">
                                    <option v-for="lga in lga_states.lgas" v-bind:key="lga" :value="lga">{{lga}}</option>
                                </select>
-                            </div>
+                            </div> -->
                           </div>
 
                             <!-- <p class="">
@@ -128,7 +128,7 @@ export default {
               firstname:"",
               lastname:"",
               email:"",
-              type:"client",
+              type:"shis",
               phone_number:"",
               state:"",
               localgovt:"",

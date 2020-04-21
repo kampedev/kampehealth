@@ -16,7 +16,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12 text-center">
-                              <h3>Select Account Type</h3>
+                              <h2>Select Account Type</h2>
                             </div>
                             <div class="row">
 
@@ -43,7 +43,7 @@
                 <!--widget card ends-->
               </router-link>
 
-                <router-link :to="{ path: '/signup-agency' }">
+                <router-link :to="{ path: '/signup-state' }">
                                   <!--widget card begin-->
                     <div class="card bg-white">
                         <div class="card-body text-dark">
@@ -52,13 +52,13 @@
                                 <div class="p-t-20">
                                     <div class="avatar-lg avatar">
                                         <div class="avatar-title rounded-circle badge-soft-success"><i
-                                                    class="mdi mdi-google-analytics h1 m-0"></i></div>
+                                                    class="fe fe-airplay h1 m-0"></i></div>
 
                                     </div>
                                 </div>
-                                <div class="display-4 p-t-20">Business</div>
+                                <div class="display-4 p-t-20">SHIS</div>
                                 <p class="opacity-75 p-t-20">
-                                    for HMOs, health-care providers
+                                    for state health insurance schemes
                                 </p>
                             </div>
                         </div>
@@ -66,12 +66,12 @@
                     <!--widget card ends-->
                   </router-link>
 
-                  <router-link :to="{ path: '/signup-agency' }">
+                  <router-link :to="{ path: '/signup-hmo' }">
                                     <!--widget card begin-->
-                      <div class="card bg-white">
-                          <div class="card-body text-dark">
+                      <div class="card bg-dark">
+                          <div class="card-body text-white">
                               <div class="text-center p-all-15">
-                                  <a class="badge bg-white-translucent    text-uppercase">user 2</a>
+                                  <a class="badge bg-white-translucent    text-uppercase">user 3</a>
                                   <div class="p-t-20">
                                       <div class="avatar-lg avatar">
                                           <div class="avatar-title rounded-circle badge-soft-success"><i
@@ -79,9 +79,9 @@
 
                                       </div>
                                   </div>
-                                  <div class="display-4 p-t-20">Business</div>
+                                  <div class="display-4 p-t-20">HMO</div>
                                   <p class="opacity-75 p-t-20">
-                                      for HMOs, health-care providers
+                                      for Health Management Organizations
                                   </p>
                               </div>
                           </div>
@@ -89,22 +89,22 @@
                       <!--widget card ends-->
                     </router-link>
 
-                    <router-link :to="{ path: '/signup-agency' }">
+                    <router-link :to="{ path: '/signup-provider' }">
                                       <!--widget card begin-->
                         <div class="card m-b-30 bg-white">
                             <div class="card-body text-dark">
                                 <div class="text-center p-all-15">
-                                    <a class="badge bg-white-translucent    text-uppercase">user 2</a>
+                                    <a class="badge bg-white-translucent    text-uppercase">user 4</a>
                                     <div class="p-t-20">
                                         <div class="avatar-lg avatar">
                                             <div class="avatar-title rounded-circle badge-soft-success"><i
-                                                        class="mdi mdi-google-analytics h1 m-0"></i></div>
+                                                        class="fe fe-activity h1 m-0"></i></div>
 
                                         </div>
                                     </div>
-                                    <div class="display-4 p-t-20">Business</div>
+                                    <div class="display-4 p-t-20">Providers</div>
                                     <p class="opacity-75 p-t-20">
-                                        for HMOs, health-care providers
+                                        for health-care providers
                                     </p>
                                 </div>
                             </div>

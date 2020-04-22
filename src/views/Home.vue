@@ -67,19 +67,17 @@
               ><span class="lg:hidden inline-block ml-2">Star</span></a
             >
           </li>
-          <li class="flex items-center">
-            <a href="/login">
-              <button
-                class="btn btn-outline-primary"
-                type="button"
-                style="transition: all 0.15s ease 0s;"
-              >
+          <!-- <li class="flex items-center">
+            <a href="/login" class="btn btn-primary" >
                 <i class="fas fa-arrow-alt-circle-down"></i> Sign In
-              </button>
             </a>
-            </li>
-
+            </li> -->
         </ul>
+
+          <a href="/login" class="btn btn-primary" >
+              <i class="fas fa-arrow-alt-circle-down"></i> Sign In
+          </a>
+          
       </div>
     </div>
   </nav>
@@ -110,6 +108,10 @@
                 The system links directly with clinics and healthcare payers,
                 like insurers and donors, so both treatment and payment are fast, efficient and transparent.
               </p>
+              <p><a href="/login" class="btn btn-primary spacer" >
+                  <i class="fas fa-arrow-alt-circle-down"></i> Sign In Now
+              </a>
+            </p>
             </div>
           </div>
         </div>
@@ -780,5 +782,8 @@
 </template>
 <style  lang="css" scoped>
 @import 'https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css';
+.spacer{
+  margin-top:15px;
+}
 
 </style>

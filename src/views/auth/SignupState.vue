@@ -49,13 +49,13 @@
                           </div>
 
                           <div class="row">
-                            <div class="form-group col-md-12">
+                            <!-- <div class="form-group col-md-12">
                               <label for="inputCity">States</label>
 
                                   <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                    <option v-for="state in states" v-bind:key="state.id" :value="state.name">{{state.name}}</option>
                                </select>
-                            </div>
+                            </div> -->
                             <!-- <div class="form-group col-md-6">
                               <label for="inputCity">LGA</label>
 

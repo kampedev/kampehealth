@@ -48,7 +48,7 @@
                             </div>
                           </div>
 
-                          <div class="row">
+                          <!-- <div class="row">
                             <div class="form-group col-md-6">
                               <label for="inputCity">States</label>
 
@@ -63,7 +63,7 @@
                                    <option v-for="lga in lga_states.lgas" v-bind:key="lga" :value="lga">{{lga}}</option>
                                </select>
                             </div>
-                          </div>
+                          </div> -->
 
                             <!-- <p class="">
                                 <label class="cstm-switch">

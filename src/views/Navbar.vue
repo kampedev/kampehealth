@@ -28,7 +28,7 @@
             </li>
 
 
-            <li class="menu-item">
+            <li class="menu-item"  v-if="user.type == 'hmo'">
                 <a href="/fund-manager" class="menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Fund Manager
@@ -40,8 +40,20 @@
                                             </span>
                 </a>
             </li>
+            <li class="menu-item"  v-if="user.type != 'hmo'">
+                <a href="/my-funds" class="menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">My Funds
+                                                </span>
 
-            <li class="menu-item ">
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-credit-card "></i>
+                                            </span>
+                </a>
+            </li>
+
+            <li class="menu-item "  v-if="user.type == 'hmo' ">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Plans Manager
@@ -85,7 +97,50 @@
                 </ul>
             </li>
 
-            <li class="menu-item ">
+            <li class="menu-item "  v-if="user.type == 'shis' ">
+                <a href="#" class="open-dropdown menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Plans Manager
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder mdi mdi-checkbook "></i>
+                                            </span>
+                </a>
+                <!--submenu-->
+                <ul class="sub-menu">
+
+                    <li class="menu-item">
+                        <a href="/plans" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">Add Plan
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder  fe fe-edit"></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="/plans" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">View Plans
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="menu-item "  v-if="user.type == 'hmo' ">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Clients
@@ -129,8 +184,51 @@
                 </ul>
             </li>
 
+            <li class="menu-item "  v-if="user.type == 'provider' ">
+                <a href="#" class="open-dropdown menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Clients
+                                                    <span class="menu-arrow"></span>
+                                                </span>
 
-                        <li class="menu-item ">
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-users "></i>
+                                            </span>
+                </a>
+                <!--submenu-->
+                <ul class="sub-menu">
+
+                    <li class="menu-item">
+                        <a href="/add-client" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">Add Client
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder fe fe-edit"></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="/add-client" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">View Clients
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+                        <li class="menu-item "  v-if="user.type == 'client'">
                             <a href="#" class="open-dropdown menu-link">
                                     <span class="menu-label">
                                                             <span class="menu-name">Dependents
@@ -174,7 +272,7 @@
                             </ul>
                         </li>
 
-            <li class="menu-item ">
+            <li class="menu-item "  v-if="user.type == 'hmo'">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Employees
@@ -218,7 +316,51 @@
                 </ul>
             </li>
 
-            <li class="menu-item ">
+            <li class="menu-item "  v-if="user.type == 'provider'">
+                <a href="#" class="open-dropdown menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Employees
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-briefcase "></i>
+                                            </span>
+                </a>
+                <!--submenu-->
+                <ul class="sub-menu">
+
+                    <li class="menu-item">
+                        <a href="/add-employee" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">Add Employee
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder fe fe-edit "></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="/add-employee" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">View Employees
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="menu-item "  v-if="user.type == 'provider'">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Claims Manager
@@ -262,7 +404,7 @@
                 </ul>
             </li>
 
-            <li class="menu-item active ">
+            <li class="menu-item active "  v-if="user.type == 'provider'">
                 <a href="add-agency" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Add Agency
@@ -274,7 +416,7 @@
                                             </span>
                 </a>
             </li>
-            <li class="menu-item active ">
+            <li class="menu-item active "  v-if="user.type == 'hmo'">
                 <a href="my-providers" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">My Providers
@@ -286,7 +428,7 @@
                                             </span>
                 </a>
             </li>
-            <li class="menu-item active ">
+            <li class="menu-item active "  v-if="user.type == 'client'">
                 <a href="add-complaint" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Complaints
@@ -319,9 +461,13 @@ export default {
     Header
   },
   data(){
+    return{
+      user:null
 
+    }
   },
   beforeMount(){
+    this.user = JSON.parse(localStorage.getItem('user'))
 
   },
   methods:{

@@ -16,7 +16,7 @@
         ><button
           class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
           type="button"
-          onclick="toggleNavbar('example-collapse-navbar')"
+          @click="toggleNavbar('example-collapse-navbar')"
         >
           <i class="text-white fas fa-bars"></i>
         </button>
@@ -36,7 +36,7 @@
           </li>
         </ul> -->
 
-        <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+        <!-- <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
           <li class="flex items-center">
             <a
               class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
@@ -67,17 +67,15 @@
               ><span class="lg:hidden inline-block ml-2">Star</span></a
             >
           </li>
-          <!-- <li class="flex items-center">
+          <li class="flex items-center">
             <a href="/login" class="btn btn-primary" >
                 <i class="fas fa-arrow-alt-circle-down"></i> Sign In
             </a>
-            </li> -->
-        </ul>
+            </li>
+        </ul> -->
 
-          <a href="/login" class="btn btn-primary" >
-              <i class="fas fa-arrow-alt-circle-down"></i> Sign In
-          </a>
-          
+
+
       </div>
     </div>
   </nav>
@@ -293,7 +291,7 @@
               <h3 class="text-3xl font-semibold">Our Vision</h3>
               <p class="mt-4 text-lg leading-relaxed text-gray-600">
               We believe in access to good healthcare for everyone, everywhere.
-              At CarePay, we believe the intersection of mobile technology and mobile money has the potential to transform healthcare by facilitating universal access to good quality healthcare at lower costs.
+              At HIP, we believe the intersection of mobile technology and mobile money has the potential to transform healthcare by facilitating universal access to good quality healthcare at lower costs.
               </p>
               <ul class="list-none mt-6">
                 <li class="py-2">
@@ -522,7 +520,7 @@
           <div class="w-full lg:w-6/12 px-4">
             <h2 class="text-4xl font-semibold text-white">Why Use Us</h2>
             <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
-            CarePay is designed to support and connect all parties involved in healthcare: patients,
+            HIP is designed to support and connect all parties involved in healthcare: patients,
              healthcare providers and payers. Patients can easily access the platform with a basic mobile phone, as well as a smart phone.
              Healthcare providers and payers can access billing, claims, and dashboards with a desktop computer or tablet, too.
             </p>
@@ -780,6 +778,21 @@
   </footer>
 </body>
 </template>
+<script>
+export default{
+  data (){
+    return{
+
+    }
+  },
+  methods:{
+     toggleNavbar(collapseID) {
+      document.getElementById(collapseID).classList.toggle("hidden");
+      document.getElementById(collapseID).classList.toggle("block");
+    }
+  }
+}
+</script>
 <style  lang="css" scoped>
 @import 'https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css';
 .spacer{

@@ -18,7 +18,7 @@ Vue.use(VueFilterDateFormat);
 Vue.use(vueNumeralFilterInstaller);
 
 window.axios=axios
-axios.defaults.baseURL = 'http://198.199.88.203';
+axios.defaults.baseURL = 'http://67.205.184.211';
  // axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')

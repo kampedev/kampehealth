@@ -257,7 +257,7 @@
                                 </li>
 
                                 <li class="menu-item">
-                                    <a href="/add-dependents" class=" menu-link">
+                                    <a href="/my-dependents" class=" menu-link">
                                                     <span class="menu-label">
                                                             <span class="menu-name">View Dependents
                                                             </span>
@@ -428,7 +428,8 @@
                                             </span>
                 </a>
             </li>
-            <li class="menu-item active "  v-if="user.type == 'client'">
+
+            <!-- <li class="menu-item active "  v-if="user.type == 'client'">
                 <a href="add-complaint" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Complaints
@@ -439,7 +440,51 @@
                                                  <i class="icon-placeholder fe fe-thumbs-down "></i>
                                             </span>
                 </a>
-            </li>
+            </li> -->
+            
+                        <li class="menu-item "  v-if="user.type == 'client'">
+                            <a href="#" class="open-dropdown menu-link">
+                                    <span class="menu-label">
+                                                            <span class="menu-name">Complaints
+                                                                <span class="menu-arrow"></span>
+                                                            </span>
+
+                                                        </span>
+                                <span class="menu-icon">
+                                                             <i class="icon-placeholder fe fe-thumbs-down"></i>
+                                                        </span>
+                            </a>
+                            <!--submenu-->
+                            <ul class="sub-menu">
+
+                                <li class="menu-item">
+                                    <a href="/add-complaint" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Make Complaint
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder fe fe-edit "></i>
+                                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="menu-item">
+                                    <a href="/my-complaints" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">View Complaints
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder mdi mdi-view-day "></i>
+                                                        </span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
 
         </ul>
 

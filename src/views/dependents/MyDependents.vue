@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Add Dependent</h3>
+                       <h3>Dependents</h3>
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Employees" type="search"
@@ -29,21 +29,20 @@
                </div>
            </div>
        </div>
-       <section class="pull-up">
+       <section class="">
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-8" v-show="show">
                        <div class="card m-b-30">
                            <div class="card-header">
 
                              <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
                            </div>
 
-                           <div class="card-body">
+                           <div class="card-body" >
                                <div class="text-center">
 
-                                   <!-- <h3 class="p-t-10 searchBy-name">Add Dependent</h3> -->
                                </div>
 
                                                         <div class="form-row">
@@ -136,6 +135,60 @@
                        </div>
                    </div>
 
+
+
+                   <div class="col-lg-4 col-md-6" v-for="dependent in dependents" v-bind:key="dependent.id">
+                       <div class="card m-b-30">
+                           <div class="card-header">
+
+                               <div class="card-controls">
+                                   <a class="badge badge-soft-success" href="#">{{dependent.relationShipType}}</a>
+
+                               </div>
+                           </div>
+                           <div class="card-body">
+                               <div class="text-center">
+                                   <div>
+                                       <!-- <div class="avatar avatar-xl avatar-away"> -->
+                                           <!-- <img class="avatar-img rounded-circle" src="assets/img/users/user-7.jpg"
+                                                alt="name"> -->
+                                                <!-- <vue-initials-img :name="dependent.firstname+' '+dependent.lastname" class="text-center rounded-circle" /> -->
+                                                <avatar :username="dependent.firstname+' '+dependent.lastname" class="center"></avatar>
+
+                                       <!-- </div> -->
+                                   </div>
+                                   <h3 class="p-t-10 searchBy-name">{{dependent.firstname }} {{dependent.lastname}}</h3>
+
+                               </div>
+                               <div class="text-muted text-center m-b-10">
+                                  {{dependent.phone_number}}
+
+                               </div>
+
+                               <p class="text-muted text-center">
+                                  General Hospital Abuja
+                               </p>
+                               <div class="row text-center p-b-10">
+                                   <div class="col">
+                                       <button @click="show = !show">
+                                           <h3 class="fe fe-edit"></h3>
+                                           <div class="text-overline">Edit</div>
+                                       </button>
+                                   </div>
+                                   <div class="col">
+                                       <button >
+                                           <h3 class="fe fe-delete"></h3>
+                                           <div class="text-overline">Delete</div>
+
+                                       </button>
+
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
                </div>
            </div>
 
@@ -157,14 +210,16 @@
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
+     import Avatar from 'vue-avatar'
 
 export default {
   components: {
-     Navbar, Loading
+     Navbar, Loading, Avatar
   },
   data(){
     return{
       user:null,
+      show:false,
       dependents:"",
       edit:false,
       isLoading: false,

@@ -12,18 +12,18 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Make a Complaint</h3>
+                       <h3>My Complaints</h3>
 
                    </div>
 
                </div>
            </div>
        </div>
-       <section class="pull-up">
+       <section>
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-8" v-show="show">
                        <div class="card m-b-30">
                            <div class="card-header">
 
@@ -33,7 +33,7 @@
                            <div class="card-body">
                                <div class="text-center">
 
-                                   <h3 class="p-t-10 searchBy-name">Add Complaint</h3>
+                                   <h3 class="p-t-10 searchBy-name">Edit Complaint</h3>
                                </div>
 
                                                         <div class="form-row">
@@ -74,6 +74,53 @@
                        </div>
                    </div>
 
+                   <div class="col-lg-4 col-md-6" v-for="complaint in complaints" v-bind:key="complaint.id">
+                       <div class="card m-b-30">
+                           <div class="card-header">
+
+                               <div class="card-controls">
+                                   <a class="badge badge-soft-success" href="#">{{complaint.status}}</a>
+
+                               </div>
+                           </div>
+                           <div class="card-body">
+                               <div class="text-center">
+                                   <div>
+
+                                   </div>
+                                   <h3 class="p-t-10 searchBy-name">{{complaint.title}}</h3>
+                               </div>
+
+                               <div class="text-muted text-center m-b-10">
+                                  {{complaint.type}}
+
+                               </div>
+                               <!-- <p class="text-muted text-center">
+                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet at
+                                   odio quod rem rerum temporibus veniam vero.
+                               </p> -->
+                               <div class="row text-center p-b-10">
+                                   <div class="col">
+                                       <button @click="show = !show">
+                                           <h3 class="fe fe-edit"></h3>
+                                           <div class="text-overline">Edit</div>
+
+                                       </button>
+                                   </div>
+                                   <div class="col">
+                                       <button>
+                                           <h3 class="fe fe-eye"></h3>
+                                           <div class="text-overline">View</div>
+
+                                       </button>
+
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
                    <div class="vld-parent">
                         <loading :active.sync="isLoading"
                         loader="dots"
@@ -110,6 +157,7 @@ export default {
                },
       user:null,
       edit:false,
+      show:false,
       isLoading: false,
       fullPage: true,
       complaints:"",

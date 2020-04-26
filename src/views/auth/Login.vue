@@ -28,6 +28,15 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="gridCheck">
+                                  <label class="form-check-label" for="gridCheck">
+                                      Remember Me
+                                  </label>
+                              </div>
+                          </div>
+
                             <button type="submit" class="btn btn-primary btn-block btn-lg" @click="logIn">Login</button>
                         <p class="text-right p-t-10">
                             <a href="#!" class="text-underline">Forgot Password?</a>

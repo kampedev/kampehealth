@@ -9,6 +9,7 @@ import VueCookies from 'vue-cookies'
 import { BreadstickBakery } from 'breadstick'
 import VueFilterDateFormat from 'vue-filter-date-format';
 import vueNumeralFilterInstaller from 'vue-numeral-filter';
+import VueInitialsImg from 'vue-initials-img';
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
@@ -16,10 +17,11 @@ Vue.use(VueCookies)
 Vue.use(BreadstickBakery)
 Vue.use(VueFilterDateFormat);
 Vue.use(vueNumeralFilterInstaller);
+Vue.use(VueInitialsImg);
 
 window.axios=axios
-axios.defaults.baseURL = 'http://67.205.184.211';
-// axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'http://67.205.184.211';
+axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
 

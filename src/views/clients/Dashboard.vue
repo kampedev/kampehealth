@@ -132,21 +132,19 @@
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
+                                <th>Complain Number</th>
                                 <th>Title</th>
                                 <th>Type</th>
                                 <th>Status</th>
-                                <th>Date</th>
 
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="complaint in complaints" v-bind:key="complaint.id">
-
+                              <td>122333932</td>
                                 <td>{{complaint.title}}</td>
                                 <td>{{complaint.type}}</td>
                                 <td>{{complaint.status}}</td>
-                                <td>{{complaint.created_at}}</td>
-
                             </tr>
 
                             </tbody>

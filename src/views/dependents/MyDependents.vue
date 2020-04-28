@@ -153,7 +153,17 @@
                                            <!-- <img class="avatar-img rounded-circle" src="assets/img/users/user-7.jpg"
                                                 alt="name"> -->
                                                 <!-- <vue-initials-img :name="dependent.firstname+' '+dependent.lastname" class="text-center rounded-circle" /> -->
-                                                <avatar :username="dependent.firstname+' '+dependent.lastname" class="center"></avatar>
+                                                <avatar :username="dependent.firstname+' '+dependent.lastname"></avatar>
+
+                                  <!-- <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <span class="btn btn-file">
+                                      <span class="fileinput-new"><avatar :username="dependent.firstname+' '+dependent.lastname"></avatar></span>
+                                      <span class="fileinput-exists">Change</span>
+                                      <input type="file" name="..." multiple  @change="attachPic(dependent)">
+                                    </span>
+                                    <span class="fileinput-filename"></span>
+                                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                </div> -->
 
                                        <!-- </div> -->
                                    </div>
@@ -165,9 +175,9 @@
 
                                </div>
 
-                               <p class="text-muted text-center">
+                               <!-- <p class="text-muted text-center">
                                   General Hospital Abuja
-                               </p>
+                               </p> -->
                                <div class="row text-center p-b-10">
                                    <div class="col">
                                        <button @click="show = !show">
@@ -227,6 +237,8 @@ export default {
       ages:[ '1', '2', '3', '4', '5','6','7'
 
     ],
+    attachmentPic:null,
+    // single_dependent_id:null,
       dependent:{
         firstname:"",
         lastname:"",
@@ -242,6 +254,41 @@ export default {
 
   },
   methods:{
+    attachPic(dependent){
+    this.user = JSON.parse(localStorage.getItem('user'))
+    console.log(event)
+    // let files = event.target.files
+    // let filename = event.target.files[0].name
+     this.attachmentPic = event.target.files[0];
+     localStorage.setItem('dependent',dependent.id);
+     this.uploadPic()
+},
+uploadPic(){
+          this.isLoading = true;
+          let single_dependent_id = localStorage.getItem('dependent')
+
+        var formData = new FormData();
+        var formDatatwo = new FormData();
+        formData.append("image", this.attachmentPic)
+        formDatatwo.append("dependant_id", single_dependent_id)
+        this.axios.post("/api/v1/auth/uploadDependantImage", formData, formDatatwo,  {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then(response => {
+          console.log(response);
+
+             this.isLoading = false;
+             // this.addTopic()
+
+        })
+        .catch(error => {
+          this.isLoading = false;
+            console.error(error);
+        })
+
+    },
     getDependents(){
       this.user = JSON.parse(localStorage.getItem('user'))
 

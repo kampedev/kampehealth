@@ -586,6 +586,7 @@
                     >Full Name</label
                   ><input
                     type="text"
+                    v-model="work.fullname"
                     class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                     placeholder="Full Name"
                     style="transition: all 0.15s ease 0s;"
@@ -598,6 +599,7 @@
                     >Email</label
                   ><input
                     type="email"
+                    v-model="work.email"
                     class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                     placeholder="Email"
                     style="transition: all 0.15s ease 0s;"
@@ -610,15 +612,18 @@
                     >Message</label
                   ><textarea
                     rows="4"
+                    v-model="work.message"
                     cols="80"
                     class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                     placeholder="Type a message..."
                   ></textarea>
+                  <p text-color="red">120 required character ({{work.message.length}})</p>
                 </div>
                 <div class="text-center mt-6">
                   <button
                     class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                     type="button"
+                    @click="workWithUs()"
                     style="transition: all 0.15s ease 0s;"
                   >
                     Send Message
@@ -775,21 +780,70 @@
         </div>
       </div>
     </div>
+    <div class="vld-parent">
+         <loading :active.sync="isLoading"
+         loader="dots"
+         :can-cancel="true"
+         :is-full-page="fullPage"></loading>
+     </div>
   </footer>
 </body>
 </template>
 <script>
-export default{
-  data (){
-    return{
+  // Import component
+     import Loading from 'vue-loading-overlay';
+     // Import stylesheet
+     import 'vue-loading-overlay/dist/vue-loading.css';
+     // Init plugin
 
-    }
+export default {
+  components: {
+    Loading
+  },
+  data(){
+  return{
+    isLoading: false,
+    fullPage: true,
+
+    lga_states:"",
+    work:{
+              fullname:"",
+              email:"",
+              message:""
+
+          }
+  }
+  },
+  beforeMount(){
+
   },
   methods:{
-     toggleNavbar(collapseID) {
-      document.getElementById(collapseID).classList.toggle("hidden");
-      document.getElementById(collapseID).classList.toggle("block");
+
+    workWithUs(){
+        this.isLoading = true;
+        this.axios.post('/api/v1/auth/workWithUs',this.work)
+        .then(response=>{
+
+            console.log(response);
+
+            this.isLoading = false;
+            this.$breadstick.notify("Thank you for your message we would get back to your shortly", {position: "top-right"});
+            this.work.fullname= "";
+            this.work.email= "";
+            this.work.message= "";
+
+        })
+        .catch(error=>{
+            console.log(error.response)
+            this.isLoading = false;
+            this.$breadstick.notify("Oops! 120 minimum characters needed in message", {position: "top-right"});
+
+        })
     }
+  },
+  created(){
+    // this.getStates()
+
   }
 }
 </script>

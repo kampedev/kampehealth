@@ -113,7 +113,6 @@
      // Init plugin
 
 export default {
-  name: 'Home',
   components: {
     Loading
   },

@@ -128,6 +128,7 @@ export default {
               firstname:"",
               lastname:"",
               email:"",
+              username:"testuser",
               type:"client",
               phone_number:"",
               state:"",

@@ -61,7 +61,8 @@
                 <a class="nav-link dropdown-toggle" href="#"   role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-sm avatar-online">
-                        <span class="avatar-title rounded-circle bg-dark">V</span>
+                        <!-- <span class="avatar-title rounded-circle bg-dark">V</span> -->
+                         <vue-initials-img :name="auth_user.firstname+' '+auth_user.lastname" class="text-center rounded-circle" />
 
                     </div>
                 </a>
@@ -224,10 +225,20 @@ export default {
     // HelloWorld
   },
   data(){
+    return{
+      auth_user:""
 
+    }
   },
   beforeMount(){
-
+    this.axios.get(`/api/v1/auth/user`)
+                .then(response => {
+                    this.auth_user = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
   },
   methods:{
     logOut(){

@@ -130,6 +130,7 @@ export default {
               email:"",
               type:"shis",
               phone_number:"",
+              username:"testuser",
               state:"",
               localgovt:"",
               role:0,

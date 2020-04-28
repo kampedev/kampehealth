@@ -128,6 +128,7 @@ export default {
               lastname:"",
               email:"",
               type:"hmo",
+              username:"testuser",
               phone_number:"",
               state:"",
               localgovt:"",

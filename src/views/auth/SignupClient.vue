@@ -29,6 +29,10 @@
                                   <input type="text" required class="form-control" placeholder="Last Name" v-model="register.lastname">
                               </div>
                                 <div class="form-group floating-label col-md-12">
+                                    <label>Username</label>
+                                    <input type="text" required class="form-control" placeholder="Username" v-model="register.username">
+                                </div>
+                                <div class="form-group floating-label col-md-12">
                                     <label>Email</label>
                                     <input type="email" required class="form-control" placeholder="Email" v-model="register.email">
                                 </div>
@@ -48,7 +52,7 @@
                             </div>
                           </div>
 
-                          <!-- <div class="row">
+                          <div class="row">
                             <div class="form-group col-md-6">
                               <label for="inputCity">States</label>
 
@@ -63,7 +67,7 @@
                                    <option v-for="lga in lga_states.lgas" v-bind:key="lga" :value="lga">{{lga}}</option>
                                </select>
                             </div>
-                          </div> -->
+                          </div>
 
                             <!-- <p class="">
                                 <label class="cstm-switch">
@@ -128,7 +132,7 @@ export default {
               firstname:"",
               lastname:"",
               email:"",
-              username:"testuser",
+              username:"",
               type:"client",
               phone_number:"",
               state:"",
@@ -145,7 +149,7 @@ export default {
   methods:{
 
     getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
+      this.axios.get(`/api/v1/auth/states`)
                   .then(response => {
                       this.states = response.data
                       console.log(response)
@@ -155,7 +159,7 @@ export default {
                   })
     },
     fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
+      this.axios.get(`/api/v1/auth/lga/${state.id}`)
                   .then(response => {
                       this.lga_states = response.data
                       console.log(response)

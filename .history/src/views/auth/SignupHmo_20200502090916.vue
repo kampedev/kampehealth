@@ -28,10 +28,6 @@
                                   <label>Last Name</label>
                                   <input type="text" required class="form-control" placeholder="Last Name" v-model="register.lastname">
                               </div>
-                              <div class="form-group floating-label col-md-6 col-sm-12">
-                                  <label>User Name</label>
-                                  <input type="text" required class="form-control" placeholder="Username" v-model="register.username">
-                              </div>
                               <div class="form-group floating-label col-md-12">
                                   <label>Agency Name</label>
                                   <input type="email" required class="form-control" placeholder="Agency Name" v-model="register.agency_name">
@@ -138,7 +134,7 @@ export default {
               email:"",
               type:"hmo",
               phone_number:"",
-              username:"",
+              username:"testuser",
               agency_name:"",
               state:"",
               localgovt:"",
@@ -167,7 +163,7 @@ export default {
       this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
                   .then(response => {
                       this.lga_states = response.data
-                    //   console.log(response)
+                      console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -175,7 +171,6 @@ export default {
     },
     registerUser(){
         this.isLoading = true;
-        console.log(this.register);
         this.axios.post('/api/v1/auth/register',this.register)
         .then(response=>{
           localStorage.setItem('user',JSON.stringify(this.register))

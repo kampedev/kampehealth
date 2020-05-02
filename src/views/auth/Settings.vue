@@ -83,69 +83,7 @@
                                <p class="text-muted">
                                    Manage third-party app integrations.
                                </p>
-                               <div class="row">
-                                   <div class="col-sm-4 m-b-30">
-                                       <div class="option-box-grid d-block">
-                                           <input id="check1" checked name="bigradios" type="checkbox">
-                                           <label for="check1" class="d-block">
-                                           <span class="radio-content  p-all-15 text-center">
-                                               <span class="mdi h1 d-block mdi-google-adwords"></span>
-                                               <span class="h5">Adwords Account</span>
-                                               <span class="d-block text-overline text-muted">$15/Month</span>
-                                           </span>
-                                           </label>
-                                       </div>
-                                   </div>
-                                   <div class="col-sm-4 m-b-30">
-                                       <div class="option-box-grid d-block">
-                                           <input id="check2" name="bigradios" type="checkbox">
-                                           <label for="check2" class="d-block">
-                                           <span class="radio-content  p-all-15 text-center">
-                                               <span class="mdi h1  d-block mdi-azure"></span>
-                                               <span class="h5">Azure Account</span>
-                                               <span class="d-block text-overline text-muted">$8/Month</span>
-                                           </span>
-                                           </label>
-                                       </div>
-                                   </div>
-                                   <div class="col-sm-4 m-b-30">
-                                       <div class="option-box-grid d-block">
-                                           <input id="check3" name="bigradios" type="checkbox">
-                                           <label for="check3" class="d-block">
-                                           <span class="radio-content  p-all-15 text-center">
-                                               <span class="mdi h1  d-block mdi-folder-google-drive"></span>
-                                               <span class="h5">Google Apps</span>
-                                               <span class="d-block text-overline text-muted">$105/Month</span>
-                                           </span>
-                                           </label>
-                                       </div>
-                                   </div>
-                                   <div class="col-sm-4 m-b-30">
-                                       <div class="option-box-grid d-block">
-                                           <input id="check4" name="bigradios" type="checkbox">
-                                           <label for="check4" class="d-block">
-                                           <span class="radio-content  p-all-15 text-center">
-                                               <span class="mdi h1  d-block mdi-apps-box"></span>
-                                               <span class="h5">Google Apps</span>
-                                               <span class="d-block text-overline text-muted">$84/Month</span>
-                                           </span>
-                                           </label>
-                                       </div>
-                                   </div>
-                                   <div class="col-sm-4 m-b-30">
-                                       <div class="option-box-grid d-block">
-                                           <input id="check5" name="bigradios" type="checkbox">
-                                           <label for="check5" class="d-block">
-                                           <span class="radio-content  p-all-15 text-center">
-                                               <span class="mdi h1  d-block mdi-spotify"></span>
-                                               <span class="h5">spotify </span>
-                                               <span class="d-block text-overline text-muted">$12/Month</span>
-                                           </span>
-                                           </label>
-                                       </div>
-                                   </div>
 
-                               </div>
                                <button type="submit" class="btn btn-success btn-cta">Save changes</button>
 
                            </div>
@@ -156,52 +94,8 @@
                                <p class="text-muted">
                                    Changes in plans will reflect on 15<sup>th</sup> of every month
                                </p>
-                               <div class="option-box">
-                                   <input id="radio-new1" name="bigradios" type="radio">
-                                   <label for="radio-new1">
-                                       <span class="radio-content">
-                                           <span class="h6 d-block">Starter Plan <span class="badge-soft-primary badge">$12 MONTH</span>
-                                           </span>
-                                           <span class="text-muted d-block m-b-10">
-                                               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-                                               blanditiis ducimus ipsa provident quae quaerat similique? Consequatur
-                                               consequuntur cum, inventore nihil porro quis. Ad assumenda eligendi
-                                               illum impedit quis totam.
-                                           </span>
-                                       </span>
-                                   </label>
-                               </div>
-                               <div class="option-box">
-                                   <input id="radio-new2" checked name="bigradios" type="radio">
-                                   <label for="radio-new2">
-                                       <span class="radio-content">
-                                           <span class="h6 d-block">Pro Plan <span class="badge-soft-info badge">$49 MONTH</span></span>
+                                                      
 
-                                           <span class="text-muted d-block m-b-10">
-                                               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-                                               blanditiis ducimus ipsa provident quae quaerat similique? Consequatur
-                                               consequuntur cum, inventore nihil porro quis. Ad assumenda eligendi
-                                               illum impedit quis totam.
-                                           </span>
-                                       </span>
-                                   </label>
-                               </div>
-                               <div class="option-box">
-                                   <input id="radio-new3" name="bigradios" type="radio">
-                                   <label for="radio-new3">
-                                       <span class="radio-content">
-                                           <span class="h6 d-block">Business Plan <span class="badge-soft-danger badge">$99 MONTH</span>
-                                           </span>
-
-                                           <span class="text-muted d-block m-b-10">
-                                               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-                                               blanditiis ducimus ipsa provident quae quaerat similique? Consequatur
-                                               consequuntur cum, inventore nihil porro quis. Ad assumenda eligendi
-                                               illum impedit quis totam.
-                                           </span>
-                                       </span>
-                                   </label>
-                               </div>
                                <div class="p-t-30">
                                    <button type="submit" class="btn btn-success btn-cta">Save changes</button>
                                </div>

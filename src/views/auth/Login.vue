@@ -20,11 +20,11 @@
                             <div class="form-row">
                                 <div class="form-group floating-label col-md-12">
                                     <label>Email</label>
-                                    <input type="email" required class="form-control" v-model="email">
+                                    <input type="text" required class="form-control" v-model="identifier" placeholder="Email or Username">
                                 </div>
                                 <div class="form-group floating-label col-md-12">
                                     <label>Password</label>
-                                    <input type="password" required class="form-control "  v-model="password">
+                                    <input type="password" required class="form-control "  v-model="password" placeholder="password">
                                 </div>
                             </div>
 
@@ -80,7 +80,8 @@ export default {
   },
   data(){
     return{
-      email:"",
+      identifier:"",
+     reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
       password:"",
       isLoading: false,
       fullPage: true,
@@ -109,34 +110,58 @@ export default {
 
     logIn(){
             this.isLoading = true;
-            this.axios.post('/api/v1/auth/login',{email:this.email,password:this.password})
+
+        if ( this.reg.test(this.identifier) )
+            {
+                this.axios.post('/api/v1/auth/login',{
+                email:this.identifier,
+                password:this.password,
+              })
+
             .then(response=>{
               console.log(response)
                 let token= response.data.token;
-
-                // let admin = response.data.user.is_admin
-                // this.isLoading = false;
-                // this.$toasted.global.login().goAway(1500);
-
                 if(token){
                    localStorage.setItem('jwt',token);
                    this.$breadstick.notify("🥞 Welcome to HIP!", {position: "top-right"});
                    if (localStorage.getItem('jwt') != null){
-
                                  this.$router.push('/pusher')
+                        }
 
-                           }
-
-
-
-                           }
+                    }
                 })
                 .catch(error=>{
                     console.log(error.response)
                     this.isLoading = false;
                     // this.$toasted.global.errorLogin().goAway(3000);
                 })
-              }
+
+            } else {
+                    this.axios.post('/api/v1/auth/login',{
+                    username:this.identifier,
+                    password:this.password,
+                  })
+
+                .then(response=>{
+                  console.log(response)
+                    let token= response.data.token;
+                    if(token){
+                       localStorage.setItem('jwt',token);
+                       this.$breadstick.notify("🥞 Welcome to HIP!", {position: "top-right"});
+                       if (localStorage.getItem('jwt') != null){
+                                     this.$router.push('/pusher')
+                            }
+
+                        }
+                    })
+                    .catch(error=>{
+                        console.log(error.response)
+                        this.isLoading = false;
+                        // this.$toasted.global.errorLogin().goAway(3000);
+                    })
+                  }
+
+        }
   },
   created(){
 

@@ -171,7 +171,6 @@ export default {
     },
     registerUser(){
         this.isLoading = true;
-        console.log(this.register);
         this.axios.post('/api/v1/auth/register',this.register)
         .then(response=>{
           localStorage.setItem('user',JSON.stringify(this.register))

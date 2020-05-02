@@ -1,7 +1,7 @@
 <template>
   <section class="admin-content " id="contact-search">
     <Navbar/>
-    <main class="admin-main">
+
        <div class="bg-dark m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
@@ -12,10 +12,10 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Employees</h3>
+                       <h3>Clients</h3>
                        <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
-                               <input placeholder="Filter Employees" type="search"
+                               <input placeholder="Filter Clients" type="search"
                                       class="form-control form-control-lg search form-control-prepended">
                                <div class="input-group-prepend">
                                    <div class="input-group-text">
@@ -26,6 +26,7 @@
                        </div>
 
                    </div>
+
 
                </div>
            </div>
@@ -44,7 +45,7 @@
                            <div class="card-body">
                                <div class="text-center">
 
-                                   <h3 class="p-t-10 searchBy-name">Add Employee</h3>
+                                   <h3 class="p-t-10 searchBy-name">Add Client</h3>
                                </div>
 
                                                         <div class="form-row">
@@ -54,7 +55,7 @@
                                                              </div>
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputPassword4">Last Name</label>
-                                                                 <input type="text" class="form-control" v-model="register.lastname"  placeholder="Last Name">
+                                                                 <input type="text" class="form-control" v-model="register.lastname"  placeholder="First Name">
                                                              </div>
                                                          </div>
                                                          <div class="form-row">
@@ -87,15 +88,17 @@
 
                                                           <div class="form-row">
                                                               <div class="form-group col-md-6">
-                                                                  <label for="inputCity">Job Title</label>
-                                                                  <select class="form-control"  v-model="register.job_title">
-                                                                   <option  value="User Manager">User Manager</option>
-                                                                   <option  value="Claim Clerk">Claim Clerk</option>
-                                                                   <option  value="Funds Manager">Funds Manager</option>
-                                                               </select>
+                                                                  <label for="inputCity">Ward</label>
+                                                                  <input type="text" class="form-control" v-model="register.ward" placeholder="Ward">
                                                               </div>
 
                                                           </div>
+
+                                                          <div class="form-group">
+                                                             <label for="inputAddress">Address</label>
+                                                             <textarea name="name" rows="8" cols="80"  class="form-control" v-model="register.address" placeholder="1234 Main St"></textarea>
+                                                         </div>
+
 
 
                                                          <div class="form-group">
@@ -169,7 +172,6 @@
            </div>
 
        </section>
-    </main>
    </section>
 </template>
 
@@ -197,10 +199,8 @@ export default {
                 lastname:"",
                 email:"",
                 phone_number:"",
-                type:"employee",
+                type:"client",
                 state:"",
-                institutional_id:"",
-                job_title:"",
                 lga:"",
                 ward:"",
                 address:"",
@@ -233,7 +233,6 @@ export default {
                   })
     },
     registerUser(){
-      this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
         this.axios.post('/api/v1/auth/register',{
           firstname: this.register.firstname,
@@ -242,7 +241,6 @@ export default {
           phone_number: this.register.phone_number,
           type: this.register.type,
           state: this.state,
-          institutional_id: this.user.id,
           role: 0,
           lga: this.register.lga,
           ward: this.register.ward,

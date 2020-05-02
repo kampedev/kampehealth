@@ -163,7 +163,7 @@ export default {
       this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
                   .then(response => {
                       this.lga_states = response.data
-                    //   console.log(response)
+                      console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -171,7 +171,6 @@ export default {
     },
     registerUser(){
         this.isLoading = true;
-        console.log(this.register);
         this.axios.post('/api/v1/auth/register',this.register)
         .then(response=>{
           localStorage.setItem('user',JSON.stringify(this.register))

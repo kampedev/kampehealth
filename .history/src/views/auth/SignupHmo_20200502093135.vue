@@ -166,12 +166,11 @@ export default {
                     //   console.log(response)
                   })
                   .catch(error => {
-                      console.error(error);
+                    //   console.error(error);
                   })
     },
     registerUser(){
         this.isLoading = true;
-        console.log(this.register);
         this.axios.post('/api/v1/auth/register',this.register)
         .then(response=>{
           localStorage.setItem('user',JSON.stringify(this.register))

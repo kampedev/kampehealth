@@ -74,6 +74,8 @@
                                                              </div>
                                                          </div>
                                                          <div class="form-group">
+                                                           <label for="inputCity">Plan Description</label>
+
                                                            <ckeditor :editor="editor" v-model="plan.description" :config="editorConfig"></ckeditor>
                                                          </div>
 

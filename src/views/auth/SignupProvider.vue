@@ -131,7 +131,7 @@ export default {
               firstname:"",
               lastname:"",
               email:"",
-              type:"hmo",
+              type:"provider",
               username:"testuser",
               phone_number:"",
               state:"",

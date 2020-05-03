@@ -93,43 +93,39 @@
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">Date of Birth</label>
 
-                                                               <select class="form-control"  v-model="dependent.age">
-
-                                                                <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option>
-
-                                                            </select>
+                                                              <!-- <input type="text" class="js-datepicker form-control" placeholder="Select a Date"> -->
+                                                              <datepicker v-model="dependent.dob" class="form-control"></datepicker>
                                                          </div>
 
-                                                         <div class="form-group col-md-6">
-                                                           <label for="inputCity">State</label>
+                                                         <div class="row">
+                                                           <div class="form-group col-md-6">
+                                                             <label for="inputCity">States</label>
 
-                                                               <select class="form-control"  v-model="dependent.age">
+                                                                 <select class="form-control"  v-model="state" @change="fetchLga(state)">
+                                                                  <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+                                                              </select>
+                                                           </div>
+                                                           <div class="form-group col-md-6">
+                                                             <label for="inputCity">LGA</label>
 
-                                                                <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option>
-
-                                                            </select>
-                                                         </div>
-
-                                                         <div class="form-group col-md-6">
-                                                           <label for="inputCity">LGA</label>
-                                                               <select class="form-control"  v-model="dependent.age">
-
-                                                                <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option>
-
-                                                            </select>
+                                                                 <select class="form-control"  v-model="dependent.lga">
+                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                                                              </select>
+                                                           </div>
                                                          </div>
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">Health Facility</label>
                                                                <select class="form-control"  v-model="dependent.age">
 
-                                                                <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option>
+                                                                <!-- <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option> -->
+                                                                <option  value="7"> 7</option>
 
                                                             </select>
                                                          </div>
                                                        </div>
 
 
-                                                      
+
 
 
                                                          <div class="form-group">
@@ -161,10 +157,12 @@
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
+     import Datepicker from 'vuejs-datepicker';
+
 
 export default {
   components: {
-     Navbar, Loading
+     Navbar, Loading, Datepicker
   },
   data(){
     return{
@@ -173,9 +171,9 @@ export default {
       edit:false,
       isLoading: false,
       fullPage: true,
-      ages:[ '1', '2', '3', '4', '5','6','7'
-
-    ],
+      states:"",
+      state:"",
+      lga_states:"",
       dependent:{
         firstname:"",
         lastname:"",
@@ -183,7 +181,8 @@ export default {
         phone_number:"",
         relationShipType:"",
         sex:"",
-        age:""
+        lga:"",
+        dob:""
       }
     }
   },
@@ -197,6 +196,27 @@ export default {
       this.axios.get(`/api/v1/auth/allDependantUser/${this.user.id}`)
                   .then(response => {
                       this.dependents = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+
+    getStates(){
+      this.axios.get(`/api/v1/auth/states`)
+                  .then(response => {
+                      this.states = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    fetchLga(state){
+      this.axios.get(`/api/v1/auth/lga/${state.id}`)
+                  .then(response => {
+                      this.lga_states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -219,6 +239,9 @@ export default {
         user_id: this.user.id,
         email: this.dependent.email,
         phone_number: this.dependent.phone_number,
+        state: this.state.name,
+        lga: this.dependent.lga,
+        age: '30',
       })
 
       .then(response=>{
@@ -231,6 +254,8 @@ export default {
 
       })
       .catch(error=>{
+        this.isLoading = false;
+
           console.log(error.response)
       })
       }else {
@@ -276,6 +301,8 @@ export default {
   },
   created(){
     this.getDependents()
+    this.getStates()
+    this.getFetchLga()
   }
 
 }

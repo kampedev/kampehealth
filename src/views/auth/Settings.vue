@@ -30,23 +30,33 @@
                                   <p class="text-muted">
                                       Use this page to update your contact information and change your password.
                                   </p>
-                                  <div class="">
+                                  <div class="" v-if="auth_user.user_image != null ">
                                       <label class="avatar-input">
                                    <span class="avatar avatar-xl">
-                                       <img src="assets/img/users/user-6.jpg" alt="..."
-                                            class="avatar-img rounded-circle">
+                                       <img :src="`http://localhost:8000/image/${auth_user.user_image}`"
+                                            class="avatar-img rounded-circle"   >
                                         <span class="avatar-input-icon rounded-circle">
                                        <i class="mdi mdi-upload mdi-24px"></i>
                                    </span>
                                    </span>
-                                          <input type="file" name="avatar" class="avatar-file-picker" >
+
+                                   <!-- <input type="file" name="avatar" class="avatar-file-picker" > -->
 
                                       </label>
 
                                   </div>
-                                  <p>
-                                    <vue-initials-img :name="auth_user.firstname+' '+auth_user.lastname" class="text-center rounded-circle" />
-                                  </p>
+
+
+
+                                  <div class="fileinput fileinput-new" data-provides="fileinput" v-if="auth_user.user_image == null">
+                                    <span class="btn btn-file">
+                                      <span class="fileinput-new">  <vue-initials-img :name="auth_user.firstname+' '+auth_user.lastname" class="text-center rounded-circle"   /></span>
+                                      <span class="fileinput-exists">Change</span>
+                                      <input type="file" name="..." multiple   v-on:change="attachPic">
+                                    </span>
+                                    <span class="fileinput-filename"></span>
+                                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                </div>
 
                                   <div class="form-row">
                                       <div class="form-group col-md-6">
@@ -117,7 +127,6 @@
                                    Changes in plans will reflect on 15<sup>th</sup> of every month
                                </p>
 
-
                                <div class="p-t-30">
                                    <button type="submit" class="btn btn-success btn-cta">Save changes</button>
                                </div>
@@ -154,6 +163,7 @@ export default {
    return{
      auth_user:"",
      user:null,
+     image:'',
      isLoading: false,
      fullPage: true,
    }
@@ -169,6 +179,46 @@ export default {
                })
  },
  methods:{
+   getUser(){
+     this.axios.get(`/api/v1/auth/user`)
+                 .then(response => {
+                     this.auth_user = response.data.data
+                     console.log(response)
+                 })
+                 .catch(error => {
+                     console.error(error);
+                 })
+   },
+
+   attachPic(event){
+   this.user = JSON.parse(localStorage.getItem('user'))
+
+   console.log(event)
+   // let files = event.target.files
+   // let filename = event.target.files[0].name
+    this.image = event.target.files[0];
+    this.uploadPic()
+},
+uploadPic(){
+          this.isLoading = true;
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+        var formData = new FormData();
+        formData.append("user_image", this.image)
+        this.axios.post("/api/v1/auth/uploadUserImage", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then(response => {
+          console.log(response);
+             this.isLoading = false;
+             this.$breadstick.notify("Profile Image changed Successfully!", {position: "top-right"});
+             this.getUser()
+
+        })
+
+    },
 
    editUser(){
      this.user = JSON.parse(localStorage.getItem('user'))

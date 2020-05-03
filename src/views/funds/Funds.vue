@@ -18,13 +18,30 @@
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="fe fe-credit-card"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">Capital</p>
+                                <h1 class="fw-400"> <i class=" mdi mdi-currency-ngn"></i>901,555</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-database"></i>
                                     </div>
                                 </div>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">ICT</p>
-                                <h1 class="fw-400">$1,500</h1>
+                                <h1 class="fw-400"> <i class=" mdi mdi-currency-ngn"></i>28,500</h1>
                             </div>
                         </div>
                     </div>
@@ -42,7 +59,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Admin</p>
-                                <h1 class="fw-400">5,200</h1>
+                                <h1 class="fw-400"> <i class=" mdi mdi-currency-ngn"></i>229,200</h1>
                             </div>
                         </div>
                     </div>
@@ -60,7 +77,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Reinsurance</p>
-                                <h1 class="fw-400">5</h1>
+                                <h1 class="fw-400"> <i class=" mdi mdi-currency-ngn"></i>106,000</h1>
                             </div>
                         </div>
                     </div>
@@ -78,24 +95,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Investment</p>
-                                <h1 class="fw-400">21</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <div class="pb-2">
-                                <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-credit-card"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-muted text-overline m-0">Capital</p>
-                                <h1 class="fw-400">21</h1>
+                                <h1 class="fw-400"> <i class=" mdi mdi-currency-ngn"></i>171,000</h1>
                             </div>
                         </div>
                     </div>
@@ -113,14 +113,13 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">FOS</p>
-                                <h1 class="fw-400">21</h1>
+                                <h1 class="fw-400"> <i class=" mdi mdi-currency-ngn"></i>11,000</h1>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-
 
             <div>
                       <div class="container">
@@ -132,7 +131,7 @@
                                               <div class="col-md-6 my-auto">
                                                   <h4 class="m-0">Summary</h4>
                                               </div>
-                                              <div class="col-md-6 text-right my-auto">
+                                              <!-- <div class="col-md-6 text-right my-auto">
                                                   <div class="btn-group" role="group" aria-label="Basic example">
                                                       <button type="button" class="btn btn-white shadow-none js-datepicker"><i
                                                                   class="mdi mdi-calendar"></i> Pick Date
@@ -142,8 +141,7 @@
                                                       <button type="button" class="btn btn-white shadow-none">Paid</button>
                                                       <button type="button" class="btn btn-white shadow-none">UnPaid</button>
                                                   </div>
-
-                                              </div>
+                                              </div> -->
                                           </div>
                                           <div class="row ">
                                               <div class="col-md-12 p-0">
@@ -154,7 +152,7 @@
                                                           <tr>
                                                               <th scope="col">#</th>
                                                               <th scope="col">Date</th>
-                                                              <th scope="col">Invoice Number</th>
+                                                              <!-- <th scope="col">Invoice Number</th> -->
                                                               <th scope="col">Recipient</th>
                                                               <th scope="col">Status</th>
                                                               <th scope="col">Amount</th>
@@ -170,11 +168,11 @@
                                                                   </div>
                                                               </td>
                                                               <td class="align-middle">12-Sept-2018</td>
-                                                              <td class="align-middle">#987121</td>
-                                                              <td class="align-middle">atmos@stripe.com</td>
+                                                              <!-- <td class="align-middle">#987121</td> -->
+                                                              <td class="align-middle">Dove Clinic</td>
                                                               <td class="align-middle"><span class=" text-success"><i
                                                                               class="mdi mdi-check-circle "></i> Paid</span></td>
-                                                              <td class="align-middle"><h6 class=" m-0">$3500</h6></td>
+                                                              <td class="align-middle"><h6 class=" m-0"> <i class=" mdi mdi-currency-ngn"></i>3500</h6></td>
                                                               <td class="align-middle">
                                                                   <div class="input-group ">
                                                                       <div class="input-group-prepend">
@@ -209,8 +207,8 @@
                                                                   </div>
                                                               </td>
                                                               <td class="align-middle">13-Aug-2018</td>
-                                                              <td class="align-middle">#987123</td>
-                                                              <td class="align-middle">thomas@mailchimp.com</td>
+                                                              <!-- <td class="align-middle">#987123</td> -->
+                                                              <td class="align-middle">Hayok Health Clinic</td>
                                                               <td class="align-middle"><span class=" text-danger"><i
                                                                               class="mdi mdi-close-circle "></i> Un-Paid</span>
                                                               </td>
@@ -250,8 +248,8 @@
                                                                   </div>
                                                               </td>
                                                               <td class="align-middle">19-Jan-2019</td>
-                                                              <td class="align-middle">#987118</td>
-                                                              <td class="align-middle">sasha@tinder.com</td>
+                                                              <!-- <td class="align-middle">#987118</td> -->
+                                                              <td class="align-middle">General Hospital Abuja</td>
                                                               <td class="align-middle"><span class=" text-dark"><i
                                                                               class="mdi mdi-watch "></i> Scheduled</span></td>
                                                               <td class="align-middle"><h6 class=" m-0">$5800</h6></td>
@@ -282,7 +280,7 @@
                                                           </tr>
 
 
-                                                        
+
                                                           </tbody>
                                                       </table>
                                                   </div>

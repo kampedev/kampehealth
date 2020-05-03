@@ -75,6 +75,23 @@
                                </div>
                            </div>
                        </div>
+               </div>
+
+               <div class="row">
+                   <div class="col-lg-8 col-md-8">
+                       <div class="card m-b-30">
+                           <div class="card-header">
+                             <!-- <h3 class="p-t-10 searchBy-name text-center">Provider Duocuments</h3> -->
+                             <p><strong>CAC Document:</strong></p>
+                           </div>
+
+                           <div class="card-body">
+
+
+                           </div>
+                       </div>
+                   </div>
+
 
 
                </div>

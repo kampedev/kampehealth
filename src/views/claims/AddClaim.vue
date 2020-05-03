@@ -65,7 +65,9 @@
 
                                                            <div class="form-group col-md-6">
                                                              <label for="inputCity">Seen Date</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="YYYY/MM/DD" v-model="claim.seen_date">
+
+                                                                <datepicker v-model="claim.seen_date" class="form-control"></datepicker>
+
                                                            </div>
                                                            <div class="form-group col-md-6">
                                                              <label for="inputCity">Diagnosis</label>
@@ -165,10 +167,11 @@
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
+     import Datepicker from 'vuejs-datepicker';
 
 export default {
   components: {
-     Navbar, Loading
+     Navbar, Loading, Datepicker
   },
   data(){
     return{

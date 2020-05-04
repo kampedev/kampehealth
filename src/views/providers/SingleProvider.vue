@@ -1,7 +1,7 @@
 <template>
   <section class="admin-content " id="contact-search">
     <Navbar/>
-
+    <div v-for="provider in singleprovider" v-bind:key="provider.id">
        <div class="bg-dark m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
@@ -11,7 +11,7 @@
                            <div class="avatar ">
                            </div>
                        </div>
-                       <h3>Health CLub Clinic</h3>
+                       <h3> {{provider.agency_name}} </h3>
                    </div>
 
 
@@ -47,12 +47,19 @@
                            </div>
 
                            <div class="card-body">
-                             <p><strong>E - Mail:</strong></p>
-                             <p><strong>Phone Number:</strong></p>
-                             <p><strong>State:</strong></p>
-                             <p><strong>Website:</strong></p>
-                             <p><strong>Description:</strong></p>
-                             <p><strong>Total Clients:</strong></p>
+                             <p><strong>E - Mail:</strong>  {{provider.email}}</p>
+                             <p><strong>Phone Number:</strong> {{provider.phone_number}}</p>
+                             <p><strong>State:</strong> {{provider.state}}</p>
+                             <p><strong>Local Government Area:</strong> {{provider.localgovt}}</p>
+                             <p><strong>Website:</strong> {{provider.website}}</p>
+                             <p>
+                               <span v-if="provider.status == 1">
+                                 <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
+                                 </span>
+                                <span v-if="provider.status == 0">
+                                <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
+                              </span>
+                             </p>
 
 
                            </div>
@@ -69,19 +76,18 @@
                                <div class="card-body">
 
                                                              <div class="form-group">
-                                                                 <button class="btn btn-primary">accept</button>
-                                                                 <button class="btn btn-danger spacer">reject</button>
+                                                                 <button class="btn btn-primary" @click="acceptProvider">accept</button>
+                                                                 <button class="btn btn-danger spacer" @click="rejectProvider">reject</button>
                                                              </div>
                                </div>
                            </div>
                        </div>
                </div>
 
-               <div class="row">
+               <!-- <div class="row">
                    <div class="col-lg-8 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
-                             <!-- <h3 class="p-t-10 searchBy-name text-center">Provider Duocuments</h3> -->
                              <p><strong>CAC Document:</strong></p>
                            </div>
 
@@ -92,9 +98,7 @@
                        </div>
                    </div>
 
-
-
-               </div>
+               </div> -->
 
 
 
@@ -110,6 +114,8 @@
             </div>
 
        </section>
+     </div>
+
    </section>
 </template>
 
@@ -129,7 +135,7 @@ export default {
   data(){
     return{
       user:null,
-      providers:"",
+      singleprovider:"",
       agencies:"",
       edit:false,
       isLoading: false,
@@ -139,9 +145,9 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+    this.axios.get(`/api/v1/auth/detailedProviderHmo/${this.$route.params.id}`)
                 .then(response => {
-                    this.providers = response.data.data
+                    this.singleprovider = response.data.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -149,12 +155,11 @@ export default {
                 })
   },
   methods:{
-    getProviders(){
+    getProvider(){
       this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/detailedProviderHmo/${this.$route.params.id}`)
                   .then(response => {
-                      this.providers = response.data.data
+                      this.singleprovider = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -162,6 +167,56 @@ export default {
                   })
     },
 
+    acceptProvider(){
+      if (confirm('Are You Sure You Want to Approve Provider?')) {
+
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.isLoading = true;
+    this.axios.post('/api/v1/auth/approveDisapproveProviderByAgency',{
+        agency_id: this.user.id,
+        provider_id: this.$route.params.id,
+        status: 1
+
+      })
+    .then(response=>{
+        console.log(response);
+        this.$breadstick.notify("Provider Approved!", {position: "top-right"});
+        this.isLoading = false;
+        this.getProvider()
+
+    })
+    .catch(error=>{
+        console.log(error.response)
+        this.isLoading = false;
+
+        })
+      }
+    },
+    rejectProvider(){
+      if (confirm('Are You Sure You Want to Disapprove this Provider?')) {
+
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.isLoading = true;
+    this.axios.post('/api/v1/auth/approveDisapproveProviderByAgency',{
+        agency_id: this.user.id,
+        provider_id: this.$route.params.id,
+        status: 0
+
+      })
+    .then(response=>{
+        console.log(response);
+        this.$breadstick.notify("Provider Disapproved!", {position: "top-right"});
+        this.isLoading = false;
+        this.getProvider()
+
+    })
+    .catch(error=>{
+        console.log(error.response)
+        this.isLoading = false;
+
+        })
+      }
+    },
     clearIt(){
 
       this.agency_id = "";
@@ -170,7 +225,7 @@ export default {
 
   },
   created(){
-    this.getHmo()
+    this.getProvider()
   }
 
 }

@@ -1,7 +1,6 @@
 <template>
   <div class="sidebar-pinned ">
 
-
 <header class="admin-header">
 
     <a href="#" class="sidebar-toggle" data-toggleclass="sidebar-open" data-target="body"> </a>

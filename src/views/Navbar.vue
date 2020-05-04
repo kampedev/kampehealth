@@ -69,7 +69,7 @@
                 <ul class="sub-menu">
 
                     <li class="menu-item">
-                        <a href="/plans" class=" menu-link">
+                        <a href="/add-plan" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">Add Plan
                                                 </span>

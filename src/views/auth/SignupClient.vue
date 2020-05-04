@@ -57,14 +57,13 @@
                               <label for="inputCity">States</label>
 
                                   <select class="form-control"  v-model="state" @change="fetchLga(state)">
-                                   <option v-for="state in states" v-bind:key="state.id" :value="state.name">{{state.name}}</option>
+                                   <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                </select>
                             </div>
                             <div class="form-group col-md-6">
                               <label for="inputCity">LGA</label>
-
                                   <select class="form-control"  v-model="register.localgovt">
-                                   <option v-for="lga in lga_states.lgas" v-bind:key="lga" :value="lga">{{lga}}</option>
+                                   <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                </select>
                             </div>
                           </div>
@@ -75,7 +74,6 @@
                                     <span class="cstm-switch-indicator "></span>
                                     <span class="cstm-switch-description">  I agree to the Terms and Privacy. </span>
                                 </label>
-
 
                             </p> -->
 
@@ -151,7 +149,7 @@ export default {
     getStates(){
       this.axios.get(`/api/v1/auth/states`)
                   .then(response => {
-                      this.states = response.data
+                      this.states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -161,7 +159,7 @@ export default {
     fetchLga(state){
       this.axios.get(`/api/v1/auth/lga/${state.id}`)
                   .then(response => {
-                      this.lga_states = response.data
+                      this.lga_states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {

@@ -13,7 +13,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>My Plans</h3>
+                       <h3>Plans</h3>
                        <div class="form-dark">
                            <!-- <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Employees" type="search"
@@ -32,15 +32,69 @@
                </div>
            </div>
        </div>
-       <section class="">
+       <section class="pull-up">
            <div class="container">
+
                <div class="row list">
+                   <div class="col-lg-12 col-md-8">
+                       <div class="card m-b-30">
+                           <div class="card-header">
+
+                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
+                           </div>
+
+                           <div class="card-body">
+                               <div class="text-center">
+
+                                   <h3 class="p-t-10 searchBy-name">Add Plan</h3>
+                               </div>
+
+                                                        <div class="form-row">
+                                                             <div class="form-group col-md-12">
+                                                                 <label for="inputEmail4">Plan Title</label>
+                                                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Name" v-model="plan.title">
+                                                             </div>
+                                                             <div class="form-group col-md-6">
+                                                                 <label for="inputPassword4">Plan Price</label>
+                                                                 <input type="text" class="form-control" id="inputPassword4"  v-model="plan.cost" >
+                                                             </div>
+                                                         </div>
+
+                                                         <div class="form-row">
+
+                                                             <div class="form-group col-md-6">
+                                                               <label for="inputCity">Plan Interval</label>
+
+                                                                   <select class="form-control"  v-model="plan.plan_inteval">
+                                                                    <option id="yearly">Yearly</option>
+                                                                    <option id="monthly">Monthly</option>
+                                                                    <option id="weekly">Weekly</option>
+                                                                    <option id="daily">Daily</option>
+                                                                </select>
+                                                             </div>
+                                                         </div>
+                                                         <div class="form-group">
+                                                           <label for="inputCity">Plan Description</label>
+
+                                                           <ckeditor :editor="editor" v-model="plan.description" :config="editorConfig"></ckeditor>
+                                                         </div>
+
+                                                         <div class="form-group">
+                                                             <button class="btn btn-primary" @click="addPlan">Submit</button>
+                                                         </div>
+
+                           </div>
+                       </div>
+                   </div>
+
+
+
                    <div class="col-lg-4 col-md-6" v-for="plan in plans" v-bind:key="plan.id">
                        <div class="card m-b-30">
                            <div class="card-header">
 
                                <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#"> <i class="mdi mdi-currency-ngn"></i>{{plan.cost}}</a>
+                                   <a class="badge badge-soft-success" href="#">{{plan.cost}}</a>
 
                                </div>
                            </div>

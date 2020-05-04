@@ -21,6 +21,7 @@ import SingleProvider from '../views/providers/SingleProvider.vue'
 import AddEmployee from '../views/employees/AddEmployee.vue'
 import AddDependents from '../views/dependents/AddDependents.vue'
 import MyDependents from '../views/dependents/MyDependents.vue'
+import AddPlan from '../views/plans/AddPlan.vue'
 import Plans from '../views/plans/Plans.vue'
 import Funds from '../views/funds/Funds.vue'
 import StateDashboard from '../views/shis/StateDashboard.vue'
@@ -32,6 +33,7 @@ import MyComplaints from '../views/complaints/MyComplaints.vue'
 import AddAgency from '../views/providers/AddAgency.vue'
 import Settings from '../views/auth/Settings.vue'
 import ClientFunds from '../views/funds/ClientFunds.vue'
+import SingleTransaction from '../views/funds/SingleTransaction.vue'
 
 Vue.use(VueRouter)
 
@@ -145,7 +147,7 @@ const routes = [
       },
   },
   {
-    path: '/provider',
+    path: '/provider-:id',
     component: SingleProvider,
     meta: {
         requiresAuth: true,
@@ -175,6 +177,13 @@ const routes = [
   {
     path: '/my-dependents',
     component: MyDependents,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/add-plan',
+    component: AddPlan,
     meta: {
         requiresAuth: true,
       },
@@ -238,6 +247,13 @@ const routes = [
   {
     path: '/my-funds',
     component: ClientFunds,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/transaction',
+    component: SingleTransaction,
     meta: {
         requiresAuth: true,
       },

@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Providers</h3>
+                       <h3>Providers </h3>
 
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
@@ -91,7 +91,12 @@
                                                                            class="avatar-img avatar-sm rounded-circle"
                                                                            alt=""></div>
                                    </td> -->
-                                   <td>{{provider.agency_name}}</td>
+                                   <td>
+                                     <router-link :to="{ path: '/provider-' + provider.id }">
+                                     {{provider.agency_name}}
+                                   </router-link>
+
+                                   </td>
                                    <td>{{provider.email}}</td>
                                    <td>{{provider.phone_number}}</td>
                                    <td>

@@ -150,7 +150,6 @@
                                                       <table class="table table-hover">
                                                           <thead class="">
                                                           <tr>
-                                                              <th scope="col">#</th>
                                                               <th scope="col">Date</th>
                                                               <!-- <th scope="col">Invoice Number</th> -->
                                                               <th scope="col">Recipient</th>
@@ -161,38 +160,19 @@
                                                           </thead>
                                                           <tbody>
                                                           <tr>
-                                                              <td class="align-middle">
-                                                                  <div class="avatar avatar-xs ">
-                                                                      <img class="rounded-circle avatar-img"
-                                                                           src="assets/img/logos/stripe.jpg" alt="">
-                                                                  </div>
-                                                              </td>
+
                                                               <td class="align-middle">12-Sept-2018</td>
                                                               <!-- <td class="align-middle">#987121</td> -->
                                                               <td class="align-middle">Dove Clinic</td>
                                                               <td class="align-middle"><span class=" text-success"><i
                                                                               class="mdi mdi-check-circle "></i> Paid</span></td>
-                                                              <td class="align-middle"><h6 class=" m-0"> <i class=" mdi mdi-currency-ngn"></i>3500</h6></td>
+                                                              <td class="align-middle"><h6 class=" m-0"> <i class=" mdi mdi-currency-ngn"></i>3,500</h6></td>
                                                               <td class="align-middle">
                                                                   <div class="input-group ">
                                                                       <div class="input-group-prepend">
-                                                                          <a href="invoice-single.html" class="btn btn-white">View
+                                                                          <a href="/transaction" class="btn btn-white">View
                                                                               Invoice</a>
-                                                                          <button type="button"
-                                                                                  class="btn btn-white dropdown-toggle dropdown-toggle-split rounded-right"
-                                                                                  data-toggle="dropdown" aria-haspopup="true"
-                                                                                  aria-expanded="false">
-                                                                              <span class="sr-only">Toggle Dropdown</span>
-                                                                          </button>
-                                                                          <div class="dropdown-menu dropdown-menu-right">
-                                                                              <a class="dropdown-item" href="#">Action</a>
-                                                                              <a class="dropdown-item" href="#">Another action</a>
-                                                                              <a class="dropdown-item" href="#">Something else
-                                                                                  here</a>
-                                                                              <div role="separator"
-                                                                                   class="dropdown-divider"></div>
-                                                                              <a class="dropdown-item" href="#">Separated link</a>
-                                                                          </div>
+
                                                                       </div>
 
                                                                   </div>
@@ -200,79 +180,40 @@
                                                           </tr>
 
                                                           <tr>
-                                                              <td class="align-middle">
-                                                                  <div class="avatar avatar-xs ">
-                                                                      <img class="rounded-circle avatar-img"
-                                                                           src="assets/img/logos/mailchimp.jpg" alt="">
-                                                                  </div>
-                                                              </td>
+
                                                               <td class="align-middle">13-Aug-2018</td>
                                                               <!-- <td class="align-middle">#987123</td> -->
                                                               <td class="align-middle">Hayok Health Clinic</td>
-                                                              <td class="align-middle"><span class=" text-danger"><i
-                                                                              class="mdi mdi-close-circle "></i> Un-Paid</span>
-                                                              </td>
-                                                              <td class="align-middle"><h6 class=" m-0">$6500</h6></td>
+                                                              <td class="align-middle"><span class=" text-success"><i
+                                                                              class="mdi mdi-check-circle "></i> Paid</span></td>
+                                                              <td class="align-middle"><h6 class=" m-0"><i class="mdi mdi-currency-ngn"></i>6,500</h6></td>
                                                               <td class="align-middle">
                                                                   <div class="input-group ">
                                                                       <div class="input-group-prepend">
-                                                                          <a href="invoice-single.html" class="btn btn-white">View
+                                                                          <a href="/transaction" class="btn btn-white">View
                                                                               Invoice</a>
-                                                                          <button type="button"
-                                                                                  class="btn btn-white dropdown-toggle dropdown-toggle-split rounded-right"
-                                                                                  data-toggle="dropdown" aria-haspopup="true"
-                                                                                  aria-expanded="false">
-                                                                              <span class="sr-only">Toggle Dropdown</span>
-                                                                          </button>
-                                                                          <div class="dropdown-menu dropdown-menu-right">
-                                                                              <a class="dropdown-item" href="#">Action</a>
-                                                                              <a class="dropdown-item" href="#">Another action</a>
-                                                                              <a class="dropdown-item" href="#">Something else
-                                                                                  here</a>
-                                                                              <div role="separator"
-                                                                                   class="dropdown-divider"></div>
-                                                                              <a class="dropdown-item" href="#">Separated link</a>
-                                                                          </div>
+
                                                                       </div>
 
                                                                   </div>
                                                               </td>
                                                           </tr>
 
-
                                                           <tr>
-                                                              <td class="align-middle">
-                                                                  <div class="avatar avatar-xs ">
-                                                                      <img class="rounded-circle avatar-img"
-                                                                           src="assets/img/logos/tinder.jpg" alt="">
-                                                                  </div>
-                                                              </td>
+
                                                               <td class="align-middle">19-Jan-2019</td>
                                                               <!-- <td class="align-middle">#987118</td> -->
                                                               <td class="align-middle">General Hospital Abuja</td>
-                                                              <td class="align-middle"><span class=" text-dark"><i
-                                                                              class="mdi mdi-watch "></i> Scheduled</span></td>
-                                                              <td class="align-middle"><h6 class=" m-0">$5800</h6></td>
+                                                              <td class="align-middle"><span class=" text-success"><i
+                                                                              class="mdi mdi-check-circle "></i> Paid</span></td>
+                                                              <td class="align-middle"><h6 class=" m-0"><i class="mdi mdi-currency-ngn"></i>5,800</h6></td>
                                                               <td class="align-middle">
                                                                   <div class="input-group ">
                                                                       <div class="input-group-prepend">
-                                                                          <a href="invoice-single.html" class="btn btn-white">View
+                                                                          <a href="/transaction" class="btn btn-white">View
                                                                               Invoice</a>
-                                                                          <button type="button"
-                                                                                  class="btn btn-white dropdown-toggle dropdown-toggle-split rounded-right"
-                                                                                  data-toggle="dropdown" aria-haspopup="true"
-                                                                                  aria-expanded="false">
-                                                                              <span class="sr-only">Toggle Dropdown</span>
-                                                                          </button>
-                                                                          <div class="dropdown-menu dropdown-menu-right">
-                                                                              <a class="dropdown-item" href="#">Action</a>
-                                                                              <a class="dropdown-item" href="#">Another action</a>
-                                                                              <a class="dropdown-item" href="#">Something else
-                                                                                  here</a>
-                                                                              <div role="separator"
-                                                                                   class="dropdown-divider"></div>
-                                                                              <a class="dropdown-item" href="#">Separated link</a>
-                                                                          </div>
+
+
                                                                       </div>
 
                                                                   </div>

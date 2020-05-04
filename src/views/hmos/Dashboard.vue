@@ -109,7 +109,7 @@
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
-                                <th>Avatar</th>
+                                <!-- <th>Avatar</th> -->
                                 <th>Name</th>
                                 <th>Position</th>
 
@@ -119,12 +119,12 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>
+                                <!-- <td>
                                     <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
                                                                         class="avatar-img avatar-sm rounded-circle"
                                                                         alt=""></div>
-                                </td>
-                                <td>Tiger Nixon</td>
+                                </td> -->
+                                <td>John Bellion</td>
                                 <td>System Architect</td>
 
                                 <td>2011/04/25</td>
@@ -136,86 +136,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-alert-circle"></i> Providers</h5>
-                    <div class="table-responsive">
-                        <table class="table align-td-middle table-card">
-                            <thead>
-                            <tr>
-                                <!-- <th>Avatar</th> -->
-                                <th>Name</th>
-                                <th>E mail</th>
-                                <th>Contact</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="provider in providers" v-bind:key="provider.id">
-                                <!-- <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td> -->
-                                <td>{{provider.agency_name}}</td>
-                                <td>{{provider.email}}</td>
-                                <td>{{provider.phone_number}}</td>
-                                <td>
-                                  <span v-if="provider.status == 1">
-                                    <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
-                                    </span>
-                                   <span v-if="provider.status == 0">
-                                   <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
-                                </span>
 
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-users"></i> Clients</h5>
-                    <div class="table-responsive">
-                        <table class="table align-td-middle table-card">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>E mail</th>
-                                <th>Phone Number</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="client in clients" v-bind:key="client.id">
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>{{client.firstname}} {{client.lastname}}</td>
-                                <td>{{client.email}}</td>
-
-                                <td>{{client.phone_number}}</td>
-                                <td>
-                                  <span v-if="client.status == 1">
-                                    <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">active</button>
-                                    </span>
-                                   <span v-if="client.status != 1">
-                                   <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">inactive</button>
-                                </span>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
                 <div class="col-md-6 m-b-30">
                     <h5> <i class="fe fe-alert-circle"></i>Claims</h5>
                     <div class="table-responsive">
@@ -232,11 +153,11 @@
                             <tbody>
                             <tr v-for="claim in claims" v-bind:key="claim.id">
                                 <td>
-                                    Leaves Clinic {{claim.provider_id}}
+                                  {{claim.client_name}}
                                 </td>
                                 <td>{{claim.diagnosis}} </td>
                                 <td>{{claim.seen_date}}</td>
-                                <td>{{claim.cost | numeral('0,0.00')}}</td>
+                                <td><i class="mdi mdi-currency-ngn"></i> {{claim.cost | numeral('0,0.00')}}</td>
                                 <td>
                                   <span v-if="claim.status == 1">
                                     <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
@@ -254,6 +175,13 @@
 
                     </div>
                 </div>
+
+            </div>
+
+
+            <div class="row">
+
+
             </div>
         </div>
 

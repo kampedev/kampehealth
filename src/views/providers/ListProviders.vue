@@ -13,7 +13,8 @@
                            </div>
                        </div>
                        <h3>Providers</h3>
-                       <div class="form-dark">
+
+                       <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Providers" type="search"
                                       class="form-control form-control-lg search form-control-prepended">
@@ -23,7 +24,7 @@
                                    </div>
                                </div>
                            </div>
-                       </div>
+                       </div> -->
 
                    </div>
 

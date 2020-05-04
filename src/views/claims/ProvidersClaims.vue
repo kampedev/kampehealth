@@ -13,7 +13,7 @@
                            </div>
                        </div>
                        <h3>Claims</h3>
-                       <div class="form-dark">
+                       <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Claims" type="search"
                                       class="form-control form-control-lg search form-control-prepended">
@@ -23,78 +23,17 @@
                                    </div>
                                </div>
                            </div>
-                       </div>
+                       </div> -->
 
                    </div>
 
                </div>
            </div>
        </div>
-       <section class="pull-up">
+       <section class="">
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
-                           </div>
-
-                           <div class="card-body">
-                               <div class="text-center">
-
-                                   <h3 class="p-t-10 searchBy-name">Add Claim</h3>
-                               </div>
-
-                                                        <div class="form-row">
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputEmail4">Client Name</label>
-                                                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Name" v-model="claim.client_name">
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputPassword4">Select Agency</label>
-                                                                 <select class="form-control"  v-model="claim.agency_id">
-                                                                  <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.agency_name}}</option>
-
-                                                              </select>
-                                                             </div>
-                                                         </div>
-
-                                                         <div class="form-row">
-
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputCity">Seen Date</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="YYYY/DD/MM" v-model="claim.seen_date">
-
-                                                                <!-- <datepicker v-model="claim.seen_date" class="form-control"></datepicker> -->
-
-                                                           </div>
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputCity">Diagnosis</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Diagnosis" v-model="claim.diagnosis">
-                                                           </div>
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputCity">Cost</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Cost of treatment" v-model="claim.cost">
-                                                           </div>
-
-                                                             <div class="form-group col-md-12">
-                                                                 <label for="inputCity">Treatment</label>
-                                                                 <!-- <input type="text" class="form-control" id="inputCity"> -->
-                                                                 <textarea name="name" rows="8" cols="80" class="form-control" v-model="claim.treatment"></textarea>
-                                                             </div>
-
-                                                         </div>
-
-                                                         <div class="form-group">
-                                                             <button class="btn btn-primary" @click="makeClaim">Submit</button>
-                                                         </div>
-
-                           </div>
-                       </div>
-                   </div>
-
 
 
                    <div class="col-lg-4 col-md-6" v-for="claim in claims" v-bind:key="claim.id">
@@ -124,18 +63,17 @@
                                </p>
                                <div class="row text-center p-b-10">
                                    <div class="col">
-                                       <a href="#">
+                                     <a href="#">
                                            <h3 class="fe fe-edit"></h3>
                                            <div class="text-overline">Edit</div>
-
-                                       </a>
+                                         </a>
                                    </div>
                                    <div class="col">
-                                       <a href="#">
+                                     <router-link :to="{ path: '/claim-' + claim.id }">
                                            <h3 class="fe fe-eye"></h3>
                                            <div class="text-overline">View</div>
 
-                                       </a>
+                                         </router-link>
 
                                    </div>
 

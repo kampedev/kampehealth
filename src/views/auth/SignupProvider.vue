@@ -32,6 +32,10 @@
                                   <label>Agency Name</label>
                                   <input type="email" required class="form-control" placeholder="Agency Name" v-model="register.agency_name">
                               </div>
+                              <div class="form-group floating-label col-md-12">
+                                  <label>Agency Name</label>
+                                  <input type="text" required class="form-control" placeholder="User Name" v-model="register.username">
+                              </div>
                                 <div class="form-group floating-label col-md-12">
                                     <label>Email</label>
                                     <input type="email" required class="form-control" placeholder="Email" v-model="register.email">
@@ -132,7 +136,7 @@ export default {
               lastname:"",
               email:"",
               type:"provider",
-              username:"testuser",
+              username:"",
               phone_number:"",
               state:"",
               agency_name:"",

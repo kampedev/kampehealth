@@ -25,6 +25,8 @@ import Plans from '../views/plans/Plans.vue'
 import Funds from '../views/funds/Funds.vue'
 import StateDashboard from '../views/shis/StateDashboard.vue'
 import AddClaim from '../views/claims/AddClaim.vue'
+import ProvidersClaims from '../views/claims/ProvidersClaims.vue'
+import SingleClaim from '../views/claims/SingleClaim.vue'
 import AddComplaint from '../views/complaints/AddComplaint.vue'
 import MyComplaints from '../views/complaints/MyComplaints.vue'
 import AddAgency from '../views/providers/AddAgency.vue'
@@ -194,6 +196,20 @@ const routes = [
   {
     path: '/add-claim',
     component: AddClaim,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/providers-claims',
+    component: ProvidersClaims,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/claim-:id',
+    component: SingleClaim,
     meta: {
         requiresAuth: true,
       },

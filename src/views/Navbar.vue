@@ -389,7 +389,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="/add-claim" class=" menu-link">
+                        <a href="/providers-claims" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">View Claims
                                                 </span>
@@ -441,7 +441,7 @@
                                             </span>
                 </a>
             </li> -->
-            
+
                         <li class="menu-item "  v-if="user.type == 'client'">
                             <a href="#" class="open-dropdown menu-link">
                                     <span class="menu-label">

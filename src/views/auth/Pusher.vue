@@ -39,7 +39,7 @@ export default {
 
                      }
                      if (type == 'shis') {
-                       this.$router.push('/shis-dashboard')
+                       this.$router.push('/state-dashboard')
 
                      }
                      this.$router.go()

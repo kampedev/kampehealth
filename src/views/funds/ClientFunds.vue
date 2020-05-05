@@ -49,6 +49,8 @@
                 <div class="form-row">
                   <button type="button" class="btn m-b-15 ml-2 mr-2 btn-outline-primary" data-toggle="modal"
                           data-target="#exampleModalCenter">Fund Wallet</button>
+
+
                 </div>
 
               </div>
@@ -259,11 +261,11 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <h3>Amount</h3>
+                                                <!-- <h3>Amount</h3> -->
                                                   <div class="form-row">
                                                        <div class="form-group col-md-12">
                                                            <label for="inputEmail4"> Amount</label>
-                                                           <input type="text" class="form-control"  placeholder="0.00" v-model="amount">
+                                                           <input type="text" class="form-control"  placeholder="0.00" v-model="useramount">
                                                        </div>
 
                                                    </div>
@@ -274,16 +276,16 @@
                                                 </button>
 
                                                 <paystack
-                                                       :amount="amount*100"
+                                                       :amount="useramount*100"
                                                        :email="user.email"
                                                        :paystackkey="paystackkey"
                                                        :reference="reference"
                                                        :callback="callback"
                                                        :close="close"
                                                        :embed="false"
-                                                        v-if="amount != ''"
+                                                        v-if="useramount != null"
                                                    >
-                                                   <button type="button" class="btn btn-primary ">Pay </button>
+                                                   <button type="button" class="btn btn-primary ">Pay {{useramount}} </button>
 
                                                    </paystack>
 
@@ -318,7 +320,7 @@ export default {
   data(){
     return{
       wallet:"",
-      amount:"",
+      useramount:"10000",
       paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
       user:null,
       trans:"",
@@ -360,7 +362,7 @@ export default {
        this.user = JSON.parse(localStorage.getItem('user'))
        // this.isLoading = true;
      this.axios.post('/api/v1/auth/fundWallet',{
-         amount: this.amount
+         amount: this.useramount
 
        })
      .then(response=>{

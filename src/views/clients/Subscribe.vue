@@ -74,7 +74,7 @@
                                                                   :embed="false"
                                                                   v-if="agency_id != '' && provider_id != '' && plan_id != ''"
                                                               >
-                                                             <button class="btn btn-primary" >Submit and Proceed to Pay {{single.cost}}</button>
+                                                             <button class="btn btn-primary" >Submit and Proceed to Pay {{amount}}</button>
                                                            </paystack>
 
                                                              <button class="btn btn-primary" disabled v-if="agency_id == '' && provider_id == '' && plan_id == ''">
@@ -162,6 +162,7 @@ export default {
       hmos:"",
       agency_id:"",
       provider_id:"",
+      amount:"",
       plan_id:"",
       paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
       providers:"",
@@ -251,8 +252,8 @@ export default {
     .then(response=>{
         console.log(response);
         this.getMyPlan()
-        this.payForPlan()
-        this.$breadstick.notify("Subscription completed Successfully!", {position: "top-right"});
+        this.fundWallet()
+        this.$breadstick.notify("Subscription initialized", {position: "top-right"});
         this.isLoading = false;
 
     })
@@ -260,6 +261,25 @@ export default {
         console.log(error.response)
     })
   },
+  fundWallet(){
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.isLoading = true;
+  this.axios.post('/api/v1/auth/fundWallet',{
+      amount: this.amount,
+
+    })
+  .then(response=>{
+      console.log(response);
+      this.getMyPlan()
+      this.payForPlan()
+      this.$breadstick.notify("Wallet funded Successfully!", {position: "top-right"});
+      this.isLoading = false;
+
+  })
+  .catch(error=>{
+      console.log(error.response)
+  })
+},
   payForPlan(){
     this.user = JSON.parse(localStorage.getItem('user'))
     this.isLoading = true;
@@ -267,7 +287,7 @@ export default {
   .then(response=>{
       console.log(response);
       this.getMyPlan()
-      this.$breadstick.notify("Payment made Successfully!", {position: "top-right"});
+      this.$breadstick.notify("Subscription completed Successfully!", {position: "top-right"});
       this.isLoading = false;
 
   })

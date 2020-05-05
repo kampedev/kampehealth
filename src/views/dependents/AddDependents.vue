@@ -95,7 +95,7 @@
 
                                                               <!-- <input type="text" class="js-datepicker form-control" placeholder="Select a Date"> -->
                                                               <!-- <datepicker v-model="dependent.dob" class="form-control"></datepicker> -->
-                                                              <input type="text" class="form-control"  placeholder="YYY/MM/DD" v-model="dependent.dob" >
+                                                              <input type="text" class="form-control"  placeholder="YYYY/MM/DD" v-model="dependent.dob" >
 
                                                          </div>
 
@@ -111,15 +111,15 @@
                                                              <label for="inputCity">LGA</label>
 
                                                                  <select class="form-control"  v-model="dependent.lga">
-                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                                                                  <option v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.local_name">{{lga.local_name}}</option>
                                                               </select>
                                                            </div>
                                                          </div>
                                                          <div class="form-group col-md-6">
-                                                           <label for="inputCity">Health Facility</label>
-                                                               <select class="form-control"  v-model="dependent.age">
+                                                           <label for="inputCity">Health Provider</label>
+                                                               <select class="form-control"  v-model="dependent.provider">
 
-                                                                <option  value="7"> 7</option>
+                                                                <option  v-for="provider in providers" v-bind:key="provider.id" :value="provider.id"> {{provider.agency_name}}</option>
 
                                                             </select>
                                                          </div>
@@ -173,6 +173,7 @@ export default {
       isLoading: false,
       fullPage: true,
       states:"",
+      providers:"",
       state:"",
       lga_states:"",
       dependent:{
@@ -183,7 +184,8 @@ export default {
         relationShipType:"",
         sex:"",
         lga:"",
-        dob:""
+        dob:"",
+        provider:""
       }
     }
   },
@@ -224,6 +226,16 @@ export default {
                       console.error(error);
                   })
     },
+    fetchProviders(){
+      this.axios.get(`/api/v1/auth/allProviders`)
+                  .then(response => {
+                      this.providers = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
 
     addDependant(){
 
@@ -243,6 +255,7 @@ export default {
         state: this.state.name,
         lga: this.dependent.lga,
         dob: this.dependent.dob,
+        provider: this.dependent.provider,
       })
 
       .then(response=>{
@@ -303,7 +316,8 @@ export default {
   created(){
     this.getDependents()
     this.getStates()
-    this.getFetchLga()
+    // this.getFetchLga()
+    this.fetchProviders()
   }
 
 }

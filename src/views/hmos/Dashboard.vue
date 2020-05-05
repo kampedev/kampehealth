@@ -24,7 +24,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Revenue</p>
-                                <h1 class="fw-400">&#8358;1,500</h1>
+                                <h1 class="fw-400">&#8358;103,500</h1>
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                                 <th>Position</th>
 
                                 <th>Start date</th>
-                                <th>Salary</th>
+                                <!-- <th>Salary</th> -->
                             </tr>
                             </thead>
                             <tbody>
@@ -128,7 +128,7 @@
                                 <td>System Architect</td>
 
                                 <td>2011/04/25</td>
-                                <td>$320,800</td>
+                                <!-- <td>$320,800</td> -->
                             </tr>
 
                             </tbody>

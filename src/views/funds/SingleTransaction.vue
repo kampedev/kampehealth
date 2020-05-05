@@ -16,11 +16,11 @@
                                    </div>
                                </div>
                                <div class="media-body">
-                                   <div class="opacity-75">To,</div>
-                                   <h4 class="m-b-0">New York Times </h4>
+                                   <!-- <div class="opacity-75">To,</div>
+                                   <h4 class="m-b-0">N  </h4> -->
                                    <p class="opacity-75">
                                       Invoice ID #0047 <br>
-                                       Invoice Date : 02/29/2018
+                                       Invoice Date : 26/03/2020
                                    </p>
                                    <button class="btn btn-white-translucent" id="printDiv" > <i class="mdi
                                    mdi-printer"></i>
@@ -35,13 +35,13 @@
                                    <div class="row">
                                        <div class="col-md-6 my-2 m-md-0">
                                            <div class="text-overline    opacity-75">amount received</div>
-                                           <h3 class="m-0 text-success">$1500</h3>
+                                           <h3 class="m-0 text-success">  <i class="mdi mdi-currency-ngn"></i>7,219.98</h3>
                                        </div>
-                                       <div class="col-md-6 my-2 m-md-0">
+                                       <!-- <div class="col-md-6 my-2 m-md-0">
 
                                            <div class="text-overline    opacity-75">amount pending</div>
                                            <h3 class="m-0 text-danger">$32,590</h3>
-                                       </div>
+                                       </div> -->
                                    </div>
                                </div>
                            </div>
@@ -59,22 +59,22 @@
                                <div class="card-body">
                                    <div class="row">
                                        <div class="col-md-6">
-                                           <img src="assets/img/logos/nytimes.jpg" width="60" class="rounded-circle"
-                                                alt="">
+                                           <!-- <img src="assets/img/logos/nytimes.jpg" width="60" class="rounded-circle"
+                                                alt=""> -->
                                            <address class="m-t-10">
                                                To,<br>
-                                               <span class="h4 font-primary"> New York Times,</span> <br>
-                                               The New York Times Building <br>
+                                               <span class="h4 font-primary"> General Hospital Abuja</span> <br>
+                                               <!-- The New York Times Building <br>
                                                620 Eighth Avenue <br>
-                                               New York City, New York 10018 <br>
+                                               New York City, New York 10018 <br> -->
 
 
                                            </address>
                                        </div>
                                        <div class="col-md-6 text-right my-auto">
-                                           <h1 class="font-primary">INVOICE</h1>
+                                           <h1 class="font-primary">Transaction</h1>
                                            <div class="">Invoice Number: #0047</div>
-                                           <div class="">Date: 02/29/18</div>
+                                           <div class="">Date: 26/03/2020</div>
                                        </div>
                                    </div>
 
@@ -82,80 +82,57 @@
                                        <table class="table m-t-50">
                                            <thead>
                                            <tr>
-                                               <th class="">Task Description</th>
-                                               <th class="text-center">Rate</th>
-                                               <th class="text-center">Hours</th>
-                                               <th class="text-right">Total</th>
+                                               <th class="">Transaction Breakdown</th>
+
+                                               <th class="text-right">Amount</th>
                                            </tr>
                                            </thead>
                                            <tbody>
                                            <tr>
                                                <td class="">
-                                                   <p class="text-black m-0">FrontEnd Development</p>
+                                                   <p class="text-black m-0">Client Name</p>
                                                    <p class="text-muted">
-                                                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                       Usman Hassan
                                                    </p>
                                                </td>
-                                               <td class="text-center">$65.00</td>
-                                               <td class="text-center">120</td>
-                                               <td class="text-right">$7800</td>
+
+                                               <td class="text-right"><i class="mdi mdi-currency-ngn"></i>7,800.00</td>
                                            </tr>
                                            <tr>
                                                <td class="">
-                                                   <p class="text-black m-0">React Native IOS App</p>
+                                                   <p class="text-black m-0">Provider</p>
                                                    <p class="text-muted">
-                                                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                      General Hospital Abuja
                                                    </p>
                                                </td>
-                                               <td class="text-center">$105.00</td>
-                                               <td class="text-center">158</td>
-                                               <td class="text-right">$16,590</td>
+                                               <td class="text-right"><i class="mdi mdi-currency-ngn"></i>0.00</td>
                                            </tr>
                                            <tr>
                                                <td class="">
-                                                   <p class="text-black m-0">Character Illustration
+                                                   <p class="text-black m-0">Description
 
                                                    </p>
                                                    <p class="text-muted">
-                                                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                       This transaction is completed as part of the client's subscription plan
                                                    </p>
                                                </td>
-                                               <td class="text-center">$45.00</td>
-                                               <td class="text-center">100</td>
-                                               <td class="text-right">$4500</td>
-                                           </tr>
 
-                                           <tr>
-                                               <td colspan="3" class="text-right">
-                                                   Total
-                                               </td>
-                                               <td colspan="2" class="text-right">
-                                                   $ 28890
-                                               </td>
-                                           </tr>
-                                           <tr>
-                                               <td colspan="3" class="text-right">
-                                                   Advance
-                                               </td>
-                                               <td colspan="2" class="text-right">
-                                                   - $1500
-                                               </td>
                                            </tr>
 
                                            <tr class="">
-                                               <td colspan="3" class="text-right">
+                                               <td  class="">
                                                    Taxes
                                                </td>
-                                               <td colspan="2" class="text-right">
-                                                   $ 5200.2
+                                               <td  class="text-right">
+                                                   <i class="mdi mdi-currency-ngn"></i>-580.02
                                                </td>
                                            </tr>
                                            <tr class="bg-light">
-                                               <td colspan="3" class="text-right">
+                                               <td  class="">
                                                    Total
                                                </td>
-                                               <td colspan="2" class="text-right">
-                                                   $ 32,590.2
+                                               <td class="text-right">
+                                                    <i class="mdi mdi-currency-ngn"></i>7,219.98
                                                </td>
                                            </tr>
                                            </tbody>
@@ -163,15 +140,11 @@
                                    </div>
                                    <div class="p-t-10 p-b-20">
                                        <p class="text-muted ">
-                                           Services will be invoiced in accordance with the Service Description. You must
-                                           pay all undisputed invoices in full within 30 days of the invoice date, unless
-                                           otherwise specified under the Special Terms and Conditions. All payments must
-                                           reference the invoice number. Unless otherwise specified, all invoices shall be
-                                           paid in the currency of the invoice
+                                           Powered by Hayok Insurance
                                        </p>
                                        <hr>
                                        <div class="text-center opacity-75">
-                                           &copy; atmos 2019
+                                           &copy;  2020
                                        </div>
                                    </div>
                                </div>

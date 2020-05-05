@@ -33,7 +33,7 @@
                                   <div class="" v-if="auth_user.user_image != null ">
                                       <label class="avatar-input">
                                    <span class="avatar avatar-xl">
-                                       <img :src="`http://localhost:8000/image/${auth_user.user_image}`"
+                                       <img :src="`https://hayokinsurance.com/image/${auth_user.user_image}`"
                                             class="avatar-img rounded-circle"   >
                                         <span class="avatar-input-icon rounded-circle">
                                        <i class="mdi mdi-upload mdi-24px"></i>
@@ -110,7 +110,7 @@
 
                           </div>
                       </div>
-                       <div class="card  py-3 m-b-30">
+                       <!-- <div class="card  py-3 m-b-30">
                            <div class="card-body">
                                <h1>CAC Certificate</h1>
 
@@ -118,9 +118,9 @@
                                <button type="submit" class="btn btn-danger btn-cta">Delete</button>
 
                            </div>
-                       </div>
+                       </div> -->
 
-                       <div class="card  py-3 m-b-30">
+                       <!-- <div class="card  py-3 m-b-30">
                            <div class="card-body">
                                <h3 class="">Plans</h3>
                                <p class="text-muted">
@@ -131,7 +131,7 @@
                                    <button type="submit" class="btn btn-success btn-cta">Save changes</button>
                                </div>
                            </div>
-                       </div>
+                       </div> -->
                    </div>
 
                </div>

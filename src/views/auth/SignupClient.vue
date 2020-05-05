@@ -54,7 +54,7 @@
 
                           <div class="row">
                             <div class="form-group col-md-6">
-                              <label for="inputCity">States</label>
+                              <label for="inputCity">States </label>
 
                                   <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                    <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
@@ -168,7 +168,19 @@ export default {
     },
     registerUser(){
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',this.register)
+        this.axios.post('/api/v1/auth/register',{
+          firstname : this.register.firstname,
+          lastname : this.register.lastname,
+          email : this.register.email,
+          phone_number : this.register.phone_number,
+          username : this.register.username,
+          type : this.register.type,
+          state : this.state.name,
+          localgovt : this.register.localgovt,
+          role : this.register.role,
+          password : this.register.password,
+          password_confirmation : this.register.password_confirmation
+        })
         .then(response=>{
           localStorage.setItem('user',JSON.stringify(this.register))
           localStorage.setItem('jwt',response.data.access_token)

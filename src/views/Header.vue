@@ -61,7 +61,23 @@
                    aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-sm avatar-online">
                         <!-- <span class="avatar-title rounded-circle bg-dark">V</span> -->
-                         <vue-initials-img :name="auth_user.firstname+' '+auth_user.lastname" class="text-center rounded-circle" />
+                         <vue-initials-img :name="auth_user.firstname+' '+auth_user.lastname" class="text-center rounded-circle"  v-if="auth_user.user_image == null "/>
+
+                         <div class="" v-if="auth_user.user_image != null ">
+                             <label class="avatar-input">
+                          <span class="avatar avatar-sm">
+                              <img :src="`https://hayokinsurance.com/image/${auth_user.user_image}`"
+                                   class="avatar-img rounded-circle"   >
+                               <span class="avatar-input-icon rounded-circle">
+                              <i class="mdi mdi-upload mdi-24px"></i>
+                          </span>
+                          </span>
+
+                          <!-- <input type="file" name="avatar" class="avatar-file-picker" > -->
+
+                             </label>
+
+                         </div>
 
                     </div>
                 </a>

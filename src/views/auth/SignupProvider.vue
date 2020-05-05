@@ -30,10 +30,10 @@
                               </div>
                               <div class="form-group floating-label col-md-12">
                                   <label>Agency Name</label>
-                                  <input type="email" required class="form-control" placeholder="Agency Name" v-model="register.agency_name">
+                                  <input type="text" required class="form-control" placeholder="Agency Name" v-model="register.agency_name">
                               </div>
                               <div class="form-group floating-label col-md-12">
-                                  <label>Agency Name</label>
+                                  <label>User Name</label>
                                   <input type="text" required class="form-control" placeholder="User Name" v-model="register.username">
                               </div>
                                 <div class="form-group floating-label col-md-12">
@@ -56,22 +56,21 @@
                             </div>
                           </div>
 
-                          <!-- <div class="row">
+                          <div class="row">
                             <div class="form-group col-md-6">
-                              <label for="inputCity">States</label>
+                              <label for="inputCity">States </label>
 
                                   <select class="form-control"  v-model="state" @change="fetchLga(state)">
-                                   <option v-for="state in states" v-bind:key="state.id" :value="state.name">{{state.name}}</option>
+                                   <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                </select>
                             </div>
                             <div class="form-group col-md-6">
                               <label for="inputCity">LGA</label>
-
                                   <select class="form-control"  v-model="register.localgovt">
-                                   <option v-for="lga in lga_states.lgas" v-bind:key="lga" :value="lga">{{lga}}</option>
+                                   <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                </select>
                             </div>
-                          </div> -->
+                          </div>
 
                             <!-- <p class="">
                                 <label class="cstm-switch">
@@ -153,9 +152,9 @@ export default {
   methods:{
 
     getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
+      this.axios.get(`/api/v1/auth/states`)
                   .then(response => {
-                      this.states = response.data
+                      this.states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -163,9 +162,9 @@ export default {
                   })
     },
     fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
+      this.axios.get(`/api/v1/auth/lga/${state.id}`)
                   .then(response => {
-                      this.lga_states = response.data
+                      this.lga_states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -174,7 +173,20 @@ export default {
     },
     registerUser(){
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',this.register)
+        this.axios.post('/api/v1/auth/register',{
+          firstname : this.register.firstname,
+          lastname : this.register.lastname,
+          email : this.register.email,
+          phone_number : this.register.phone_number,
+          username : this.register.username,
+          agency_name : this.register.agency_name,
+          type : this.register.type,
+          state : this.state.name,
+          localgovt : this.register.localgovt,
+          role : this.register.role,
+          password : this.register.password,
+          password_confirmation : this.register.password_confirmation
+        })
         .then(response=>{
           localStorage.setItem('user',JSON.stringify(this.register))
           localStorage.setItem('jwt',response.data.access_token)

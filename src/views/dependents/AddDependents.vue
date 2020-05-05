@@ -94,7 +94,9 @@
                                                            <label for="inputCity">Date of Birth</label>
 
                                                               <!-- <input type="text" class="js-datepicker form-control" placeholder="Select a Date"> -->
-                                                              <datepicker v-model="dependent.dob" class="form-control"></datepicker>
+                                                              <!-- <datepicker v-model="dependent.dob" class="form-control"></datepicker> -->
+                                                              <input type="text" class="form-control"  placeholder="YYY/MM/DD" v-model="dependent.dob" >
+
                                                          </div>
 
                                                          <div class="row">
@@ -117,7 +119,6 @@
                                                            <label for="inputCity">Health Facility</label>
                                                                <select class="form-control"  v-model="dependent.age">
 
-                                                                <!-- <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option> -->
                                                                 <option  value="7"> 7</option>
 
                                                             </select>
@@ -157,12 +158,12 @@
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
-     import Datepicker from 'vuejs-datepicker';
+     // import Datepicker from 'vuejs-datepicker';
 
 
 export default {
   components: {
-     Navbar, Loading, Datepicker
+     Navbar, Loading
   },
   data(){
     return{
@@ -241,7 +242,7 @@ export default {
         phone_number: this.dependent.phone_number,
         state: this.state.name,
         lga: this.dependent.lga,
-        age: '30',
+        dob: this.dependent.dob,
       })
 
       .then(response=>{

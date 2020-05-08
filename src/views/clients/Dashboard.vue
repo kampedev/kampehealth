@@ -38,11 +38,13 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
+                              <router-link :to="{ path: '/my-funds'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-database"></i>
                                     </div>
                                 </div>
+                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Wallet</p>
@@ -56,11 +58,13 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
+                              <router-link :to="{ path: '/my-dependents'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-users"></i>
                                     </div>
                                 </div>
+                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Dependents</p>
@@ -74,11 +78,13 @@
                     <div class="card m-b-30" >
                         <div class="card-body">
                             <div class="pb-2">
+                              <router-link :to="{ path: '/subscribe'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-credit-card"></i>
                                     </div>
                                 </div>
+                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Plan</p>

@@ -15,8 +15,8 @@
     <div class="admin-sidebar-wrapper js-scrollbar">
         <ul class="menu">
 
-            <li class="menu-item active ">
-                <a href="/dashboard" class=" menu-link">
+            <li class="menu-item active " v-if="user.type == 'client'">
+                <a href="/client-dashboard" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Dashboard
                                                 </span>
@@ -27,6 +27,41 @@
                 </a>
             </li>
 
+            <li class="menu-item active " v-if="user.type == 'hmo'">
+                <a href="/hmo-dashboard" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Dashboard
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-home "></i>
+                                            </span>
+                </a>
+            </li>
+
+            <li class="menu-item active " v-if="user.type == 'provider'">
+                <a href="/provider-dashboard" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Dashboard
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-home "></i>
+                                            </span>
+                </a>
+            </li>
+
+            <li class="menu-item active " v-if="user.type == 'shis'">
+                <a href="/state-dashboard" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Dashboard
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-home "></i>
+                                            </span>
+                </a>
+            </li>
 
             <li class="menu-item"  v-if="user.type == 'hmo'">
                 <a href="/fund-manager" class="menu-link">
@@ -156,7 +191,7 @@
                 <ul class="sub-menu">
 
                     <li class="menu-item">
-                        <a href="/add-client" class=" menu-link">
+                        <a href="/add-client-agency" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">Add Client
                                                 </span>
@@ -169,7 +204,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="/add-client" class=" menu-link">
+                        <a href="/view-clients-agency" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">View Clients
                                                 </span>
@@ -200,7 +235,7 @@
                 <ul class="sub-menu">
 
                     <li class="menu-item">
-                        <a href="/add-client" class=" menu-link">
+                        <a href="/add-client-provider" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">Add Client
                                                 </span>
@@ -213,7 +248,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="/add-client" class=" menu-link">
+                        <a href="/view-clients-provider" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">View Clients
                                                 </span>
@@ -407,7 +442,7 @@
             <li class="menu-item active "  v-if="user.type == 'provider'">
                 <a href="add-agency" class=" menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Add Agency
+                                                <span class="menu-name">My Agencies
                                                 </span>
 
                                             </span>

@@ -16,11 +16,13 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
+                              <router-link :to="{ path: '/fund-manager'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-database"></i>
                                     </div>
                                 </div>
+                                </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Revenue</p>
@@ -35,9 +37,11 @@
                         <div class="card-body">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
+                                  <router-link :to="{ path: '/view-clients-agency'}">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-users"></i>
                                     </div>
+                                  </router-link>
                                 </div>
                             </div>
                             <div>
@@ -52,11 +56,13 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
+                              <router-link :to="{ path: '/plans'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-credit-card"></i>
                                     </div>
                                 </div>
+                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Plans</p>
@@ -70,11 +76,13 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
+                              <router-link :to="{ path: '/my-providers'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-credit-card"></i>
                                     </div>
                                 </div>
+                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Providers</p>

@@ -13,29 +13,23 @@
                            </div>
                        </div>
                        <h3>Agencies</h3>
-                       <div class="form-dark">
-                           <div class="input-group input-group-flush mb-3">
-                               <input placeholder="Filter Employees" type="search"
-                                      class="form-control form-control-lg search form-control-prepended">
-                               <div class="input-group-prepend">
-                                   <div class="input-group-text">
-                                       <i class="mdi mdi-magnify"></i>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-
                    </div>
 
 
                </div>
            </div>
        </div>
-       <section class="pull-up">
+
+
+
+       <section class="">
            <div class="container">
+             <div class="container  spacer" >
+               <button class="btn btn-primary" @click="show=!show">Add Agency</button>
+             </div>
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-8" v-show="show">
                        <div class="card m-b-30">
                            <div class="card-header">
 
@@ -156,6 +150,7 @@ export default {
   data(){
     return{
       user:null,
+      show:false,
       hmos:"",
       agencies:"",
       edit:false,
@@ -260,3 +255,8 @@ export default {
 
 }
 </script>
+<style lang="css" scoped>
+  .spacer{
+    margin-bottom:15px;
+  }
+</style>

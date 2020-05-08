@@ -13,7 +13,10 @@ import OnboardClient from '../views/onboarding/OnboardClient.vue'
 import AllDashboard from '../views/Dashboard.vue'
 import Dashboard from '../views/clients/Dashboard.vue'
 import Subscribe from '../views/clients/Subscribe.vue'
-import AddClient from '../views/clients/AddClient.vue'
+import AddClientAgency from '../views/clients/AddClientAgency.vue'
+import AddClientProvider from '../views/clients/AddClientProvider.vue'
+import ViewClientsProvider from '../views/clients/ViewClientsProvider.vue'
+import ViewClientsAgency from '../views/clients/ViewClientsAgency.vue'
 import ProviderDashboard from '../views/providers/Dashboard.vue'
 import HDashboard from '../views/hmos/Dashboard.vue'
 import ListProviders from '../views/providers/ListProviders.vue'
@@ -119,8 +122,29 @@ const routes = [
       },
   },
   {
-    path: '/add-client',
-    component: AddClient,
+    path: '/add-client-agency',
+    component: AddClientAgency,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/add-client-provider',
+    component: AddClientProvider,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/view-clients-provider',
+    component: ViewClientsProvider,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/view-clients-agency',
+    component: ViewClientsAgency,
     meta: {
         requiresAuth: true,
       },

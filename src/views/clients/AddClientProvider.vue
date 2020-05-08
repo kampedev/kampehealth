@@ -12,8 +12,8 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Clients</h3>
-                       <div class="form-dark">
+                       <h3>{{clients.length}} Clients</h3>
+                       <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Clients" type="search"
                                       class="form-control form-control-lg search form-control-prepended">
@@ -23,7 +23,7 @@
                                    </div>
                                </div>
                            </div>
-                       </div>
+                       </div> -->
 
                    </div>
 
@@ -55,13 +55,17 @@
                                                              </div>
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputPassword4">Last Name</label>
-                                                                 <input type="text" class="form-control" v-model="register.lastname"  placeholder="First Name">
+                                                                 <input type="text" class="form-control" v-model="register.lastname"  placeholder="Last Name">
                                                              </div>
                                                          </div>
                                                          <div class="form-row">
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputEmail4">Email</label>
                                                                   <input type="email" class="form-control" v-model="register.email" placeholder="Email">
+                                                              </div>
+                                                              <div class="form-group col-md-6">
+                                                                  <label for="inputEmail4">Username</label>
+                                                                  <input type="email" class="form-control" v-model="register.username" placeholder="Username">
                                                               </div>
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputPassword4">Phone Number</label>
@@ -86,14 +90,6 @@
                                                             </div>
                                                           </div>
 
-                                                          <div class="form-row">
-                                                              <div class="form-group col-md-6">
-                                                                  <label for="inputCity">Ward</label>
-                                                                  <input type="text" class="form-control" v-model="register.ward" placeholder="Ward">
-                                                              </div>
-
-                                                          </div>
-
                                                           <div class="form-group">
                                                              <label for="inputAddress">Address</label>
                                                              <textarea name="name" rows="8" cols="80"  class="form-control" v-model="register.address" placeholder="1234 Main St"></textarea>
@@ -110,55 +106,6 @@
                    </div>
 
 
-
-                   <div class="col-lg-4 col-md-6">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-
-                               <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#">Clerk</a>
-
-                               </div>
-                           </div>
-                           <div class="card-body">
-                               <div class="text-center">
-                                   <div>
-                                       <div class="avatar avatar-xl avatar-away">
-                                           <img class="avatar-img rounded-circle" src="assets/img/users/user-7.jpg"
-                                                alt="name">
-                                       </div>
-                                   </div>
-                                   <h3 class="p-t-10 searchBy-name">Isaac Williams</h3>
-                               </div>
-                               <div class="text-muted text-center m-b-10">
-                                   Okene, Kogi
-                               </div>
-
-                               <p class="text-muted text-center">
-                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet at
-                                   odio quod rem rerum temporibus veniam vero.
-                               </p>
-                               <div class="row text-center p-b-10">
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="fe fe-edit"></h3>
-                                           <div class="text-overline">Edit</div>
-
-                                       </a>
-                                   </div>
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="fe fe-eye"></h3>
-                                           <div class="text-overline">View</div>
-
-                                       </a>
-
-                                   </div>
-
-                               </div>
-                           </div>
-                       </div>
-                   </div>
 
                    <div class="vld-parent">
                         <loading :active.sync="isLoading"
@@ -193,6 +140,7 @@ export default {
       isLoading: false,
       fullPage: true,
       states:"",
+      clients:"",
       state:"",
       lga_states:"",
       register:{
@@ -201,6 +149,7 @@ export default {
                 email:"",
                 phone_number:"",
                 type:"client",
+                username:"",
                 state:"",
                 lga:"",
                 ward:"",
@@ -212,7 +161,17 @@ export default {
 
   },
   methods:{
-
+    getClients(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.id}`)
+                  .then(response => {
+                      this.clients = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
     getStates(){
       this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
                   .then(response => {
@@ -241,6 +200,7 @@ export default {
           email: this.register.email,
           phone_number: this.register.phone_number,
           type: this.register.type,
+          username: this.register.username,
           state: this.state,
           role: 0,
           lga: this.register.lga,
@@ -260,9 +220,11 @@ export default {
 
         })
     }
+
   },
   created(){
     this.getStates()
+    this.getClients()
   }
 
 }

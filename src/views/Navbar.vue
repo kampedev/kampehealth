@@ -336,9 +336,9 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="/add-employee" class=" menu-link">
+                        <a href="/my-employees" class=" menu-link">
                                         <span class="menu-label">
-                                                <span class="menu-name">View Employees
+                                                <span class="menu-name">My Employees
                                                 </span>
                                             </span>
                             <span class="menu-icon">
@@ -380,9 +380,9 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="/add-employee" class=" menu-link">
+                        <a href="/my-employees" class=" menu-link">
                                         <span class="menu-label">
-                                                <span class="menu-name">View Employees
+                                                <span class="menu-name">My Employees
                                                 </span>
                                             </span>
                             <span class="menu-icon">

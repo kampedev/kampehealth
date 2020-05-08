@@ -112,11 +112,11 @@
 
             <div class="row">
                 <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-users"></i> Employees</h5>
+                    <h5> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
-                            <tr>
+                            <tr >
                                 <!-- <th>Avatar</th> -->
                                 <th>Name</th>
                                 <th>Position</th>
@@ -126,17 +126,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <!-- <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td> -->
-                                <td>John Bellion</td>
-                                <td>System Architect</td>
+                            <tr v-for="employee in employees" v-bind:key="employee.id">
 
-                                <td>2011/04/25</td>
-                                <!-- <td>$320,800</td> -->
+                                <td>{{employee.firstname}} {{employee.lastname}}</td>
+                                <td>{{employee.job_title}}</td>
+                                <td>{{employee.email}}</td>
                             </tr>
 
                             </tbody>
@@ -146,7 +140,7 @@
                 </div>
 
                 <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-alert-circle"></i>Claims</h5>
+                    <h5> <i class="fe fe-alert-circle"></i>{{claims.length}} Claims</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
@@ -214,6 +208,7 @@ export default {
       providers:"",
       clients:"",
       claims:"",
+      employees:"",
       plans:"",
 
     }
@@ -235,6 +230,18 @@ export default {
       this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
                   .then(response => {
                       this.providers = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    getEmployees(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+                  .then(response => {
+                      this.employees = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -280,6 +287,7 @@ export default {
     this.getClaims()
     this.getPlans()
     this.getClients()
+    this.getEmployees()
   }
 }
 </script>

@@ -92,12 +92,11 @@
 
             <div class="row">
                 <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-users"></i> Employees</h5>
+                    <h5> <i class="fe fe-users"></i>{{employees.length}}  Employees</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
-                                <th>Avatar</th>
                                 <th>Name</th>
                                 <th>Position</th>
 
@@ -106,17 +105,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
+                            <tr v-for="employee in employees" v-bind:key="employee.id">
+                                <!-- <td>
                                     <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
                                                                         class="avatar-img avatar-sm rounded-circle"
                                                                         alt=""></div>
-                                </td>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
+                                </td> -->
+                                <td>{{employee.firstname}} {{employee.lastname}}</td>
+                                <td>{{employee.email}}</td>
+                                <td>{{employee.phone_number}}</td>
+                                <td>{{employee.job_title}}</td>
 
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
                             </tr>
 
 
@@ -268,6 +267,7 @@ export default {
       agencies:"",
       claims:"",
       clients:"",
+      employees:"",
     }
   },
   beforeMount(){
@@ -281,6 +281,17 @@ export default {
                 })
   },
   methods:{
+    getEmployees(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+                  .then(response => {
+                      this.employees = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
     getHmo(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/hmoProvider/${this.user.id}`)
@@ -320,6 +331,7 @@ export default {
     this.getHmo()
     this.getClaims()
     this.getClients()
+    this.getEmployees()
 
   }
 }

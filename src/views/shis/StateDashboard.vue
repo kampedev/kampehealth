@@ -10,21 +10,23 @@
 
             <div class="row">
                 <div class="col-12 m-b-20">
-                    <h5 class="spacer-top">Welcome, Zamfara Health Insurance Scheme</h5>
+                    <h5 class="spacer-top">Hello, {{auth_user.agency_name}}</h5>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
+                              <router-link :to="{ path: '/fund-manager'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-database"></i>
                                     </div>
                                 </div>
+                                </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Revenue</p>
-                                <h1 class="fw-400">$1,500</h1>
+                                <h1 class="fw-400">&#8358;103,500</h1>
                             </div>
                         </div>
                     </div>
@@ -35,14 +37,16 @@
                         <div class="card-body">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
+                                  <router-link :to="{ path: '/view-clients-agency'}">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-users"></i>
                                     </div>
+                                  </router-link>
                                 </div>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Clients</p>
-                                <h1 class="fw-400">5,200</h1>
+                                <h1 class="fw-400">{{clients.length}}</h1>
                             </div>
                         </div>
                     </div>
@@ -52,15 +56,17 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
+                              <router-link :to="{ path: '/plans'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-credit-card"></i>
                                     </div>
                                 </div>
+                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Plans</p>
-                                <h1 class="fw-400">5</h1>
+                                <h1 class="fw-400">{{plans.length}}</h1>
                             </div>
                         </div>
                     </div>
@@ -70,15 +76,17 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
+                              <router-link :to="{ path: '/my-providers'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-credit-card"></i>
                                     </div>
                                 </div>
+                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Providers</p>
-                                <h1 class="fw-400">21</h1>
+                                <h1 class="fw-400">{{providers.length}}</h1>
                             </div>
                         </div>
                     </div>
@@ -104,161 +112,63 @@
 
             <div class="row">
                 <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-users"></i> Employees</h5>
+                    <h5> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
-                            <tr>
-                                <th>Avatar</th>
+                            <tr >
+                                <!-- <th>Avatar</th> -->
                                 <th>Name</th>
                                 <th>Position</th>
 
                                 <th>Start date</th>
-                                <th>Salary</th>
+                                <!-- <th>Salary</th> -->
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
+                            <tr v-for="employee in employees" v-bind:key="employee.id">
 
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
+                                <td>{{employee.firstname}} {{employee.lastname}}</td>
+                                <td>{{employee.job_title}}</td>
+                                <td>{{employee.email}}</td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-2.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-3.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
-
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-5.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-
-                                <td>2008/11/28</td>
-                                <td>$162,700</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-6.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Brielle Williamson</td>
-                                <td>Integration Specialist</td>
-
-                                <td>2012/12/02</td>
-                                <td>$372,000</td>
-                            </tr>
-
 
                             </tbody>
                         </table>
 
                     </div>
                 </div>
+
                 <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-alert-circle"></i> Providers</h5>
+                    <h5> <i class="fe fe-alert-circle"></i>{{claims.length}} Claims</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
-                                <th>Avatar</th>
                                 <th>Name</th>
-                                <th>Position</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Diagnosis</th>
+                                <th>Seen date</th>
+                                <th>Cost</th>
+                                <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr v-for="claim in claims" v-bind:key="claim.id">
                                 <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
+                                  {{claim.client_name}}
                                 </td>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                            </tr>
-                            <tr>
+                                <td>{{claim.diagnosis}} </td>
+                                <td>{{claim.seen_date}}</td>
+                                <td><i class="mdi mdi-currency-ngn"></i> {{claim.cost | numeral('0,0.00')}}</td>
                                 <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-2.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
+                                  <span v-if="claim.status == 1">
+                                    <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
+                                    </span>
+                                   <span v-if="claim.status != 1">
+                                   <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
+                                </span>
+
                                 </td>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-3.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
-
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-5.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-
-                                <td>2008/11/28</td>
-                                <td>$162,700</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-6.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Brielle Williamson</td>
-                                <td>Integration Specialist</td>
-
-                                <td>2012/12/02</td>
-                                <td>$372,000</td>
                             </tr>
 
 
@@ -267,179 +177,18 @@
 
                     </div>
                 </div>
+
             </div>
 
+
             <div class="row">
-                <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-users"></i> Clients</h5>
-                    <div class="table-responsive">
-                        <table class="table align-td-middle table-card">
-                            <thead>
-                            <tr>
-                                <th>Avatar</th>
-                                <th>Name</th>
-                                <th>Position</th>
-
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-2.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-3.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
-
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-5.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-
-                                <td>2008/11/28</td>
-                                <td>$162,700</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-6.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Brielle Williamson</td>
-                                <td>Integration Specialist</td>
-
-                                <td>2012/12/02</td>
-                                <td>$372,000</td>
-                            </tr>
 
 
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-                <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-alert-circle"></i>Pending Claims</h5>
-                    <div class="table-responsive">
-                        <table class="table align-td-middle table-card">
-                            <thead>
-                            <tr>
-                                <th>Avatar</th>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-2.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-3.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
-
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-5.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-
-                                <td>2008/11/28</td>
-                                <td>$162,700</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-6.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>Brielle Williamson</td>
-                                <td>Integration Specialist</td>
-
-                                <td>2012/12/02</td>
-                                <td>$372,000</td>
-                            </tr>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
             </div>
         </div>
 
     </section>
 </main>
-
 
     </div>
 
@@ -453,16 +202,92 @@ export default {
      Navbar
   },
   data(){
+    return{
+      user:null,
+      auth_user:"",
+      providers:"",
+      clients:"",
+      claims:"",
+      employees:"",
+      plans:"",
 
+    }
   },
   beforeMount(){
-
+    this.axios.get(`/api/v1/auth/user`)
+                .then(response => {
+                    this.auth_user = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
   },
   methods:{
+    getProviders(){
+      this.user = JSON.parse(localStorage.getItem('user'))
 
+      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+                  .then(response => {
+                      this.providers = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    getEmployees(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+                  .then(response => {
+                      this.employees = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    getClaims(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getClaims/${this.user.id}`)
+                  .then(response => {
+                      this.claims = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    getPlans(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/planAgency/${this.user.id}`)
+                  .then(response => {
+                      this.plans = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    getClients(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
+                  .then(response => {
+                      this.clients = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    }
   },
   created(){
-
+    this.getProviders()
+    this.getClaims()
+    this.getPlans()
+    this.getClients()
+    this.getEmployees()
   }
 }
 </script>

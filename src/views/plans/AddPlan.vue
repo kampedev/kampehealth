@@ -115,11 +115,11 @@
                                </p>
                                <div class="row text-center p-b-10">
                                    <div class="col">
-                                       <a href="#">
+                                       <button @click="editPlan(plan)">
                                            <h3 class="fe fe-edit"></h3>
                                            <div class="text-overline">Edit</div>
 
-                                       </a>
+                                       </button>
                                    </div>
                                    <div class="col">
                                        <a href="#">
@@ -176,6 +176,7 @@ export default {
       fullPage: true,
       plans:"",
       plan:{
+        id:"",
         agency_id:"",
         title:"",
         description:"",
@@ -240,33 +241,45 @@ export default {
               }else {
               // Update
               this.isLoading = true;
-              this.axios.put('/api/v1/auth/addPlan',{
+              this.axios.put(`/api/v1/auth/editPlan/${this.plan.id}`,{
 
-                topic_id: this.topic.id,
-                topic_name: this.topic.topic_name,
-                // module_id: this.course.id,
-                module_id: this.$route.params.id,
-                topic_content: this.topic.topic_content,
-                video: this.topic.video,
-                audio: this.audio,
-                doc: this.doc,
+                agency_id: this.user.id,
+                title: this.plan.title,
+                description: this.plan.description,
+                plan_inteval: this.plan.plan_inteval,
+                cost: this.plan.cost
 
               })
 
               .then(response=>{
                   console.log(response);
                   this.clearIt();
-                  this.fetchModule();
-                  this.edit = true;
+                  this.edit = false;
                   this.isLoading = false;
-                  this.$toasted.global.crudUpdated().goAway(1500);
+                  this.getPlans();
+                  this.$breadstick.notify("Updated Plan Successfuly!", {position: "top-right"});
+
 
               })
               .catch(error=>{
                   console.log(error.response)
+                  this.isLoading = false;
+
               })
 
               }
+            },
+            editPlan(plan) {
+              this.edit = true;
+              // this.plan.id = topic.id;
+              // this.topic.topic_id = topic.id;
+              this.plan.id = plan.id;
+              this.plan.agency_id = plan.agency_id;
+              this.plan.title = plan.title;
+              this.plan.description = plan.description;
+              this.plan.plan_inteval = plan.plan_inteval;
+              this.plan.cost = plan.cost;
+
             },
             clearIt(){
 

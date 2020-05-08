@@ -12,18 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Employees</h3>
-                       <div class="form-dark">
-                           <div class="input-group input-group-flush mb-3">
-                               <input placeholder="Filter Employees" type="search"
-                                      class="form-control form-control-lg search form-control-prepended">
-                               <div class="input-group-prepend">
-                                   <div class="input-group-text">
-                                       <i class="mdi mdi-magnify"></i>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
+                       <h3> {{employees.length}} Employees</h3>
 
                    </div>
 
@@ -112,54 +101,6 @@
 
 
 
-                   <div class="col-lg-4 col-md-6">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-
-                               <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#">Clerk</a>
-
-                               </div>
-                           </div>
-                           <div class="card-body">
-                               <div class="text-center">
-                                   <div>
-                                       <div class="avatar avatar-xl avatar-away">
-                                           <img class="avatar-img rounded-circle" src="assets/img/users/user-7.jpg"
-                                                alt="name">
-                                       </div>
-                                   </div>
-                                   <h3 class="p-t-10 searchBy-name">Isaac Williams</h3>
-                               </div>
-                               <div class="text-muted text-center m-b-10">
-                                   Okene, Kogi
-                               </div>
-
-                               <p class="text-muted text-center">
-                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet at
-                                   odio quod rem rerum temporibus veniam vero.
-                               </p>
-                               <div class="row text-center p-b-10">
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="fe fe-edit"></h3>
-                                           <div class="text-overline">Edit</div>
-
-                                       </a>
-                                   </div>
-                                   <div class="col">
-                                       <a href="#">
-                                           <h3 class="fe fe-eye"></h3>
-                                           <div class="text-overline">View</div>
-
-                                       </a>
-
-                                   </div>
-
-                               </div>
-                           </div>
-                       </div>
-                   </div>
 
                    <div class="vld-parent">
                         <loading :active.sync="isLoading"
@@ -194,6 +135,7 @@ export default {
       isLoading: false,
       fullPage: true,
       states:"",
+      employees:"",
       state:"",
       lga_states:"",
       register:{
@@ -213,9 +155,29 @@ export default {
     }
   },
   beforeMount(){
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+                .then(response => {
+                    this.employees = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
 
   },
   methods:{
+    getEmployees(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+                  .then(response => {
+                      this.employees = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
 
     getStates(){
       this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
@@ -249,6 +211,7 @@ export default {
           username: this.register.username,
           state: this.state,
           institutional_id: this.user.id,
+          job_title: this.register.job_title,
           role: 0,
           lga: this.register.lga,
           ward: this.register.ward,
@@ -258,6 +221,7 @@ export default {
             console.log(response);
             this.isLoading = false;
             this.$breadstick.notify("Employee added successfully", {position: "top-right"});
+            this.getEmployees()
 
         })
         .catch(error=>{

@@ -104,7 +104,9 @@
                 <div class="col-md-12">
                     <div class="card m-b-30">
                       <div class="card-body">
-                          <div class="apexcharts-canvas" id="chart-06"></div>
+                          <!-- <div class="apexcharts-canvas" id="chart-06"></div> -->
+                          <zingchart :data="chartData" ></zingchart>
+
                       </div>
                     </div>
                 </div>
@@ -210,6 +212,15 @@ export default {
       claims:"",
       employees:"",
       plans:"",
+      chartData: {
+                type: 'line',
+                title: {
+                    text: 'New Users',
+                },
+                series: [{
+                    values: [14,10,13,8,12,14]
+                }]
+            },
 
     }
   },

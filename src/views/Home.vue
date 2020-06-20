@@ -86,7 +86,7 @@
     >
       <div
         class="absolute top-0 w-full h-full bg-center bg-cover"
-        style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'
+        style='background-image: url("/assets/img/hero-image1.jpg");'
       >
         <span
           id="blackOverlay"
@@ -222,7 +222,7 @@
             >
               <img
                 alt="..."
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1051&amp;q=80"
+                src="/assets/img/teamwork.jpg"
                 class="w-full align-middle rounded-t-lg"
               />
               <blockquote class="relative p-8 mb-4">

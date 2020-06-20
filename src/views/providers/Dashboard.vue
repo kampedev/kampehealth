@@ -84,10 +84,14 @@
                 <div class="col-md-12">
                     <div class="card m-b-30">
                       <div class="card-body">
-                          <div class="apexcharts-canvas" id="chart-06"></div>
+
+                        <zingchart :data="chartData" ></zingchart>
+
+                          <!-- <div class="apexcharts-canvas" id="chart-06"></div> -->
                       </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="row">
@@ -268,6 +272,16 @@ export default {
       claims:"",
       clients:"",
       employees:"",
+      chartData: {
+                type: 'line',
+                title: {
+                    text: 'Overall Visitors',
+                },
+                series: [{
+                    values: [11,15,7,13,12,14]
+                }]
+            },
+
     }
   },
   beforeMount(){

@@ -521,6 +521,51 @@
                             </ul>
                         </li>
 
+                        <li class="menu-item "  v-if="user.type == 'provider'">
+                            <a href="#" class="open-dropdown menu-link">
+                                    <span class="menu-label">
+                                                            <span class="menu-name">EHR
+                                                                <span class="menu-arrow"></span>
+                                                            </span>
+
+                                                        </span>
+                                <span class="menu-icon">
+                                                             <i class="icon-placeholder fe fe-activity"></i>
+                                                        </span>
+                            </a>
+                            <!--submenu-->
+                            <ul class="sub-menu">
+
+                                <li class="menu-item">
+                                    <a href="/add-record" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Add Record
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder fe fe-edit "></i>
+                                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="menu-item">
+                                    <a href="/provider-records" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Client's Records
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder mdi mdi-view-day "></i>
+                                                        </span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
         </ul>
 
     </div>

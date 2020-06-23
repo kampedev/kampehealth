@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>{{clients.length}} Clients</h3>
+                       <h3>My Records</h3>
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Clients" type="search"
@@ -45,33 +45,24 @@
                                      <thead>
                                      <tr>
                                          <!-- <th>Avatar</th> -->
-                                         <th>Name</th>
-                                         <th>E mail</th>
-                                         <th>Phone Number</th>
-                                         <th>State/LGA</th>
-                                         <th>Status</th>
+                                         <!-- <th>Name</th> -->
+                                         <th>Dr. Visited</th>
+                                         <th>Reason for Visit</th>
+                                         <th>Date</th>
                                      </tr>
                                      </thead>
                                      <tbody>
-                                     <tr v-for="client in clients" v-bind:key="client.id">
+                                     <tr v-for="record in records" v-bind:key="record.id">
                                          <!-- <td>
                                              <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
                                                                                  class="avatar-img avatar-sm rounded-circle"
                                                                                  alt=""></div>
                                          </td> -->
-                                         <td >{{client.firstname}} {{client.lastname}}</td>
-                                         <td>{{client.email}}</td>
-                                         <td>{{client.phone_number}}</td>
-                                         <td>{{client.state}}/{{client.localgovt}}</td>
-                                         <td>
-                                           <span v-if="client.status == 1">
-                                             <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
-                                             </span>
-                                            <span v-if="client.status != 1">
-                                            <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
-                                           </span>
+                                         <!-- <td >{{client.firstname}} {{client.lastname}}</td> -->
+                                         <td>{{record.drVisited}}</td>
+                                         <td>{{record.reasonVisit}}</td>
+                                         <td>{{record.created_at}}</td>
 
-                                         </td>
                                      </tr>
 
 
@@ -120,7 +111,7 @@ export default {
       isLoading: false,
       fullPage: true,
       states:"",
-      clients:"",
+      records:"",
       state:"",
       lga_states:"",
       register:{
@@ -138,40 +129,29 @@ export default {
     }
   },
   beforeMount(){
-
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.axios.get(`/api/v1/auth/gethealthRecord`)
+                .then(response => {
+                    this.records = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
   },
   methods:{
-    getClients(){
+    getRecords(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/gethealthRecord`)
                   .then(response => {
-                      this.clients = response.data.data
+                      this.records = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
-                  .then(response => {
-                      this.states = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
-                  .then(response => {
-                      this.lga_states = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
+
     registerUser(){
         this.isLoading = true;
         this.axios.post('/api/v1/auth/register',{
@@ -203,8 +183,7 @@ export default {
 
   },
   created(){
-    this.getStates()
-    this.getClients()
+    this.getRecords()
   }
 
 }

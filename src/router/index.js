@@ -35,7 +35,7 @@ import SingleClaim from '../views/claims/SingleClaim.vue'
 import AddComplaint from '../views/complaints/AddComplaint.vue'
 import MyComplaints from '../views/complaints/MyComplaints.vue'
 import AddRecord from '../views/ehr/AddRecord.vue'
-import ProviderRecords from '../views/ehr/ProviderRecords.vue'
+import MyRecords from '../views/ehr/MyRecords.vue'
 import AddAgency from '../views/providers/AddAgency.vue'
 import Settings from '../views/auth/Settings.vue'
 import ClientFunds from '../views/funds/ClientFunds.vue'
@@ -279,8 +279,8 @@ const routes = [
       },
   },
   {
-    path: '/provider-records',
-    component: ProviderRecords,
+    path: '/my-records',
+    component: MyRecords,
     meta: {
         requiresAuth: true,
       },

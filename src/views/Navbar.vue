@@ -439,7 +439,7 @@
                 </ul>
             </li>
 
-            <li class="menu-item active "  v-if="user.type == 'provider'">
+            <li class="menu-item  "  v-if="user.type == 'provider'">
                 <a href="add-agency" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">My Agencies
@@ -451,7 +451,7 @@
                                             </span>
                 </a>
             </li>
-            <li class="menu-item active "  v-if="user.type == 'hmo'">
+            <li class="menu-item  "  v-if="user.type == 'hmo'">
                 <a href="my-providers" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">My Providers
@@ -550,7 +550,7 @@
                                 </li>
 
                                 <li class="menu-item">
-                                    <a href="/provider-records" class=" menu-link">
+                                    <a href="/my-records" class=" menu-link">
                                                     <span class="menu-label">
                                                             <span class="menu-name">Client's Records
                                                             </span>

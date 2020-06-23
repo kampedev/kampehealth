@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Make a Complaint</h3>
+                       <h3>Add Record</h3>
 
                    </div>
 
@@ -33,7 +33,7 @@
                            <div class="card-body">
                                <div class="text-center">
 
-                                   <h3 class="p-t-10 searchBy-name">Add Complaint</h3>
+                                   <h3 class="p-t-10 searchBy-name">Add Record</h3>
                                </div>
 
                                                         <div class="form-row">
@@ -41,29 +41,28 @@
                                                                  <!-- <input type="text" class="form-control" id="inputEmail4" placeholder="Name" v-model="complaint.title"> -->
 
                                                                  <label for="inputCity">Select Patient</label>
-                                                                     <select class="form-control" v-model="complaint.type">
-                                                                      <option id="Quality of Service">General Consultation</option>
-                                                                      <option id="Financial Issue">Laboratory Test</option>
-                                                                      <option id="Administrative">Regular Check ups</option>
+                                                                     <select class="form-control" v-model="record.patient_id">
+                                                                      <option v-for="client in clients" v-bind:key="client.id" :value="client.id">{{client.firstname}} {{client.lastname}}</option>
+
                                                                   </select>
                                                              </div>
                                                              <div class="form-group col-md-6">
                                                                <label for="inputCity">Reason for Visit</label>
 
-                                                                   <select class="form-control" v-model="complaint.type">
-                                                                    <option id="Quality of Service">General Consultation</option>
-                                                                    <option id="Financial Issue">Laboratory Test</option>
-                                                                    <option id="Administrative">Regular Check ups</option>
+                                                                   <select class="form-control" v-model="record.reasonVisit">
+                                                                    <option value="General Consultation">General Consultation</option>
+                                                                    <option value="Laboratory Test">Laboratory Test</option>
+                                                                    <option value="Regular Check ups">Regular Check ups</option>
                                                                 </select>
                                                              </div>
 
                                                              <div class="form-group col-md-6">
                                                                <label for="inputCity">Doctor Visited</label>
 
-                                                                   <select class="form-control" v-model="complaint.type">
-                                                                    <option id="Quality of Service">Dr. Ibrahim Yakubu</option>
-                                                                    <option id="Financial Issue">Dr. Mairo Jpseph</option>
-                                                                    <option id="Administrative">Dr. Umar Mohammed</option>
+                                                                   <select class="form-control" v-model="record.drVisited">
+                                                                    <option value="Dr. Ibrahim Yakubu">Dr. Ibrahim Yakubu</option>
+                                                                    <option value="Dr. Grema Yahaya">Dr. Grema Yahaya</option>
+                                                                    <option value="Dr. Umar Mohammed">Dr. Umar Mohammed</option>
                                                                 </select>
                                                              </div>
 
@@ -80,10 +79,17 @@
                                                          </div>
 
                                                          <div class="form-row">
+                                                             <div class="form-group col-md-12" v-if="record.reasonVisit == 'Laboratory Test' ">
+                                                                 <label for="inputCity">Test Record</label>
+                                                                 <!-- <ckeditor :editor="editor" v-model="complaint.description" :config="editorConfig"></ckeditor> -->
+                                                                 <textarea class="form-control" rows="6" v-model="record.testResult" ></textarea>
+
+                                                             </div>
+
                                                              <div class="form-group col-md-12">
                                                                  <label for="inputCity">Consultation Notes</label>
                                                                  <!-- <ckeditor :editor="editor" v-model="complaint.description" :config="editorConfig"></ckeditor> -->
-                                                                 <textarea class="form-control" rows="6" v-model="complaint.description" ></textarea>
+                                                                 <textarea class="form-control" rows="6" v-model="record.medications" ></textarea>
 
                                                              </div>
 
@@ -91,7 +97,7 @@
                                                          </div>
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary" @click="AddComplaint">Submit</button>
+                                                             <button class="btn btn-primary" @click="AddRecord">Submit</button>
                                                          </div>
 
                            </div>
@@ -136,54 +142,55 @@ export default {
       edit:false,
       isLoading: false,
       fullPage: true,
-      complaints:"",
-      complaint:{
-        title:"",
-        description:"",
-        type:""
+      clients:"",
+      record:{
+        provider_id:"",
+        patient_id:"",
+        reasonVisit:"",
+        drVisited:"",
+        testResult:"no test conducted",
+        documents:"no document uploaded",
+        medications:"",
       }
     }
   },
   beforeMount(){
-
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.id}`)
+                .then(response => {
+                    this.clients = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
   },
   methods:{
 
-    getComplaints(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/complaints/${this.user.id}`)
-                  .then(response => {
-                      this.complaints = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-
-        AddComplaint(){
+        AddRecord(){
 
           this.user = JSON.parse(localStorage.getItem('user'))
 
           if (this.edit === false) {
           // Add comp
           this.isLoading = true;
-          this.axios.post('/api/v1/auth/makeComplaints',{
+          this.axios.post('/api/v1/auth/addHealthRecord',{
 
-            title: this.complaint.title,
-            description: this.complaint.description,
-            type: this.complaint.type,
-            status: 'unanswered'
+            provider_id: this.user.id,
+            patient_id: this.record.patient_id,
+            reasonVisit: this.record.reasonVisit,
+            testResult: this.record.testResult,
+            drVisited: this.record.drVisited,
+            medications: this.record.medications,
+            documents: this.record.documents,
 
           })
 
           .then(response=>{
               console.log(response);
               this.clearIt();
-              this.getComplaints();
               this.isLoading = false;
-              this.$breadstick.notify("Complaint added Successfuly!", {position: "top-right"});
+              this.$breadstick.notify("Record added Successfuly!", {position: "top-right"});
 
 
           })
@@ -221,17 +228,29 @@ export default {
 
           }
         },
+        getClients(){
+          this.user = JSON.parse(localStorage.getItem('user'))
+          this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.id}`)
+                      .then(response => {
+                          this.clients = response.data.data
+                          console.log(response)
+                      })
+                      .catch(error => {
+                          console.error(error);
+                      })
+        },
 
         clearIt(){
-          this.complaint.title = "";
-          this.complaint.description = "";
-          this.complaint.type = "";
-          // this.dependent.phone_number ="";
+          this.record.patient_id = "";
+          this.record.drVisited = "";
+          this.record.medications = "";
+          this.record.reasonVisit ="";
+          this.record.testResult ="";
         },
 
   },
   created(){
-    this.getComplaints()
+//
   }
 
 }

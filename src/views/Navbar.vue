@@ -310,7 +310,7 @@
             <li class="menu-item "  v-if="user.type == 'hmo'">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Employees
+                                                <span class="menu-name">HR Management
                                                     <span class="menu-arrow"></span>
                                                 </span>
 
@@ -354,7 +354,7 @@
             <li class="menu-item "  v-if="user.type == 'provider'">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Employees
+                                                <span class="menu-name">HR Management
                                                     <span class="menu-arrow"></span>
                                                 </span>
 
@@ -383,6 +383,50 @@
                         <a href="/my-employees" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">My Employees
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="menu-item "  v-if="user.type == 'provider'">
+                <a href="#" class="open-dropdown menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Inventory Management
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-clipboard "></i>
+                                            </span>
+                </a>
+                <!--submenu-->
+                <ul class="sub-menu">
+
+                    <li class="menu-item">
+                        <a href="/add-inventory" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">Add inventory
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder fe fe-edit "></i>
+                                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="/my-inventories" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">My Inventories
                                                 </span>
                                             </span>
                             <span class="menu-icon">

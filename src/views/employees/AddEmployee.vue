@@ -82,9 +82,13 @@
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputCity">Job Title</label>
                                                                   <select class="form-control"  v-model="register.job_title">
-                                                                   <option  value="User Manager">User Manager</option>
-                                                                   <option  value="Claim Clerk">Claim Clerk</option>
-                                                                   <option  value="Funds Manager">Funds Manager</option>
+                                                                   <option  value="doctor">Doctor</option>
+                                                                   <option  value="pharmacist">Pharmacist</option>
+                                                                   <option  value="nurse">Nurse</option>
+                                                                   <option  value="laboratorist">Laboratorist</option>
+                                                                   <option  value="receptionist">Receptionist</option>
+                                                                   <option  value="accountant">Accountant</option>
+                                                                   <option  value="extension_worker">Community health extension workers (CHEWs)</option>
                                                                </select>
                                                               </div>
 
@@ -209,6 +213,7 @@ export default {
           phone_number: this.register.phone_number,
           type: this.register.type,
           username: this.register.username,
+          password: 'euhler',
           state: this.state,
           institutional_id: this.user.id,
           job_title: this.register.job_title,
@@ -220,7 +225,7 @@ export default {
 
             console.log(response);
             this.isLoading = false;
-            this.$breadstick.notify("Employee added successfully", {position: "top-right"});
+            this.$breadstick.notify("Employee added successfully!, Default Password is 'euhler' ", {position: "top-right"});
             this.getEmployees()
 
         })

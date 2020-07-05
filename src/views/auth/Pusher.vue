@@ -26,6 +26,7 @@ export default {
                     console.log(response)
                      localStorage.setItem('user',JSON.stringify(response.data.data))
                      let type = response.data.data.type
+                     let job_title = response.data.data.job_title
                      if (type == 'client') {
                        this.$router.push('/client-dashboard')
 
@@ -41,6 +42,28 @@ export default {
                      if (type == 'shis') {
                        this.$router.push('/state-dashboard')
 
+                     }
+
+                     if (job_title == 'doctor') {
+                       this.$router.push('/doctor')
+
+                     }
+                     if (job_title == 'nurse') {
+                       this.$router.push('/nurse')
+
+                     }
+                     if (job_title == 'receptionist') {
+                       this.$router.push('/receptionist')
+                     }
+                     if (job_title == 'laboratorist') {
+                       this.$router.push('/laboratorist')
+                     }
+                     if (job_title == 'pharmacist') {
+                       this.$router.push('/pharmacist')
+                     }
+
+                     if (job_title == 'accountant') {
+                       this.$router.push('/accountant')
                      }
                      this.$router.go()
 

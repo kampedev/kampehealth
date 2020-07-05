@@ -42,6 +42,14 @@ import AddAgency from '../views/providers/AddAgency.vue'
 import Settings from '../views/auth/Settings.vue'
 import ClientFunds from '../views/funds/ClientFunds.vue'
 import SingleTransaction from '../views/funds/SingleTransaction.vue'
+import Doctor from '../views/employees/Doctor.vue'
+import Nurse from '../views/employees/Nurse.vue'
+import Receptionist from '../views/employees/Receptionist.vue'
+import Laboratorist from '../views/employees/Laboratorist.vue'
+import Pharmacist from '../views/employees/Pharmacist.vue'
+import Accountant from '../views/employees/Accountant.vue'
+import Appointments from '../views/appointments/Appointments.vue'
+import SingleAppointment from '../views/appointments/SingleAppointment.vue'
 
 Vue.use(VueRouter)
 
@@ -295,6 +303,20 @@ const routes = [
       },
   },
   {
+    path: '/manage-appointments',
+    component: Appointments,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/appointment/:id',
+    component: SingleAppointment,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
     path: '/my-inventories',
     component: MyInventories,
     meta: {
@@ -318,6 +340,48 @@ const routes = [
   {
     path: '/transaction',
     component: SingleTransaction,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/doctor',
+    component: Doctor,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/nurse',
+    component: Nurse,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/receptionist',
+    component: Receptionist,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/laboratorist',
+    component: Laboratorist,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/pharmacist',
+    component: Pharmacist,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/accountant',
+    component: Accountant,
     meta: {
         requiresAuth: true,
       },

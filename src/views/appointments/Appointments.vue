@@ -12,8 +12,9 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3 class="text-center"> Drug Listing</h3>
-                       <button type="button" name="button" class="btn btn-primary text-right" data-toggle="modal" data-target="#example_02">Add Drug</button>
+                       <p>{{employer.agency_name}}</p>
+                       <h3 class="text-center">Manage Appointments</h3>
+                       <button type="button" name="button" class="btn btn-primary text-right" data-toggle="modal" data-target="#example_02">Create Appointment</button>
 
 
                        <!-- <div class="form-dark">
@@ -47,11 +48,11 @@
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <!-- <th>Avatar</th> -->
-                                         <!-- <th>Name</th> -->
-                                         <th>Dr. Visited</th>
-                                         <th>Reason for Visit</th>
+
+                                         <th> Patient</th>
                                          <th>Date</th>
+                                         <th>Time</th>
+                                         <th>Professional Seen</th>
                                      </tr>
                                      </thead>
                                      <tbody>
@@ -104,44 +105,51 @@
 
                                                                       <div class="col-md-12 p-t-20 p-b-20">
 
-                                                                              <div class="form-row">
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="inputPassword4">Name</label>
-                                                                                    <input type="text" class="form-control" v-model="inventory.description" placeholder="Name" >
-                                                                                </div>
-                                                                              </div>
+
 
 
                                                                               <div class="form-row">
                                                                                   <div class="form-group col-md-6">
-                                                                                      <label for="inputCity">Inventory Type</label>
-                                                                                      <select class="form-control"  v-model="inventory.inventory_type">
-                                                                                       <option  value="Drugs">Drugs</option>
-                                                                                       <option  value="Laboratory Facility">Laboratory Facility</option>
-                                                                                       <option  value="Consumables">Consumables</option>
-                                                                                       <option  value="Others">Others</option>
+                                                                                      <label for="inputCity">Select Patient</label>
+                                                                                      <select class="form-control"  v-model="appointment.patient_id">
+                                                                                       <option  :value="client.id" v-for="client in clients" v-bind:key="client.id">
+                                                                                       {{client.firstname}} {{client.lastname}}
+                                                                                       </option>
                                                                                    </select>
                                                                                   </div>
 
                                                                               </div>
 
+                                                                              <div class="form-row">
+                                                                                  <div class="form-group col-md-6">
+                                                                                      <label for="inputCity">Select Professional</label>
+                                                                                      <select class="form-control"  v-model="appointment.professional_id">
+                                                                                       <option  :value="prof.id" v-for="prof in professionals" v-bind:key="prof.id">
+                                                                                         <span v-if="prof.job_title == 'doctor' ">
+                                                                                           Dr
+                                                                                         </span>{{prof.firstname}} {{prof.lastname}}
+                                                                                       </option>
+                                                                                   </select>
+                                                                                  </div>
 
+                                                                              </div>
 
                                                                               <div class="form-row">
                                                                                 <div class="form-group col-md-6">
-                                                                                    <label for="inputPassword4">Cost</label>
-                                                                                    <input type="text" class="form-control" v-model="inventory.cost" placeholder="Cost" >
+                                                                                  <p>  <label for="inputPassword4">Select Date {{appointment.appointDate}}</label> </p>
+                                                                                    <date-picker v-model="appointment.appointDate" valueType="format"></date-picker>
+
                                                                                 </div>
                                                                               </div>
 
                                                                               <div class="form-row">
                                                                                 <div class="form-group col-md-6">
-                                                                                    <label for="inputPassword4">Quantity</label>
-                                                                                    <input type="text" class="form-control" v-model="inventory.quantity" placeholder="Quantity" >
+                                                                                   <p><label for="inputPassword4">Select Time  {{appointment.appoinTime}}</label></p>
+                                                                                    <vue-timepicker v-model="appointment.appoinTime"></vue-timepicker>
                                                                                 </div>
                                                                               </div>
 
-                                                                              <button  class="btn btn-primary btn-block btn-lg" @click="addInventory">Add Inventory</button>
+                                                                              <button  class="btn btn-primary btn-block btn-lg" @click="createAppointment">Create Appointment</button>
 
                                                                       </div>
                                                                   </div>
@@ -168,28 +176,36 @@
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
 
+      import DatePicker from 'vue2-datepicker';
+      import 'vue2-datepicker/index.css';
+      import VueTimepicker from 'vue2-timepicker'
+      // CSS
+      import 'vue2-timepicker/dist/VueTimepicker.css'
+
 export default {
   components: {
-     Navbar, Loading
+     Navbar, Loading, DatePicker, VueTimepicker
   },
   data(){
     return{
       isLoading: false,
       fullPage: true,
-      lga_states:"",
-      inventory:{
-                inventory_type:"",
-                name:"",
-                quantity:"",
-                cost:"",
+      employer:"",
+      professionals:"",
+      clients:"",
+      appointment:{
+                patient_id:"",
+                professional_id:"",
+                appoinTime:"",
+                appointDate:"",
             }
     }
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/gethealthRecord`)
+    this.axios.get(`/api/v1/auth/getEmployeeInstituional/${this.user.institutional_id}`)
                 .then(response => {
-                    this.records = response.data.data
+                    this.employer = response.data.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -197,11 +213,22 @@ export default {
                 })
   },
   methods:{
-    getRecords(){
+    getProfessionals(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/gethealthRecord`)
+      this.axios.get(`/api/v1/auth/getEmployee/${this.user.institutional_id}`)
                   .then(response => {
-                      this.records = response.data.data
+                      this.professionals = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    getClients(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.institutional_id}`)
+                  .then(response => {
+                      this.clients = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -209,20 +236,20 @@ export default {
                   })
     },
 
-    addInventory(){
+    createAppointment(){
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/addInventory',{
-          inventory_type: this.inventory.inventory_type,
-          quantity: this.inventory.quantity,
-          cost: this.inventory.cost,
-          description: this.inventory.description,
+        this.axios.post('/api/v1/auth/makeAppointment',{
+          appoinTime: this.appointment.appoinTime,
+          appointDate: this.appointment.appointDate,
+          patient_id: this.appointment.patient_id,
+          professional_id: this.appointment.professional_id,
 
         })
         .then(response=>{
 
             console.log(response);
             this.isLoading = false;
-            this.$breadstick.notify("Inventory added successfully", {position: "top-right"});
+            this.$breadstick.notify("Appointment created successfully", {position: "top-right"});
 
         })
         .catch(error=>{
@@ -235,7 +262,8 @@ export default {
 
   },
   created(){
-    // this.getRecords()
+    this.getProfessionals()
+    this.getClients()
   }
 
 }

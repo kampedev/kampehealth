@@ -13,7 +13,6 @@ import VueInitialsImg from 'vue-initials-img';
 import 'zingchart/es6';
 import zingchartVue from 'zingchart-vue';
 
-
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
 Vue.use(VueCookies)
@@ -22,10 +21,11 @@ Vue.use(VueFilterDateFormat);
 Vue.use(vueNumeralFilterInstaller);
 Vue.use(VueInitialsImg);
 Vue.component('zingchart', zingchartVue)
+Vue.use(require('vue-moment'));
 
 window.axios=axios
-axios.defaults.baseURL = 'https://api.hayokinsurance.com';
-// axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'https://api.hayokinsurance.com';
+axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
 

@@ -1,7 +1,7 @@
 <template>
   <section class="admin-content " id="contact-search">
     <Navbar/>
-    <div v-for="provider in singleprovider" v-bind:key="provider.id">
+    <div >
        <div class="bg-dark m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
@@ -11,7 +11,7 @@
                            <div class="avatar ">
                            </div>
                        </div>
-                       <h3> {{provider.agency_name}} </h3>
+                       <h3> {{appoint.agency_name}} </h3>
                    </div>
 
 
@@ -30,10 +30,18 @@
                            </div>
 
                            <div class="card-body">
-
-                                                         <div class="form-group">
-                                                             <button class="btn btn-primary">Export to CSV</button>
-                                                         </div>
+                                     <div class="form-group">
+                                         <button class="btn btn-primary spacer" data-toggle="modal" data-target="#example_01">Add Consultancy Notes</button>
+                                         <!-- <button class="btn btn-primary spacer" data-toggle="modal" data-target="#example_02">Add Record</button> -->
+                                     </div>
+                                     <p class="text-right">
+                                       <span v-if="appoint.data.status == 'true'">
+                                         <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">completed</button>
+                                         </span>
+                                        <span v-if="appoint.data.status == 'false'">
+                                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
+                                      </span>
+                                     </p>
                            </div>
                        </div>
                    </div>
@@ -43,23 +51,19 @@
                    <div class="col-lg-8 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
-                             <h3 class="p-t-10 searchBy-name">Provider Details</h3>
+                             <h3 class="p-t-10 searchBy-name">Appointment Details</h3>
                            </div>
 
                            <div class="card-body">
-                             <p><strong>E - Mail:</strong>  {{provider.email}}</p>
-                             <p><strong>Phone Number:</strong> {{provider.phone_number}}</p>
-                             <p><strong>State:</strong> {{provider.state}}</p>
-                             <p><strong>Local Government Area:</strong> {{provider.localgovt}}</p>
-                             <p><strong>Website:</strong> {{provider.website}}</p>
-                             <p>
-                               <span v-if="provider.status == 1">
-                                 <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
-                                 </span>
-                                <span v-if="provider.status == 0">
-                                <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
-                              </span>
-                             </p>
+                             <p class="spacer-top-bottom"><strong>Date:</strong>  {{appoint.data.appointDate | moment("dddd, MMMM Do YYYY")}}</p>
+                             <hr>
+                             <p class="spacer-top-bottom"><strong>Time:</strong> {{appoint.data.appoinTime}}</p>
+                             <hr>
+                             <p class="spacer-top-bottom"><strong>Patient Name:</strong> {{appoint.patient_id}}</p>
+                             <hr>
+                             <p class="spacer-top-bottom"><strong>Attending Professional:</strong> {{appoint.professionalDetails.firstname}} {{appoint.professionalDetails.lastname}}</p>
+
+
 
 
                            </div>
@@ -76,13 +80,14 @@
                                <div class="card-body">
 
                                                              <div class="form-group">
-                                                                 <button class="btn btn-primary" @click="acceptProvider">accept</button>
-                                                                 <button class="btn btn-danger spacer" @click="rejectProvider">reject</button>
+                                                                 <button class="btn btn-primary" @click="acceptProvider">mark as complete</button>
                                                              </div>
                                </div>
                            </div>
                        </div>
                </div>
+
+
 
                <!-- <div class="row">
                    <div class="col-lg-8 col-md-8">
@@ -100,7 +105,46 @@
 
                </div> -->
 
+               <!-- Modal for Prescription/Notes -->
+                                             <div class="modal fade "   id="example_01" tabindex="-1" role="dialog"
+                                                  aria-labelledby="example_02" aria-hidden="true">
+                                                 <div class="modal-dialog modal-dialog-centered modal-lg"  role="document">
+                                                     <div class="modal-content " >
 
+                                                         <div class="container-fluid ">
+                                                             <button type="button" class="close" data-dismiss="modal"
+                                                                     aria-label="Close">
+                                                                 <span aria-hidden="true">&times;</span>
+                                                             </button>
+                                                             <div class="row ">
+
+                                                                 <div class="col-md-12 p-t-20 p-b-20">
+
+                                                                         <div class="form-row">
+                                                                             <div class="form-group col-md-10">
+                                                                               <label for="inputCity">Consultancy Notes</label>
+                                                                              <textarea class="form-control" rows="8" v-model=notes></textarea>
+                                                                             </div>
+                                                                         </div>
+
+                                                                         <div class="form-row">
+                                                                             <div class="form-group col-md-10">
+                                                                               <label for="inputCity">Medications</label>
+                                                                              <textarea class="form-control" rows="8" v-model=medications></textarea>
+                                                                             </div>
+                                                                         </div>
+
+
+                                                                         <button  class="btn btn-primary btn-block btn-lg" @click="createRecord">Add Note</button>
+
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <!-- Modal Ends -->
 
 
            </div>
@@ -135,8 +179,9 @@ export default {
   data(){
     return{
       user:null,
-      singleprovider:"",
-      agencies:"",
+      appoint:"",
+      notes:"",
+      medications:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -145,9 +190,9 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/detailedProviderHmo/${this.$route.params.id}`)
+    this.axios.get(`/api/v1/auth/getSpecificAppoint/${this.$route.params.id}`)
                 .then(response => {
-                    this.singleprovider = response.data.data
+                    this.appoint = response.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -155,16 +200,47 @@ export default {
                 })
   },
   methods:{
-    getProvider(){
+    fetchSingelAPpointment(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/detailedProviderHmo/${this.$route.params.id}`)
+      this.axios.get(`/api/v1/auth/getSpecificAppoint/${this.$route.params.id}`)
                   .then(response => {
-                      this.singleprovider = response.data.data
+                      this.appoint = response.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
+    },
+    createRecord(){
+        this.isLoading = true;
+        this.user = JSON.parse(localStorage.getItem('user'))
+        this.axios.post('/api/v1/auth/addHealthRecord',{
+          notes: this.notes,
+          medications: this.medications,
+          patient_id: this.appoint.data.patient_id,
+          appointment_id: this.$route.params.id,
+          professional_id: this.appoint.data.professional_id,
+          provider_id: this.user.institutional_id,
+
+          reasonVisit: 'Consulation',
+          testResult: "this.user.institutional_id",
+          drVisited: 'this.user.institutional_id',
+          documents: 'this.user.institutional_id',
+        })
+        .then(response=>{
+
+            console.log(response);
+            this.isLoading = false;
+            thi.fetchSingelAPpointment()
+            this.$breadstick.notify("Record created successfully", {position: "top-right"});
+
+        })
+        .catch(error=>{
+            console.log(error.response)
+            this.isLoading = false;
+            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+
+        })
     },
 
     acceptProvider(){
@@ -225,7 +301,7 @@ export default {
 
   },
   created(){
-    this.getProvider()
+    this.fetchSingelAPpointment()
   }
 
 }
@@ -233,5 +309,9 @@ export default {
 <style >
 .spacer{
   margin-left:15px;
+}
+.spacer-top-bottom{
+  margin-top:7px;
+  margin-bottom:7px;
 }
 </style>

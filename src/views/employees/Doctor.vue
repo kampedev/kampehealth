@@ -13,20 +13,19 @@
                     <h5 class="spacer-top">Hello, Dr. {{auth_user.firstname}} {{auth_user.lastname}}</h5>
                 </div>
 
-
                 <div class="col-lg-6 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
 
 
                             <div class="pb-2">
-                              <router-link :to="{ path: '/my-dependents'}">
+                              <!-- <router-link :to="{ path: '/my-dependents'}"> -->
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-calendar"></i>
                                     </div>
                                 </div>
-                              </router-link>
+                              <!-- </router-link> -->
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">My Appointments</p>
@@ -35,7 +34,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="col-lg-6 col-md-6">
                     <div class="card m-b-30">
@@ -51,7 +49,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0"> Patients</p>
-                                <h1 class="fw-400">{{appointments.length}}</h1>
+                                <h1 class="fw-400">{{clients.length}}</h1>
                             </div>
                         </div>
                     </div>
@@ -59,11 +57,12 @@
 
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-12 m-b-20">
                   <date-picker v-model="date" valueType="format" @change="getAppointments"></date-picker>
               </div>
-            </div>
+            </div> -->
+
             <div class="row">
 
                 <div class="col-md-12 m-b-30">
@@ -72,7 +71,7 @@
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
-                                <th>Patient</th>
+                                <!-- <th>Patient</th> -->
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Status</th>
@@ -82,12 +81,12 @@
                             </thead>
                             <tbody>
                             <tr v-for="appoint in appointments" v-bind:key="appoint.id">
-                                <td>{{appoint.firstname}} {{appoint.lastname}}</td>
-                                <td>{{appoint.appointDate}}</td>
-                                <td>{{appoint.appoinTime}}</td>
+                                <!-- <td>{{appoint.id}} {{appoint.firstname}} {{appoint.lastname}}</td> -->
+                                <td>{{appoint.appointDate | moment("dddd, MMMM Do YYYY")}}</td>
+                                <td>{{appoint.appoinTime | moment("h:mm:ss a") }}</td>
                                 <td>
-                                  <button type="button" name="button" class="btn btn-warning btn-small" v-if="appoint.status == 'false' ">pending</button>
-                                  <button type="button" name="button" class="btn btn-success btn-small" v-if="appoint.status == 'true' ">completed</button>
+                                  <button type="button" name="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning" v-if="appoint.status == 'false' ">pending</button>
+                                  <button type="button" name="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success" v-if="appoint.status == 'true' ">completed</button>
                                 </td>
                                 <td>
                                   <router-link :to="{ path: '/appointment/'+ appoint.id}">
@@ -125,6 +124,7 @@ export default {
     return{
       auth_user:"",
       appointments:"",
+      clients:"",
       date:new Date() ,
       wallet:"",
       complaints:"",
@@ -155,7 +155,7 @@ export default {
     getAppointments(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/getProfessional/${this.user.id}/${this.formattedDate}`)
+      this.axios.get(`/api/v1/auth/getProfessional/${this.user.id}`)
                   .then(response => {
                       this.appointments = response.data.data
                       console.log(response)
@@ -164,49 +164,25 @@ export default {
                       console.error(error);
                   })
     },
-    getPlan(){
-      this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/userSubscribedPlan`)
+
+    getClients(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.institutional_id}`)
                   .then(response => {
-                      this.myplan = response.data.data
+                      this.clients = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    getComplaints(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/complaints/${this.user.id}`)
-                  .then(response => {
-                      this.complaints = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    getWallet(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/getUserWallet`)
-                  .then(response => {
-                      this.wallet = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    }
 
   },
   created(){
     this.getAppointments()
-    this.getComplaints()
-    this.getPlan()
-    this.getWallet()
+    this.getClients()
+
   }
 }
 </script>

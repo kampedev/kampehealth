@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <p>{{employer.agency_name}}</p>
+                       <!-- <p>{{employer.agency_name}}</p> -->
                        <h3 class="text-center">Manage Appointments</h3>
                        <button type="button" name="button" class="btn btn-primary text-right" data-toggle="modal" data-target="#example_02">Create Appointment</button>
 
@@ -49,23 +49,27 @@
                                      <thead>
                                      <tr>
 
-                                         <th> Patient</th>
+                                         <!-- <th> Patient</th> -->
                                          <th>Date</th>
                                          <th>Time</th>
-                                         <th>Professional Seen</th>
+                                         <th>Action</th>
                                      </tr>
                                      </thead>
                                      <tbody>
-                                     <tr v-for="record in records" v-bind:key="record.id">
+                                     <tr v-for="appoint in appointments" v-bind:key="appoint.id">
                                          <!-- <td>
                                              <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
                                                                                  class="avatar-img avatar-sm rounded-circle"
                                                                                  alt=""></div>
                                          </td> -->
-                                         <!-- <td >{{client.firstname}} {{client.lastname}}</td> -->
-                                         <td>{{record.drVisited}}</td>
-                                         <td>{{record.reasonVisit}}</td>
-                                         <td>{{record.created_at}}</td>
+                                         <!-- <td >{{appoint.id}} {{appoint.id}}</td> -->
+                                         <td>{{appoint.appointDate | moment("dddd, MMMM Do YYYY")}}</td>
+                                         <td>{{appoint.appoinTime | moment(" h:mm:ss a") }}</td>
+                                         <td>
+                                           <router-link :to="{ path: '/appointment/'+ appoint.id}">
+                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                            </router-link>
+                                           </td>
 
                                      </tr>
 
@@ -109,7 +113,7 @@
 
 
                                                                               <div class="form-row">
-                                                                                  <div class="form-group col-md-6">
+                                                                                  <div class="form-group col-md-8">
                                                                                       <label for="inputCity">Select Patient</label>
                                                                                       <select class="form-control"  v-model="appointment.patient_id">
                                                                                        <option  :value="client.id" v-for="client in clients" v-bind:key="client.id">
@@ -121,7 +125,7 @@
                                                                               </div>
 
                                                                               <div class="form-row">
-                                                                                  <div class="form-group col-md-6">
+                                                                                  <div class="form-group col-md-8">
                                                                                       <label for="inputCity">Select Professional</label>
                                                                                       <select class="form-control"  v-model="appointment.professional_id">
                                                                                        <option  :value="prof.id" v-for="prof in professionals" v-bind:key="prof.id">
@@ -135,18 +139,26 @@
                                                                               </div>
 
                                                                               <div class="form-row">
-                                                                                <div class="form-group col-md-6">
+                                                                                <div class="form-group col-md-8">
                                                                                   <p>  <label for="inputPassword4">Select Date {{appointment.appointDate}}</label> </p>
                                                                                     <date-picker v-model="appointment.appointDate" valueType="format"></date-picker>
-
                                                                                 </div>
                                                                               </div>
 
                                                                               <div class="form-row">
-                                                                                <div class="form-group col-md-6">
+                                                                                <div class="form-group col-md-8">
                                                                                    <p><label for="inputPassword4">Select Time  {{appointment.appoinTime}}</label></p>
                                                                                     <vue-timepicker v-model="appointment.appoinTime"></vue-timepicker>
                                                                                 </div>
+                                                                              </div>
+
+                                                                              <div class="form-group">
+                                                                                  <div class="form-check">
+                                                                                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                                                                                      <label class="form-check-label" for="gridCheck" v-model="notifico">
+                                                                                          Send notification to Dr
+                                                                                      </label>
+                                                                                  </div>
                                                                               </div>
 
                                                                               <button  class="btn btn-primary btn-block btn-lg" @click="createAppointment">Create Appointment</button>
@@ -192,7 +204,9 @@ export default {
       fullPage: true,
       employer:"",
       professionals:"",
+      appointments:"",
       clients:"",
+      notifico:false,
       appointment:{
                 patient_id:"",
                 professional_id:"",
@@ -203,9 +217,9 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getEmployeeInstituional/${this.user.institutional_id}`)
+    this.axios.get(`/api/v1/auth/getProviderAppointment/${this.user.institutional_id}`)
                 .then(response => {
-                    this.employer = response.data.data
+                    this.appointments = response.data.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -226,9 +240,20 @@ export default {
     },
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.institutional_id}`)
+      this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
                   .then(response => {
                       this.clients = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    getAppointments(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getProviderAppointment/${this.user.institutional_id}`)
+                  .then(response => {
+                      this.appointments = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -238,10 +263,12 @@ export default {
 
     createAppointment(){
         this.isLoading = true;
+        this.user = JSON.parse(localStorage.getItem('user'))
         this.axios.post('/api/v1/auth/makeAppointment',{
           appoinTime: this.appointment.appoinTime,
           appointDate: this.appointment.appointDate,
           patient_id: this.appointment.patient_id,
+          provider_id: this.user.institutional_id,
           professional_id: this.appointment.professional_id,
 
         })
@@ -249,6 +276,7 @@ export default {
 
             console.log(response);
             this.isLoading = false;
+            thi.getAppointments()
             this.$breadstick.notify("Appointment created successfully", {position: "top-right"});
 
         })
@@ -264,6 +292,7 @@ export default {
   created(){
     this.getProfessionals()
     this.getClients()
+    this.getAppointments()
   }
 
 }

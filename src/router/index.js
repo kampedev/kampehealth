@@ -15,6 +15,7 @@ import Dashboard from '../views/clients/Dashboard.vue'
 import Subscribe from '../views/clients/Subscribe.vue'
 import AddClientAgency from '../views/clients/AddClientAgency.vue'
 import AddClientProvider from '../views/clients/AddClientProvider.vue'
+import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import ViewClientsProvider from '../views/clients/ViewClientsProvider.vue'
 import ViewClientsAgency from '../views/clients/ViewClientsAgency.vue'
 import ProviderDashboard from '../views/providers/Dashboard.vue'
@@ -144,6 +145,13 @@ const routes = [
   {
     path: '/add-client-provider',
     component: AddClientProvider,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/manage-clients',
+    component: ManageClientsEmployee,
     meta: {
         requiresAuth: true,
       },

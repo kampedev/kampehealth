@@ -219,7 +219,7 @@
                 </ul>
             </li>
 
-            <li class="menu-item "  v-if="user.type == 'provider' ">
+            <li class="menu-item "  v-if="user.type == 'provider'">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Clients

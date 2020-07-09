@@ -27,7 +27,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Manage Appointment</p>
-                                <h1 class="fw-400">{{dependents.length}}</h1>
+                                <h1 class="fw-400">{{appointments.length}}</h1>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/my-dependents'}">
+                              <router-link :to="{ path: '/manage-clients'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-users"></i>
@@ -47,11 +47,12 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Patients</p>
-                                <h1 class="fw-400">{{dependents.length}}</h1>
+                                <h1 class="fw-400">{{clients.length}}</h1>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card m-b-30">
@@ -60,34 +61,14 @@
                               <router-link :to="{ path: '/my-dependents'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-users"></i>
-                                    </div>
-                                </div>
-                              </router-link>
-                            </div>
-                            <div>
-                                <p class="text-muted text-overline m-0">Patients</p>
-                                <h1 class="fw-400">{{dependents.length}}</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <div class="pb-2">
-                              <router-link :to="{ path: '/my-dependents'}">
-                                <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-users"></i>
+                                        <i class="fe fe-clipboard"></i>
                                     </div>
                                 </div>
                               </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Notice Boards</p>
-                                <h1 class="fw-400">{{dependents.length}}</h1>
+                                <h1 class="fw-400">2</h1>
                             </div>
                         </div>
                     </div>
@@ -98,32 +79,54 @@
 
 
             <div class="row">
-                <div class="col-md-12 m-b-30">
-                    <h5> <i class="fe fe-calendar"></i> Appointments</h5>
-                    <div class="table-responsive">
-                        <table class="table align-td-middle table-card">
-                            <thead>
-                            <tr>
-                                <th>Complain Number</th>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Status</th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="complaint in complaints" v-bind:key="complaint.id">
-                              <td>122333932</td>
-                                <td>{{complaint.title}}</td>
-                                <td>{{complaint.type}}</td>
-                                <td>{{complaint.status}}</td>
-                            </tr>
+              <div class="col-lg-12 col-md-8">
+                <h3 class="">Appointments</h3>
 
-                            </tbody>
-                        </table>
+                  <div class="card m-b-30">
+                      <div class="card-body">
 
-                    </div>
-                </div>
+                        <div class="table-responsive">
+                            <table class="table align-td-middle table-card">
+                                <thead>
+                                <tr>
+
+                                    <!-- <th> Patient</th> -->
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="appoint in appointments" v-bind:key="appoint.id">
+                                    <!-- <td>
+                                        <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
+                                                                            class="avatar-img avatar-sm rounded-circle"
+                                                                            alt=""></div>
+                                    </td> -->
+                                    <!-- <td >{{appoint.id}} {{appoint.id}}</td> -->
+                                    <td>{{appoint.appointDate | moment("dddd, MMMM Do YYYY")}}</td>
+                                    <td>{{appoint.appoinTime | moment(" h:mm:ss a") }}</td>
+                                    <td>
+                                      <router-link :to="{ path: '/appointment/'+ appoint.id}">
+                                      <button type="button" name="button" class="btn btn-info">view</button>
+                                      </router-link>
+                                     </td>
+
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+                      </div>
+                  </div>
+              </div>
+
+
             </div>
         </div>
 
@@ -145,10 +148,8 @@ export default {
   data(){
     return{
       auth_user:"",
-      dependents:"",
-      myplan:"",
-      wallet:"",
-      complaints:"",
+      clients:"",
+      appointments:"",
       user:null
 
     }
@@ -166,61 +167,35 @@ export default {
   },
   methods:{
 
-    getDependents(){
+    getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/allDependantUser/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
                   .then(response => {
-                      this.dependents = response.data.data
+                      this.clients = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    getPlan(){
-      this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/userSubscribedPlan`)
+    getAppointments(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getProviderAppointment/${this.user.institutional_id}`)
                   .then(response => {
-                      this.myplan = response.data.data
+                      this.appointments = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    getComplaints(){
-      this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/complaints/${this.user.id}`)
-                  .then(response => {
-                      this.complaints = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    getWallet(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/getUserWallet`)
-                  .then(response => {
-                      this.wallet = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    }
 
   },
   created(){
-    this.getDependents()
-    this.getComplaints()
-    this.getPlan()
-    this.getWallet()
+    this.getClients()
+    this.getAppointments()
   }
 }
 </script>

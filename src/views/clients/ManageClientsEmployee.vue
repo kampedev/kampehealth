@@ -6,13 +6,15 @@
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
-                   <div class="col-md-6 text-center mx-auto text-white p-b-30">
+                   <div class="col-md-12 mx-auto text-white p-b-30">
                        <div class="m-b-10">
                            <div class="avatar ">
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
+
                            </div>
                        </div>
-                       <h3>{{clients.length}} Clients</h3>
+                       <button type="button" name="button" class="btn btn-primary text-right" @click="show = true" >Add Clients</button>
+
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Clients" type="search"
@@ -34,7 +36,7 @@
        <section class="pull-up">
            <div class="container">
 
-               <div class="row list">
+               <div class="row list" v-show="show">
                    <div class="col-lg-12 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
@@ -154,6 +156,60 @@
 
 
                </div>
+
+               <div class="row list">
+                   <div class="col-lg-12 col-md-8">
+                       <div class="card m-b-30">
+
+                           <div class="card-body">
+
+                              <h1>{{clients.length}} Clients</h1>
+
+                             <div class="table-responsive">
+                                 <table class="table align-td-middle table-card">
+                                     <thead>
+                                     <tr>
+                                         <!-- <th>Avatar</th> -->
+                                         <th>Name</th>
+                                         <th>E mail</th>
+                                         <th>Phone Number</th>
+                                         <th>State</th>
+                                         <th>Action</th>
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                     <tr v-for="client in clients" v-bind:key="client.id">
+                                         <!-- <td>
+                                             <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
+                                                                                 class="avatar-img avatar-sm rounded-circle"
+                                                                                 alt=""></div>
+                                         </td> -->
+                                         <td >{{client.firstname}} {{client.lastname}}</td>
+                                         <td>{{client.email}}</td>
+                                         <td>{{client.phone_number}}</td>
+                                         <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
+                                         <td>{{client.state}}</td>
+                                         <td>
+
+                                           <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">view</button>
+
+                                         </td>
+                                     </tr>
+
+
+                                     </tbody>
+                                 </table>
+
+                             </div>
+
+
+                           </div>
+                       </div>
+                   </div>
+
+
+               </div>
+
            </div>
 
        </section>
@@ -180,6 +236,7 @@ export default {
       isLoading: false,
       fullPage: true,
       states:"",
+      show:false,
       clients:"",
       state:"",
       lga_states:"",
@@ -273,6 +330,7 @@ export default {
 
             console.log(response);
             this.isLoading = false;
+            this.getClients();
             this.$breadstick.notify("Client added successfully", {position: "top-right"});
 
         })

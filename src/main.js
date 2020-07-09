@@ -12,6 +12,8 @@ import vueNumeralFilterInstaller from 'vue-numeral-filter';
 import VueInitialsImg from 'vue-initials-img';
 import 'zingchart/es6';
 import zingchartVue from 'zingchart-vue';
+import VueMoment from 'vue-moment'
+
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)

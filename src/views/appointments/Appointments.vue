@@ -154,8 +154,8 @@
 
                                                                               <div class="form-group">
                                                                                   <div class="form-check">
-                                                                                      <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                                                      <label class="form-check-label" for="gridCheck" v-model="notifico">
+                                                                                      <input class="form-check-input" type="checkbox" id="gridCheck"  v-model="notifico">
+                                                                                      <label class="form-check-label" for="gridCheck">
                                                                                           Send notification to Dr
                                                                                       </label>
                                                                                   </div>
@@ -276,7 +276,7 @@ export default {
 
             console.log(response);
             this.isLoading = false;
-            thi.getAppointments()
+            this.getAppointments()
             this.$breadstick.notify("Appointment created successfully", {position: "top-right"});
 
         })

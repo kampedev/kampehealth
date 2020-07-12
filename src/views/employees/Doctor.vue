@@ -39,7 +39,7 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/my-dependents'}">
+                              <router-link :to="{ path: '/manage-clients'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-users"></i>
@@ -113,12 +113,13 @@
 
 <script>
 import Navbar from '@/views/Navbar.vue'
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
+// import DatePicker from 'vue2-datepicker';
+// import 'vue2-datepicker/index.css';
 
 export default {
   components: {
-     Navbar, DatePicker
+     Navbar
+      // DatePicker
   },
   data(){
     return{
@@ -145,10 +146,10 @@ export default {
   },
   computed:{
 
-    formattedDate(){
-      let formater = moment().format("YYYY-MM-DD")
-      return formater
-    }
+    // formattedDate(){
+    //   let formater = moment().format("YYYY-MM-DD")
+    //   return formater
+    // }
   },
   methods:{
 
@@ -168,7 +169,7 @@ export default {
 
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.institutional_id}`)
+      this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
                   .then(response => {
                       this.clients = response.data.data
                       console.log(response)
@@ -177,7 +178,6 @@ export default {
                       console.error(error);
                   })
     },
-
   },
   created(){
     this.getAppointments()

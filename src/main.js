@@ -12,8 +12,7 @@ import vueNumeralFilterInstaller from 'vue-numeral-filter';
 import VueInitialsImg from 'vue-initials-img';
 import 'zingchart/es6';
 import zingchartVue from 'zingchart-vue';
-import VueMoment from 'vue-moment'
-
+// import VueMoment from 'vue-moment'
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
@@ -30,6 +29,8 @@ window.axios=axios
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
+
+
 
 Vue.config.productionTip = false
 

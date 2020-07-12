@@ -31,7 +31,8 @@
 
                            <div class="card-body">
                                      <div class="form-group">
-                                         <button class="btn btn-primary spacer" data-toggle="modal" data-target="#example_01">Add Consultancy Notes</button>
+                                         <button class="btn btn-primary spacer" data-toggle="modal" data-target="#example_01" v-if="appoint.data.status == 'false'">Add Consultancy Notes</button>
+                                         <strong v-if="appoint.data.status == 'true'">Appointment Completed</strong>
                                          <!-- <button class="btn btn-primary spacer" data-toggle="modal" data-target="#example_02">Add Record</button> -->
                                      </div>
                                      <p class="text-right">
@@ -59,7 +60,7 @@
                              <hr>
                              <p class="spacer-top-bottom"><strong>Time:</strong> {{appoint.data.appoinTime}}</p>
                              <hr>
-                             <p class="spacer-top-bottom"><strong>Patient Name:</strong> {{appoint.patient_id}}</p>
+                             <!-- <p class="spacer-top-bottom"><strong>Patient Name:</strong> {{appoint.patient_id}}</p> -->
                              <hr>
                              <p class="spacer-top-bottom"><strong>Attending Professional:</strong> {{appoint.professionalDetails.firstname}} {{appoint.professionalDetails.lastname}}</p>
 
@@ -71,20 +72,37 @@
                    </div>
 
                        <div class="col-lg-4 col-md-4">
-                           <div class="card m-b-30">
+                           <div class="card m-b-30" v-if="appoint.data.status == 'false'">
                                <div class="card-header">
 
                                  <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
                                </div>
 
                                <div class="card-body">
-
-                                                             <div class="form-group">
-                                                                 <button class="btn btn-primary" @click="acceptProvider">mark as complete</button>
-                                                             </div>
+                                   <div class="form-group">
+                                       <button class="btn btn-primary" @click="statusTrue">mark as complete</button>
+                                   </div>
                                </div>
                            </div>
+
+                               <div class="card m-b-30" v-for="record in appoint.healthRecords" v-bind:key="record.id">
+
+                                   <div class="card-body" >
+                                      <p> <strong>Consultation Notes</strong> </p>
+                                     <p>{{record.notes}}</p>
+
+                                     <p class="spacer-top-bottom"><strong>Medications</strong> </p>
+                                     <p>{{record.medications}}</p>
+
+                                       <!-- <div class="form-group">
+                                           <button class="btn btn-primary">mark as complete</button>
+                                       </div> -->
+                                   </div>
+                               </div>
+
                        </div>
+
+
                </div>
 
 
@@ -231,7 +249,7 @@ export default {
 
             console.log(response);
             this.isLoading = false;
-            thi.fetchSingelAPpointment()
+            this.fetchSingelAPpointment()
             this.$breadstick.notify("Record created successfully", {position: "top-right"});
 
         })
@@ -243,22 +261,16 @@ export default {
         })
     },
 
-    acceptProvider(){
-      if (confirm('Are You Sure You Want to Approve Provider?')) {
-
+    statusTrue(){
+      if (confirm('Are You Sure You Want Mark as Completed?')) {
       this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true;
-    this.axios.post('/api/v1/auth/approveDisapproveProviderByAgency',{
-        agency_id: this.user.id,
-        provider_id: this.$route.params.id,
-        status: 1
-
-      })
+    this.axios.get(`/api/v1/auth/statusTrue/${this.$route.params.id}`)
     .then(response=>{
         console.log(response);
-        this.$breadstick.notify("Provider Approved!", {position: "top-right"});
+        this.$breadstick.notify("Appointment Finished!", {position: "top-right"});
         this.isLoading = false;
-        this.getProvider()
+        this.fetchSingelAPpointment()
 
     })
     .catch(error=>{
@@ -268,31 +280,7 @@ export default {
         })
       }
     },
-    rejectProvider(){
-      if (confirm('Are You Sure You Want to Disapprove this Provider?')) {
 
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.isLoading = true;
-    this.axios.post('/api/v1/auth/approveDisapproveProviderByAgency',{
-        agency_id: this.user.id,
-        provider_id: this.$route.params.id,
-        status: 0
-
-      })
-    .then(response=>{
-        console.log(response);
-        this.$breadstick.notify("Provider Disapproved!", {position: "top-right"});
-        this.isLoading = false;
-        this.getProvider()
-
-    })
-    .catch(error=>{
-        console.log(error.response)
-        this.isLoading = false;
-
-        })
-      }
-    },
     clearIt(){
 
       this.agency_id = "";

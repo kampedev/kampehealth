@@ -191,8 +191,10 @@
                                          <td>{{client.state}}</td>
                                          <td>
 
-                                           <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">view</button>
-
+                                           <router-link :to="{ path: '/client/'+ client.id}">
+                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                            </router-link>
+                                            
                                          </td>
                                      </tr>
 

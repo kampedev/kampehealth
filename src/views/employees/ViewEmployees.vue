@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>{{employees.length}} Employees</h3>
+                       <strong>{{employees.length}} Employees</strong>
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Clients" type="search"

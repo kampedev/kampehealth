@@ -275,7 +275,7 @@ export default {
       chartData: {
                 type: 'line',
                 title: {
-                    text: 'Overall Visitors',
+                    text: 'Total Patients',
                 },
                 series: [{
                     values: [11,15,7,13,12,14]

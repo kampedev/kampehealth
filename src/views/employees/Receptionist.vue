@@ -13,7 +13,7 @@
                     <h5 class="spacer-top">Hello, {{auth_user.firstname}} {{auth_user.lastname}}</h5>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -54,7 +54,7 @@
                 </div>
 
 
-                <div class="col-lg-4 col-md-6">
+                <!-- <div class="col-lg-4 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
             </div>

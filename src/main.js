@@ -12,7 +12,7 @@ import vueNumeralFilterInstaller from 'vue-numeral-filter';
 import VueInitialsImg from 'vue-initials-img';
 import 'zingchart/es6';
 import zingchartVue from 'zingchart-vue';
-// import VueMoment from 'vue-moment'
+// import VueResource from 'vue-resource';
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
@@ -23,14 +23,15 @@ Vue.use(vueNumeralFilterInstaller);
 Vue.use(VueInitialsImg);
 Vue.component('zingchart', zingchartVue)
 Vue.use(require('vue-moment'));
+// Vue.use(VueResource);
+
 
 window.axios=axios
-// axios.defaults.baseURL = 'https://api.hayokinsurance.com';
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'https://api.hayokinsurance.com';
+// axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
-
-
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = ''
 
 Vue.config.productionTip = false
 

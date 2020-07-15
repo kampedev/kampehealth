@@ -114,8 +114,8 @@
 
                                                                               <div class="form-row">
                                                                                   <div class="form-group col-md-8">
-                                                                                      <label for="inputCity">Select Patient</label>
-                                                                                      <select class="form-control"  v-model="appointment.patient_id">
+                                                                                      <label for="inputCity">Select Patient </label>
+                                                                                      <select class="form-control"  v-model="appointment.patient_id" @change="fetchSinglepatient">
                                                                                        <option  :value="client.id" v-for="client in clients" v-bind:key="client.id">
                                                                                        {{client.firstname}} {{client.lastname}}
                                                                                        </option>
@@ -156,7 +156,7 @@
                                                                                   <div class="form-check">
                                                                                       <input class="form-check-input" type="checkbox" id="gridCheck"  v-model="notifico">
                                                                                       <label class="form-check-label" for="gridCheck">
-                                                                                          Send notification to Dr
+                                                                                          Send notification to Patient
                                                                                       </label>
                                                                                   </div>
                                                                               </div>
@@ -206,6 +206,8 @@ export default {
       professionals:"",
       appointments:"",
       clients:"",
+      single_patient:"",
+      hospital:"",
       notifico:false,
       appointment:{
                 patient_id:"",
@@ -227,6 +229,43 @@ export default {
                 })
   },
   methods:{
+
+    sendSms() {
+
+      // Africas Talking API key = 98a4439def40f23da545c921a761e7b1a95c57115dc5eb00e3cfe5adf71acdc6
+      // 23407057919057
+      // body: 'Hello, you have a hospital appointment with '+ this.hospital.agency_name +' dated ' + this.appointment.appointDate + ' by ' + this.appointment.appoinTime
+      // from: 'Hayok Insurance',
+      // to: this.single_patient.phone_number,
+
+      this.axios.post(`https://api.sandbox.africastalking.com/version1/messaging`,{
+        headers: {
+       'Content-Type': 'application/json',
+       'Access-Control-Allow-Origin': '*',
+       // 'apiKey': '98a4439def40f23da545c921a761e7b1a95c57115dc5eb00e3cfe5adf71acdc6'
+   },
+        body: 'hello',
+        to: '23407057919057',
+        username: 'sandbox',
+
+      })
+      .then(response=>{
+
+          console.log(response);
+          this.isLoading = false;
+
+          this.$breadstick.notify("Appointment created successfully", {position: "top-right"});
+
+      })
+      .catch(error=>{
+          console.log(error.response)
+          this.isLoading = false;
+          this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+
+      })
+
+
+  },
     getProfessionals(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/getEmployee/${this.user.institutional_id}`)
@@ -243,6 +282,28 @@ export default {
       this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
                   .then(response => {
                       this.clients = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    fetchSinglepatient(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/user/${this.appointment.patient_id}`)
+                  .then(response => {
+                      this.single_patient = response.data.user
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    fetchHospital(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/user/${this.user.institutional_id}`)
+                  .then(response => {
+                      this.hospital = response.data.user
                       console.log(response)
                   })
                   .catch(error => {
@@ -277,6 +338,9 @@ export default {
             console.log(response);
             this.isLoading = false;
             this.getAppointments()
+            if (this.notifico == true) {
+              // this.sendSms()
+            }
             this.$breadstick.notify("Appointment created successfully", {position: "top-right"});
 
         })
@@ -293,6 +357,7 @@ export default {
     this.getProfessionals()
     this.getClients()
     this.getAppointments()
+    this.fetchHospital()
   }
 
 }

@@ -12,7 +12,7 @@ import vueNumeralFilterInstaller from 'vue-numeral-filter';
 import VueInitialsImg from 'vue-initials-img';
 import 'zingchart/es6';
 import zingchartVue from 'zingchart-vue';
-// import VueResource from 'vue-resource';
+import Toasted from 'vue-toasted';
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
@@ -23,7 +23,7 @@ Vue.use(vueNumeralFilterInstaller);
 Vue.use(VueInitialsImg);
 Vue.component('zingchart', zingchartVue)
 Vue.use(require('vue-moment'));
-// Vue.use(VueResource);
+Vue.use(Toasted)
 
 
 window.axios=axios

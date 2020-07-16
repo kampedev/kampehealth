@@ -90,7 +90,7 @@ export default {
     }
   },
   beforeMount(){
-
+//
   },
   methods:{
 
@@ -120,11 +120,14 @@ export default {
 
             .then(response=>{
               console.log(response)
+              // this.$toasted.info('Welcome back!', {position: 'top-center', duration:3000 })
                 let token= response.data.token;
                 if(token){
+
                    localStorage.setItem('jwt',token);
-                   this.$breadstick.notify("🥞 Welcome to HIP!", {position: "top-right"});
+
                    if (localStorage.getItem('jwt') != null){
+
                                  this.$router.push('/pusher')
                         }
 
@@ -133,7 +136,8 @@ export default {
                 .catch(error=>{
                     console.log(error.response)
                     this.isLoading = false;
-                    // this.$toasted.global.errorLogin().goAway(3000);
+                    this.$toasted.error('Username or Password Incorrect', {position: 'top-center', duration:3000 })
+
                 })
 
             } else {
@@ -147,7 +151,7 @@ export default {
                     let token= response.data.token;
                     if(token){
                        localStorage.setItem('jwt',token);
-                       this.$breadstick.notify("🥞 Welcome to HIP!", {position: "top-right"});
+                       // this.$breadstick.notify("🥞 Welcome to HIP!", {position: "top-right"});
                        if (localStorage.getItem('jwt') != null){
                                      this.$router.push('/pusher')
                             }
@@ -157,7 +161,8 @@ export default {
                     .catch(error=>{
                         console.log(error.response)
                         this.isLoading = false;
-                        // this.$toasted.global.errorLogin().goAway(3000);
+                        this.$toasted.error('Username or Password Incorrect', {position: 'top-center', duration:3000 })
+
                     })
                   }
 

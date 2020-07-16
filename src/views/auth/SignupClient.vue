@@ -197,13 +197,14 @@ export default {
             this.$router.push('/login');
             this.isLoading = false;
             // localStorage.setItem('jwt',token);
-            this.$breadstick.notify("🥞 Welcome to Hip", {position: "top-right"});
+            // this.$breadstick.notify("🥞 Welcome to Hip", {position: "top-right"});
+            this.$toasted.info('Sign up Successful, Welcome to HIP!', {position: 'top-left', duration:5000 })
 
         })
         .catch(error=>{
             console.log(error.response)
             this.isLoading = false;
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+            this.$toasted.info('Sign up not successful', {position: 'top-center', duration:5000 })
 
         })
     }

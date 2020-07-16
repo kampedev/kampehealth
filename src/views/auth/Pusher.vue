@@ -20,6 +20,8 @@ export default {
     }
   },
   beforeMount(){
+    this.$toasted.info('Welcome back!', {position: 'top-center', duration:3000 })
+
     this.axios.get(`/api/v1/auth/user`)
                 .then(response => {
                     this.auth_user = response.data.data

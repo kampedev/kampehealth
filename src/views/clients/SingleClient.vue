@@ -51,7 +51,8 @@
 
 
                              <div class="" v-if="client.user_image != null ">
-                               <img :src="`http://localhost:8000/image/${client.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+                               <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"> -->
+                               <img :src="`https://hayokinsurance.com/image/${client.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
                              </div>
 
                              <p class="spacer-top-bottom"><strong>Name:</strong>  {{client.firstname }} {{client.lastname}}</p>

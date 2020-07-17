@@ -28,10 +28,7 @@
                                   <label>Last Name</label>
                                   <input type="text" required class="form-control" placeholder="Last Name" v-model="register.lastname">
                               </div>
-                                <div class="form-group floating-label col-md-12">
-                                    <label>Username</label>
-                                    <input type="text" required class="form-control" placeholder="Username" v-model="register.username">
-                                </div>
+
                                 <div class="form-group floating-label col-md-12">
                                     <label>Email</label>
                                     <input type="email" required class="form-control" placeholder="Email" v-model="register.email">
@@ -173,7 +170,6 @@ export default {
           lastname : this.register.lastname,
           email : this.register.email,
           phone_number : this.register.phone_number,
-          username : this.register.username,
           type : this.register.type,
           state : this.state.name,
           localgovt : this.register.localgovt,
@@ -204,7 +200,7 @@ export default {
         .catch(error=>{
             console.log(error.response)
             this.isLoading = false;
-            this.$toasted.info('Sign up not successful', {position: 'top-center', duration:5000 })
+            this.$toasted.error('Sign up not successful', {position: 'top-center', duration:5000 })
 
         })
     }

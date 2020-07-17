@@ -32,10 +32,7 @@
                                   <label>Agency Name</label>
                                   <input type="text" required class="form-control" placeholder="Agency Name" v-model="register.agency_name">
                               </div>
-                              <div class="form-group floating-label col-md-12">
-                                  <label>User Name</label>
-                                  <input type="text" required class="form-control" placeholder="User Name" v-model="register.username">
-                              </div>
+
                                 <div class="form-group floating-label col-md-12">
                                     <label>Email</label>
                                     <input type="email" required class="form-control" placeholder="Email" v-model="register.email">
@@ -135,7 +132,6 @@ export default {
               lastname:"",
               email:"",
               type:"provider",
-              username:"",
               phone_number:"",
               state:"",
               agency_name:"",
@@ -178,7 +174,6 @@ export default {
           lastname : this.register.lastname,
           email : this.register.email,
           phone_number : this.register.phone_number,
-          username : this.register.username,
           agency_name : this.register.agency_name,
           type : this.register.type,
           state : this.state.name,
@@ -203,13 +198,13 @@ export default {
             this.$router.push('/login');
             this.isLoading = false;
             // localStorage.setItem('jwt',token);
-            this.$breadstick.notify("🥞 Welcome to Hip", {position: "top-right"});
+            this.$toasted.info('Sign up Successful, Welcome to HIP!', {position: 'top-left', duration:5000 })
 
         })
         .catch(error=>{
             console.log(error.response)
             this.isLoading = false;
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+            this.$toasted.error('Sign up not Successful', {position: 'top-left', duration:5000 })
 
         })
     }

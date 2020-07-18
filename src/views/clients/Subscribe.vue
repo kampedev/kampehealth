@@ -12,8 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3> Subscribe Plan</h3>
-
+                       <strong>Subscribe Plan</strong>
 
                    </div>
 
@@ -59,13 +58,16 @@
                                                                 <select class="form-control"  v-model="plan_id" @change="getSinglePlan(plan_id)">
                                                                  <option id="Parent" v-for="plan in plans" v-bind:key="plan.id" :value="plan.id">{{plan.title}}  (&#8358;{{plan.cost | numeral('0,0')}})</option>
                                                                </select>
+
+                                                               <div class="card" v-html="singleplan.description"></div>
+
                                                               </div>
 
                                                           </div>
 
-                                                         <div class="form-group" v-for="single in singleplan" v-bind:key="single.id">
+                                                         <div class="form-group" >
                                                            <paystack
-                                                                  :amount="single.cost*100"
+                                                                  :amount="newAmount*100"
                                                                   :email="user.email"
                                                                   :paystackkey="paystackkey"
                                                                   :reference="reference"
@@ -74,7 +76,7 @@
                                                                   :embed="false"
                                                                   v-if="agency_id != '' && provider_id != '' && plan_id != ''"
                                                               >
-                                                             <button class="btn btn-primary" >Submit and Proceed to Pay {{amount}}</button>
+                                                             <button class="btn btn-primary" >Submit and Proceed to Pay {{newAmount}}</button>
                                                            </paystack>
 
                                                              <button class="btn btn-primary" disabled v-if="agency_id == '' && provider_id == '' && plan_id == ''">
@@ -84,7 +86,6 @@
                            </div>
                        </div>
                    </div>
-
 
 
                    <div class="col-lg-4 col-md-6" v-for="plan in myplan" v-bind:key="plan.id">
@@ -109,21 +110,19 @@
                                </div>
 
                                <div class="row text-center p-b-10">
-                                   <div class="col">
+                                   <!-- <div class="col">
                                        <a href="#">
                                            <h3 class="fe fe-edit"></h3>
                                            <div class="text-overline">change plan</div>
-
                                        </a>
-                                   </div>
-                                   <div class="col">
+                                   </div> -->
+                                   <!-- <div class="col">
                                        <a href="#">
                                            <h3 class="fe fe-trash-2"></h3>
                                            <div class="text-overline">delete plan</div>
-
                                        </a>
 
-                                   </div>
+                                   </div> -->
 
                                </div>
                            </div>
@@ -195,12 +194,17 @@ export default {
          text += possible.charAt(Math.floor(Math.random() * possible.length));
 
        return text;
+     },
+     newAmount(){
+       let newmonie = this.singleplan.cost + 100
+       return newmonie
      }
    },
   methods:{
 
     callback: function(response){
-      this.makeSubscribe()
+      // this.makeSubscribe()
+      this.fundWallet()
       console.log(response)
     },
     close: function(){
@@ -232,7 +236,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/detailedPlan/${plan_id}`)
                   .then(response => {
-                      this.singleplan = response.data.data
+                      this.singleplan = response.data.data[0]
                       console.log(response)
                   })
                   .catch(error => {
@@ -251,8 +255,8 @@ export default {
       })
     .then(response=>{
         console.log(response);
-        this.getMyPlan()
-        this.fundWallet()
+        // this.getMyPlan()
+        this.payForPlan()
         this.$breadstick.notify("Subscription initialized", {position: "top-right"});
         this.isLoading = false;
 
@@ -264,14 +268,15 @@ export default {
   fundWallet(){
     this.user = JSON.parse(localStorage.getItem('user'))
     this.isLoading = true;
-  this.axios.post('/api/v1/auth/fundWallet',{
-      amount: this.amount,
+    this.axios.post('/api/v1/auth/fundWallet',{
+      amount: this.newAmount,
 
     })
   .then(response=>{
       console.log(response);
-      this.getMyPlan()
-      this.payForPlan()
+      // this.getMyPlan()
+      this.makeSubscribe()
+      // this.payForPlan()
       this.$breadstick.notify("Wallet funded Successfully!", {position: "top-right"});
       this.isLoading = false;
 
@@ -289,6 +294,9 @@ export default {
       this.getMyPlan()
       this.$breadstick.notify("Subscription completed Successfully!", {position: "top-right"});
       this.isLoading = false;
+      this.$toasted.info('Subscription Completed Successfully!', {position: 'top-center', duration:3000 })
+
+      this.$router.push('/client-dashboard')
 
   })
   .catch(error=>{

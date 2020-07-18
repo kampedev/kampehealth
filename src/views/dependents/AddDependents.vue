@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Add Dependent</h3>
+                       <strong> Add Dependent </strong>
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Employees" type="search"
@@ -102,14 +102,12 @@
                                                          <div class="row">
                                                            <div class="form-group col-md-6">
                                                              <label for="inputCity">States</label>
-
                                                                  <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                                                   <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                                               </select>
                                                            </div>
                                                            <div class="form-group col-md-6">
                                                              <label for="inputCity">LGA</label>
-
                                                                  <select class="form-control"  v-model="dependent.lga">
                                                                   <option v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.local_name">{{lga.local_name}}</option>
                                                               </select>
@@ -124,10 +122,6 @@
                                                             </select>
                                                          </div>
                                                        </div>
-
-
-
-
 
                                                          <div class="form-group">
                                                              <button class="btn btn-primary" @click="addDependant">Submit</button>
@@ -263,9 +257,8 @@ export default {
           this.clearIt();
           this.getDependents();
           this.isLoading = false;
-          this.$breadstick.notify("Dependent added Successfuly!", {position: "top-right"});
-
-
+          this.$toasted.info('Dependent added Successfully', {position: 'top-center', duration:3000 })
+          this.$router.push('/my-dependents')
       })
       .catch(error=>{
         this.isLoading = false;

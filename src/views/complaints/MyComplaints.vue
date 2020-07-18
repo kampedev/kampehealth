@@ -12,7 +12,8 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>My Complaints</h3>
+
+                       <strong><h3>My Complaints</h3></strong>
 
                    </div>
 
@@ -74,50 +75,30 @@
                        </div>
                    </div>
 
-                   <div class="col-lg-4 col-md-6" v-for="complaint in complaints" v-bind:key="complaint.id">
-                       <div class="card m-b-30">
-                           <div class="card-header">
+                   <div class="col-md-12 m-b-30">
+                       <h5> <i class="fe fe-alert-circle"></i> Complaints</h5>
+                       <div class="table-responsive">
+                           <table class="table align-td-middle table-card">
+                               <thead>
+                               <tr>
+                                   <th>Complain Number</th>
+                                   <th>Title</th>
+                                   <th>Type</th>
+                                   <th>Status</th>
 
-                               <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#">{{complaint.status}}</a>
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr v-for="complaint in complaints" v-bind:key="complaint.id">
+                                 <td>122333932</td>
+                                   <td>{{complaint.title}}</td>
+                                   <td>{{complaint.type}}</td>
+                                   <td>{{complaint.status}}</td>
+                               </tr>
 
-                               </div>
-                           </div>
-                           <div class="card-body">
-                               <div class="text-center">
-                                   <div>
+                               </tbody>
+                           </table>
 
-                                   </div>
-                                   <h3 class="p-t-10 searchBy-name">{{complaint.title}}</h3>
-                               </div>
-
-                               <div class="text-muted text-center m-b-10">
-                                  {{complaint.type}}
-
-                               </div>
-                               <!-- <p class="text-muted text-center">
-                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet at
-                                   odio quod rem rerum temporibus veniam vero.
-                               </p> -->
-                               <div class="row text-center p-b-10">
-                                   <div class="col">
-                                       <button @click="show = !show">
-                                           <h3 class="fe fe-edit"></h3>
-                                           <div class="text-overline">Edit</div>
-
-                                       </button>
-                                   </div>
-                                   <div class="col">
-                                       <button>
-                                           <h3 class="fe fe-eye"></h3>
-                                           <div class="text-overline">View</div>
-
-                                       </button>
-
-                                   </div>
-
-                               </div>
-                           </div>
                        </div>
                    </div>
 

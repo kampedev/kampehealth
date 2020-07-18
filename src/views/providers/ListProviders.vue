@@ -189,7 +189,7 @@ export default {
 
   },
   created(){
-    this.getHmo()
+    // this.getHmo()
   }
 
 }

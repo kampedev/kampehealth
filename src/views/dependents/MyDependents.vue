@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Dependents</h3>
+                       <strong> <span v-if="show == true">Edit</span> Dependents</strong>
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Employees" type="search"
@@ -91,37 +91,27 @@
 
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">Date of Birth</label>
-
-                                                               <select class="form-control"  v-model="dependent.age">
-
-                                                                <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option>
-
-                                                            </select>
+                                                           <input type="text" class="form-control"  placeholder="YYYY/MM/DD" v-model="dependent.dob" >
                                                          </div>
 
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">State</label>
 
-                                                               <select class="form-control"  v-model="dependent.age">
-
-                                                                <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option>
-
-                                                            </select>
+                                                           <select class="form-control"  v-model="state" @change="fetchLga(state)">
+                                                            <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+                                                        </select>
                                                          </div>
 
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">LGA</label>
-                                                               <select class="form-control"  v-model="dependent.age">
-
-                                                                <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option>
-
-                                                            </select>
+                                                           <select class="form-control"  v-model="dependent.lga">
+                                                            <option v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.local_name">{{lga.local_name}}</option>
+                                                        </select>
                                                          </div>
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">Health Facility</label>
-                                                               <select class="form-control"  v-model="dependent.age">
-
-                                                                <option id="Spouse" v-for="age in ages" v-bind:key="age">{{age}} (years)</option>
+                                                               <select class="form-control"  v-model="dependent.provider">
+                                                                 <option  v-for="provider in providers" v-bind:key="provider.id" :value="provider.id"> {{provider.agency_name}}</option>
 
                                                             </select>
                                                          </div>
@@ -136,68 +126,47 @@
                    </div>
 
 
+                   <div class="col-md-12 m-b-30">
+                       <h5> <i class="fe fe-users"></i> Dependents</h5>
+                       <div class="table-responsive">
+                           <table class="table align-td-middle table-card">
+                               <thead>
+                               <tr>
+                                   <!-- <th>Avatar</th> -->
+                                   <th>Name</th>
+                                   <th>E mail</th>
+                                   <th>Phone Number</th>
+                                   <th>Relationship</th>
+                                   <th>Action</th>
 
-                   <div class="col-lg-4 col-md-6" v-for="dependent in dependents" v-bind:key="dependent.id">
-                       <div class="card m-b-30">
-                           <div class="card-header">
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr v-for="dependent in dependents" v-bind:key="dependent.id">
+                                   <!-- <td>
+                                       <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
+                                                                           class="avatar-img avatar-sm rounded-circle"
+                                                                           alt=""></div>
+                                   </td> -->
+                                   <td>{{dependent.firstname}} {{dependent.lastname}}</td>
+                                   <td>{{dependent.email}}</td>
+                                   <td>{{dependent.phone_number}}</td>
+                                   <td>{{dependent.relationShipType}}</td>
+                                   <td>
+                                     <button type="button" name="button" class="btn btn-default" @click="editDependent(dependent)">edit </button>
+                                     <button type="button" name="button" class="btn btn-info">view </button>
+                                   </td>
 
-                               <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#">{{dependent.relationShipType}}</a>
+                               </tr>
 
-                               </div>
-                           </div>
-                           <div class="card-body">
-                               <div class="text-center">
-                                   <div>
-                                       <!-- <div class="avatar avatar-xl avatar-away"> -->
-                                           <!-- <img class="avatar-img rounded-circle" src="assets/img/users/user-7.jpg"
-                                                alt="name"> -->
-                                                <!-- <vue-initials-img :name="dependent.firstname+' '+dependent.lastname" class="text-center rounded-circle" /> -->
-                                                <avatar :username="dependent.firstname+' '+dependent.lastname"></avatar>
 
-                                  <!-- <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <span class="btn btn-file">
-                                      <span class="fileinput-new"><avatar :username="dependent.firstname+' '+dependent.lastname"></avatar></span>
-                                      <span class="fileinput-exists">Change</span>
-                                      <input type="file" name="..." multiple  @change="attachPic(dependent)">
-                                    </span>
-                                    <span class="fileinput-filename"></span>
-                                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                                </div> -->
+                               </tbody>
+                           </table>
 
-                                       <!-- </div> -->
-                                   </div>
-                                   <h3 class="p-t-10 searchBy-name">{{dependent.firstname }} {{dependent.lastname}}</h3>
-
-                               </div>
-                               <div class="text-muted text-center m-b-10">
-                                  {{dependent.phone_number}}
-
-                               </div>
-
-                               <!-- <p class="text-muted text-center">
-                                  General Hospital Abuja
-                               </p> -->
-                               <div class="row text-center p-b-10">
-                                   <div class="col">
-                                       <button @click="show = !show">
-                                           <h3 class="fe fe-edit"></h3>
-                                           <div class="text-overline">Edit</div>
-                                       </button>
-                                   </div>
-                                   <div class="col">
-                                       <button >
-                                           <h3 class="fe fe-delete"></h3>
-                                           <div class="text-overline">Delete</div>
-
-                                       </button>
-
-                                   </div>
-
-                               </div>
-                           </div>
                        </div>
                    </div>
+
+
 
                </div>
            </div>
@@ -220,23 +189,25 @@
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
-     import Avatar from 'vue-avatar'
+     // import Avatar from 'vue-avatar'
 
 export default {
   components: {
-     Navbar, Loading, Avatar
+     Navbar, Loading
   },
   data(){
     return{
       user:null,
       show:false,
       dependents:"",
+      providers:"",
+      states:"",
+      state:"",
+      lga_states:"",
       edit:false,
       isLoading: false,
       fullPage: true,
-      ages:[ '1', '2', '3', '4', '5','6','7'
 
-    ],
     attachmentPic:null,
     // single_dependent_id:null,
       dependent:{
@@ -246,7 +217,9 @@ export default {
         phone_number:"",
         relationShipType:"",
         sex:"",
-        age:""
+        lga:"",
+        dob:"",
+        provider:""
       }
     }
   },
@@ -317,6 +290,10 @@ uploadPic(){
         user_id: this.user.id,
         email: this.dependent.email,
         phone_number: this.dependent.phone_number,
+        state: this.state.name,
+        lga: this.dependent.lga,
+        dob: this.dependent.dob,
+        provider: this.dependent.provider,
       })
 
       .then(response=>{
@@ -324,7 +301,8 @@ uploadPic(){
           this.clearIt();
           this.getDependents();
           this.isLoading = false;
-          this.$breadstick.notify("Dependent added Successfuly!", {position: "top-right"});
+          // this.$breadstick.notify("Dependent added Successfuly!", {position: "top-right"});
+          this.$toasted.info('Dependent Added', {position: 'top-center', duration:3000 })
 
 
       })
@@ -334,26 +312,29 @@ uploadPic(){
       }else {
       // Update
       this.isLoading = true;
-      this.axios.put('/api/v1/auth/addDependant',{
+      this.axios.put(`/api/v1/auth/editDependant/${this.user.id}`,{
 
-        topic_id: this.topic.id,
-        topic_name: this.topic.topic_name,
-        // module_id: this.course.id,
-        module_id: this.$route.params.id,
-        topic_content: this.topic.topic_content,
-        video: this.topic.video,
-        audio: this.audio,
-        doc: this.doc,
+        firstname: this.dependent.firstname,
+        lastname: this.dependent.lastname,
+        relationShipType: this.dependent.relationShipType,
+        user_id: this.user.id,
+        email: this.dependent.email,
+        phone_number: this.dependent.phone_number,
+        state: this.state.name,
+        lga: this.dependent.lga,
+        dob: this.dependent.dob,
+        provider: this.dependent.provider,
 
       })
 
       .then(response=>{
           console.log(response);
           this.clearIt();
-          this.fetchModule();
-          this.edit = true;
+          this.edit = false;
+          this.show = false;
           this.isLoading = false;
-          this.$toasted.global.crudUpdated().goAway(1500);
+          this.$toasted.info('Dependent Updated', {position: 'top-center', duration:3000 })
+          this.getDependents()
 
       })
       .catch(error=>{
@@ -363,6 +344,30 @@ uploadPic(){
       }
     },
 
+    editDependent(dependent) {
+      this.show = true;
+      this.edit = true;
+      this.dependent.id = dependent.id;
+      this.dependent.firstname = dependent.firstname;
+      this.dependent.lastname = dependent.lastname;
+      this.dependent.relationShipType = dependent.relationShipType;
+      this.dependent.user_id = dependent.user_id;
+      this.dependent.email = dependent.email;
+      this.dependent.phone_number = dependent.phone_number;
+
+    },
+
+    fetchProviders(){
+      this.axios.get(`/api/v1/auth/allProviders`)
+                  .then(response => {
+                      this.providers = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+
     clearIt(){
 
       this.dependent.firstname = "";
@@ -370,10 +375,32 @@ uploadPic(){
       this.dependent.email = "";
       this.dependent.phone_number ="";
     },
+    getStates(){
+      this.axios.get(`/api/v1/auth/states`)
+                  .then(response => {
+                      this.states = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    fetchLga(state){
+      this.axios.get(`/api/v1/auth/lga/${state.id}`)
+                  .then(response => {
+                      this.lga_states = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
 
   },
   created(){
     this.getDependents()
+    this.fetchProviders()
+    this.getStates()
   }
 
 }

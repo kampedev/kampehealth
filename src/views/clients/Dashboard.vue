@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6" >
-                    <div class="card m-b-30" >
+                    <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
                               <router-link :to="{ path: '/subscribe'}">

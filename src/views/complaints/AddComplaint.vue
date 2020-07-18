@@ -12,8 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Make a Complaint</h3>
-
+                       <strong>Make a Complaint</strong>
                    </div>
 
                </div>
@@ -159,8 +158,8 @@ export default {
               this.clearIt();
               this.getComplaints();
               this.isLoading = false;
-              this.$breadstick.notify("Complaint added Successfuly!", {position: "top-right"});
-
+              this.$toasted.info('Complaint added Successfully!', {position: 'top-center', duration:3000 })
+              this.$router.push('/my-complaints')
 
           })
           .catch(error=>{

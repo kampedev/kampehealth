@@ -154,7 +154,10 @@
                                    <td>{{dependent.relationShipType}}</td>
                                    <td>
                                      <button type="button" name="button" class="btn btn-default" @click="editDependent(dependent)">edit </button>
+
+                                     <router-link :to="{ path: '/dependent/'+ dependent.id}">
                                      <button type="button" name="button" class="btn btn-info">view </button>
+                                     </router-link>
                                    </td>
 
                                </tr>

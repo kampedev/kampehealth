@@ -70,7 +70,6 @@
                                                          <div class="form-group">
                                                              <button class="btn btn-primary" @click="AddComplaint">Submit</button>
                                                          </div>
-
                            </div>
                        </div>
                    </div>
@@ -84,7 +83,7 @@
                                    <th>Complain Number</th>
                                    <th>Title</th>
                                    <th>Type</th>
-                                   <th>Status</th>
+                                   <th>Action</th>
 
                                </tr>
                                </thead>
@@ -93,7 +92,10 @@
                                  <td>122333932</td>
                                    <td>{{complaint.title}}</td>
                                    <td>{{complaint.type}}</td>
-                                   <td>{{complaint.status}}</td>
+                                   <td>
+                                     <button type="button" class="btn btn-default"  @click="editComplaint(complaint)">edit</button>
+                                     <!-- <button type="button" class="btn btn-info"  name="button">view</button> -->
+                                   </td>
                                </tr>
 
                                </tbody>
@@ -170,7 +172,6 @@ export default {
         AddComplaint(){
 
           this.user = JSON.parse(localStorage.getItem('user'))
-
           if (this.edit === false) {
           // Add comp
           this.isLoading = true;
@@ -200,14 +201,10 @@ export default {
           this.isLoading = true;
           this.axios.put('/api/v1/auth/makeComplaints',{
 
-            topic_id: this.topic.id,
-            topic_name: this.topic.topic_name,
-            // module_id: this.course.id,
-            module_id: this.$route.params.id,
-            topic_content: this.topic.topic_content,
-            video: this.topic.video,
-            audio: this.audio,
-            doc: this.doc,
+            title: this.complaint.title,
+            description: this.complaint.description,
+            type: this.complaint.type,
+            status: 'unanswered'
 
           })
 
@@ -231,8 +228,15 @@ export default {
           this.complaint.title = "";
           this.complaint.description = "";
           this.complaint.type = "";
-          // this.dependent.phone_number ="";
         },
+        editComplaint(complaint){
+          this.show = true
+          this.edit = true;
+          this.complaint.id = complaint.id;
+          this.complaint.title = complaint.title;
+          this.complaint.description = complaint.description;
+          this.complaint.type = complaint.type;
+        }
 
   },
   created(){

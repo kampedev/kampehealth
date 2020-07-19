@@ -40,13 +40,9 @@
                                    </span>
                                    </span>
 
-                                   <!-- <input type="file" name="avatar" class="avatar-file-picker" > -->
-
                                       </label>
 
                                   </div>
-
-
 
                                   <div class="fileinput fileinput-new" data-provides="fileinput" v-if="auth_user.user_image == null">
                                     <span class="btn btn-file">

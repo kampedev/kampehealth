@@ -88,9 +88,8 @@
                                               <tr>
                                                   <!-- <th scope="col">#</th> -->
                                                   <th scope="col">Date</th>
-                                                  <th scope="col">Transaction Number</th>
-                                                  <th scope="col">Recipient</th>
-                                                  <th scope="col">Status</th>
+                                                  <!-- <th scope="col">Transaction Number</th> -->
+                                                  <th scope="col">Description</th>
                                                   <th scope="col">Amount</th>
                                                   <!-- <th scope="col">Action</th> -->
                                               </tr>
@@ -99,9 +98,8 @@
 
                                               <tr v-for="tran in trans" v-bind:key="tran.id">
 
-                                                  <td class="align-middle">{{tran.created_at}}</td>
-                                                  <td class="align-middle">#987118</td>
-                                                  <td class="align-middle">atmos@stripe.com</td>
+                                                  <td class="align-middle">{{tran.created_at | moment("dddd, MMMM Do YYYY")}}</td>
+                                                  <!-- <td class="align-middle">#987118</td> -->
                                                   <td class="align-middle"><span class=" text-success"><i
                                                                   class="mdi mdi-check-circle "></i> Successful</span></td>
                                                   <td class="align-middle"><h6 class=" m-0"> <i class="mdi mdi-currency-ngn"></i>{{tran.amount | numeral('0,0.00')}}</h6></td>
@@ -115,7 +113,7 @@
                                       </div>
 
                                   </div>
-                                  <div class="col-auto ml-auto">
+                                  <!-- <div class="col-auto ml-auto">
                                       <div>
                                           <nav class="">
                                               <ul class="pagination">
@@ -135,7 +133,7 @@
                                               </ul>
                                           </nav>
                                       </div>
-                                  </div>
+                                  </div> -->
                               </div>
 
 

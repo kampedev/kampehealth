@@ -27,6 +27,7 @@ import AddEmployee from '../views/employees/AddEmployee.vue'
 import ViewEmployees from '../views/employees/ViewEmployees.vue'
 import AddDependents from '../views/dependents/AddDependents.vue'
 import MyDependents from '../views/dependents/MyDependents.vue'
+import SingleDependent from '../views/dependents/SingleDependent.vue'
 import AddPlan from '../views/plans/AddPlan.vue'
 import Plans from '../views/plans/Plans.vue'
 import Funds from '../views/funds/Funds.vue'
@@ -237,6 +238,13 @@ const routes = [
   {
     path: '/my-dependents',
     component: MyDependents,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/dependent/:id',
+    component: SingleDependent,
     meta: {
         requiresAuth: true,
       },

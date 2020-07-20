@@ -24,6 +24,7 @@ import HDashboard from '../views/hmos/Dashboard.vue'
 import ListProviders from '../views/providers/ListProviders.vue'
 import SingleProvider from '../views/providers/SingleProvider.vue'
 import AddEmployee from '../views/employees/AddEmployee.vue'
+import AddEmployeeState from '../views/employees/AddEmployeeState.vue'
 import ViewEmployees from '../views/employees/ViewEmployees.vue'
 import AddDependents from '../views/dependents/AddDependents.vue'
 import MyDependents from '../views/dependents/MyDependents.vue'
@@ -217,6 +218,13 @@ const routes = [
   {
     path: '/add-employee',
     component: AddEmployee,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/add-employee-state',
+    component: AddEmployeeState,
     meta: {
         requiresAuth: true,
       },

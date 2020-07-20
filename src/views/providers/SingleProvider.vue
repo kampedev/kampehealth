@@ -31,9 +31,11 @@
 
                            <div class="card-body">
 
-                                                         <div class="form-group">
+                                                         <!-- <div class="form-group">
                                                              <button class="btn btn-primary">Export to CSV</button>
-                                                         </div>
+                                                         </div> -->
+
+                                                         <strong class="text-center">{{provider.agency_name}}</strong>
                            </div>
                        </div>
                    </div>

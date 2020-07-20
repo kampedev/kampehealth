@@ -112,17 +112,16 @@
 
                                                           <div class="row">
                                                             <div class="form-group col-md-6">
-                                                              <label for="inputCity">States</label>
+                                                              <label for="inputCity">States </label>
 
-                                                                  <select class="form-control"  v-model="state" @change="fetchLga(state)">
-                                                                   <option v-for="state in states" v-bind:key="state.id" :value="state.name">{{state.name}}</option>
-                                                               </select>
+                                                              <select class="form-control"  v-model="state" @change="fetchLga(state)">
+                                                               <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+                                                           </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">LGA</label>
-
-                                                                  <select class="form-control"  v-model="register.lga">
-                                                                   <option v-for="lga in lga_states.lgas" v-bind:key="lga" :value="lga">{{lga}}</option>
+                                                                <select class="form-control"  v-model="register.localgovt">
+                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                </select>
                                                             </div>
                                                           </div>
@@ -186,7 +185,7 @@ export default {
                 email:"",
                 phone_number:"",
                 type:"client",
-                provider_id:"",
+                agency_id:"",
                 state:"",
                 lga:"",
                 ward:"",
@@ -201,8 +200,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-
-    this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
+    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
                 .then(response => {
                     this.clients = response.data.data
                     console.log(response)
@@ -215,7 +213,7 @@ export default {
   methods:{
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
+      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
                   .then(response => {
                       this.clients = response.data.data
                       console.log(response)
@@ -225,9 +223,9 @@ export default {
                   })
     },
     getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
+      this.axios.get(`/api/v1/auth/states`)
                   .then(response => {
-                      this.states = response.data
+                      this.states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -235,9 +233,9 @@ export default {
                   })
     },
     fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
+      this.axios.get(`/api/v1/auth/lga/${state.id}`)
                   .then(response => {
-                      this.lga_states = response.data
+                      this.lga_states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -247,15 +245,16 @@ export default {
     registerUser(){
       this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
+        this.axios.post('/api/v1/auth/registerProvider',{
           firstname: this.register.firstname,
           lastname: this.register.lastname,
           email: this.register.email,
           phone_number: this.register.phone_number,
           type: this.register.type,
-          provider_id: this.user.institutional_id,
-          state: this.state,
+          agency_id: this.user.id,
+          state: this.state.name,
           role: 0,
+          password: 'euhler',
           lga: this.register.lga,
           ward: this.register.ward,
           blood: this.register.blood,
@@ -268,14 +267,18 @@ export default {
 
             console.log(response);
             this.isLoading = false;
-            this.$breadstick.notify("Client added successfully", {position: "top-right"});
+            this.$toasted.info('Client added Successfully', {position: 'top-center', duration:3000 })
+            let user_id = response.data.data.id
+
+            this.$router.push(`/client/${user_id}`)
 
         })
         .catch(error=>{
             console.log(error.response)
             this.isLoading = false;
+            this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
+
             this.getClients();
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
 
         })
     }

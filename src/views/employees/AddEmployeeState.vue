@@ -60,17 +60,16 @@
 
                                                           <div class="row">
                                                             <div class="form-group col-md-6">
-                                                              <label for="inputCity">States</label>
+                                                              <label for="inputCity">States </label>
 
-                                                                  <select class="form-control"  v-model="state" @change="fetchLga(state)">
-                                                                   <option v-for="state in states" v-bind:key="state.id" :value="state.name">{{state.name}}</option>
-                                                               </select>
+                                                              <select class="form-control"  v-model="state" @change="fetchLga(state)">
+                                                               <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+                                                           </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">LGA</label>
-
-                                                                  <select class="form-control"  v-model="register.lga">
-                                                                   <option v-for="lga in lga_states.lgas" v-bind:key="lga" :value="lga">{{lga}}</option>
+                                                                <select class="form-control"  v-model="register.localgovt">
+                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                </select>
                                                             </div>
                                                           </div>
@@ -78,15 +77,13 @@
                                                           <div class="form-row">
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputCity">Job Title</label>
-                                                                  <select class="form-control"  v-model="register.job_title">
-                                                                   <option  value="doctor">Claims Clerk</option>
-                                                                   <option  value="receptionist">Receptionist</option>
-                                                                   <option  value="accountant">Desk Officer</option>
-                                                               </select>
+                                                                  <input type="text" class="form-control" v-model="register.job_title" placeholder="Job Title" >
                                                               </div>
-
+                                                              <div class="form-group col-md-6">
+                                                                  <label for="inputCity">ID Card Number</label>
+                                                                  <input type="text" class="form-control"  placeholder="ID Card Number"   v-model="register.id_card_number">
+                                                              </div>
                                                           </div>
-
 
                                                          <div class="form-group">
                                                              <button class="btn btn-primary" @click="registerUser">Submit</button>
@@ -145,6 +142,7 @@ export default {
                 institutional_id:"",
                 job_title:"",
                 lga:"",
+                id_card_number:"",
                 ward:"",
                 address:"",
             }
@@ -176,9 +174,9 @@ export default {
     },
 
     getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
+      this.axios.get(`/api/v1/auth/states`)
                   .then(response => {
-                      this.states = response.data
+                      this.states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -186,9 +184,9 @@ export default {
                   })
     },
     fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
+      this.axios.get(`/api/v1/auth/lga/${state.id}`)
                   .then(response => {
-                      this.lga_states = response.data
+                      this.lga_states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -198,14 +196,16 @@ export default {
     registerUser(){
       this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
+        this.axios.post('/api/v1/auth/registerProvider',{
           firstname: this.register.firstname,
           lastname: this.register.lastname,
           email: this.register.email,
           phone_number: this.register.phone_number,
           type: this.register.type,
           password: 'euhler',
-          state: this.state,
+          state : this.state.name,
+          localgovt : this.register.lga,
+          id_card_number : this.register.id_card_number,
           institutional_id: this.user.id,
           job_title: this.register.job_title,
           role: 0,
@@ -216,14 +216,20 @@ export default {
 
             console.log(response);
             this.isLoading = false;
-            this.$breadstick.notify("Employee added successfully!, Default Password is 'euhler' ", {position: "top-right"});
-            this.getEmployees()
+            let user_id = response.data.data.id
+            this.$router.push(`/client/${user_id}`)
+
+            this.$toasted.info('Employee added Successfully', {position: 'top-center', duration:3000 })
+            this.$toasted.info("Employee Password is 'euhler' ", {position: 'top-center', duration:3000 })
+            this.$router.push('/my-employees')
+            // this.$breadstick.notify("Employee added successfully!, Default Password is 'euhler' ", {position: "top-right"});
+            // this.getEmployees()
 
         })
         .catch(error=>{
             console.log(error.response)
             this.isLoading = false;
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+            this.$toasted.error("Error ", {position: 'top-center', duration:3000 })
 
         })
     }

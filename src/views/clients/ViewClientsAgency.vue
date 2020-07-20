@@ -12,7 +12,8 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>{{clients.length}} Clients</h3>
+                       <strong>{{clients.length}} Clients</strong>
+
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Clients" type="search"
@@ -48,8 +49,8 @@
                                          <th>Name</th>
                                          <th>E mail</th>
                                          <th>Phone Number</th>
-                                         <th>State/LGA</th>
-                                         <th>Status</th>
+                                         <th>State</th>
+                                         <th>Action</th>
                                      </tr>
                                      </thead>
                                      <tbody>
@@ -62,14 +63,13 @@
                                          <td >{{client.firstname}} {{client.lastname}}</td>
                                          <td>{{client.email}}</td>
                                          <td>{{client.phone_number}}</td>
-                                         <td>{{client.state}}/{{client.localgovt}}</td>
+                                         <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
+                                         <td>{{client.state}}</td>
                                          <td>
-                                           <span v-if="client.status == 1">
-                                             <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
-                                             </span>
-                                            <span v-if="client.status != 1">
-                                            <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
-                                           </span>
+
+                                           <router-link :to="{ path: '/client/'+ client.id}">
+                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                            </router-link>
 
                                          </td>
                                      </tr>
@@ -138,12 +138,20 @@ export default {
     }
   },
   beforeMount(){
-
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
+                .then(response => {
+                    this.clients = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
   },
   methods:{
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
                   .then(response => {
                       this.clients = response.data.data
                       console.log(response)
@@ -152,58 +160,10 @@ export default {
                       console.error(error);
                   })
     },
-    getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
-                  .then(response => {
-                      this.states = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
-                  .then(response => {
-                      this.lga_states = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    registerUser(){
-        this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
-          firstname: this.register.firstname,
-          lastname: this.register.lastname,
-          email: this.register.email,
-          phone_number: this.register.phone_number,
-          type: this.register.type,
-          username: this.register.username,
-          state: this.state,
-          role: 0,
-          lga: this.register.lga,
-          ward: this.register.ward,
-        })
-        .then(response=>{
 
-            console.log(response);
-            this.isLoading = false;
-            this.$breadstick.notify("Client added successfully", {position: "top-right"});
-
-        })
-        .catch(error=>{
-            console.log(error.response)
-            this.isLoading = false;
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
-
-        })
-    }
 
   },
   created(){
-    this.getStates()
     this.getClients()
   }
 

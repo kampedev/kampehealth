@@ -12,7 +12,8 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Providers </h3>
+                       <h3> </h3>
+                       <strong> {{providers.length}} Providers</strong>
 
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
@@ -44,31 +45,90 @@
                            </div>
 
                            <div class="card-body">
-                               <!-- <div class="text-center">
-
-                                   <h3 class="p-t-10 searchBy-name">Add Agency</h3>
-                               </div> -->
-
-                               <!-- <div class="form-row"> -->
-
-                                 <!-- <p v-for="hmo in hmos" v-bind:key="hmo.id">rr {{hmo.agency_name}}</p> -->
-
-                                   <!-- <div class="form-group col-md-12">
-                                     <label for="inputCity">Agency</label>
-
-                                         <select class="form-control"  v-model="agency_id">
-                                          <option id="Parent" v-for="hmo in hmos" v-bind:key="hmo.id" :value="hmo.id">{{hmo.agency_name}}</option>
-
-                                      </select>
-                                   </div> -->
-                               <!-- </div> -->
-
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary">Export to CSV</button>
+                                                             <button class="btn btn-primary" @click="show = !show">Add Provider</button>
                                                          </div>
                            </div>
                        </div>
+                   </div>
+
+                   <div class="col-md-12" v-show="show">
+                     <div class="card m-b-30">
+                       <div class="card-body">
+
+                         <div class="form-row">
+                           <div class="form-group floating-label col-md-6 col-sm-12">
+                               <label>First Name</label>
+                               <input type="text" required class="form-control" placeholder="First Name" v-model="register.firstname">
+                           </div>
+                           <div class="form-group floating-label col-md-6 col-sm-12">
+                               <label>Last Name</label>
+                               <input type="text" required class="form-control" placeholder="Last Name" v-model="register.lastname">
+                           </div>
+                           <div class="form-group floating-label col-md-6">
+                               <label>Agency Name</label>
+                               <input type="text" required class="form-control" placeholder="Agency Name" v-model="register.agency_name">
+                           </div>
+
+                             <div class="form-group floating-label col-md-6">
+                                 <label>Email</label>
+                                 <input type="email" required class="form-control" placeholder="Email" v-model="register.email">
+                             </div>
+                             <div class="form-group floating-label col-md-6">
+                                 <label>Phone Number</label>
+                                 <input type="text" required class="form-control" placeholder="Phone Number" v-model="register.phone_number">
+                             </div>
+
+                             <div class="form-group floating-label col-md-10">
+                                 <label>Services Offered</label>
+                                 <textarea class="form-control" rows="8"  v-model="register.services_offered" placeholder="Services Offered"></textarea>
+                             </div>
+
+                             <div class="form-group floating-label col-md-10">
+                                 <label>Address</label>
+                                 <textarea class="form-control" rows="8"  v-model="register.address1" placeholder="Address"></textarea>
+                             </div>
+
+
+                       </div>
+
+                       <div class="row">
+                         <div class="form-group col-md-6">
+                           <label for="inputCity">States </label>
+
+                               <select class="form-control"  v-model="state" @change="fetchLga(state)">
+                                <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+                            </select>
+                         </div>
+                         <div class="form-group col-md-6">
+                           <label for="inputCity">LGA</label>
+                               <select class="form-control"  v-model="register.localgovt">
+                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                            </select>
+                         </div>
+                         <div class="form-group floating-label col-md-6 col-sm-12">
+                             <label>Ward</label>
+                             <input type="text" required class="form-control" placeholder="Ward" v-model="register.ward">
+                         </div>
+
+                       </div>
+
+                         <!-- <p class="">
+                             <label class="cstm-switch">
+                                 <input type="checkbox" checked name="option" value="1" class="cstm-switch-input">
+                                 <span class="cstm-switch-indicator "></span>
+                                 <span class="cstm-switch-description">  I agree to the Terms and Privacy. </span>
+                             </label>
+
+
+                         </p> -->
+
+                         <button @click="registerUser" class="btn btn-primary btn-block btn-lg">Add Health Provider</button>
+
+                       </div>
+                     </div>
+
                    </div>
 
                    <div class="col-md-10 m-b-30">
@@ -151,9 +211,30 @@ export default {
       providers:"",
       agencies:"",
       edit:false,
+      show:false,
       isLoading: false,
       fullPage: true,
-      agency_id:""
+      agency_id:"",
+      provider_id:"",
+      states:"",
+      state:"",
+      lga_states:"",
+      register:{
+                firstname:"",
+                lastname:"",
+                email:"",
+                type:"provider",
+                phone_number:"",
+                state:"",
+                agency_name:"",
+                ward:"",
+                services_offered:"",
+                localgovt:"",
+                address1:"",
+                role:0,
+                password:"euhler",
+                password_confirmation:"euhler"
+            }
     }
   },
   beforeMount(){
@@ -168,6 +249,79 @@ export default {
                 })
   },
   methods:{
+
+    getStates(){
+      this.axios.get(`/api/v1/auth/states`)
+                  .then(response => {
+                      this.states = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    fetchLga(state){
+      this.axios.get(`/api/v1/auth/lga/${state.id}`)
+                  .then(response => {
+                      this.lga_states = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    registerUser(){
+        this.isLoading = true;
+        this.axios.post('/api/v1/auth/registerProvider',{
+          firstname : this.register.firstname,
+          lastname : this.register.lastname,
+          email : this.register.email,
+          phone_number : this.register.phone_number,
+          agency_name : this.register.agency_name,
+          type : this.register.type,
+          state : this.state.name,
+          localgovt : this.register.localgovt,
+          services_offered : this.register.services_offered,
+          address1 : this.register.address1,
+          role : this.register.role,
+          password : this.register.password,
+          password_confirmation : this.register.password_confirmation
+        })
+        .then(response=>{
+          let user_id = response.data.data.id
+
+            //add provider
+              this.show = false;
+              console.log(user_id)
+              this.axios.post('/api/v1/auth/providerApply',{
+                    provider_id: user_id,
+                    agency_id: this.user.id,
+                    status: true,
+                  })
+
+                  .then(response=>{
+                      console.log(response);
+                      this.$toasted.info('Provider added Successfully!', {position: 'top-left', duration:5000 })
+                      this.$router.push(`/provider-${user_id}`)
+
+                  })
+                  .catch(error=>{
+                      console.log(error.response)
+                  })
+                  //end of provider
+
+            console.log(response);
+            this.isLoading = false;
+            // localStorage.setItem('jwt',token);
+
+        })
+        .catch(error=>{
+            console.log(error.response)
+            this.isLoading = false;
+            this.$toasted.error('Sign up not Successful', {position: 'top-left', duration:5000 })
+
+        })
+    },
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
@@ -189,7 +343,7 @@ export default {
 
   },
   created(){
-    // this.getHmo()
+    this.getStates()
   }
 
 }

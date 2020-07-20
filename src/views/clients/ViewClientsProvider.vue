@@ -48,8 +48,8 @@
                                          <th>Name</th>
                                          <th>E mail</th>
                                          <th>Phone Number</th>
-                                         <th>State/LGA</th>
-                                         <th>Status</th>
+                                         <th>State</th>
+                                         <th>Action</th>
                                      </tr>
                                      </thead>
                                      <tbody>
@@ -62,14 +62,13 @@
                                          <td >{{client.firstname}} {{client.lastname}}</td>
                                          <td>{{client.email}}</td>
                                          <td>{{client.phone_number}}</td>
-                                         <td>{{client.state}}/{{client.localgovt}}</td>
+                                         <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
+                                         <td>{{client.state}}</td>
                                          <td>
-                                           <span v-if="client.status == 1">
-                                             <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
-                                             </span>
-                                            <span v-if="client.status != 1">
-                                            <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
-                                           </span>
+
+                                           <router-link :to="{ path: '/client/'+ client.id}">
+                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                            </router-link>
 
                                          </td>
                                      </tr>
@@ -79,7 +78,6 @@
                                  </table>
 
                              </div>
-
 
                            </div>
                        </div>

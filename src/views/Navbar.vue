@@ -306,7 +306,7 @@
                                 </li>
 
                                 <li class="menu-item">
-                                    <a href="/view-clients-provider" class=" menu-link">
+                                    <a href="/view-clients-agency" class=" menu-link">
                                                     <span class="menu-label">
                                                             <span class="menu-name">View Clients
                                                             </span>

@@ -13,7 +13,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>Plans</h3>
+                       <strong>Plans</strong>
                        <div class="form-dark">
                            <!-- <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Employees" type="search"

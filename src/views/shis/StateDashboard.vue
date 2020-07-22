@@ -122,8 +122,7 @@
                                 <!-- <th>Avatar</th> -->
                                 <th>Name</th>
                                 <th>Position</th>
-
-                                <th>Start date</th>
+                                <th>E mail</th>
                                 <!-- <th>Salary</th> -->
                             </tr>
                             </thead>
@@ -142,35 +141,32 @@
                 </div>
 
                 <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-alert-circle"></i>{{claims.length}} Claims</h5>
+                    <h5> <i class="fe fe-alert-circle"></i>{{clients.length}} CLients</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Diagnosis</th>
-                                <th>Seen date</th>
-                                <th>Cost</th>
-                                <th>Status</th>
+                                <th>E mail</th>
+                                <th>Phone Number</th>
+                                <th>State</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="claim in claims" v-bind:key="claim.id">
+                            <tr v-for="client in clients" v-bind:key="client.id">
                                 <td>
-                                  {{claim.client_name}}
+                                  {{client.firstname}} {{client.lastname}}
                                 </td>
-                                <td>{{claim.diagnosis}} </td>
-                                <td>{{claim.seen_date}}</td>
-                                <td><i class="mdi mdi-currency-ngn"></i> {{claim.cost | numeral('0,0.00')}}</td>
+                                <td>{{client.email}} </td>
+                                <td>{{client.phone_number}}</td>
+                                <td> {{client.state}}</td>
                                 <td>
-                                  <span v-if="claim.status == 1">
-                                    <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
-                                    </span>
-                                   <span v-if="claim.status != 1">
-                                   <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
-                                </span>
+                                  <router-link :to="{ path: '/client/'+ client.id}">
+                                    <button type="button" name="button" class="btn btn-info">view</button>
+                                  </router-link>
+                                </td>
 
-                                </td>
                             </tr>
 
 
@@ -282,8 +278,16 @@ export default {
                   })
     },
     getClients(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
+      // this.user = JSON.parse(localStorage.getItem('user'))
+      // this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
+      //             .then(response => {
+      //                 this.clients = response.data.data
+      //                 console.log(response)
+      //             })
+      //             .catch(error => {
+      //                 console.error(error);
+      //             })
+      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
                   .then(response => {
                       this.clients = response.data.data
                       console.log(response)

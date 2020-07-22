@@ -14,17 +14,7 @@
                            </div>
                        </div>
                        <h3>{{plans.length}} Plans</h3>
-                       <div class="form-dark">
-                           <!-- <div class="input-group input-group-flush mb-3">
-                               <input placeholder="Filter Employees" type="search"
-                                      class="form-control form-control-lg search form-control-prepended">
-                               <div class="input-group-prepend">
-                                   <div class="input-group-text">
-                                       <i class="mdi mdi-magnify"></i>
-                                   </div>
-                               </div>
-                           </div> -->
-                       </div>
+
 
                    </div>
 
@@ -32,16 +22,13 @@
                </div>
            </div>
        </div>
-       <section class="pull-up">
+       <section class="">
            <div class="container">
 
                <div class="row list">
                    <div class="col-lg-12 col-md-8">
                        <div class="card m-b-30">
-                           <div class="card-header">
 
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
-                           </div>
 
                            <div class="card-body" v-show="show">
                                <div class="text-center">

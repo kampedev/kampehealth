@@ -42,7 +42,7 @@
                    <div class="col-lg-8 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
-                             <h3 class="p-t-10 searchBy-name">Patient Details</h3>
+                             <h3 class="p-t-10 searchBy-name">User Details</h3>
                            </div>
 
                            <div class="card-body">

@@ -221,9 +221,6 @@ export default {
 
             this.$toasted.info('Employee added Successfully', {position: 'top-center', duration:3000 })
             this.$toasted.info("Employee Password is 'euhler' ", {position: 'top-center', duration:3000 })
-            this.$router.push('/my-employees')
-            // this.$breadstick.notify("Employee added successfully!, Default Password is 'euhler' ", {position: "top-right"});
-            // this.getEmployees()
 
         })
         .catch(error=>{

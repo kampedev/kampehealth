@@ -45,15 +45,24 @@
                    <div class="col-lg-8 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
-                             <h3 class="p-t-10 searchBy-name">Provider Details</h3>
+                             <strong class="p-t-10 searchBy-name">Provider Details</strong>
                            </div>
 
                            <div class="card-body">
                              <p><strong>E - Mail:</strong>  {{provider.email}}</p>
+                             <br>
                              <p><strong>Phone Number:</strong> {{provider.phone_number}}</p>
+                             <br>
+
                              <p><strong>State:</strong> {{provider.state}}</p>
+                             <br>
+
                              <p><strong>Local Government Area:</strong> {{provider.localgovt}}</p>
-                             <p><strong>Website:</strong> {{provider.website}}</p>
+                             <br>
+
+                             <!-- <p><strong>Website:</strong> {{provider.website}}</p> -->
+                             <br>
+
                              <p>
                                <span v-if="provider.status == 1">
                                  <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
@@ -78,8 +87,8 @@
                                <div class="card-body">
 
                                                              <div class="form-group">
-                                                                 <button class="btn btn-primary" @click="acceptProvider">accept</button>
-                                                                 <button class="btn btn-danger spacer" @click="rejectProvider">reject</button>
+                                                                 <button class="btn btn-primary" @click="acceptProvider">Approve</button>
+                                                                 <!-- <button class="btn btn-danger spacer" @click="rejectProvider">reject</button> -->
                                                              </div>
                                </div>
                            </div>
@@ -185,6 +194,8 @@ export default {
         this.$breadstick.notify("Provider Approved!", {position: "top-right"});
         this.isLoading = false;
         this.getProvider()
+        this.$router.push(`/client/${this.$route.params.id}`)
+
 
     })
     .catch(error=>{

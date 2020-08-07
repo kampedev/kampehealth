@@ -586,7 +586,7 @@
             </li>
 
             <li class="menu-item  "  v-if="user.type == 'provider'">
-                <a href="add-agency" class=" menu-link">
+                <a href="/add-agency" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">My Agencies
                                                 </span>
@@ -598,7 +598,7 @@
                 </a>
             </li>
             <li class="menu-item  "  v-if="user.type == 'hmo'">
-                <a href="my-providers" class=" menu-link">
+                <a href="/my-providers" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">My Providers
                                                 </span>
@@ -611,7 +611,7 @@
             </li>
 
             <li class="menu-item  "  v-if="user.type == 'shis'">
-                <a href="my-providers" class=" menu-link">
+                <a href="/my-providers" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">My Providers
                                                 </span>

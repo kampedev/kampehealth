@@ -108,14 +108,14 @@
 
                                        </button>
                                    </div>
-                                   <div class="col">
+                                   <!-- <div class="col">
                                        <a href="#">
                                            <h3 class="fe fe-eye"></h3>
                                            <div class="text-overline">View</div>
 
                                        </a>
 
-                                   </div>
+                                   </div> -->
 
                                </div>
                            </div>

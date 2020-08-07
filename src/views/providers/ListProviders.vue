@@ -142,6 +142,7 @@
                                    <th>E mail</th>
                                    <th>Contact</th>
                                    <th>Status</th>
+                                   <th>Action</th>
                                </tr>
                                </thead>
                                <tbody>
@@ -167,6 +168,11 @@
                                       <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
                                    </span>
 
+                                   </td>
+                                   <td>
+                                     <router-link :to="{ path: '/provider-'+ provider.id}">
+                                       <button type="button" name="button" class="btn btn-info">view</button>
+                                      </router-link>
                                    </td>
                                </tr>
 

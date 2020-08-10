@@ -45,7 +45,7 @@
                            <div class="card-body">
                                <div class="text-center">
 
-                                   <h3 class="p-t-10 searchBy-name">Add Client</h3>
+                                   <h1 > <strong>Bio Data</strong> </h1>
                                </div>
 
                                                         <div class="form-row">

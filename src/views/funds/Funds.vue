@@ -23,8 +23,8 @@
                                 </div>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Capital</p>
-                                <h1 class="fw-400"> <i class=" mdi mdi-currency-ngn"></i>901,555</h1>
+                                <p class="text-muted text-overline m-0">Wallet Balance</p>
+                                <h1 class="fw-400"> <i class=" mdi mdi-currency-ngn"></i>901,555 {{wallet}}</h1>
                             </div>
                         </div>
                     </div>
@@ -259,12 +259,10 @@
 
                   </div>
 
-
         </div>
 
     </section>
 </main>
-
 
     </div>
 
@@ -278,10 +276,22 @@ export default {
      Navbar
   },
   data(){
+    return{
+      wallet:"",
+      user:null
+    }
 
   },
   beforeMount(){
-
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.axios.get(`/api/v1/auth/getWalletBalanceAgency/${this.user.id}`)
+                .then(response => {
+                    this.wallet = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
   },
   methods:{
 

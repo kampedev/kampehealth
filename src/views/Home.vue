@@ -84,7 +84,7 @@
     >
       <div
         class="absolute top-0 w-full h-full bg-center bg-cover"
-        style='background-image: url("/assets/img/hero-image1.jpg");'
+        style='background-image: url("/assets/img/zamfara.jpg");'
       >
         <span
           id="blackOverlay"
@@ -96,7 +96,9 @@
           <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
             <div class="pr-12">
               <h1 class="text-white font-semibold text-5xl">
-                Health Insurance that Works.
+                <!-- Health Insurance that Works. -->
+                Zamfara State Contributory Health Care Management Agency
+                Enrollment Portal
               </h1>
               <p class="mt-4 text-lg text-gray-300">
                 Hayok has developed a health payment platform that operates on a mobile phone.

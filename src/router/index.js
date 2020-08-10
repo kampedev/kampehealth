@@ -17,6 +17,9 @@ import AddClientAgency from '../views/clients/AddClientAgency.vue'
 import AddClientProvider from '../views/clients/AddClientProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import SingleClient from '../views/clients/SingleClient.vue'
+import SingleClientSelectSector from '../views/clients/SingleClientSelectSector.vue'
+import SingleClientHealthFacility from '../views/clients/SingleClientHealthFacility.vue'
+import SingleClientEnrolmentSuccess from '../views/clients/SingleClientEnrolmentSuccess.vue'
 import ViewClientsProvider from '../views/clients/ViewClientsProvider.vue'
 import ViewClientsAgency from '../views/clients/ViewClientsAgency.vue'
 import ProviderDashboard from '../views/providers/Dashboard.vue'
@@ -162,6 +165,27 @@ const routes = [
   {
     path: '/client/:id',
     component: SingleClient,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/client-select-sector/:id',
+    component: SingleClientSelectSector,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/client-select-facility/:id',
+    component: SingleClientHealthFacility,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/client-submit-success/:id',
+    component: SingleClientEnrolmentSuccess,
     meta: {
         requiresAuth: true,
       },

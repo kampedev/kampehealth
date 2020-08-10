@@ -29,9 +29,8 @@
                            </div>
 
                            <div class="card-body">
-                                     <div class="form-group">
-                                         <button class="btn btn-default spacer" data-toggle="modal" data-target="#example_01">Upload Photo </button>
-
+                                     <div class="text-center">
+                                        <strong >Select Sector</strong>
                                      </div>
 
                            </div>
@@ -42,59 +41,29 @@
                <div class="row">
                    <div class="col-lg-8 col-md-8">
                        <div class="card m-b-30">
-                           <div class="card-header">
-                             <h3 class="p-t-10 searchBy-name">User Details</h3>
-                           </div>
+
 
                            <div class="card-body">
 
-                             <vue-initials-img :name="client.firstname+' '+client.lastname" class="text-center rounded-circle"  v-if="client.user_image == null "/>
-
-
-                             <div class="" v-if="client.user_image != null ">
-                               <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"> -->
-                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+                             <div class="form-group col-md-6">
+                               <label for="inputCity">Select Sector</label>
+                                   <select class="form-control"  v-model="sector" >
+                                    <option  value="Male">Formal Sector</option>
+                                    <option  value="Female">Informal Sector</option>
+                                </select>
                              </div>
 
-                             <p class="spacer-top-bottom"><strong>Name:</strong>  {{client.firstname }} {{client.lastname}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Email:</strong> {{client.email}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("dddd, MMMM Do YYYY") }}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Weight:</strong> {{client.weight }}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Blood Group:</strong> {{client.blood }}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Genotype:</strong> {{client.genotype }}</p>
+                             <div class="form-group">
+                               <router-link :to="{ path: '/client-select-facility/'+client.id, params: {} }">
+                                  <button class="btn btn-info" >Proceed</button>
+                              </router-link>
+                             </div>
 
                            </div>
                        </div>
                    </div>
 
-                       <div class="col-lg-4 col-md-4">
-                           <div class="card m-b-30">
-                               <div class="card-header">
 
-                               </div>
-
-                               <div class="card-body" >
-                                   <div class="form-group">
-                                     <router-link :to="{ path: '/client-select-sector/'+client.id, params: {} }">
-
-                                       <button class="btn btn-info">Select Sector</button>
-                                       </router-link>
-                                   </div>
-                               </div>
-                           </div>
-
-                       </div>
 
 
                </div>
@@ -187,7 +156,7 @@ export default {
       user:null,
       client:"",
       notes:"",
-      medications:"",
+      sector:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -197,65 +166,7 @@ export default {
 
     }
   },
-  mounted(){
 
-  var video = document.getElementById('video');
-// Get access to the camera!
-if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    // Not adding `{ audio: true }` since we only want video now
-    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-        //video.src = window.URL.createObjectURL(stream);
-        video.srcObject = stream;
-        video.play();
-    });
-
-  }
-
-  var canvas = document.getElementById('canvas');
-  var context = canvas.getContext('2d');
-  // var video = document.getElementById('video');
-
-    // Trigger photo take
-  document.getElementById("snap").addEventListener("click", function() {
-	context.drawImage(video, 0, 0, 640, 480);
-
-    // get image
-    var image = new Image();
-    image.src = canvas.toDataURL("image/png");
-    console.log(image)
-    localStorage.setItem('snap',image);
-    // this.this.uploadPic()
-
-
-    // upload image
-    // this.user = JSON.parse(localStorage.getItem('user'))
-
-      // var formData = new FormData();
-      // formData.append("user_image", image)
-      // this.axios.post("/api/v1/auth/uploadUserImage", formData, {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data'
-      //   }
-      // })
-      // .then(response => {
-      //   console.log(response);
-      //      this.isLoading = false;
-      //      this.$breadstick.notify("Profile Image changed Successfully!", {position: "top-right"});
-      //      this.getUser()
-      //
-      // })
-    //end of upload image
-
-});
-
-
-// function convertCanvasToImage(canvas) {
-	// var image = new Image();
-	// image.src = canvas.toDataURL("image/png");
-	// return image;
-// }
-
-  },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
     this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)

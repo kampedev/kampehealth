@@ -54,25 +54,20 @@
 
                              <div class="form-group text-center col-md-8">
                                <label for="inputCity">Select Facilitiy</label>
-                                   <select class="form-control"  v-model="sector" >
-                                    <option  value="Male">Primary Health Center (PHC)</option>
-                                    <option  value="Female">Secondary Health Center (SCH)</option>
-                                    <option  value="Female">Tertiary Health Center (THC)</option>
+                                   <select class="form-control"  v-model="facility" >
+                                    <option  value="Primary Health Center (PHC)">Primary Health Center (PHC)</option>
+                                    <option  value="Secondary Health Center (PHC)">Secondary Health Center (SCH)</option>
+                                    <option  value="Tertiary Health Center (PHC)">Tertiary Health Center (THC)</option>
                                 </select>
                              </div>
 
                              <div class="form-group">
-                               <router-link :to="{ path: '/client-submit-success/'+client.id, params: {} }">
-                                  <button class="btn btn-info" >Complete Enrolment</button>
-                              </router-link>
+                                  <button class="btn btn-info"  @click="gotoSuccess">Complete Enrolment</button>
                              </div>
 
                            </div>
                        </div>
                    </div>
-
-
-
 
                </div>
 
@@ -165,7 +160,7 @@ export default {
       client:"",
       auth_user:"",
       notes:"",
-      sector:"",
+      facility:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -190,6 +185,10 @@ export default {
   },
 
   methods:{
+    gotoSuccess(){
+      localStorage.setItem('facility',this.facility);
+      this.$router.push(`/client-submit-success/${this.$route.params.id}`)
+    },
     authUser(){
       this.axios.get(`/api/v1/auth/user`)
                   .then(response => {

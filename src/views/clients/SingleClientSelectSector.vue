@@ -55,23 +55,18 @@
                              <div class="form-group col-md-6">
                                <label for="inputCity">Select Sector</label>
                                    <select class="form-control"  v-model="sector" >
-                                    <option  value="Male">Formal Sector</option>
-                                    <option  value="Female">Informal Sector</option>
+                                    <option  value="Formal Sector">Formal Sector</option>
+                                    <option  value="Informal Sector">Informal Sector</option>
                                 </select>
                              </div>
 
                              <div class="form-group">
-                               <router-link :to="{ path: '/client-select-facility/'+client.id, params: {} }">
-                                  <button class="btn btn-info" >Proceed</button>
-                              </router-link>
+                                  <button class="btn btn-info" @click="gotoFacility" >Proceed</button>
                              </div>
 
                            </div>
                        </div>
                    </div>
-
-
-
 
                </div>
 
@@ -189,6 +184,10 @@ export default {
   },
 
   methods:{
+    gotoFacility(){
+      localStorage.setItem('sector',this.sector);
+      this.$router.push(`/client-select-facility/${this.$route.params.id}`)
+    },
     authUser(){
       this.axios.get(`/api/v1/auth/user`)
                   .then(response => {

@@ -41,33 +41,76 @@
 
                            <div class="card-body">
 
-                            <strong class="display-4">{{client.firstname}} {{client.lastname}} has been successfully enrolled into Zamfara Contibutory Health Scheme.</strong>
-
+                            <strong class="display-4">{{client.firstname}} {{client.lastname}} has been successfully enrolled into Zamfara Contributory Health Scheme.</strong>
 
                            </div>
                        </div>
                    </div>
+
+                   <button  class="col-md-6 offset-md-3 btn btn-info spacer-top-bottom" name="button" @click="printMe">Print Enrolment ID Card</button>
 
 
                </div>
 
 
-
-               <!-- <div class="row">
-                   <div class="col-lg-8 col-md-8">
-                       <div class="card m-b-30">
+               <div class="row" id="printDiv">
+                   <div class="col-md-12">
+                       <div class="card ">
                            <div class="card-header">
-                             <p><strong>CAC Document:</strong></p>
+                             <p><strong>Patient ID Card</strong></p>
+
+
                            </div>
 
                            <div class="card-body">
 
+                             <div class="col-md-12">
+                               <div class="avatar col-md-6 offset-md-3" >
+                                 <label class="avatar-input">
+                                     <span class="avatar avatar-lg">
+                                        <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                                             class="avatar-img rounded-circle"   >
+                                     </span>
+                                 </label>
+                               </div>
+                             </div>
+
+                             <div class="row">
+                               <div class="col-md-4">
+                                 <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="rounded" alt="Cinque Terre" width="304" height="236">
+                               </div>
+                               <div class="col-md-8">
+                                 <p class="spacer-top-bottom"><strong>Name:</strong>  {{client.firstname }} {{client.lastname}}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>Email:</strong> {{client.email}}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>Sector:</strong> {{sector}}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>Facility:</strong> {{facility}}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("dddd, MMMM Do YYYY") }}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>Weight:</strong> {{client.weight }}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>Blood Group:</strong> {{client.blood }}</p>
+                                 <hr>
+                                 <p class="spacer-top-bottom"><strong>Genotype:</strong> {{client.genotype }}</p>
+
+                               </div>
+
+                             </div>
 
                            </div>
                        </div>
                    </div>
 
-               </div> -->
+               </div>
 
                <!-- Modal for Prescription/Notes -->
                                              <div class="modal fade "   id="example_01" tabindex="-1" role="dialog"
@@ -139,8 +182,8 @@ export default {
       user:null,
       auth_user:"",
       client:"",
-      notes:"",
-      medications:"",
+      facility:"",
+      sector:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -155,6 +198,8 @@ export default {
     this.$toasted.info('Enrolment completed Successfully', {position: 'top-center', duration:3000 })
 
     this.user = JSON.parse(localStorage.getItem('user'))
+    this.sector = localStorage.getItem('sector')
+    this.facility = localStorage.getItem('facility')
     this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
                 .then(response => {
                     this.client = response.data.user
@@ -176,7 +221,13 @@ export default {
                       console.error(error);
                   })
     },
-
+    printMe(){
+          var printContents = document.getElementById('printDiv').innerHTML;
+          var originalContents = document.body.innerHTML;
+          document.body.innerHTML = printContents;
+          window.print();
+          document.body.innerHTML = originalContents;
+       },
     takePic(){
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');

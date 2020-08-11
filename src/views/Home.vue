@@ -93,7 +93,7 @@
       </div>
       <div class="container relative mx-auto">
         <div class="items-center flex flex-wrap">
-          <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+          <div class="w-full lg:w-12/12 px-4 ml-auto mr-auto text-center">
             <div class="pr-12">
               <h1 class="text-white font-semibold text-5xl">
                 <!-- Health Insurance that Works. -->
@@ -101,7 +101,7 @@
                 Enrollment Portal
               </h1>
               <p class="mt-4 text-lg text-gray-300">
-                Hayok has developed a health payment platform that operates on a mobile phone.
+                Zamfara State has developed a health payment platform that operates on a mobile phone.
                 Users can save, receive and spend money, but the funds can only be used to pay for healthcare.
                 The system links directly with clinics and healthcare payers,
                 like insurers and donors, so both treatment and payment are fast, efficient and transparent.

@@ -38,7 +38,7 @@
                            <div class="card-body">
                                      <div class="form-group">
                                          <button class="btn btn-default spacer" data-toggle="modal" data-target="#example_01">Upload Photo </button>
-
+                                         <button class="btn btn-info spacer"  @click="printMe">Print ID Card</button>
                                      </div>
 
                            </div>
@@ -47,7 +47,7 @@
                </div>
 
                <div class="row">
-                   <div class="col-lg-8 col-md-8">
+                   <div class="col-lg-8 col-md-8" id="printDiv">
                        <div class="card m-b-30">
                            <div class="card-header">
                              <h3 class="p-t-10 searchBy-name">User Details</h3>
@@ -278,7 +278,13 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   },
 
   methods:{
-
+    printMe(){
+          var printContents = document.getElementById('printDiv').innerHTML;
+          var originalContents = document.body.innerHTML;
+          document.body.innerHTML = printContents;
+          window.print();
+          document.body.innerHTML = originalContents;
+       },
     authUser(){
       this.axios.get(`/api/v1/auth/user`)
                   .then(response => {

@@ -65,14 +65,7 @@
                            <div class="card-body">
 
                              <div class="col-md-12">
-                               <div class="avatar col-md-6 offset-md-3" >
-                                 <label class="avatar-input">
-                                     <span class="avatar avatar-lg">
-                                        <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
-                                             class="avatar-img rounded-circle"   >
-                                     </span>
-                                 </label>
-                               </div>
+                               <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`" class="rounded mx-auto d-block" style="width:320px;height:240px;">
                              </div>
 
                              <div class="row">

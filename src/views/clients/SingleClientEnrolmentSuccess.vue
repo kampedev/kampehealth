@@ -38,7 +38,7 @@
 
                            <div class="card-body">
 
-                            <strong class="display-4">{{client.firstname}} {{client.lastname}} have been successfully enrolled into Zamfara Contibutory Health Scheme.</strong>
+                            <strong class="display-4">{{client.firstname}} {{client.lastname}} has been successfully enrolled into Zamfara Contibutory Health Scheme.</strong>
 
 
                            </div>

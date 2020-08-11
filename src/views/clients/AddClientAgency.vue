@@ -89,19 +89,21 @@
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">Blood Group</label>
                                                                   <select class="form-control"  v-model="register.blood" >
-                                                                   <option  value="A+">A+</option>
-                                                                   <option  value="B+">B+</option>
-                                                                   <option  value="O+">O+</option>
-                                                                   <option  value="O-">O-</option>
+                                                                   <option  value="A">A</option>
+                                                                   <option  value="B">B</option>
+                                                                   <option  value="AB">AB</option>
+                                                                   <option  value="O">O</option>
                                                                </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">Genotype</label>
                                                                   <select class="form-control"  v-model="register.genotype" >
                                                                    <option  value="AA">AA</option>
-                                                                   <option  value="AS">AS</option>
-                                                                   <option  value="SS">SS</option>
-                                                                   <option  value="AC">AC</option>
+                                                                   <option  value="AO">AO</option>
+                                                                   <option  value="BB">BB</option>
+                                                                   <option  value="BO">BO</option>
+                                                                   <option  value="AB">AB</option>
+                                                                   <option  value="OO">OO</option>
                                                                </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
@@ -112,7 +114,7 @@
 
                                                           <div class="row">
                                                             <div class="form-group col-md-6">
-                                                              <label for="inputCity">States </label>
+                                                              <label for="inputCity">State </label>
 
                                                               <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                                                <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>

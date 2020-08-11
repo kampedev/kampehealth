@@ -55,7 +55,7 @@
 
                <div class="row" id="printDiv">
                    <div class="col-md-12">
-                       <div class="card ">
+                       <div class="card">
                            <div class="card-header">
                              <p><strong>Patient ID Card</strong></p>
 

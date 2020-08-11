@@ -6,10 +6,17 @@
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
-                   <div class="col-md-6 text-center mx-auto text-white p-b-30">
+                   <div class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image">
                        <div class="m-b-10">
-                           <div class="avatar ">
-                           </div>
+                         <div class="avatar">
+                           <label class="avatar-input">
+                        <span class="avatar avatar-lg">
+                            <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                                 class="avatar-img rounded-circle"   >
+                        </span>
+
+                           </label>
+                         </div>
                        </div>
                        <strong> {{client.firstname}} {{client.lastname}}</strong>
                    </div>
@@ -154,6 +161,7 @@ export default {
   data(){
     return{
       user:null,
+      auth_user:"",
       client:"",
       notes:"",
       sector:"",
@@ -181,7 +189,16 @@ export default {
   },
 
   methods:{
-
+    authUser(){
+      this.axios.get(`/api/v1/auth/user`)
+                  .then(response => {
+                      this.auth_user = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
     takePic(){
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
@@ -343,6 +360,7 @@ export default {
   },
   created(){
     this.fetchUser()
+    this.authUser()
   }
 
 }
@@ -350,6 +368,9 @@ export default {
 <style >
 .spacer{
   margin-left:15px;
+}
+.spacer-image{
+  margin-top:25px;
 }
 .spacer-top-bottom{
   margin-top:7px;

@@ -21,7 +21,7 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-md-6 offset-md-3">
                        <div class="card m-b-30">
 
 
@@ -29,6 +29,9 @@
                        </div>
                    </div>
                </div>
+
+               <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`" class="rounded col-md-6 offset-md-3" alt="Cinque Terre" width="200px" height="400px">
+
 
                <div class="row">
                    <div class="col-lg-12 col-md-12">
@@ -134,6 +137,7 @@ export default {
   data(){
     return{
       user:null,
+      auth_user:"",
       client:"",
       notes:"",
       medications:"",
@@ -162,6 +166,16 @@ export default {
   },
 
   methods:{
+    authUser(){
+      this.axios.get(`/api/v1/auth/user`)
+                  .then(response => {
+                      this.auth_user = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
 
     takePic(){
       var video = document.getElementById('video');
@@ -324,6 +338,7 @@ export default {
   },
   created(){
     this.fetchUser()
+    this.authUser()
   }
 
 }

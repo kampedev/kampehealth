@@ -65,7 +65,7 @@
                            <div class="card-body">
 
                              <div class="col-md-12">
-                               <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`" class="rounded mx-auto d-block" style="width:320px;height:240px;">
+                               <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`" class="rounded mx-auto d-block" style="width:320px;height:340px;">
                              </div>
 
                              <div class="row">

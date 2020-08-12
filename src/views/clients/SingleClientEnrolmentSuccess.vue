@@ -55,47 +55,53 @@
 
                <div class="row" id="printDiv">
                    <div class="col-md-12">
-                       <div class="card">
+                       <div class="card" >
+                         <!-- style="background-image: url('../assets/img/zamfara.jpg');" -->
                            <div class="card-header">
                              <p><strong>Patient ID Card</strong></p>
-
 
                            </div>
 
                            <div class="card-body">
 
                              <div class="col-md-12">
-                               <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`" class="rounded mx-auto d-block" style="width:320px;height:340px;">
+                               <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`" class="rounded mx-auto d-block" style="width:248px;height:250px;">
                              </div>
 
                              <div class="row">
                                <div class="col-md-4">
-                                 <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="rounded" alt="Cinque Terre" width="304" height="236">
+                                 <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="rounded mx-auto d-block"  style="width:300px;height:175px;">
+                                 <p class="text-center">
+                                    <strong > {{client.firstname }} {{client.lastname}}</strong>
+                                 </p>
                                </div>
-                               <div class="col-md-8">
-                                 <p class="spacer-top-bottom"><strong>Name:</strong>  {{client.firstname }} {{client.lastname}}</p>
-                                 <hr>
+                               <div class="col-md-4">
+                                 <!-- <p class="spacer-top-bottom"><strong>Name:</strong>  {{client.firstname }} {{client.lastname}}</p>
+                                 <hr> -->
                                  <p class="spacer-top-bottom"><strong>Email:</strong> {{client.email}}</p>
                                  <hr>
                                  <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
                                  <hr>
+                                 <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}}</p>
+                                  <hr>
                                  <p class="spacer-top-bottom"><strong>Sector:</strong> {{sector}}</p>
                                  <hr>
                                  <p class="spacer-top-bottom"><strong>Facility:</strong> {{facility}}</p>
-                                 <hr>
-                                 <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}}</p>
-                                 <hr>
-                                 <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("dddd, MMMM Do YYYY") }}</p>
-                                 <hr>
-                                 <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
-                                 <hr>
-                                 <p class="spacer-top-bottom"><strong>Weight:</strong> {{client.weight }}</p>
-                                 <hr>
-                                 <p class="spacer-top-bottom"><strong>Blood Group:</strong> {{client.blood }}</p>
-                                 <hr>
-                                 <p class="spacer-top-bottom"><strong>Genotype:</strong> {{client.genotype }}</p>
 
+                                 <!-- <hr> -->
                                </div>
+
+                                 <div class="col-md-4">
+                                   <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("dddd, MMMM Do YYYY") }}</p>
+                                   <hr>
+                                   <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
+                                   <hr>
+                                   <p class="spacer-top-bottom"><strong>Weight:</strong> {{client.weight }}</p>
+                                   <hr>
+                                   <p class="spacer-top-bottom"><strong>Blood Group:</strong> {{client.blood }}</p>
+                                   <hr>
+                                   <p class="spacer-top-bottom"><strong>Genotype:</strong> {{client.genotype }}</p>
+                                 </div>
 
                              </div>
 
@@ -104,42 +110,6 @@
                    </div>
 
                </div>
-
-               <!-- Modal for Prescription/Notes -->
-                                             <div class="modal fade "   id="example_01" tabindex="-1" role="dialog"
-                                                  aria-labelledby="example_02" aria-hidden="true">
-                                                 <div class="modal-dialog modal-dialog-centered modal-lg"  role="document">
-                                                     <div class="modal-content " >
-
-                                                         <div class="container-fluid ">
-                                                             <button type="button" class="close" data-dismiss="modal"
-                                                                     aria-label="Close">
-                                                                 <span aria-hidden="true">&times;</span>
-                                                             </button>
-                                                             <div class="row ">
-                                                                 <div class="col-md-12 p-t-20 p-b-20">
-
-                                                                     <video id="video" width="100%" height="auto" autoplay></video>
-                                                                     <p>
-                                                                       <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
-                                                                       <button @click="takePic" class="bg-navy btn btn-flat">Snap Photo</button>
-                                                                       <button type="button" class="btn btn-info" name="button" @click="savePic">Save pic</button>
-
-                                                                     </p>
-                                                                     <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
-                                                                     <!-- <p>{{imagefile}}</p> -->
-
-                                                                       <canvas id="canvas"  width="720px"   height="550px"></canvas>
-
-                                                                 </div>
-                                                             </div>
-                                                         </div>
-
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                             <!-- Modal Ends -->
-
            </div>
 
 

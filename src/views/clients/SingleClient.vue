@@ -71,7 +71,7 @@
                              <hr>
                              <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}}</p>
                              <hr>
-                             <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("dddd, MMMM Do YYYY") }}</p>
+                             <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                              <hr>
                              <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
                              <hr>

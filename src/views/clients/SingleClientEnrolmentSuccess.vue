@@ -92,7 +92,8 @@
                                </div>
 
                                  <div class="col-md-4">
-                                   <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("dddd, MMMM Do YYYY") }}</p>
+                                   <!-- <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("dddd, MMMM Do YYYY") }}</p> -->
+                                   <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
                                    <hr>

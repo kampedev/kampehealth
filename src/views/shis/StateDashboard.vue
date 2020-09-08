@@ -12,6 +12,24 @@
                 <div class="col-12 m-b-20">
                     <h5 class="spacer-top">Hello, {{auth_user.agency_name}}</h5>
                 </div>
+
+                <div class="col-md-12" v-if="offlineclients.length > 0">
+                  <div class="alert alert-border-warning  alert-dismissible fade show" role="alert">
+                                  <div class="d-flex">
+                                      <div class="icon">
+                                          <i class="icon mdi mdi-alert-circle-outline"></i>
+                                      </div>
+                                      <div class="content">
+                                          <strong>{{offlineclients.length}} Users</strong> added offline.
+                                              <button type="button" class="btn btn-primary align-right" name="button" @click="syncClients">Sync Now</button>
+
+                                      </div>
+                                  </div>
+
+                              </div>
+                </div>
+
+
                 <div class="col-lg-3 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
@@ -194,10 +212,31 @@
 
 <script>
 import Navbar from '@/views/Navbar.vue'
+import { StudentService } from "./../../service/student_service";
+import { initJsStore } from "./../../service/idb_service";
+import { Global } from "./../../global";
+import { connection } from "./../../service/jsstore_con";
+
+
 
 export default {
   components: {
      Navbar
+  },
+  async beforeCreate() {
+    try {
+      const isDbCreated = await initJsStore();
+      if (isDbCreated) {
+        console.log("db created");
+        // prefill database
+      } else {
+        console.log("db opened");
+      }
+    } catch (ex) {
+      console.error(ex);
+      alert(ex.message);
+      Global.isIndexedDbSupported = false;
+    }
   },
   data(){
     return{
@@ -206,6 +245,7 @@ export default {
       providers:"",
       clients:"",
       claims:"",
+      offlineclients: [],
       employees:"",
       plans:"",
       chartData: {
@@ -295,7 +335,64 @@ export default {
                   .catch(error => {
                       console.error(error);
                   })
-    }
+    },
+  async  syncClients(){
+      this.isLoading = true;
+
+      const result = this.offlineclients.map((item) => {
+            this.axios.post('/api/v1/auth/registerProvider',{
+              firstname: item.firstname,
+              lastname: item.lastname,
+              // email: item.email,
+              phone_number: item.phone_number,
+              type: 'client',
+              agency_id: item.agency_id,
+              // state: this.state.name,
+              role: 0,
+              password: 'euhler',
+              // localgovt: this.register.localgovt,
+              // ward: this.register.ward,
+              blood: item.blood,
+              dob: item.dob,
+              genotype: item.genotype,
+              // weight: this.register.weight,
+              gender: item.gender,
+            })
+            .then(response=>{
+                console.log(response)
+                // this.remove()
+
+                //Start remove client from indexed DB
+
+                //End remove client from indexed DB
+            }).
+            catch(error=>{
+                console.log(error.response)
+                // this.$toasted.error('Error Syncing! Reload Page', {position: 'top-center', duration:3000 })
+
+            })
+            result;
+            return  connection.clear('Users')
+            // this.$toasted.info('Client Synced Successfully', {position: 'top-center', duration:3000 })
+
+      });
+      this.isLoading = false;
+      this.$toasted.info('Client Synced Successfully', {position: 'top-center', duration:3000 })
+      this.getOfflineCLients()
+
+    },
+    async remove() {
+      const service = new StudentService();
+      service;
+      const noOfStudentRemoved = await this.service.getStudents();
+      if (noOfStudentRemoved > 0) {
+        this.$emit("remove-item");
+      }
+    },
+    async getOfflineCLients() {
+
+      this.offlineclients = await new StudentService().getStudents();
+    },
   },
   created(){
     this.getProviders()
@@ -303,6 +400,7 @@ export default {
     this.getPlans()
     this.getClients()
     this.getEmployees()
+    this.getOfflineCLients()
   }
 }
 </script>

@@ -13,6 +13,7 @@ import VueInitialsImg from 'vue-initials-img';
 import 'zingchart/es6';
 import zingchartVue from 'zingchart-vue';
 import Toasted from 'vue-toasted';
+import Vuelidate from 'vuelidate'
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
@@ -24,7 +25,7 @@ Vue.use(VueInitialsImg);
 Vue.component('zingchart', zingchartVue)
 Vue.use(require('vue-moment'));
 Vue.use(Toasted)
-
+Vue.use(Vuelidate)
 
 window.axios=axios
 axios.defaults.baseURL = 'https://api.hayokinsurance.com';
@@ -34,6 +35,9 @@ axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getIte
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = ''
 
 Vue.config.productionTip = false
+
+// const DB_NAME = 'catdb';
+// const DB_VERSION = 1;
 
 new Vue({
   store,

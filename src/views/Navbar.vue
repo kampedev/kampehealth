@@ -306,6 +306,19 @@
                                 </li>
 
                                 <li class="menu-item">
+                                    <a href="/add-client-offline" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Add Client(Offline)
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder fe fe-cloud-off"></i>
+                                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="menu-item">
                                     <a href="/view-clients-agency" class=" menu-link">
                                                     <span class="menu-label">
                                                             <span class="menu-name">View Clients

@@ -14,6 +14,7 @@ import AllDashboard from '../views/Dashboard.vue'
 import Dashboard from '../views/clients/Dashboard.vue'
 import Subscribe from '../views/clients/Subscribe.vue'
 import AddClientAgency from '../views/clients/AddClientAgency.vue'
+import AddClientAgencyOffline from '../views/clients/AddClientAgencyOffline.vue'
 import AddClientProvider from '../views/clients/AddClientProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import SingleClient from '../views/clients/SingleClient.vue'
@@ -144,6 +145,13 @@ const routes = [
   {
     path: '/add-client-agency',
     component: AddClientAgency,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/add-client-offline',
+    component: AddClientAgencyOffline,
     meta: {
         requiresAuth: true,
       },

@@ -137,6 +137,8 @@
                                                              <button class="btn btn-primary" @click="registerUser">Submit</button>
                                                          </div>
 
+                                                         <AddClientoffLine/>
+
                            </div>
                        </div>
                    </div>
@@ -167,6 +169,7 @@
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
      import DatePicker from 'vue2-datepicker';
+     // import  AddClientoffLine from './AddClientAgencyOffline.vue';
      import 'vue2-datepicker/index.css';
 
 export default {

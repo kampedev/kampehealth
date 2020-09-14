@@ -42,9 +42,9 @@
                             <a href="#!" class="text-underline">Forgot Password?</a>
                         </p>
 
-                        <p class="text-right p-t-10">
+                        <!-- <p class="text-right p-t-10">
                             <a href="/select-type" class=" btn btn-link">or Sign up</a>
-                        </p>
+                        </p> -->
                     </div>
 
                 </div>
@@ -110,7 +110,6 @@ export default {
 
     logIn(){
             this.isLoading = true;
-
         if ( this.reg.test(this.identifier) )
             {
                 this.axios.post('/api/v1/auth/login',{

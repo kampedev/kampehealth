@@ -22,7 +22,6 @@
                                       <div class="content">
                                           <strong>{{offlineclients.length}} Users</strong> added offline.
                                               <button type="button" class="btn btn-primary align-right" name="button" @click="syncClients">Sync Now</button>
-
                                       </div>
                                   </div>
 

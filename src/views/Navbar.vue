@@ -3,7 +3,7 @@
     <aside class="admin-sidebar">
     <div class="admin-sidebar-brand">
         <!-- begin sidebar branding-->
-        <img class="admin-brand-logo" src="assets/img/logo.png" width="40" alt="atmos Logo">
+        <img class="admin-brand-logo" src="https://hayokinsurance.com/assets/img/logo.png" width="40" alt="atmos Logo">
         <!-- end sidebar branding-->
         <div class="ml-auto">
             <!-- sidebar pin-->
@@ -59,6 +59,42 @@
                                             </span>
                     <span class="menu-icon">
                                                  <i class="icon-placeholder fe fe-home "></i>
+                                            </span>
+                </a>
+            </li>
+
+            <li class="menu-item active " v-if="user.type == 'employee'">
+                <a href="/employee-dashboard" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Dashboard
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-home "></i>
+                                            </span>
+                </a>
+            </li>
+
+            <li class="menu-item" v-if="user.type == 'employee'">
+                <a href="/manage-clients" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Add Clients
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-edit "></i>
+                                            </span>
+                </a>
+            </li>
+
+            <li class="menu-item" v-if="user.type == 'employee'">
+                <a href="/add-client/employee-offline" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Add Clients(Offline)
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-cloud-off "></i>
                                             </span>
                 </a>
             </li>

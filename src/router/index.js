@@ -15,6 +15,7 @@ import Dashboard from '../views/clients/Dashboard.vue'
 import Subscribe from '../views/clients/Subscribe.vue'
 import AddClientAgency from '../views/clients/AddClientAgency.vue'
 import AddClientAgencyOffline from '../views/clients/AddClientAgencyOffline.vue'
+import AddClientEmployeeOffline from '../views/clients/AddClientEmployeeOffline.vue'
 import AddClientProvider from '../views/clients/AddClientProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import SingleClient from '../views/clients/SingleClient.vue'
@@ -28,6 +29,7 @@ import HDashboard from '../views/hmos/Dashboard.vue'
 import ListProviders from '../views/providers/ListProviders.vue'
 import SingleProvider from '../views/providers/SingleProvider.vue'
 import AddEmployee from '../views/employees/AddEmployee.vue'
+import Employee from '../views/employees/Employee.vue'
 import AddEmployeeState from '../views/employees/AddEmployeeState.vue'
 import ViewEmployees from '../views/employees/ViewEmployees.vue'
 import AddDependents from '../views/dependents/AddDependents.vue'
@@ -157,6 +159,13 @@ const routes = [
       },
   },
   {
+    path: '/add-client/employee-offline',
+    component: AddClientEmployeeOffline,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
     path: '/add-client-provider',
     component: AddClientProvider,
     meta: {
@@ -170,6 +179,7 @@ const routes = [
         requiresAuth: true,
       },
   },
+
   {
     path: '/client/:id',
     component: SingleClient,
@@ -248,8 +258,15 @@ const routes = [
       },
   },
   {
-    path: '/add-employee',
+    path: '/provider/add-employee/:id',
     component: AddEmployee,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/employee-dashboard',
+    component: Employee,
     meta: {
         requiresAuth: true,
       },

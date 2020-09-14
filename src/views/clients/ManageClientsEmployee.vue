@@ -117,20 +117,52 @@
 
                                                           <div class="row">
                                                             <div class="form-group col-md-6">
-                                                              <label for="inputCity">States</label>
+                                                              <label for="inputCity">State </label>
 
-                                                                  <select class="form-control"  v-model="state" @change="fetchLga(state)">
-                                                                   <option v-for="state in states" v-bind:key="state.id" :value="state.name">{{state.name}}</option>
-                                                               </select>
+                                                              <select class="form-control"  v-model="state" @change="fetchLga(state)">
+                                                               <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+                                                           </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">LGA</label>
-
-                                                                  <select class="form-control"  v-model="register.lga">
-                                                                   <option v-for="lga in lga_states.lgas" v-bind:key="lga" :value="lga">{{lga}}</option>
+                                                                <select class="form-control"  v-model="register.localgovt">
+                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                </select>
                                                             </div>
                                                           </div>
+
+                                                          <div class="row">
+                                                              <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                          <label for="inputCity">Select Sector</label>
+                                                                              <select class="form-control"  v-model="register.sector" >
+                                                                               <option  value="formal">Formal Sector</option>
+                                                                               <option  value="informal">Informal Sector</option>
+                                                                           </select>
+                                                                        </div>
+                                                              </div>
+
+                                                          <div class="form-group col-md-6">
+                                                            <label >Point of HealthCare</label>
+                                                              <select class="form-control" v-model="register.poh">
+                                                                <option  value="phc">Primary Health Care</option>
+                                                                <option  value="gh">General Hospital</option>
+                                                                <option  value="sh">Special Hospital</option>
+                                                                <option  value="fmc">Federal Medical Centre</option>
+                                                                <option  value="phf">Private Health Facility</option>
+                                                                <option  value="others">Others</option>
+                                                             </select>
+                                                          </div>
+
+                                                          <div class="form-group col-md-6" v-if="register.poh == 'others'">
+                                                            <label >Point of HealthCare</label>
+                                                              <select class="form-control" >
+                                                                <option  value="phc">Diagnostic Centre</option>
+                                                                <option  value="gh">Pharmacy</option>
+                                                                <option  value="sh">Medicine Store</option>
+                                                             </select>
+                                                          </div>
+                                                        </div>
 
                                                           <div class="form-group">
                                                              <label for="inputAddress">Address</label>
@@ -194,7 +226,7 @@
                                            <router-link :to="{ path: '/client/'+ client.id}">
                                              <button type="button" name="button" class="btn btn-info">view</button>
                                             </router-link>
-                                            
+
                                          </td>
                                      </tr>
 
@@ -208,8 +240,6 @@
                            </div>
                        </div>
                    </div>
-
-
                </div>
 
            </div>
@@ -252,6 +282,8 @@ export default {
                 provider_id:"",
                 state:"",
                 lga:"",
+                poh:"",
+                sector:"",
                 ward:"",
                 address:"",
                 blood:"",
@@ -265,7 +297,7 @@ export default {
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
 
-    this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
+    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`)
                 .then(response => {
                     this.clients = response.data.data
                     console.log(response)
@@ -278,7 +310,17 @@ export default {
   methods:{
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
+
+      // this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
+      //             .then(response => {
+      //                 this.clients = response.data.data
+      //                 console.log(response)
+      //             })
+      //             .catch(error => {
+      //                 console.error(error);
+      //             })
+
+      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`)
                   .then(response => {
                       this.clients = response.data.data
                       console.log(response)
@@ -286,11 +328,12 @@ export default {
                   .catch(error => {
                       console.error(error);
                   })
+
     },
     getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
+      this.axios.get(`/api/v1/auth/states`)
                   .then(response => {
-                      this.states = response.data
+                      this.states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -298,9 +341,9 @@ export default {
                   })
     },
     fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
+      this.axios.get(`/api/v1/auth/lga/${state.id}`)
                   .then(response => {
-                      this.lga_states = response.data
+                      this.lga_states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -310,18 +353,22 @@ export default {
     registerUser(){
       this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
+        this.axios.post('/api/v1/auth/registerProvider',{
           firstname: this.register.firstname,
           lastname: this.register.lastname,
           email: this.register.email,
           phone_number: this.register.phone_number,
           type: this.register.type,
+          agency_id: this.user.institutional_id,
           provider_id: this.user.institutional_id,
           username: this.register.username,
-          state: this.state,
+          state: this.state.name,
           role: 0,
-          lga: this.register.lga,
-          ward: this.register.ward,
+          password: 'euhler',
+          localgovt: this.register.localgovt,
+          poh: this.register.poh,
+          sector: this.register.sector,
+          // ward: this.register.ward,
           blood: this.register.blood,
           dob: this.register.dob,
           genotype: this.register.genotype,
@@ -334,6 +381,8 @@ export default {
             this.isLoading = false;
             this.getClients();
             this.$breadstick.notify("Client added successfully", {position: "top-right"});
+            let user_id = response.data.data.id
+            this.$router.push(`/client/${user_id}`)
 
         })
         .catch(error=>{

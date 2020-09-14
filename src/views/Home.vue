@@ -84,7 +84,7 @@
     >
       <div
         class="absolute top-0 w-full h-full bg-center bg-cover"
-        style='background-image: url("/assets/img/zamfara.jpg");'
+        style='background-image: url("/assets/img/hero-image1.jpg");'
       >
         <span
           id="blackOverlay"

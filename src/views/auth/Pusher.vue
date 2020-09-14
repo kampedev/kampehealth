@@ -37,6 +37,9 @@ export default {
                        this.$router.push('/hmo-dashboard')
 
                      }
+                     if (type == 'employee') {
+                       this.$router.push('/employee-dashboard')
+                     }
                      if (type == 'provider') {
                        this.$router.push('/provider-dashboard')
 

@@ -51,10 +51,7 @@
                                                                   <label for="inputEmail4">Email</label>
                                                                   <input type="email" class="form-control" v-model="register.email" placeholder="Email">
                                                               </div>
-                                                              <div class="form-group col-md-6">
-                                                                  <label for="inputEmail4">Username</label>
-                                                                  <input type="text" class="form-control" v-model="register.username" placeholder="Username">
-                                                              </div>
+
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputPassword4">Phone Number</label>
                                                                   <input type="text" class="form-control" v-model="register.phone_number" placeholder="Phone Number" >
@@ -65,15 +62,14 @@
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">States</label>
 
-                                                                  <select class="form-control"  v-model="state" @change="fetchLga(state)">
-                                                                   <option v-for="state in states" v-bind:key="state.id" :value="state.name">{{state.name}}</option>
-                                                               </select>
+                                                              <select class="form-control"  v-model="state" @change="fetchLga(state)">
+                                                               <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+                                                           </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">LGA</label>
-
-                                                                  <select class="form-control"  v-model="register.lga">
-                                                                   <option v-for="lga in lga_states.lgas" v-bind:key="lga" :value="lga">{{lga}}</option>
+                                                                <select class="form-control"  v-model="register.localgovt">
+                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                </select>
                                                             </div>
                                                           </div>
@@ -82,6 +78,8 @@
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputCity">Job Title</label>
                                                                   <select class="form-control"  v-model="register.job_title">
+                                                                   <option  value="m_and_e">Monitoring and Evaluation</option>
+                                                                   <option  value="qao">Quality Assurance Officer</option>
                                                                    <option  value="doctor">Doctor</option>
                                                                    <option  value="pharmacist">Pharmacist</option>
                                                                    <option  value="nurse">Nurse</option>
@@ -91,9 +89,7 @@
                                                                    <option  value="extension_worker">Community health extension workers (CHEWs)</option>
                                                                </select>
                                                               </div>
-
                                                           </div>
-
 
                                                          <div class="form-group">
                                                              <button class="btn btn-primary" @click="registerUser">Submit</button>
@@ -112,9 +108,58 @@
                         :can-cancel="true"
                         :is-full-page="fullPage"></loading>
                     </div>
-
-
                </div>
+
+               <div class="row list">
+                   <div class=" col-md-12">
+                       <div class="card m-b-30">
+
+                           <div class="card-body">
+
+                              <h1>{{employees.length}} Clients</h1>
+
+                             <div class="table-responsive">
+                                 <table class="table align-td-middle table-card">
+                                     <thead>
+                                     <tr>
+                                         <!-- <th>Avatar</th> -->
+                                         <th>Name</th>
+                                         <th>E mail</th>
+                                         <th>Phone Number</th>
+                                         <th>State</th>
+                                         <th>Action</th>
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                     <tr v-for="employee in employees" v-bind:key="employee.id">
+
+                                         <td >{{employee.firstname}} {{employee.lastname}}</td>
+                                         <td>{{employee.email}}</td>
+                                         <td>{{employee.phone_number}}</td>
+                                         <td>{{employee.state}}</td>
+                                         <td>
+
+                                           <router-link :to="{ path: '/client/'+ employee.id}">
+                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                            </router-link>
+
+                                         </td>
+                                     </tr>
+
+
+                                     </tbody>
+                                 </table>
+
+                             </div>
+
+
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+
+
            </div>
 
        </section>
@@ -184,9 +229,9 @@ export default {
     },
 
     getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
+      this.axios.get(`/api/v1/auth/states`)
                   .then(response => {
-                      this.states = response.data
+                      this.states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -194,9 +239,9 @@ export default {
                   })
     },
     fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
+      this.axios.get(`/api/v1/auth/lga/${state.id}`)
                   .then(response => {
-                      this.lga_states = response.data
+                      this.lga_states = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -206,19 +251,19 @@ export default {
     registerUser(){
       this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
+        this.axios.post('/api/v1/auth/registerProvider',{
           firstname: this.register.firstname,
           lastname: this.register.lastname,
           email: this.register.email,
           phone_number: this.register.phone_number,
           type: this.register.type,
-          username: this.register.username,
+          username: this.register.email,
           password: 'euhler',
-          state: this.state,
+          state: this.state.name,
           institutional_id: this.user.id,
           job_title: this.register.job_title,
           role: 0,
-          lga: this.register.lga,
+          localgovt: this.register.localgovt,
           ward: this.register.ward,
         })
         .then(response=>{
@@ -227,6 +272,7 @@ export default {
             this.isLoading = false;
             this.$breadstick.notify("Employee added successfully!, Default Password is 'euhler' ", {position: "top-right"});
             this.getEmployees()
+            this.clearIt()
 
         })
         .catch(error=>{
@@ -235,6 +281,13 @@ export default {
             this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
 
         })
+    },
+    clearIt(){
+      this.register.firstname = "";
+      this.register.lastname = "";
+      this.register.email = "";
+      this.register.phone_number = "";
+      this.register.job_title = "";
     }
   },
   created(){

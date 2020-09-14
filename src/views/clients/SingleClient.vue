@@ -85,7 +85,7 @@
                        </div>
                    </div>
 
-                       <div class="col-lg-4 col-md-4">
+                       <!-- <div class="col-lg-4 col-md-4">
                            <div class="card m-b-30">
                                <div class="card-header">
 
@@ -101,7 +101,7 @@
                                </div>
                            </div>
 
-                       </div>
+                       </div> -->
 
 
                </div>

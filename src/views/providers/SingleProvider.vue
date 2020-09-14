@@ -64,10 +64,10 @@
                              <br>
 
                              <p>
-                               <span v-if="provider.status == 1">
+                               <span v-if="provider.status == true">
                                  <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
                                  </span>
-                                <span v-if="provider.status == 0">
+                                <span v-if="provider.status == false">
                                 <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
                               </span>
                              </p>
@@ -86,9 +86,11 @@
 
                                <div class="card-body">
 
-                                                             <div class="form-group">
-                                                                 <button class="btn btn-primary" @click="acceptProvider">Approve</button>
-                                                                 <!-- <button class="btn btn-danger spacer" @click="rejectProvider">reject</button> -->
+                                                             <div class="form-group" >
+                                                                 <button class="btn btn-primary" @click="acceptProvider" v-if="provider.status == false">Approve</button>
+                                                                 <router-link :to="{ path: '/provider/add-employee/' + provider.id }">
+                                                                 <button class="btn btn-info spacer">Add Personnel</button>
+                                                               </router-link>
                                                              </div>
                                </div>
                            </div>

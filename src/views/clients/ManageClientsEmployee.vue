@@ -148,7 +148,7 @@
                                                              </select>
                                                           </div>
 
-                                                          <div class="form-group col-md-6">
+                                                          <!-- <div class="form-group col-md-6">
                                                             <label for="inputCity">Blood Group</label>
                                                                 <select class="form-control"  v-model="register.blood" >
                                                                  <option  value="A">A</option>
@@ -156,8 +156,8 @@
                                                                  <option  value="AB">AB</option>
                                                                  <option  value="O">O</option>
                                                              </select>
-                                                          </div>
-                                                          <div class="form-group col-md-6">
+                                                          </div> -->
+                                                          <!-- <div class="form-group col-md-6">
                                                             <label for="inputCity">Genotype</label>
                                                                 <select class="form-control"  v-model="register.genotype" >
                                                                  <option  value="AA">AA</option>
@@ -167,11 +167,11 @@
                                                                  <option  value="AB">AB</option>
                                                                  <option  value="OO">OO</option>
                                                              </select>
-                                                          </div>
-                                                          <div class="form-group col-md-6">
+                                                          </div> -->
+                                                          <!-- <div class="form-group col-md-6">
                                                               <label for="inputPassword4">Weight</label>
                                                               <input type="text" class="form-control" v-model="register.weight" placeholder="Weight in (Kg)" >
-                                                          </div>
+                                                          </div> -->
                                                         </div>
 
                                                         <div class="row">
@@ -255,7 +255,6 @@
 
                                          </td>
                                      </tr>
-
 
                                      </tbody>
                                  </table>

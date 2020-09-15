@@ -60,6 +60,7 @@ import Pharmacist from '../views/employees/Pharmacist.vue'
 import Accountant from '../views/employees/Accountant.vue'
 import Appointments from '../views/appointments/Appointments.vue'
 import SingleAppointment from '../views/appointments/SingleAppointment.vue'
+import MDApage from '../views/shis/MDApage.vue'
 
 Vue.use(VueRouter)
 
@@ -253,6 +254,13 @@ const routes = [
   {
     path: '/state-dashboard',
     component: StateDashboard,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/mda-manager',
+    component: MDApage,
     meta: {
         requiresAuth: true,
       },

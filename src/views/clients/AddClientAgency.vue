@@ -47,7 +47,6 @@
 
                                    <h1 > <strong>Bio Data</strong> </h1>
                                </div>
-
                                                         <div class="form-row">
                                                           <div class="col-md-12">
                                                               <div class="form-group">
@@ -146,7 +145,7 @@
                                                                </select>
                                                             </div>
 
-                                                            <div class="form-group col-md-6">
+                                                            <!-- <div class="form-group col-md-6">
                                                               <label for="inputCity">Blood Group</label>
                                                                   <select class="form-control"  v-model="register.blood" >
                                                                    <option  value="A">A</option>
@@ -169,7 +168,7 @@
                                                             <div class="form-group col-md-6">
                                                                 <label for="inputPassword4">Weight</label>
                                                                 <input type="text" class="form-control" v-model="register.weight" placeholder="Weight in (Kg)" >
-                                                            </div>
+                                                            </div> -->
                                                           </div>
 
                                                           <div class="row">

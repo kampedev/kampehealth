@@ -30,7 +30,7 @@
                        <div class="card m-b-30">
                            <div class="card-header">
 
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
+                             <h3 class="p-t-10 searchBy-name">{{ministries.length}} MDAs Added</h3>
                            </div>
 
                            <div class="card-body">
@@ -159,9 +159,6 @@ export default {
       agency_id:"",
       provider_id:"",
       ministry_id:"",
-
-      arrayone:[1,2,3],
-      arraytwo:[4,5,6],
       register:{
                 ministry:"",
                 department:"",
@@ -173,7 +170,7 @@ export default {
     this.user = JSON.parse(localStorage.getItem('user'))
     this.axios.get(`/api/v1/auth/ministry`)
                 .then(response => {
-                    this.ministries = response.data[0]
+                    this.ministries = response.data.data[0]
                     console.log(response)
                 })
                 .catch(error => {
@@ -191,7 +188,7 @@ export default {
     getDepts(){
       this.axios.get(`/api/v1/auth/ministry`)
                   .then(response => {
-                      this.ministries = response.data[0]
+                      this.ministries = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -249,18 +246,7 @@ export default {
                 })
           }
     },
-    getProviders(){
-      this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
-                  .then(response => {
-                      this.providers = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
 
     clearIt(){
 

@@ -94,7 +94,7 @@
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                               <label >Point of HealthCare</label>
-                                                                <select class="form-control" v-model="register.poh">
+                                                                <select class="form-control" v-model="register.point_of_care">
                                                                   <option  value="phc">Primary Health Care</option>
                                                                   <option  value="gh">General Hospital</option>
                                                                   <option  value="sh">Special Hospital</option>
@@ -104,7 +104,7 @@
                                                                </select>
                                                             </div>
 
-                                                            <div class="form-group col-md-6" v-if="register.poh == 'others'">
+                                                            <div class="form-group col-md-6" v-if="register.point_of_care == 'others'">
                                                               <label >Point of HealthCare</label>
                                                                 <select class="form-control" >
                                                                   <option  value="phc">Diagnostic Centre</option>
@@ -378,7 +378,7 @@ export default {
     getMDAs(){
       this.axios.get(`/api/v1/auth/ministry`)
                   .then(response => {
-                      this.mdas = response.data[0]
+                    this.mdas = response.data.data
                       console.log(response)
                   })
                   .catch(error => {

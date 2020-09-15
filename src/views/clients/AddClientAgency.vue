@@ -316,7 +316,7 @@ export default {
       getMDAs(){
         this.axios.get(`/api/v1/auth/ministry`)
                     .then(response => {
-                        this.mdas = response.data[0]
+                      this.mdas = response.data.data
                         console.log(response)
                     })
                     .catch(error => {

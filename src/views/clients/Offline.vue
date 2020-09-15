@@ -48,57 +48,58 @@
                                                                     <!-- <input type="text" class="form-control" v-model="newStudent.dob" placeholder="1994/01/01" > -->
                                                                     <date-picker v-model="newStudent.dob" valueType="format"></date-picker>
                                                                 </div>
-                                                                <div class="form-group col-md-6" v-if="newStudent.sector == 'formal'">
+                                                                <div class="form-group col-md-6">
+                                                                  <label >Point of HealthCare: {{newStudent.point_of_care}}</label>
+                                                                    <select class="form-control" v-model="newStudent.point_of_care">
+                                                                      <option  value="Primary Health Care">Primary Health Care</option>
+                                                                      <option  value="General Hospital">General Hospital</option>
+                                                                      <option  value="Special Hospital">Special Hospital</option>
+                                                                      <option  value="Federal Medical Centre">Federal Medical Centre</option>
+                                                                      <option  value="Private Health Facility">Private Health Facility</option>
+                                                                      <option  value="others">Others</option>
+                                                                   </select>
+                                                                </div>
+
+                                                                <div class="form-group col-md-6" v-if="newStudent.point_of_care == 'others'">
+                                                                  <label >Point of HealthCare</label>
+                                                                    <select class="form-control" v-model="newStudent.point_of_care">
+                                                                      <option  value="Diagnostic Centre">Diagnostic Centre</option>
+                                                                      <option  value="Pharmacy">Pharmacy</option>
+                                                                      <option  value="Medicine Store">Medicine Store</option>
+                                                                   </select>
+                                                                </div>
+                                                                <div class="form-group col-md-12" v-if="newStudent.sector == 'formal'">
                                                                     <label for="inputEmail4">Computer Number</label>
                                                                     <input type="text" class="form-control" v-model="newStudent.salary_number" placeholder="Computer Employment Number">
                                                                 </div>
                                                             </div>
 
                                                                   <div class="form-row" v-if="newStudent.sector == 'formal'">
-                                                                       <div class="form-group col-md-6">
-                                                                         <label for="inputCity">Ministry</label>
+                                                                       <!-- <div class="form-group col-md-6">
+                                                                         <label for="inputCity">Select MDA</label>
                                                                              <select class="form-control"  v-model="newStudent.place_of_work" >
                                                                               <option  value="Ministry">Ministry of Health</option>
                                                                               <option  value="Ministry">Ministry of Labour</option>
                                                                           </select>
-                                                                       </div>
+                                                                       </div> -->
 
-                                                                       <div class="form-group col-md-6">
+                                                                       <!-- <div class="form-group col-md-6">
                                                                          <label for="inputCity">Department</label>
                                                                              <select class="form-control"  v-model="newStudent.place_of_work" >
                                                                               <option  value="Department">Department</option>
                                                                               <option  value="Department">Department</option>
                                                                           </select>
-                                                                       </div>
+                                                                       </div> -->
 
-                                                                       <div class="form-group col-md-6">
+                                                                       <!-- <div class="form-group col-md-6">
                                                                          <label for="inputCity">Parastatals</label>
                                                                              <select class="form-control"  v-model="newStudent.place_of_work" >
                                                                               <option  value="ZAMCHEMA">ZAMCHEMA</option>
                                                                               <option  value="Others">Others</option>
                                                                           </select>
-                                                                       </div>
+                                                                       </div> -->
 
-                                                                       <div class="form-group col-md-6">
-                                                                         <label >Point of HealthCare</label>
-                                                                           <select class="form-control" v-model="newStudent.point_of_care">
-                                                                             <option  value="Primary Health Care">Primary Health Care</option>
-                                                                             <option  value="General Hospital">General Hospital</option>
-                                                                             <option  value="Special Hospital">Special Hospital</option>
-                                                                             <option  value="Federal Medical Centre">Federal Medical Centre</option>
-                                                                             <option  value="Private Health Facility">Private Health Facility</option>
-                                                                             <option  value="others">Others</option>
-                                                                          </select>
-                                                                       </div>
 
-                                                                       <div class="form-group col-md-6" v-if="newStudent.point_of_care == 'others'">
-                                                                         <label >Point of HealthCare</label>
-                                                                           <select class="form-control" v-model="newStudent.point_of_care">
-                                                                             <option  value="Diagnostic Centre">Diagnostic Centre</option>
-                                                                             <option  value="Pharmacy">Pharmacy</option>
-                                                                             <option  value="Medicine Store">Medicine Store</option>
-                                                                          </select>
-                                                                       </div>
                                                                    </div>
 
                                                             <div class="row">

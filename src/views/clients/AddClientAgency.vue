@@ -78,6 +78,13 @@
                                                                   <input type="text" class="form-control" v-model="register.phone_number" placeholder="Phone Number" >
                                                               </div>
                                                               <div class="form-group col-md-6">
+                                                                <label for="inputCity">Gender</label>
+                                                                    <select class="form-control"  v-model="register.gender" >
+                                                                     <option  value="Male">Male</option>
+                                                                     <option  value="Female">Female</option>
+                                                                 </select>
+                                                              </div>
+                                                              <div class="form-group col-md-6">
                                                                 <p>  <label for="inputPassword4">Date of Birth</label></p>
                                                                   <!-- <input type="text" class="form-control" v-model="register.dob" placeholder="1994/01/01" > -->
                                                                   <date-picker v-model="register.dob" valueType="format"></date-picker>
@@ -86,64 +93,58 @@
                                                                   <label for="inputEmail4">Computer Number</label>
                                                                   <input type="text" class="form-control" v-model="register.salary_number" placeholder="Computer Employment Number">
                                                               </div>
+                                                              <div class="form-group col-md-6">
+                                                                <label >Point of HealthCare</label>
+                                                                  <select class="form-control" v-model="register.point_of_care">
+                                                                    <option  value="phc">Primary Health Care</option>
+                                                                    <option  value="gh">General Hospital</option>
+                                                                    <option  value="sh">Special Hospital</option>
+                                                                    <option  value="fmc">Federal Medical Centre</option>
+                                                                    <option  value="phf">Private Health Facility</option>
+                                                                    <option  value="others">Others</option>
+                                                                 </select>
+                                                              </div>
+
+                                                              <div class="form-group col-md-6" v-if="register.point_of_care == 'others'">
+                                                                <label >Point of HealthCare</label>
+                                                                  <select class="form-control" v-model="register.point_of_care">
+                                                                    <option  value="phc">Diagnostic Centre</option>
+                                                                    <option  value="gh">Pharmacy</option>
+                                                                    <option  value="sh">Medicine Store</option>
+                                                                 </select>
+                                                              </div>
                                                           </div>
 
                                                           <div class="form-row" v-if="register.sector == 'formal'">
                                                                <div class="form-group col-md-6">
-                                                                 <label for="inputCity">Ministry</label>
+                                                                 <label for="inputCity">Select MDA</label>
                                                                      <select class="form-control"  v-model="register.place_of_work" >
-                                                                      <option  value="Male">Ministry of Health</option>
-                                                                      <option  value="Female">Ministry of Labour</option>
+                                                                      <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
                                                                   </select>
                                                                </div>
 
-                                                               <div class="form-group col-md-6">
+                                                               <!-- <div class="form-group col-md-6">
                                                                  <label for="inputCity">Department</label>
                                                                      <select class="form-control"  v-model="register.place_of_work" >
                                                                       <option  value="Male">Department</option>
                                                                       <option  value="Female">Department</option>
                                                                   </select>
-                                                               </div>
+                                                               </div> -->
 
-                                                               <div class="form-group col-md-6">
+                                                               <!-- <div class="form-group col-md-6">
                                                                  <label for="inputCity">Parastatals</label>
                                                                      <select class="form-control"  v-model="register.place_of_work" >
                                                                       <option  value="Male">ZAMCHEMA</option>
                                                                       <option  value="Female">Others</option>
                                                                   </select>
-                                                               </div>
+                                                               </div> -->
 
-                                                               <div class="form-group col-md-6">
-                                                                 <label >Point of HealthCare</label>
-                                                                   <select class="form-control" v-model="register.point_of_care">
-                                                                     <option  value="phc">Primary Health Care</option>
-                                                                     <option  value="gh">General Hospital</option>
-                                                                     <option  value="sh">Special Hospital</option>
-                                                                     <option  value="fmc">Federal Medical Centre</option>
-                                                                     <option  value="phf">Private Health Facility</option>
-                                                                     <option  value="others">Others</option>
-                                                                  </select>
-                                                               </div>
 
-                                                               <div class="form-group col-md-6" v-if="register.point_of_care == 'others'">
-                                                                 <label >Point of HealthCare</label>
-                                                                   <select class="form-control" v-model="register.point_of_care">
-                                                                     <option  value="phc">Diagnostic Centre</option>
-                                                                     <option  value="gh">Pharmacy</option>
-                                                                     <option  value="sh">Medicine Store</option>
-                                                                  </select>
-                                                               </div>
                                                            </div>
 
-                                                          <div class="row">
+                                                          <!-- <div class="row"> -->
 
-                                                            <div class="form-group col-md-6">
-                                                              <label for="inputCity">Gender</label>
-                                                                  <select class="form-control"  v-model="register.gender" >
-                                                                   <option  value="Male">Male</option>
-                                                                   <option  value="Female">Female</option>
-                                                               </select>
-                                                            </div>
+
 
                                                             <!-- <div class="form-group col-md-6">
                                                               <label for="inputCity">Blood Group</label>
@@ -168,8 +169,8 @@
                                                             <div class="form-group col-md-6">
                                                                 <label for="inputPassword4">Weight</label>
                                                                 <input type="text" class="form-control" v-model="register.weight" placeholder="Weight in (Kg)" >
-                                                            </div> -->
-                                                          </div>
+                                                            </div>
+                                                          </div> -->
 
                                                           <div class="row">
                                                             <div class="form-group col-md-6">
@@ -241,6 +242,7 @@ export default {
       fullPage: true,
       states:"",
       clients:"",
+      mdas:"",
       state:"",
       lga_states:"",
       register:{
@@ -311,6 +313,16 @@ export default {
                       console.error(error);
                   })
     },
+      getMDAs(){
+        this.axios.get(`/api/v1/auth/ministry`)
+                    .then(response => {
+                        this.mdas = response.data[0]
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      },
     registerUser(){
       this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
@@ -362,6 +374,7 @@ export default {
   created(){
     this.getStates()
     this.getClients()
+    this.getMDAs()
   }
 
 }

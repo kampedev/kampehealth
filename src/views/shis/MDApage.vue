@@ -94,6 +94,7 @@
                                <thead>
                                <tr>
                                    <th>Name</th>
+                                   <th>Action</th>
 
                                </tr>
                                </thead>
@@ -102,6 +103,9 @@
 
                                    <td>
                                      {{mda.name}}
+                                   </td>
+                                   <td>
+                                      <button type="button" class="btn btn-info" name="button">edit</button>
                                    </td>
 
                                </tr>
@@ -185,7 +189,6 @@ export default {
   methods:{
 
     getDepts(){
-      this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/ministry`)
                   .then(response => {
                       this.ministries = response.data[0]
@@ -207,7 +210,7 @@ export default {
                     this.isLoading = false;
                     this.getDepts()
                     this.clearIt()
-                    this.$toasted.success('Ministry Added', {position: 'top-left', duration:5000 })
+                    this.$toasted.info('MDA Added', {position: 'top-center', duration:5000 })
                 })
                 .catch(error=>{
                     console.log(error.response)

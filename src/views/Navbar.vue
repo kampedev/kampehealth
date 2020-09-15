@@ -671,7 +671,7 @@
             </li>
 
             <li class="menu-item  "  v-if="user.type == 'shis'">
-                <router-link to="/my-providers" class=" menu-link">
+                <router-link to="/mda-manager" class=" menu-link">
                         <span class="menu-label">
                               <span class="menu-name">MDAs</span>
                         </span>

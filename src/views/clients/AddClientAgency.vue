@@ -49,6 +49,16 @@
                                </div>
 
                                                         <div class="form-row">
+                                                          <div class="col-md-12">
+                                                              <div class="form-group">
+                                                                <label for="inputCity">Select Sector</label>
+                                                                    <select class="form-control"  v-model="register.sector" >
+                                                                     <option  value="formal">Formal Sector</option>
+                                                                     <option  value="informal">Informal Sector</option>
+                                                                 </select>
+                                                              </div>
+                                                          </div>
+
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputEmail4">First Name</label>
                                                                  <input type="text" class="form-control" v-model="register.firstname" placeholder="First Name">
@@ -72,9 +82,59 @@
                                                                 <p>  <label for="inputPassword4">Date of Birth</label></p>
                                                                   <!-- <input type="text" class="form-control" v-model="register.dob" placeholder="1994/01/01" > -->
                                                                   <date-picker v-model="register.dob" valueType="format"></date-picker>
-
+                                                              </div>
+                                                              <div class="form-group col-md-6" v-if="register.sector == 'formal'">
+                                                                  <label for="inputEmail4">Computer Number</label>
+                                                                  <input type="text" class="form-control" v-model="register.salary_number" placeholder="Computer Employment Number">
                                                               </div>
                                                           </div>
+
+                                                          <div class="form-row" v-if="register.sector == 'formal'">
+                                                               <div class="form-group col-md-6">
+                                                                 <label for="inputCity">Ministry</label>
+                                                                     <select class="form-control"  v-model="register.place_of_work" >
+                                                                      <option  value="Male">Ministry of Health</option>
+                                                                      <option  value="Female">Ministry of Labour</option>
+                                                                  </select>
+                                                               </div>
+
+                                                               <div class="form-group col-md-6">
+                                                                 <label for="inputCity">Department</label>
+                                                                     <select class="form-control"  v-model="register.place_of_work" >
+                                                                      <option  value="Male">Department</option>
+                                                                      <option  value="Female">Department</option>
+                                                                  </select>
+                                                               </div>
+
+                                                               <div class="form-group col-md-6">
+                                                                 <label for="inputCity">Parastatals</label>
+                                                                     <select class="form-control"  v-model="register.place_of_work" >
+                                                                      <option  value="Male">ZAMCHEMA</option>
+                                                                      <option  value="Female">Others</option>
+                                                                  </select>
+                                                               </div>
+
+                                                               <div class="form-group col-md-6">
+                                                                 <label >Point of HealthCare</label>
+                                                                   <select class="form-control" v-model="register.point_of_care">
+                                                                     <option  value="phc">Primary Health Care</option>
+                                                                     <option  value="gh">General Hospital</option>
+                                                                     <option  value="sh">Special Hospital</option>
+                                                                     <option  value="fmc">Federal Medical Centre</option>
+                                                                     <option  value="phf">Private Health Facility</option>
+                                                                     <option  value="others">Others</option>
+                                                                  </select>
+                                                               </div>
+
+                                                               <div class="form-group col-md-6" v-if="register.point_of_care == 'others'">
+                                                                 <label >Point of HealthCare</label>
+                                                                   <select class="form-control" v-model="register.point_of_care">
+                                                                     <option  value="phc">Diagnostic Centre</option>
+                                                                     <option  value="gh">Pharmacy</option>
+                                                                     <option  value="sh">Medicine Store</option>
+                                                                  </select>
+                                                               </div>
+                                                           </div>
 
                                                           <div class="row">
 
@@ -134,10 +194,10 @@
                                                          </div>
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary" @click="registerUser">Submit</button>
+                                                             <button class="btn btn-primary btn-block btn-lg" @click="registerUser">Submit</button>
                                                          </div>
 
-                                                         <AddClientoffLine/>
+                                                         <!-- <AddClientoffLine/> -->
 
                            </div>
                        </div>
@@ -200,6 +260,11 @@ export default {
                 gender:"",
                 genotype:"",
                 dob:"",
+                salary_number:"",
+                point_of_care:"",
+                sector:"",
+                finger_print:"",
+                place_of_work:"",
             }
     }
   },
@@ -264,9 +329,15 @@ export default {
           ward: this.register.ward,
           blood: this.register.blood,
           dob: this.register.dob,
+          address1: this.register.address,
           genotype: this.register.genotype,
           weight: this.register.weight,
           gender: this.register.gender,
+          sector: this.register.sector,
+          place_of_work: this.register.place_of_work,
+          point_of_care: this.register.point_of_care,
+          finger_print: this.register.finger_print,
+          salary_number: this.register.salary_number,
         })
         .then(response=>{
 

@@ -268,7 +268,7 @@ uploadPic(){
     getDependents(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/allDependantUser/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/allDependantUser/${this.$route.params.id}`)
                   .then(response => {
                       this.dependents = response.data.data
                       console.log(response)

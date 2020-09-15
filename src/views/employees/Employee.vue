@@ -41,7 +41,7 @@
                               <!-- </router-link> -->
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Manage Providers</p>
+                                <p class="text-muted text-overline m-0">Health Facilities</p>
                                 <h1 class="fw-400">{{appointments.length}}</h1>
                             </div>
                         </div>
@@ -212,16 +212,19 @@ export default {
                 phone_number: item.phone_number,
                 type: 'client',
                 agency_id: item.agency_id,
-                // state: this.state.name,
+                state: item.state,
+                localgovt: item.localgovt,
                 role: 0,
                 password: 'euhler',
-                // localgovt: this.register.localgovt,
-                // ward: this.register.ward,
                 blood: item.blood,
                 dob: item.dob,
                 genotype: item.genotype,
-                // weight: this.register.weight,
+                weight: item.weight,
                 gender: item.gender,
+                sector: item.sector,
+                place_of_work: item.place_of_work,
+                point_of_care: item.point_of_care,
+                salary_number: item.salary_number,
               })
               .then(response=>{
                   console.log(response)

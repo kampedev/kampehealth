@@ -12,7 +12,7 @@
                              <label class="avatar-input">
                           <span class="avatar avatar-lg">
                               <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
-                                   class="avatar-img rounded-circle"   >
+                                   class="avatar-img rounded-circle"  v-if="client.user_image != null " >
                           </span>
 
                              </label>
@@ -39,6 +39,10 @@
                                      <div class="form-group">
                                          <button class="btn btn-default spacer" data-toggle="modal" data-target="#example_01">Upload Photo </button>
                                          <button class="btn btn-info spacer"  @click="printMe">Print ID Card</button>
+
+                                         <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
+                                           <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.sector == 'formal'">Add Dependent</button>
+                                         </router-link>
                                      </div>
 
                            </div>
@@ -48,44 +52,45 @@
 
                <div class="row">
                    <div class="col-lg-8 col-md-8" id="printDiv">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-                             <h3 class="p-t-10 searchBy-name">User Details</h3>
+                       <div class="card">
+                           <div class="card-header text-center">
+
+                             <strong >{{client.state}} State HealthCare Management Agency</strong>
                            </div>
 
-                           <div class="card-body">
+                           <div class="card-body row">
 
-                             <vue-initials-img :name="client.firstname+' '+client.lastname" class="text-center rounded-circle"  v-if="client.user_image == null "/>
-
-
-                             <div class="" v-if="client.user_image != null ">
+                             <div class="col-md-4">
+                               <vue-initials-img :name="client.firstname+' '+client.lastname" class="text-center rounded-circle" size="300"  v-if="client.user_image == null "/>
+                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img-thumbnail" alt="User Photo" width="304" height="236" v-if="client.user_image != null ">
                                <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"> -->
-                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+                               <!-- <p class="btn btn-default spacer-top-bottom">
+                                 <button type="button"  name="button"> Enrollment Card </button>
+                               </p> -->
+
                              </div>
 
-                             <p class="spacer-top-bottom"><strong>Name:</strong>  {{client.firstname }} {{client.lastname}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Email:</strong> {{client.email}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Weight:</strong> {{client.weight }}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Blood Group:</strong> {{client.blood }}</p>
-                             <hr>
-                             <p class="spacer-top-bottom"><strong>Genotype:</strong> {{client.genotype }}</p>
+                              <div class="col-md-8">
+                                <p class="spacer-top-bottom"><strong>Name:</strong>  {{client.firstname }} {{client.lastname}}</p>
+                                <p class="spacer-top-bottom"><strong>HIPC Number:</strong>  ZCHEMA-0{{client.id}} </p>
+                                <hr>
+                                <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
+                                <hr>
+                                <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
+                                <hr>
+                                <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}}</p>
+                                <hr>
+                                <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
+                                <hr>
+                                <p class="spacer-top-bottom"><strong>Health Facility:</strong> Tsafe  Hospital</p>
+                                <hr>
+                              </div>
 
                            </div>
                        </div>
                    </div>
 
-                       <!-- <div class="col-lg-4 col-md-4">
+                       <div class="col-lg-4 col-md-4">
                            <div class="card m-b-30">
                                <div class="card-header">
 
@@ -93,15 +98,22 @@
 
                                <div class="card-body" >
                                    <div class="form-group">
-                                     <router-link :to="{ path: '/client-select-sector/'+client.id, params: {} }">
-
-                                       <button class="btn btn-info">Select Sector</button>
-                                       </router-link>
+                                       <button class="btn btn-info">Other Details</button>
                                    </div>
+
+                                   <p class="spacer-top-bottom"><strong>Email:</strong> {{client.email}}</p>
+                                   <hr>
+
+                                   <p class="spacer-top-bottom"><strong>Weight:</strong> {{client.weight }}</p>
+                                   <hr>
+                                   <p class="spacer-top-bottom"><strong>Blood Group:</strong> {{client.blood }}</p>
+                                   <hr>
+                                   <p class="spacer-top-bottom"><strong>Genotype:</strong> {{client.genotype }}</p>
+
                                </div>
                            </div>
 
-                       </div> -->
+                       </div>
 
 
                </div>

@@ -90,23 +90,23 @@ const routes = [
     component: SelectType
   },
   {
-    path: '/signup-client',
+    path: '/signup-clientoff',
     component: SignupClient
   },
   {
-    path: '/signup-state',
+    path: '/signup-stateoff',
     component: SignupState
   },
   {
-    path: '/signup-hmo',
+    path: '/signup-hmooff',
     component: SignupHmo
   },
   {
-    path: '/signup-provider',
+    path: '/signup-provideroff',
     component: SignupProvider
   },
   {
-    path: '/signup-agency',
+    path: '/signup-agencyoff',
     component: SignupAgency
   },
   {
@@ -286,7 +286,7 @@ const routes = [
       },
   },
   {
-    path: '/add-dependents',
+    path: '/add-dependent/:id',
     component: AddDependents,
     meta: {
         requiresAuth: true,

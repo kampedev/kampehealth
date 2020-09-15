@@ -75,18 +75,24 @@
                                                           </div>
 
                                                           <div class="form-row">
+
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputCity">Job Title</label>
-                                                                  <input type="text" class="form-control" v-model="register.job_title" placeholder="Job Title" >
+                                                                  <select class="form-control"  v-model="register.job_title">
+                                                                   <option  value="Enrollment Officer">Enrollment Officer</option>
+                                                                   <option  value="Community Health Extension Worker">Community Health Extension Workers (CHEWs)</option>
+                                                               </select>
                                                               </div>
-                                                              <div class="form-group col-md-6">
+
+                                                              <!-- <div class="form-group col-md-6">
                                                                   <label for="inputCity">ID Card Number</label>
                                                                   <input type="text" class="form-control"  placeholder="ID Card Number"   v-model="register.id_card_number">
-                                                              </div>
+                                                              </div> -->
+
                                                           </div>
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary" @click="registerUser">Submit</button>
+                                                             <button class="btn btn-primary btn-block btn-lg" @click="registerUser">Submit</button>
                                                          </div>
 
                            </div>

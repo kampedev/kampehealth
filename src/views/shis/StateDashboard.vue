@@ -29,7 +29,7 @@
                 </div>
 
 
-                <div class="col-lg-3 col-md-6">
+                <!-- <div class="col-lg-3 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -47,9 +47,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -102,7 +102,7 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Providers</p>
+                                <p class="text-muted text-overline m-0">Health Facilities</p>
                                 <h1 class="fw-400">{{providers.length}}</h1>
                             </div>
                         </div>
@@ -158,7 +158,7 @@
                 </div>
 
                 <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-alert-circle"></i>{{clients.length}} CLients</h5>
+                    <h5> <i class="fe fe-alert-circle"></i>{{clients.length}} Clients</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
@@ -250,9 +250,10 @@ export default {
       chartData: {
                 type: 'line',
                 title: {
-                    text: 'New Users',
+                    text: 'Users',
                 },
                 series: [{
+                    // values: [14,10,13,8,12,14]
                     values: [14,10,13,8,12,14]
                 }]
             },

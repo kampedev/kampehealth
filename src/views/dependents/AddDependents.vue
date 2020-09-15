@@ -73,8 +73,6 @@
                                                                <label for="inputCity">Relationship type</label>
 
                                                                    <select class="form-control"  v-model="dependent.relationShipType">
-                                                                    <!-- <option id="Parent">Parent</option> -->
-                                                                    <!-- <option id="Sibling">Sibling</option> -->
                                                                     <option id="Spouse">Spouse</option>
                                                                     <option id="ward">Ward</option>
                                                                 </select>
@@ -83,8 +81,6 @@
                                                                <label for="inputCity">Sex</label>
 
                                                                    <select class="form-control"  v-model="dependent.sex">
-                                                                    <!-- <option id="Parent">Parent</option> -->
-                                                                    <!-- <option id="Sibling">Sibling</option> -->
                                                                     <option id="Male">Male</option>
                                                                     <option id="Female">Female</option>
                                                                 </select>
@@ -93,15 +89,12 @@
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">Date of Birth</label>
 
-                                                              <!-- <input type="text" class="js-datepicker form-control" placeholder="Select a Date"> -->
-                                                              <!-- <datepicker v-model="dependent.dob" class="form-control"></datepicker> -->
                                                               <input type="text" class="form-control"  placeholder="YYYY/MM/DD" v-model="dependent.dob" >
 
                                                          </div>
 
-                                                         <div class="row">
                                                            <div class="form-group col-md-6">
-                                                             <label for="inputCity">States</label>
+                                                             <label for="inputCity">State</label>
                                                                  <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                                                   <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                                               </select>
@@ -112,7 +105,6 @@
                                                                   <option v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.local_name">{{lga.local_name}}</option>
                                                               </select>
                                                            </div>
-                                                         </div>
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">Health Provider</label>
                                                                <select class="form-control"  v-model="dependent.provider">
@@ -132,6 +124,46 @@
                    </div>
 
                </div>
+
+               <div class="col-md-10 m-b-30">
+                   <h5> <i class="fe fe-activity"></i>{{dependents.length}} Dependents</h5>
+                   <div class="table-responsive">
+                       <table class="table align-td-middle table-card">
+                           <thead>
+                           <tr>
+                               <!-- <th>Avatar</th> -->
+                               <th>Name</th>
+                               <th>E mail/Contact</th>
+                               <th>State/LGA</th>
+                               <th>Relationship</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           <tr v-for="dependent in dependents" v-bind:key="dependent.id">
+                               <!-- <td>
+                                   <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
+                                                                       class="avatar-img avatar-sm rounded-circle"
+                                                                       alt=""></div>
+                               </td> -->
+                               <td>
+                                 <router-link :to="{ path: '/provider-' + dependent.id }">
+                                 {{dependent.firstname}}
+                               </router-link>
+
+                               </td>
+                               <td>{{dependent.email}}/{{dependent.phone_number}}</td>
+                               <td>{{dependent.state}}/{{dependent.lga}}</td>
+                               <td>{{dependent.relationShipType}}</td>
+
+                           </tr>
+
+                           </tbody>
+                       </table>
+
+                   </div>
+               </div>
+
+
            </div>
 
            <div class="vld-parent">
@@ -190,7 +222,7 @@ export default {
     getDependents(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/allDependantUser/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/allDependantUser/${this.$route.params.id}`)
                   .then(response => {
                       this.dependents = response.data.data
                       console.log(response)
@@ -243,7 +275,7 @@ export default {
         firstname: this.dependent.firstname,
         lastname: this.dependent.lastname,
         relationShipType: this.dependent.relationShipType,
-        user_id: this.user.id,
+        user_id: this.$route.params.id,
         email: this.dependent.email,
         phone_number: this.dependent.phone_number,
         state: this.state.name,
@@ -258,7 +290,8 @@ export default {
           this.getDependents();
           this.isLoading = false;
           this.$toasted.info('Dependent added Successfully', {position: 'top-center', duration:3000 })
-          this.$router.push('/my-dependents')
+
+          // this.$router.push('/my-dependents/'+ this.$route.params.id)
       })
       .catch(error=>{
         this.isLoading = false;

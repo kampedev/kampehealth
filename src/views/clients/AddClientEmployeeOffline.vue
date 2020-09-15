@@ -62,8 +62,7 @@
                                                           <td >{{client.firstname}} {{client.lastname}}</td>
                                                           <td>{{client.gender}}</td>
                                                           <td>{{client.phone_number}}</td>
-                                                          <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
-                                                          <td>{{client.state}}</td>
+                                                          <td>{{client.state}}/{{client.localgovt}}</td>
 
                                                       </tr>
 

@@ -78,7 +78,8 @@
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputCity">Job Title</label>
                                                                   <select class="form-control"  v-model="register.job_title">
-                                                                   <option  value="m_and_e">Monitoring and Evaluation</option>
+                                                                   <option  value="desk">Desk Officer</option>
+                                                                   <option  value="m_and_e">Monitoring and Evaluation Officer</option>
                                                                    <option  value="qao">Quality Assurance Officer</option>
                                                                    <option  value="doctor">Doctor</option>
                                                                    <option  value="pharmacist">Pharmacist</option>

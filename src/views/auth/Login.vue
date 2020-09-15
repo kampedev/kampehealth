@@ -20,7 +20,7 @@
                             <div class="form-row">
                                 <div class="form-group floating-label col-md-12">
                                     <label>Email</label>
-                                    <input type="text" required class="form-control" v-model="identifier" placeholder="Email or Username">
+                                    <input type="text" required class="form-control" v-model="identifier" placeholder="Email">
                                 </div>
                                 <div class="form-group floating-label col-md-12">
                                     <label>Password</label>

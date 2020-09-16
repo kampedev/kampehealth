@@ -54,7 +54,7 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                               <label for="inputCity">Select Sector</label>
-                                                                  <select class="form-control"  v-model="register.sector" >
+                                                                  <select class="form-control"  v-model="sector" >
                                                                    <option  value="formal">Formal Sector</option>
                                                                    <option  value="informal">Informal Sector</option>
                                                                </select>
@@ -92,60 +92,71 @@
                                                                    <option  value="Female">Female</option>
                                                                </select>
                                                             </div>
+                                                            <div class="form-group col-md-6"  v-if="sector == 'informal'">
+                                                              <label >Informal sector</label>
+                                                                <select class="form-control" v-model="register.sector">
+                                                                  <option  value="Rural Women Heathcare Program">Rural Women Heathcare Program</option>
+                                                                  <option  value="Reach Every Child Healthcare Program">Reach Every Child Healthcare Program</option>
+                                                                  <option  value="Rural Outreach Surgical Intervention Program">Rural Outreach Surgical Intervention Program</option>
+                                                                  <option  value="Rural Outreach Medical Intervention Program">Rural Outreach Medical Intervention Program</option>
+                                                                  <option  value="Organized Private Sector Healthcare Program">Organized Private Sector Healthcare Program</option>
+                                                                  <option  value="Organized Rural Community Intervention Halthcare Program">Organized Rural Community Intervention Halthcare Program</option>
+                                                               </select>
+                                                            </div>
                                                             <div class="form-group col-md-6">
-                                                              <label >Point of HealthCare</label>
+                                                              <label >Point of HealthCare: {{register.point_of_care}}</label>
                                                                 <select class="form-control" v-model="register.point_of_care">
-                                                                  <option  value="phc">Primary Health Care</option>
-                                                                  <option  value="gh">General Hospital</option>
-                                                                  <option  value="sh">Special Hospital</option>
-                                                                  <option  value="fmc">Federal Medical Centre</option>
-                                                                  <option  value="phf">Private Health Facility</option>
+                                                                  <option  value="Primary Health Care">Primary Health Care</option>
+                                                                  <option  value="General Hospital">General Hospital</option>
+                                                                  <option  value="Special Hospital">Special Hospital</option>
+                                                                  <option  value="Federal Medical Centre">Federal Medical Centre</option>
+                                                                  <option  value="Private Health Facility">Private Health Facility</option>
                                                                   <option  value="others">Others</option>
                                                                </select>
                                                             </div>
 
                                                             <div class="form-group col-md-6" v-if="register.point_of_care == 'others'">
                                                               <label >Point of HealthCare</label>
-                                                                <select class="form-control" >
-                                                                  <option  value="phc">Diagnostic Centre</option>
-                                                                  <option  value="gh">Pharmacy</option>
-                                                                  <option  value="sh">Medicine Store</option>
+                                                                <select class="form-control" v-model="register.point_of_care">
+                                                                  <option  value="Diagnostic Centre">Diagnostic Centre</option>
+                                                                  <option  value="Pharmacy">Pharmacy</option>
+                                                                  <option  value="Medicine Store">Medicine Store</option>
                                                                </select>
                                                             </div>
-                                                            <div class="form-group col-md-6" v-if="register.sector == 'formal'">
+                                                            <div class="form-group col-md-6" v-if="sector == 'formal'">
                                                                 <label for="inputEmail4">Computer Number</label>
                                                                 <input type="text" class="form-control" v-model="register.firstname" placeholder="Computer Employment Number">
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-row" v-if="register.sector == 'formal'">
+                                                        <div class="form-row" v-if="sector == 'formal'">
                                                              <div class="form-group col-md-6">
                                                                <label for="inputCity">Select MDA</label>
                                                                <select class="form-control"  v-model="register.place_of_work" >
                                                                 <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
                                                             </select>
                                                              </div>
+                                                             <div class="form-group col-md-6">
+                                                               <label for="inputCity">State </label>
 
-                                                             <!-- <div class="form-group col-md-6">
-                                                               <label for="inputCity">Department</label>
-                                                                   <select class="form-control"  v-model="register.gender" >
-                                                                    <option  value="Male">Department</option>
-                                                                    <option  value="Female">Department</option>
+                                                               <select class="form-control"  v-model="state" @change="fetchLga(state)">
+                                                                <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+                                                            </select>
+                                                             </div>
+                                                             <div class="form-group col-md-6">
+                                                               <label for="inputCity">LGA</label>
+                                                                 <select class="form-control"  v-model="register.localgovt">
+                                                                   <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                 </select>
                                                              </div>
 
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Parastatals</label>
-                                                                   <select class="form-control"  v-model="register.gender" >
-                                                                    <option  value="Male">ZAMCHEMA</option>
-                                                                    <option  value="Female">Others</option>
-                                                                </select>
-                                                             </div> -->
-
+                                                           <div class="form-group col-md-12">
+                                                              <label for="inputAddress">Address</label>
+                                                              <textarea name="name" rows="3" cols="80"  class="form-control" v-model="register.address" placeholder="1234 Main St"></textarea>
+                                                          </div>
 
                                                          </div>
 
-                                                        <div class="row">
 
                                                           <!-- <div class="form-group col-md-6">
                                                             <label for="inputCity">Blood Group</label>
@@ -171,28 +182,6 @@
                                                               <label for="inputPassword4">Weight</label>
                                                               <input type="text" class="form-control" v-model="register.weight" placeholder="Weight in (Kg)" >
                                                           </div> -->
-                                                        </div>
-
-                                                        <div class="row">
-                                                          <div class="form-group col-md-6">
-                                                            <label for="inputCity">State </label>
-
-                                                            <select class="form-control"  v-model="state" @change="fetchLga(state)">
-                                                             <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
-                                                         </select>
-                                                          </div>
-                                                          <div class="form-group col-md-6">
-                                                            <label for="inputCity">LGA</label>
-                                                              <select class="form-control"  v-model="register.localgovt">
-                                                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
-                                                             </select>
-                                                          </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                           <label for="inputAddress">Address</label>
-                                                           <textarea name="name" rows="3" cols="80"  class="form-control" v-model="register.address" placeholder="1234 Main St"></textarea>
-                                                       </div>
 
                                                        <div class="form-group">
                                                            <button class="btn btn-primary btn-block btn-lg" @click="registerUser">Submit</button>
@@ -294,6 +283,7 @@ export default {
       states:"",
       show:false,
       clients:"",
+      sector:"",
       mdas:"",
       state:"",
       lga_states:"",

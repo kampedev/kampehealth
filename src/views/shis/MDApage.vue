@@ -170,7 +170,7 @@ export default {
     this.user = JSON.parse(localStorage.getItem('user'))
     this.axios.get(`/api/v1/auth/ministry`)
                 .then(response => {
-                    this.ministries = response.data.data[0]
+                    this.ministries = response.data.data
                     console.log(response)
                 })
                 .catch(error => {

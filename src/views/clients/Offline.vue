@@ -15,7 +15,7 @@
 
                                                             <div class="form-group col-md-12">
                                                               <label for="inputCity">Select Sector</label>
-                                                                  <select class="form-control"  v-model="newStudent.sector" >
+                                                                  <select class="form-control"  v-model="sector" >
                                                                    <option  value="formal">Formal Sector</option>
                                                                    <option  value="informal">Informal Sector</option>
                                                                </select>
@@ -68,13 +68,13 @@
                                                                       <option  value="Medicine Store">Medicine Store</option>
                                                                    </select>
                                                                 </div>
-                                                                <div class="form-group col-md-12" v-if="newStudent.sector == 'formal'">
+                                                                <div class="form-group col-md-12" v-if="sector == 'formal'">
                                                                     <label for="inputEmail4">Computer Number</label>
                                                                     <input type="text" class="form-control" v-model="newStudent.salary_number" placeholder="Computer Employment Number">
                                                                 </div>
                                                             </div>
 
-                                                                  <div class="form-row" v-if="newStudent.sector == 'formal'">
+                                                                  <div class="form-row" v-if="sector == 'formal'">
                                                                        <!-- <div class="form-group col-md-6">
                                                                          <label for="inputCity">Select MDA</label>
                                                                              <select class="form-control"  v-model="newStudent.place_of_work" >
@@ -98,7 +98,6 @@
                                                                               <option  value="Others">Others</option>
                                                                           </select>
                                                                        </div> -->
-
 
                                                                    </div>
 
@@ -131,8 +130,19 @@
                                                                     <option v-for="lga in kogi_lgas.data" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                  </select>
 
-                                                                </div>
+                                                                 <div class="form-group col-md-6"  v-if="sector == 'informal'">
+                                                                   <label >Informal sector</label>
+                                                                     <select class="form-control" v-model="newStudent.sector">
+                                                                       <option  value="Rural Women Heathcare Program">Rural Women Heathcare Program</option>
+                                                                       <option  value="Reach Every Child Healthcare Program">Reach Every Child Healthcare Program</option>
+                                                                       <option  value="Rural Outreach Surgical Intervention Program">Rural Outreach Surgical Intervention Program</option>
+                                                                       <option  value="Rural Outreach Medical Intervention Program">Rural Outreach Medical Intervention Program</option>
+                                                                       <option  value="Organized Private Sector Healthcare Program">Organized Private Sector Healthcare Program</option>
+                                                                       <option  value="Organized Rural Community Intervention Halthcare Program">Organized Rural Community Intervention Halthcare Program</option>
+                                                                    </select>
+                                                                 </div>
 
+                                                                </div>
 
                                                               <!-- <div class="form-group col-md-6">
                                                                 <label for="inputCity">Blood Group</label>
@@ -173,7 +183,6 @@
                                                              </div>
 
                                                             </div>
-
 
 
                                         <div>
@@ -229,6 +238,7 @@ export default {
       editStudent: {},
         fullPage: true,
         client_number:"234",
+        sector:"",
         show:false,
         states:statesJson,
         zamfara_lgas:zamfaraJson,

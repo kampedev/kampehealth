@@ -108,10 +108,10 @@
                             </select>
                          </div>
 
-                         <!-- <div class="form-group floating-label col-md-6 col-sm-12">
+                         <div class="form-group floating-label col-md-6 col-sm-12">
                              <label>Ward</label>
                              <input type="text" required class="form-control" placeholder="Ward" v-model="register.ward">
-                         </div> -->
+                         </div>
 
                        </div>
 

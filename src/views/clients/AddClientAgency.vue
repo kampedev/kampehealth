@@ -51,7 +51,7 @@
                                                           <div class="col-md-12">
                                                               <div class="form-group">
                                                                 <label for="inputCity">Select Sector</label>
-                                                                    <select class="form-control"  v-model="register.sector" >
+                                                                    <select class="form-control"  v-model="sector" >
                                                                      <option  value="formal">Formal Sector</option>
                                                                      <option  value="informal">Informal Sector</option>
                                                                  </select>
@@ -89,18 +89,31 @@
                                                                   <!-- <input type="text" class="form-control" v-model="register.dob" placeholder="1994/01/01" > -->
                                                                   <date-picker v-model="register.dob" valueType="format"></date-picker>
                                                               </div>
-                                                              <div class="form-group col-md-6" v-if="register.sector == 'formal'">
+                                                              <div class="form-group col-md-6" v-if="sector == 'formal'">
                                                                   <label for="inputEmail4">Computer Number</label>
                                                                   <input type="text" class="form-control" v-model="register.salary_number" placeholder="Computer Employment Number">
                                                               </div>
+
+                                                              <div class="form-group col-md-6"  v-if="sector == 'informal'">
+                                                                <label >Informal sector</label>
+                                                                  <select class="form-control" v-model="register.sector">
+                                                                    <option  value="Rural Women Heathcare Program">Rural Women Heathcare Program</option>
+                                                                    <option  value="Reach Every Child Healthcare Program">Reach Every Child Healthcare Program</option>
+                                                                    <option  value="Rural Outreach Surgical Intervention Program">Rural Outreach Surgical Intervention Program</option>
+                                                                    <option  value="Rural Outreach Medical Intervention Program">Rural Outreach Medical Intervention Program</option>
+                                                                    <option  value="Organized Private Sector Healthcare Program">Organized Private Sector Healthcare Program</option>
+                                                                    <option  value="Organized Rural Community Intervention Halthcare Program">Organized Rural Community Intervention Halthcare Program</option>
+                                                                 </select>
+                                                              </div>
+
                                                               <div class="form-group col-md-6">
                                                                 <label >Point of HealthCare</label>
                                                                   <select class="form-control" v-model="register.point_of_care">
-                                                                    <option  value="phc">Primary Health Care</option>
-                                                                    <option  value="gh">General Hospital</option>
-                                                                    <option  value="sh">Special Hospital</option>
-                                                                    <option  value="fmc">Federal Medical Centre</option>
-                                                                    <option  value="phf">Private Health Facility</option>
+                                                                    <option  value="Primary Health Care">Primary Health Care</option>
+                                                                    <option  value="General Hospital">General Hospital</option>
+                                                                    <option  value="Special Hospital">Special Hospital</option>
+                                                                    <option  value="Federal Medical Centre">Federal Medical Centre</option>
+                                                                    <option  value="Private Health Facility">Private Health Facility</option>
                                                                     <option  value="others">Others</option>
                                                                  </select>
                                                               </div>
@@ -108,14 +121,14 @@
                                                               <div class="form-group col-md-6" v-if="register.point_of_care == 'others'">
                                                                 <label >Point of HealthCare</label>
                                                                   <select class="form-control" v-model="register.point_of_care">
-                                                                    <option  value="phc">Diagnostic Centre</option>
-                                                                    <option  value="gh">Pharmacy</option>
-                                                                    <option  value="sh">Medicine Store</option>
+                                                                    <option  value="Diagnostic Centre">Diagnostic Centre</option>
+                                                                    <option  value="Pharmacy">Pharmacy</option>
+                                                                    <option  value="Medicine Store">Medicine Store</option>
                                                                  </select>
                                                               </div>
                                                           </div>
 
-                                                          <div class="form-row" v-if="register.sector == 'formal'">
+                                                          <div class="form-row" v-if="sector == 'formal'">
                                                                <div class="form-group col-md-6">
                                                                  <label for="inputCity">Select MDA</label>
                                                                      <select class="form-control"  v-model="register.place_of_work" >
@@ -243,6 +256,7 @@ export default {
       states:"",
       clients:"",
       mdas:"",
+      sector:"",
       state:"",
       lga_states:"",
       register:{

@@ -52,7 +52,7 @@
             </li>
 
             <li class="menu-item active " v-if="user.type == 'shis'">
-                <router-link to="/state-dashboard" class=" menu-link">
+                <a href="/state-dashboard" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Dashboard
                                                 </span>
@@ -60,11 +60,11 @@
                     <span class="menu-icon">
                                                  <i class="icon-placeholder fe fe-home "></i>
                                             </span>
-                </router-link>
+                </a>
             </li>
 
             <li class="menu-item active " v-if="user.type == 'employee'">
-                <router-link to="/employee-dashboard" class=" menu-link">
+                <a href="/employee-dashboard" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Dashboard
                                                 </span>
@@ -72,11 +72,11 @@
                     <span class="menu-icon">
                                                  <i class="icon-placeholder fe fe-home "></i>
                                             </span>
-                </router-link>
+                </a>
             </li>
 
             <li class="menu-item" v-if="user.type == 'employee'">
-                <router-link to="/manage-clients" class=" menu-link">
+                <a href="/manage-clients" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Add Clients
                                                 </span>
@@ -84,11 +84,11 @@
                     <span class="menu-icon">
                                                  <i class="icon-placeholder fe fe-edit "></i>
                                             </span>
-                </router-link>
+                </a>
             </li>
 
             <li class="menu-item" v-if="user.type == 'employee'">
-                <router-link to="/add-client/employee-offline" class=" menu-link">
+                <a href="/add-client/employee-offline" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Add Clients(Offline)
                                                 </span>
@@ -96,7 +96,7 @@
                     <span class="menu-icon">
                                                  <i class="icon-placeholder fe fe-cloud-off "></i>
                                             </span>
-                </router-link>
+                </a>
             </li>
 
             <li class="menu-item"  v-if="user.type == 'hmo'">
@@ -112,7 +112,7 @@
                 </router-link>
             </li>
             <li class="menu-item"  v-if="user.type == 'shis'">
-                <router-link href="/fund-manager" class="menu-link">
+                <router-link href="#" class="menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Fund Manager
                                                 </span>
@@ -329,7 +329,7 @@
                             <ul class="sub-menu">
 
                                 <li class="menu-item">
-                                    <router-link to="/add-client-agency" class=" menu-link">
+                                    <a href="/add-client-agency" class=" menu-link">
                                                     <span class="menu-label">
                                                             <span class="menu-name">Add Client
                                                             </span>
@@ -338,7 +338,7 @@
 
                                                                 <i class="icon-placeholder fe fe-edit"></i>
                                                         </span>
-                                    </router-link>
+                                    </a>
                                 </li>
 
                                 <li class="menu-item">
@@ -355,7 +355,7 @@
                                 </li>
 
                                 <li class="menu-item">
-                                    <router-link to="/view-clients-agency" class=" menu-link">
+                                    <a href="/view-clients-agency" class=" menu-link">
                                                     <span class="menu-label">
                                                             <span class="menu-name">View Clients
                                                             </span>
@@ -364,7 +364,7 @@
 
                                                                 <i class="icon-placeholder mdi mdi-view-day "></i>
                                                         </span>
-                                    </router-link>
+                                    </a>
                                 </li>
 
                             </ul>
@@ -473,7 +473,7 @@
                 <ul class="sub-menu">
 
                     <li class="menu-item">
-                        <router-link to="/add-employee-state" class=" menu-link">
+                        <a href="/add-employee-state" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">Add Employee
                                                 </span>
@@ -482,11 +482,11 @@
 
                                                     <i class="icon-placeholder fe fe-edit "></i>
                                             </span>
-                        </router-link>
+                        </a>
                     </li>
 
                     <li class="menu-item">
-                        <router-link to="/my-employees" class=" menu-link">
+                        <a href="/my-employees" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">My Employees
                                                 </span>
@@ -495,7 +495,7 @@
 
                                                     <i class="icon-placeholder mdi mdi-view-day "></i>
                                             </span>
-                        </router-link>
+                        </a>
                     </li>
 
                 </ul>
@@ -660,25 +660,25 @@
             </li>
 
             <li class="menu-item  "  v-if="user.type == 'shis'">
-                <router-link to="/my-providers" class=" menu-link">
+                <a href="/my-providers" class=" menu-link">
                         <span class="menu-label">
                               <span class="menu-name">Health Facilities</span>
                         </span>
                     <span class="menu-icon">
                       <i class="icon-placeholder fe fe-activity"></i>
                     </span>
-                </router-link>
+                </a>
             </li>
 
             <li class="menu-item  "  v-if="user.type == 'shis'">
-                <router-link to="/mda-manager" class=" menu-link">
+                <a href="/mda-manager" class=" menu-link">
                         <span class="menu-label">
                               <span class="menu-name">MDAs</span>
                         </span>
                     <span class="menu-icon">
                       <i class="icon-placeholder fe fe-airplay"></i>
                     </span>
-                </router-link>
+                </a>
             </li>
 
             <!-- <li class="menu-item active "  v-if="user.type == 'client'">
@@ -781,7 +781,6 @@
 
                             </ul>
                         </li>
-
 
         </ul>
 

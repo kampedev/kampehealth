@@ -196,7 +196,8 @@ export default {
         this.$breadstick.notify("Provider Approved!", {position: "top-right"});
         this.isLoading = false;
         this.getProvider()
-        this.$router.push(`/client/${this.$route.params.id}`)
+        // this.$router.push(`/client/${this.$route.params.id}`)
+        this.$router.push(`/my-providers`)
 
 
     })

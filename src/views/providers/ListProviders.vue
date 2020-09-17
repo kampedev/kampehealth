@@ -290,6 +290,7 @@ export default {
           localgovt : this.register.localgovt,
           services_offered : this.register.services_offered,
           address1 : this.register.address1,
+          ward : this.register.ward,
           role : this.register.role,
           password : this.register.password,
           password_confirmation : this.register.password_confirmation

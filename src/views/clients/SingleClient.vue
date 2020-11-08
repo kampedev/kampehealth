@@ -40,6 +40,10 @@
                                          <button class="btn btn-default spacer" data-toggle="modal" data-target="#example_01">Upload Photo </button>
                                          <button class="btn btn-info spacer"  @click="printMe">Print ID Card</button>
 
+                                         <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
+                                           <button class="btn btn-info spacer"  >Biometrics</button>
+                                        </router-link>
+
                                          <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.sector == 'formal'">Add Dependent</button>
                                          </router-link>

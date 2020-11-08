@@ -19,6 +19,7 @@ import AddClientEmployeeOffline from '../views/clients/AddClientEmployeeOffline.
 import AddClientProvider from '../views/clients/AddClientProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import SingleClient from '../views/clients/SingleClient.vue'
+import SingleClientBiometrics from '../views/clients/SingleClientBiometrics.vue'
 import SingleClientSelectSector from '../views/clients/SingleClientSelectSector.vue'
 import SingleClientHealthFacility from '../views/clients/SingleClientHealthFacility.vue'
 import SingleClientEnrolmentSuccess from '../views/clients/SingleClientEnrolmentSuccess.vue'
@@ -185,6 +186,13 @@ const routes = [
   {
     path: '/client/:id',
     component: SingleClient,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/client/biometrics/:id',
+    component: SingleClientBiometrics,
     meta: {
         requiresAuth: true,
       },

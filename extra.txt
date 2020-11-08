@@ -1,0 +1,8 @@
+
+droplet: hayok123
+
+email: info@zamchema.gov.ng
+zamfara: Zam41chema#
+
+test state email: state@gmail.com
+test state password: skrull123

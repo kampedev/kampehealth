@@ -239,7 +239,7 @@ export default {
             .then(response => {
               console.log(response);
                  this.isLoading = false;
-                 this.$breadstick.notify("Profile Image changed Successfully!", {position: "top-right"});
+                 this.$breadstick.notify("Biometric Image uploaded Successfully!", {position: "top-right"});
                  this.fetchUser()
 
             })
@@ -259,7 +259,7 @@ export default {
                 .then(response => {
                   console.log(response);
                      this.isLoading = false;
-                     this.$breadstick.notify("Profile Image changed Successfully!", {position: "top-right"});
+                     this.$breadstick.notify("Biometric Image uploaded Successfully!", {position: "top-right"});
                      this.fetchUser()
 
                 })
@@ -279,7 +279,7 @@ export default {
                     .then(response => {
                       console.log(response);
                          this.isLoading = false;
-                         this.$breadstick.notify("Profile Image changed Successfully!", {position: "top-right"});
+                         this.$breadstick.notify("Biometric Image uploaded Successfully!", {position: "top-right"});
                          this.fetchUser()
 
                     })

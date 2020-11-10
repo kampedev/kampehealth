@@ -58,6 +58,23 @@
                                                               </div>
                                                           </div>
 
+                                                          <div class="col-md-12" v-if="sector == 'informal' " >
+                                                              <div class="form-group">
+                                                                <label for="inputCity">Select Informal Sector</label>
+                                                                    <select class="form-control"  v-model="register.sector" >
+                                                                     <option  value="Oganized Private Sector Plan">Oganized Private Sector Plan</option>
+                                                                     <option  value="Voluntary Contributor">Voluntary Contributor</option>
+                                                                     <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option>
+                                                                     <option value="T-Ship">T-Ship</option>
+                                                                 </select>
+                                                              </div>
+                                                          </div>
+
+
+                                                             <div class="form-group col-md-6">
+                                                                 <label for="inputEmail4">NIMC Number</label>
+                                                                 <input type="text" class="form-control" v-model="register.nimc_number" placeholder="NIMC Number">
+                                                             </div>
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputEmail4">First Name</label>
                                                                  <input type="text" class="form-control" v-model="register.firstname" placeholder="First Name">
@@ -66,8 +83,18 @@
                                                                  <label for="inputPassword4">Last Name</label>
                                                                  <input type="text" class="form-control" v-model="register.lastname"  placeholder="Last Name">
                                                              </div>
+                                                             <div class="form-group col-md-6">
+                                                                 <label for="inputPassword4">Middle Name</label>
+                                                                 <input type="text" class="form-control" v-model="register.middlename"  placeholder="Last Name">
+                                                             </div>
+
                                                          </div>
+
                                                          <div class="form-row">
+                                                           <div class="form-group col-md-6">
+                                                             <p>  <label for="inputPassword4">Date of Birth</label></p>
+                                                               <date-picker v-model="register.dob" valueType="format"></date-picker>
+                                                           </div>
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputEmail4">Email</label>
                                                                   <input type="email" class="form-control" v-model="register.email" placeholder="Email">
@@ -84,31 +111,62 @@
                                                                      <option  value="Female">Female</option>
                                                                  </select>
                                                               </div>
-                                                              <div class="form-group col-md-6">
-                                                                <p>  <label for="inputPassword4">Date of Birth</label></p>
-                                                                  <!-- <input type="text" class="form-control" v-model="register.dob" placeholder="1994/01/01" > -->
-                                                                  <date-picker v-model="register.dob" valueType="format"></date-picker>
-                                                              </div>
+
+                                                              <div class="form-group col-md-6" v-if="sector == 'formal'">
+                                                                     <label for="inputCity">Select MDA</label>
+                                                                         <select class="form-control"  v-model="register.place_of_work" >
+                                                                          <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
+                                                                      </select>
+                                                               </div>
+
                                                               <div class="form-group col-md-6" v-if="sector == 'formal'">
                                                                   <label for="inputEmail4">Computer Number</label>
                                                                   <input type="text" class="form-control" v-model="register.salary_number" placeholder="Computer Employment Number">
                                                               </div>
 
+                                                              <div class="form-group col-md-6" v-if="sector == 'formal'">
+                                                                  <label for="inputEmail4">Grade Level/Step</label>
+                                                                  <input type="text" class="form-control" v-model="register.grade_level" placeholder="Grade Level/Step">
+                                                              </div>
+
+                                                              <div class="form-group col-md-6">
+                                                                <p>  <label for="inputPassword4">Date of Entry</label></p>
+                                                                  <date-picker v-model="register.date_of_entry" valueType="format"></date-picker>
+                                                              </div>
+
                                                               <div class="form-group col-md-6"  v-if="sector == 'informal'">
                                                                 <label >Informal sector</label>
-                                                                  <select class="form-control" v-model="register.sector">
-                                                                    <option  value="Rural Women Heathcare Program">Rural Women Heathcare Program</option>
-                                                                    <option  value="Reach Every Child Healthcare Program">Reach Every Child Healthcare Program</option>
-                                                                    <option  value="Rural Outreach Surgical Intervention Program">Rural Outreach Surgical Intervention Program</option>
-                                                                    <option  value="Rural Outreach Medical Intervention Program">Rural Outreach Medical Intervention Program</option>
-                                                                    <option  value="Organized Private Sector Healthcare Program">Organized Private Sector Healthcare Program</option>
-                                                                    <option  value="Organized Rural Community Intervention Halthcare Program">Organized Rural Community Intervention Halthcare Program</option>
+                                                                  <select class="form-control" v-model="register.category_of_vulnerable_group">
+                                                                    <option  value="Pregnant Women">Pregnant Women</option>
+                                                                    <option  value="Children">Children</option>
+                                                                    <option  value="Aged">Aged</option>
+                                                                    <option  value="IDP">IDP</option>
+                                                                    <option  value="People with Special Needs">People with Special Needs</option>
+                                                                    <option  value="Poorest of the Poor">Poorest of the Poor</option>
                                                                  </select>
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                <label >Point of HealthCare</label>
-                                                                  <select class="form-control" v-model="register.point_of_care">
+                                                                <label >Marital Status</label>
+                                                                  <select class="form-control" v-model="register.marital_status">
+                                                                    <option  value="Married">Married</option>
+                                                                    <option  value="Widow">Widow</option>
+                                                                    <option  value="Single">Single</option>
+                                                                    <option  value="Parent">Parent</option>
+                                                                    <option  value="Divorced">Divorced</option>
+                                                                 </select>
+                                                              </div>
+
+                                                              <div class="form-group col-md-6">
+                                                                <label>Health Facility {{register.provider_id}}</label>
+                                                                  <select class="form-control" v-model="register.provider_id">
+                                                                    <option  :value="provider.id" v-for="provider in providers" v-bind:key="provider.id">{{provider.agency_name}}</option>
+                                                                 </select>
+                                                              </div>
+
+                                                              <!-- <div class="form-group col-md-6">
+                                                                <label >Health Facility</label>
+                                                                  <select class="form-control" v-model="register.provider_id">
                                                                     <option  value="Primary Health Care">Primary Health Care</option>
                                                                     <option  value="General Hospital">General Hospital</option>
                                                                     <option  value="Special Hospital">Special Hospital</option>
@@ -125,35 +183,9 @@
                                                                     <option  value="Pharmacy">Pharmacy</option>
                                                                     <option  value="Medicine Store">Medicine Store</option>
                                                                  </select>
-                                                              </div>
+                                                              </div> -->
                                                           </div>
 
-                                                          <div class="form-row" v-if="sector == 'formal'">
-                                                               <div class="form-group col-md-6">
-                                                                 <label for="inputCity">Select MDA</label>
-                                                                     <select class="form-control"  v-model="register.place_of_work" >
-                                                                      <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
-                                                                  </select>
-                                                               </div>
-
-                                                               <!-- <div class="form-group col-md-6">
-                                                                 <label for="inputCity">Department</label>
-                                                                     <select class="form-control"  v-model="register.place_of_work" >
-                                                                      <option  value="Male">Department</option>
-                                                                      <option  value="Female">Department</option>
-                                                                  </select>
-                                                               </div> -->
-
-                                                               <!-- <div class="form-group col-md-6">
-                                                                 <label for="inputCity">Parastatals</label>
-                                                                     <select class="form-control"  v-model="register.place_of_work" >
-                                                                      <option  value="Male">ZAMCHEMA</option>
-                                                                      <option  value="Female">Others</option>
-                                                                  </select>
-                                                               </div> -->
-
-
-                                                           </div>
 
                                                           <!-- <div class="row"> -->
 
@@ -210,8 +242,6 @@
                                                              <button class="btn btn-primary btn-block btn-lg" @click="registerUser">Submit</button>
                                                          </div>
 
-                                                         <!-- <AddClientoffLine/> -->
-
                            </div>
                        </div>
                    </div>
@@ -224,7 +254,6 @@
                         :can-cancel="true"
                         :is-full-page="fullPage"></loading>
                     </div>
-
 
                </div>
            </div>
@@ -254,6 +283,7 @@ export default {
       isLoading: false,
       fullPage: true,
       states:"",
+      providers:"",
       clients:"",
       mdas:"",
       sector:"",
@@ -262,6 +292,8 @@ export default {
       register:{
                 firstname:"",
                 lastname:"",
+                middlename:"",
+                nimc_number:"",
                 email:"",
                 phone_number:"",
                 type:"client",
@@ -276,10 +308,15 @@ export default {
                 genotype:"",
                 dob:"",
                 salary_number:"",
+                provider_id:"",
                 point_of_care:"",
                 sector:"",
                 finger_print:"",
                 place_of_work:"",
+                grade_level:"",
+                date_of_entry:"",
+                marital_status:"",
+                category_of_vulnerable_group:"",
             }
     }
   },
@@ -327,6 +364,18 @@ export default {
                       console.error(error);
                   })
     },
+    getProviders(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+                  .then(response => {
+                      this.providers = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
       getMDAs(){
         this.axios.get(`/api/v1/auth/ministry`)
                     .then(response => {
@@ -341,12 +390,15 @@ export default {
       this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
         this.axios.post('/api/v1/auth/registerProvider',{
+          nimc_number: this.register.nimc_number,
           firstname: this.register.firstname,
           lastname: this.register.lastname,
+          middlename: this.register.middlename,
           email: this.register.email,
           phone_number: this.register.phone_number,
           type: this.register.type,
           agency_id: this.user.id,
+          provider_id: this.register.provider_id,
           state: this.state.name,
           role: 0,
           password: 'euhler',
@@ -363,6 +415,10 @@ export default {
           point_of_care: this.register.point_of_care,
           finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
+          grade_level: this.register.grade_level,
+          date_of_entry: this.register.date_of_entry,
+          marital_status: this.register.marital_status,
+          category_of_vulnerable_group: this.register.category_of_vulnerable_group,
         })
         .then(response=>{
 
@@ -389,6 +445,7 @@ export default {
     this.getStates()
     this.getClients()
     this.getMDAs()
+    this.getProviders()
   }
 
 }

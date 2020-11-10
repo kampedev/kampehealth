@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <strong> Add Dependent </strong>
+                       <strong> Manage Dependents </strong>
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Employees" type="search"
@@ -29,22 +29,21 @@
                </div>
            </div>
        </div>
-       <section class="pull-up">
+       <section >
            <div class="container">
 
                <div class="row list">
                    <div class="col-lg-12 col-md-8">
-                       <div class="card m-b-30">
+                       <div class="card m-b-30" v-if="dependents.length < 3" >
                            <div class="card-header">
 
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
+                             <strong>Add Dependent</strong>
                            </div>
 
                            <div class="card-body">
-                               <div class="text-center">
-
-                                   <!-- <h3 class="p-t-10 searchBy-name">Add Dependent</h3> -->
-                               </div>
+                               <!-- <div class="text-center">
+                                   <h3 class="p-t-10 searchBy-name"> <strong>Add Dependent</strong></h3>
+                               </div> -->
 
                                                         <div class="form-row">
                                                              <div class="form-group col-md-6">

@@ -11,7 +11,7 @@
                          <div class="avatar">
                            <label class="avatar-input">
                         <span class="avatar avatar-lg">
-                            <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                            <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
                                  class="avatar-img rounded-circle"   >
                         </span>
 

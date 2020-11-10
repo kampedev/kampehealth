@@ -11,7 +11,7 @@
                            <div class="avatar">
                              <label class="avatar-input">
                           <span class="avatar avatar-lg">
-                              <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                              <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
                                    class="avatar-img rounded-circle"  v-if="client.user_image != null " >
                           </span>
 
@@ -45,7 +45,7 @@
                                         </router-link>
 
                                          <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
-                                           <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.sector == 'formal'">Add Dependent</button>
+                                           <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.category_of_vulnerable_group == null">Dependents</button>
                                          </router-link>
                                      </div>
 
@@ -76,7 +76,7 @@
 
                               <div class="col-md-8">
                                 <p class="spacer-top-bottom"><strong>Name:</strong>  {{client.firstname }} {{client.lastname}}</p>
-                                <p class="spacer-top-bottom"><strong>HIPC Number:</strong>  ZCHEMA-0{{client.id}} </p>
+                                <p class="spacer-top-bottom"><strong>ID Card Number:</strong>  ZCHEMA-0{{client.id}} </p>
                                 <hr>
                                 <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
                                 <hr>
@@ -105,14 +105,18 @@
                                        <button class="btn btn-info">Other Details</button>
                                    </div>
 
+                                   <p class="spacer-top-bottom"><strong>NIMC Number:</strong> {{client.nimc_number}}</p>
+                                   <hr>
                                    <p class="spacer-top-bottom"><strong>Email:</strong> {{client.email}}</p>
                                    <hr>
 
-                                   <p class="spacer-top-bottom"><strong>Weight:</strong> {{client.weight }}</p>
+                                   <p class="spacer-top-bottom"><strong>Marital Status:</strong> {{client.marital_status }}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom"><strong>Blood Group:</strong> {{client.blood }}</p>
+                                   <p class="spacer-top-bottom" v-if = "client.type == 'client' && client.category_of_vulnerable_group == null"><strong>Grade Level:</strong> {{client.grade_level }}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom"><strong>Genotype:</strong> {{client.genotype }}</p>
+                                   <p class="spacer-top-bottom" v-if = "client.type == 'client' && client.category_of_vulnerable_group == null"><strong>Date of Entry:</strong> {{client.date_of_entry }}</p>
+                                   <hr>
+                                   <p class="spacer-top-bottom" v-if = "client.type == 'client' && client.category_of_vulnerable_group != null"><strong>Category of Vulnerable Group:</strong> {{client.category_of_vulnerable_group }}</p>
 
                                </div>
                            </div>

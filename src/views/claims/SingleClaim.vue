@@ -3,6 +3,59 @@
     <Navbar/>
     <div class=""  v-for="claim in singleclaim" v-bind:key="claim.id">
 
+    <div class="row col-md-12">
+
+      <div class="col-md-12">
+        <p class="h3">Treatment</p>
+      </div>
+
+        <div class="form-group col-md-6">
+          <label for="inputCity">Services/Drugs</label>
+          <select class="form-control"  v-model="claim.client_id">
+           <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.agency_name}}</option>
+          </select>
+        </div>
+
+        <div class="col-md-6" style="margin-top:30px;">
+          <button class="btn btn-info">Add</button>
+        </div>
+
+        <div class="col-md-10 m-b-30">
+            <h5> <i class="fe fe-activity"></i>Treatments</h5>
+            <div class="table-responsive">
+                <table class="table align-td-middle table-card">
+                    <thead>
+                    <tr>
+                        <!-- <th>Avatar</th> -->
+                        <th>Services Rendered</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="dependent in dependents" v-bind:key="dependent.id">
+
+                        <td>
+                          <router-link :to="{ path: '/provider-' + dependent.id }">
+                          {{dependent.firstname}}
+                        </router-link>
+
+                        </td>
+                        <td>{{dependent.email}}/{{dependent.phone_number}}</td>
+                        <td>{{dependent.state}}/{{dependent.lga}}</td>
+                        <td>{{dependent.relationShipType}}</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+    </div>
 
        <div class="bg-dark m-b-30">
            <div class="container">

@@ -97,6 +97,7 @@
                              <p><strong>Left Four FingerPrints: </strong></p>
                            </div>
                            <div class="card-body">
+                             <!-- <img :src="`http://localhost:8000/image/${clientfinger.leftfour}`"> -->
                              <img :src="`https://api.hayokinsurance.com/image/${clientfinger.leftfour}`">
                            </div>
 
@@ -104,6 +105,7 @@
                              <p><strong>Right Four FingerPrints:</strong></p>
                            </div>
                            <div class="card-body">
+                             <!-- <img :src="`http://localhost:8000/image/${clientfinger.rightfour}`"> -->
                              <img :src="`https://api.hayokinsurance.com/image/${clientfinger.rightfour}`">
                            </div>
 
@@ -111,6 +113,7 @@
                              <p><strong>Two Thumbs FingerPrints:</strong></p>
                            </div>
                            <div class="card-body">
+                             <!-- <img :src="`http://localhost:8000/image/${clientfinger.thumbs}`"> -->
                              <img :src="`https://api.hayokinsurance.com/image/${clientfinger.thumbs}`">
                            </div>
 

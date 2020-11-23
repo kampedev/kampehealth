@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3 class="h3">Add Claim</h3>
+                       <h3 class="h3">Transfer of Health Facility</h3>
 
                    </div>
 
@@ -35,14 +35,8 @@
                                                                <date-picker v-model="claim.seen_date" valueType="format"></date-picker>
                                                           </div>
 
-                                                          <div class="form-group col-md-6">
-                                                              <label for="inputPassword4">Select Facility</label>
-                                                              <select class="form-control"  v-model="claim.provider_id">
-                                                               <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
-                                                           </select>
-                                                          </div>
                                                              <div class="form-group col-md-6">
-                                                                 <label for="inputPassword4">Select Enrollee</label>
+                                                                 <label for="inputPassword4">Select Client</label>
                                                                  <select class="form-control"  v-model="claim.client_id" @change="getClient(claim.client_id)">
                                                                   <option v-for="client in clients" v-bind:key="client.id" :value="client.id">{{client.lastname}} {{client.firstname}}</option>
                                                               </select>
@@ -59,93 +53,50 @@
                                                                <label for="inputCity">Enrolle KGSHIA Number</label>
                                                                <input type="text" class="form-control" id="inputEmail4" :value="'KGSHIA/0' +client.id" disabled>
                                                              </div>
+                                                             <div class="form-group col-md-6">
+                                                               <label for="inputCity">Gender</label>
+                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.gender" disabled>
+                                                             </div>
+                                                             <div class="form-group col-md-6">
+                                                               <label for="inputCity">Date of Birth</label>
+                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.dob" disabled>
+                                                             </div>
 
                                                          </div>
 
                                                          <div class="form-row">
 
-
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputCity">Diagnosis</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Diagnosis" v-model="claim.diagnosis">
-                                                           </div>
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputCity">Cost</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Cost of treatment" v-model="claim.cost">
-                                                           </div>
                                                            <div class="form-group col-md-12">
-                                                             <label for="inputCity">Authorization Code </label>
-                                                             <input type="text" class="form-control" id="inputEmail4" :value="randomNumber" disabled>
+                                                             <label for="inputCity">Reason for Change</label>
+                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Reason for Change" v-model="claim.diagnosis">
                                                            </div>
+
 
                                                          </div>
                                                          <div class="row col-md-12">
                                                            <!-- <textarea name="name" rows="8" cols="80" class="form-control" v-model="claim.treatment"></textarea> -->
-                                                           <div class="col-md-12">
-                                                             <p class="h4">Prepared By:</p>
+                                                           <div class="col-md-12 text-center">
+                                                             <p class="h4">Change of HCP</p>
                                                            </div>
                                                            <div class="form-group col-md-6">
-                                                             <label for="inputPassword4">Select staff</label>
-                                                             <select class="form-control"  v-model="claim.prepared_by_id">
-                                                               <option v-for="employee in employees" v-bind:key="employee.id" :value="employee.id">{{employee.firstname}} {{employee.lastname}}</option>
-                                                              </select>
-                                                           </div>
-
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputCity">Date</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="DD/MM/YYYY" v-model="claim.date">
-                                                           </div>
-
-                                                           <div class="col-md-12">
-                                                             <p class="h4">Checked By:</p>
+                                                             <label for="inputPassword4">From Facility</label>
+                                                             <select class="form-control"  v-model="claim.from_facility_id">
+                                                              <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
+                                                          </select>
                                                            </div>
                                                            <div class="form-group col-md-6">
-                                                             <label for="inputPassword4">Select staff</label>
-                                                             <select class="form-control"  v-model="claim.checked_by_id">
-                                                               <option v-for="employee in employees" v-bind:key="employee.id" :value="employee.id">{{employee.firstname}} {{employee.lastname}}</option>
-                                                              </select>
+                                                             <label for="inputPassword4">To Facility</label>
+                                                             <select class="form-control"  v-model="claim.to_facility_id">
+                                                              <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
+                                                          </select>
                                                             </div>
-
-
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputCity">Date</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="DD/MM/YYYY" v-model="claim.diagnosis">
-                                                           </div>
-
-                                                           <div class="col-md-12">
-                                                             <p class="h4">Verified By:</p>
-                                                           </div>
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputPassword4">Select staff</label>
-                                                             <select class="form-control"  v-model="claim.verified_by_id">
-                                                               <option v-for="employee in employees" v-bind:key="employee.id" :value="employee.id">{{employee.firstname}} {{employee.lastname}}</option>
-                                                              </select>
-                                                           </div>
-
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputCity">Date</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="DD/MM/YYYY" v-model="claim.diagnosis">
-                                                           </div>
-
-                                                           <div class="col-md-12">
-                                                             <p class="h4">Approved By:</p>
-                                                           </div>
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputPassword4">Select staff</label>
-                                                             <select class="form-control"  v-model="claim.approved_by_id">
-                                                               <option v-for="employee in employees" v-bind:key="employee.id" :value="employee.id">{{employee.firstname}} {{employee.lastname}}</option>
-                                                              </select>
-                                                           </div>
-
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputCity">Date</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="DD/MM/YYYY" v-model="claim.diagnosis">
-                                                           </div>
 
                                                          </div>
 
+
+
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary btn-block btn-lg" @click="makeClaim">Proceed to Drugs/Service Processing</button>
+                                                             <button class="btn btn-primary btn-block btn-lg" @click="makeClaim">Submit</button>
                                                          </div>
 
                            </div>
@@ -188,7 +139,6 @@ export default {
       editor: ClassicEditor,
       user:null,
       agencies:"",
-      employees:"",
       clients:"",
       client:"",
       claims:"",
@@ -237,18 +187,6 @@ export default {
       this.claim.agency_id = ""
       this.claim.diagnosis = ""
     },
-    getEmployees(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
-                  .then(response => {
-                      this.employees = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
 
 getClaims(){
   this.user = JSON.parse(localStorage.getItem('user'))
@@ -287,7 +225,7 @@ getProviders(){
 makeClaim(){
 
         this.user = JSON.parse(localStorage.getItem('user'))
-        this.$router.push('/service-processing-form')
+        // this.$router.push('/service-processing-form')
 
         if (this.edit === false) {
         // Add claim
@@ -352,7 +290,6 @@ makeClaim(){
   },
   created(){
     this.getProviders()
-    this.getEmployees()
   }
 
 }

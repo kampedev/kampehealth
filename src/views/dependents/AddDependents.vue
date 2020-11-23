@@ -46,14 +46,41 @@
                                </div> -->
 
                                                         <div class="form-row">
+                                                          <div class="form-group col-md-6">
+                                                            <label for="inputCity">Relationship type</label>
+
+                                                                <select class="form-control"  v-model="dependent.relationShipType">
+                                                                 <option id="Spouse">Spouse</option>
+                                                                 <option id="ward">Ward</option>
+                                                             </select>
+                                                          </div>
+                                                          <div class="form-group col-md-6">
+                                                            <label for="inputCity">Sex</label>
+
+                                                                <select class="form-control"  v-model="dependent.sex">
+                                                                 <option id="Male">Male</option>
+                                                                 <option id="Female">Female</option>
+                                                             </select>
+                                                          </div>
+
+                                                          <div class="form-group col-md-6">
+                                                              <label for="inputPassword4">Surname Name</label>
+                                                              <input type="text" class="form-control" id="inputPassword4"  placeholder="Surname" v-model="dependent.lastname" >
+                                                          </div>
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputEmail4">First Name</label>
                                                                  <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" v-model="dependent.firstname">
                                                              </div>
                                                              <div class="form-group col-md-6">
-                                                                 <label for="inputPassword4">Last Name</label>
-                                                                 <input type="text" class="form-control" id="inputPassword4"  placeholder="Last Name" v-model="dependent.lastname" >
+                                                                 <label for="inputPassword4">Middle Name</label>
+                                                                 <input type="text" class="form-control" id="inputPassword4"  placeholder="Middle Name" v-model="dependent.middlename" >
                                                              </div>
+
+                                                             <div class="form-group col-md-6">
+                                                                 <label for="inputPassword4">Institution Attending</label>
+                                                                 <input type="text" class="form-control" id="inputPassword4"  placeholder="Institution Attending" v-model="dependent.institution_attending" >
+                                                             </div>
+
                                                          </div>
                                                          <div class="form-row">
                                                               <div class="form-group col-md-6">
@@ -68,22 +95,6 @@
 
                                                          <div class="form-row">
 
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Relationship type</label>
-
-                                                                   <select class="form-control"  v-model="dependent.relationShipType">
-                                                                    <option id="Spouse">Spouse</option>
-                                                                    <option id="ward">Ward</option>
-                                                                </select>
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Sex</label>
-
-                                                                   <select class="form-control"  v-model="dependent.sex">
-                                                                    <option id="Male">Male</option>
-                                                                    <option id="Female">Female</option>
-                                                                </select>
-                                                             </div>
 
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">Date of Birth</label>
@@ -92,18 +103,18 @@
 
                                                          </div>
 
-                                                           <div class="form-group col-md-6">
+                                                           <!-- <div class="form-group col-md-6">
                                                              <label for="inputCity">State</label>
                                                                  <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                                                   <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                                               </select>
-                                                           </div>
-                                                           <div class="form-group col-md-6">
+                                                           </div> -->
+                                                           <!-- <div class="form-group col-md-6">
                                                              <label for="inputCity">LGA</label>
                                                                  <select class="form-control"  v-model="dependent.lga">
                                                                   <option v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.local_name">{{lga.local_name}}</option>
                                                               </select>
-                                                           </div>
+                                                           </div> -->
                                                          <div class="form-group col-md-6">
                                                            <label for="inputCity">Health Provider</label>
                                                                <select class="form-control"  v-model="dependent.provider">
@@ -204,6 +215,8 @@ export default {
       dependent:{
         firstname:"",
         lastname:"",
+        middlename:"",
+        institution_attending:"",
         email:"",
         phone_number:"",
         relationShipType:"",
@@ -273,6 +286,8 @@ export default {
 
         firstname: this.dependent.firstname,
         lastname: this.dependent.lastname,
+        middlename: this.dependent.middlename,
+        institution_attending: this.dependent.institution_attending,
         relationShipType: this.dependent.relationShipType,
         user_id: this.$route.params.id,
         email: this.dependent.email,

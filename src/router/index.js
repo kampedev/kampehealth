@@ -43,6 +43,18 @@ import StateDashboard from '../views/shis/StateDashboard.vue'
 import AddClaim from '../views/claims/AddClaim.vue'
 import ProvidersClaims from '../views/claims/ProvidersClaims.vue'
 import SingleClaim from '../views/claims/SingleClaim.vue'
+import ServiceProcessing from '../views/claims/ServiceProcessing.vue'
+import AddReferral from '../views/claims/AddReferral.vue'
+import TransferofHCP from '../views/others/TransferofHCP.vue'
+import QualityAssurance from '../views/others/QualityAssurance.vue'
+import QualityAssuranceItemsHR from '../views/others/QualityAssuranceItemsHR.vue'
+import QualityAssuranceItemsMntIssues from '../views/others/QualityAssuranceItemsMntIssues.vue'
+import QualityAssuranceItemsClinical from '../views/others/QualityAssuranceItemsClinical.vue'
+import ServiceSummaryForm from '../views/services/ServiceSummaryForm.vue'
+import DetailsofTreatment from '../views/services/DetailsofTreatment.vue'
+import SingleServiceSummary from '../views/services/SingleServiceSummary.vue'
+import ManageDrug from '../views/drugs/ManageDrug.vue'
+import ManageService from '../views/drugs/ManageService.vue'
 import AddComplaint from '../views/complaints/AddComplaint.vue'
 import MyComplaints from '../views/complaints/MyComplaints.vue'
 import AddRecord from '../views/ehr/AddRecord.vue'
@@ -347,6 +359,90 @@ const routes = [
   {
     path: '/add-claim',
     component: AddClaim,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/service-processing-form',
+    component: ServiceProcessing,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/add-referral',
+    component: AddReferral,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/transfer-of-hcp',
+    component: TransferofHCP,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/quality-assurance',
+    component: QualityAssurance,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/quality-assurance-items-hr',
+    component: QualityAssuranceItemsHR,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/quality-assurance-items-management',
+    component: QualityAssuranceItemsMntIssues,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/quality-assurance-items-clinical',
+    component: QualityAssuranceItemsClinical,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/service-summary-form',
+    component: ServiceSummaryForm,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/details-of-treatment',
+    component: DetailsofTreatment,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/single-service-summary',
+    component: SingleServiceSummary,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/manage-drugs',
+    component: ManageDrug,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/manage-services',
+    component: ManageService,
     meta: {
         requiresAuth: true,
       },

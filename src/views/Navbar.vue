@@ -590,10 +590,10 @@
                 </ul>
             </li>
 
-            <li class="menu-item "  v-if="user.type == 'provider'">
+            <li class="menu-item "  v-if="user.type == 'shis'">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Claims Manager
+                                                <span class="menu-name">Claims and Referrals Manager
                                                     <span class="menu-arrow"></span>
                                                 </span>
 
@@ -608,20 +608,34 @@
                     <li class="menu-item">
                         <router-link to="/add-claim" class=" menu-link">
                                         <span class="menu-label">
-                                                <span class="menu-name">Make Claim
+                                                <span class="menu-name">Add Claim
                                                 </span>
                                             </span>
+
                             <span class="menu-icon">
 
-                                                    <i class="icon-placeholder fe fe-edit "></i>
+                                                    <i class="icon-placeholder  fe fe-edit "></i>
+                                            </span>
+                        </router-link>
+                    </li>
+                    <li class="menu-item">
+                        <router-link to="/add-claim" class=" menu-link">
+                                        <span class="menu-label">
+                                                <span class="menu-name">View Claims
+                                                </span>
+                                            </span>
+
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder  mdi mdi-view-day "></i>
                                             </span>
                         </router-link>
                     </li>
 
                     <li class="menu-item">
-                        <router-link to="/providers-claims" class=" menu-link">
+                        <router-link to="/add-referral" class=" menu-link">
                                         <span class="menu-label">
-                                                <span class="menu-name">View Claims
+                                                <span class="menu-name">Referrals Manager
                                                 </span>
                                             </span>
                             <span class="menu-icon">
@@ -634,6 +648,106 @@
                 </ul>
             </li>
 
+
+                        <li class="menu-item "  v-if="user.type == 'shis'">
+                            <a href="#" class="open-dropdown menu-link">
+                                    <span class="menu-label">
+                                                            <span class="menu-name">Drugs and Consultancy Manager
+                                                                <span class="menu-arrow"></span>
+                                                            </span>
+
+                                                        </span>
+                                <span class="menu-icon">
+                                                             <i class="icon-placeholder fe fe-box"></i>
+                                                        </span>
+                            </a>
+                            <!--submenu-->
+                            <ul class="sub-menu">
+
+                                <li class="menu-item">
+                                    <router-link to="/manage-drugs" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Drugs manager
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder fe fe-edit "></i>
+                                                        </span>
+                                    </router-link>
+                                </li>
+                                <li class="menu-item">
+                                    <router-link to="/manage-services" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Fees for Professional service
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder  mdi mdi-view-day "></i>
+                                                        </span>
+                                    </router-link>
+                                </li>
+
+                                <li class="menu-item">
+                                    <router-link to="/service-summary-form" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Service Summary Form
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder mdi mdi-view-day "></i>
+                                                        </span>
+                                    </router-link>
+                                </li>
+
+
+                            </ul>
+                        </li>
+
+                        <li class="menu-item "  v-if="user.type == 'shis'">
+                            <a href="#" class="open-dropdown menu-link">
+                                    <span class="menu-label">
+                                                            <span class="menu-name">Others
+                                                                <span class="menu-arrow"></span>
+                                                            </span>
+
+                                                        </span>
+                                <span class="menu-icon">
+                                                             <i class="icon-placeholder fe fe-external-link"></i>
+                                                        </span>
+                            </a>
+                            <!--submenu-->
+                            <ul class="sub-menu">
+
+                                <li class="menu-item">
+                                    <router-link to="/quality-assurance" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Quality Assurance
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder  mdi mdi-view-day "></i>
+                                                        </span>
+                                    </router-link>
+                                </li>
+                                <li class="menu-item">
+                                    <router-link to="/transfer-of-hcp" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Change of HCP Form
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder  mdi mdi-view-day "></i>
+                                                        </span>
+                                    </router-link>
+                                </li>
+
+                            </ul>
+                        </li>
             <li class="menu-item  "  v-if="user.type == 'provider'">
                 <router-link to="/add-agency" class=" menu-link">
                         <span class="menu-label">

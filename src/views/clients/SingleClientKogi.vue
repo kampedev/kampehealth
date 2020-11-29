@@ -57,12 +57,12 @@
 
                <div class="row">
                    <div class="col-lg-9 col-md-9" id="printDiv">
-                       <div class="card" style="background-image: url('../assets/img/zamchema_transparent.png'); background-size: cover; background-repeat: no-repeat;">
+                       <div class="card" style="background-image: url('../assets/img/kgshia_transparent.png'); background-size: cover; background-repeat: no-repeat;">
                            <div class="card-header ">
                              <div class="row spacer-top">
                                <div class="col-md-2">
                                  <span class="avatar avatar-xl">
-                                     <img :src="`http://localhost:8080/assets/img/zamfara.jpg`"
+                                     <img :src="`http://localhost:8080/assets/img/kgshia_logo.png`"
                                           class=" rounded-circle" >
                                  </span>
                                </div>
@@ -86,22 +86,22 @@
                              </div>
 
                               <div class="col-md-8">
-                                <p class="h2 spacer-top-bottom"><strong class="text-info">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
+                                <p class="h2 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-info">ID NUMBER:</strong>  <strong>KGSHIA/00{{client.id}}</strong></p>
+                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>KGSHIA/00{{client.id}}</strong></p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"><strong class="text-info">NIMC NUMBER:</strong>  <strong>{{client.nimc_number}}</strong></p>
+                                <p class="h2 spacer-top-bottom"><strong class="text-primary">NIMC NUMBER:</strong>  <strong>{{client.nimc_number}}</strong></p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-info"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
+                                <p class="h2 spacer-top-bottom"> <strong class="text-primary"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
+                                <!-- <hr> -->
+                                <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ALTERNATE HEALTH FACILITY:</strong> <strong>{{healthFacility.agency_name}}</strong> </p> -->
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-info">ALTERNATE HEALTH FACILITY:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
+                                <p class="h2 spacer-top-bottom" v-if="client.place_of_work != null"> <strong class="text-primary">MDA:</strong> <strong> {{client.place_of_work}}</strong> </p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-info">MDA:</strong> <strong> {{client.place_of_work}}</strong> </p>
+                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">BLOOD GROUP:</strong> <strong> {{client.blood}}</strong> </p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-info">BLOOD GROUP:</strong> <strong> {{client.blood}}</strong> </p>
-                                <hr>
-                                <p class="h2 spacer-top-bottom"><strong class="text-info">SECTOR:</strong>  <strong>{{client.sector}}</strong></p>
-                                <hr>
+                                <!-- <p class="h2 spacer-top-bottom"><strong class="text-primary">SECTOR:</strong>  <strong>{{client.sector}}</strong></p>
+                                <hr> -->
                                 <p class="h2 spacer-top-bottom" v-if="client.category_of_vulnerable_group != null"><strong>{{client.category_of_vulnerable_group}}</strong></p>
                                 <hr>
                               </div>
@@ -127,7 +127,7 @@
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}}</p>
+                                   <p class="spacer-top-bottom"><strong>State:</strong> {{client.state}}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                                    <hr>

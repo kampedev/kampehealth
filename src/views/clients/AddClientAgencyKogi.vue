@@ -209,15 +209,7 @@
 
 
 
-                                                            <!-- <div class="form-group col-md-6">
-                                                              <label for="inputCity">Blood Group</label>
-                                                                  <select class="form-control"  v-model="register.blood" >
-                                                                   <option  value="A">A</option>
-                                                                   <option  value="B">B</option>
-                                                                   <option  value="AB">AB</option>
-                                                                   <option  value="O">O</option>
-                                                               </select>
-                                                            </div>
+                                                            <!--
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">Genotype</label>
                                                                   <select class="form-control"  v-model="register.genotype" >
@@ -235,14 +227,24 @@
                                                             </div>
                                                           </div> -->
 
+                                                          <div class="form-group col-md-6">
+                                                            <label for="inputCity">Blood Group</label>
+                                                                <select class="form-control"  v-model="register.blood" >
+                                                                 <option  value="A">A</option>
+                                                                 <option  value="B">B</option>
+                                                                 <option  value="AB">AB</option>
+                                                                 <option  value="O">O</option>
+                                                             </select>
+                                                          </div>
+
                                                           <div class="row" v-if="sector == 'informal'">
-                                                            <div class="form-group col-md-6">
+                                                            <!-- <div class="form-group col-md-6">
                                                               <label for="inputCity">State </label>
 
                                                               <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                                                <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                                            </select>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">LGA</label>
                                                                 <select class="form-control"  v-model="register.localgovt">

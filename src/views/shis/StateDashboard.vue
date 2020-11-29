@@ -50,8 +50,8 @@
                 </div> -->
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card m-b-30">
-                        <div class="card-body">
+                    <div class="card m-b-30 bg-secondary">
+                        <div class="card-body text-white">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
                                   <router-link :to="{ path: '/view-clients-agency'}">
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Clients</p>
+                                <p class="h4">Clients</p>
                                 <h1 class="fw-400">{{clients.length}}</h1>
                             </div>
                         </div>
@@ -70,8 +70,28 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card m-b-30">
-                        <div class="card-body">
+                    <div class="card m-b-30 bg-info">
+                        <div class="card-body text-dark">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/my-providers'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="fe fe-activity"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="h4">Health Facilities</p>
+                                <h1 class="fw-400">{{providers.length}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card m-b-30 bg-warning">
+                        <div class="card-body text-dark">
                             <div class="pb-2">
                               <router-link :to="{ path: '/plans'}">
                                 <div class="avatar avatar-lg">
@@ -82,32 +102,13 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Plans</p>
+                                <p class="h4">Claims</p>
                                 <h1 class="fw-400">{{plans.length}}</h1>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <div class="pb-2">
-                              <router-link :to="{ path: '/my-providers'}">
-                                <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-credit-card"></i>
-                                    </div>
-                                </div>
-                              </router-link>
-                            </div>
-                            <div>
-                                <p class="text-muted text-overline m-0">Health Facilities</p>
-                                <h1 class="fw-400">{{providers.length}}</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 

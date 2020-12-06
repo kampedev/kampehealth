@@ -44,6 +44,7 @@
                                            <button class="btn btn-info spacer"  >Biometrics</button>
                                         </router-link>
                                         <button class="btn btn-info spacer"  @click="printMe">Print ID Card</button>
+                                        <button class="btn btn-info spacer"  v-on:change="attachSign">Upload Signature</button>
 
                                          <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.category_of_vulnerable_group == null">Dependents</button>
@@ -239,6 +240,7 @@ export default {
       notes:"",
       medications:"",
       healthFacility:"",
+      signature:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -308,6 +310,32 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           window.print();
           document.body.innerHTML = originalContents;
        },
+       attachSign(event){
+       this.user = JSON.parse(localStorage.getItem('user'))
+        this.signature = event.target.files[0];
+        console.log(event)
+        this.uploadSign()
+    },
+    uploadSign(){
+              this.isLoading = true;
+              this.user = JSON.parse(localStorage.getItem('user'))
+
+            var formData = new FormData();
+            formData.append("user_id", this.$route.params.id)
+            formData.append("signature", this.signature)
+            this.axios.post("/api/v1/auth/uploadSignature", formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            })
+            .then(response => {
+              console.log(response);
+                 this.isLoading = false;
+                 this.$breadstick.notify("Signature uploaded Successfully!", {position: "top-right"});
+                 this.fetchUser()
+
+            })
+        },
     authUser(){
       this.axios.get(`/api/v1/auth/user`)
                   .then(response => {

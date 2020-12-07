@@ -58,6 +58,10 @@
                        <div class="card-body">
 
                          <div class="form-row">
+                           <div class="form-group floating-label col-md-12 col-sm-12">
+                               <label>Facility Code</label>
+                               <input type="text" required class="form-control" placeholder="Facility Code" v-model="register.facility_code">
+                           </div>
                            <div class="form-group floating-label col-md-6 col-sm-12">
                                <label>First Name</label>
                                <input type="text" required class="form-control" placeholder="First Name" v-model="register.firstname">
@@ -80,13 +84,12 @@
                                  <input type="text" required class="form-control" placeholder="Phone Number" v-model="register.phone_number">
                              </div>
 
-                             <div class="form-group floating-label col-md-10">
+                             <!-- <div class="form-group floating-label col-md-10">
                                  <label>Services Offered</label>
                                  <textarea class="form-control" rows="8"  v-model="register.services_offered" placeholder="Services Offered"></textarea>
-                             </div>
+                             </div> -->
 
-                             <div class="form-group floating-label col-md-10">
-                                 <label>Address</label>
+                             <div class="form-group floating-label col-md-6">
                                  <textarea class="form-control" rows="8"  v-model="register.address1" placeholder="Address"></textarea>
                              </div>
 
@@ -94,13 +97,13 @@
                        </div>
 
                        <div class="row">
-                         <div class="form-group col-md-6">
+                         <!-- <div class="form-group col-md-6">
                            <label for="inputCity">States </label>
 
                                <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                 <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                             </select>
-                         </div>
+                         </div> -->
                          <div class="form-group col-md-6">
                            <label for="inputCity">LGA</label>
                                <select class="form-control"  v-model="register.localgovt">
@@ -108,10 +111,17 @@
                             </select>
                          </div>
 
-                         <div class="form-group floating-label col-md-6 col-sm-12">
+                         <div class="form-group col-md-6">
+                           <label for="inputCity">Ward</label>
+                               <select class="form-control"  v-model="register.localgovt">
+                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                            </select>
+                         </div>
+
+                         <!-- <div class="form-group floating-label col-md-6 col-sm-12">
                              <label>Ward</label>
                              <input type="text" required class="form-control" placeholder="Ward" v-model="register.ward">
-                         </div>
+                         </div> -->
 
                        </div>
 
@@ -229,6 +239,7 @@ export default {
       register:{
                 firstname:"Nil",
                 lastname:"Nil",
+                facility_code:"",
                 email:"",
                 type:"provider",
                 phone_number:"No Number Provided",
@@ -267,8 +278,8 @@ export default {
                       console.error(error);
                   })
     },
-    fetchLga(state){
-      this.axios.get(`/api/v1/auth/lga/${state.id}`)
+    fetchLga(){
+      this.axios.get(`/api/v1/auth/lga/2669`)
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
@@ -282,6 +293,7 @@ export default {
         this.axios.post('/api/v1/auth/registerProvider',{
           firstname : this.register.firstname,
           lastname : this.register.lastname,
+          facility_code : this.register.facility_code,
           email : this.register.email,
           phone_number : this.register.phone_number,
           agency_name : this.register.agency_name,
@@ -344,14 +356,12 @@ export default {
     },
 
     clearIt(){
-
       this.agency_id = "";
-
     },
 
   },
   created(){
-    this.getStates()
+    this.fetchLga()
   }
 
 }

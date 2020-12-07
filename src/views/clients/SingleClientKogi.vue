@@ -58,7 +58,7 @@
                                          <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.category_of_vulnerable_group == null">Dependents</button>
                                          </router-link>
-                                         <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
+                                         <router-link :to="{ path: '/edit-user/'+client.id, params: {} }">
                                            <button class="btn btn-secondary spacer">Edit Client</button>
                                          </router-link>
                                      </div>
@@ -69,7 +69,7 @@
                </div>
 
                <div class="row">
-                   <div class="col-lg-9 col-md-9" id="printDiv">
+                   <div class="col-lg-9 col-md-9" id="printDiv" ref="printNow">
                        <div class="card" style="background-image: url('../assets/img/kgshia_transparent.png'); background-size: cover; background-repeat: no-repeat;">
                            <div class="card-header ">
                              <div class="row spacer-top">
@@ -90,8 +90,8 @@
 
                              <div class="col-md-4" >
                                <vue-initials-img :name="client.firstname+' '+client.lastname" class="img-thumbnail" size="300"  v-if="client.user_image == null "/>
-                               <!-- <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img-thumbnail" alt="User Photo" width="304" height="210" v-if="client.user_image != null "> -->
-                               <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null ">
+                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo"  height="400px" v-if="client.user_image != null ">
+                               <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null "> -->
                                <!-- <p class="btn btn-default spacer-top-bottom">
                                  <button type="button"  name="button"> Enrollment Card </button>
                                </p> -->
@@ -133,6 +133,8 @@
                                    <div class="form-group">
                                        <button class="btn btn-info">Other Details</button>
                                    </div>
+
+                                   <!-- <img :src="output"> -->
 
                                    <p class="spacer-top-bottom"><strong>NIMC Number:</strong> {{client.nimc_number}}</p>
                                    <hr>
@@ -258,11 +260,13 @@ export default {
       fullPage: true,
       agency_id:"",
       imagefile:"",
+      output:"",
       pictureShower:true,
 
     }
   },
   mounted(){
+    this.print()
 
   var video = document.getElementById('video');
 // Get access to the camera!
@@ -315,6 +319,16 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   },
 
   methods:{
+    async print() {
+     const el = this.$refs.printNow;
+     // add option type to get the image version
+     // if not provided the promise will return
+     // the canvas.
+     const options = {
+       type: 'dataURL'
+     }
+     this.output = await this.$html2canvas(el, options);
+   },
     printMe(){
           var printContents = document.getElementById('printDiv').innerHTML;
           var originalContents = document.body.innerHTML;
@@ -531,6 +545,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   created(){
     this.fetchUser()
     this.authUser()
+
   }
 
 }

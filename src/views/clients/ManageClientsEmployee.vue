@@ -85,13 +85,14 @@
                                                                  </select>
                                                               </div>
                                                           </div>
-                                                          <div class="form-group col-md-12"  v-if="sector == 'informal' && register.sector == 'Vulnerable Groups'">
-                                                            <label >Category of Vulnerable Groups</label>
+                                                          <div class="form-group col-md-12"  v-if="sector == 'informal'">
+                                                            <label >Special Needs</label>
                                                               <select class="form-control" v-model="register.category_of_vulnerable_group">
                                                                 <option  value="Pregnant Women">Pregnant Women</option>
-                                                                <option  value="Children">Children</option>
+                                                                <option  value="Children under 5">Children under 5</option>
                                                                 <option  value="Aged">Aged</option>
                                                                 <option  value="IDP">IDP</option>
+                                                                <option  value="Physically Challenged">Physically Challenged</option>
                                                                 <option  value="People with Special Needs">People with Special Needs</option>
                                                                 <option  value="Poorest of the Poor">Poorest of the Poor</option>
                                                              </select>
@@ -213,7 +214,7 @@
                                                                     <option  value="Medicine Store">Medicine Store</option>
                                                                  </select>
                                                               </div> -->
-                                                              <div class="form-group col-md-6">
+                                                              <div class="form-group col-md-4">
                                                                 <label for="inputCity">Blood Group</label>
                                                                     <select class="form-control"  v-model="register.blood" >
                                                                      <option  value="A">A</option>
@@ -223,17 +224,31 @@
                                                                  </select>
                                                               </div>
 
-                                                              <div class="form-group col-md-6">
+                                                              <div class="form-group col-md-4">
                                                                 <label for="inputCity">LGA</label>
                                                                   <select class="form-control"  v-model="register.localgovt">
                                                                     <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                  </select>
                                                               </div>
 
-                                                              <div class="form-group col-md-12" >
+                                                              <div class="form-group col-md-4">
+                                                                <label >Ward</label>
+                                                                  <select class="form-control" v-model="register.ward">
+                                                                    <option  value="Okibo">Okibo</option>
+                                                                    <option  value="Ogugu">Ogugu</option>
+                                                                    <option  value="Oturu-Otuo">Oturu-Otuo</option>
+                                                                    <option  value="Ileteju">Ileteju</option>
+                                                                    <option  value="Obinoyin">Obinoyin</option>
+                                                                    <option  value="Okesin">Okesin</option>
+                                                                    <option  value="Eni">Eni</option>
+                                                                 </select>
+                                                              </div>
+
+                                                              <!-- <div class="form-group col-md-12" >
                                                                   <label for="inputEmail4">Ward</label>
                                                                   <input type="text" class="form-control" v-model="register.ward" placeholder="Ward">
-                                                              </div>
+                                                              </div> -->
+
 
 
                                                           </div>

@@ -156,8 +156,6 @@
                                                                   <date-picker v-model="register.date_of_entry" valueType="format"></date-picker>
                                                               </div>
 
-
-
                                                               <div class="form-group col-md-6">
                                                                 <label >Marital Status</label>
                                                                   <select class="form-control" v-model="register.marital_status">
@@ -203,7 +201,7 @@
                                                                     <option  value="Medicine Store">Medicine Store</option>
                                                                  </select>
                                                               </div> -->
-                                                              <div class="form-group col-md-6">
+                                                              <div class="form-group col-md-4">
                                                                 <label for="inputCity">Blood Group</label>
                                                                     <select class="form-control"  v-model="register.blood" >
                                                                      <option  value="A">A</option>
@@ -213,16 +211,24 @@
                                                                  </select>
                                                               </div>
 
-                                                              <div class="form-group col-md-6">
+                                                              <div class="form-group col-md-4">
                                                                 <label for="inputCity">LGA</label>
                                                                   <select class="form-control"  v-model="register.localgovt">
                                                                     <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                  </select>
                                                               </div>
 
-                                                              <div class="form-group col-md-12" >
-                                                                  <label for="inputEmail4">Ward</label>
-                                                                  <input type="text" class="form-control" v-model="register.ward" placeholder="Ward">
+                                                              <div class="form-group col-md-4">
+                                                                <label >Ward</label>
+                                                                  <select class="form-control" v-model="register.ward">
+                                                                    <option  value="Okibo">Okibo</option>
+                                                                    <option  value="Ogugu">Ogugu</option>
+                                                                    <option  value="Oturu-Otuo">Oturu-Otuo</option>
+                                                                    <option  value="Ileteju">Ileteju</option>
+                                                                    <option  value="Obinoyin">Obinoyin</option>
+                                                                    <option  value="Okesin">Okesin</option>
+                                                                    <option  value="Eni">Eni</option>
+                                                                 </select>
                                                               </div>
 
                                                           </div>

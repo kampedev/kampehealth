@@ -8,11 +8,11 @@
                     <div class="mx-auto col-md-8">
                         <div class="p-b-20 text-center">
                             <p>
-                                <img src="assets/img/logo.svg" width="80" alt="">
+                                <img src="assets/img/kgshia_logo.png" width="80" alt="">
 
                             </p>
                             <p class="admin-brand-content">
-                                HIP
+                                Kogi State Health Insurance Agency
                             </p>
                         </div>
                         <h3 class="text-center p-b-20 fw-400">Login</h3>

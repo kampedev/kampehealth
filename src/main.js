@@ -14,6 +14,7 @@ import 'zingchart/es6';
 import zingchartVue from 'zingchart-vue';
 import Toasted from 'vue-toasted';
 import Vuelidate from 'vuelidate'
+import VueHtml2Canvas from 'vue-html2canvas';
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
@@ -26,10 +27,12 @@ Vue.component('zingchart', zingchartVue)
 Vue.use(require('vue-moment'));
 Vue.use(Toasted)
 Vue.use(Vuelidate)
+Vue.use(VueHtml2Canvas);
+
 
 window.axios=axios
-// axios.defaults.baseURL = 'https://api.hayokinsurance.com';
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'https://api.hayokinsurance.com';
+// axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = ''

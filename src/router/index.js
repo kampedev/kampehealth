@@ -63,6 +63,7 @@ import AddInventory from '../views/inventories/AddInventory.vue'
 import MyInventories from '../views/inventories/MyInventories.vue'
 import AddAgency from '../views/providers/AddAgency.vue'
 import Settings from '../views/auth/Settings.vue'
+import EditUser from '../views/auth/EditUser.vue'
 import ClientFunds from '../views/funds/ClientFunds.vue'
 import SingleTransaction from '../views/funds/SingleTransaction.vue'
 import Doctor from '../views/employees/Doctor.vue'
@@ -79,12 +80,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
   {
-    path: '/login',
+    path: '/',
     component: Login
   },
   {
@@ -134,6 +135,13 @@ const routes = [
   {
     path: '/user-settings',
     component: Settings,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/edit-user/:id',
+    component: EditUser,
     meta: {
         requiresAuth: true,
       },
@@ -597,7 +605,7 @@ router.beforeEach((to, from, next) => {
     if (localStorage.getItem('jwt') != null) {
       next();
     } else {
-      next({ path: '/login' });
+      next({ path: '/' });
     }
   }
   next();

@@ -251,7 +251,7 @@ export default {
       chartData: {
                 type: 'line',
                 title: {
-                    text: 'Users',
+                    text: 'Beneficiaries',
                 },
                 series: [{
                     // values: [14,10,13,8,12,14]

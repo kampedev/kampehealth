@@ -65,7 +65,7 @@
                                       </div>
                                       <div class="form-group col-md-6">
                                           <label for="inputEmail4">Email</label>
-                                          <input type="email" class="form-control" id="inputEmail4" placeholder="Email" v-model="auth_user.email" disabled>
+                                          <input type="email" class="form-control" id="inputEmail4" placeholder="Email" v-model="auth_user.email" >
                                       </div>
                                       <div class="form-group col-md-6">
                                           <label for="asd">Phone Number</label>

@@ -43,11 +43,23 @@
                                          <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  >Biometrics</button>
                                         </router-link>
-                                        <button class="btn btn-info spacer"  @click="printMe">Print ID Card</button>
-                                        <button class="btn btn-info spacer"  v-on:change="attachSign">Upload Signature</button>
+                                        <button class="btn btn-primary spacer"  @click="printMe">Print ID Card</button>
+
+                                        <div class="fileinput fileinput-new" data-provides="fileinput" >
+                                          <span class="btn btn-file">
+                                            <span class="fileinput-new">Upload Signature</span>
+                                            <span class="fileinput-exists">Change</span>
+                                            <input type="file" name="..." multiple   v-on:change="attachSign">
+                                          </span>
+                                          <span class="fileinput-filename"></span>
+                                          <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                      </div>
 
                                          <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.category_of_vulnerable_group == null">Dependents</button>
+                                         </router-link>
+                                         <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
+                                           <button class="btn btn-secondary spacer">Edit Client</button>
                                          </router-link>
                                      </div>
 
@@ -103,7 +115,7 @@
                                 <hr>
                                 <!-- <p class="h2 spacer-top-bottom"><strong class="text-primary">SECTOR:</strong>  <strong>{{client.sector}}</strong></p>
                                 <hr> -->
-                                <p class="h2 spacer-top-bottom" v-if="client.category_of_vulnerable_group != null"><strong>{{client.category_of_vulnerable_group}}</strong></p>
+                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">SECTOR:</strong> <strong> {{client.sector}}</strong> </p>
                                 <hr>
                               </div>
 

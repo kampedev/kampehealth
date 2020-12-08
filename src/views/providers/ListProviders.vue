@@ -107,21 +107,21 @@
                          <div class="form-group col-md-6">
                            <label for="inputCity">LGA</label>
                                <select class="form-control"  v-model="register.localgovt">
-                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                             </select>
                          </div>
 
-                         <div class="form-group col-md-6">
+                         <!-- <div class="form-group col-md-6">
                            <label for="inputCity">Ward</label>
-                               <select class="form-control"  v-model="register.localgovt">
-                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                               <select class="form-control"  v-model="register.ward">
+                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.ward}}</option>
                             </select>
-                         </div>
+                         </div> -->
 
-                         <!-- <div class="form-group floating-label col-md-6 col-sm-12">
+                         <div class="form-group floating-label col-md-6 col-sm-12">
                              <label>Ward</label>
                              <input type="text" required class="form-control" placeholder="Ward" v-model="register.ward">
-                         </div> -->
+                         </div>
 
                        </div>
 
@@ -298,11 +298,12 @@ export default {
           phone_number : this.register.phone_number,
           agency_name : this.register.agency_name,
           type : this.register.type,
-          state : this.state.name,
+          state : '2661',
           localgovt : this.register.localgovt,
           services_offered : this.register.services_offered,
           address1 : this.register.address1,
           ward : this.register.ward,
+          enrolled_by : this.user.id,
           role : this.register.role,
           password : this.register.password,
           password_confirmation : this.register.password_confirmation

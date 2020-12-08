@@ -183,6 +183,7 @@ export default {
           localgovt : this.register.localgovt,
           role : this.register.role,
           password : this.register.password,
+          enrolled_by:0,
           password_confirmation : this.register.password_confirmation
         })
         .then(response=>{

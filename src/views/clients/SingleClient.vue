@@ -1,11 +1,9 @@
 <template>
   <section class="admin-content " id="contact-search">
     <Navbar/>
-    <div v-if="client.state == 'Zamfara'">
-    <SingleClientZamfara/>
-    </div>
 
-    <div v-if="client.state == 'Kogi'">
+
+    <div >
     <SingleClientKogi/>
     </div>
 
@@ -15,12 +13,11 @@
 <script>
 
   import Navbar from '@/views/Navbar.vue'
-  import SingleClientZamfara from '@/views/clients/SingleClientZamfara.vue'
   import SingleClientKogi from '@/views/clients/SingleClientKogi.vue'
 
 export default {
   components: {
-     Navbar,  SingleClientZamfara, SingleClientKogi
+     Navbar,   SingleClientKogi
   },
   data(){
     return{

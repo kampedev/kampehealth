@@ -4,5 +4,10 @@ droplet: hayok123
 email: info@zamchema.gov.ng
 zamfara: Zam41chema#
 
+
+email: kgshia.gov.ng@gmail.com
+password: kgshia@4141
+
+
 test state email: state@gmail.com
 test state password: skrull123

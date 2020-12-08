@@ -66,12 +66,12 @@
                                                                <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                                            </select>
                                                             </div>
-                                                            <div class="form-group col-md-6">
-                                                              <label for="inputCity">LGA</label>
+                                                            <!-- <div class="form-group col-md-6">
+                                                              <label for="inputCity">LGA {{lga.local_name}}</label>
                                                                 <select class="form-control"  v-model="register.localgovt">
-                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                </select>
-                                                            </div>
+                                                            </div> -->
                                                           </div>
 
                                                           <div class="form-row">
@@ -209,8 +209,10 @@ export default {
           phone_number: this.register.phone_number,
           type: this.register.type,
           password: 'euhler',
-          state : this.state.name,
-          localgovt : this.register.lga,
+          state : '2669',
+          enrolled_by : 0,
+          // localgovt : this.register.lga,
+          localgovt : '480',
           id_card_number : this.register.id_card_number,
           institutional_id: this.user.id,
           job_title: this.register.job_title,

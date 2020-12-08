@@ -101,7 +101,7 @@
                               <div class="col-md-8">
                                 <p class="h2 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>KGSHIA/00{{client.id}}</strong></p>
+                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>{{client.id_card_number}}</strong></p>
                                 <hr>
                                 <p class="h2 spacer-top-bottom"><strong class="text-primary">NIMC NUMBER:</strong>  <strong>{{client.nimc_number}}</strong></p>
                                 <hr>

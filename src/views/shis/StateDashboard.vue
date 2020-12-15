@@ -114,7 +114,7 @@
 
             <div class="row">
                 <div class="col-md-12 p-t-20">
-                    <h1 class="fw-300">Analytics {{totalArray()}}</h1>
+                    <h1 class="fw-300">Analytics </h1>
                 </div>
                 <div class="col-12 m-t-20">
                     <h5 class="h5"> <i class="fe fe-activity"></i> Basic Healthcare Provision Fund</h5>
@@ -306,16 +306,16 @@ export default {
   },
 
   methods:{
-        totalArray(){
-        // let total =
-       const answer =  this.series[0].data.map(() => {
-         return this.ChildrenLength
-       })
-       this.series = [{
-         data: answer
-       }]
-
-      },
+      //   totalArray(){
+      //   // let total =
+      //  const answer =  this.series[0].data.map(() => {
+      //    return this.ChildrenLength
+      //  })
+      //  this.series = [{
+      //    data: answer
+      //  }]
+      //
+      // },
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
@@ -446,7 +446,7 @@ export default {
     this.getClients()
     this.getEmployees()
     this.getOfflineCLients()
-    this.totalArray()
+    // this.totalArray()
   }
 }
 </script>

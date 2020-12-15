@@ -162,7 +162,7 @@ export default {
                       this.clients = response.data.data.reverse().slice(0,20)
                       console.log(response)
                       this.isLoading = false
-                      this.$toasted.error('Error getting clients', {position: 'top-center', duration:3000 })
+                      // this.$toasted.success('Success', {position: 'top-center', duration:3000 })
                   })
                   .catch(error => {
                     this.isLoading = false

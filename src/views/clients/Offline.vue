@@ -10,7 +10,6 @@
                                  <div class="text-center">
                                      <h1 > <strong>(Offline) Bio Data</strong> </h1>
                                  </div>
-
                                                           <div class="form-row">
 
                                                             <div class="form-group col-md-12">

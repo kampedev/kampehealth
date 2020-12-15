@@ -12,19 +12,21 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <strong>{{clients.length}} Clients</strong>
+                       <h3 class="h3">Clients</h3>
 
-                       <!-- <div class="form-dark">
+                       <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
-                               <input placeholder="Filter Clients" type="search"
-                                      class="form-control form-control-lg search form-control-prepended">
-                               <div class="input-group-prepend">
+                               <!-- <input placeholder="Filter Clients" type="search"
+                                      class="form-control form-control-lg search form-control-prepended"> -->
+                               <!-- <div class="input-group-prepend">
                                    <div class="input-group-text">
                                        <i class="mdi mdi-magnify"></i>
                                    </div>
-                               </div>
+                               </div> -->
                            </div>
-                       </div> -->
+                           <button type="button" class="btn btn-info" name="button" @click="getClients">Refresh Clients</button>
+
+                       </div>
 
                    </div>
 
@@ -47,9 +49,9 @@
                                      <tr>
                                          <!-- <th>Avatar</th> -->
                                          <th>Name</th>
-                                         <th>E mail</th>
                                          <th>Phone Number</th>
-                                         <th>State</th>
+                                         <th>Sector</th>
+                                         <th>Vulnerable Group</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -60,13 +62,11 @@
                                                                                  class="avatar-img avatar-sm rounded-circle"
                                                                                  alt=""></div>
                                          </td> -->
-                                         <td >{{client.firstname}} {{client.lastname}}</td>
-                                         <td>{{client.email}}</td>
+                                         <td >{{client.firstname}}, {{client.lastname}} {{client.middlename}}</td>
                                          <td>{{client.phone_number}}</td>
-                                         <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
-                                         <td>{{client.state}}</td>
+                                         <td>{{client.sector}}</td>
+                                         <td>{{client.category_of_vulnerable_group}}</td>
                                          <td>
-
                                            <router-link :to="{ path: '/client/'+ client.id}">
                                              <button type="button" name="button" class="btn btn-info">view</button>
                                             </router-link>
@@ -138,25 +138,35 @@ export default {
     }
   },
   beforeMount(){
+    this.isLoading = true
     this.user = JSON.parse(localStorage.getItem('user'))
     this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
                 .then(response => {
-                    this.clients = response.data.data
+                    this.clients = response.data.data.reverse().slice(0,20)
                     console.log(response)
+                    this.isLoading = false
+
                 })
                 .catch(error => {
+                  this.isLoading = false
+
                     console.error(error);
                 })
   },
   methods:{
     getClients(){
+      this.isLoading = true
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
                   .then(response => {
-                      this.clients = response.data.data
+                      this.clients = response.data.data.reverse().slice(0,20)
                       console.log(response)
+                      this.isLoading = false
+                      this.$toasted.error('Error getting clients', {position: 'top-center', duration:3000 })
                   })
                   .catch(error => {
+                    this.isLoading = false
+                    this.$toasted.error('Error getting clients', {position: 'top-center', duration:3000 })
                       console.error(error);
                   })
     },
@@ -164,7 +174,7 @@ export default {
 
   },
   created(){
-    this.getClients()
+    // this.getClients()
   }
 
 }

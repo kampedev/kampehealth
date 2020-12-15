@@ -114,24 +114,26 @@
 
             <div class="row">
                 <div class="col-md-12 p-t-20">
-                    <h1 class="fw-300">Analytics</h1>
+                    <h1 class="fw-300">Analytics {{totalArray()}}</h1>
                 </div>
                 <div class="col-12 m-t-20">
-                    <h5> <i class="fe fe-activity"></i> Overview</h5>
+                    <h5 class="h5"> <i class="fe fe-activity"></i> Basic Healthcare Provision Fund</h5>
                 </div>
                 <div class="col-md-12">
                     <div class="card m-b-30">
                       <div class="card-body">
-                          <!-- <div class="apexcharts-canvas" id="chart-06"></div> -->
-                          <zingchart :data="chartData" ></zingchart>
+                          <!-- <zingchart :data="chartData" ></zingchart> -->
+                          <apexchart width="100%" type="bar" :options="options" :series="series"></apexchart>
 
                       </div>
                     </div>
                 </div>
+
+
             </div>
 
             <div class="row">
-                <div class="col-md-6 m-b-30">
+                <div class="col-md-10 m-b-30">
                     <h5> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
@@ -158,7 +160,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 m-b-30">
+                <!-- <div class="col-md-6 m-b-30">
                     <h5> <i class="fe fe-alert-circle"></i>{{clients.length}} Clients</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
@@ -192,7 +194,7 @@
                         </table>
 
                     </div>
-                </div>
+                </div> -->
 
             </div>
 
@@ -241,6 +243,7 @@ export default {
   data(){
     return{
       user:null,
+      mydata:"",
       auth_user:"",
       providers:"",
       clients:"",
@@ -248,16 +251,19 @@ export default {
       offlineclients: [],
       employees:"",
       plans:"",
-      chartData: {
-                type: 'line',
-                title: {
-                    text: 'Beneficiaries',
-                },
-                series: [{
-                    // values: [14,10,13,8,12,14]
-                    values: [14,10,13,8,12,14]
-                }]
-            },
+      options: {
+      chart: {
+        id: 'vuechart-example'
+      },
+      xaxis: {
+        categories: ['Pregnant Women', 'Children under 5', 'Aged', 'IDP', 'Physically Challenged', 'People with Special Needs', 'Poorest of the poor']
+      }
+    },
+    series: [{
+      name: 'Basic Healthcare Provision Fund',
+      data: [30, 40, 45, 50, 49, 60, 70]
+      // data: []
+    }]
 
     }
   },
@@ -271,7 +277,45 @@ export default {
                     console.error(error);
                 })
   },
+  computed:{
+
+    Pregnant: function() {
+      return this.clients.filter(function(u) {
+      return u.category_of_vulnerable_group== 'Aged'
+
+    })
+  },
+  Children: function() {
+    return this.clients.filter(function(u) {
+    return u.category_of_vulnerable_group== 'Children under 5'
+
+  })
+},
+      PregnantLength(){
+        return this.Pregnant.length
+
+      },
+      ChildrenLength(){
+         let answer = this.Children.length
+         return answer
+      },
+      TotalLength(){
+        return  new Array (this.PregnantLength, this.ChildrenLength)
+      }
+
+  },
+
   methods:{
+        totalArray(){
+        // let total =
+       const answer =  this.series[0].data.map(() => {
+         return this.ChildrenLength
+       })
+       this.series = [{
+         data: answer
+       }]
+
+      },
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
@@ -402,6 +446,7 @@ export default {
     this.getClients()
     this.getEmployees()
     this.getOfflineCLients()
+    this.totalArray()
   }
 }
 </script>

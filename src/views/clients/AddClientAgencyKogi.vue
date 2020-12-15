@@ -13,10 +13,7 @@
                            </div>
                        </div>
                        <h3>{{clients.length}} Clients</h3>
-
-
                    </div>
-
 
                </div>
            </div>
@@ -228,6 +225,9 @@
                                                                     <option  value="Obinoyin">Obinoyin</option>
                                                                     <option  value="Okesin">Okesin</option>
                                                                     <option  value="Eni">Eni</option>
+                                                                    <option  value="Obatigben">Obatigben</option>
+                                                                    <option  value="Aiyeromi">Aiyeromi</option>
+                                                                    <option  value="Oshobane">Oshobane</option>
                                                                  </select>
                                                               </div>
 

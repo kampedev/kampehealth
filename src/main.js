@@ -15,6 +15,8 @@ import zingchartVue from 'zingchart-vue';
 import Toasted from 'vue-toasted';
 import Vuelidate from 'vuelidate'
 import VueHtml2Canvas from 'vue-html2canvas';
+import VueApexCharts from 'vue-apexcharts'
+
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
@@ -28,7 +30,10 @@ Vue.use(require('vue-moment'));
 Vue.use(Toasted)
 Vue.use(Vuelidate)
 Vue.use(VueHtml2Canvas);
+Vue.use(VueApexCharts)
 
+
+Vue.component('apexchart', VueApexCharts)
 
 window.axios=axios
 axios.defaults.baseURL = 'https://api.hayokinsurance.com';

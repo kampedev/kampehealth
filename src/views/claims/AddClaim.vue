@@ -57,7 +57,7 @@
                                                              </div>
                                                              <div class="form-group col-md-6">
                                                                <label for="inputCity">Enrolle KGSHIA Number</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="'KGSHIA/0' +client.id" disabled>
+                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.id_card_number" disabled>
                                                              </div>
 
                                                          </div>

@@ -63,7 +63,8 @@
                             </div>
                             <div>
                                 <p class="h4">Clients</p>
-                                <h1 class="fw-400">{{clients.length}}</h1>
+                                <!-- <h1 class="fw-400">{{clients.length}}</h1> -->
+                                <h1 class="fw-400">218</h1>
                             </div>
                         </div>
                     </div>
@@ -128,12 +129,29 @@
                       </div>
                     </div>
                 </div>
-
-
             </div>
 
             <div class="row">
-                <div class="col-md-10 m-b-30">
+
+                <div class="col-12 m-t-20">
+                    <h5 class="h5">Ogori/Magongo</h5>
+                </div>
+                <div class="col-md-12">
+                    <select class="form-control" >
+                      <option  value="Ogori/Magongo">Ogori/Magongo</option>
+                   </select>
+                </div>
+                <div class="col-md-12">
+                    <div class="card m-b-30">
+                      <div class="card-body">
+                          <apexchart width="100%" type="bar" :options="optionso" :series="serieso"></apexchart>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 m-b-30">
                     <h5> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
@@ -156,7 +174,6 @@
 
                             </tbody>
                         </table>
-
                     </div>
                 </div>
 
@@ -259,9 +276,22 @@ export default {
         categories: ['Pregnant Women', 'Children under 5', 'Aged', 'IDP', 'Physically Challenged', 'People with Special Needs', 'Poorest of the poor']
       }
     },
+    optionso: {
+    chart: {
+      id: 'vuechart-example'
+    },
+    xaxis: {
+      categories: ['Okibo', 'Ogugu', 'Oturu-Otuo', 'Ileteju', 'Obinoyin', 'Okesin', 'Eni','Obatigben', 'Aiyeromi', 'Oshobane']
+    }
+  },
     series: [{
       name: 'Basic Healthcare Provision Fund',
-      data: [30, 40, 45, 50, 49, 60, 70]
+      data: [1, 23, 64, 0, 26, 47, 18]
+      // data: []
+    }],
+    serieso: [{
+      name: 'Ogori/Magongo',
+      data: [71, 0, 0, 0, 0, 0, 67, 0,0,80]
       // data: []
     }]
 
@@ -279,29 +309,29 @@ export default {
   },
   computed:{
 
-    Pregnant: function() {
-      return this.clients.filter(function(u) {
-      return u.category_of_vulnerable_group== 'Aged'
-
-    })
-  },
-  Children: function() {
-    return this.clients.filter(function(u) {
-    return u.category_of_vulnerable_group== 'Children under 5'
-
-  })
-},
-      PregnantLength(){
-        return this.Pregnant.length
-
-      },
-      ChildrenLength(){
-         let answer = this.Children.length
-         return answer
-      },
-      TotalLength(){
-        return  new Array (this.PregnantLength, this.ChildrenLength)
-      }
+//     Pregnant: function() {
+//       return this.clients.filter(function(u) {
+//       return u.category_of_vulnerable_group== 'Aged'
+//
+//     })
+//   },
+//   Children: function() {
+//     return this.clients.filter(function(u) {
+//     return u.category_of_vulnerable_group== 'Children under 5'
+//
+//   })
+// },
+//       PregnantLength(){
+//         return this.Pregnant.length
+//
+//       },
+//       ChildrenLength(){
+//          let answer = this.Children.length
+//          return answer
+//       },
+//       TotalLength(){
+//         return  new Array (this.PregnantLength, this.ChildrenLength)
+//       }
 
   },
 

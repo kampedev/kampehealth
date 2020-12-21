@@ -75,6 +75,7 @@ import Accountant from '../views/employees/Accountant.vue'
 import Appointments from '../views/appointments/Appointments.vue'
 import SingleAppointment from '../views/appointments/SingleAppointment.vue'
 import MDApage from '../views/shis/MDApage.vue'
+import WardManager from '../views/shis/WardManager.vue'
 
 Vue.use(VueRouter)
 
@@ -290,6 +291,13 @@ const routes = [
   {
     path: '/mda-manager',
     component: MDApage,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/ward-manager',
+    component: WardManager,
     meta: {
         requiresAuth: true,
       },

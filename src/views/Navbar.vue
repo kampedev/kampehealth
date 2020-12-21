@@ -745,6 +745,18 @@
                                                         </span>
                                     </router-link>
                                 </li>
+                                <li class="menu-item">
+                                    <router-link to="/ward-manager" class=" menu-link">
+                                                    <span class="menu-label">
+                                                            <span class="menu-name">Ward Manager
+                                                            </span>
+                                                        </span>
+                                        <span class="menu-icon">
+
+                                                                <i class="icon-placeholder  mdi mdi-location"></i>
+                                                        </span>
+                                    </router-link>
+                                </li>
 
                             </ul>
                         </li>

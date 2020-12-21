@@ -213,7 +213,7 @@ export default {
    editUser(){
      this.user = JSON.parse(localStorage.getItem('user'))
      this.isLoading = true;
-   this.axios.post(`/api/v1/auth/editProfile/${this.user.id}`,{
+   this.axios.post(`/api/v1/auth/editProfile/${this.$route.params.id}`,{
        firstname: this.auth_user.firstname,
        lastname: this.auth_user.lastname,
        email: this.auth_user.email,

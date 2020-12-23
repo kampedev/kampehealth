@@ -19,6 +19,7 @@
     "breadstick": "^0.2.14",
     "core-js": "^3.6.4",
     "jsstore": "^3.10.3",
+    "v-clipboard": "^2.2.3",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.0",
     "vue-avatar": "^2.2.0",

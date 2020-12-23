@@ -18,7 +18,10 @@
                              </label>
                            </div> -->
                        </div>
+                       <button v-clipboard="value">
                        <strong>{{client.firstname}} {{client.lastname}}</strong>
+                     </button>
+
                    </div>
 
                </div>
@@ -319,6 +322,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   },
 
   methods:{
+
     async print() {
      const el = this.$refs.printNow;
      // add option type to get the image version

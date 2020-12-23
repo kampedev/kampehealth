@@ -16,6 +16,7 @@ import Toasted from 'vue-toasted';
 import Vuelidate from 'vuelidate'
 import VueHtml2Canvas from 'vue-html2canvas';
 import VueApexCharts from 'vue-apexcharts'
+import Clipboard from 'v-clipboard'
 
 
 Vue.use( CKEditor );
@@ -31,6 +32,7 @@ Vue.use(Toasted)
 Vue.use(Vuelidate)
 Vue.use(VueHtml2Canvas);
 Vue.use(VueApexCharts)
+Vue.use(Clipboard)
 
 
 Vue.component('apexchart', VueApexCharts)

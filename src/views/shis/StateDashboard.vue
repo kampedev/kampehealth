@@ -286,12 +286,12 @@ export default {
   },
     series: [{
       name: 'Basic Healthcare Provision Fund',
-      data: [1, 23, 64, 0, 26, 47, 18]
+      data: [6, 59, 247, 4, 56, 209, 65]
       // data: []
     }],
     serieso: [{
       name: 'Ogori/Magongo',
-      data: [71, 0, 0, 0, 0, 0, 67, 0,0,80]
+      data: [71, 61, 67, 62, 57, 77, 67, 83,43,80]
       // data: []
     }]
 

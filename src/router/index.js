@@ -20,6 +20,7 @@ import AddClientProvider from '../views/clients/AddClientProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import SingleClient from '../views/clients/SingleClient.vue'
 import SingleClientBiometrics from '../views/clients/SingleClientBiometrics.vue'
+import SingleClientCaptureSignature from '../views/clients/SingleClientCaptureSignature.vue'
 import SingleClientSelectSector from '../views/clients/SingleClientSelectSector.vue'
 import SingleClientHealthFacility from '../views/clients/SingleClientHealthFacility.vue'
 import SingleClientEnrolmentSuccess from '../views/clients/SingleClientEnrolmentSuccess.vue'
@@ -214,6 +215,13 @@ const routes = [
   {
     path: '/client/biometrics/:id',
     component: SingleClientBiometrics,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/client/capture-signature/:id',
+    component: SingleClientCaptureSignature,
     meta: {
         requiresAuth: true,
       },

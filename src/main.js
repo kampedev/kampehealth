@@ -17,6 +17,7 @@ import Vuelidate from 'vuelidate'
 import VueHtml2Canvas from 'vue-html2canvas';
 import VueApexCharts from 'vue-apexcharts'
 import Clipboard from 'v-clipboard'
+import VueSignaturePad from 'vue-signature-pad';
 
 
 Vue.use( CKEditor );
@@ -33,7 +34,7 @@ Vue.use(Vuelidate)
 Vue.use(VueHtml2Canvas);
 Vue.use(VueApexCharts)
 Vue.use(Clipboard)
-
+Vue.use(VueSignaturePad);
 
 Vue.component('apexchart', VueApexCharts)
 

@@ -5,7 +5,7 @@
         <div class="row">
 
             <div class="container spacer-top">
-            <div class="card col-md-6 offset-md-3">
+            <div class="card col-md-6 offset-md-3 ">
                 <div class="row align-items-center m-h-70">
 
                     <div class="mx-auto col-md-8">
@@ -84,6 +84,7 @@ export default {
       identifier:"",
      reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
       password:"",
+      response:"",
       isLoading: false,
       fullPage: true,
       auth_user:""
@@ -135,8 +136,10 @@ export default {
                 })
                 .catch(error=>{
                     console.log(error.response)
+                    this.response = error.response.data.error
                     this.isLoading = false;
-                    this.$toasted.error('Username or Password Incorrect', {position: 'top-center', duration:3000 })
+                    // this.$toasted.error('Email or Password Incorrect', {position: 'top-center', duration:3000 })
+                    this.$toasted.error(`${this.response}`, {position: 'top-center', duration:3000 })
 
                 })
 

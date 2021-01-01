@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>{{clients.length}} Clients</h3>
+                       <h3 class="h3">Add Client</h3>
                    </div>
 
                </div>
@@ -318,6 +318,7 @@ export default {
       clients:"",
       mdas:"",
       sector:"",
+      response:"",
       state:"",
       lga_states:"",
       register:{
@@ -353,14 +354,14 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
-                .then(response => {
-                    this.clients = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+    // this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
+    //             .then(response => {
+    //                 this.clients = response.data.data
+    //                 console.log(response)
+    //             })
+    //             .catch(error => {
+    //                 console.error(error);
+    //             })
 
   },
   methods:{
@@ -466,9 +467,21 @@ export default {
         .catch(error=>{
             console.log(error.response)
             this.isLoading = false;
-            this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
+            this.response = error.response.data.errors
+            if (this.response.firstname != null) {
+              this.$toasted.error(`${this.response.firstname}`, {position: 'top-center', duration:3000 })
 
-            this.getClients();
+            }
+            if(this.response.lastname != null) {
+              this.$toasted.error(`${this.response.lastname}`, {position: 'top-center', duration:3000 })
+
+            }
+            if (this.response.phone_number != null) {
+              this.$toasted.error(`${this.response.phone_number}`, {position: 'top-center', duration:3000 })
+
+            }
+
+
 
         })
     }
@@ -476,7 +489,7 @@ export default {
   },
   created(){
     this.fetchLga()
-    this.getClients()
+    // this.getClients()
     this.getMDAs()
     this.getProviders()
   }

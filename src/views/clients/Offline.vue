@@ -5,10 +5,11 @@
       <main class="admin-main">
 
 
-                           <section >
-                             <div class="card-body">
+                         <section>
+                           <div class="row">
+                             <div class="col-md-10" v-show="showinput">
                                  <div class="text-center">
-                                     <h1 > <strong>(Offline) Bio Data</strong> </h1>
+                                     <h3 class="h3">(Offline) Bio Data </h3>
                                  </div>
                                                           <div class="form-row">
 
@@ -19,15 +20,61 @@
                                                                    <option  value="informal">Informal Sector</option>
                                                                </select>
                                                             </div>
+
+                                                            <div class="col-md-12" v-if="sector == 'formal' " >
+                                                                <div class="form-group">
+                                                                  <label for="inputCity">Select Formal Sector</label>
+                                                                      <select class="form-control"  v-model="newStudent.sector" >
+                                                                       <option  value="State Civil Servant Healthcare Plan">State Civil Servant Healthcare Plan</option>
+                                                                       <option  value="LGA Civil Servant Healthcare Plan">LGA Civil Servant Healthcare Plan </option>
+                                                                       <option  value="State Pensioneers Healthcare Plan">State Pensioneers Healthcare Plan</option>
+                                                                       <option  value="LGA Pensioneers Healthcare Plan">LGA Pensioneers Healthcare Plan</option>
+                                                                       <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
+                                                                       <option value="Tertiary Institution Contributory Health Insurance Plan (TICHIP)">
+                                                                         Tertiary Institution Contributory Health Insurance Plan (TICHIP)</option>
+                                                                   </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group col-md-6"  v-if="sector == 'informal'">
+                                                              <label >Informal Sector</label>
+                                                                <select class="form-control" v-model="newStudent.sector">
+                                                                  <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
+                                                                  <option  value="Vulnerable Groups">Vulnerable Groups</option>
+                                                                  <option  value="Voluntary Contributor">Voluntary Contributor</option>
+                                                                  <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option>
+                                                               </select>
+                                                            </div>
+
+                                                            <div class="form-group col-md-6"  v-if="sector == 'informal'">
+                                                              <label >Special Needs</label>
+                                                                <select class="form-control" v-model="newStudent.category_of_vulnerable_group">
+                                                                  <option  value="Pregnant Women">Pregnant Women</option>
+                                                                  <option  value="Children under 5">Children under 5</option>
+                                                                  <option  value="Aged">Aged</option>
+                                                                  <option  value="IDP">IDP</option>
+                                                                  <option  value="Physically Challenged">Physically Challenged</option>
+                                                                  <option  value="People with Special Needs">People with Special Needs</option>
+                                                                  <option  value="Poorest of the Poor">Poorest of the Poor</option>
+                                                               </select>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="inputPassword4">NIN Number</label>
+                                                                <input type="text" class="form-control" v-model="newStudent.nimc_number"  placeholder="NIMC Number">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="inputPassword4">Surname</label>
+                                                                <input type="text" class="form-control" v-model="newStudent.lastname"  placeholder="Last Name">
+                                                            </div>
                                                                <div class="form-group col-md-6">
                                                                    <label for="inputEmail4">First Name</label>
                                                                    <input type="text" class="form-control" v-model="newStudent.firstname" placeholder="First Name">
                                                                </div>
-
                                                                <div class="form-group col-md-6">
-                                                                   <label for="inputPassword4">Last Name</label>
-                                                                   <input type="text" class="form-control" v-model="newStudent.lastname"  placeholder="Last Name">
+                                                                   <label for="inputEmail4">Middle Name</label>
+                                                                   <input type="text" class="form-control" v-model="newStudent.middlename" placeholder="Middle Name">
                                                                </div>
+
                                                            </div>
                                                            <div class="form-row">
                                                                 <!-- <div class="form-group col-md-6">
@@ -36,10 +83,10 @@
                                                                 </div> -->
 
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="inputPassword4">Phone Number</label>
+                                                                    <label for="inputPassword4">Phone Number {{client_number.length}}</label>
                                                                     <input type="text" class="form-control" v-model="client_number" placeholder="Phone Number" >
-                                                                      <div color="alert alert-warning" role="alert" v-if="client_number.length < 11">
-                                                                        Number must be minimum of 11 characters
+                                                                      <div color="alert alert-warning" role="alert" v-if="client_number.length < 14">
+                                                                        Number must be 14 characters
                                                                       </div>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
@@ -47,26 +94,7 @@
                                                                     <!-- <input type="text" class="form-control" v-model="newStudent.dob" placeholder="1994/01/01" > -->
                                                                     <date-picker v-model="newStudent.dob" valueType="format"></date-picker>
                                                                 </div>
-                                                                <div class="form-group col-md-6">
-                                                                  <label >Point of HealthCare: {{newStudent.point_of_care}}</label>
-                                                                    <select class="form-control" v-model="newStudent.point_of_care">
-                                                                      <option  value="Primary Health Care">Primary Health Care</option>
-                                                                      <option  value="General Hospital">General Hospital</option>
-                                                                      <option  value="Special Hospital">Special Hospital</option>
-                                                                      <option  value="Federal Medical Centre">Federal Medical Centre</option>
-                                                                      <option  value="Private Health Facility">Private Health Facility</option>
-                                                                      <option  value="others">Others</option>
-                                                                   </select>
-                                                                </div>
 
-                                                                <div class="form-group col-md-6" v-if="newStudent.point_of_care == 'others'">
-                                                                  <label >Point of HealthCare</label>
-                                                                    <select class="form-control" v-model="newStudent.point_of_care">
-                                                                      <option  value="Diagnostic Centre">Diagnostic Centre</option>
-                                                                      <option  value="Pharmacy">Pharmacy</option>
-                                                                      <option  value="Medicine Store">Medicine Store</option>
-                                                                   </select>
-                                                                </div>
                                                                 <div class="form-group col-md-12" v-if="sector == 'formal'">
                                                                     <label for="inputEmail4">Computer Number</label>
                                                                     <input type="text" class="form-control" v-model="newStudent.salary_number" placeholder="Computer Employment Number">
@@ -74,33 +102,22 @@
                                                             </div>
 
                                                                   <div class="form-row" v-if="sector == 'formal'">
-                                                                       <!-- <div class="form-group col-md-6">
+                                                                       <div class="form-group col-md-6">
                                                                          <label for="inputCity">Select MDA</label>
                                                                              <select class="form-control"  v-model="newStudent.place_of_work" >
-                                                                              <option  value="Ministry">Ministry of Health</option>
-                                                                              <option  value="Ministry">Ministry of Labour</option>
+                                                                               <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
                                                                           </select>
-                                                                       </div> -->
-
-                                                                       <!-- <div class="form-group col-md-6">
-                                                                         <label for="inputCity">Department</label>
-                                                                             <select class="form-control"  v-model="newStudent.place_of_work" >
-                                                                              <option  value="Department">Department</option>
-                                                                              <option  value="Department">Department</option>
-                                                                          </select>
-                                                                       </div> -->
-
-                                                                       <!-- <div class="form-group col-md-6">
-                                                                         <label for="inputCity">Parastatals</label>
-                                                                             <select class="form-control"  v-model="newStudent.place_of_work" >
-                                                                              <option  value="ZAMCHEMA">ZAMCHEMA</option>
-                                                                              <option  value="Others">Others</option>
-                                                                          </select>
-                                                                       </div> -->
+                                                                       </div>
 
                                                                    </div>
 
                                                             <div class="row">
+                                                              <div class="form-group col-md-6">
+                                                                <label >Facility for Accessing Care: {{newStudent.provider_id}}</label>
+                                                                  <select class="form-control" v-model="newStudent.point_of_care">
+                                                                    <option  :value="provider.id" v-for="provider in providers" v-bind:key="provider.id">{{provider.agency_name}}</option>
+                                                                 </select>
+                                                              </div>
                                                               <div class="col-md-6">
                                                                 <label for="inputCity">Gender</label>
                                                                     <select class="form-control"  v-model="newStudent.gender" >
@@ -108,42 +125,16 @@
                                                                      <option  value="Female">Female</option>
                                                                  </select>
                                                               </div>
-                                                              <div class="form-group col-md-6">
-                                                                <label for="inputCity">State </label>
-                                                                <select class="form-control" v-model="newStudent.state" @change="showState">
-                                                                  <option v-for="state in states.data" v-bind:key="state.id" :value="state.name">{{state.name}}</option>
-                                                                </select>
-                                                              </div>
 
-                                                                <div class="form-group col-md-6" v-show="show">
+                                                                <div class="form-group col-md-6">
                                                                   <label for="inputCity">LGA {{newStudent.localgovt}}</label>
-                                                                    <select class="form-control"  v-model="newStudent.localgovt" v-if="newStudent.state == 'Zamfara'">
-                                                                      <option v-for="lga in zamfara_lgas.data" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
-                                                                   </select>
-
-                                                                   <select class="form-control"  v-model="newStudent.localgovt" v-if="newStudent.state == 'Yobe'">
-                                                                     <option v-for="lga in yobe_lgas.data" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
-                                                                  </select>
-
-                                                                  <select class="form-control"  v-model="newStudent.localgovt" v-if="newStudent.state == 'Kogi'">
+                                                                  <select class="form-control"  v-model="newStudent.localgovt">
                                                                     <option v-for="lga in kogi_lgas.data" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                  </select>
 
-                                                                 <div class="form-group col-md-6"  v-if="sector == 'informal'">
-                                                                   <label >Informal sector</label>
-                                                                     <select class="form-control" v-model="newStudent.sector">
-                                                                       <option  value="Rural Women Heathcare Program">Rural Women Heathcare Program</option>
-                                                                       <option  value="Reach Every Child Healthcare Program">Reach Every Child Healthcare Program</option>
-                                                                       <option  value="Rural Outreach Surgical Intervention Program">Rural Outreach Surgical Intervention Program</option>
-                                                                       <option  value="Rural Outreach Medical Intervention Program">Rural Outreach Medical Intervention Program</option>
-                                                                       <option  value="Organized Private Sector Healthcare Program">Organized Private Sector Healthcare Program</option>
-                                                                       <option  value="Organized Rural Community Intervention Halthcare Program">Organized Rural Community Intervention Halthcare Program</option>
-                                                                    </select>
-                                                                 </div>
-
                                                                 </div>
 
-                                                              <!-- <div class="form-group col-md-6">
+                                                             <div class="form-group col-md-6">
                                                                 <label for="inputCity">Blood Group</label>
                                                                     <select class="form-control"  v-model="newStudent.blood" >
                                                                      <option  value="A">A</option>
@@ -152,7 +143,7 @@
                                                                      <option  value="O">O</option>
                                                                  </select>
                                                               </div>
-                                                              <div class="form-group col-md-6">
+                                                              <!--  <div class="form-group col-md-6">
                                                                 <label for="inputCity">Genotype</label>
                                                                     <select class="form-control"  v-model="newStudent.genotype" >
                                                                      <option  value="AA">AA</option>
@@ -172,14 +163,36 @@
                                                               </div>
 
                                                               <div class="form-group">
-                                                                 <label for="inputAddress">Address</label>
+                                                                 <label for="inputAddress">Home Address</label>
                                                                  <textarea name="name" rows="3" cols="80"  class="form-control" v-model="newStudent.address" placeholder="1234 Main St"></textarea>
                                                              </div>
 
+
+
                                                              <div class="form-group">
-                                                                 <button class="btn btn-primary" @click="add" v-if="client_number.length >=11">Submit</button>
-                                                                 <button class="disabled btn btn-primary" v-if="client_number.length < 11">Submit</button>
+                                                                 <button class="btn btn-primary btn-block btn-lg" @click="showImage" v-if="client_number.length ==14">Proceed to Take Picture</button>
+                                                                 <button class="disabled btn btn-primary btn-block btn-lg" v-if="client_number.length != 14">Proceed to Take Picture</button>
                                                              </div>
+
+                                                            </div>
+
+                                                            <div v-show="showcamera">
+                                                              <h3 class="h3">Client Picture </h3>
+
+                                                              <div class="form-group">
+                                                                <button  class="btn btn-default" @click="takePic">Take Picture Picture</button>
+                                                                <button class="btn btn-primary btn-block btn-lg" @click="add">Submit</button>
+
+                                                              </div>
+                                                              <div class="row">
+                                                                <div class="col-md-6">
+                                                                  <video id="video" width="100%" height="auto" autoplay></video>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                  <canvas id="canvas" width="500px" height="500px"></canvas>
+                                                                </div>
+                                                              </div>
+
 
                                                             </div>
 
@@ -189,8 +202,9 @@
 
 
                               <!-- <div class="card-body" v-for="student in students" v-bind:key="student.id">
-                              <p>{{student.email}}</p>
+                              <p>{{student.firstname}}</p>
                               <p>{{student.gender}}</p>
+                              <p>{{student.user_image}}</p>
                               <button @click="remove(student.id)" class="btn btn-primary">Delete</button>
                              </div> -->
 
@@ -200,9 +214,9 @@
                                   :can-cancel="true"
                                   :is-full-page="fullPage"></loading>
                               </div>
-
-                           </section>
-                           </main>
+                            </div>
+                        </section>
+                      </main>
 
 </section>
 </template>
@@ -233,10 +247,15 @@ export default {
   data: function() {
     return {
       newStudent: null,
+      showinput: true,
+      showcamera: false,
+      providers:"",
+      imagefile:"",
       user: null,
       editStudent: {},
         fullPage: true,
-        client_number:"234",
+        client_number:"+234",
+        output:"",
         sector:"",
         show:false,
         states:statesJson,
@@ -251,25 +270,74 @@ export default {
   beforeMount: function() {
     this.clear();
     this.user = JSON.parse(localStorage.getItem('user'))
+    this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+                .then(response => {
+                    this.providers = response.data.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
 
   },
   methods: {
+    showImage(){
+      this.showinput = false;
+      this.showcamera = true;
+      this.streamPic()
+    },
+    streamPic(){
+      var video = document.getElementById('video');
+    // Get access to the camera!
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            //video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+        });
+
+      }
+    },
+    takePic(){
+      var video = document.getElementById('video');
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+
+      context.drawImage(video, 0, 0, 640, 480);
+
+        // get image
+        var image = new Image();
+
+        image.src = canvas.toDataURL("image/png");
+        console.log(image)
+        localStorage.setItem('snap',this.imagefile.src);
+        this.imagefile = image.src
+
+        // upload image
+
+        // end of upload image
+
+    },
     async add() {
       try {
         // const studentsAdded = await this.service.addStudent(this.newStudent);
         const studentsAdded = await this.service.addStudent({
           firstname: this.newStudent.firstname,
           lastname: this.newStudent.lastname,
+          middlename: this.newStudent.middlename,
+          nimc_number: this.newStudent.nimc_number,
+          provider_id: this.newStudent.provider_id,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
           gender: this.newStudent.gender,
-          state: this.newStudent.state,
+          user_image: this.imagefile,
           localgovt: this.newStudent.localgovt,
           blood: this.newStudent.blood,
           salary_number: this.newStudent.salary_number,
           sector: this.newStudent.sector,
           place_of_work: this.newStudent.place_of_work,
-          point_of_care: this.newStudent.point_of_care,
+          category_of_vulnerable_group: this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
           address: this.newStudent.address,
           agency_id: this.user.id,
@@ -282,8 +350,16 @@ export default {
         alert(ex.message);
       }
     },
-    showState(){
-      this.show= true;
+    getProviders(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+                  .then(response => {
+                      this.providers = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
     },
     clear() {
       this.newStudent = {

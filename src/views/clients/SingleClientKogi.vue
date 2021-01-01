@@ -40,23 +40,17 @@
 
                            <div class="card-body">
                                      <div class="form-group">
-                                       <button class="btn btn-info spacer"  >Principal's Details</button>
+                                       <!-- <button class="btn btn-info spacer"  >Principal's Details</button> -->
 
-                                         <button class="btn btn-default spacer" data-toggle="modal" data-target="#example_01">Upload Photo </button>
+                                         <button class="btn btn-secondary spacer" data-toggle="modal" data-target="#example_01">Capture Face </button>
                                          <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  >Biometrics</button>
                                         </router-link>
                                         <button class="btn btn-primary spacer"  @click="printMe">Print ID Card</button>
 
-                                        <div class="fileinput fileinput-new" data-provides="fileinput" >
-                                          <span class="btn btn-file">
-                                            <span class="fileinput-new">Upload Signature</span>
-                                            <span class="fileinput-exists">Change</span>
-                                            <input type="file" name="..." multiple   v-on:change="attachSign">
-                                          </span>
-                                          <span class="fileinput-filename"></span>
-                                          <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                                      </div>
+                                        <router-link :to="{ path: '/client/capture-signature/'+client.id, params: {} }">
+                                          <button class="btn btn-info spacer" >Capture Signature</button>
+                                        </router-link>
 
                                          <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.category_of_vulnerable_group == null">Dependents</button>
@@ -106,7 +100,7 @@
                                 <hr>
                                 <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>{{client.id_card_number}}</strong></p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"><strong class="text-primary">NIMC NUMBER:</strong>  <strong>{{client.nimc_number}}</strong></p>
+                                <p class="h2 spacer-top-bottom"><strong class="text-primary">NIN NUMBER:</strong>  <strong>{{client.nimc_number}}</strong></p>
                                 <hr>
                                 <p class="h2 spacer-top-bottom"> <strong class="text-primary"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
                                 <!-- <hr> -->
@@ -275,7 +269,7 @@ export default {
 // Get access to the camera!
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     // Not adding `{ audio: true }` since we only want video now
-    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+    navigator.mediaDevices.getUserMedia({ video: true, facingMode: 'environment' }).then(function(stream) {
         //video.src = window.URL.createObjectURL(stream);
         video.srcObject = stream;
         video.play();
@@ -389,10 +383,6 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.log(image)
         localStorage.setItem('snap',this.imagefile.src);
         this.imagefile = image.src
-
-        // upload image
-
-        // end of upload image
 
     },
 
@@ -556,7 +546,9 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 </script>
 <style >
 .spacer{
-  margin-left:15px;
+  margin-left:5px;
+  margin-top:5px;
+  margin-bottom:5px;
 }
 .spacer-image{
   margin-top:25px;

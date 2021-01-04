@@ -28,7 +28,7 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12">
                        <div class="card m-b-30">
                            <div class="card-header">
 
@@ -46,16 +46,14 @@
                </div>
 
                <div class="row">
-                   <div class="col-lg-10 col-md-10">
+                   <div class="col-lg-12">
                        <div class="card m-b-30">
-
 
                            <div class="card-body">
 
                              <VueSignaturePad width="100%" height="300px" ref="signaturePad" />
-                             <p>{{signature}}</p>
 
-                             <div class="" >
+                             <div class="col-md-6 offset-md-3" >
                                <button class="btn btn-success spacer" @click="save">Save</button>
                                <button class="btn btn-warning spacer" @click="undo">Undo</button>
                                <button class="btn btn-danger spacer" @click="clear">Clear</button>
@@ -105,6 +103,7 @@ export default {
       user:null,
       client:"",
       auth_user:"",
+      fingerprint:"",
       selector:"",
       edit:false,
       isLoading: false,
@@ -140,6 +139,8 @@ export default {
       this.signature = data
       console.log(isEmpty);
       console.log(data);
+      this.$toasted.info('Saved Successfully!', {position: 'top-center', duration:3000 })
+
     },
     clear(){
       this.$refs.signaturePad.clearSignature()

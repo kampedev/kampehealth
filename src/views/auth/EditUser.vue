@@ -33,6 +33,47 @@
 
                                   <div class="form-row">
 
+
+
+                                      <div class="col-md-6" >
+                                          <div class="form-group">
+                                            <label for="inputCity">Select Informal Sector</label>
+                                                <select class="form-control"  v-model="auth_user.sector" >
+                                                 <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
+                                                 <option  value="Vulnerable Groups">Vulnerable Groups</option>
+                                                 <option  value="Voluntary Contributor">Voluntary Contributor</option>
+                                                 <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option>
+                                             </select>
+                                          </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label for="inputCity">Select Formal Sector</label>
+                                                <select class="form-control"  v-model="auth_user.sector" >
+                                                 <option  value="State Civil Servant Healthcare Plan">State Civil Servant Healthcare Plan</option>
+                                                 <option  value="LGA Civil Servant Healthcare Plan">LGA Civil Servant Healthcare Plan </option>
+                                                 <option  value="State Pensioneers Healthcare Plan">State Pensioneers Healthcare Plan</option>
+                                                 <option  value="LGA Pensioneers Healthcare Plan">LGA Pensioneers Healthcare Plan</option>
+                                                 <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
+                                                 <option value="Tertiary Institution Contributory Health Insurance Plan (TICHIP)">
+                                                   Tertiary Institution Contributory Health Insurance Plan (TICHIP)</option>
+                                             </select>
+                                          </div>
+                                      </div>
+                                      <div class="form-group col-md-12" >
+                                        <label >Special Needs</label>
+                                          <select class="form-control" v-model="auth_user.category_of_vulnerable_group">
+                                            <option  value="Pregnant Women">Pregnant Women</option>
+                                            <option  value="Children under 5">Children under 5</option>
+                                            <option  value="Aged">Aged</option>
+                                            <option  value="IDP">IDP</option>
+                                            <option  value="Physically Challenged">Physically Challenged</option>
+                                            <option  value="People with Special Needs">People with Special Needs</option>
+                                            <option  value="Poorest of the Poor">Poorest of the Poor</option>
+                                         </select>
+                                      </div>
+
                                       <div class="form-group col-md-6">
                                           <label for="inputEmail6">Surname</label>
                                           <input type="text" v-model="auth_user.lastname" class="form-control"  placeholder="Last Name">
@@ -54,8 +95,8 @@
                                           <input type="text" class="form-control"  placeholder="Phone Number" v-model="auth_user.phone_number">
                                       </div>
                                       <div class="form-group col-md-6">
-                                          <label for="asd">NIMC Number</label>
-                                          <input type="text" class="form-control" id="asd" placeholder="username" v-model="auth_user.nimc_number">
+                                          <label for="asd">NIN Number</label>
+                                          <input type="text" class="form-control" id="asd" placeholder="NIN Number" v-model="auth_user.nimc_number">
                                       </div>
                                       <div class="form-group col-md-6">
                                         <label for="inputCity">Gender</label>
@@ -172,6 +213,7 @@ export default {
      auth_user:"",
      user:null,
      image:'',
+     sector:"",
      lga_states:"",
      isLoading: false,
      fullPage: true,

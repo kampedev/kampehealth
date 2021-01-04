@@ -18,7 +18,7 @@
                              </label>
                            </div> -->
                        </div>
-                       <button v-clipboard="value">
+                       <button v-clipboard="client.firstname">
                        <strong>{{client.firstname}} {{client.lastname}}</strong>
                      </button>
 
@@ -31,7 +31,7 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
                            <div class="card-header">
 
@@ -42,7 +42,7 @@
                                      <div class="form-group">
                                        <!-- <button class="btn btn-info spacer"  >Principal's Details</button> -->
 
-                                         <button class="btn btn-secondary spacer" data-toggle="modal" data-target="#example_01">Capture Face </button>
+                                         <button class="btn btn-success spacer" data-toggle="modal" data-target="#example_01">Capture Face </button>
                                          <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  >Biometrics</button>
                                         </router-link>
@@ -66,7 +66,7 @@
                </div>
 
                <div class="row">
-                   <div class="col-lg-9 col-md-9" id="printDiv" ref="printNow">
+                   <div class="col-lg-12 col-md-12" id="printDiv" ref="printNow">
                        <div class="card" style="background-image: url('../assets/img/kgshia_transparent.png'); background-size: cover; background-repeat: no-repeat;">
                            <div class="card-header ">
                              <div class="row spacer-top">
@@ -120,7 +120,7 @@
                        </div>
                    </div>
 
-                       <div class="col-lg-3 col-md-3">
+                       <div class="col-lg-12">
                            <div class="card m-b-30">
                                <div class="card-header">
 
@@ -139,7 +139,7 @@
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom"><strong>State:</strong> {{client.state}}</p>
+                                   <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}} </p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                                    <hr>
@@ -259,6 +259,21 @@ export default {
       imagefile:"",
       output:"",
       pictureShower:true,
+      video_settings:{
+              video: {
+                width: {
+                  min: 1280,
+                  ideal: 1920,
+                  max: 2560,
+                },
+                height: {
+                  min: 720,
+                  ideal: 1080,
+                  max: 1440
+                },
+                facingMode: 'environment'
+              }
+            }
 
     }
   },
@@ -269,7 +284,8 @@ export default {
 // Get access to the camera!
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     // Not adding `{ audio: true }` since we only want video now
-    navigator.mediaDevices.getUserMedia({ video: true, facingMode: 'environment' }).then(function(stream) {
+    // navigator.mediaDevices.getUserMedia({ video: true}).then(function(stream) {
+    navigator.mediaDevices.getUserMedia(this.video_settings).then(function(stream) {
         //video.src = window.URL.createObjectURL(stream);
         video.srcObject = stream;
         video.play();
@@ -340,26 +356,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.log(event)
         this.uploadSign()
     },
-    uploadSign(){
-              this.isLoading = true;
-              this.user = JSON.parse(localStorage.getItem('user'))
 
-            var formData = new FormData();
-            formData.append("user_id", this.$route.params.id)
-            formData.append("signature", this.signature)
-            this.axios.post("/api/v1/auth/uploadSignature", formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            })
-            .then(response => {
-              console.log(response);
-                 this.isLoading = false;
-                 this.$breadstick.notify("Signature uploaded Successfully!", {position: "top-right"});
-                 this.fetchUser()
-
-            })
-        },
     authUser(){
       this.axios.get(`/api/v1/auth/user`)
                   .then(response => {

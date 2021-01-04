@@ -49,7 +49,7 @@
                     </div>
                 </div> -->
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-secondary">
                         <div class="card-body text-white">
                             <div class="pb-2">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-info">
                         <div class="card-body text-dark">
                             <div class="pb-2">
@@ -90,7 +90,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-warning">
                         <div class="card-body text-dark">
                             <div class="pb-2">
@@ -308,44 +308,11 @@ export default {
                 })
   },
   computed:{
-
-//     Pregnant: function() {
-//       return this.clients.filter(function(u) {
-//       return u.category_of_vulnerable_group== 'Aged'
-//
-//     })
-//   },
-//   Children: function() {
-//     return this.clients.filter(function(u) {
-//     return u.category_of_vulnerable_group== 'Children under 5'
-//
-//   })
-// },
-//       PregnantLength(){
-//         return this.Pregnant.length
-//
-//       },
-//       ChildrenLength(){
-//          let answer = this.Children.length
-//          return answer
-//       },
-//       TotalLength(){
-//         return  new Array (this.PregnantLength, this.ChildrenLength)
-//       }
-
+    //
   },
 
   methods:{
-      //   totalArray(){
-      //   // let total =
-      //  const answer =  this.series[0].data.map(() => {
-      //    return this.ChildrenLength
-      //  })
-      //  this.series = [{
-      //    data: answer
-      //  }]
-      //
-      // },
+
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
@@ -419,32 +386,48 @@ export default {
               firstname: item.firstname,
               lastname: item.lastname,
               middlename: item.middlename,
-              // email: item.email,
+              email: item.email,
               phone_number: item.phone_number,
               type: 'client',
               agency_id: item.agency_id,
-              state: 2669,
+              provider_id: item.provider_id,
+              state: '2669',
               role: 0,
               password: 'euhler',
-              localgovt: this.register.localgovt,
-              // ward: this.register.ward,
+              localgovt: item.localgovt,
+              address1: item.address,
+              sector: item.sector,
+              category_of_vulnerable_group: item.category_of_vulnerable_group,
+              ward: item.ward,
               blood: item.blood,
               dob: item.dob,
               genotype: item.genotype,
-              // weight: this.register.weight,
+              enrolled_by: item.enrolled_by,
               gender: item.gender,
             })
             .then(response=>{
                 console.log(response)
-                // this.remove()
+                let user_added_id = response.data.data.id
 
-                //Start remove client from indexed DB
+                //Start upload Pic
+                this.axios.post(`/api/v1/auth/uploadcustomerpicImage`,
+                 {
+                    user_image: item.user_image,
+                    user_id: user_added_id,
 
-                //End remove client from indexed DB
+                  })
+                            .then(response => {
+                                console.log(response)
+                                this.$breadstick.notify("Profile pushed Successfully!", {position: "top-right"});
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            })
+                //End upload Pic
             }).
             catch(error=>{
                 console.log(error.response)
-                // this.$toasted.error('Error Syncing! Reload Page', {position: 'top-center', duration:3000 })
+                this.$toasted.error('Error Syncing! Reload Page', {position: 'top-center', duration:3000 })
 
             })
             result;

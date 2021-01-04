@@ -6,7 +6,7 @@
 
 
                          <section>
-                           <div class="row">
+                           <div class="container row">
                              <div class="col-md-10" v-show="showinput">
                                  <div class="text-center">
                                      <h3 class="h3">(Offline) Bio Data </h3>
@@ -60,7 +60,7 @@
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="inputPassword4">NIN Number</label>
-                                                                <input type="text" class="form-control" v-model="newStudent.nimc_number"  placeholder="NIMC Number">
+                                                                <input type="text" class="form-control" v-model="newStudent.nimc_number"  placeholder="NIN Number">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="inputPassword4">Surname</label>
@@ -113,8 +113,8 @@
 
                                                             <div class="row">
                                                               <div class="form-group col-md-6">
-                                                                <label >Facility for Accessing Care: {{newStudent.provider_id}}</label>
-                                                                  <select class="form-control" v-model="newStudent.point_of_care">
+                                                                <label >Facility for Accessing Care: </label>
+                                                                  <select class="form-control" v-model="newStudent.provider_id">
                                                                     <option  :value="provider.id" v-for="provider in providers" v-bind:key="provider.id">{{provider.agency_name}}</option>
                                                                  </select>
                                                               </div>
@@ -129,9 +129,12 @@
                                                                 <div class="form-group col-md-6">
                                                                   <label for="inputCity">LGA {{newStudent.localgovt}}</label>
                                                                   <select class="form-control"  v-model="newStudent.localgovt">
-                                                                    <option v-for="lga in kogi_lgas.data" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                                                                    <option v-for="lga in kogi_lgas.data" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                  </select>
-
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="inputEmail4">Ward</label>
+                                                                    <input type="text" class="form-control" v-model="newStudent.ward" placeholder="Ward">
                                                                 </div>
 
                                                              <div class="form-group col-md-6">
@@ -176,7 +179,7 @@
 
                                                             </div>
 
-                                                            <div v-show="showcamera">
+                                                            <div v-show="showcamera" class="container-fluid ">
                                                               <h3 class="h3">Client Picture </h3>
 
                                                               <div class="form-group">
@@ -184,13 +187,15 @@
                                                                 <button class="btn btn-primary btn-block btn-lg" @click="add">Submit</button>
 
                                                               </div>
-                                                              <div class="row">
-                                                                <div class="col-md-6">
-                                                                  <video id="video" width="100%" height="auto" autoplay></video>
+                                                              <div class="row ">
+                                                                <div class="col-md-12 p-t-20 p-b-20">
+                                                                    <video id="video" width="100%"  height="auto" autoplay></video>
+
+                                                                  <div class="col-md-7">
+                                                                    <canvas id="canvas" width="500px" height="550px"></canvas>
+                                                                  </div>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                  <canvas id="canvas" width="500px" height="500px"></canvas>
-                                                                </div>
+
                                                               </div>
 
 
@@ -304,7 +309,7 @@ export default {
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
 
-      context.drawImage(video, 0, 0, 640, 480);
+      context.drawImage(video, 0, 0, 300, 300);
 
         // get image
         var image = new Image();
@@ -333,17 +338,21 @@ export default {
           gender: this.newStudent.gender,
           user_image: this.imagefile,
           localgovt: this.newStudent.localgovt,
+          ward: this.newStudent.ward,
+          sector: this.newStudent.sector,
           blood: this.newStudent.blood,
           salary_number: this.newStudent.salary_number,
-          sector: this.newStudent.sector,
           place_of_work: this.newStudent.place_of_work,
           category_of_vulnerable_group: this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
           address: this.newStudent.address,
           agency_id: this.user.id,
+          enrolled_by: this.user.id,
         });
         this.$emit("add-item", studentsAdded[0]);
         this.clear();
+        this.showinput = true;
+        this.showcamera = false;
         this.$toasted.info('Client Added Successfully', {position: 'top-center', duration:3000 })
 
       } catch (ex) {

@@ -5,7 +5,7 @@
         <div class="row">
 
             <div class="container spacer-top">
-            <div class="card col-md-6 offset-md-3 ">
+            <div class="card col-lg-6 offset-lg-3 ">
                 <div class="row align-items-center m-h-70">
 
                     <div class="mx-auto col-md-8">

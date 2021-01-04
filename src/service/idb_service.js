@@ -27,7 +27,11 @@ const getDatabase = () => {
                 dataType: DATA_TYPE.String
             },
             provider_id: {
-                notNull: false,
+                notNull: true,
+                dataType: DATA_TYPE.Number
+            },
+            nimc_number: {
+                notNull: true,
                 dataType: DATA_TYPE.String
             },
             phone_number: {
@@ -63,7 +67,15 @@ const getDatabase = () => {
             //     notNull: true
             // },
             localgovt: {
-                dataType: DATA_TYPE.String,
+                dataType: DATA_TYPE.Number,
+                notNull: true
+            },
+            ward: {
+                dataType: DATA_TYPE.string,
+                notNull: true
+            },
+            enrolled_by: {
+                dataType: DATA_TYPE.Number,
                 notNull: true
             },
             salary_number: {
@@ -78,6 +90,7 @@ const getDatabase = () => {
                 dataType: DATA_TYPE.String,
                 notNull: false
             },
+
             category_of_vulnerable_group: {
                 dataType: DATA_TYPE.String,
                 notNull: false

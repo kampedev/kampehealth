@@ -18,6 +18,7 @@ import VueHtml2Canvas from 'vue-html2canvas';
 import VueApexCharts from 'vue-apexcharts'
 import Clipboard from 'v-clipboard'
 import VueSignaturePad from 'vue-signature-pad';
+import './registerServiceWorker'
 
 
 Vue.use( CKEditor );
@@ -39,8 +40,8 @@ Vue.use(VueSignaturePad);
 Vue.component('apexchart', VueApexCharts)
 
 window.axios=axios
-axios.defaults.baseURL = 'https://api.hayokinsurance.com';
-// axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'https://api.hayokinsurance.com';
+axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = ''

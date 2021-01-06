@@ -7,7 +7,7 @@
 
                          <section>
                            <div class="container row">
-                             <div class="col-md-10" v-show="showinput">
+                             <div class="col-md-11" v-show="showinput">
                                  <div class="text-center">
                                      <h3 class="h3">(Offline) Bio Data </h3>
                                  </div>
@@ -146,6 +146,16 @@
                                                                      <option  value="O">O</option>
                                                                  </select>
                                                               </div>
+                                                              <div class="form-group col-md-6">
+                                                                <label >Marital Status</label>
+                                                                  <select class="form-control" v-model="newStudent.marital_status">
+                                                                    <option  value="Married">Married</option>
+                                                                    <option  value="Widow">Widow</option>
+                                                                    <option  value="Single">Single</option>
+                                                                    <option  value="Divorced">Seperated</option>
+                                                                    <option  value="Divorced">Divorced</option>
+                                                                 </select>
+                                                              </div>
                                                               <!--  <div class="form-group col-md-6">
                                                                 <label for="inputCity">Genotype</label>
                                                                     <select class="form-control"  v-model="newStudent.genotype" >
@@ -183,8 +193,19 @@
                                                               <h3 class="h3">Client Picture </h3>
 
                                                               <div class="form-group">
-                                                                <button  class="btn btn-default" @click="takePic">Take Picture Picture</button>
-                                                                <button class="btn btn-primary btn-block btn-lg" @click="add">Submit</button>
+                                                                <div class="row">
+                                                                  <div class="col-md-4">
+                                                                    <button  class="btn btn-secondary btn-block btn-lg" @click="showInput">Back</button>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                    <button  class="btn btn-default btn-block btn-lg" @click="takePic">Take Picture Picture</button>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                    <button class="btn btn-primary btn-block btn-lg" @click="add">Submit</button>
+
+                                                                  </div>
+
+                                                                </div>
 
                                                               </div>
                                                               <div class="row ">
@@ -192,7 +213,7 @@
                                                                     <video id="video" width="100%"  height="auto" autoplay></video>
 
                                                                   <div class="col-md-7">
-                                                                    <canvas id="canvas" width="500px" height="550px"></canvas>
+                                                                    <canvas id="canvas" width="650px" height="500px"></canvas>
                                                                   </div>
                                                                 </div>
 
@@ -268,6 +289,21 @@ export default {
         yobe_lgas:yobeJson,
         kogi_lgas:kogiJson,
         isLoading: false,
+        video_settings:{
+                video: {
+                  width: {
+                    min: 1280,
+                    ideal: 1920,
+                    max: 2560,
+                  },
+                  height: {
+                    min: 720,
+                    ideal: 1080,
+                    max: 1440
+                  },
+                  facingMode: 'environment'
+                }
+              },
       service: new StudentService()
     };
   },
@@ -291,12 +327,16 @@ export default {
       this.showcamera = true;
       this.streamPic()
     },
+    showInput(){
+      this.showinput = true;
+      this.showcamera = false;
+    },
     streamPic(){
       var video = document.getElementById('video');
     // Get access to the camera!
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         // Not adding `{ audio: true }` since we only want video now
-        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        navigator.mediaDevices.getUserMedia(this.video_settings).then(function(stream) {
             //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
             video.play();
@@ -309,7 +349,7 @@ export default {
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
 
-      context.drawImage(video, 0, 0, 300, 300);
+      context.drawImage(video, 0, 0, 500, 350);
 
         // get image
         var image = new Image();
@@ -340,6 +380,7 @@ export default {
           localgovt: this.newStudent.localgovt,
           ward: this.newStudent.ward,
           sector: this.newStudent.sector,
+          marital_status: this.newStudent.marital_status,
           blood: this.newStudent.blood,
           salary_number: this.newStudent.salary_number,
           place_of_work: this.newStudent.place_of_work,
@@ -351,8 +392,7 @@ export default {
         });
         this.$emit("add-item", studentsAdded[0]);
         this.clear();
-        this.showinput = true;
-        this.showcamera = false;
+        this.showInput();
         this.$toasted.info('Client Added Successfully', {position: 'top-center', duration:3000 })
 
       } catch (ex) {

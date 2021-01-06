@@ -386,6 +386,7 @@ export default {
               firstname: item.firstname,
               lastname: item.lastname,
               middlename: item.middlename,
+              nimc_number: item.nimc_number,
               email: item.email,
               phone_number: item.phone_number,
               type: 'client',

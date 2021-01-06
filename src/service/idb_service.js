@@ -34,6 +34,10 @@ const getDatabase = () => {
                 notNull: true,
                 dataType: DATA_TYPE.String
             },
+            marital_status: {
+                notNull: true,
+                dataType: DATA_TYPE.String
+            },
             phone_number: {
                 notNull: true,
                 dataType: DATA_TYPE.String

@@ -131,7 +131,6 @@
                                        <button class="btn btn-info">Other Details</button>
                                    </div>
 
-                                   <!-- <img :src="output"> -->
 
                                    <p class="spacer-top-bottom"><strong>NIMC Number:</strong> {{client.nimc_number}}</p>
                                    <hr>
@@ -202,7 +201,7 @@
                                                                      <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
                                                                      <!-- <p>{{imagefile}}</p> -->
 
-                                                                       <canvas id="canvas"  width="720px"   height="550px"></canvas>
+                                                                       <canvas id="canvas"  width="650px"   height="500px"></canvas>
 
                                                                  </div>
                                                              </div>
@@ -299,7 +298,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 
     // Trigger photo take
   document.getElementById("snap").addEventListener("click", function() {
-	context.drawImage(video, 0, 0, 640, 480);
+	context.drawImage(video, 0, 0, 500, 350);
 
     // get image
     var image = new Image();

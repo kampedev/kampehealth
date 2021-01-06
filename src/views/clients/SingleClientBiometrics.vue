@@ -50,7 +50,7 @@
                        <div class="card m-b-30">
 
 
-                           <div class="card-body">
+                           <div class="card-body" ref="printNow">
 
                              <div class="" >
                                    <div class="fileinput fileinput-new" data-provides="fileinput" >
@@ -117,6 +117,9 @@
                              <img :src="`https://api.hayokinsurance.com/image/${clientfinger.thumbs}`">
                            </div>
 
+                           <img :src="output">
+
+
                        </div>
                    </div>
 
@@ -155,6 +158,7 @@ export default {
     return{
       user:null,
       client:"",
+      output:"",
       auth_user:"",
       selector:"",
       edit:false,
@@ -183,6 +187,16 @@ export default {
   },
 
   methods:{
+    async print() {
+     const el = this.$refs.printNow;
+     // add option type to get the image version
+     // if not provided the promise will return
+     // the canvas.
+     const options = {
+       type: 'dataURL'
+     }
+     this.output = await this.$html2canvas(el, options);
+   },
     attachLeft(event){
     this.user = JSON.parse(localStorage.getItem('user'))
      this.leftfingers = event.target.files[0];

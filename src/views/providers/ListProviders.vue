@@ -298,7 +298,7 @@ export default {
           phone_number : this.register.phone_number,
           agency_name : this.register.agency_name,
           type : this.register.type,
-          state : '2661',
+          state : '2669',
           localgovt : this.register.localgovt,
           services_offered : this.register.services_offered,
           address1 : this.register.address1,

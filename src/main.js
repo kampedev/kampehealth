@@ -18,7 +18,7 @@ import VueHtml2Canvas from 'vue-html2canvas';
 import VueApexCharts from 'vue-apexcharts'
 import Clipboard from 'v-clipboard'
 import VueSignaturePad from 'vue-signature-pad';
-// import './registerServiceWorker'
+import JsonExcel from "vue-json-excel";
 
 
 Vue.use( CKEditor );
@@ -36,6 +36,7 @@ Vue.use(VueHtml2Canvas);
 Vue.use(VueApexCharts)
 Vue.use(Clipboard)
 Vue.use(VueSignaturePad);
+Vue.component("downloadExcel", JsonExcel);
 
 Vue.component('apexchart', VueApexCharts)
 

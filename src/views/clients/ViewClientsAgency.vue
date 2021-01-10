@@ -24,7 +24,7 @@
                                    </div>
                                </div> -->
                            </div>
-                           <button type="button" class="btn btn-info" name="button" @click="getClients">Refresh Clients</button>
+                           <button type="button" class="btn btn-info " name="button" @click="getClients">Refresh Clients</button>
 
                        </div>
 
@@ -56,7 +56,7 @@
                                      </tr>
                                      </thead>
                                      <tbody>
-                                     <tr v-for="client in clients" v-bind:key="client.id">
+                                     <tr v-for="client in clients.data" v-bind:key="client.id">
                                          <!-- <td>
                                              <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
                                                                                  class="avatar-img avatar-sm rounded-circle"
@@ -77,6 +77,11 @@
 
                                      </tbody>
                                  </table>
+                                 <div class="col-lg-4 offset-lg-4">
+                                   <button  class="btn btn-default btn-lg" @click="gotoPrevious">Previous</button>
+                                   <button class="btn btn-default btn-lg" @click="gotoNext">Next</button>
+
+                                 </div>
 
                              </div>
 
@@ -123,6 +128,7 @@ export default {
       clients:"",
       state:"",
       lga_states:"",
+      current_page:1,
       register:{
                 firstname:"",
                 lastname:"",
@@ -140,9 +146,13 @@ export default {
   beforeMount(){
     this.isLoading = true
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
+    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`,{
+    params:{
+      page: this.current_page
+    }
+  })
                 .then(response => {
-                    this.clients = response.data.data.reverse().slice(0,20)
+                    this.clients = response.data
                     console.log(response)
                     this.isLoading = false
 
@@ -154,12 +164,35 @@ export default {
                 })
   },
   methods:{
+    gotoNext(){
+      if (this.clients.meta.current_page == this.clients.meta.last_page) {
+            this.current_page ++
+            this.getClients()
+          }
+          else {
+            this.$toasted.info('You have reached the Last Page', {position: 'top-center', duration:3000 })
+
+          }
+    },
+    gotoPrevious(){
+      if (this.clients.meta.current_page != 1) {
+          this.current_page --
+          this.getClients()
+        }
+        else {
+          this.$toasted.info('You have reached the First Page', {position: 'top-center', duration:3000 })
+        }
+    },
     getClients(){
       this.isLoading = true
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`,{
+      params:{
+        page: this.current_page
+      }
+    })
                   .then(response => {
-                      this.clients = response.data.data.reverse().slice(0,20)
+                      this.clients = response.data
                       console.log(response)
                       this.isLoading = false
                       // this.$toasted.success('Success', {position: 'top-center', duration:3000 })

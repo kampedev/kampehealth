@@ -59,13 +59,13 @@
                                                           </div>
 
                                                           <div class="row">
-                                                            <div class="form-group col-md-6">
+                                                            <!-- <div class="form-group col-md-6">
                                                               <label for="inputCity">States</label>
 
                                                               <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                                                <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                                            </select>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">LGA</label>
                                                                 <select class="form-control"  v-model="register.localgovt">
@@ -260,7 +260,7 @@ export default {
           type: this.register.type,
           username: this.register.email,
           password: 'euhler',
-          state: this.state.name,
+          state: 2669,
           institutional_id: this.user.id,
           job_title: this.register.job_title,
           role: 0,

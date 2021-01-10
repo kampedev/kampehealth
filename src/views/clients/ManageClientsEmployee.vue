@@ -227,7 +227,7 @@
                                                               <div class="form-group col-md-4">
                                                                 <label for="inputCity">LGA</label>
                                                                   <select class="form-control"  v-model="register.localgovt">
-                                                                    <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                                                                    <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                  </select>
                                                               </div>
 
@@ -506,7 +506,7 @@ export default {
           type: this.register.type,
           provider_id: this.register.provider_id,
           // state: 'this.state.name',
-          state: 'Kogi',
+          state: '2669',
           role: 0,
           password: 'jacobi',
           localgovt: this.register.localgovt,

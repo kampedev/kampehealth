@@ -58,7 +58,7 @@
                                                               </div>
                                                           </div>
 
-                                                          <div class="row">
+                                                          <!-- <div class="row">
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">States </label>
 
@@ -66,13 +66,13 @@
                                                                <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                                            </select>
                                                             </div>
-                                                            <!-- <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-6">
                                                               <label for="inputCity">LGA {{lga.local_name}}</label>
                                                                 <select class="form-control"  v-model="register.localgovt">
                                                                   <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                </select>
-                                                            </div> -->
-                                                          </div>
+                                                            </div>
+                                                          </div> -->
 
                                                           <div class="form-row">
 

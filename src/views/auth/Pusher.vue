@@ -24,11 +24,11 @@ export default {
 
     this.axios.get(`/api/v1/auth/user`)
                 .then(response => {
-                    this.auth_user = response.data.data
+                    this.auth_user = response.data
                     console.log(response)
-                     localStorage.setItem('user',JSON.stringify(response.data.data))
-                     let type = response.data.data.type
-                     let job_title = response.data.data.job_title
+                     localStorage.setItem('user',JSON.stringify(response.data))
+                     let type = response.data.type
+                     let job_title = response.data.job_title
                      if (type == 'client') {
                        this.$router.push('/client-dashboard')
 

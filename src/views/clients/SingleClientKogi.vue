@@ -66,7 +66,7 @@
                </div>
 
                <div class="row">
-                   <div class="col-lg-12 col-md-12" id="printDiv" ref="printNow">
+                   <div class="col-lg-8 col-md-12" id="printDiv" ref="printNow">
                        <div class="card" style="background-image: url('../assets/img/kgshia_transparent.png'); background-size: cover; background-repeat: no-repeat;">
                            <div class="card-header ">
                              <div class="row spacer-top">
@@ -120,7 +120,7 @@
                        </div>
                    </div>
 
-                       <div class="col-lg-12">
+                       <div class="col-lg-4 col-md-12">
                            <div class="card m-b-30">
                                <div class="card-header">
 

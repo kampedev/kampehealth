@@ -21,9 +21,13 @@
                                       </div>
                                       <div class="content">
                                           <strong>{{offlineclients.length}} Users</strong> added offline.
+                                          <download-excel :data="offlineclients">
                                               <button type="button" class="btn btn-primary align-right" name="button" @click="syncClients">Sync Now</button>
+                                            </download-excel>
+
                                       </div>
                                   </div>
+
 
                               </div>
                 </div>
@@ -63,7 +67,7 @@
                             </div>
                             <div>
                                 <p class="h4">Clients</p>
-                                <h1 class="fw-400">{{clients.length}}</h1>
+                                <h1 class="fw-400">{{total_clients}}</h1>
                                 <!-- <h1 class="fw-400">218</h1> -->
                             </div>
                         </div>
@@ -264,6 +268,7 @@ export default {
       auth_user:"",
       providers:"",
       clients:"",
+      total_clients:"",
       claims:"",
       offlineclients: [],
       employees:"",
@@ -300,7 +305,7 @@ export default {
   beforeMount(){
     this.axios.get(`/api/v1/auth/user`)
                 .then(response => {
-                    this.auth_user = response.data.data
+                    this.auth_user = response.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -348,17 +353,7 @@ export default {
                       console.error(error);
                   })
     },
-    getPlans(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/planAgency/${this.user.id}`)
-                  .then(response => {
-                      this.plans = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
+
     getClients(){
       // this.user = JSON.parse(localStorage.getItem('user'))
       // this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
@@ -372,6 +367,7 @@ export default {
       this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
                   .then(response => {
                       this.clients = response.data.data
+                      this.total_clients = response.data.meta.total
                       console.log(response)
                   })
                   .catch(error => {
@@ -379,6 +375,8 @@ export default {
                   })
     },
   async  syncClients(){
+    if (confirm('Are you Sure you want to Sync Data from your Device?') ) {
+
       this.isLoading = true;
 
       const result = this.offlineclients.map((item) => {
@@ -425,6 +423,51 @@ export default {
                                 console.error(error);
                             })
                 //End upload Pic
+
+                //upload left finger image
+                var formData = new FormData();
+                formData.append("user_id", user_added_id)
+                formData.append("leftfour", item.left_fingers)
+                this.axios.post("/api/v1/auth/uploadLeftfour", formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                })
+                .then(response => {
+                  console.log(response);
+
+                })
+                //End of upload left image
+
+                //upload right finger image
+                var formDataright = new FormData();
+                formDataright.append("user_id", user_added_id)
+                formDataright.append("rightfour", item.right_fingers)
+                this.axios.post("/api/v1/auth/uploadRightfour", formDataright, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                })
+                .then(response => {
+                  console.log(response);
+
+                })
+                //End of upload left image
+
+                //upload thumbs finger image
+                var formDataThumbs = new FormData();
+                formDataThumbs.append("user_id", user_added_id)
+                formDataThumbs.append("thumbs", item.thumbs_fingers)
+                this.axios.post("/api/v1/auth/uploadThumbs", formDataThumbs, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                })
+                .then(response => {
+                  console.log(response);
+
+                })
+                //End of upload thumbs image
             }).
             catch(error=>{
                 console.log(error.response)
@@ -439,6 +482,8 @@ export default {
       this.isLoading = false;
       this.$toasted.info('Client Synced Successfully', {position: 'top-center', duration:3000 })
       this.getOfflineCLients()
+    }
+
 
     },
     async remove() {
@@ -457,7 +502,6 @@ export default {
   created(){
     this.getProviders()
     this.getClaims()
-    this.getPlans()
     this.getClients()
     this.getEmployees()
     this.getOfflineCLients()

@@ -31,21 +31,24 @@
                    <div class="col-lg-12">
                        <div class="card m-b-30">
                            <div class="card-header">
-
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
+                             <div class="text-center">
+                                <strong >Fingerprint Data</strong>
+                             </div>
                            </div>
 
                            <div class="card-body">
-                                     <div class="text-center">
-                                        <strong >Biometrics Data</strong>
-                                     </div>
+                             <label class="h4">Fingerprint Type</label>
+                               <select class="form-control" v-model="type">
+                                 <option  value="4-4-2">4-4-2 Scanner</option>
+                                 <option  value="single">Single Scanner</option>
 
+                              </select>
                            </div>
                        </div>
                    </div>
                </div>
 
-               <div class="row">
+               <div class="row" v-if="type == '4-4-2'">
                    <div class="col-lg-8 col-md-8">
                        <div class="card m-b-30">
 
@@ -119,11 +122,91 @@
 
                            <img :src="output">
 
+                       </div>
+                   </div>
+
+               </div>
+
+               <div class="row" v-if="type == 'single'">
+                   <div class="col-lg-8 col-md-8">
+                       <div class="card m-b-30">
+
+
+                           <div class="card-body" ref="printNow">
+
+                             <div class="" >
+                                   <div class="fileinput fileinput-new" data-provides="fileinput" >
+                                     <span class="btn btn-file">
+                                       <span class="fileinput-new">Upload Left Fingers</span>
+                                       <span class="fileinput-exists">Change</span>
+                                       <input type="file"   v-on:change="attachLeft">
+                                     </span>
+                                     <span class="fileinput-filename"></span>
+                                     <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                 </div>
+
+                                 <div class="fileinput fileinput-new" data-provides="fileinput" >
+                                   <span class="btn btn-file">
+                                     <span class="fileinput-new">Upload Right Fingers</span>
+                                     <span class="fileinput-exists">Change</span>
+                                     <input type="file" name="..." multiple   v-on:change="attachRight">
+                                   </span>
+                                   <span class="fileinput-filename"></span>
+                                   <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                               </div>
+
+                               <div class="fileinput fileinput-new" data-provides="fileinput" >
+                                 <span class="btn btn-file">
+                                   <span class="fileinput-new">Upload Thumbs</span>
+                                   <span class="fileinput-exists">Change</span>
+                                   <input type="file" name="..." multiple   v-on:change="attachThumbs">
+                                 </span>
+                                 <span class="fileinput-filename"></span>
+                                 <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                              </div>
+
+                             </div>
+
+                           </div>
+                       </div>
+                   </div>
+
+
+                   <div class="col-lg-4 col-md-4">
+                       <div class="card m-b-30">
+
+                           <div class="card-header">
+                             <p><strong>Left Four FingerPrints: </strong></p>
+                           </div>
+                           <div class="card-body">
+                             <!-- <img :src="`http://localhost:8000/image/${clientfinger.leftfour}`"> -->
+                             <img :src="`https://api.hayokinsurance.com/image/${clientfinger.leftfour}`">
+                           </div>
+
+                           <div class="card-header">
+                             <p><strong>Right Four FingerPrints:</strong></p>
+                           </div>
+                           <div class="card-body">
+                             <!-- <img :src="`http://localhost:8000/image/${clientfinger.rightfour}`"> -->
+                             <img :src="`https://api.hayokinsurance.com/image/${clientfinger.rightfour}`">
+                           </div>
+
+                           <div class="card-header">
+                             <p><strong>Two Thumbs FingerPrints:</strong></p>
+                           </div>
+                           <div class="card-body">
+                             <!-- <img :src="`http://localhost:8000/image/${clientfinger.thumbs}`"> -->
+                             <img :src="`https://api.hayokinsurance.com/image/${clientfinger.thumbs}`">
+                           </div>
+
+                           <img :src="output">
 
                        </div>
                    </div>
 
                </div>
+
+
            </div>
 
 
@@ -162,6 +245,7 @@ export default {
       auth_user:"",
       selector:"",
       edit:false,
+      type:"",
       isLoading: false,
       fullPage: true,
       leftfingers:"",

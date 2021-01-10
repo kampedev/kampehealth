@@ -84,6 +84,7 @@ export default {
       identifier:"",
      reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
       password:"",
+      password_confirmation:"",
       response:"",
       isLoading: false,
       fullPage: true,
@@ -117,6 +118,7 @@ export default {
                 this.axios.post('/api/v1/auth/login',{
                 email:this.identifier,
                 password:this.password,
+                password_confirmation:this.password,
               })
 
             .then(response=>{

@@ -4,16 +4,8 @@
     <main class="admin-main">
        <div class="bg-dark m-b-30">
            <div class="container">
-               <div class="row p-b-5 p-t-5">
+               <div class="row p-b-1 p-t-1">
 
-                   <div class="col-md-6 text-center mx-auto text-white p-b-30">
-                       <div class="m-b-10">
-                           <div class="avatar ">
-                               <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-                           </div>
-                       </div>
-                       <strong>{{students.length}} Clients</strong>
-                   </div>
 
                </div>
            </div>

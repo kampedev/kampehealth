@@ -100,7 +100,7 @@
 
 
                                                              <div class="form-group col-md-6">
-                                                                 <label for="inputEmail4">NIMC Number</label>
+                                                                 <label for="inputEmail4">NIN Number</label>
                                                                  <input type="text" class="form-control" v-model="register.nimc_number" placeholder="NIMC Number">
                                                              </div>
                                                              <div class="form-group col-md-6">
@@ -233,15 +233,7 @@
 
                                                               <div class="form-group col-md-4">
                                                                 <label >Ward</label>
-                                                                  <select class="form-control" v-model="register.ward">
-                                                                    <option  value="Okibo">Okibo</option>
-                                                                    <option  value="Ogugu">Ogugu</option>
-                                                                    <option  value="Oturu-Otuo">Oturu-Otuo</option>
-                                                                    <option  value="Ileteju">Ileteju</option>
-                                                                    <option  value="Obinoyin">Obinoyin</option>
-                                                                    <option  value="Okesin">Okesin</option>
-                                                                    <option  value="Eni">Eni</option>
-                                                                 </select>
+                                                                <input type="text" class="form-control" v-model="register.ward" placeholder="NIMC Number">
                                                               </div>
 
                                                               <!-- <div class="form-group col-md-12" >
@@ -293,7 +285,6 @@
                                                          <div class="form-group">
                                                              <button class="btn btn-primary btn-block btn-lg" @click="registerUser">Submit</button>
                                                          </div>
-
                            </div>
                        </div>
                    </div>
@@ -316,32 +307,32 @@
 
                            <div class="card-body">
 
-                              <h1>{{clients.length}} Clients</h1>
+                              <h1 class="h3 text-center">{{clients.meta.total}} Clients</h1>
 
                              <div class="table-responsive">
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <!-- <th>Avatar</th> -->
+                                         <!-- <th>SN</th> -->
                                          <th>Name</th>
-                                         <th>E mail</th>
                                          <th>Phone Number</th>
-                                         <th>State</th>
+                                         <th>Sector</th>
+                                         <!-- <th>State</th> -->
                                          <th>Action</th>
                                      </tr>
                                      </thead>
                                      <tbody>
-                                     <tr v-for="client in clients" v-bind:key="client.id">
+                                     <tr v-for="client in clients.data" v-bind:key="client.id">
                                          <!-- <td>
                                              <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
                                                                                  class="avatar-img avatar-sm rounded-circle"
                                                                                  alt=""></div>
                                          </td> -->
+                                         <!-- <td >{{index+1}} </td> -->
                                          <td >{{client.firstname}} {{client.lastname}}</td>
-                                         <td>{{client.email}}</td>
                                          <td>{{client.phone_number}}</td>
+                                         <td>{{client.sector}}</td>
                                          <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
-                                         <td>{{client.state}}</td>
                                          <td>
 
                                            <router-link :to="{ path: '/client/'+ client.id}">
@@ -353,9 +344,12 @@
 
                                      </tbody>
                                  </table>
+                                 <div class="col-lg-4 offset-lg-4">
+                                   <button  class="btn btn-default btn-lg" @click="gotoPrevious">Previous</button>
+                                   <button class="btn btn-default btn-lg" @click="gotoNext">Next</button>
+                                 </div>
 
                              </div>
-
 
                            </div>
                        </div>
@@ -390,10 +384,12 @@ export default {
       states:"",
       show:false,
       clients:"",
+      providers:"",
       sector:"",
       mdas:"",
       state:"",
       lga_states:"",
+      current_page:"",
       register:{
         firstname:"",
         lastname:"",
@@ -426,37 +422,61 @@ export default {
     }
   },
   beforeMount(){
+    this.isLoading = true
     this.user = JSON.parse(localStorage.getItem('user'))
-
-    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`)
+    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`,{
+    params:{
+      page: this.current_page
+    }
+  })
                 .then(response => {
-                    this.clients = response.data.data
+                    this.clients = response.data
+                    this.isLoading = false
+
                     console.log(response)
                 })
                 .catch(error => {
                     console.error(error);
+                    this.isLoading = false
+
                 })
 
   },
   methods:{
+    gotoNext(){
+      if (this.clients.meta.current_page != this.clients.meta.last_page) {
+            this.current_page ++
+            this.getClients()
+          }
+          else {
+            this.$toasted.info('You have reached the Last Page', {position: 'top-center', duration:3000 })
+
+          }
+    },
+    gotoPrevious(){
+      if (this.clients.meta.current_page != 1) {
+          this.current_page --
+          this.getClients()
+        }
+        else {
+          this.$toasted.info('You have reached the First Page', {position: 'top-center', duration:3000 })
+        }
+    },
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-
-      // this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
-      //             .then(response => {
-      //                 this.clients = response.data.data
-      //                 console.log(response)
-      //             })
-      //             .catch(error => {
-      //                 console.error(error);
-      //             })
-
-      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`)
+      this.isLoading = true
+      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`,{
+      params:{
+        page: this.current_page
+      }
+    })
                   .then(response => {
-                      this.clients = response.data.data
+                      this.clients = response.data
+                      this.isLoading = false
                       console.log(response)
                   })
                   .catch(error => {
+                    this.isLoading = false
                       console.error(error);
                   })
 

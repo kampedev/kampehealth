@@ -80,9 +80,8 @@
                           <thead>
                           <tr>
                               <th>Name</th>
-                              <th>E mail</th>
                               <th>Phone Number</th>
-                              <th>State</th>
+                              <th>Sector</th>
                               <th>Action</th>
                           </tr>
                           </thead>
@@ -91,8 +90,8 @@
                               <td>
                                 {{client.firstname}} {{client.lastname}}
                               </td>
-                              <td>{{client.email}} </td>
-                              <td>{{client.phone_number}}</td>
+                              <td>{{client.phone_number}} </td>
+                              <td>{{client.sector}}</td>
                               <td> {{client.state}}</td>
                               <td>
                                 <router-link :to="{ path: '/client/'+ client.id}">

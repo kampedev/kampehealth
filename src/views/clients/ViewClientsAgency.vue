@@ -80,7 +80,6 @@
                                  <div class="col-lg-4 offset-lg-4">
                                    <button  class="btn btn-default btn-lg" @click="gotoPrevious">Previous</button>
                                    <button class="btn btn-default btn-lg" @click="gotoNext">Next</button>
-
                                  </div>
 
                              </div>
@@ -165,7 +164,7 @@ export default {
   },
   methods:{
     gotoNext(){
-      if (this.clients.meta.current_page == this.clients.meta.last_page) {
+      if (this.clients.meta.current_page != this.clients.meta.last_page) {
             this.current_page ++
             this.getClients()
           }

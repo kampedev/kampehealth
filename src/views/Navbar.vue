@@ -51,6 +51,7 @@
                 </router-link>
             </li>
 
+
             <li class="menu-item active " v-if="user.type == 'shis'">
                 <a href="/state-dashboard" class=" menu-link">
                         <span class="menu-label">
@@ -178,6 +179,29 @@
                     </li>
 
                 </ul>
+            </li>
+
+            <li class="menu-item" v-if="user.type == 'tpa'">
+                <a href="/add-client/employee-offline" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">View Enrollees
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-cloud-off "></i>
+                                            </span>
+                </a>
+            </li>
+            <li class="menu-item" v-if="user.type == 'tpa'">
+                <a href="/add-client/employee-offline" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Add Agent
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-cloud-off "></i>
+                                            </span>
+                </a>
             </li>
 
             <li class="menu-item "  v-if="user.type == 'shis' ">

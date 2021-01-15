@@ -250,6 +250,7 @@ export default {
       states:"",
       state:"",
       lga_states:"",
+      wards:[],
       register:{
                 firstname:"Nil",
                 lastname:"Nil",

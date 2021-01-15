@@ -313,6 +313,7 @@ export default {
       response:"",
       state:"",
       lga_states:"",
+      wards:[],
       register:{
                 firstname:"",
                 lastname:"",
@@ -341,7 +342,7 @@ export default {
                 date_of_entry:"",
                 marital_status:"",
                 category_of_vulnerable_group:"",
-                wards:[]
+                
             }
     }
   },

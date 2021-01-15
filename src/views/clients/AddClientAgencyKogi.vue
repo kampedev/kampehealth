@@ -217,21 +217,10 @@
 
                                                               <div class="form-group col-md-4">
                                                                 <label >Ward</label>
-                                                                <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
+                                                                <select class="form-control"  v-model="register.ward">
                                                                     <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                  </select>
-                                                                  <!-- <select class="form-control" v-model="register.ward">
-                                                                    <option  value="Okibo">Okibo</option>
-                                                                    <option  value="Ogugu">Ogugu</option>
-                                                                    <option  value="Oturu-Otuo">Oturu-Otuo</option>
-                                                                    <option  value="Ileteju">Ileteju</option>
-                                                                    <option  value="Obinoyin">Obinoyin</option>
-                                                                    <option  value="Okesin">Okesin</option>
-                                                                    <option  value="Eni">Eni</option>
-                                                                    <option  value="Obatigben">Obatigben</option>
-                                                                    <option  value="Aiyeromi">Aiyeromi</option>
-                                                                    <option  value="Oshobane">Oshobane</option>
-                                                                 </select> -->
+                                                                 
                                                               </div>
 
                                                           </div>
@@ -396,8 +385,8 @@ export default {
     fetchWards(){
       this.axios.get(`/api/v1/auth/getwards/` + event.target.value)
                   .then(response => {
-                      this.wards = response.data
-                      console.log(response)
+                      this.wards = response.data.data
+                      console.log(response.data.data)
                   })
                   .catch(error => {
                       console.error(error);

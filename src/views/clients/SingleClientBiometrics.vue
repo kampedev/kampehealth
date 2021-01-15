@@ -8,15 +8,14 @@
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image">
                        <div class="m-b-10">
-                         <div class="avatar">
+                         <!-- <div class="avatar">
                            <label class="avatar-input">
                         <span class="avatar avatar-lg">
                             <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
                                  class="avatar-img rounded-circle"   >
                         </span>
-
                            </label>
-                         </div>
+                         </div> -->
                        </div>
                        <strong> {{client.firstname}} {{client.lastname}}</strong>
                    </div>
@@ -37,7 +36,7 @@
                            </div>
 
                            <div class="card-body">
-                             <label class="h4">Fingerprint Type</label>
+                             <label class="h5">Scanner Type</label>
                                <select class="form-control" v-model="type">
                                  <option  value="4-4-2">4-4-2 Scanner</option>
                                  <option  value="single">Single Scanner</option>
@@ -128,82 +127,7 @@
                </div>
 
                <div class="row" v-if="type == 'single'">
-                   <div class="col-lg-8 col-md-8">
-                       <div class="card m-b-30">
-
-
-                           <div class="card-body" ref="printNow">
-
-                             <div class="" >
-                                   <div class="fileinput fileinput-new" data-provides="fileinput" >
-                                     <span class="btn btn-file">
-                                       <span class="fileinput-new">Upload Left Fingers</span>
-                                       <span class="fileinput-exists">Change</span>
-                                       <input type="file"   v-on:change="attachLeft">
-                                     </span>
-                                     <span class="fileinput-filename"></span>
-                                     <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                                 </div>
-
-                                 <div class="fileinput fileinput-new" data-provides="fileinput" >
-                                   <span class="btn btn-file">
-                                     <span class="fileinput-new">Upload Right Fingers</span>
-                                     <span class="fileinput-exists">Change</span>
-                                     <input type="file" name="..." multiple   v-on:change="attachRight">
-                                   </span>
-                                   <span class="fileinput-filename"></span>
-                                   <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                               </div>
-
-                               <div class="fileinput fileinput-new" data-provides="fileinput" >
-                                 <span class="btn btn-file">
-                                   <span class="fileinput-new">Upload Thumbs</span>
-                                   <span class="fileinput-exists">Change</span>
-                                   <input type="file" name="..." multiple   v-on:change="attachThumbs">
-                                 </span>
-                                 <span class="fileinput-filename"></span>
-                                 <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                              </div>
-
-                             </div>
-
-                           </div>
-                       </div>
-                   </div>
-
-
-                   <div class="col-lg-4 col-md-4">
-                       <div class="card m-b-30">
-
-                           <div class="card-header">
-                             <p><strong>Left Four FingerPrints: </strong></p>
-                           </div>
-                           <div class="card-body">
-                             <!-- <img :src="`http://localhost:8000/image/${clientfinger.leftfour}`"> -->
-                             <img :src="`https://api.hayokinsurance.com/image/${clientfinger.leftfour}`">
-                           </div>
-
-                           <div class="card-header">
-                             <p><strong>Right Four FingerPrints:</strong></p>
-                           </div>
-                           <div class="card-body">
-                             <!-- <img :src="`http://localhost:8000/image/${clientfinger.rightfour}`"> -->
-                             <img :src="`https://api.hayokinsurance.com/image/${clientfinger.rightfour}`">
-                           </div>
-
-                           <div class="card-header">
-                             <p><strong>Two Thumbs FingerPrints:</strong></p>
-                           </div>
-                           <div class="card-body">
-                             <!-- <img :src="`http://localhost:8000/image/${clientfinger.thumbs}`"> -->
-                             <img :src="`https://api.hayokinsurance.com/image/${clientfinger.thumbs}`">
-                           </div>
-
-                           <img :src="output">
-
-                       </div>
-                   </div>
-
+                  <SingleFingerprint/>
                </div>
 
 
@@ -226,6 +150,7 @@
 <script>
 
   import Navbar from '@/views/Navbar.vue'
+  import SingleFingerprint from '@/views/clients/UploadFingerprintSingle.vue'
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
@@ -235,7 +160,7 @@
 
 export default {
   components: {
-     Navbar, Loading
+     Navbar, Loading, SingleFingerprint
   },
   data(){
     return{
@@ -382,6 +307,9 @@ export default {
 
                     })
                 },
+                add(){
+                  //
+                }
 
 
 

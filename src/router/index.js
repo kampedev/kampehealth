@@ -108,23 +108,23 @@ const routes = [
     component: SelectType
   },
   {
-    path: '/signup-clientoff',
+    path: '/signup-client',
     component: SignupClient
   },
   {
-    path: '/signup-stateoff',
+    path: '/signup-state',
     component: SignupState
   },
   {
-    path: '/signup-hmooff',
+    path: '/signup-hmo',
     component: SignupHmo
   },
   {
-    path: '/signup-provideroff',
+    path: '/signup-provider',
     component: SignupProvider
   },
   {
-    path: '/signup-agencyoff',
+    path: '/signup-agency',
     component: SignupAgency
   },
   {

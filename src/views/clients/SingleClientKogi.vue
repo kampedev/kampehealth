@@ -201,7 +201,7 @@
                                                                      <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
                                                                      <!-- <p>{{imagefile}}</p> -->
 
-                                                                       <canvas id="canvas"  width="650px"   height="500px"></canvas>
+                                                                       <canvas id="canvas"  width="600px"   height="450px"></canvas>
 
                                                                  </div>
                                                              </div>

@@ -234,7 +234,6 @@
                                                                 <select class="form-control"  v-model="register.ward">
                                                                     <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                  </select>
-                                                                 
                                                               </div>
 
                                                           </div>
@@ -381,6 +380,7 @@ export default {
       providers:"",
       sector:"",
       mdas:"",
+      wards:[],
       state:"",
       lga_states:"",
       current_page:"",
@@ -437,6 +437,16 @@ export default {
 
   },
   methods:{
+    fetchWards(){
+      this.axios.get(`/api/v1/auth/getwards/` + event.target.value)
+                  .then(response => {
+                      this.wards = response.data.data
+                      console.log(response.data.data)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
     gotoNext(){
       if (this.clients.meta.current_page != this.clients.meta.last_page) {
             this.current_page ++
@@ -495,16 +505,7 @@ export default {
                       console.error(error);
                   })
     },
-    fetchWards(){
-      this.axios.get(`/api/v1/auth/getwards/` + event.target.value)
-                  .then(response => {
-                      this.wards = response.data.data
-                      console.log(response.data.data)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
+
     getMDAs(){
       this.axios.get(`/api/v1/auth/ministry`)
                   .then(response => {

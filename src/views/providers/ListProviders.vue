@@ -72,7 +72,7 @@
                            </div>
                            <div class="form-group floating-label col-md-6">
                                <label>Agency Name</label>
-                               <input type="text" required class="form-control" placeholder="Agency Name" v-model="register.agency_name">
+                               <input type="text" required class="form-control" placeholder="Name of Provider | Facility" v-model="register.agency_name">
                            </div>
 
                              <div class="form-group floating-label col-md-6">
@@ -104,12 +104,26 @@
                                 <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                             </select>
                          </div> -->
-                         <div class="form-group col-md-6">
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">LGA</label>
+                                <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
+                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                            <label >Ward</label>
+                            <select class="form-control"  v-model="register.ward">
+                                <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                                </select>
+                                
+                            </div>
+                         <!-- <div class="form-group col-md-6">
                            <label for="inputCity">LGA</label>
                                <select class="form-control"  v-model="register.localgovt">
                                 <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                             </select>
-                         </div>
+                         </div> -->
 
                          <!-- <div class="form-group col-md-6">
                            <label for="inputCity">Ward</label>
@@ -118,10 +132,10 @@
                             </select>
                          </div> -->
 
-                         <div class="form-group floating-label col-md-6 col-sm-12">
+                         <!-- <div class="form-group floating-label col-md-6 col-sm-12">
                              <label>Ward</label>
                              <input type="text" required class="form-control" placeholder="Ward" v-model="register.ward">
-                         </div>
+                         </div> -->
 
                        </div>
 
@@ -236,6 +250,7 @@ export default {
       states:"",
       state:"",
       lga_states:"",
+      wards:[],
       register:{
                 firstname:"Nil",
                 lastname:"Nil",
@@ -283,6 +298,16 @@ export default {
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    fetchWards(){
+      this.axios.get(`/api/v1/auth/getwards/` + event.target.value)
+                  .then(response => {
+                      this.wards = response.data.data
+                      console.log(response.data.data)
                   })
                   .catch(error => {
                       console.error(error);

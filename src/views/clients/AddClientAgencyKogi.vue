@@ -72,7 +72,7 @@
                                                               </div>
                                                           </div>
                                                           <div class="form-group col-md-12"  v-if="sector == 'informal'">
-                                                            <label >Special Needs</label>
+                                                            <label >Vulnerable Groups</label>
                                                               <select class="form-control" v-model="register.category_of_vulnerable_group">
                                                                 <option  value="Pregnant Women">Pregnant Women</option>
                                                                 <option  value="Children under 5">Children under 5</option>
@@ -210,25 +210,17 @@
 
                                                               <div class="form-group col-md-4">
                                                                 <label for="inputCity">LGA</label>
-                                                                  <select class="form-control"  v-model="register.localgovt">
+                                                                  <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
                                                                     <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                  </select>
                                                               </div>
 
                                                               <div class="form-group col-md-4">
                                                                 <label >Ward</label>
-                                                                  <select class="form-control" v-model="register.ward">
-                                                                    <option  value="Okibo">Okibo</option>
-                                                                    <option  value="Ogugu">Ogugu</option>
-                                                                    <option  value="Oturu-Otuo">Oturu-Otuo</option>
-                                                                    <option  value="Ileteju">Ileteju</option>
-                                                                    <option  value="Obinoyin">Obinoyin</option>
-                                                                    <option  value="Okesin">Okesin</option>
-                                                                    <option  value="Eni">Eni</option>
-                                                                    <option  value="Obatigben">Obatigben</option>
-                                                                    <option  value="Aiyeromi">Aiyeromi</option>
-                                                                    <option  value="Oshobane">Oshobane</option>
+                                                                <select class="form-control"  v-model="register.ward">
+                                                                    <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                  </select>
+                                                                 
                                                               </div>
 
                                                           </div>
@@ -321,6 +313,7 @@ export default {
       response:"",
       state:"",
       lga_states:"",
+      wards:[],
       register:{
                 firstname:"",
                 lastname:"",
@@ -349,20 +342,13 @@ export default {
                 date_of_entry:"",
                 marital_status:"",
                 category_of_vulnerable_group:"",
+                
             }
     }
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    // this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
-    //             .then(response => {
-    //                 this.clients = response.data.data
-    //                 console.log(response)
-    //             })
-    //             .catch(error => {
-    //                 console.error(error);
-    //             })
-
+   
   },
   methods:{
     getClients(){
@@ -391,6 +377,17 @@ export default {
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+   
+    fetchWards(){
+      this.axios.get(`/api/v1/auth/getwards/` + event.target.value)
+                  .then(response => {
+                      this.wards = response.data.data
+                      console.log(response.data.data)
                   })
                   .catch(error => {
                       console.error(error);

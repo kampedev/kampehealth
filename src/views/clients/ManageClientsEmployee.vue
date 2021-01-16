@@ -86,7 +86,7 @@
                                                               </div>
                                                           </div>
                                                           <div class="form-group col-md-12"  v-if="sector == 'informal'">
-                                                            <label >Special Needs</label>
+                                                            <label >Vulnerable Groups</label>
                                                               <select class="form-control" v-model="register.category_of_vulnerable_group">
                                                                 <option  value="Pregnant Women">Pregnant Women</option>
                                                                 <option  value="Children under 5">Children under 5</option>
@@ -100,7 +100,7 @@
 
 
                                                              <div class="form-group col-md-6">
-                                                                 <label for="inputEmail4">NIN Number</label>
+                                                                 <label for="inputEmail4">NIMC Number</label>
                                                                  <input type="text" class="form-control" v-model="register.nimc_number" placeholder="NIMC Number">
                                                              </div>
                                                              <div class="form-group col-md-6">
@@ -167,8 +167,6 @@
                                                                   <date-picker v-model="register.date_of_entry" valueType="format"></date-picker>
                                                               </div>
 
-
-
                                                               <div class="form-group col-md-6">
                                                                 <label >Marital Status</label>
                                                                   <select class="form-control" v-model="register.marital_status">
@@ -226,22 +224,18 @@
 
                                                               <div class="form-group col-md-4">
                                                                 <label for="inputCity">LGA</label>
-                                                                  <select class="form-control"  v-model="register.localgovt">
+                                                                  <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
                                                                     <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                  </select>
                                                               </div>
 
                                                               <div class="form-group col-md-4">
                                                                 <label >Ward</label>
-                                                                <input type="text" class="form-control" v-model="register.ward" placeholder="NIMC Number">
+                                                                <select class="form-control"  v-model="register.ward">
+                                                                    <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                                                                 </select>
+                                                                 
                                                               </div>
-
-                                                              <!-- <div class="form-group col-md-12" >
-                                                                  <label for="inputEmail4">Ward</label>
-                                                                  <input type="text" class="form-control" v-model="register.ward" placeholder="Ward">
-                                                              </div> -->
-
-
 
                                                           </div>
 
@@ -274,8 +268,7 @@
                                                                <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
                                                            </select>
                                                             </div>
-
-                                                          </div> -->
+                                                             -->
 
                                                           <div class="form-group">
                                                              <label for="inputAddress">Home Address</label>
@@ -285,6 +278,7 @@
                                                          <div class="form-group">
                                                              <button class="btn btn-primary btn-block btn-lg" @click="registerUser">Submit</button>
                                                          </div>
+
                            </div>
                        </div>
                    </div>
@@ -496,6 +490,16 @@ export default {
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    fetchWards(){
+      this.axios.get(`/api/v1/auth/getwards/` + event.target.value)
+                  .then(response => {
+                      this.wards = response.data.data
+                      console.log(response.data.data)
                   })
                   .catch(error => {
                       console.error(error);

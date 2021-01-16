@@ -103,18 +103,7 @@ const getDatabase = () => {
                 dataType: DATA_TYPE.String,
                 notNull: false
             },
-            left_fingers: {
-                dataType: DATA_TYPE.String,
-                notNull: true
-            },
-            right_fingers: {
-                dataType: DATA_TYPE.String,
-                notNull: true
-            },
-            thumbs_fingers: {
-                dataType: DATA_TYPE.String,
-                notNull: true
-            },
+
             agency_id: {
                 dataType: DATA_TYPE.Number,
                 notNull: true

@@ -220,7 +220,6 @@
                                                                 <select class="form-control"  v-model="register.ward">
                                                                     <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                  </select>
-                                                                 
                                                               </div>
 
                                                           </div>
@@ -342,13 +341,13 @@ export default {
                 date_of_entry:"",
                 marital_status:"",
                 category_of_vulnerable_group:"",
-                
+
             }
     }
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-   
+
   },
   methods:{
     getClients(){

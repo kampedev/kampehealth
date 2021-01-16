@@ -265,50 +265,6 @@ export default {
                               })
                   //End upload Pic
 
-                  //upload left finger image
-                  var formData = new FormData();
-                  formData.append("user_id", user_added_id)
-                  formData.append("leftfour", item.left_fingers)
-                  this.axios.post("/api/v1/auth/uploadLeftfour", formData, {
-                    headers: {
-                      'Content-Type': 'multipart/form-data'
-                    }
-                  })
-                  .then(response => {
-                    console.log(response);
-
-                  })
-                  //End of upload left image
-
-                  //upload right finger image
-                  var formDataright = new FormData();
-                  formDataright.append("user_id", user_added_id)
-                  formDataright.append("rightfour", item.right_fingers)
-                  this.axios.post("/api/v1/auth/uploadRightfour", formDataright, {
-                    headers: {
-                      'Content-Type': 'multipart/form-data'
-                    }
-                  })
-                  .then(response => {
-                    console.log(response);
-
-                  })
-                  //End of upload left image
-
-                  //upload thumbs finger image
-                  var formDataThumbs = new FormData();
-                  formDataThumbs.append("user_id", user_added_id)
-                  formDataThumbs.append("thumbs", item.thumbs_fingers)
-                  this.axios.post("/api/v1/auth/uploadThumbs", formDataThumbs, {
-                    headers: {
-                      'Content-Type': 'multipart/form-data'
-                    }
-                  })
-                  .then(response => {
-                    console.log(response);
-
-                  })
-                  //End of upload thumbs image
               }).
               catch(error=>{
                   console.log(error.response)

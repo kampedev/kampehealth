@@ -336,7 +336,7 @@ export default {
     },
 
 
-  
+
  showInput(){
    this.showinput = true;
    this.showcamera = false;
@@ -347,52 +347,7 @@ export default {
       this.showcamera = true;
       this.streamPic()
     },
-    takeFinger(){
-      this.showinput = false;
-      this.showcamera = false;
-      this.showfinger = true;
-      this.l_l_finger = true;
-    },
-    showLRF(){
-      this.l_l_finger = false;
-      this.l_r_finger = true;
-    },
-    showLMF(){
-      this.l_r_finger = false;
-      this.l_m_finger = true;
-    },
-    showLPF(){
-      this.l_m_finger = false;
-      this.l_p_finger = true;
-    },
-    showLTF(){
-      this.l_p_finger = false;
-      this.l_t_finger = true;
-    },
-    showRLF(){
-      this.l_t_finger = false;
-      this.r_l_finger = true;
-    },
-    showRRF(){
-      this.r_l_finger = false;
-      this.r_r_finger = true;
-    },
-    showRMF(){
-      this.r_r_finger = false;
-      this.r_m_finger = true;
-    },
-    showRPF(){
-      this.r_m_finger = false;
-      this.r_p_finger = true;
-    },
-    showRTF(){
-      this.r_p_finger = false;
-      this.r_t_finger = true;
-    },
-    showPreviewFinger(){
-      this.r_t_finger = false;
-      this.previewfingers = true;
-    },
+    
 
     streamPic(){
       var video = document.getElementById('video');

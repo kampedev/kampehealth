@@ -41,8 +41,8 @@ Vue.component("downloadExcel", JsonExcel);
 Vue.component('apexchart', VueApexCharts)
 
 window.axios=axios
-axios.defaults.baseURL = 'https://api.hayokinsurance.com';
-// axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'https://api.hayokinsurance.com';
+axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = ''

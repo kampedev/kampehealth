@@ -359,7 +359,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     authUser(){
       this.axios.get(`/api/v1/auth/user`)
                   .then(response => {
-                      this.auth_user = response.data.data
+                      this.auth_user = response.data
                       console.log(response)
                   })
                   .catch(error => {

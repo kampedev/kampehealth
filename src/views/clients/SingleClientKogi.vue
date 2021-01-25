@@ -43,6 +43,15 @@
                                        <!-- <button class="btn btn-info spacer"  >Principal's Details</button> -->
 
                                          <button class="btn btn-success spacer" data-toggle="modal" data-target="#example_01">Capture Face </button>
+                                         <div class="fileinput fileinput-new" data-provides="fileinput" >
+                                          <span class="btn btn-file">
+                                            <span class="fileinput-new">Upload Photo</span>
+                                            <span class="fileinput-exists">Change</span>
+                                            <input type="file" name="..." multiple   v-on:change="attachPic">
+                                          </span>
+                                          <span class="fileinput-filename"></span>
+                                          <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                      </div>
                                          <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  >Biometrics</button>
                                         </router-link>
@@ -256,6 +265,7 @@ export default {
       fullPage: true,
       agency_id:"",
       imagefile:"",
+      image:"",
       output:"",
       pictureShower:true,
       video_settings:{
@@ -277,6 +287,7 @@ export default {
     }
   },
   mounted(){
+
     this.print()
 
   var video = document.getElementById('video');
@@ -331,6 +342,32 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   },
 
   methods:{
+
+    attachPic(event){
+this.user = JSON.parse(localStorage.getItem('user'))
+console.log(event)
+ this.image = event.target.files[0];
+ this.uploadPicture()
+},
+uploadPicture(){
+this.isLoading = true;
+   this.user = JSON.parse(localStorage.getItem('user'))
+     var formData = new FormData();
+     formData.append("user_image", this.image)
+     formData.append("user_id", this.$route.params.id)
+     this.axios.post("/api/v1/auth/uploadUserImage", formData, {
+       headers: {
+         'Content-Type': 'multipart/form-data'
+       }
+     })
+     .then(response => {
+       console.log(response);
+          this.isLoading = false;
+          this.$toasted.info('Image added Successfully!', {position: 'top-center', duration:3000 })
+          this.fetchUser()
+
+     })
+ },
 
     async print() {
      const el = this.$refs.printNow;

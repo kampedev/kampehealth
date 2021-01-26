@@ -19,6 +19,8 @@ import VueApexCharts from 'vue-apexcharts'
 import Clipboard from 'v-clipboard'
 import VueSignaturePad from 'vue-signature-pad';
 import JsonExcel from "vue-json-excel";
+import { Capacitor } from '@capacitor/core';
+Capacitor
 
 
 Vue.use( CKEditor );

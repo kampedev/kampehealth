@@ -132,10 +132,17 @@
                                                                   <option v-for="lga in kogi_lgas.data" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                </select>
                                                               </div>
-                                                              <div class="form-group col-md-4">
+                                                              <!-- <div class="form-group col-md-4">
                                                                 <label >Ward</label>
                                                                 <select class="form-control"  v-model="newStudent.ward">
                                                                     <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                                                                 </select>
+                                                              </div> -->
+
+                                                              <div class="form-group col-md-4">
+                                                                <label >Ward</label>
+                                                                <select class="form-control"  v-model="newStudent.ward">
+                                                                    <option v-for="ward in wards_offline.data" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                  </select>
                                                               </div>
 
@@ -255,6 +262,7 @@ import DatePicker from 'vue2-datepicker';
    import zamfaraJson from './../../../public/offline/zamfara_lga.json'
    import yobeJson from './../../../public/offline/yobe_lga.json'
    import kogiJson from './../../../public/offline/kogi_lga.json'
+   import wardsJson from './../../../public/offline/wards.json'
 
 export default {
   components: {
@@ -274,7 +282,6 @@ export default {
       showcamera: false,
       showfinger: false,
       wards: "",
-
       providers:"",
       imagefile:"",
       user: null,
@@ -289,6 +296,7 @@ export default {
         zamfara_lgas:zamfaraJson,
         yobe_lgas:yobeJson,
         kogi_lgas:kogiJson,
+        wards_offline:wardsJson,
         isLoading: false,
         video_settings:{
                 video: {
@@ -335,8 +343,6 @@ export default {
                   })
     },
 
-
-
  showInput(){
    this.showinput = true;
    this.showcamera = false;
@@ -347,7 +353,7 @@ export default {
       this.showcamera = true;
       this.streamPic()
     },
-    
+
 
     streamPic(){
       var video = document.getElementById('video');

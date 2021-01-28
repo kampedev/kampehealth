@@ -173,14 +173,6 @@ export default {
 
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      // this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
-      //             .then(response => {
-      //                 this.clients = response.data.data
-      //                 console.log(response)
-      //             })
-      //             .catch(error => {
-      //                 console.error(error);
-      //             })
 
       this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`)
                   .then(response => {
@@ -192,17 +184,6 @@ export default {
                   })
     },
 
-    getAppointments(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getProviderAppointment/${this.user.institutional_id}`)
-                  .then(response => {
-                      this.appointments = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
@@ -300,7 +281,7 @@ export default {
   },
   created(){
     this.getClients()
-    this.getAppointments()
+    // this.getAppointments()
     this.getOfflineCLients()
     this.getProviders()
 

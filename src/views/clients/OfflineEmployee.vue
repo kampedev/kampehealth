@@ -138,7 +138,7 @@
                                                                       <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                    </select>
                                                                 </div> -->
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-6">
                                                                   <label >Ward</label>
                                                                   <select class="form-control"  v-model="newStudent.ward">
                                                                       <option v-for="ward in wards_offline.data" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
@@ -176,14 +176,12 @@
                                                                  </select>
                                                               </div>
 
-                                                              </div>
-
-                                                              <div class="form-group">
+                                                              <div class="form-group col-md-6">
                                                                  <label for="inputAddress">Home Address</label>
-                                                                 <textarea name="name" rows="3" cols="80"  class="form-control" v-model="newStudent.address" placeholder="1234 Main St"></textarea>
+                                                                 <input type="text" class="form-control" v-model="newStudent.address" placeholder="1234 Main St">
                                                              </div>
 
-
+                                                              </div>
 
                                                              <div class="form-group">
                                                                  <button class="btn btn-primary btn-block btn-lg" @click="showImage" v-if="client_number.length ==14">Proceed to Take Picture</button>
@@ -204,12 +202,11 @@
                                                                     <button  class="btn btn-default btn-block btn-lg" @click="takePic">Capture</button>
                                                                   </div>
 
-
                                                                 </div>
                                                               </div>
                                                               <div class="row">
                                                                 <div class="col-md-12">
-                                                                  <button class="btn btn-primary btn-block btn-lg" @click="add">Submit</button>
+                                                                  <button class="btn btn-primary btn-block btn-lg" @click="addUSer">Submit</button>
                                                                 </div>
                                                                 <div class="col-md-12 p-t-20 p-b-20">
                                                                     <video id="video" width="100%"  height="auto" autoplay></video>
@@ -222,14 +219,42 @@
                                                             </div>
 
 
-
-
                               <!-- <div class="card-body" v-for="student in students" v-bind:key="student.id">
                               <p>{{student.firstname}}</p>
                               <p>{{student.gender}}</p>
                               <p>{{student.user_image}}</p>
                               <button @click="remove(student.id)" class="btn btn-primary">Delete</button>
                              </div> -->
+
+                             <div class="table-responsive">
+                                 <table class="table align-td-middle table-card">
+                                     <thead>
+                                     <tr>
+                                         <th>Name</th>
+                                         <th>Gender</th>
+                                         <th>Phone Number</th>
+                                         <th>Sector</th>
+                                         <th>Action</th>
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                     <tr v-for="student in students" v-bind:key="student.id">
+
+                                         <td >{{student.firstname}} {{student.lastname}}</td>
+                                         <td>{{student.gender}}</td>
+                                         <td>{{student.phone_number}}</td>
+                                         <td>{{student.sector}}</td>
+                                         <td>
+                                             <button type="button" class="btn btn-default" @click="syncUser(student)">Sync User</button>
+                                         </td>
+
+                                     </tr>
+
+
+                                     </tbody>
+                                 </table>
+
+                             </div>
 
                              <div class="vld-parent">
                                   <loading :active.sync="isLoading"
@@ -313,14 +338,14 @@ export default {
   beforeMount: function() {
     this.clear();
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/providerAgency/${this.user.institutional_id}`)
-                .then(response => {
-                    this.providers = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+    // this.axios.get(`/api/v1/auth/providerAgency/${this.user.institutional_id}`)
+    //             .then(response => {
+    //                 this.providers = response.data.data
+    //                 console.log(response)
+    //             })
+    //             .catch(error => {
+    //                 console.error(error);
+    //             })
 
   },
   methods: {
@@ -335,6 +360,78 @@ export default {
                   })
     },
 
+    syncUser(student){
+    if (confirm('Ae you sure you want to sync this user to the server? It will be deleted from your computer!') ) {
+
+
+    this.user = JSON.parse(localStorage.getItem('user'))
+      this.isLoading = true;
+      this.axios.post('/api/v1/auth/registerProvider',{
+        agency_id: student.agency_id,
+        nimc_number: student.nimc_number,
+        firstname: student.firstname,
+        lastname: student.lastname,
+        middlename: student.middlename,
+        email: student.email,
+        phone_number: student.phone_number,
+        type: 'client',
+        provider_id: student.provider_id,
+        state: '2669',
+        role: 0,
+        password: 'euhler',
+        localgovt: student.localgovt,
+        ward: student.ward,
+        blood: student.blood,
+        dob: student.dob,
+        address1: student.address,
+        genotype: student.genotype,
+        weight: student.weight,
+        gender: student.gender,
+        sector: student.sector,
+        // place_of_work: client.place_of_work,
+        // point_of_care: client.point_of_care,
+        marital_status: student.marital_status,
+        category_of_vulnerable_group: student.category_of_vulnerable_group,
+        enrolled_by: student.id,
+      })
+      .then(response=>{
+
+          console.log(response);
+          this.isLoading = false;
+          // this.refreshStudent();
+          this.$breadstick.notify("Client added successfully", {position: "top-right"});
+          let user_added_id = response.data.data.id
+
+          //Start upload Pic
+          this.axios.post(`/api/v1/auth/uploadcustomerpicImage`,
+           {
+              user_image: student.user_image,
+              user_id: user_added_id,
+
+            })
+              .then(response => {
+                  console.log(response)
+                  // this.$breadstick.notify("Profile pushed Successfully!", {position: "top-right"});
+              })
+              .catch(error => {
+                  console.error(error);
+              })
+          //End upload Pic
+
+          //start Delete User
+          this.remove(student)
+          //End Delete User
+
+      })
+      .catch(error=>{
+          console.log(error.response)
+          this.isLoading = false;
+          // this.getClients();
+          this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+
+      })
+    }
+  },
 
 
  showInput(){
@@ -353,42 +450,7 @@ export default {
       this.showfinger = true;
       this.l_l_finger = true;
     },
-    showLRF(){
-      this.l_l_finger = false;
-      this.l_r_finger = true;
-    },
-    showLMF(){
-      this.l_r_finger = false;
-      this.l_m_finger = true;
-    },
-    showLPF(){
-      this.l_m_finger = false;
-      this.l_p_finger = true;
-    },
-    showLTF(){
-      this.l_p_finger = false;
-      this.l_t_finger = true;
-    },
-    showRLF(){
-      this.l_t_finger = false;
-      this.r_l_finger = true;
-    },
-    showRRF(){
-      this.r_l_finger = false;
-      this.r_r_finger = true;
-    },
-    showRMF(){
-      this.r_r_finger = false;
-      this.r_m_finger = true;
-    },
-    showRPF(){
-      this.r_m_finger = false;
-      this.r_p_finger = true;
-    },
-    showRTF(){
-      this.r_p_finger = false;
-      this.r_t_finger = true;
-    },
+
     showPreviewFinger(){
       this.r_t_finger = false;
       this.previewfingers = true;
@@ -427,7 +489,54 @@ export default {
         // end of upload image
 
     },
-    async add() {
+    addUSer(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      if (this.user.type == 'shis') {
+        this.addUserAdmin()
+      }
+      if (this.user.type == 'employee') {
+        this.addUserEmployee()
+      }
+    },
+    async addUserAdmin() {
+      try {
+        // const studentsAdded = await this.service.addStudent(this.newStudent);
+        const studentsAdded = await this.service.addStudent({
+          firstname: this.newStudent.firstname,
+          lastname: this.newStudent.lastname,
+          middlename: this.newStudent.middlename,
+          nimc_number: this.newStudent.nimc_number,
+          provider_id: this.newStudent.provider_id,
+          phone_number: this.client_number,
+          dob: this.newStudent.dob,
+          gender: this.newStudent.gender,
+          user_image: this.imagefile,
+          localgovt: this.newStudent.localgovt,
+          ward: this.newStudent.ward,
+          sector: this.newStudent.sector,
+          marital_status: this.newStudent.marital_status,
+          blood: this.newStudent.blood,
+          salary_number: this.newStudent.salary_number,
+          place_of_work: this.newStudent.place_of_work,
+          category_of_vulnerable_group: this.newStudent.category_of_vulnerable_group,
+          genotype: this.newStudent.genotype,
+          left_fingers: this.leftfingers,
+          right_fingers: this.rightfingers,
+          thumbs_fingers: this.twothumbs,
+          address: this.newStudent.address,
+          agency_id: this.user.id,
+          enrolled_by: this.user.id,
+        });
+        this.$emit("add-item", studentsAdded[0]);
+        this.clear();
+        this.showInput();
+        this.$toasted.info('Client Added Successfully', {position: 'top-center', duration:3000 })
+
+      } catch (ex) {
+        alert(ex.message);
+      }
+    },
+    async addUserEmployee() {
       try {
         // const studentsAdded = await this.service.addStudent(this.newStudent);
         const studentsAdded = await this.service.addStudent({
@@ -467,14 +576,26 @@ export default {
     },
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
-                  .then(response => {
-                      this.providers = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
+      if (this.user.type == 'employee') {
+        this.axios.get(`/api/v1/auth/providerAgency/${this.user.institutional_id}`)
+                    .then(response => {
+                        this.providers = response.data.data
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
+      if(this.user.type == 'shis') {
+        this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+                    .then(response => {
+                        this.providers = response.data.data
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
     },
     clear() {
       this.newStudent = {
@@ -498,10 +619,10 @@ export default {
         address: student.address
       };
     },
-    async remove(id) {
+    async remove(student) {
       const service = new StudentService();
       service;
-      const noOfStudentRemoved = await this.service.removeStudent(id);
+      const noOfStudentRemoved = await this.service.removeStudent(student.id);
       if (noOfStudentRemoved > 0) {
         this.$emit("remove-item");
       }
@@ -520,6 +641,9 @@ export default {
     cancelUpdate() {
       this.editStudent = {};
     }
+  },
+  created(){
+    this.getProviders()
   }
 };
 </script>

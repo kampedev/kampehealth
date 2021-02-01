@@ -26,7 +26,6 @@
                    </div>
 
 
-
                    <div class="vld-parent">
                         <loading :active.sync="isLoading"
                         loader="dots"
@@ -50,7 +49,7 @@
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
-     import StudentGrid from "./Offline.vue";
+     import StudentGrid from "./OfflineEmployee.vue";
      import { initJsStore } from "./../../service/idb_service";
      import { StudentService } from "./../../service/student_service";
      import { Global } from "./../../global";

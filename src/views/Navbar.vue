@@ -91,7 +91,7 @@
             <li class="menu-item" v-if="user.type == 'employee'">
                 <a href="/add-client/employee-offline" class=" menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Add Clients(Offline)
+                                                <span class="menu-name">Manage Enrollees(Offline)
                                                 </span>
                                             </span>
                     <span class="menu-icon">
@@ -368,7 +368,7 @@
                                 <li class="menu-item">
                                     <router-link to="/add-client-offline" class=" menu-link">
                                                     <span class="menu-label">
-                                                            <span class="menu-name">Add Client(Offline)
+                                                            <span class="menu-name">Manage Enrollees(Offline)
                                                             </span>
                                                         </span>
                                         <span class="menu-icon">

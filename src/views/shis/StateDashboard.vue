@@ -12,7 +12,7 @@
                     <h5 class="spacer-top">Hello, {{auth_user.agency_name}}</h5>
                 </div>
 
-                <div class="col-md-12" v-if="offlineclients.length > 0">
+                <!-- <div class="col-md-12" v-if="offlineclients.length > 0">
                   <div class="alert alert-border-warning  alert-dismissible fade show" role="alert">
                                   <div class="d-flex">
                                       <div class="icon">
@@ -29,7 +29,7 @@
 
 
                               </div>
-                </div>
+                </div> -->
 
 
                 <!-- <div class="col-lg-3 col-md-6">

@@ -20,8 +20,7 @@ import Clipboard from 'v-clipboard'
 import VueSignaturePad from 'vue-signature-pad';
 import JsonExcel from "vue-json-excel";
 import { Capacitor } from '@capacitor/core';
-Capacitor
-
+import vSelect from 'vue-select'
 
 Vue.use( CKEditor );
 Vue.use(VueAxios, axios)
@@ -39,8 +38,11 @@ Vue.use(VueApexCharts)
 Vue.use(Clipboard)
 Vue.use(VueSignaturePad);
 Vue.component("downloadExcel", JsonExcel);
-
 Vue.component('apexchart', VueApexCharts)
+Vue.component('v-select', vSelect)
+import 'vue-select/dist/vue-select.css';
+
+Capacitor
 
 window.axios=axios
 axios.defaults.baseURL = 'https://api.hayokinsurance.com';

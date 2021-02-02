@@ -165,9 +165,10 @@ export default {
    }
  },
  beforeMount(){
-   this.axios.get(`/api/v1/auth/user`)
+   this.user = JSON.parse(localStorage.getItem('user'))
+   this.axios.get(`/api/v1/auth/user/${this.user.id}`)
                .then(response => {
-                   this.auth_user = response.data.data
+                   this.auth_user = response.data.user
                    console.log(response)
                })
                .catch(error => {
@@ -176,9 +177,10 @@ export default {
  },
  methods:{
    getUser(){
-     this.axios.get(`/api/v1/auth/user`)
+     this.user = JSON.parse(localStorage.getItem('user'))
+     this.axios.get(`/api/v1/auth/user/${this.user.id}`)
                  .then(response => {
-                     this.auth_user = response.data.data
+                     this.auth_user = response.data.user
                      console.log(response)
                  })
                  .catch(error => {
@@ -216,33 +218,62 @@ uploadPic(){
 
     },
 
-   editUser(){
-     this.user = JSON.parse(localStorage.getItem('user'))
-     this.isLoading = true;
-   this.axios.post(`/api/v1/auth/editProfile/${this.user.id}`,{
-       firstname: this.auth_user.firstname,
-       lastname: this.auth_user.lastname,
-       email: this.auth_user.email,
-       type: this.auth_user.type,
-       user_image: this.auth_user.user_image,
-       // username: this.auth_user.username,
-       password: this.auth_user.password,
-       phone_number: this.auth_user.phone_number,
-       agency_name: this.auth_user.agency_name,
-       address1: this.auth_user.address1,
-       agencyAddress: this.auth_user.agencyAddress,
-       agencyWebsite: this.auth_user.agencyWebsite
-     })
-   .then(response=>{
-       console.log(response);
-       this.$breadstick.notify("User updated Successfully!", {position: "top-right"});
-       this.isLoading = false;
+    editUser(){
+        if (this.auth_user.type == 'employee') {
+          this.user = JSON.parse(localStorage.getItem('user'))
+          this.isLoading = true;
+        this.axios.post(`/api/v1/auth/editProfile/${this.user.id}`,{
+            firstname: this.auth_user.firstname,
+            lastname: this.auth_user.lastname,
+            email: this.auth_user.email,
+            type: this.auth_user.type,
+            user_image: this.auth_user.user_image,
+            institutional_id: 90,
+            password: this.auth_user.password,
+            phone_number: this.auth_user.phone_number,
+            agency_name: this.auth_user.agency_name,
+            address1: this.auth_user.address1,
+            agencyAddress: this.auth_user.agencyAddress,
+            agencyWebsite: this.auth_user.agencyWebsite
+          })
+        .then(response=>{
+            console.log(response);
+            this.$breadstick.notify("User updated Successfully!", {position: "top-right"});
+            this.isLoading = false;
 
-   })
-   .catch(error=>{
-       console.log(error.response)
-   })
- },
+        })
+        .catch(error=>{
+            console.log(error.response)
+        })
+        }
+        else {
+          this.user = JSON.parse(localStorage.getItem('user'))
+          this.isLoading = true;
+        this.axios.post(`/api/v1/auth/editProfile/${this.user.id}`,{
+            firstname: this.auth_user.firstname,
+            lastname: this.auth_user.lastname,
+            email: this.auth_user.email,
+            type: this.auth_user.type,
+            user_image: this.auth_user.user_image,
+            password: this.auth_user.password,
+            phone_number: this.auth_user.phone_number,
+            agency_name: this.auth_user.agency_name,
+            address1: this.auth_user.address1,
+            agencyAddress: this.auth_user.agencyAddress,
+            agencyWebsite: this.auth_user.agencyWebsite
+          })
+        .then(response=>{
+            console.log(response);
+            this.$breadstick.notify("User updated Successfully!", {position: "top-right"});
+            this.isLoading = false;
+
+        })
+        .catch(error=>{
+            console.log(error.response)
+        })
+        }
+
+    }
  },
  created(){
 

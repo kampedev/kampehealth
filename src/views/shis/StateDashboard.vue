@@ -32,25 +32,7 @@
                 </div>
 
 
-                <!-- <div class="col-lg-3 col-md-6">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <div class="pb-2">
-                              <router-link :to="{ path: '/fund-manager'}">
-                                <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-database"></i>
-                                    </div>
-                                </div>
-                                </router-link>
-                            </div>
-                            <div>
-                                <p class="text-muted text-overline m-0">Revenue</p>
-                                <h1 class="fw-400">&#8358;103,500</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+               
 
                 <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-secondary">
@@ -115,7 +97,12 @@
 
 
             </div>
-
+            <div class="row">
+              <div class="col-md-12 p-t-20">
+                <h1 class="fw-300">Data Dashboard </h1>
+                <LGaData />
+              </div>
+            </div>
             <div class="row">
                 <div class="col-md-12 p-t-20">
                     <h1 class="fw-300">Analytics </h1>
@@ -238,12 +225,12 @@ import { StudentService } from "./../../service/student_service";
 import { initJsStore } from "./../../service/idb_service";
 import { Global } from "./../../global";
 import { connection } from "./../../service/jsstore_con";
-
+import LGaData from "./components/lgadata";
 
 
 export default {
   components: {
-     Navbar
+     Navbar, LGaData
   },
   async beforeCreate() {
     try {
@@ -270,6 +257,9 @@ export default {
       total_clients:"",
       claims:"",
       offlineclients: [],
+      chartOptions:{
+        
+      },
       employees:"",
       plans:"",
       options: {
@@ -302,10 +292,11 @@ export default {
     }
   },
   beforeMount(){
+    
     this.axios.get(`/api/v1/auth/user`)
                 .then(response => {
                     this.auth_user = response.data
-                    console.log(response)
+                    // console.log(response)
                 })
                 .catch(error => {
                     console.error(error);
@@ -323,7 +314,7 @@ export default {
       this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
                   .then(response => {
                       this.providers = response.data.data
-                      console.log(response)
+                      // console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -335,7 +326,7 @@ export default {
       this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
                   .then(response => {
                       this.employees = response.data.data
-                      console.log(response)
+                      // console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -346,13 +337,12 @@ export default {
       this.axios.get(`/api/v1/auth/getClaims/${this.user.id}`)
                   .then(response => {
                       this.claims = response.data.data
-                      console.log(response)
+                      // console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-
     getClients(){
       // this.user = JSON.parse(localStorage.getItem('user'))
       // this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
@@ -367,7 +357,7 @@ export default {
                   .then(response => {
                       this.clients = response.data.data
                       this.total_clients = response.data.meta.total
-                      console.log(response)
+                      // console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -404,7 +394,7 @@ export default {
               gender: item.gender,
             })
             .then(response=>{
-                console.log(response)
+                // console.log(response)
                 let user_added_id = response.data.data.id
 
                 //Start upload Pic
@@ -413,8 +403,8 @@ export default {
                     user_image: item.user_image,
                     user_id: user_added_id,
                   })
-                            .then(response => {
-                                console.log(response)
+                            .then(() => {
+                                // console.log(response)
                                 this.$breadstick.notify("Profile pushed Successfully!", {position: "top-right"});
                             })
                             .catch(error => {

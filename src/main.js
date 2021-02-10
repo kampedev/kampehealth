@@ -19,8 +19,7 @@ import VueApexCharts from 'vue-apexcharts'
 import Clipboard from 'v-clipboard'
 import VueSignaturePad from 'vue-signature-pad';
 import JsonExcel from "vue-json-excel";
-import { Capacitor } from '@capacitor/core';
-Capacitor
+import HighchartsVue from 'highcharts-vue'
 
 
 Vue.use( CKEditor );
@@ -39,6 +38,7 @@ Vue.use(VueApexCharts)
 Vue.use(Clipboard)
 Vue.use(VueSignaturePad);
 Vue.component("downloadExcel", JsonExcel);
+Vue.use(HighchartsVue)
 
 Vue.component('apexchart', VueApexCharts)
 

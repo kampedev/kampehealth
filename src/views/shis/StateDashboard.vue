@@ -99,51 +99,25 @@
             </div>
             <div class="row">
               <div class="col-md-12 p-t-20">
-                <h1 class="fw-300">Data Dashboard </h1>
-                <LGaData />
+                <h5 class="h5"> <i class="fe fe-activity"></i> Basic Healthcare Provision Fund</h5>
+                
+              </div>
+              <div class="col-md-12">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <LGaData />
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 p-t-20">
-                    <h1 class="fw-300">Analytics </h1>
-                </div>
-                <div class="col-12 m-t-20">
-                    <h5 class="h5"> <i class="fe fe-activity"></i> Basic Healthcare Provision Fund</h5>
-                </div>
-                <div class="col-md-12">
-                    <div class="card m-b-30">
-                      <div class="card-body">
-                          <!-- <zingchart :data="chartData" ></zingchart> -->
-                          <apexchart width="100%" type="bar" :options="options" :series="series"></apexchart>
+            
 
-                      </div>
-                    </div>
-                </div>
-            </div>
+            
 
             <div class="row">
-
-                <div class="col-12 m-t-20">
-                    <h5 class="h5">Ogori/Magongo</h5>
-                </div>
-                <div class="col-md-12">
-                    <select class="form-control" >
-                      <option  value="Ogori/Magongo">Ogori/Magongo</option>
-                   </select>
-                </div>
-                <div class="col-md-12">
-                    <div class="card m-b-30">
-                      <div class="card-body">
-                          <apexchart width="100%" type="bar" :options="optionso" :series="serieso"></apexchart>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8 m-b-30">
+                <div class="col-md-12 m-b-30">
                     <h5> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
-                    <div class="table-responsive">
+                    <div class="table table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr >
@@ -257,37 +231,9 @@ export default {
       total_clients:"",
       claims:"",
       offlineclients: [],
-      chartOptions:{
-        
-      },
+      
       employees:"",
       plans:"",
-      options: {
-      chart: {
-        id: 'vuechart-example'
-      },
-      xaxis: {
-        categories: ['Pregnant Women', 'Children under 5', 'Aged', 'IDP', 'Physically Challenged', 'People with Special Needs', 'Poorest of the poor']
-      }
-    },
-    optionso: {
-    chart: {
-      id: 'vuechart-example'
-    },
-    xaxis: {
-      categories: ['Okibo', 'Ogugu', 'Oturu-Otuo', 'Ileteju', 'Obinoyin', 'Okesin', 'Eni','Obatigben', 'Aiyeromi', 'Oshobane']
-    }
-  },
-    series: [{
-      name: 'Basic Healthcare Provision Fund',
-      data: [6, 59, 247, 4, 56, 209, 65]
-      // data: []
-    }],
-    serieso: [{
-      name: 'Ogori/Magongo',
-      data: [71, 61, 67, 62, 57, 77, 67, 83,43,80]
-      // data: []
-    }]
 
     }
   },

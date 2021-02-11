@@ -200,6 +200,7 @@ export default {
         this.isLoading = true;
           if (this.selector == 'ministry') {
                 this.axios.post('/api/v1/auth/ministry',{
+                  agency_id  : 90,
                   name : this.register.ministry,
                 })
                 .then(response=>{

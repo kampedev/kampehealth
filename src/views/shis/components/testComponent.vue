@@ -15,7 +15,7 @@ export default {
             seriesColor: '#6fcd98',
             colorInputIsSupported: null,
             chartOptions:{}
-
+                        
         }
     },
     mounted(){
@@ -24,7 +24,7 @@ export default {
     },
     methods:{
         getDashboardLGA(){
-      this.axios.get('/api/v1/auth/dashboardlga/2683')
+      this.axios.get('/api/v1/auth/dashboardlga/2669')
       .then(response => {
         // console.log(response.data);
         var data = response.data;
@@ -34,7 +34,7 @@ export default {
         // for (let index = 0; index < seriesb.length; index++) {
 
         //     const element = seriesb[index];
-
+            
         //     categories.push(element[index]);
         //     }
 
@@ -59,7 +59,7 @@ export default {
                         },
                         yAxis: {
                             title: {
-                                text: 'Total Enrollees'
+                                text: 'Total clients'
                             }
 
                         },
@@ -86,11 +86,11 @@ export default {
                         ],
                         drilldown: {
                             series: data[0].wards
-
+                                
                         }
             }
 
-            // console.log(series);
+            // console.log(series); 
 
             // this.chartOptions.xAxis.categories = categories;
             // this.chartOptions.yAxis.series = series;

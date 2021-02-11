@@ -32,25 +32,7 @@
                 </div> -->
 
 
-                <!-- <div class="col-lg-3 col-md-6">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <div class="pb-2">
-                              <router-link :to="{ path: '/fund-manager'}">
-                                <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-database"></i>
-                                    </div>
-                                </div>
-                                </router-link>
-                            </div>
-                            <div>
-                                <p class="text-muted text-overline m-0">Revenue</p>
-                                <h1 class="fw-400">&#8358;103,500</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+               
 
                 <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-secondary">
@@ -115,48 +97,27 @@
 
 
             </div>
-
             <div class="row">
-                <div class="col-md-12 p-t-20">
-                    <h1 class="fw-300">Analytics </h1>
+              <div class="col-md-12 p-t-20">
+                <h5 class="h5"> <i class="fe fe-activity"></i> Basic Healthcare Provision Fund</h5>
+                
+              </div>
+              <div class="col-md-12">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <LGaData />
+                  </div>
                 </div>
-                <div class="col-12 m-t-20">
-                    <h5 class="h5"> <i class="fe fe-activity"></i> Basic Healthcare Provision Fund</h5>
-                </div>
-                <div class="col-md-12">
-                    <div class="card m-b-30">
-                      <div class="card-body">
-                          <!-- <zingchart :data="chartData" ></zingchart> -->
-                          <apexchart width="100%" type="bar" :options="options" :series="series"></apexchart>
-
-                      </div>
-                    </div>
-                </div>
+              </div>
             </div>
+            
+
+            
 
             <div class="row">
-
-                <div class="col-12 m-t-20">
-                    <h5 class="h5">Ogori/Magongo</h5>
-                </div>
-                <div class="col-md-12">
-                    <select class="form-control" >
-                      <option  value="Ogori/Magongo">Ogori/Magongo</option>
-                   </select>
-                </div>
-                <div class="col-md-12">
-                    <div class="card m-b-30">
-                      <div class="card-body">
-                          <apexchart width="100%" type="bar" :options="optionso" :series="serieso"></apexchart>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8 m-b-30">
+                <div class="col-md-12 m-b-30">
                     <h5> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
-                    <div class="table-responsive">
+                    <div class="table table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr >
@@ -238,12 +199,12 @@ import { StudentService } from "./../../service/student_service";
 import { initJsStore } from "./../../service/idb_service";
 import { Global } from "./../../global";
 import { connection } from "./../../service/jsstore_con";
-
+import LGaData from "./components/lgadata";
 
 
 export default {
   components: {
-     Navbar
+     Navbar, LGaData
   },
   async beforeCreate() {
     try {
@@ -270,42 +231,18 @@ export default {
       total_clients:"",
       claims:"",
       offlineclients: [],
+      
       employees:"",
       plans:"",
-      options: {
-      chart: {
-        id: 'vuechart-example'
-      },
-      xaxis: {
-        categories: ['Pregnant Women', 'Children under 5', 'Aged', 'IDP', 'Physically Challenged', 'People with Special Needs', 'Poorest of the poor']
-      }
-    },
-    optionso: {
-    chart: {
-      id: 'vuechart-example'
-    },
-    xaxis: {
-      categories: ['Okibo', 'Ogugu', 'Oturu-Otuo', 'Ileteju', 'Obinoyin', 'Okesin', 'Eni','Obatigben', 'Aiyeromi', 'Oshobane']
-    }
-  },
-    series: [{
-      name: 'Basic Healthcare Provision Fund',
-      data: [6, 59, 247, 4, 56, 209, 65]
-      // data: []
-    }],
-    serieso: [{
-      name: 'Ogori/Magongo',
-      data: [71, 61, 67, 62, 57, 77, 67, 83,43,80]
-      // data: []
-    }]
 
     }
   },
   beforeMount(){
+    
     this.axios.get(`/api/v1/auth/user`)
                 .then(response => {
                     this.auth_user = response.data
-                    console.log(response)
+                    // console.log(response)
                 })
                 .catch(error => {
                     console.error(error);
@@ -323,7 +260,7 @@ export default {
       this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
                   .then(response => {
                       this.providers = response.data.data
-                      console.log(response)
+                      // console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -335,7 +272,7 @@ export default {
       this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
                   .then(response => {
                       this.employees = response.data.data
-                      console.log(response)
+                      // console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -346,13 +283,12 @@ export default {
       this.axios.get(`/api/v1/auth/getClaims/${this.user.id}`)
                   .then(response => {
                       this.claims = response.data.data
-                      console.log(response)
+                      // console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-
     getClients(){
       // this.user = JSON.parse(localStorage.getItem('user'))
       // this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
@@ -367,7 +303,7 @@ export default {
                   .then(response => {
                       this.clients = response.data.data
                       this.total_clients = response.data.meta.total
-                      console.log(response)
+                      // console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -404,7 +340,7 @@ export default {
               gender: item.gender,
             })
             .then(response=>{
-                console.log(response)
+                // console.log(response)
                 let user_added_id = response.data.data.id
 
                 //Start upload Pic
@@ -413,8 +349,8 @@ export default {
                     user_image: item.user_image,
                     user_id: user_added_id,
                   })
-                            .then(response => {
-                                console.log(response)
+                            .then(() => {
+                                // console.log(response)
                                 this.$breadstick.notify("Profile pushed Successfully!", {position: "top-right"});
                             })
                             .catch(error => {

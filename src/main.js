@@ -19,6 +19,8 @@ import VueApexCharts from 'vue-apexcharts'
 import Clipboard from 'v-clipboard'
 import VueSignaturePad from 'vue-signature-pad';
 import JsonExcel from "vue-json-excel";
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
 import Highcharts from 'highcharts';
 import VueHighcharts from 'vue-highcharts';
 
@@ -40,13 +42,12 @@ loadHighchartsMore(Highcharts);
 loadSolidGauge(Highcharts);
 loadExporting(Highcharts);
 loadOfflineExporting(Highcharts);
+
+Vue.use(VueHighcharts, { Highcharts: Highcharts });
 // load up the boost modules
 loadBoost(Highcharts);
 ExportData(Highcharts);
-
-Vue.use(VueHighcharts, { Highcharts: Highcharts });
 Vue.use( CKEditor );
-
 Vue.use(VueAxios, axios)
 Vue.use(VueCookies)
 Vue.use(BreadstickBakery)
@@ -62,9 +63,9 @@ Vue.use(VueApexCharts)
 Vue.use(Clipboard)
 Vue.use(VueSignaturePad);
 Vue.component("downloadExcel", JsonExcel);
-Vue.use(HighchartsVue)
-
 Vue.component('apexchart', VueApexCharts)
+Vue.component('v-select', vSelect)
+Vue.use(HighchartsVue)
 
 window.axios=axios
 axios.defaults.baseURL = 'https://api.hayokinsurance.com';

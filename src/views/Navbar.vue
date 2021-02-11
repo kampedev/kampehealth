@@ -52,7 +52,7 @@
             </li>
 
 
-            <li class="menu-item active " v-if="user.type == 'shis'">
+            <li class="menu-item active " v-if="user.type == 'shis' || user.role == 1">
                 <a href="/state-dashboard" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Dashboard
@@ -112,7 +112,7 @@
                                             </span>
                 </router-link>
             </li>
-            <li class="menu-item"  v-if="user.type == 'shis'">
+            <li class="menu-item"  v-if="user.type == 'shis' || user.role == 1">
                 <router-link href="#" class="menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Fund Manager
@@ -204,7 +204,7 @@
                 </a>
             </li>
 
-            <li class="menu-item "  v-if="user.type == 'shis' ">
+            <li class="menu-item "  v-if="user.type == 'shis' || user.role == 1">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Plans Manager
@@ -337,7 +337,7 @@
             </li>
 
 
-                        <li class="menu-item "  v-if="user.type == 'shis'">
+                        <li class="menu-item "  v-if="user.type == 'shis' || user.role == 1">
                             <a href="#" class="open-dropdown menu-link">
                                     <span class="menu-label">
                                                             <span class="menu-name">Clients
@@ -481,7 +481,7 @@
                 </ul>
             </li>
 
-            <li class="menu-item "  v-if="user.type == 'shis'">
+            <li class="menu-item "  v-if="user.type == 'shis' || user.role == 1">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">HR Management
@@ -614,7 +614,7 @@
                 </ul>
             </li>
 
-            <li class="menu-item "  v-if="user.type == 'shis'">
+            <li class="menu-item "  v-if="user.type == 'shis' || user.role == 1">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Claims and Referrals Manager
@@ -673,7 +673,7 @@
             </li>
 
 
-                        <li class="menu-item "  v-if="user.type == 'shis'">
+                        <li class="menu-item "  v-if="user.type == 'shis' || user.role == 1">
                             <a href="#" class="open-dropdown menu-link">
                                     <span class="menu-label">
                                                             <span class="menu-name">Drugs and Consultancy Manager
@@ -730,7 +730,7 @@
                             </ul>
                         </li>
 
-                        <li class="menu-item "  v-if="user.type == 'shis'">
+                        <li class="menu-item "  v-if="user.type == 'shis' || user.role == 1">
                             <a href="#" class="open-dropdown menu-link">
                                     <span class="menu-label">
                                                             <span class="menu-name">Others
@@ -809,7 +809,7 @@
                 </router-link>
             </li>
 
-            <li class="menu-item  "  v-if="user.type == 'shis'">
+            <li class="menu-item  "  v-if="user.type == 'shis' || user.role == 1">
                 <a href="/my-providers" class=" menu-link">
                         <span class="menu-label">
                               <span class="menu-name">Health Facilities</span>
@@ -820,7 +820,7 @@
                 </a>
             </li>
 
-            <li class="menu-item  "  v-if="user.type == 'shis'">
+            <li class="menu-item  "  v-if="user.type == 'shis' || user.role == 1">
                 <a href="/mda-manager" class=" menu-link">
                         <span class="menu-label">
                               <span class="menu-name">MDAs</span>

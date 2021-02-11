@@ -19,10 +19,34 @@ import VueApexCharts from 'vue-apexcharts'
 import Clipboard from 'v-clipboard'
 import VueSignaturePad from 'vue-signature-pad';
 import JsonExcel from "vue-json-excel";
-import { Capacitor } from '@capacitor/core';
-import vSelect from 'vue-select'
+import Highcharts from 'highcharts';
+import VueHighcharts from 'vue-highcharts';
 
+import HighchartsVue from 'highcharts-vue'
+import loadDrilldown from 'highcharts/modules/drilldown';
+import loadHighchartsMore from 'highcharts/highcharts-more';
+import loadSolidGauge from 'highcharts/modules/solid-gauge';
+import loadExporting from 'highcharts/modules/exporting';
+import ExportData from 'highcharts/modules/export-data';
+import loadOfflineExporting from 'highcharts/modules/offline-exporting';
+import loadBoost from 'highcharts/modules/boost'
+import loadStock from 'highcharts/modules/stock';
+import loadMap from 'highcharts/modules/map';
+
+loadStock(Highcharts);
+loadMap(Highcharts);
+loadDrilldown(Highcharts);
+loadHighchartsMore(Highcharts);
+loadSolidGauge(Highcharts);
+loadExporting(Highcharts);
+loadOfflineExporting(Highcharts);
+// load up the boost modules
+loadBoost(Highcharts);
+ExportData(Highcharts);
+
+Vue.use(VueHighcharts, { Highcharts: Highcharts });
 Vue.use( CKEditor );
+
 Vue.use(VueAxios, axios)
 Vue.use(VueCookies)
 Vue.use(BreadstickBakery)
@@ -38,11 +62,9 @@ Vue.use(VueApexCharts)
 Vue.use(Clipboard)
 Vue.use(VueSignaturePad);
 Vue.component("downloadExcel", JsonExcel);
-Vue.component('apexchart', VueApexCharts)
-Vue.component('v-select', vSelect)
-import 'vue-select/dist/vue-select.css';
+Vue.use(HighchartsVue)
 
-Capacitor
+Vue.component('apexchart', VueApexCharts)
 
 window.axios=axios
 axios.defaults.baseURL = 'https://api.hayokinsurance.com';

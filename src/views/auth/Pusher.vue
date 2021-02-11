@@ -28,6 +28,7 @@ export default {
                     console.log(response)
                      localStorage.setItem('user',JSON.stringify(response.data))
                      let type = response.data.type
+                     let role = response.data.role
                      let job_title = response.data.job_title
                      if (type == 'client') {
                        this.$router.push('/client-dashboard')
@@ -37,14 +38,14 @@ export default {
                        this.$router.push('/hmo-dashboard')
 
                      }
-                     if (type == 'employee') {
+                     if (type == 'employee' && role == 0) {
                        this.$router.push('/employee-dashboard')
                      }
                      if (type == 'provider') {
                        this.$router.push('/provider-dashboard')
 
                      }
-                     if (type == 'shis') {
+                     if (type == 'shis' || role == 1) {
                        this.$router.push('/state-dashboard')
 
                      }

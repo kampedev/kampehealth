@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3> {{employees.length}} Employees</h3>
+                       <h3 class="h3"> {{employees.length}} Employees</h3>
 
                    </div>
 
@@ -26,15 +26,13 @@
                    <div class="col-lg-12 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
-
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
+                             <div class="text-center">
+                                 <h3 class="h4">Add Employee</h3>
+                             </div>
                            </div>
 
                            <div class="card-body">
-                               <div class="text-center">
 
-                                   <h3 class="p-t-10 searchBy-name">Add Employee</h3>
-                               </div>
 
                                                         <div class="form-row">
                                                              <div class="form-group col-md-6">
@@ -76,18 +74,25 @@
 
                                                           <div class="form-row">
 
-                                                              <div class="form-group col-md-6">
-                                                                  <label for="inputCity">Job Title</label>
-                                                                  <select class="form-control"  v-model="register.job_title">
-                                                                   <option  value="Enrollment Officer">Enrollment Officer</option>
-                                                                   <option  value="Community Health Extension Worker">Community Health Extension Workers (CHEWs)</option>
-                                                               </select>
-                                                              </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="inputCity">Job Title</label>
+                                                                <select class="form-control"  v-model="register.job_title">
+                                                                  <option  value="Administrative Officer">Administrative Staff</option>
+                                                                 <option  value="Claims Officer">Claims Officer</option>
+                                                                 <option  value="Enrollment Officer">Enrollment Officer</option>
+                                                                 <option  value="Quality Assurance">Quality Assurance</option>
+                                                             </select>
+                                                            </div>
 
-                                                              <!-- <div class="form-group col-md-6">
-                                                                  <label for="inputCity">ID Card Number</label>
-                                                                  <input type="text" class="form-control"  placeholder="ID Card Number"   v-model="register.id_card_number">
-                                                              </div> -->
+                                                            <div class="form-group col-md-6">
+                                                                <label for="inputCity">Role</label>
+                                                                <select class="form-control"  v-model="register.role">
+                                                                 <option  :value="admin_role">Admin</option>
+                                                                 <option  :value="user_role">Maintainer</option>
+                                                             </select>
+                                                            </div>
+
+
 
                                                           </div>
 
@@ -138,6 +143,8 @@ export default {
       employees:"",
       state:"",
       lga_states:"",
+      admin_role:1,
+    user_role:0,
       register:{
                 firstname:"",
                 lastname:"",
@@ -214,9 +221,9 @@ export default {
           // localgovt : this.register.lga,
           localgovt : '480',
           id_card_number : this.register.id_card_number,
-          institutional_id: this.user.id,
+          institutional_id: 90,
           job_title: this.register.job_title,
-          role: 0,
+          role: this.register.role,
           lga: this.register.lga,
           ward: this.register.ward,
         })

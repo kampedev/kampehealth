@@ -16,6 +16,7 @@
                </div>
            </div>
        </div>
+       <SearchUser/>
        <section class="pull-up">
            <div class="container">
 
@@ -97,14 +98,15 @@
 <script>
   import Navbar from '@/views/Navbar.vue'
   import AddClientForm from '@/views/clients/AddClientForm.vue'
+  import SearchUser from '@/views/shis/components/SearchUser.vue'
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
-    
+
 export default {
   components: {
-     Navbar, Loading,  AddClientForm
+     Navbar, Loading,  AddClientForm, SearchUser
   },
   data(){
     return{

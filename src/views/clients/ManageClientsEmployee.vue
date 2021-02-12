@@ -8,7 +8,7 @@
 
                    <div class="col-md-12 mx-auto text-white p-b-30">
 
-                       <button type="button" name="button" class="btn btn-primary text-right" @click="show = true" >Add Clients</button>
+                       <button type="button" name="button" class="btn btn-primary text-right" @click="show = true" >Add Enrollee</button>
 
                    </div>
 
@@ -17,7 +17,7 @@
            </div>
        </div>
        <SearchUser/>
-       <section class="pull-up">
+       <section class="">
            <div class="container">
 
                <div class="row list" v-show="show">
@@ -39,7 +39,7 @@
 
                            <div class="card-body">
 
-                              <h1 class="h3 text-center">{{clients.meta.total}} Clients</h1>
+                              <h4 class="h4 text-center">{{clients.meta.total | numeral(0,0)}} Enrollees</h4>
 
                              <div class="table-responsive">
                                  <table class="table align-td-middle table-card">
@@ -49,7 +49,7 @@
                                          <th>Name</th>
                                          <th>Phone Number</th>
                                          <th>Sector</th>
-                                         <!-- <th>State</th> -->
+                                         <th>NIN Number</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -64,6 +64,7 @@
                                          <td >{{client.firstname}} {{client.lastname}}</td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.sector}}</td>
+                                         <td>{{client.nimc_number}}</td>
                                          <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
                                          <td>
 

@@ -1,6 +1,6 @@
 <template>
-
-           <div class="container">
+  <div>
+    <div class="">
 
                <div class="row list">
                    <div class="col-lg-12 col-md-8">
@@ -16,38 +16,54 @@
 
 
                           <div class="row" >
-                            <div class="form-group col-md-6" >
+                            <div class="form-group col-md-12" >
                                    <label for="inputCity">Select MDA</label>
                                        <select class="form-control"  v-model="place_of_work" >
-                                        <option  :value="mda.name" v-for="mda in mdas.data" v-bind:key="mda.id">{{mda.name}}</option>
+                                        <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
                                     </select>
                              </div>
-                            <div class="form-group col-md-6" >
+                            <!-- <div class="form-group col-md-6" >
                               <label>Principal Facility for Accessing Health Care</label>
                               <select class="form-control"  v-model="selected_provider">
                                   <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
                                </select>
-                          </div>
+                          </div> -->
 
                           </div>
 
-                         <button  class="btn btn-primary btn-block btn-lg" style="margin-top:20px;"> Filter </button>
+                         <button @click="filterMDA()" class="btn btn-primary btn-block btn-lg" style="margin-top:20px;"> Filter </button>
+                        <br />
 
+                        <div v-show="showdownload">
+                        <div v-if="loader == true">
+                            <vue-loaders name="line-spin-fade-loader" color="black" scale="1"></vue-loaders> Preparing data for download MDA Civil Servants
+                        </div>
+                        <div v-else>
+                            <p class="alert alert-warning">
+                                  <download-excel :data="json_data" :fields="json_fields" type="csv" :escapeCsv=false name="user-mda.xls"
+                >
+                            Download Data for {{place_of_work}}
+                            <!-- <img src="download_icon.png" /> -->
+                            </download-excel></p>
+                        </div>
+                      </div>
                        </div>
                      </div>
 
+
                    </div>
-                   <div class="vld-parent">
-                        <loading :active.sync="isLoading"
-                        loader="dots"
-                        :can-cancel="true"
-                        :is-full-page="fullPage"></loading>
-                    </div>               </div>
+
+               </div>
            </div>
 
 
-
-
+           <div class="vld-parent">
+                <loading :active.sync="isLoading"
+                loader="dots"
+                :can-cancel="true"
+                :is-full-page="fullPage"></loading>
+            </div>
+  </div>
 </template>
 
 <script>
@@ -64,6 +80,8 @@ export default {
   },
   data(){
     return{
+      loader:true,
+      showdownload:false,
       user:null,
       providers:"",
       selected_provider:"",
@@ -74,31 +92,28 @@ export default {
       fullPage: true,
       agency_id:"",
       provider_id:"",
-      mdas:"",
+      mdas:[],
       state:"",
       lga_states:"",
       sector:"",
       wards:[],
-      json_fields: {
-        'Facility Name': 'agency_name',
-        'Contact First Name': "firstname",
-        'Contact Last Name': "lastname",
-        'Contact Number': 'phone_number',
-        'Email': 'email',
-        // ' Recipient Merchant': 'receiver.merchant_name',
-        // 'Pay Point': 'point.pay_point_name',
-        // 'Payment Date': 'created_at',
-        // 'Note': 'notes',
 
-      },
-      json_meta: [
-        [
-            {
-                'key': 'charset',
-                'value': 'utf-8'
-            }
-        ]
-    ],
+      json_fields: {
+                'MDa name':'place_of_work',
+                'firstname': 'firstname',
+                'lastname':'lastname',
+                'computer number':'salary_number',
+                'Health Facility':'point_of_care',
+                'gender':'gender',
+                'phone_number':'phone_number' },
+                json_data: [],
+                json_meta: [
+                [
+                    {
+                    key: "charset",
+                    value: "utf-8",
+                    },
+                ]],
 
     }
   },
@@ -114,6 +129,17 @@ export default {
                 })
   },
   methods:{
+    filterMDA(){
+      this.axios.get(`/api/v1/auth/filterdashboardMda/4/`+ this.place_of_work)
+        .then(response => {
+          this.json_data = response.data
+          this.loader = false;
+          this.showdownload = true;
+        })
+        .catch(() => {
+            // console.error(error);
+        })
+    },
     selected(value){
       this.selected_provider = value.id
     },
@@ -122,23 +148,23 @@ export default {
       this.axios.get(`/api/v1/auth/ministry`)
                   .then(response => {
                     this.mdas = response.data
-                      console.log(response)
+                      // console.log(response)
                   })
-                  .catch(error => {
-                      console.error(error);
+                  .catch(() => {
+                      // console.error(error);
                   })
     },
 
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/providerAgency/4`)
+      this.axios.get(`/api/v1/auth/providerAgency/90`)
                   .then(response => {
                       this.providers = response.data.data
-                      console.log(response)
+                      // console.log(response.data.data)
                   })
-                  .catch(error => {
-                      console.error(error);
+                  .catch(() => {
+                      // console.error(error);
                   })
     },
 
@@ -148,7 +174,7 @@ export default {
 
   },
   created(){
-    this.getProviders()
+    // this.getProviders()
     this.getMDAs()
   }
 

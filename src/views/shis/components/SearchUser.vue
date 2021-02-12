@@ -27,8 +27,8 @@
                                 <input type="text" class="form-control" v-model="nimc_number"  placeholder="NIN Number">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputEmail4">Computer Number</label>
-                                <input type="text" class="form-control" v-model="salary_number" placeholder="Computer Number">
+                                <label for="inputEmail4">Salary Number</label>
+                                <input type="text" class="form-control" v-model="salary_number" placeholder="Salary Number">
                             </div>
 
                             <!-- <div class="form-group col-md-6">

@@ -79,11 +79,11 @@
             <li class="menu-item" v-if="user.type == 'employee'">
                 <a href="/manage-clients" class=" menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Add Clients
+                                                <span class="menu-name">Manage Enrollees
                                                 </span>
                                             </span>
                     <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-edit "></i>
+                                                 <i class="icon-placeholder fe fe-users "></i>
                                             </span>
                 </a>
             </li>
@@ -91,7 +91,7 @@
             <li class="menu-item" v-if="user.type == 'employee'">
                 <a href="/add-client/employee-offline" class=" menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Manage Enrollees(Offline)
+                                                <span class="menu-name">Offline Management
                                                 </span>
                                             </span>
                     <span class="menu-icon">

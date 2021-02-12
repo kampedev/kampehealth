@@ -71,9 +71,10 @@
                 </div>
 
             </div>
+            <lgadata/>
 
             <div class="row">
-              <div class="col-md-10 m-b-30">
+              <div class="col-md-12 m-b-30">
                   <!-- <h5> <i class="fe fe-alert-circle"></i>{{clients.length}} CLients</h5> -->
                   <div class="table-responsive">
                       <table class="table align-td-middle table-card">
@@ -82,7 +83,7 @@
                               <th>Name</th>
                               <th>Phone Number</th>
                               <th>Sector</th>
-                              <th>Action</th>
+                              <th>NIN Number</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -92,7 +93,7 @@
                               </td>
                               <td>{{client.phone_number}} </td>
                               <td>{{client.sector}}</td>
-                              <td> {{client.state}}</td>
+                              <td> {{client.nimc_number}}</td>
                               <td>
                                 <router-link :to="{ path: '/client/'+ client.id}">
                                   <button type="button" name="button" class="btn btn-info">view</button>
@@ -122,6 +123,7 @@
 
 <script>
 import Navbar from '@/views/Navbar.vue'
+import lgadata from '@/views/shis/components/lgadata.vue'
 import { StudentService } from "./../../service/student_service";
 import { initJsStore } from "./../../service/idb_service";
 import { Global } from "./../../global";
@@ -129,7 +131,7 @@ import { connection } from "./../../service/jsstore_con";
 
 export default {
   components: {
-     Navbar
+     Navbar, lgadata
   },
   async beforeCreate() {
     try {

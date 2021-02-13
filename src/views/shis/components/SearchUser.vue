@@ -18,18 +18,18 @@
 
                           <div class="row" >
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="inputPassword4">Phone Number</label>
                                 <input type="text" class="form-control" v-model="phone_number"  placeholder="Phone Number">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="inputPassword4">NIN Number</label>
                                 <input type="text" class="form-control" v-model="nimc_number"  placeholder="NIN Number">
                             </div>
-                            <div class="form-group col-md-4">
+                            <!-- <div class="form-group col-md-4">
                                 <label for="inputEmail4">Salary Number</label>
                                 <input type="text" class="form-control" v-model="salary_number" placeholder="Salary Number">
-                            </div>
+                            </div> -->
 
                             <!-- <div class="form-group col-md-6">
                                 <label for="inputPassword4">E-mail</label>

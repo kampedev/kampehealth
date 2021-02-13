@@ -113,50 +113,12 @@
                     </div>
                 </div>
 
-
             </div>
             <lgadata/>
 
             <div class="row">
-                <div class="col-md-12 p-t-20">
-                    <h1 class="fw-300">Analytics </h1>
-                </div>
-                <div class="col-12 m-t-20">
-                    <h5 class="h5"> <i class="fe fe-activity"></i> Basic Healthcare Provision Fund</h5>
-                </div>
-                <div class="col-md-12">
-                    <div class="card m-b-30">
-                      <div class="card-body">
-                          <!-- <zingchart :data="chartData" ></zingchart> -->
-                          <apexchart width="100%" type="bar" :options="options" :series="series"></apexchart>
-
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-12 m-t-20">
-                    <h5 class="h5">Ogori/Magongo</h5>
-                </div>
-                <div class="col-md-12">
-                    <select class="form-control" >
-                      <option  value="Ogori/Magongo">Ogori/Magongo</option>
-                   </select>
-                </div>
-                <div class="col-md-12">
-                    <div class="card m-b-30">
-                      <div class="card-body">
-                          <apexchart width="100%" type="bar" :options="optionso" :series="serieso"></apexchart>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8 m-b-30">
-                    <h5> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
+                <div class="col-md-12 m-b-30">
+                    <h5 class="h5" style="margin-top:15px;"> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
@@ -165,7 +127,7 @@
                                 <th>Name</th>
                                 <th>Position</th>
                                 <th>E mail</th>
-                                <!-- <th>Salary</th> -->
+                                <th>Phone Number</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -174,6 +136,7 @@
                                 <td>{{employee.firstname}} {{employee.lastname}}</td>
                                 <td>{{employee.job_title}}</td>
                                 <td>{{employee.email}}</td>
+                                <td>{{employee.phone_number}}</td>
                             </tr>
 
                             </tbody>

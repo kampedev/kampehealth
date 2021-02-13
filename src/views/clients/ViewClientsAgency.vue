@@ -29,6 +29,7 @@
        </div>
        <!-- <FilterUsers/> -->
        <SearchUser/>
+       <FilterUsersProvider/>
 
        <section class="">
            <div class="container">
@@ -104,7 +105,7 @@
 <script>
   import Navbar from '@/views/Navbar.vue'
   import SearchUser from '@/views/shis/components/SearchUser.vue'
-  // import FilterUsers from '@/views/shis/components/FilterUsers.vue'
+  import FilterUsersProvider from '@/views/shis/components/FilterUsersProvider.vue'
 
   // Import component
      import Loading from 'vue-loading-overlay';
@@ -114,7 +115,7 @@
 
 export default {
   components: {
-     Navbar, Loading, SearchUser
+     Navbar, Loading, SearchUser, FilterUsersProvider
   },
   data(){
     return{

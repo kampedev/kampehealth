@@ -17,6 +17,7 @@
            </div>
        </div>
        <SearchUser/>
+       <FilterUsersProvider/>
        <section class="">
            <div class="container">
 
@@ -100,6 +101,7 @@
   import Navbar from '@/views/Navbar.vue'
   import AddClientForm from '@/views/clients/AddClientForm.vue'
   import SearchUser from '@/views/shis/components/SearchUser.vue'
+  import FilterUsersProvider from '@/views/shis/components/FilterUsersProvider.vue'
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
@@ -107,7 +109,7 @@
 
 export default {
   components: {
-     Navbar, Loading,  AddClientForm, SearchUser
+     Navbar, Loading,  AddClientForm, SearchUser, FilterUsersProvider
   },
   data(){
     return{

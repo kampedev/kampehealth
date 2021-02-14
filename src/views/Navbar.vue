@@ -368,7 +368,7 @@
                                 <li class="menu-item">
                                     <router-link to="/add-client-offline" class=" menu-link">
                                                     <span class="menu-label">
-                                                            <span class="menu-name">Manage Enrollees(Offline)
+                                                            <span class="menu-name">Enrollees(Offline)
                                                             </span>
                                                         </span>
                                         <span class="menu-icon">

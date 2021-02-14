@@ -12,7 +12,7 @@
                     <h5 class="spacer-top">Hello, {{auth_user.agency_name}}</h5>
                 </div>
 
-                <div class="col-md-12" v-if="offlineclients.length > 0">
+                <!-- <div class="col-md-12" v-if="offlineclients.length > 0">
                   <div class="alert alert-border-warning  alert-dismissible fade show" role="alert">
                                   <div class="d-flex">
                                       <div class="icon">
@@ -29,10 +29,28 @@
 
 
                               </div>
-                </div>
+                </div> -->
 
 
-               
+                <!-- <div class="col-lg-3 col-md-6">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/fund-manager'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="fe fe-database"></i>
+                                    </div>
+                                </div>
+                                </router-link>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">Revenue</p>
+                                <h1 class="fw-400">&#8358;103,500</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
 
                 <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-secondary">
@@ -48,7 +66,7 @@
                             </div>
                             <div>
                                 <p class="h4">Clients</p>
-                                <h1 class="fw-400">{{total_clients}}</h1>
+                                <h1 class="fw-400">{{total_clients |numeral(0,0) }}</h1>
                                 <!-- <h1 class="fw-400">218</h1> -->
                             </div>
                         </div>
@@ -95,29 +113,13 @@
                     </div>
                 </div>
 
-
             </div>
-            <div class="row">
-              <div class="col-md-12 p-t-20">
-                <h5 class="h5"> <i class="fe fe-activity"></i> Basic Healthcare Provision Fund</h5>
-                
-              </div>
-              <div class="col-md-12">
-                <div class="card m-b-30">
-                  <div class="card-body">
-                    <LGaData />
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-
-            
+            <lgadata/>
 
             <div class="row">
                 <div class="col-md-12 m-b-30">
-                    <h5> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
-                    <div class="table table-responsive">
+                    <h5 class="h5" style="margin-top:15px;"> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
+                    <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr >
@@ -125,7 +127,7 @@
                                 <th>Name</th>
                                 <th>Position</th>
                                 <th>E mail</th>
-                                <!-- <th>Salary</th> -->
+                                <th>Phone Number</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -134,6 +136,7 @@
                                 <td>{{employee.firstname}} {{employee.lastname}}</td>
                                 <td>{{employee.job_title}}</td>
                                 <td>{{employee.email}}</td>
+                                <td>{{employee.phone_number}}</td>
                             </tr>
 
                             </tbody>
@@ -141,41 +144,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-alert-circle"></i>{{clients.length}} Clients</h5>
-                    <div class="table-responsive">
-                        <table class="table align-td-middle table-card">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>E mail</th>
-                                <th>Phone Number</th>
-                                <th>State</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="client in clients" v-bind:key="client.id">
-                                <td>
-                                  {{client.firstname}} {{client.lastname}}
-                                </td>
-                                <td>{{client.email}} </td>
-                                <td>{{client.phone_number}}</td>
-                                <td> {{client.state}}</td>
-                                <td>
-                                  <router-link :to="{ path: '/client/'+ client.id}">
-                                    <button type="button" name="button" class="btn btn-info">view</button>
-                                  </router-link>
-                                </td>
 
-                            </tr>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div> -->
 
             </div>
 
@@ -195,16 +164,17 @@
 
 <script>
 import Navbar from '@/views/Navbar.vue'
+import lgadata from '@/views/shis/components/lgadata.vue'
 import { StudentService } from "./../../service/student_service";
 import { initJsStore } from "./../../service/idb_service";
 import { Global } from "./../../global";
 import { connection } from "./../../service/jsstore_con";
-import LGaData from "./components/lgadata";
+
 
 
 export default {
   components: {
-     Navbar, LGaData
+     Navbar, lgadata
   },
   async beforeCreate() {
     try {
@@ -231,18 +201,42 @@ export default {
       total_clients:"",
       claims:"",
       offlineclients: [],
-      
       employees:"",
       plans:"",
+      options: {
+      chart: {
+        id: 'vuechart-example'
+      },
+      xaxis: {
+        categories: ['Pregnant Women', 'Children under 5', 'Aged', 'IDP', 'Physically Challenged', 'People with Special Needs', 'Poorest of the poor']
+      }
+    },
+    optionso: {
+    chart: {
+      id: 'vuechart-example'
+    },
+    xaxis: {
+      categories: ['Okibo', 'Ogugu', 'Oturu-Otuo', 'Ileteju', 'Obinoyin', 'Okesin', 'Eni','Obatigben', 'Aiyeromi', 'Oshobane']
+    }
+  },
+    series: [{
+      name: 'Basic Healthcare Provision Fund',
+      data: [6, 59, 247, 4, 56, 209, 65]
+      // data: []
+    }],
+    serieso: [{
+      name: 'Ogori/Magongo',
+      data: [71, 61, 67, 62, 57, 77, 67, 83,43,80]
+      // data: []
+    }]
 
     }
   },
   beforeMount(){
-    
     this.axios.get(`/api/v1/auth/user`)
                 .then(response => {
                     this.auth_user = response.data
-                    // console.log(response)
+                    console.log(response)
                 })
                 .catch(error => {
                     console.error(error);
@@ -260,7 +254,7 @@ export default {
       this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
                   .then(response => {
                       this.providers = response.data.data
-                      // console.log(response)
+                      console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -272,7 +266,7 @@ export default {
       this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
                   .then(response => {
                       this.employees = response.data.data
-                      // console.log(response)
+                      console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -283,12 +277,13 @@ export default {
       this.axios.get(`/api/v1/auth/getClaims/${this.user.id}`)
                   .then(response => {
                       this.claims = response.data.data
-                      // console.log(response)
+                      console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
+
     getClients(){
       // this.user = JSON.parse(localStorage.getItem('user'))
       // this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
@@ -303,7 +298,7 @@ export default {
                   .then(response => {
                       this.clients = response.data.data
                       this.total_clients = response.data.meta.total
-                      // console.log(response)
+                      console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
@@ -340,7 +335,7 @@ export default {
               gender: item.gender,
             })
             .then(response=>{
-                // console.log(response)
+                console.log(response)
                 let user_added_id = response.data.data.id
 
                 //Start upload Pic
@@ -349,8 +344,8 @@ export default {
                     user_image: item.user_image,
                     user_id: user_added_id,
                   })
-                            .then(() => {
-                                // console.log(response)
+                            .then(response => {
+                                console.log(response)
                                 this.$breadstick.notify("Profile pushed Successfully!", {position: "top-right"});
                             })
                             .catch(error => {

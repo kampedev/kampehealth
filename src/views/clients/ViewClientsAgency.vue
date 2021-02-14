@@ -16,13 +16,7 @@
 
                        <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
-                               <!-- <input placeholder="Filter Clients" type="search"
-                                      class="form-control form-control-lg search form-control-prepended"> -->
-                               <!-- <div class="input-group-prepend">
-                                   <div class="input-group-text">
-                                       <i class="mdi mdi-magnify"></i>
-                                   </div>
-                               </div> -->
+
                            </div>
                            <button type="button" class="btn btn-info " name="button" @click="getClients">Refresh Clients</button>
 
@@ -30,10 +24,13 @@
 
                    </div>
 
-
                </div>
            </div>
        </div>
+       <!-- <FilterUsers/> -->
+       <SearchUser/>
+       <FilterUsersProvider/>
+
        <section class="">
            <div class="container">
 
@@ -89,8 +86,6 @@
                        </div>
                    </div>
 
-
-
                    <div class="vld-parent">
                         <loading :active.sync="isLoading"
                         loader="dots"
@@ -109,6 +104,9 @@
 
 <script>
   import Navbar from '@/views/Navbar.vue'
+  import SearchUser from '@/views/shis/components/SearchUser.vue'
+  import FilterUsersProvider from '@/views/shis/components/FilterUsersProvider.vue'
+
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
@@ -117,7 +115,7 @@
 
 export default {
   components: {
-     Navbar, Loading
+     Navbar, Loading, SearchUser, FilterUsersProvider
   },
   data(){
     return{

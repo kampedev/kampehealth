@@ -8,11 +8,9 @@
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
                        <div class="m-b-10">
-                           <div class="avatar ">
-                               <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-                           </div>
+
                        </div>
-                       <strong>{{students.length}} Clients</strong>
+                       <h3 class="h3">{{students.length}} User Enrolled Offline</h3>
 
                    </div>
 
@@ -36,41 +34,7 @@
                    </div>
 
                </div>
-               <div class="row">
-
-
-                                              <div class="table-responsive">
-                                                  <table class="table align-td-middle table-card">
-                                                      <thead>
-                                                      <tr>
-                                                          <!-- <th>Avatar</th> -->
-                                                          <th>Name</th>
-                                                          <th>Gender</th>
-                                                          <th>Phone Number</th>
-                                                          <th>State</th>
-                                                      </tr>
-                                                      </thead>
-                                                      <tbody>
-                                                      <tr v-for="client in students" v-bind:key="client.id">
-                                                          <!-- <td>
-                                                              <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                                                  class="avatar-img avatar-sm rounded-circle"
-                                                                                                  alt=""></div>
-                                                          </td> -->
-                                                          <td >{{client.firstname}} {{client.lastname}}</td>
-                                                          <td>{{client.gender}}</td>
-                                                          <td>{{client.phone_number}}</td>
-                                                          <td>{{client.state}}/{{client.localgovt}}</td>
-
-                                                      </tr>
-
-
-                                                      </tbody>
-                                                  </table>
-
-                                              </div>
-
-               </div>
+              
 
                <div class="vld-parent">
                     <loading :active.sync="isLoading"
@@ -156,6 +120,7 @@ export default {
                 })
   },
   methods:{
+
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)

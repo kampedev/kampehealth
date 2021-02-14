@@ -49,7 +49,7 @@
                                          <th>E mail</th>
                                          <th>Phone Number</th>
                                          <th>Position</th>
-                                         <th>Action</th>
+                                         <!-- <th>Action</th> -->
                                      </tr>
                                      </thead>
                                      <tbody>
@@ -63,12 +63,12 @@
                                          <td>{{employee.email}}</td>
                                          <td>{{employee.phone_number}}</td>
                                          <td>{{employee.job_title}}</td>
-                                         <td>
+                                         <!-- <td>
                                            <router-link :to="{ path: '/client/'+ employee.id}">
                                            <button type="button" class="btn btn-info" name="button">view</button>
                                          </router-link>
 
-                                         </td>
+                                         </td> -->
 
                                      </tr>
 

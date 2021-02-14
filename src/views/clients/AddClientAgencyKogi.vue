@@ -415,71 +415,72 @@ export default {
                     })
       },
     registerUser(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-        this.isLoading = true;
-        this.axios.post('/api/v1/auth/registerProvider',{
-          nimc_number: this.register.nimc_number,
-          firstname: this.register.firstname,
-          lastname: this.register.lastname,
-          middlename: this.register.middlename,
-          email: this.register.email,
-          phone_number: this.register.phone_number,
-          type: this.register.type,
-          agency_id: this.user.id,
-          provider_id: this.register.provider_id,
-          // state: 'this.state.name',
-          state: '2669',
-          role: 0,
-          password: 'euhler',
-          localgovt: this.register.localgovt,
-          ward: this.register.ward,
-          blood: this.register.blood,
-          dob: this.register.dob,
-          address1: this.register.address,
-          genotype: this.register.genotype,
-          weight: this.register.weight,
-          gender: this.register.gender,
-          sector: this.register.sector,
-          place_of_work: this.register.place_of_work,
-          point_of_care: this.register.point_of_care,
-          finger_print: this.register.finger_print,
-          salary_number: this.register.salary_number,
-          grade_level: this.register.grade_level,
-          date_of_entry: this.register.date_of_entry,
-          marital_status: this.register.marital_status,
-          category_of_vulnerable_group: this.register.category_of_vulnerable_group,
-          enrolled_by: this.user.id,
-        })
-        .then(response=>{
+      console.log(this.register.provider_id);
+      // this.user = JSON.parse(localStorage.getItem('user'))
+      //   this.isLoading = true;
+      //   this.axios.post('/api/v1/auth/registerProvider',{
+      //     nimc_number: this.register.nimc_number,
+      //     firstname: this.register.firstname,
+      //     lastname: this.register.lastname,
+      //     middlename: this.register.middlename,
+      //     email: this.register.email,
+      //     phone_number: this.register.phone_number,
+      //     type: this.register.type,
+      //     agency_id: this.user.id,
+      //     provider_id: this.register.provider_id,
+      //     // state: 'this.state.name',
+      //     state: '2669',
+      //     role: 0,
+      //     password: 'euhler',
+      //     localgovt: this.register.localgovt,
+      //     ward: this.register.ward,
+      //     blood: this.register.blood,
+      //     dob: this.register.dob,
+      //     address1: this.register.address,
+      //     genotype: this.register.genotype,
+      //     weight: this.register.weight,
+      //     gender: this.register.gender,
+      //     sector: this.register.sector,
+      //     place_of_work: this.register.place_of_work,
+      //     point_of_care: this.register.point_of_care,
+      //     finger_print: this.register.finger_print,
+      //     salary_number: this.register.salary_number,
+      //     grade_level: this.register.grade_level,
+      //     date_of_entry: this.register.date_of_entry,
+      //     marital_status: this.register.marital_status,
+      //     category_of_vulnerable_group: this.register.category_of_vulnerable_group,
+      //     enrolled_by: this.user.id,
+      //   })
+      //   .then(response=>{
 
-            console.log(response);
-            this.isLoading = false;
-            this.$toasted.info('Client added Successfully', {position: 'top-center', duration:3000 })
-            let user_id = response.data.data.id
+      //       console.log(response);
+      //       this.isLoading = false;
+      //       this.$toasted.info('Client added Successfully', {position: 'top-center', duration:3000 })
+      //       let user_id = response.data.data.id
 
-            this.$router.push(`/client/${user_id}`)
+      //       this.$router.push(`/client/${user_id}`)
 
-        })
-        .catch(error=>{
-            console.log(error.response)
-            this.isLoading = false;
-            this.response = error.response.data.errors
-            if (this.response.firstname != null) {
-              this.$toasted.error(`${this.response.firstname}`, {position: 'top-center', duration:3000 })
+      //   })
+      //   .catch(error=>{
+      //       console.log(error.response)
+      //       this.isLoading = false;
+      //       this.response = error.response.data.errors
+      //       if (this.response.firstname != null) {
+      //         this.$toasted.error(`${this.response.firstname}`, {position: 'top-center', duration:3000 })
 
-            }
-            if(this.response.lastname != null) {
-              this.$toasted.error(`${this.response.lastname}`, {position: 'top-center', duration:3000 })
+      //       }
+      //       if(this.response.lastname != null) {
+      //         this.$toasted.error(`${this.response.lastname}`, {position: 'top-center', duration:3000 })
 
-            }
-            if (this.response.phone_number != null) {
-              this.$toasted.error(`${this.response.phone_number}`, {position: 'top-center', duration:3000 })
+      //       }
+      //       if (this.response.phone_number != null) {
+      //         this.$toasted.error(`${this.response.phone_number}`, {position: 'top-center', duration:3000 })
 
-            }
+      //       }
 
 
 
-        })
+      //   })
     }
 
   },

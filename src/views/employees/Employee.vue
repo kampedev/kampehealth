@@ -84,6 +84,7 @@
                               <th>Phone Number</th>
                               <th>Sector</th>
                               <th>NIN Number</th>
+                              <!-- <th>Facility</th> -->
                           </tr>
                           </thead>
                           <tbody>
@@ -94,6 +95,8 @@
                               <td>{{client.phone_number}} </td>
                               <td>{{client.sector}}</td>
                               <td> {{client.nimc_number}}</td>
+                              <!-- <td>{{client.provider_id}}</td> -->
+
                               <td>
                                 <router-link :to="{ path: '/client/'+ client.id}">
                                   <button type="button" name="button" class="btn btn-info">view</button>

@@ -116,6 +116,12 @@
                                             <option  value="Divorced">Divorced</option>
                                          </select>
                                       </div>
+                                      <div class="form-group col-md-12">
+                                      <label for="inputCity">Principal Facility for Accessing Care</label>
+                                        <select class="form-control"  v-model="auth_user.provider_id">
+                                          <option v-for="facility in providers" v-bind:key="facility.id" :value="facility.id">{{facility.agency_name}}</option>
+                                       </select>
+                                    </div>
                                       <div class="form-group col-md-6">
                                         <label for="inputCity">Blood Group</label>
                                             <select class="form-control"  v-model="auth_user.blood" >
@@ -128,7 +134,7 @@
                                       <div class="form-group col-md-6">
                                         <label for="inputCity">LGA</label>
                                           <select class="form-control"  v-model="auth_user.localgovt">
-                                            <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                                            <option v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.id">{{lga.local_name}}</option>
                                          </select>
                                       </div>
                                       <div class="form-group col-md-12" v-if="auth_user.type != 'client' ">
@@ -150,37 +156,13 @@
                                       <label for="inputAddress2">Office Website</label>
                                       <input type="text" class="form-control"  placeholder="http://example.com or https://example.com"  v-model="auth_user.agencyWebsite">
                                   </div>
-                                  <!-- <div class="form-group col-md-6">
-                                      <label for="inputPassword4">Password</label>
-                                      <input type="password" class="form-control"  placeholder="Password"  v-model="auth_user.password">
-                                  </div> -->
+
 
                                   <button type="submit" class="btn btn-success btn-cta" @click="editUser">Save changes</button>
 
                           </div>
                       </div>
-                       <!-- <div class="card  py-3 m-b-30">
-                           <div class="card-body">
-                               <h1>CAC Certificate</h1>
 
-                               <button type="submit" class="btn btn-info btn-cta">View</button>
-                               <button type="submit" class="btn btn-danger btn-cta">Delete</button>
-
-                           </div>
-                       </div> -->
-
-                       <!-- <div class="card  py-3 m-b-30">
-                           <div class="card-body">
-                               <h3 class="">Plans</h3>
-                               <p class="text-muted">
-                                   Changes in plans will reflect on 15<sup>th</sup> of every month
-                               </p>
-
-                               <div class="p-t-30">
-                                   <button type="submit" class="btn btn-success btn-cta">Save changes</button>
-                               </div>
-                           </div>
-                       </div> -->
                    </div>
 
                </div>
@@ -214,6 +196,7 @@ export default {
      user:null,
      image:'',
      sector:"",
+     providers:"",
      lga_states:"",
      isLoading: false,
      fullPage: true,
@@ -230,6 +213,18 @@ export default {
                })
  },
  methods:{
+   getProviders(){
+     this.user = JSON.parse(localStorage.getItem('user'))
+
+     this.axios.get(`/api/v1/auth/providerAgency/4`)
+                 .then(response => {
+                     this.providers = response.data.data
+                     console.log(response)
+                 })
+                 .catch(error => {
+                     console.error(error);
+                 })
+   },
    getUser(){
      this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
                  .then(response => {
@@ -258,12 +253,15 @@ export default {
    this.axios.post(`/api/v1/auth/editProfile/${this.$route.params.id}`,{
        firstname: this.auth_user.firstname,
        lastname: this.auth_user.lastname,
-       email: this.auth_user.email,
-       type: this.auth_user.type,
-       state: 'Kogi',
-       user_image: this.auth_user.user_image,
        middlename: this.auth_user.middlename,
        nimc_number: this.auth_user.nimc_number,
+       email: this.auth_user.email,
+       type: this.auth_user.type,
+       state: '2669',
+       user_image: this.auth_user.user_image,
+       provider_id: this.auth_user.provider_id,
+       sector: this.auth_user.sector,
+       blood: this.auth_user.blood,
        password: this.auth_user.password,
        phone_number: this.auth_user.phone_number,
        agency_name: this.auth_user.agency_name,
@@ -284,6 +282,7 @@ export default {
  },
  created(){
    this.fetchLga()
+   this.getProviders()
  }
 }
 </script>

@@ -28,7 +28,7 @@
                            <div class="card-body">
 
                                  <div class="form-group">
-                                     <button class="btn btn-primary" @click="show = !show">Add Ward</button>
+                                     <button class="btn btn-primary" @click="show = !show">Ward Form</button>
                                  </div>
                            </div>
                        </div>
@@ -42,7 +42,7 @@
 
                            <div class="form-group col-md-12">
                              <label for="inputCity">Select LGA</label>
-                                 <select class="form-control"  v-model="lga" >
+                                 <select class="form-control"  v-model="lga"  @change="getWards">
                                   <option  v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.id">{{lga.local_name}}</option>
                               </select>
                            </div>
@@ -57,15 +57,15 @@
 
                        </div>
 
-                         <button @click="addWard" class="btn btn-primary btn-block btn-lg">Submit</button>
+                         <button @click="submitForm" class="btn btn-primary btn-block btn-lg">Submit</button>
 
                        </div>
                      </div>
 
                    </div>
 
-                   <!-- <div class="col-md-6 offset-md-3">
-                       <h5> <i class="fe fe-airplay"></i> Wards </h5>
+                   <div class="col-md-6 offset-md-3">
+                       <h5> <i class="fe fe-map-pin"></i> Wards </h5>
                        <div class="table-responsive">
                            <table class="table align-td-middle table-card">
                                <thead>
@@ -86,7 +86,7 @@
                                      {{ward.ward_short_name}}
                                    </td>
                                    <td>
-                                      <button type="button" class="btn btn-info" name="button">edit</button>
+                                      <button type="button" class="btn btn-info" @click="editWard(ward)">edit</button>
                                    </td>
                                </tr>
 
@@ -94,7 +94,7 @@
                            </table>
 
                        </div>
-                   </div> -->
+                   </div>
 
                </div>
            </div>
@@ -130,6 +130,7 @@ export default {
       user:null,
       lga_states:"",
       wards:"",
+      ward_id:"",
       edit:false,
       show:false,
       selector:"ministry",
@@ -147,14 +148,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/wards`)
-                .then(response => {
-                    this.wards = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+
   },
   computed:{
     //
@@ -170,6 +164,24 @@ export default {
                   .catch(error => {
                       console.error(error);
                   })
+    },
+    getWards(){
+      this.axios.get(`/api/v1/auth/getwards/${this.lga}`)
+                  .then(response => {
+                      this.wards = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    submitForm(){
+      if (this.edit == false) {
+        this.addWard()
+      }
+      else {
+        this.updateWard()
+      }
     },
 
     addWard(){
@@ -193,19 +205,59 @@ export default {
                 })
 
     },
+    editWard(ward){
+      this.show = true;
+      this.edit = true;
+      this.register.ward_name = ward.ward_name
+      this.register.ward_short_name = ward.ward_short_name
+      this.lga = ward.lg_id
+      this.ward_id = ward.id
+    },
+    updateWard(){
+        this.isLoading = true;
+                this.axios.put(`/api/v1/auth/wards/${this.ward_id}`,{
+                  ward_name : this.register.ward_name,
+                  ward_short_name : this.register.ward_short_name,
+                  lg_id : this.lga,
+                  state_id : 2669,
+                })
+                .then(response=>{
+                    console.log(response);
+                    this.isLoading = false;
+                    this.clearIt()
+                    this.$toasted.info('Ward Change', {position: 'top-center', duration:5000 })
+                    //get ward
+                    this.axios.get(`/api/v1/auth/getwards/${this.lga}`)
+                                .then(response => {
+                                    this.wards = response.data.data
+                                    console.log(response)
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                })
+                    //end of get ward
+                })
+                .catch(error=>{
+                    console.log(error.response)
+                    this.isLoading = false;
+                    this.$toasted.error('Error', {position: 'top-left', duration:5000 })
+                })
+
+    },
 
 
     clearIt(){
 
       this.register.ward_name = "";
       this.register.ward_short_name = "";
-      this.lga = "";
+      // this.lga = "";
 
     },
 
   },
   created(){
     this.getLGAs()
+    // this.getWards()
   }
 
 }

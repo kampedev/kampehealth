@@ -13,22 +13,7 @@
                     <h5 class="spacer-top">Hello, {{auth_user.firstname}} {{auth_user.lastname}}</h5>
                 </div>
 
-                <!-- <div class="col-md-12" v-if="offlineclients.length > 0">
-                  <div class="alert alert-border-warning  alert-dismissible fade show" role="alert">
-                                  <div class="d-flex">
-                                      <div class="icon">
-                                          <i class="icon mdi mdi-alert-circle-outline"></i>
-                                      </div>
-                                      <div class="content">
-                                          <strong>{{offlineclients.length}} Users</strong> added offline.
-                                          <download-excel :data="offlineclients">
-                                              <button type="button" class="btn btn-primary align-right" name="button" @click="syncClients">Sync Now</button>
-                                            </download-excel>
-                                      </div>
-                                  </div>
-
-                              </div>
-                </div> -->
+              
 
                 <div class="col-lg-6 col-md-6">
                     <div class="card m-b-30">

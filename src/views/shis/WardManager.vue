@@ -7,12 +7,7 @@
                <div class="row p-b-60 p-t-60">
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
-                       <div class="m-b-10">
-                           <div class="avatar ">
-                               <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-                           </div>
-                       </div>
-                       <h3> </h3>
+
                        <strong> Ward Manager</strong>
 
                    </div>
@@ -28,7 +23,6 @@
                        <div class="card m-b-30">
                            <div class="card-header">
 
-                             <h3 class="p-t-10 searchBy-name">{{wards.length}} Wards Added</h3>
                            </div>
 
                            <div class="card-body">
@@ -46,49 +40,38 @@
 
                          <div class="form-row">
 
-                           <!-- <div class="form-group col-md-12">
-                             <label for="inputCity">Select MDA </label>
-                                 <select class="form-control"  v-model="selector">
-                                  <option value="ministry">Ministry</option>
-                                  <option value="department">Department</option>
-                                  <option value="parastatal">Parastatal</option>
-                              </select>
-                           </div> -->
-
-                           <!-- <div class="form-group col-md-12" v-if="selector != 'ministry' && selector != null">
-                             <label for="inputCity">Select Ministry</label>
-                                 <select class="form-control"  v-model="ministry_id" @change="fetchLga(state)">
-                                  <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
-                              </select>
-                           </div> -->
-
                            <div class="form-group col-md-12">
                              <label for="inputCity">Select LGA</label>
                                  <select class="form-control"  v-model="lga" >
-                                  <option  v-for="lga in lga_states" v-bind:key="lga">{{lga.local_name}}</option>
+                                  <option  v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.id">{{lga.local_name}}</option>
                               </select>
                            </div>
-                           <div class="form-group floating-label col-md-12 col-sm-12" v-if="selector == 'ministry'">
-                               <label>MDA</label>
-                               <input type="text" required class="form-control" placeholder="Name of Ward" v-model="register.ward">
+                           <div class="form-group floating-label col-md-6" >
+                               <label>Ward Name</label>
+                               <input type="text" required class="form-control" placeholder="Name of Ward" v-model="register.ward_name">
+                           </div>
+                           <div class="form-group floating-label col-md-6" >
+                               <label>Ward Short Name</label>
+                               <input type="text" required class="form-control" placeholder="Short Name" v-model="register.ward_short_name">
                            </div>
 
                        </div>
 
-                         <button @click="registerMDA" class="btn btn-primary btn-block btn-lg">Submit</button>
+                         <button @click="addWard" class="btn btn-primary btn-block btn-lg">Submit</button>
 
                        </div>
                      </div>
 
                    </div>
 
-                   <div class="col-md-10 m-b-30">
+                   <!-- <div class="col-md-6 offset-md-3">
                        <h5> <i class="fe fe-airplay"></i> Wards </h5>
                        <div class="table-responsive">
                            <table class="table align-td-middle table-card">
                                <thead>
                                <tr>
                                    <th>Name</th>
+                                   <th>Short Name</th>
                                    <th>Action</th>
 
                                </tr>
@@ -97,19 +80,21 @@
                                <tr v-for="ward in wards" v-bind:key="ward.id">
 
                                    <td>
-                                     {{ward.name}}
+                                     {{ward.ward_name}}
+                                   </td>
+                                   <td>
+                                     {{ward.ward_short_name}}
                                    </td>
                                    <td>
                                       <button type="button" class="btn btn-info" name="button">edit</button>
                                    </td>
-
                                </tr>
 
                                </tbody>
                            </table>
 
                        </div>
-                   </div>
+                   </div> -->
 
                </div>
            </div>
@@ -154,7 +139,8 @@ export default {
       provider_id:"",
       lga:"",
       register:{
-                ward:"",
+                ward_name:"",
+                ward_short_name:"",
 
             }
     }
@@ -163,7 +149,7 @@ export default {
     this.user = JSON.parse(localStorage.getItem('user'))
     this.axios.get(`/api/v1/auth/wards`)
                 .then(response => {
-                    this.wards = response.data
+                    this.wards = response.data.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -186,38 +172,39 @@ export default {
                   })
     },
 
-    registerMDA(){
+    addWard(){
         this.isLoading = true;
-          if (this.selector == 'ministry') {
-                this.axios.post('/api/v1/auth/ministry',{
-                  name : this.register.ministry,
+                this.axios.post('/api/v1/auth/wards',{
+                  ward_name : this.register.ward_name,
+                  ward_short_name : this.register.ward_short_name,
+                  lg_id : this.lga,
+                  state_id : 2669,
                 })
                 .then(response=>{
                     console.log(response);
                     this.isLoading = false;
-                    this.getDepts()
                     this.clearIt()
-                    this.$toasted.info('MDA Added', {position: 'top-center', duration:5000 })
+                    this.$toasted.info('Ward Added', {position: 'top-center', duration:5000 })
                 })
                 .catch(error=>{
                     console.log(error.response)
                     this.isLoading = false;
                     this.$toasted.error('Error', {position: 'top-left', duration:5000 })
                 })
-          }
 
     },
 
 
     clearIt(){
 
-      this.register.ministry = "";
+      this.register.ward_name = "";
+      this.register.ward_short_name = "";
+      this.lga = "";
 
     },
 
   },
   created(){
-    // this.fetchParas()
     this.getLGAs()
   }
 

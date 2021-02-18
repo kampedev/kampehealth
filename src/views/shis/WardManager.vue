@@ -39,7 +39,6 @@
                        <div class="card-body">
 
                          <div class="form-row">
-
                            <div class="form-group col-md-12">
                              <label for="inputCity">Select LGA</label>
                                  <select class="form-control"  v-model="lga"  @change="getWards">
@@ -64,7 +63,14 @@
 
                    </div>
 
-                   <div class="col-md-6 offset-md-3">
+                   <div class="form-group col-md-12">
+                     <label for="inputCity">Select LGA</label>
+                         <select class="form-control"  v-model="lga"  @change="getWards">
+                          <option  v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.id">{{lga.local_name}}</option>
+                      </select>
+                   </div>
+
+                   <div class="col-md-10">
                        <h5> <i class="fe fe-map-pin"></i> Wards </h5>
                        <div class="table-responsive">
                            <table class="table align-td-middle table-card">

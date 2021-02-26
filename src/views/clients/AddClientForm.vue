@@ -169,7 +169,6 @@
 
                                                                 <div class="form-group col-md-6" v-if="sector == 'informal'">
                                                                   <label>Principal Facility for Accessing Health Care </label>
-                                                                  <!-- <v-select v-model="register.provider_id" :options="providers" label="agency_name" :value="register.provider_id" @input="selected"></v-select> -->
                                                                   <select class="form-control"  v-model="register.provider_id">
                                                                       <option v-for="provider in providers_wards" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
                                                                    </select>
@@ -423,7 +422,7 @@ export default {
           email: this.register.email,
           phone_number: this.register.phone_number,
           type: this.register.type,
-          provider_id: this.selected_provider,
+          provider_id: this.register.provider_id,
           state: '2669',
           role: 0,
           password: 'jacobi',

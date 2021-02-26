@@ -368,7 +368,7 @@
                                 <li class="menu-item">
                                     <router-link to="/add-client-offline" class=" menu-link">
                                                     <span class="menu-label">
-                                                            <span class="menu-name">Manage Enrollees(Offline)
+                                                            <span class="menu-name">Enrollees(Offline)
                                                             </span>
                                                         </span>
                                         <span class="menu-icon">
@@ -753,7 +753,7 @@
                                                         </span>
                                         <span class="menu-icon">
 
-                                                                <i class="icon-placeholder  mdi mdi-view-day "></i>
+                                                                <i class="icon-placeholder  fe fe-check-circle"></i>
                                                         </span>
                                     </router-link>
                                 </li>
@@ -777,7 +777,7 @@
                                                         </span>
                                         <span class="menu-icon">
 
-                                                                <i class="icon-placeholder  mdi mdi-location"></i>
+                                                                <i class="icon-placeholder  fe fe-map-pin"></i>
                                                         </span>
                                     </router-link>
                                 </li>

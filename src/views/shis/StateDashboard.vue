@@ -114,7 +114,30 @@
                 </div>
 
             </div>
-            <Lgadata />
+            <div class="row">
+              <div class="col-md-12 p-t-20">
+                <h5 class="h5"> <i class="fe fe-activity"></i> Formal Sector Enrollment Data</h5>
+
+              </div>
+              <div class="col-md-12">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <LGaData />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 p-t-20">
+                <h5 class="h5"> <i class="fe fe-activity"></i> Informal Sector Enrollment Data</h5>
+
+              </div>
+              <div class="col-md-12">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <InformalLga />
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-12 m-b-30">
@@ -164,7 +187,8 @@
 
 <script>
 import Navbar from '@/views/Navbar.vue'
-import Lgadata from '@/views/shis/components/lgadata.vue'
+import LGaData from "./components/lgadata";
+import InformalLga from "./components/informallga";
 import { StudentService } from "./../../service/student_service";
 import { initJsStore } from "./../../service/idb_service";
 import { Global } from "./../../global";
@@ -174,7 +198,7 @@ import { connection } from "./../../service/jsstore_con";
 
 export default {
   components: {
-     Navbar, Lgadata
+     Navbar, LGaData, InformalLga
   },
   async beforeCreate() {
     try {

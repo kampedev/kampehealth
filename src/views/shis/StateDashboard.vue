@@ -128,16 +128,27 @@
               </div>
               <div class="col-md-12 p-t-20">
                 <h5 class="h5"> <i class="fe fe-activity"></i> Informal Sector Enrollment Data</h5>
-
               </div>
               <div class="col-md-12">
                 <div class="card m-b-30">
                   <div class="card-body">
                     <InformalLga />
+                    
                   </div>
                 </div>
               </div>
+              
             </div>
+            <h5 class="h5"> <i class="fe fe-activity"></i> Category of Basic Health Care Provision Fund Data</h5>
+            <div class="row">
+                
+                <div class="col-md-6">
+                  <BasicCategory />
+                </div>
+                <div class="col-md-6">
+
+                </div>
+              </div>
 
             <div class="row">
                 <div class="col-md-12 m-b-30">
@@ -189,6 +200,7 @@
 import Navbar from '@/views/Navbar.vue'
 import LGaData from "./components/lgadata";
 import InformalLga from "./components/informallga";
+import BasicCategory from "./components/basicCategory";
 import { StudentService } from "./../../service/student_service";
 import { initJsStore } from "./../../service/idb_service";
 import { Global } from "./../../global";
@@ -198,7 +210,7 @@ import { connection } from "./../../service/jsstore_con";
 
 export default {
   components: {
-     Navbar, LGaData, InformalLga
+     Navbar, LGaData, InformalLga, BasicCategory
   },
   async beforeCreate() {
     try {

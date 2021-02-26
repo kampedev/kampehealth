@@ -114,7 +114,7 @@
                 </div>
 
             </div>
-            <lgadata/>
+            <Lgadata />
 
             <div class="row">
                 <div class="col-md-12 m-b-30">
@@ -164,7 +164,7 @@
 
 <script>
 import Navbar from '@/views/Navbar.vue'
-import lgadata from '@/views/shis/components/lgadata.vue'
+import Lgadata from '@/views/shis/components/lgadata.vue'
 import { StudentService } from "./../../service/student_service";
 import { initJsStore } from "./../../service/idb_service";
 import { Global } from "./../../global";
@@ -174,7 +174,7 @@ import { connection } from "./../../service/jsstore_con";
 
 export default {
   components: {
-     Navbar, lgadata
+     Navbar, Lgadata
   },
   async beforeCreate() {
     try {

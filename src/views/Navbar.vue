@@ -753,7 +753,7 @@
                                                         </span>
                                         <span class="menu-icon">
 
-                                                                <i class="icon-placeholder  mdi mdi-view-day "></i>
+                                                                <i class="icon-placeholder  fe fe-check-circle"></i>
                                                         </span>
                                     </router-link>
                                 </li>
@@ -777,7 +777,7 @@
                                                         </span>
                                         <span class="menu-icon">
 
-                                                                <i class="icon-placeholder  mdi mdi-location"></i>
+                                                                <i class="icon-placeholder  fe fe-map-pin"></i>
                                                         </span>
                                     </router-link>
                                 </li>

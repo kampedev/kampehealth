@@ -64,7 +64,7 @@
                                          <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.category_of_vulnerable_group == null">Dependents</button>
                                          </router-link>
-                                         <router-link :to="{ path: '/edit-user/'+client.id, params: {} }">
+                                         <router-link :to="{ path: '/edit-user/'+$route.params.id, params: {} }">
                                            <button class="btn btn-secondary spacer">Edit Client</button>
                                          </router-link>
                                      </div>
@@ -105,7 +105,7 @@
                              </div>
 
                               <div class="col-md-8">
-                                <p class="h2 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
+                                <p class="h2 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}} {{$route.params.id}}</p>
                                 <hr>
                                 <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>{{client.id_card_number}}</strong></p>
                                 <hr>

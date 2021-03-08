@@ -30,6 +30,7 @@
        <!-- <FilterUsers/> -->
        <SearchUser/>
        <FilterUserProvider/>
+       <FilterUserLGA/>
 
        <section class="">
            <div class="container">
@@ -65,7 +66,7 @@
                                          <td>{{client.category_of_vulnerable_group}}</td>
                                          <td>
                                            <router-link :to="{ path: '/client/'+ client.id}">
-                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                             <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i> </button>
                                             </router-link>
 
                                          </td>
@@ -106,6 +107,7 @@
   import Navbar from '@/views/Navbar.vue'
   import SearchUser from '@/views/shis/components/SearchUser.vue'
   import FilterUserProvider from '@/views/shis/components/FilterUserProvider.vue'
+  import FilterUserLGA from '@/views/shis/components/FilterUserLGA.vue'
 
   // Import component
      import Loading from 'vue-loading-overlay';
@@ -115,7 +117,7 @@
 
 export default {
   components: {
-     Navbar, Loading, SearchUser, FilterUserProvider
+     Navbar, Loading, SearchUser, FilterUserProvider, FilterUserLGA
   },
   data(){
     return{

@@ -112,6 +112,7 @@
                         </div>
                     </div>
                 </div>
+                <FilterUserLGA/>
 
             </div>
             <div class="row">
@@ -200,6 +201,7 @@
 import Navbar from '@/views/Navbar.vue'
 import Footer from '@/views/Footer.vue'
 import LGaData from "./components/lgadata";
+import FilterUserLGA from "./components/FilterUserLGA";
 import InformalLga from "./components/informallga";
 import BasicCategory from "./components/basicCategory";
 import { StudentService } from "./../../service/student_service";
@@ -211,7 +213,7 @@ import { connection } from "./../../service/jsstore_con";
 
 export default {
   components: {
-     Navbar, LGaData, InformalLga, BasicCategory, Footer
+     Navbar, LGaData, InformalLga, BasicCategory, Footer, FilterUserLGA
   },
   async beforeCreate() {
     try {

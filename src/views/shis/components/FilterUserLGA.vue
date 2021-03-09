@@ -35,31 +35,32 @@
                             <div class="form-group col-md-4">
                               <label for="inputCity">LGA</label>
                                 <select class="form-control"  v-model="localgovt" @change="fetchWards($event)">
-                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga">{{lga.local_name}}</option>
                                </select>
                             </div>
 
                             <div class="form-group col-md-4">
                               <label >Ward</label>
-                              <select class="form-control"  v-model="ward" @change="getProvidersByWards($event)">
-                                  <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                              <select class="form-control"  v-model="ward">
+                                  <option v-for="ward in wards" v-bind:key="ward.id" :value="ward">{{ward.ward_name}}</option>
                                </select>
                             </div>
 
                           </div>
 
-                         <button @click="filterProvider()" class="btn btn-primary btn-block btn-lg" style="margin-top:20px;"> Filter </button>
+                         <button @click="filterEnrollees()" class="btn btn-primary btn-block btn-lg" style="margin-top:20px;"> Filter </button>
                         <br />
 
                         <div v-show="showdownload">
-                        <div v-if="loader == true">
+                        <!-- <div v-if="loader == true">
                             <vue-loaders name="line-spin-fade-loader" color="black" scale="1"></vue-loaders> Preparing data for download for Health Facility
-                        </div>
-                        <div v-else>
-                            <p class="alert alert-warning">
-                                  <download-excel :data="json_data" :fields="json_fields" type="csv" :escapeCsv=false :name="selected_provider.agency_name+'.csv'"
+                        </div> -->
+
+                        <div >
+                            <p class="btn btn-success">
+                                  <i class="fe fe-download"></i> <download-excel :data="results" :fields="json_fields" type="csv" :escapeCsv=false :name="localgovt.local_name+' _ '+ward.ward_name+'.csv'"
                 >
-                            Download Data for {{selected_provider.agency_name}}
+                            Download Data for {{localgovt.local_name}} {{ward.ward_name}}
                             <!-- <img src="download_icon.png" /> -->
                             </download-excel></p>
                         </div>
@@ -106,20 +107,22 @@ export default {
       edit:false,
       show:false,
       isLoading: false,
-      fullPage: true,
+      fullPage: false,
       agency_id:"",
       provider_id:"",
       mdas:[],
       state:"",
       lga_states:"",
       wards:[],
-
+      results:[],
       json_fields: {
-                // 'MDa name':'place_of_work',
-                'firstname': 'firstname',
-                'lastname':'lastname',
-                // 'computer number':'salary_number',
-                // 'Health Facility':'point_of_care',
+                'KGSHIA Number':'id_card_number',
+                'First Name': 'firstname',
+                'Last Name':'lastname',
+                'Middle Name':'middlename',
+                'Sector':'sectorType',
+                'Plan':'sector',
+                'Date of Birth':'dob',
                 'gender':'gender',
                 'phone_number':'phone_number' },
                 json_data: [],
@@ -145,13 +148,23 @@ export default {
                 })
   },
   methods:{
-    fetchWards(){
-      this.axios.get(`/api/v1/auth/getwards/${event.target.value}`)
+    filterEnrollees(){
+      this.isLoading = true;
+      this.axios.get(`/api/v1/auth/filtersectordashboardwardlga`,{
+      agency_id:'90',
+      sector:this.sector,
+      lga_id:this.localgovt.id,
+      ward:this.ward.id,
+      })
                   .then(response => {
-                      this.wards = response.data.data
+                      this.results = response.data
                       console.log(response)
+                      this.isLoading = false;
+                      this.showdownload = true;
+
                   })
                   .catch(error => {
+                    this.isLoading = false;
                       console.error(error);
                   })
     },
@@ -160,6 +173,16 @@ export default {
       this.axios.get(`/api/v1/auth/lga/2669`)
                   .then(response => {
                       this.lga_states = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    fetchWards(){
+      this.axios.get(`/api/v1/auth/getwards/${this.localgovt.id}`)
+                  .then(response => {
+                      this.wards = response.data.data
                       console.log(response)
                   })
                   .catch(error => {

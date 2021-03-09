@@ -150,7 +150,7 @@ export default {
   methods:{
     filterEnrollees(){
       this.isLoading = true;
-      this.axios.get(`/api/v1/auth/filtersectordashboardwardlga`,{
+      this.axios.post(`/api/v1/auth/filtersectordashboardwardlga`,{
       agency_id:'90',
       sector:this.sector,
       lga_id:this.localgovt.id,

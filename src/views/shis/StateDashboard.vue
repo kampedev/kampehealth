@@ -330,7 +330,7 @@ export default {
       //             .catch(error => {
       //                 console.error(error);
       //             })
-      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getAgencyToUser/4`)
                   .then(response => {
                       this.clients = response.data.data
                       this.total_clients = response.data.meta.total

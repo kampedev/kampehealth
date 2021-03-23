@@ -290,7 +290,7 @@ export default {
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/providerAgency/4`)
                   .then(response => {
                       this.providers = response.data.data
                       console.log(response)

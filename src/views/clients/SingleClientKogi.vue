@@ -42,10 +42,10 @@
                                      <div class="form-group">
                                        <!-- <button class="btn btn-info spacer"  >Principal's Details</button> -->
 
-                                         <button class="btn btn-success spacer" data-toggle="modal" data-target="#example_01">Capture Face </button>
+                                         <button class="btn btn-success spacer" data-toggle="modal" data-target="#example_01"><i class="fe fe-camera"></i> </button>
                                          <div class="fileinput fileinput-new" data-provides="fileinput" >
                                           <span class="btn btn-file">
-                                            <span class="fileinput-new">Upload Photo</span>
+                                            <span class="fileinput-new"><i class="fe fe-upload"></i></span>
                                             <span class="fileinput-exists">Change</span>
                                             <input type="file" name="..." multiple   v-on:change="attachPic">
                                           </span>
@@ -53,19 +53,19 @@
                                           <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                       </div>
                                          <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
-                                           <button class="btn btn-info spacer"  >Biometrics</button>
+                                           <button class="btn btn-info spacer"  > <i class="mdi mdi-hand"></i> </button>
                                         </router-link>
-                                        <button class="btn btn-primary spacer"  @click="printMe">Print ID Card</button>
+                                        <button class="btn btn-primary spacer"  @click="printMe"><i class="fe fe-printer"></i></button>
 
                                         <router-link :to="{ path: '/client/capture-signature/'+client.id, params: {} }">
-                                          <button class="btn btn-info spacer" >Capture Signature</button>
+                                          <button class="btn btn-info spacer" ><i class="fe fe-edit-2"></i></button>
                                         </router-link>
 
                                          <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.category_of_vulnerable_group == null">Dependents</button>
                                          </router-link>
-                                         <router-link :to="{ path: '/edit-user/'+client.id, params: {} }">
-                                           <button class="btn btn-secondary spacer">Edit Client</button>
+                                         <router-link :to="{ path: '/edit-user/'+$route.params.id, params: {} }">
+                                           <button class="btn btn-secondary spacer"><i class="fe fe-edit"></i></button>
                                          </router-link>
                                      </div>
 
@@ -579,7 +579,7 @@ this.isLoading = true;
 </script>
 <style >
 .spacer{
-  margin-left:5px;
+  margin-left:1px;
   margin-top:5px;
   margin-bottom:5px;
 }

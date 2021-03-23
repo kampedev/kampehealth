@@ -59,13 +59,10 @@
                                                                 <option  value="Pregnant Women">Pregnant Women</option>
                                                                 <option  value="Children under 5">Children under 5</option>
                                                                 <option  value="Aged">Aged</option>
-                                                                <option  value="IDP">IDP</option>
-                                                                <option  value="Physically Challenged">Physically Challenged</option>
                                                                 <option  value="People with Special Needs">People with Special Needs</option>
                                                                 <option  value="Poorest of the Poor">Poorest of the Poor</option>
                                                              </select>
                                                           </div>
-
 
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputEmail4">NIN Number</label>
@@ -354,6 +351,7 @@ export default {
           email: this.register.email,
           phone_number: this.register.phone_number,
           type: this.register.type,
+          sectorType : this.sector,
           agency_id: 90,
           provider_id: this.selected_provider ? this.selected_provider : this.register.provider_id,
           state: '2669',
@@ -422,6 +420,7 @@ export default {
           email: this.register.email,
           phone_number: this.register.phone_number,
           type: this.register.type,
+          sectorType : this.sector,
           provider_id: this.register.provider_id,
           state: '2669',
           role: 0,

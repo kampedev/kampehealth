@@ -112,6 +112,8 @@
                         </div>
                     </div>
                 </div>
+                <FilterUserLGA />
+                <FilterUserDate />
 
             </div>
             <div class="row">
@@ -133,15 +135,15 @@
                 <div class="card m-b-30">
                   <div class="card-body">
                     <InformalLga />
-                    
+
                   </div>
                 </div>
               </div>
-              
+
             </div>
             <h5 class="h5"> <i class="fe fe-activity"></i> Category of Basic Health Care Provision Fund Data</h5>
             <div class="row">
-                
+
                 <div class="col-md-6">
                   <BasicCategory />
                 </div>
@@ -188,7 +190,7 @@
 
             </div>
         </div>
-
+        <Footer/>
     </section>
 </main>
 
@@ -198,7 +200,10 @@
 
 <script>
 import Navbar from '@/views/Navbar.vue'
+import Footer from '@/views/Footer.vue'
 import LGaData from "./components/lgadata";
+import FilterUserLGA from "./components/FilterUserLGA";
+import FilterUserDate from "./components/FilterUserDate";
 import InformalLga from "./components/informallga";
 import BasicCategory from "./components/basicCategory";
 import { StudentService } from "./../../service/student_service";
@@ -210,7 +215,7 @@ import { connection } from "./../../service/jsstore_con";
 
 export default {
   components: {
-     Navbar, LGaData, InformalLga, BasicCategory
+     Navbar, LGaData, InformalLga, BasicCategory, Footer, FilterUserLGA, FilterUserDate
   },
   async beforeCreate() {
     try {
@@ -287,7 +292,7 @@ export default {
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/providerAgency/90`)
                   .then(response => {
                       this.providers = response.data.data
                       console.log(response)
@@ -330,7 +335,7 @@ export default {
       //             .catch(error => {
       //                 console.error(error);
       //             })
-      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getAgencyToUser/90`)
                   .then(response => {
                       this.clients = response.data.data
                       this.total_clients = response.data.meta.total

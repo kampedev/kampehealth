@@ -13,7 +13,7 @@
                     <h5 class="spacer-top">Hello, {{auth_user.firstname}} {{auth_user.lastname}}</h5>
                 </div>
 
-              
+
 
                 <div class="col-lg-6 col-md-6">
                     <div class="card m-b-30">
@@ -100,7 +100,7 @@
             </div>
 
         </div>
-
+        <Footer/>
     </section>
 </main>
 
@@ -111,11 +111,12 @@
 
 <script>
 import Navbar from '@/views/Navbar.vue'
+import Footer from '@/views/Footer.vue'
 import lgadata from '@/views/shis/components/lgadata.vue'
 
 export default {
   components: {
-     Navbar, lgadata
+     Navbar, lgadata, Footer
   },
 
   data(){

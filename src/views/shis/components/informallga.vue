@@ -59,7 +59,7 @@ export default {
                         },
                         yAxis: {
                             title: {
-                                text: 'NUMBER OF STATE CIVIL SERVANT ENROLLED'
+                                text: 'NUMBERS OF VULNERABLE ENROLLED'
                             }
 
             // STATE CIVIL HEALTH CARE PLAN

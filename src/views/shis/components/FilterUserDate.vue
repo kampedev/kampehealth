@@ -31,7 +31,16 @@
                                      Tertiary Student Health Insurance Plan (T-SHIP)</option>
                                </select>
                             </div>
-
+                            <div class="form-group col-md-4">
+                                <label >Special Needs</label>
+                                <select class="form-control" v-model="category_of_vulnerable_group">
+                                    <option  value="Pregnant Women">Pregnant Women</option>
+                                    <option  value="Children under 5">Children under 5</option>
+                                    <option  value="Aged">Aged</option>
+                                    <option  value="People with Special Needs">People with Special Needs</option>
+                                    <option  value="Poorest of the Poor">Poorest of the Poor</option>
+                                </select>
+                            </div>
                             <div class="form-group col-md-4">
                               <label for="inputCity">LGA</label>
                                 <select class="form-control"  v-model="localgovt" @change="fetchWards($event)">
@@ -122,6 +131,7 @@ export default {
       provider_id:"",
       mdas:[],
       state:"",
+      category_of_vulnerable_group:"",
       lga_states:"",
       wards:[],
       from:"",
@@ -165,6 +175,7 @@ export default {
       this.axios.post(`/api/v1/auth/filtersectordashboardwardlgabydate`,{
       agency_id:'90',
       sector:this.sector,
+      category_of_vulnerable_group:this.category_of_vulnerable_group,
       from:this.from,
       to:this.to,
       lga_id:this.localgovt.id,

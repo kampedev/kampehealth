@@ -77,9 +77,9 @@
 
                         <div >
                             <p class="btn btn-success">
-                                  <i class="fe fe-download"></i> <download-excel :data="results" :fields="json_fields" type="csv" :escapeCsv=false :name="localgovt.local_name+' _ '+ward.ward_name+'.csv'"
+                                  <i class="fe fe-download"></i> <download-excel :data="results" :fields="json_fields" type="csv" :escapeCsv=false :name="sector+' _ '+category_of_vulnerable_group+'_'+from+'_'+to+'.csv'"
                 >
-                            Download Data for {{localgovt.local_name}} {{ward.ward_name}}
+                            Download Data for {{from}} to {{to}} {{category_of_vulnerable_group}} {{sector}}
                             <!-- <img src="download_icon.png" /> -->
                             </download-excel></p>
                         </div>
@@ -183,7 +183,7 @@ export default {
       })
                   .then(response => {
                       this.results = response.data
-                      console.log(response)
+                    //   console.log(response)
                       this.isLoading = false;
                       this.showdownload = true;
 

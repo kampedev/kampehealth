@@ -143,10 +143,13 @@ export default {
                 'Last Name':'lastname',
                 // 'Middle Name':'middlename',
                 'Sector':'sector',
-                // 'Plan':'sector',
+                'Vulnerable Group':'category_of_vulnerable_group',
                 'Date of Birth':'dob',
                 'gender':'gender',
-                'phone_number':'phone_number' },
+                'phone_number':'phone_number',
+                'Local Govt':'local_name',
+                'Ward': 'ward_name'
+                 },
                 json_data: [],
                 json_meta: [
                 [

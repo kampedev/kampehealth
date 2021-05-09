@@ -305,13 +305,13 @@ export default {
     },
     fetchWards(){
       this.axios.get(`/api/v1/auth/getwards/` + event.target.value)
-                  .then(response => {
-                      this.wards = response.data.data
-                      console.log(response.data.data)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
+                .then(response => {
+                    this.wards = response.data.data
+                    console.log(response.data.data)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
     },
     registerUser(){
         this.isLoading = true;

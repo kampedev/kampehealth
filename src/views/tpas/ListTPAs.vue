@@ -55,11 +55,15 @@
                                </div>
                            </div>
 
-                           <div class="form-group floating-label col-md-6">
+                           <div class="form-group floating-label col-md-4">
+                               <label>First Name</label>
+                               <input type="text" required class="form-control" placeholder="TPA ID" v-model="register.tpa_id">
+                           </div>
+                           <div class="form-group floating-label col-md-4">
                                <label>First Name</label>
                                <input type="text" required class="form-control" placeholder="First Name" v-model="register.firstname">
                            </div>
-                           <div class="form-group floating-label col-md-6">
+                           <div class="form-group floating-label col-md-4">
                                <label>Last Name</label>
                                <input type="text" required class="form-control" placeholder="Last Name" v-model="register.lastname">
                            </div>
@@ -196,6 +200,7 @@ export default {
                 services_offered:"",
                 localgovt:"",
                 address1:"",
+                tpa_id:"",
                 role:0,
                 password:"",
                 password_confirmation:""
@@ -245,6 +250,7 @@ export default {
                 organization_name : this.register.organization_name,
                 agency_id : this.user.id,
                 category : this.category,
+                tpa_id : this.register.tpa_id,
                   })
 
                   .then(response=>{

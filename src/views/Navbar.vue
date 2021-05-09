@@ -3,7 +3,7 @@
     <aside class="admin-sidebar">
     <div class="admin-sidebar-brand">
         <!-- begin sidebar branding-->
-        <img class="admin-brand-logo" src="/assets/img/kgshia_logo.png" width="40" alt="atmos Logo">
+        <img class="admin-brand-logo" src="/assets/img/ohis_logo.png" width="40" alt="atmos Logo">
         <!-- end sidebar branding-->
         <div class="ml-auto">
             <!-- sidebar pin-->

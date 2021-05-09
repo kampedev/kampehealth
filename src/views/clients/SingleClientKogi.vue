@@ -76,17 +76,18 @@
 
                <div class="row">
                    <div class="col-lg-8 col-md-12" id="printDiv" ref="printNow">
-                       <div class="card" style="background-image: url('../assets/img/kgshia_transparent.png'); background-size: cover; background-repeat: no-repeat;">
+                       <div class="card" style="background-image: url('../assets/img/ohis_transparent.png'); background-size: cover; background-repeat: no-repeat;">
                            <div class="card-header ">
                              <div class="row spacer-top">
                                <div class="col-md-2">
                                  <span class="avatar avatar-xl">
-                                     <img :src="`http://localhost:8080/assets/img/kgshia_logo.png`"
+                                     <img src="/assets/img/ohis_logo.png"
                                           class=" rounded-circle" >
                                  </span>
                                </div>
                                <div class="col-md-10 ">
-                                 <strong ><h2 class="h1">Kogi State Health Insurance Agency </h2> </strong>
+                                 <strong ><h2 class="h1 text-primary">OSUN HEALTH INSURANCE SCHEME </h2> </strong>
+                                 <strong><p class="h2 text-center">(O'HIS)</p></strong>
                                </div>
                              </div>
 
@@ -107,7 +108,7 @@
                               <div class="col-md-8">
                                 <p class="h2 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>{{client.id_card_number}}</strong></p>
+                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p>
                                 <hr>
                                 <p class="h2 spacer-top-bottom"><strong class="text-primary">NIN NUMBER:</strong>  <strong>{{client.nimc_number}}</strong></p>
                                 <hr>
@@ -141,6 +142,8 @@
                                    </div>
 
 
+                                   <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
+                                   <hr>
                                    <p class="spacer-top-bottom"><strong>NIMC Number:</strong> {{client.nimc_number}}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
@@ -267,6 +270,7 @@ export default {
       imagefile:"",
       image:"",
       output:"",
+      singletpa:"",
       pictureShower:true,
       video_settings:{
               video: {
@@ -453,6 +457,17 @@ this.isLoading = true;
                                       console.error(error);
                                   })
                       //end of facility
+
+                      //get tpa
+                      this.axios.get(`/api/v1/auth/orgenrollment/${this.client.org_id}`)
+                                  .then(response => {
+                                      this.singletpa = response.data[0]
+                                      console.log(response)
+                                  })
+                                  .catch(error => {
+                                      console.error(error);
+                                  })
+                      //end of get tpa
                   })
                   .catch(error => {
                       console.error(error);
@@ -567,6 +582,7 @@ this.isLoading = true;
       this.agency_id = "";
 
     },
+
 
   },
   created(){

@@ -163,7 +163,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+    this.axios.get(`/api/v1/auth/getEmployee/95930`)
                 .then(response => {
                     this.employees = response.data.data
                     console.log(response)
@@ -176,7 +176,7 @@ export default {
   methods:{
     getEmployees(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getEmployee/95930`)
                   .then(response => {
                       this.employees = response.data.data
                       console.log(response)
@@ -216,12 +216,12 @@ export default {
           phone_number: this.register.phone_number,
           type: this.register.type,
           password: 'euhler',
-          state : '2669',
+          state : '2676',
           enrolled_by : 0,
           // localgovt : this.register.lga,
           localgovt : '480',
           id_card_number : this.register.id_card_number,
-          institutional_id: 90,
+          institutional_id: 95930,
           job_title: this.register.job_title,
           role: this.register.role,
           lga: this.register.lga,
@@ -231,8 +231,8 @@ export default {
 
             console.log(response);
             this.isLoading = false;
-            let user_id = response.data.data.id
-            this.$router.push(`/client/${user_id}`)
+            this.getEmployees()
+
 
             this.$toasted.info('Employee added Successfully', {position: 'top-center', duration:3000 })
             this.$toasted.info("Employee Password is 'euhler' ", {position: 'top-center', duration:3000 })

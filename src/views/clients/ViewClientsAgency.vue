@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3 class="h3">Clients</h3>
+                       <h3 class="h3">Enrollees</h3>
 
                        <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">

@@ -138,7 +138,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/lga/2669`)
+    this.axios.get(`/api/v1/auth/lga/2676`)
                 .then(response => {
                     this.lga_states = response.data.data
                     console.log(response)
@@ -151,7 +151,7 @@ export default {
     filterEnrollees(){
       this.isLoading = true;
       this.axios.post(`/api/v1/auth/filtersectordashboardwardlga`,{
-      agency_id:'90',
+      agency_id:'95930',
       sector:this.sector,
       lga_id:this.localgovt.id,
       ward:this.ward.id,
@@ -170,7 +170,7 @@ export default {
     },
 
     fetchLga(){
-      this.axios.get(`/api/v1/auth/lga/2669`)
+      this.axios.get(`/api/v1/auth/lga/2676`)
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)

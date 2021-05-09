@@ -104,7 +104,7 @@ export default {
       this.loading = true
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.post(`/api/v1/auth/searchbymultiplevalues`,{
-            agency_id: 90,
+            agency_id: 95930,
             salary_number: this.salary_number,
             nimc_number: this.nimc_number,
             phone_number: this.phone_number,

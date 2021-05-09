@@ -15,7 +15,6 @@
                        <h3>Edit User</h3>
                    </div>
 
-
                </div>
            </div>
        </div>
@@ -28,17 +27,25 @@
 
                                   <h3 class="">Personal Data</h3>
                                   <p class="text-muted">
-                                      Use this page to update your bio data information.
+                                      Use this page to update your bio-data information.
                                   </p>
 
                                   <div class="form-row">
 
+                                    <div class="col-md-6" >
+                                        <div class="form-group">
+                                          <label for="inputCity">Sector</label>
+                                              <select class="form-control" disabled  v-model="auth_user.sectorType" >
+                                               <option  value="formal">Formal Sector</option>
+                                               <option  value="informal">Informal Sector</option>
+                                           </select>
+                                        </div>
+                                    </div>
 
-
-                                      <div class="col-md-6" >
+                                      <div class="col-md-6" v-if="auth_user.sectorType == 'informal'">
                                           <div class="form-group">
                                             <label for="inputCity">Select Informal Sector</label>
-                                                <select class="form-control"  v-model="auth_user.sector" >
+                                                <select class="form-control"  v-model="auth_user.sector"  disabled>
                                                  <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
                                                  <option  value="Vulnerable Groups">Vulnerable Groups</option>
                                                  <option  value="Voluntary Contributor">Voluntary Contributor</option>
@@ -47,7 +54,7 @@
                                           </div>
                                       </div>
 
-                                      <div class="col-md-6">
+                                      <div class="col-md-6" v-if="auth_user.sectorType == 'formal'">
                                           <div class="form-group">
                                             <label for="inputCity">Select Formal Sector</label>
                                                 <select class="form-control"  v-model="auth_user.sector" >
@@ -98,6 +105,10 @@
                                           <label for="asd">NIN Number</label>
                                           <input type="text" class="form-control" id="asd" placeholder="NIN Number" v-model="auth_user.nimc_number">
                                       </div>
+                                      <div class="form-group col-md-12">
+                                          <label for="asd">Computer Number</label>
+                                          <input type="text" class="form-control"  placeholder="Computer Number" v-model="auth_user.salary_number">
+                                      </div>
                                       <div class="form-group col-md-6">
                                         <label for="inputCity">Gender</label>
                                             <select class="form-control"  v-model="auth_user.gender" >
@@ -117,11 +128,17 @@
                                          </select>
                                       </div>
                                       <div class="form-group col-md-12">
-                                      <label for="inputCity">Principal Facility for Accessing Care</label>
-                                        <select class="form-control"  v-model="auth_user.provider_id">
-                                          <option v-for="facility in providers" v-bind:key="facility.id" :value="facility.id">{{facility.agency_name}}</option>
-                                       </select>
-                                    </div>
+                                        <label for="inputCity">Principal Facility for Accessing Care</label>
+                                          <select class="form-control"  v-model="auth_user.provider_id">
+                                            <option v-for="facility in providers" v-bind:key="facility.id" :value="facility.id">{{facility.agency_name}}</option>
+                                         </select>
+                                      </div>
+                                      <!-- <div class="form-group col-md-12">
+                                        <label for="inputCity">Dependents Facility for Accessing Care</label>
+                                          <select class="form-control"  v-model="auth_user.point_of_care">
+                                            <option v-for="facility in providers" v-bind:key="facility.agency_name" :value="facility.agency_name">{{facility.agency_name}}</option>
+                                         </select>
+                                      </div> -->
                                       <div class="form-group col-md-6">
                                         <label for="inputCity">Blood Group</label>
                                             <select class="form-control"  v-model="auth_user.blood" >
@@ -134,14 +151,13 @@
                                       <div class="form-group col-md-6">
                                         <label for="inputCity">LGA</label>
                                           <select class="form-control"  v-model="auth_user.localgovt">
-                                            <option v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.id">{{lga.local_name}}</option>
+                                            <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                          </select>
                                       </div>
                                       <div class="form-group col-md-12" v-if="auth_user.type != 'client' ">
                                           <label for="asd">Company Name</label>
                                           <input type="text" class="form-control" id="asd" placeholder="Company Name" v-model="auth_user.agency_name">
                                       </div>
-
                                   </div>
 
                                   <div class="form-group"  v-if="auth_user.type == 'client' ">
@@ -156,13 +172,35 @@
                                       <label for="inputAddress2">Office Website</label>
                                       <input type="text" class="form-control"  placeholder="http://example.com or https://example.com"  v-model="auth_user.agencyWebsite">
                                   </div>
-
-
+                                  <!-- <div class="form-group col-md-6">
+                                      <label for="inputPassword4">Password</label>
+                                      <input type="password" class="form-control"  placeholder="Password"  v-model="auth_user.password">
+                                  </div> -->
                                   <button type="submit" class="btn btn-success btn-cta" @click="editUser">Save changes</button>
-
                           </div>
                       </div>
+                       <!-- <div class="card  py-3 m-b-30">
+                           <div class="card-body">
+                               <h1>CAC Certificate</h1>
 
+                               <button type="submit" class="btn btn-info btn-cta">View</button>
+                               <button type="submit" class="btn btn-danger btn-cta">Delete</button>
+
+                           </div>
+                       </div> -->
+
+                       <!-- <div class="card  py-3 m-b-30">
+                           <div class="card-body">
+                               <h3 class="">Plans</h3>
+                               <p class="text-muted">
+                                   Changes in plans will reflect on 15<sup>th</sup> of every month
+                               </p>
+
+                               <div class="p-t-30">
+                                   <button type="submit" class="btn btn-success btn-cta">Save changes</button>
+                               </div>
+                           </div>
+                       </div> -->
                    </div>
 
                </div>
@@ -193,10 +231,10 @@ export default {
  data(){
    return{
      auth_user:"",
+     providers:"",
      user:null,
      image:'',
      sector:"",
-     providers:"",
      lga_states:"",
      isLoading: false,
      fullPage: true,
@@ -216,7 +254,7 @@ export default {
    getProviders(){
      this.user = JSON.parse(localStorage.getItem('user'))
 
-     this.axios.get(`/api/v1/auth/providerAgency/90`)
+     this.axios.get(`/api/v1/auth/providerAgency/95930`)
                  .then(response => {
                      this.providers = response.data.data
                      console.log(response)
@@ -237,7 +275,7 @@ export default {
    },
 
    fetchLga(){
-     this.axios.get(`/api/v1/auth/lga/2669`)
+     this.axios.get(`/api/v1/auth/lga/2676`)
                  .then(response => {
                      this.lga_states = response.data.data
                      console.log(response)
@@ -253,24 +291,26 @@ export default {
    this.axios.post(`/api/v1/auth/editProfile/${this.$route.params.id}`,{
        firstname: this.auth_user.firstname,
        lastname: this.auth_user.lastname,
-       middlename: this.auth_user.middlename,
-       nimc_number: this.auth_user.nimc_number,
        email: this.auth_user.email,
        type: this.auth_user.type,
-       state: '2669',
+       state: '2676',
        localgovt: this.auth_user.localgovt,
        ward: this.auth_user.ward,
-      dob: this.auth_user.dob,
-      salary_number: this.auth_user.salary_number,
-      gender: this.auth_user.gender,
-      genotype: this.auth_user.genotype,
-      institutional_id: this.auth_user.institutional_id,
-       user_image: this.auth_user.user_image,
+       dob: this.auth_user.dob,
+       salary_number: this.auth_user.salary_number,
+       gender: this.auth_user.gender,
+       genotype: this.auth_user.genotype,
+       institutional_id: this.auth_user.institutional_id,
+       point_of_care: this.auth_user.point_of_care,
        provider_id: this.auth_user.provider_id,
        sector: this.auth_user.sector,
        blood: this.auth_user.blood,
+       user_image: this.auth_user.user_image,
+       middlename: this.auth_user.middlename,
+       nimc_number: this.auth_user.nimc_number,
        password: this.auth_user.password,
        phone_number: this.auth_user.phone_number,
+       // sectorType: this.auth_user.sectorType,
        agency_name: this.auth_user.agency_name,
        address1: this.auth_user.address1,
        agencyAddress: this.auth_user.agencyAddress,
@@ -278,7 +318,7 @@ export default {
      })
    .then(response=>{
        console.log(response);
-       this.$breadstick.notify("User updated Successfully!", {position: "top-right"});
+       this.$toasted.info('User updated Successfully!', {position: 'top-center', duration:3000 })
        this.isLoading = false;
 
    })

@@ -162,7 +162,7 @@ export default {
   methods:{
 
     getLGAs(){
-      this.axios.get(`/api/v1/auth/lga/2669`)
+      this.axios.get(`/api/v1/auth/lga/2676`)
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
@@ -196,12 +196,13 @@ export default {
                   ward_name : this.register.ward_name,
                   ward_short_name : this.register.ward_short_name,
                   lg_id : this.lga,
-                  state_id : 2669,
+                  state_id : 2676,
                 })
                 .then(response=>{
                     console.log(response);
                     this.isLoading = false;
                     this.clearIt()
+                    this.getWards()
                     this.$toasted.info('Ward Added', {position: 'top-center', duration:5000 })
                 })
                 .catch(error=>{
@@ -225,7 +226,7 @@ export default {
                   ward_name : this.register.ward_name,
                   ward_short_name : this.register.ward_short_name,
                   lg_id : this.lga,
-                  state_id : 2669,
+                  state_id : 2676,
                 })
                 .then(response=>{
                     console.log(response);

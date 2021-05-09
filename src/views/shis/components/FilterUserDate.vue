@@ -11,7 +11,7 @@
                    <div class="col-md-12" v-show="show">
                      <div class="card m-b-30">
                        <div class="card-body">
-                           
+
                           <div class="row" >
 
                             <div class="form-group col-md-4">
@@ -163,7 +163,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/lga/2669`)
+    this.axios.get(`/api/v1/auth/lga/2676`)
                 .then(response => {
                     this.lga_states = response.data.data
                     console.log(response)
@@ -176,7 +176,7 @@ export default {
     filterEnrollees(){
       this.isLoading = true;
       this.axios.post(`/api/v1/auth/filtersectordashboardwardlgabydate`,{
-      agency_id:'90',
+      agency_id:'95930',
       sector:this.sector,
       category_of_vulnerable_group:this.category_of_vulnerable_group,
       from:this.from,
@@ -198,7 +198,7 @@ export default {
     },
 
     fetchLga(){
-      this.axios.get(`/api/v1/auth/lga/2669`)
+      this.axios.get(`/api/v1/auth/lga/2676`)
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)

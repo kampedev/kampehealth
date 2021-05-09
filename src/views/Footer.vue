@@ -3,7 +3,7 @@
       <div class="container">
           <div class="row p-b-60 p-t-30">
               <div class="col-md-6 text-center mx-auto text-white p-b-30">
-                  <p class="h6">KOGI STATE HEALTH INSURANCE AGENCY</p>
+                  <p class="h6">OSUN HEALTH INSURANCE SCHEME</p>
                   <div class="form-dark">
                       <div class="input-group input-group-flush mb-3">
 

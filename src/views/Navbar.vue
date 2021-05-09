@@ -820,7 +820,7 @@
                 </a>
             </li>
 
-            <li class="menu-item  "  v-if="user.type == 'shis' || user.role == 1">
+            <!-- <li class="menu-item  "  v-if="user.type == 'shis' || user.role == 1">
                 <a href="/mda-manager" class=" menu-link">
                         <span class="menu-label">
                               <span class="menu-name">MDAs</span>
@@ -829,7 +829,7 @@
                       <i class="icon-placeholder fe fe-airplay"></i>
                     </span>
                 </a>
-            </li>
+            </li> -->
 
             <!-- <li class="menu-item active "  v-if="user.type == 'client'">
                 <a href="add-complaint" class=" menu-link">

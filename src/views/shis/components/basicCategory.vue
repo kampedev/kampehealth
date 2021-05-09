@@ -24,7 +24,7 @@ export default {
     },
     methods:{
         getDashboardLGA(){
-      this.axios.get('/api/v1/auth/dashboardlgainformalcategory/90')
+      this.axios.get('/api/v1/auth/dashboardlgainformalcategory/95930')
       .then(response => {
         // console.log(response.data);
         var data = response.data;
@@ -46,8 +46,8 @@ export default {
                         title: {
                             text: 'Vulnerable Groups Data by Category'
                         },
-                        
-                        
+
+
                         accessibility: {
                             announceNewData: {
                                 enabled: true
@@ -72,7 +72,7 @@ export default {
                         },
 
                         series:data[0].vulnerablegroups,
-                        
+
             }
         })
         },

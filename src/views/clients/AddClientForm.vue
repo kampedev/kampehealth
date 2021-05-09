@@ -444,7 +444,7 @@ export default {
           type: this.register.type,
           sectorType : this.sector,
           provider_id: this.register.provider_id,
-          state: '95930',
+          state: '2676',
           role: 0,
           password: 'euhler',
           org_id: this.register.org_id,

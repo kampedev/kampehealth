@@ -116,7 +116,7 @@
                             <select class="form-control"  v-model="register.ward">
                                 <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                 </select>
-                                
+
                             </div>
                          <!-- <div class="form-group col-md-6">
                            <label for="inputCity">LGA</label>
@@ -294,7 +294,7 @@ export default {
                   })
     },
     fetchLga(){
-      this.axios.get(`/api/v1/auth/lga/2669`)
+      this.axios.get(`/api/v1/auth/lga/2676`)
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
@@ -323,7 +323,7 @@ export default {
           phone_number : this.register.phone_number,
           agency_name : this.register.agency_name,
           type : this.register.type,
-          state : '2669',
+          state : '2676',
           localgovt : this.register.localgovt,
           services_offered : this.register.services_offered,
           address1 : this.register.address1,

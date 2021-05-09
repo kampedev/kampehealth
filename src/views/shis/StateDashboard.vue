@@ -3,194 +3,66 @@
     <Navbar/>
 
     <main class="admin-main">
-
+    <!--site header begins-->
    <section class="admin-content">
         <div class="container">
 
-            <div class="row">
-                <div class="col-12 m-b-20">
-                    <h5 class="spacer-top">Hello, {{auth_user.agency_name}}</h5>
-                </div>
+        <div class="col-md-12" style="margin-top:15px;">
+          <button type="button" :class="buttoncolor.formal" @click="showFormal">Formal <i class="fe fe-list"></i> </button>
+          <button type="button" :class="buttoncolor.informal" @click="showInformal">Informal <i class="fe fe-grid"></i> </button>
+        </div>
 
-                <!-- <div class="col-md-12" v-if="offlineclients.length > 0">
-                  <div class="alert alert-border-warning  alert-dismissible fade show" role="alert">
-                                  <div class="d-flex">
-                                      <div class="icon">
-                                          <i class="icon mdi mdi-alert-circle-outline"></i>
-                                      </div>
-                                      <div class="content">
-                                          <strong>{{offlineclients.length}} Users</strong> added offline.
-                                          <download-excel :data="offlineclients">
-                                              <button type="button" class="btn btn-primary align-right" name="button" @click="syncClients">Sync Now</button>
-                                            </download-excel>
-
-                                      </div>
-                                  </div>
-
-
-                              </div>
-                </div> -->
-
-
-                <!-- <div class="col-lg-3 col-md-6">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <div class="pb-2">
-                              <router-link :to="{ path: '/fund-manager'}">
-                                <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-database"></i>
-                                    </div>
-                                </div>
-                                </router-link>
-                            </div>
-                            <div>
-                                <p class="text-muted text-overline m-0">Revenue</p>
-                                <h1 class="fw-400">&#8358;103,500</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div class="col-lg-4 col-md-4">
-                    <div class="card m-b-30 bg-secondary">
-                        <div class="card-body text-white">
-                            <div class="pb-2">
-                                <div class="avatar avatar-lg">
-                                  <router-link :to="{ path: '/view-clients-agency'}">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-users"></i>
-                                    </div>
-                                  </router-link>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="h4">Clients</p>
-                                <h1 class="fw-400">{{total_clients |numeral(0,0) }}</h1>
-                                <!-- <h1 class="fw-400">218</h1> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4">
-                    <div class="card m-b-30 bg-info">
-                        <div class="card-body text-dark">
-                            <div class="pb-2">
-                              <router-link :to="{ path: '/my-providers'}">
-                                <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-activity"></i>
-                                    </div>
-                                </div>
-                              </router-link>
-                            </div>
-                            <div>
-                                <p class="h4">Health Facilities</p>
-                                <h1 class="fw-400">{{providers.length}}</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4">
-                    <div class="card m-b-30 bg-warning">
-                        <div class="card-body text-dark">
-                            <div class="pb-2">
-                              <router-link :to="{ path: '/plans'}">
-                                <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-credit-card"></i>
-                                    </div>
-                                </div>
-                              </router-link>
-                            </div>
-                            <div>
-                                <p class="h4">Claims</p>
-                                <h1 class="fw-400">{{plans.length}}</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <FilterUserLGA />
-                <FilterUserDate />
-
+            <div class="" v-show="formal_S">
+              <FormalSector/>
             </div>
-            <div class="row">
-              <div class="col-md-12 p-t-20">
-                <h5 class="h5"> <i class="fe fe-activity"></i> Formal Sector Enrollment Data</h5>
 
-              </div>
-              <div class="col-md-12">
-                <div class="card m-b-30">
-                  <div class="card-body">
-                    <LGaData />
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12 p-t-20">
-                <h5 class="h5"> <i class="fe fe-activity"></i> Informal Sector Enrollment Data</h5>
-              </div>
-              <div class="col-md-12">
-                <div class="card m-b-30">
-                  <div class="card-body">
-                    <InformalLga />
-
-                  </div>
-                </div>
-              </div>
-
+            <div class="" v-show="informal_S">
+              <InformalSector/>
             </div>
-            <h5 class="h5"> <i class="fe fe-activity"></i> Category of Basic Health Care Provision Fund Data</h5>
-            <div class="row">
 
-                <div class="col-md-6">
-                  <BasicCategory />
-                </div>
-                <div class="col-md-6">
-
-                </div>
-              </div>
 
             <div class="row">
+
                 <div class="col-md-12 m-b-30">
-                    <h5 class="h5" style="margin-top:15px;"> <i class="fe fe-users"></i>{{employees.length}} Employees</h5>
-                    <div class="table-responsive">
+                    <h5> <i class="fe fe-users"></i>Recent Beneficiaries</h5>
+                    <div class="table table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
-                            <tr >
-                                <!-- <th>Avatar</th> -->
+                            <tr>
                                 <th>Name</th>
-                                <th>Position</th>
-                                <th>E mail</th>
                                 <th>Phone Number</th>
+                                <th>Sector</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="employee in employees" v-bind:key="employee.id">
+                            <tr v-for="client in clients" v-bind:key="client.id">
+                                <td> {{client.firstname}} {{client.lastname}}</td>
+                                <td>{{client.phone_number}}</td>
+                                <td>{{client.sector}}</td>
+                                <td>
+                                  <router-link :to="{ path: '/client/'+ client.id}">
+                                    <button type="button" name="button" class="btn btn-info" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-eye"></i></button>
+                                  </router-link>
+                                  <button type="button" @click="deleteUser(client)" class="btn btn-danger" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-delete"></i></button>
+                                </td>
 
-                                <td>{{employee.firstname}} {{employee.lastname}}</td>
-                                <td>{{employee.job_title}}</td>
-                                <td>{{employee.email}}</td>
-                                <td>{{employee.phone_number}}</td>
                             </tr>
+
 
                             </tbody>
                         </table>
+
                     </div>
                 </div>
 
-
-
             </div>
+              <ClientDataDashboard/>
 
 
-            <div class="row">
-
-
-            </div>
         </div>
         <Footer/>
+
     </section>
 </main>
 
@@ -201,21 +73,19 @@
 <script>
 import Navbar from '@/views/Navbar.vue'
 import Footer from '@/views/Footer.vue'
-import LGaData from "./components/lgadata";
-import FilterUserLGA from "./components/FilterUserLGA";
-import FilterUserDate from "./components/FilterUserDate";
-import InformalLga from "./components/informallga";
-import BasicCategory from "./components/basicCategory";
+import InformalSector from '@/views/shis/components/InformalSector.vue'
+import FormalSector from '@/views/shis/components/FormalSector.vue'
+// import ClientDataDashboard from '@/views/clients/ClientDataDashboard.vue'
 import { StudentService } from "./../../service/student_service";
 import { initJsStore } from "./../../service/idb_service";
 import { Global } from "./../../global";
 import { connection } from "./../../service/jsstore_con";
 
 
-
 export default {
   components: {
-     Navbar, LGaData, InformalLga, BasicCategory, Footer, FilterUserLGA, FilterUserDate
+     // Navbar, ClientDataDashboard
+     Navbar, InformalSector, FormalSector, Footer
   },
   async beforeCreate() {
     try {
@@ -235,6 +105,8 @@ export default {
   data(){
     return{
       user:null,
+      formal_S:false,
+      informal_S:true,
       mydata:"",
       auth_user:"",
       providers:"",
@@ -244,32 +116,12 @@ export default {
       offlineclients: [],
       employees:"",
       plans:"",
-      options: {
-      chart: {
-        id: 'vuechart-example'
-      },
-      xaxis: {
-        categories: ['Pregnant Women', 'Children under 5', 'Aged', 'IDP', 'Physically Challenged', 'People with Special Needs', 'Poorest of the poor']
+      tpas:"",
+      buttoncolor:{
+        informal:"btn btn-info",
+        formal:"btn btn-default",
       }
-    },
-    optionso: {
-    chart: {
-      id: 'vuechart-example'
-    },
-    xaxis: {
-      categories: ['Okibo', 'Ogugu', 'Oturu-Otuo', 'Ileteju', 'Obinoyin', 'Okesin', 'Eni','Obatigben', 'Aiyeromi', 'Oshobane']
-    }
-  },
-    series: [{
-      name: 'Basic Healthcare Provision Fund',
-      data: [6, 59, 247, 4, 56, 209, 65]
-      // data: []
-    }],
-    serieso: [{
-      name: 'Ogori/Magongo',
-      data: [71, 61, 67, 62, 57, 77, 67, 83,43,80]
-      // data: []
-    }]
+
 
     }
   },
@@ -288,11 +140,23 @@ export default {
   },
 
   methods:{
+    showFormal(){
+      this.formal_S = true;
+      this.informal_S = false;
+      this.buttoncolor.formal = 'btn btn-info'
+      this.buttoncolor.informal = 'btn btn-default'
+    },
+    showInformal(){
+      this.formal_S = false;
+      this.informal_S = true;
+      this.buttoncolor.informal = 'btn btn-info'
+      this.buttoncolor.formal = 'btn btn-default'
+    },
 
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/providerAgency/90`)
+      this.axios.get(`/api/v1/auth/providerAgency/95930`)
                   .then(response => {
                       this.providers = response.data.data
                       console.log(response)
@@ -304,7 +168,7 @@ export default {
     getEmployees(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getEmployee/95930`)
                   .then(response => {
                       this.employees = response.data.data
                       console.log(response)
@@ -315,7 +179,7 @@ export default {
     },
     getClaims(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getClaims/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getClaims/95930`)
                   .then(response => {
                       this.claims = response.data.data
                       console.log(response)
@@ -324,18 +188,43 @@ export default {
                       console.error(error);
                   })
     },
+    getTPAs(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/org_agency/95930`)
+                  .then(response => {
+                      this.tpas = response.data;
+                      console.log("this response is for tpa");
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    deleteUser(client){
+      if (confirm('Are you Sure you want to delete this user') ) {
+        this.axios.delete(`/api/v1/auth/deleteUser/${client.id}`)
+                    .then(response => {
+                        console.log(response)
+                        this.getClients()
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
+    },
+    fetchLga(){
+      this.axios.get(`/api/v1/auth/lga/2676`)
+                  .then(response => {
+                      this.optionso.xaxis.categories = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
 
     getClients(){
-      // this.user = JSON.parse(localStorage.getItem('user'))
-      // this.axios.get(`/api/v1/auth/getSubsAgency/${this.user.id}`)
-      //             .then(response => {
-      //                 this.clients = response.data.data
-      //                 console.log(response)
-      //             })
-      //             .catch(error => {
-      //                 console.error(error);
-      //             })
-      this.axios.get(`/api/v1/auth/getAgencyToUser/90`)
+      this.axios.get(`/api/v1/auth/getAgencyToUser/95930`)
                   .then(response => {
                       this.clients = response.data.data
                       this.total_clients = response.data.meta.total
@@ -361,7 +250,7 @@ export default {
               type: 'client',
               agency_id: item.agency_id,
               provider_id: item.provider_id,
-              state: '2669',
+              state: '2676',
               role: 0,
               password: 'euhler',
               localgovt: item.localgovt,
@@ -384,6 +273,7 @@ export default {
                  {
                     user_image: item.user_image,
                     user_id: user_added_id,
+
                   })
                             .then(response => {
                                 console.log(response)
@@ -431,6 +321,8 @@ export default {
     this.getClients()
     this.getEmployees()
     this.getOfflineCLients()
+    this.fetchLga()
+    // this.getTPAs()
     // this.totalArray()
   }
 }

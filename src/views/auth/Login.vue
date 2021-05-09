@@ -11,11 +11,11 @@
                     <div class="mx-auto col-md-8">
                         <div class="text-center">
                             <div class="col-md-4 offset-md-4">
-                                <img src="assets/img/kgshia_logo.png" width="80" alt="">
+                                <img src="assets/img/ohis_logo.png" width="80" alt="">
                             </div>
 
                             <p class="admin-brand-content">
-                                Kogi State Health Insurance Agency
+                                Osun Health Insurance Agency
                             </p>
                             <h3 class="h4">Login</h3>
                         </div>

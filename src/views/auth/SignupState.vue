@@ -53,22 +53,20 @@
                             </div>
                           </div>
 
-                          <div class="row">
-                            <div class="row">
+                          <div class="row col-md-12">
                               <div class="form-group col-md-6">
-                                <label for="inputCity">State </label>
+                                <label for="inputCity">State {{register.state}} </label>
 
                                     <select class="form-control"  v-model="state" @change="fetchLga(state)">
-                                     <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+                                     <option v-for="state in states" v-bind:key="state" :value="state">{{state.name}}</option>
                                  </select>
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="inputCity">LGA</label>
+                                <label for="inputCity">LGA {{register.localgovt}}</label>
                                     <select class="form-control"  v-model="register.localgovt">
-                                     <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+                                     <option v-for="lga in lga_states" v-bind:key="lga.id" :value="lga.id">{{lga.local_name}}</option>
                                  </select>
                               </div>
-                            </div>
                           </div>
 
                             <!-- <p class="">
@@ -172,14 +170,14 @@ export default {
     },
     registerUser(){
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
+        this.axios.post('/api/v1/auth/registerProvider',{
           firstname : this.register.firstname,
           lastname : this.register.lastname,
           email : this.register.email,
           phone_number : this.register.phone_number,
           agency_name : this.register.agency_name,
           type : this.register.type,
-          state : this.state.name,
+          state : this.state.id,
           localgovt : this.register.localgovt,
           role : this.register.role,
           password : this.register.password,
@@ -195,7 +193,7 @@ export default {
                             this.$router.push(this.$route.params.nextUrl)
                         }
                         else{
-                            this.$router.push('/login')
+                            this.$router.push('/')
                         }
                     }
             console.log(response);

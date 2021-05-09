@@ -140,6 +140,13 @@
                                                               </div>
 
                                                               <div class="form-group col-md-6">
+                                                                <label for="inputCity">Select TPA</label>
+                                                                  <select class="form-control"  v-model="register.org_id" >
+                                                                    <option v-for="tpa in tpas" v-bind:key="tpa" :value="tpa.id">{{tpa.organization_name}}</option>
+                                                                 </select>
+                                                              </div>
+
+                                                              <div class="form-group col-md-6">
                                                                 <label for="inputCity">LGA</label>
                                                                   <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
                                                                     <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
@@ -247,6 +254,7 @@ export default {
       sector:"",
       mdas:"",
       wards:"",
+      tpas:"",
       providers_wards:"",
       state:"",
       OfficerDetails:"",
@@ -278,6 +286,7 @@ export default {
         sector:"",
         finger_print:"",
         place_of_work:"",
+        org_id:"",
         grade_level:"",
         date_of_entry:"",
         marital_status:"",
@@ -318,7 +327,7 @@ export default {
     },
 
     fetchLga(){
-      this.axios.get(`/api/v1/auth/lga/2669`)
+      this.axios.get(`/api/v1/auth/lga/2676`)
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
@@ -331,6 +340,18 @@ export default {
       this.axios.get(`/api/v1/auth/ministry`)
                   .then(response => {
                     this.mdas = response.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    getTPAs(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+      this.axios.get(`/api/v1/auth/org_agency/95930`)
+                  .then(response => {
+                      this.tpas = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -352,11 +373,12 @@ export default {
           phone_number: this.register.phone_number,
           type: this.register.type,
           sectorType : this.sector,
-          agency_id: 90,
+          agency_id: 95930,
           provider_id: this.selected_provider ? this.selected_provider : this.register.provider_id,
-          state: '2669',
+          state: '2676',
           role: 0,
           password: 'euhler',
+          org_id: this.register.org_id,
           localgovt: this.register.localgovt,
           ward: this.register.ward,
           blood: this.register.blood,
@@ -422,9 +444,10 @@ export default {
           type: this.register.type,
           sectorType : this.sector,
           provider_id: this.register.provider_id,
-          state: '2669',
+          state: '95930',
           role: 0,
-          password: 'jacobi',
+          password: 'euhler',
+          org_id: this.register.org_id,
           localgovt: this.register.localgovt,
           ward: this.register.ward,
           blood: this.register.blood,
@@ -463,7 +486,7 @@ export default {
     },
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/providerAgency/90`)
+      this.axios.get(`/api/v1/auth/providerAgency/95930`)
                   .then(response => {
                       this.providers = response.data.data
                       console.log(response)
@@ -475,7 +498,7 @@ export default {
 
     getProvidersByWards(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/providerAgencies/90/${this.register.localgovt}/${this.register.ward}`)
+      this.axios.get(`/api/v1/auth/providerAgencies/95930/${this.register.localgovt}/${this.register.ward}`)
                   .then(response => {
                       this.providers_wards = response.data.data
                       console.log(response)
@@ -490,6 +513,7 @@ export default {
     this.fetchLga()
     this.getMDAs()
     this.getProviders()
+    this.getTPAs()
   }
 
 }

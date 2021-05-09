@@ -77,12 +77,19 @@ import Appointments from '../views/appointments/Appointments.vue'
 import SingleAppointment from '../views/appointments/SingleAppointment.vue'
 import MDApage from '../views/shis/MDApage.vue'
 import WardManager from '../views/shis/WardManager.vue'
+import ListTPAs from '@/views/tpas/ListTPAs.vue'
+import AddClientTPA from '@/views/tpas/AddClientTPA.vue'
+import ViewClientsTPA from '@/views/tpas/ViewClientsTPA.vue'
+import AddOfficers from '@/views/tpas/AddOfficers.vue'
+import TPADashboard from '@/views/tpas/TPADashboard.vue'
+import TPAData from '@/views/tpas/TPAData.vue'
+import TPAEmployeeDashboard from '@/views/tpas/TPAEmployeeDashboard.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
+    path: '/landing',
     name: 'Home',
     component: Home
   },
@@ -485,6 +492,56 @@ const routes = [
         requiresAuth: true,
       },
   },
+  {
+  path: '/my-tpas',
+  component: ListTPAs,
+  meta: {
+      requiresAuth: true,
+    },
+},
+
+{
+  path: '/tpa-dashboard',
+  component: TPADashboard,
+  meta: {
+      requiresAuth: true,
+    },
+},
+{
+  path: '/tpa-data',
+  component: TPAData,
+  meta: {
+      requiresAuth: true,
+    },
+},
+{
+  path: '/tpa-employee-dashboard',
+  component: TPAEmployeeDashboard,
+  meta: {
+      requiresAuth: true,
+    },
+},
+{
+  path: '/add-officers',
+  component: AddOfficers,
+  meta: {
+      requiresAuth: true,
+    },
+},
+{
+  path: '/view-clients-tpa',
+  component: ViewClientsTPA,
+  meta: {
+      requiresAuth: true,
+    },
+},
+{
+  path: '/add-client-tpa',
+  component: AddClientTPA,
+  meta: {
+      requiresAuth: true,
+    },
+},
   {
     path: '/add-complaint',
     component: AddComplaint,

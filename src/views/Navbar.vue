@@ -204,7 +204,7 @@
                 </a>
             </li>
 
-            <li class="menu-item "  v-if="user.type == 'shis' || user.role == 1">
+            <!-- <li class="menu-item "  v-if="user.type == 'shis' || user.role == 1">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Plans Manager
@@ -216,7 +216,7 @@
                                                  <i class="icon-placeholder mdi mdi-checkbook "></i>
                                             </span>
                 </a>
-                <!--submenu-->
+
                 <ul class="sub-menu">
 
                     <li class="menu-item">
@@ -246,7 +246,7 @@
                     </li>
 
                 </ul>
-            </li>
+            </li> -->
 
             <li class="menu-item "  v-if="user.type == 'hmo' ">
                 <a href="#" class="open-dropdown menu-link">

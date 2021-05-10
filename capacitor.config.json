@@ -1,6 +1,6 @@
 {
-  "appId": "com.kgshia.app",
-  "appName": "KGSHIA",
+  "appId": "com.ohis.app",
+  "appName": "OHIS",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
   "webDir": "dist",

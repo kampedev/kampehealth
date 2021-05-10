@@ -1,13 +1,13 @@
 {
-  "appId": "com.kgshia.app",
-  "appName": "KGSHIA",
-  "bundledWebRuntime": false,
-  "npmClient": "yarn",
-  "webDir": "dist",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  },
-  "cordova": {}
+	"appId": "com.ohis.app",
+	"appName": "OHIS",
+	"bundledWebRuntime": false,
+	"npmClient": "yarn",
+	"webDir": "dist",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	},
+	"cordova": {}
 }

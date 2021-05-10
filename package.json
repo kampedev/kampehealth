@@ -14,8 +14,8 @@
   "main": "background.js",
   "dependencies": {
     "@capacitor/android": "2.4.1",
-    "@capacitor/cli": "^2.4.5",
-    "@capacitor/core": "^2.4.5",
+    "@capacitor/cli": "^3.0.0-rc.2",
+    "@capacitor/core": "^3.0.0-rc.2",
     "@ckeditor/ckeditor5-build-classic": "^18.0.0",
     "@ckeditor/ckeditor5-vue": "^1.0.1",
     "animejs": "^3.1.0",

@@ -31,7 +31,7 @@ const getDatabase = () => {
                 dataType: DATA_TYPE.Number
             },
             nimc_number: {
-                notNull: true,
+                notNull: false,
                 dataType: DATA_TYPE.String
             },
             marital_status: {
@@ -43,12 +43,12 @@ const getDatabase = () => {
                 dataType: DATA_TYPE.String
             },
             dob: {
-                notNull: true,
+                notNull: false,
                 dataType: DATA_TYPE.String
             },
             gender: {
                 dataType: DATA_TYPE.String,
-                default: 'male'
+                notNull: false,
             },
             genotype: {
                 notNull: false,
@@ -56,7 +56,7 @@ const getDatabase = () => {
             },
             address: {
                 dataType: DATA_TYPE.String,
-                notNull: true
+                notNull: false
             },
             weight: {
                 dataType: DATA_TYPE.String,
@@ -76,7 +76,7 @@ const getDatabase = () => {
             },
             ward: {
                 dataType: DATA_TYPE.string,
-                notNull: true
+                notNull: false
             },
             enrolled_by: {
                 dataType: DATA_TYPE.Number,
@@ -93,6 +93,10 @@ const getDatabase = () => {
             sector: {
                 dataType: DATA_TYPE.String,
                 notNull: false
+            },
+            sectorType: {
+                dataType: DATA_TYPE.String,
+                notNull: true
             },
 
             category_of_vulnerable_group: {

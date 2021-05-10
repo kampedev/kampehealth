@@ -11,9 +11,8 @@
                            <div class="avatar ">
                            </div>
                        </div>
-                       <h3> {{provider.agency_name}} </h3>
+                       <h3 class="h5"> {{provider.agency_name}} </h3>
                    </div>
-
 
                </div>
            </div>
@@ -26,16 +25,25 @@
                        <div class="card m-b-30">
                            <div class="card-header">
 
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
                            </div>
 
                            <div class="card-body">
 
-                                                         <!-- <div class="form-group">
-                                                             <button class="btn btn-primary">Export to CSV</button>
-                                                         </div> -->
+                             <div class="form-group" >
+                                 <button class="btn btn-primary" @click="acceptProvider" v-if="provider.status == false">Approve</button>
+                                 <router-link :to="{ path: '/provider/add-employee/' + provider.id }">
+                                 <button class="btn btn-info spacer">Add Personnel</button>
+                               </router-link>
 
-                                                         <strong class="text-center">{{provider.agency_name}}</strong>
+                               <router-link :to="{ path: '/edit-provider/' + provider.id }">
+                               <button class="btn btn-primary"  style="margin-left:10px;">Edit Facilty</button>
+                             </router-link>
+
+
+                             </div>
+
+
+
                            </div>
                        </div>
                    </div>
@@ -43,34 +51,47 @@
 
                <div class="row">
                    <div class="col-lg-8 col-md-8">
+
                        <div class="card m-b-30">
-                           <div class="card-header">
-                             <strong class="p-t-10 searchBy-name">Provider Details</strong>
-                           </div>
+                         <div class="card-header">
+                           <h4 class="h4"> Facility Enrollees</h4>
+
+                         </div>
 
                            <div class="card-body">
-                             <p><strong>E - Mail:</strong>  {{provider.email}}</p>
-                             <br>
-                             <p><strong>Phone Number:</strong> {{provider.phone_number}}</p>
-                             <br>
+                             <div class="table-responsive">
+                                 <table class="table align-td-middle table-card">
+                                     <thead>
+                                     <tr>
+                                         <th>Name</th>
+                                         <th>Contact</th>
+                                         <th>Status</th>
+                                         <th>Action</th>
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                     <tr v-for="enrollee in providerclients" v-bind:key="enrollee.id">
 
-                             <p><strong>State:</strong> {{provider.state}}</p>
-                             <br>
+                                         <td>
+                                           <router-link :to="{ path: '/provider-' + provider.id }">
+                                           {{enrollee.firstname}} {{enrollee.lastname}}
+                                         </router-link>
 
-                             <p><strong>Local Government Area:</strong> {{provider.localgovt}}</p>
-                             <br>
+                                         </td>
+                                         <td>{{enrollee.phone_number}}</td>
+                                         <td>{{enrollee.sector}}</td>
 
-                             <!-- <p><strong>Website:</strong> {{provider.website}}</p> -->
-                             <br>
+                                         <td>
+                                           <router-link :to="{ path: '/client/'+ enrollee.id}">
+                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                            </router-link>
+                                         </td>
+                                     </tr>
 
-                             <p>
-                               <span v-if="provider.status == true">
-                                 <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
-                                 </span>
-                                <span v-if="provider.status == false">
-                                <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
-                              </span>
-                             </p>
+                                     </tbody>
+                                 </table>
+
+                             </div>
 
 
                            </div>
@@ -79,19 +100,32 @@
 
                        <div class="col-lg-4 col-md-4">
                            <div class="card m-b-30">
-                               <div class="card-header">
-
-                                 <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
-                               </div>
+                             <div class="card-header">
+                               <strong class="h4">Facility Details</strong>
+                             </div>
 
                                <div class="card-body">
+                                 <p>
+                                   <span v-if="provider.status == true">
+                                     <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
+                                     </span>
+                                    <span v-if="provider.status == false">
+                                    <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
+                                  </span>
+                                 </p>
+                                 <p><strong>Beneficiaries Enrolled:</strong>  {{providerclients.length}}</p>
+                                 <br>
+                                 <p><strong>Contact Name:</strong>  {{provider.firstname}} {{provider.lastname}}</p>
+                                 <br>
+                                 <p><strong>E - Mail:</strong>  {{provider.email}}</p>
+                                 <br>
+                                 <p><strong>Phone Number:</strong> {{provider.phone_number}}</p>
+                                 <br>
+                                 <p><strong>Facilty Type:</strong> {{provider.phc_general}}</p>
+                                 <br>
+                                 <p><strong>Website:</strong> {{provider.website}}</p>
+                                 <br>
 
-                                                             <div class="form-group" >
-                                                                 <button class="btn btn-primary" @click="acceptProvider" v-if="provider.status == false">Approve</button>
-                                                                 <router-link :to="{ path: '/provider/add-employee/' + provider.id }">
-                                                                 <button class="btn btn-info spacer">Add Personnel</button>
-                                                               </router-link>
-                                                             </div>
                                </div>
                            </div>
                        </div>
@@ -149,6 +183,7 @@ export default {
     return{
       user:null,
       singleprovider:"",
+      providerclients:"",
       agencies:"",
       edit:false,
       isLoading: false,
@@ -179,6 +214,19 @@ export default {
                       console.error(error);
                   })
     },
+
+    getProviderClients(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getProviderToUser/${this.$route.params.id}`)
+                  .then(response => {
+                      this.providerclients = response.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+
 
     acceptProvider(){
       if (confirm('Are You Sure You Want to Approve Provider?')) {
@@ -242,6 +290,7 @@ export default {
   },
   created(){
     this.getProvider()
+    this.getProviderClients()
   }
 
 }

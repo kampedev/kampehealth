@@ -9,7 +9,7 @@
                            <div class="container row">
                              <div class="col-md-11" v-show="showinput">
                                  <div class="text-center">
-                                     <h3 class="h3">(Offline) Bio Data </h3>
+                                     <h3 class="h3">(Offline) Bio Data Form </h3>
                                  </div>
                                                           <div class="form-row">
 

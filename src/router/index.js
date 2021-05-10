@@ -17,6 +17,7 @@ import AddClientAgency from '../views/clients/AddClientAgency.vue'
 import AddClientAgencyOffline from '../views/clients/AddClientAgencyOffline.vue'
 import AddClientEmployeeOffline from '../views/clients/AddClientEmployeeOffline.vue'
 import AddClientProvider from '../views/clients/AddClientProvider.vue'
+import EditProvider from '../views/providers/EditProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import SingleClient from '../views/clients/SingleClient.vue'
 import SingleClientBiometrics from '../views/clients/SingleClientBiometrics.vue'
@@ -271,6 +272,13 @@ const routes = [
   {
     path: '/provider-dashboard',
     component: ProviderDashboard,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/edit-provider/:id',
+    component: EditProvider,
     meta: {
         requiresAuth: true,
       },

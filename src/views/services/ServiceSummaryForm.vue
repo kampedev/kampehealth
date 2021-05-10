@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3 class="h3">Service Summary Form</h3>
+                       <h3 class="h3">Encounter Attendance Form</h3>
 
                    </div>
 
@@ -46,7 +46,11 @@
                                                           </div>
 
                                                              <div class="form-group col-md-6">
-                                                               <label for="inputCity">Name of Enrollee</label>
+                                                               <label for="inputCity">First Name</label>
+                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.email" disabled>
+                                                             </div>
+                                                             <div class="form-group col-md-6">
+                                                               <label for="inputCity">Last Name</label>
                                                                <input type="text" class="form-control" id="inputEmail4" :value="client.email" disabled>
                                                              </div>
                                                              <div class="form-group col-md-6">
@@ -54,21 +58,8 @@
                                                                <input type="text" class="form-control" id="inputEmail4" :value="client.phone_number" disabled>
                                                              </div>
 
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">KHSHIA Number</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="'KGSHIA/0' +client.id" disabled>
-                                                             </div>
-
-
                                                          </div>
 
-                                                         <div class="form-row">
-                                                           <div class="form-group col-md-12">
-                                                             <label for="inputCity">Authorization Code {{randomNumber}}</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" :value="randomNumber" disabled>
-                                                           </div>
-
-                                                         </div>
 
                                                          <div class="row col-md-12">
                                                            <div class="form-group col-md-6">
@@ -91,8 +82,6 @@
                                                              <p>  <label for="inputPassword4">Date of Discharge</label></p>
                                                                 <date-picker v-model="claim.discharge_date" valueType="format"></date-picker>
                                                            </div>
-
-
 
                                                          </div>
 

@@ -716,7 +716,7 @@
                                 <li class="menu-item">
                                     <router-link to="/service-summary-form" class=" menu-link">
                                                     <span class="menu-label">
-                                                            <span class="menu-name">Service Summary Form
+                                                            <span class="menu-name">Encounter Attendance Form
                                                             </span>
                                                         </span>
                                         <span class="menu-icon">

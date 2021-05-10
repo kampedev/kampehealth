@@ -9,7 +9,7 @@
                            <div class="container row">
                              <div class="col-md-11" v-show="showinput">
                                  <div class="text-center">
-                                     <h3 class="h3">(Offline) Bio Data </h3>
+                                     <h3 class="h3">(Offline) Bio Data Form </h3>
                                  </div>
                                                           <div class="form-row">
 
@@ -115,7 +115,7 @@
                                                               <div class="form-group col-md-6">
                                                                 <label >Facility for Accessing Care: </label>
                                                                   <select class="form-control" v-model="newStudent.provider_id">
-                                                                    <option  :value="provider.id" v-for="provider in providers" v-bind:key="provider.id">{{provider.agency_name}}</option>
+                                                                    <option  :value="provider.id" v-for="provider in osun_providers.data" v-bind:key="provider.id">{{provider.agency_name}}</option>
                                                                  </select>
                                                               </div>
                                                               <div class="col-md-6">
@@ -129,7 +129,7 @@
                                                                 <div class="form-group col-md-6">
                                                                   <label for="inputCity">LGA {{newStudent.localgovt}}</label>
                                                                   <select class="form-control"  v-model="newStudent.localgovt" @change="fetchWards($event)">
-                                                                    <option v-for="lga in kogi_lgas.data" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                                                                    <option v-for="lga in osun_lgas.data" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                  </select>
                                                                 </div>
                                                                 <!-- <div class="form-group col-md-4">
@@ -230,6 +230,7 @@
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
+                                         <th>Sector Type</th>
                                          <th>Name</th>
                                          <th>Gender</th>
                                          <th>Phone Number</th>
@@ -240,6 +241,7 @@
                                      <tbody>
                                      <tr v-for="student in students" v-bind:key="student.id">
 
+                                         <td >{{student.sectorType}}</td>
                                          <td >{{student.firstname}} {{student.lastname}}</td>
                                          <td>{{student.gender}}</td>
                                          <td>{{student.phone_number}}</td>
@@ -276,9 +278,8 @@ import DatePicker from 'vue2-datepicker';
    // Import stylesheet
    import 'vue-loading-overlay/dist/vue-loading.css';
    import statesJson from './../../../public/offline/states.json'
-   import zamfaraJson from './../../../public/offline/zamfara_lga.json'
-   import yobeJson from './../../../public/offline/yobe_lga.json'
-   import kogiJson from './../../../public/offline/kogi_lga.json'
+   import osunJson from './../../../public/offline/osun_lga.json'
+   import osunProviderJson from './../../../public/offline/osun_providers.json'
    import wardsJson from './../../../public/offline/wards.json'
 
 export default {
@@ -311,9 +312,8 @@ export default {
 
         show:false,
         states:statesJson,
-        zamfara_lgas:zamfaraJson,
-        yobe_lgas:yobeJson,
-        kogi_lgas:kogiJson,
+        osun_lgas:osunJson,
+        osun_providers:osunProviderJson,
         wards_offline:wardsJson,
         isLoading: false,
         video_settings:{
@@ -376,7 +376,7 @@ export default {
         phone_number: student.phone_number,
         type: 'client',
         provider_id: student.provider_id,
-        state: '2669',
+        state: '2676',
         role: 0,
         password: 'euhler',
         localgovt: student.localgovt,
@@ -388,6 +388,7 @@ export default {
         weight: student.weight,
         gender: student.gender,
         sector: student.sector,
+        sectorType: student.sectorType,
         // place_of_work: client.place_of_work,
         // point_of_care: client.point_of_care,
         marital_status: student.marital_status,
@@ -514,6 +515,7 @@ export default {
           localgovt: this.newStudent.localgovt,
           ward: this.newStudent.ward,
           sector: this.newStudent.sector,
+          sectorType: this.sector,
           marital_status: this.newStudent.marital_status,
           blood: this.newStudent.blood,
           salary_number: this.newStudent.salary_number,
@@ -552,6 +554,7 @@ export default {
           localgovt: this.newStudent.localgovt,
           ward: this.newStudent.ward,
           sector: this.newStudent.sector,
+          sectorType: this.sector,
           marital_status: this.newStudent.marital_status,
           blood: this.newStudent.blood,
           salary_number: this.newStudent.salary_number,

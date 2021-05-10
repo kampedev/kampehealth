@@ -76,8 +76,6 @@ axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getIte
 
 Vue.config.productionTip = false
 
-// const DB_NAME = 'catdb';
-// const DB_VERSION = 1;
 
 new Vue({
   store,

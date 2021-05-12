@@ -116,10 +116,8 @@ export default {
       wards:[],
       results:[],
       json_fields: {
-                // 'KGSHIA Number':'id_card_number',
                 'First Name': 'firstname',
                 'Last Name':'lastname',
-                // 'Middle Name':'middlename',
                 'Sector':'sector',
                 // 'Plan':'sector',
                 'Date of Birth':'dob',

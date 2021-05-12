@@ -26,7 +26,8 @@
                       <div class="card py-3 m-b-30">
                           <div class="card-body">
 
-                                  <h3 class="">Personal Data</h3>
+                                  <h3 class="h5 text-center">Personal Data</h3>
+                                  <h5 class="">ID_CODE: ZXOEDL{{auth_user.id}}</h5>
                                   <p class="text-muted">
                                       Use this page to update your contact information and change your password.
                                   </p>
@@ -63,6 +64,10 @@
                                           <label for="inputEmail6">Last Name</label>
                                           <input type="text" v-model="auth_user.lastname" class="form-control"  placeholder="Last Name">
                                       </div>
+                                      <!-- <div class="form-group col-md-6" v-if="type == 'employee'">
+                                          <label for="inputEmail6" >Institution</label>
+                                          <input type="text" v-model="auth_user.institutional_id" class="form-control"  placeholder="ZAMCHEMA">
+                                      </div> -->
                                       <div class="form-group col-md-6">
                                           <label for="inputEmail4">Email</label>
                                           <input type="email" class="form-control" id="inputEmail4" placeholder="Email" v-model="auth_user.email" >
@@ -71,34 +76,22 @@
                                           <label for="asd">Phone Number</label>
                                           <input type="text" class="form-control"  placeholder="Phone Number" v-model="auth_user.phone_number">
                                       </div>
-                                      <!-- <div class="form-group col-md-6">
-                                          <label for="asd">Username</label>
-                                          <input type="text" class="form-control" id="asd" placeholder="username" v-model="auth_user.username">
-                                      </div> -->
-                                      <div class="form-group col-md-12" v-if="auth_user.type != 'client' ">
-                                          <label for="asd">Company Name</label>
-                                          <input type="text" class="form-control" id="asd" placeholder="Company Name" v-model="auth_user.agency_name">
-                                      </div>
 
                                   </div>
                                   <div class="form-row">
 
                                   </div>
-                                  <div class="form-group"  v-if="auth_user.type == 'client' ">
+                                  <div class="form-group"  v-if="auth_user.type == 'client'">
                                       <label for="inputAddress">Address</label>
                                       <input type="text" class="form-control"  v-model="auth_user.address1" placeholder="Address">
                                   </div>
-                                  <div class="form-group" v-if="auth_user.type != 'client' ">
+                                  <!-- <div class="form-group" v-if="auth_user.type != 'client' ">
                                       <label for="inputAddress2">Office Address</label>
                                       <input type="text" class="form-control"  placeholder="Office Address"  v-model="auth_user.agencyAddress">
                                   </div>
                                   <div class="form-group" v-if="auth_user.type != 'client' ">
                                       <label for="inputAddress2">Office Website</label>
                                       <input type="text" class="form-control"  placeholder="http://example.com or https://example.com"  v-model="auth_user.agencyWebsite">
-                                  </div>
-                                  <!-- <div class="form-group col-md-6">
-                                      <label for="inputPassword4">Password</label>
-                                      <input type="password" class="form-control"  placeholder="Password"  v-model="auth_user.password">
                                   </div> -->
 
 
@@ -106,28 +99,8 @@
 
                           </div>
                       </div>
-                       <!-- <div class="card  py-3 m-b-30">
-                           <div class="card-body">
-                               <h1>CAC Certificate</h1>
+                      <ChangePassword/>
 
-                               <button type="submit" class="btn btn-info btn-cta">View</button>
-                               <button type="submit" class="btn btn-danger btn-cta">Delete</button>
-
-                           </div>
-                       </div> -->
-
-                       <!-- <div class="card  py-3 m-b-30">
-                           <div class="card-body">
-                               <h3 class="">Plans</h3>
-                               <p class="text-muted">
-                                   Changes in plans will reflect on 15<sup>th</sup> of every month
-                               </p>
-
-                               <div class="p-t-30">
-                                   <button type="submit" class="btn btn-success btn-cta">Save changes</button>
-                               </div>
-                           </div>
-                       </div> -->
                    </div>
 
                </div>
@@ -149,11 +122,12 @@
  // @ is an alias to /src
 // import Settings from '@/components/Settings.vue'
 import Navbar from '@/views/Navbar.vue'
+import ChangePassword from '@/views/auth/ChangePassword.vue'
    import Loading from 'vue-loading-overlay';
 export default {
   // name: 'Home',
   components: {
-   Navbar, Loading
+   Navbar, Loading, ChangePassword
  },
  data(){
    return{
@@ -190,10 +164,7 @@ export default {
 
    attachPic(event){
    this.user = JSON.parse(localStorage.getItem('user'))
-
    console.log(event)
-   // let files = event.target.files
-   // let filename = event.target.files[0].name
     this.image = event.target.files[0];
     this.uploadPic()
 },
@@ -203,6 +174,8 @@ uploadPic(){
 
         var formData = new FormData();
         formData.append("user_image", this.image)
+        formData.append("user_id", this.user.id)
+
         this.axios.post("/api/v1/auth/uploadUserImage", formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -218,65 +191,65 @@ uploadPic(){
 
     },
 
-    editUser(){
-        if (this.auth_user.type == 'employee') {
-          this.user = JSON.parse(localStorage.getItem('user'))
-          this.isLoading = true;
-        this.axios.post(`/api/v1/auth/editProfile/${this.user.id}`,{
-            firstname: this.auth_user.firstname,
-            lastname: this.auth_user.lastname,
-            email: this.auth_user.email,
-            type: this.auth_user.type,
-            user_image: this.auth_user.user_image,
-            institutional_id: 90,
-            password: this.auth_user.password,
-            phone_number: this.auth_user.phone_number,
-            agency_name: this.auth_user.agency_name,
-            address1: this.auth_user.address1,
-            agencyAddress: this.auth_user.agencyAddress,
-            agencyWebsite: this.auth_user.agencyWebsite
-          })
-        .then(response=>{
-            console.log(response);
-            this.$breadstick.notify("User updated Successfully!", {position: "top-right"});
-            this.isLoading = false;
+   editUser(){
+     if (this.auth_user.type == 'employee') {
+       this.user = JSON.parse(localStorage.getItem('user'))
+       this.isLoading = true;
+     this.axios.post(`/api/v1/auth/editProfile/${this.user.id}`,{
+         firstname: this.auth_user.firstname,
+         lastname: this.auth_user.lastname,
+         email: this.auth_user.email,
+         type: this.auth_user.type,
+         user_image: this.auth_user.user_image,
+         institutional_id: 95930,
+         password: this.auth_user.password,
+         phone_number: this.auth_user.phone_number,
+         agency_name: this.auth_user.agency_name,
+         address1: this.auth_user.address1,
+         agencyAddress: this.auth_user.agencyAddress,
+         agencyWebsite: this.auth_user.agencyWebsite
+       })
+     .then(response=>{
+         console.log(response);
+         this.$breadstick.notify("User updated Successfully!", {position: "top-right"});
+         this.isLoading = false;
 
-        })
-        .catch(error=>{
-            console.log(error.response)
-        })
-        }
-        else {
-          this.user = JSON.parse(localStorage.getItem('user'))
-          this.isLoading = true;
-        this.axios.post(`/api/v1/auth/editProfile/${this.user.id}`,{
-            firstname: this.auth_user.firstname,
-            lastname: this.auth_user.lastname,
-            email: this.auth_user.email,
-            type: this.auth_user.type,
-            user_image: this.auth_user.user_image,
-            password: this.auth_user.password,
-            phone_number: this.auth_user.phone_number,
-            agency_name: this.auth_user.agency_name,
-            address1: this.auth_user.address1,
-            agencyAddress: this.auth_user.agencyAddress,
-            agencyWebsite: this.auth_user.agencyWebsite
-          })
-        .then(response=>{
-            console.log(response);
-            this.$breadstick.notify("User updated Successfully!", {position: "top-right"});
-            this.isLoading = false;
+     })
+     .catch(error=>{
+         console.log(error.response)
+     })
+     }
+     else {
+       this.user = JSON.parse(localStorage.getItem('user'))
+       this.isLoading = true;
+     this.axios.post(`/api/v1/auth/editProfile/${this.user.id}`,{
+         firstname: this.auth_user.firstname,
+         lastname: this.auth_user.lastname,
+         email: this.auth_user.email,
+         type: this.auth_user.type,
+         user_image: this.auth_user.user_image,
+         password: this.auth_user.password,
+         phone_number: this.auth_user.phone_number,
+         agency_name: this.auth_user.agency_name,
+         address1: this.auth_user.address1,
+         agencyAddress: this.auth_user.agencyAddress,
+         agencyWebsite: this.auth_user.agencyWebsite
+       })
+     .then(response=>{
+         console.log(response);
+         this.$breadstick.notify("User updated Successfully!", {position: "top-right"});
+         this.isLoading = false;
 
-        })
-        .catch(error=>{
-            console.log(error.response)
-        })
-        }
+     })
+     .catch(error=>{
+         console.log(error.response)
+     })
+     }
 
-    }
+ },
  },
  created(){
-
+   //
  }
 }
 </script>

@@ -8,6 +8,9 @@ zamfara: Zam41chema#
 email: kgshia.gov.ng@gmail.com
 password: kgshia@4141
 
+email: info@osun.com
+password: osun@4141
+
 
 test state email: state@gmail.com
 test state password: skrull123

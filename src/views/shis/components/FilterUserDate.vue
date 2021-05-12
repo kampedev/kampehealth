@@ -138,10 +138,8 @@ export default {
       to:"",
       results:[],
       json_fields: {
-                // 'KGSHIA Number':'id_card_number',
                 'First Name': 'firstname',
                 'Last Name':'lastname',
-                // 'Middle Name':'middlename',
                 'Sector':'sector',
                 'Vulnerable Group':'category_of_vulnerable_group',
                 'Date of Birth':'dob',

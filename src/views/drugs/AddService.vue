@@ -15,8 +15,8 @@
          </select>
       </div>
       <div class="form-group floating-label col-md-4 ">
-          <label>KGSHIA Code</label>
-          <input type="text" required class="form-control" placeholder="KGSHIA Code" v-model="register.firstname">
+          <label>OHIS Code</label>
+          <input type="text" required class="form-control" placeholder="OHIS Code" v-model="register.firstname">
       </div>
       <div class="form-group floating-label col-md-4 ">
           <label>General Description</label>

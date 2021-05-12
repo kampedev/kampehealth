@@ -41,7 +41,7 @@
                                           <tr> <th>S/N</th> <th>ITEM</th> <th>RESPONSE</th> <th>SCORES</th> <th>REMARKS</th> </tr>
                                           </thead>
                                           <tbody>
-                                          <tr> <td>1.</td> <td>Compliance with KGSHIA operational guidelines</td>
+                                          <tr> <td>1.</td> <td>Compliance with OHIS operational guidelines</td>
                                               <td>  <div class="custom-control custom-checkbox">
                                                  <input type="checkbox" class="custom-control-input" id="customCheck1">
                                                  <label class="custom-control-label" for="customCheck1">Tick for Yes</label>

@@ -50,7 +50,7 @@
                                                                <input type="text" class="form-control" id="inputEmail4" :value="client.lastname" disabled>
                                                              </div>
                                                              <div class="form-group col-md-6">
-                                                               <label for="inputCity">Enrolle KGSHIA Number</label>
+                                                               <label for="inputCity">Enrolle OHIS Number</label>
                                                                <input type="text" class="form-control" id="inputEmail4" :value="'KGSHIA/0' +client.id" disabled>
                                                              </div>
                                                              <div class="form-group col-md-6">

@@ -58,15 +58,15 @@
                                                              </div>
                                                              <div class="form-group col-md-6">
                                                                <label for="inputCity">LGA</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="'KGSHIA/0' +client.id" disabled>
+                                                               <input type="text" class="form-control" id="inputEmail4" :value="'OHIS/0' +client.id" disabled>
                                                              </div>
                                                              <div class="form-group col-md-6">
                                                                <label for="inputCity">Contact Person</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="'KGSHIA/0' +client.id" disabled>
+                                                               <input type="text" class="form-control" id="inputEmail4" :value="'OHIS/0' +client.id" disabled>
                                                              </div>
                                                              <div class="form-group col-md-6">
                                                                <label for="inputCity">Phone Number</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="'KGSHIA/0' +client.id" disabled>
+                                                               <input type="text" class="form-control" id="inputEmail4" :value="'OHIS/0' +client.id" disabled>
                                                              </div>
                                                              <div class="form-group col-md-12">
                                                                <p><strong>Total Number of Enrollees:</strong> </p>

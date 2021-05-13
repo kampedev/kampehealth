@@ -144,6 +144,8 @@
 
                                    <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
                                    <hr>
+                                   <p class="spacer-top-bottom"><strong>Enrolled By:</strong> {{enrolled_by.firstname}} {{enrolled_by.lastname}}</p>
+                                   <hr>
                                    <p class="spacer-top-bottom"><strong>NIMC Number:</strong> {{client.nimc_number}}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
@@ -263,6 +265,7 @@ export default {
       medications:"",
       healthFacility:"",
       signature:"",
+      enrolled_by:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -445,6 +448,7 @@ this.isLoading = true;
       this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
                   .then(response => {
                       this.client = response.data.user
+
                       console.log(response)
 
                       // get facility
@@ -457,6 +461,17 @@ this.isLoading = true;
                                       console.error(error);
                                   })
                       //end of facility
+
+                      // get enrolled by
+                      this.axios.get(`/api/v1/auth/user/${this.client.enrolled_by}`)
+                                  .then(response => {
+                                      this.enrolled_by = response.data.user
+                                      console.log(response)
+                                  })
+                                  .catch(error => {
+                                      console.error(error);
+                                  })
+                      //end of enrolled by
 
                       //get tpa
                       this.axios.get(`/api/v1/auth/orgenrollment/${this.client.org_id}`)

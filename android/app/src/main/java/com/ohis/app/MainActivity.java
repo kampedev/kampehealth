@@ -1,4 +1,4 @@
-package com.kgshia.app;
+package com.ohis.app;
 
 import android.os.Bundle;
 

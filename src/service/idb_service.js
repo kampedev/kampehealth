@@ -82,6 +82,11 @@ const getDatabase = () => {
                 dataType: DATA_TYPE.Number,
                 notNull: true
             },
+            org_id: {
+                dataType: DATA_TYPE.Number,
+                notNull: true
+            },
+            
             salary_number: {
                 dataType: DATA_TYPE.String,
                 notNull: false

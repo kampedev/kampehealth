@@ -63,12 +63,14 @@
                                          <td>{{employee.email}}</td>
                                          <td>{{employee.phone_number}}</td>
                                          <td>{{employee.job_title}}</td>
-                                         <!-- <td>
-                                           <router-link :to="{ path: '/client/'+ employee.id}">
-                                           <button type="button" class="btn btn-info" name="button">view</button>
-                                         </router-link>
+                                         <td v-if="user.id == 95930">
+                                          <!-- <router-link :to="{ path: '/employee/'+ employee.id}">
+                                          <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                        </router-link> -->
+                                        <button type="button" @click="deleteUser(employee)" class="btn btn-danger"> <i class="fe fe-delete"></i></button>
 
-                                         </td> -->
+                                        </td>
+
 
                                      </tr>
 
@@ -148,55 +150,29 @@ export default {
   },
   methods:{
 
-    getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
+    deleteUser(employee){
+      if (confirm('Are you Sure you want to delete this user') ) {
+        this.axios.delete(`/api/v1/auth/deleteUser/${employee.id}`)
+              .then(response => {
+                  console.log(response)
+                  this.getEmployees()
+              })
+              .catch(error => {
+                  console.error(error);
+              })
+      }
+    },
+    getEmployees(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
                   .then(response => {
-                      this.states = response.data
+                      this.employees = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
-    },
-    fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
-                  .then(response => {
-                      this.lga_states = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    registerUser(){
-        this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
-          firstname: this.register.firstname,
-          lastname: this.register.lastname,
-          email: this.register.email,
-          phone_number: this.register.phone_number,
-          type: this.register.type,
-          username: this.register.username,
-          state: this.state,
-          role: 0,
-          lga: this.register.lga,
-          ward: this.register.ward,
-        })
-        .then(response=>{
-
-            console.log(response);
-            this.isLoading = false;
-            this.$breadstick.notify("Client added successfully", {position: "top-right"});
-
-        })
-        .catch(error=>{
-            console.log(error.response)
-            this.isLoading = false;
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
-
-        })
     }
-
   },
   created(){
     this.getStates()

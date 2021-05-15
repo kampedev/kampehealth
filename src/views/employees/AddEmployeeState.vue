@@ -27,7 +27,7 @@
                        <div class="card m-b-30">
                            <div class="card-header">
                              <div class="text-center">
-                                 <h3 class="h4">Add Employee</h3>
+                                 <h3 class="h4">Add Employee OHIS</h3>
                              </div>
                            </div>
 
@@ -56,21 +56,21 @@
                                                               </div>
                                                           </div>
 
-                                                          <!-- <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                              <label for="inputCity">States </label>
+                                                        <div class="row">
+                                                          <div class="form-group col-md-6">
+                                                            <label for="inputCity">LGA</label>
+                                                              <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
+                                                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                                                             </select>
+                                                          </div>
 
-                                                              <select class="form-control"  v-model="state" @change="fetchLga(state)">
-                                                               <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
-                                                           </select>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                              <label for="inputCity">LGA {{lga.local_name}}</label>
-                                                                <select class="form-control"  v-model="register.localgovt">
-                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
-                                                               </select>
-                                                            </div>
-                                                          </div> -->
+                                                          <div class="form-group col-md-6">
+                                                            <label >Ward</label>
+                                                            <select class="form-control"  v-model="register.ward" @change="getProvidersByWards($event)">
+                                                                <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                                                             </select>
+                                                          </div>
+                                                        </div>
 
                                                           <div class="form-row">
 
@@ -143,6 +143,7 @@ export default {
       employees:"",
       state:"",
       lga_states:"",
+      wards:"",
       admin_role:1,
     user_role:0,
       register:{
@@ -186,18 +187,19 @@ export default {
                   })
     },
 
-    getStates(){
-      this.axios.get(`/api/v1/auth/states`)
+    fetchWards(){
+      this.axios.get(`/api/v1/auth/getwards/${event.target.value}`)
                   .then(response => {
-                      this.states = response.data.data
+                      this.wards = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    fetchLga(state){
-      this.axios.get(`/api/v1/auth/lga/${state.id}`)
+
+    fetchLga(){
+      this.axios.get(`/api/v1/auth/lga/2676`)
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
@@ -218,14 +220,12 @@ export default {
           password: 'euhler',
           state : '2676',
           enrolled_by : 0,
-          // localgovt : this.register.lga,
-          localgovt : '480',
+          localgovt : this.register.localgovt,
+          ward: this.register.ward,
           id_card_number : this.register.id_card_number,
           institutional_id: 95930,
           job_title: this.register.job_title,
           role: this.register.role,
-          lga: this.register.lga,
-          ward: this.register.ward,
         })
         .then(response=>{
 
@@ -247,7 +247,7 @@ export default {
     }
   },
   created(){
-    this.getStates()
+    this.fetchLga()
   }
 
 }

@@ -9,7 +9,7 @@
                            <div class="container row">
                              <div class="col-md-11" v-show="showinput">
                                  <div class="text-center">
-                                     <h3 class="h3">(Offline) Bio Data Form </h3>
+                                     <h3 class="h3">(Offline) Bio Data Form A</h3>
                                  </div>
                                                           <div class="form-row">
 
@@ -126,23 +126,24 @@
                                                                  </select>
                                                               </div>
 
-                                                              <div class="form-group col-md-6">
+                                                              <div class="form-group col-md-4">
                                                                 <label for="inputCity">LGA {{newStudent.localgovt}}</label>
                                                                 <select class="form-control"  v-model="newStudent.localgovt" @change="fetchWards($event)">
                                                                   <option v-for="lga in kogi_lgas.data" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                </select>
                                                               </div>
-                                                              <!-- <div class="form-group col-md-4">
-                                                                <label >Ward</label>
-                                                                <select class="form-control"  v-model="newStudent.ward">
-                                                                    <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
-                                                                 </select>
-                                                              </div> -->
 
                                                               <div class="form-group col-md-4">
                                                                 <label >Ward</label>
                                                                 <select class="form-control"  v-model="newStudent.ward">
                                                                     <option v-for="ward in wards_offline.data" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                                                                 </select>
+                                                              </div>
+
+                                                              <div class="form-group col-md-4">
+                                                                <label >TPA</label>
+                                                                <select class="form-control"  v-model="newStudent.org_id">
+                                                                    <option v-for="tpa in tpa_offline.data" v-bind:key="tpa.id" :value="tpa.id">{{tpa.ward_name}}</option>
                                                                  </select>
                                                               </div>
 
@@ -263,6 +264,7 @@ import DatePicker from 'vue2-datepicker';
    import yobeJson from './../../../public/offline/yobe_lga.json'
    import kogiJson from './../../../public/offline/kogi_lga.json'
    import wardsJson from './../../../public/offline/wards.json'
+   import tpaJson from './../../../public/offline/tpa_data_osun.json'
 
 export default {
   components: {
@@ -297,6 +299,7 @@ export default {
         yobe_lgas:yobeJson,
         kogi_lgas:kogiJson,
         wards_offline:wardsJson,
+        tpa_offline:tpaJson,
         isLoading: false,
         video_settings:{
                 video: {

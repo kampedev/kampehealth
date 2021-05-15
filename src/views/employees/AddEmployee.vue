@@ -62,6 +62,20 @@
 
                                                             <div class="form-group col-md-6">
                                                               <label for="inputCity">LGA</label>
+                                                                <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
+                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                                                               </select>
+                                                            </div>
+
+                                                            <div class="form-group col-md-6">
+                                                              <label >Ward</label>
+                                                              <select class="form-control"  v-model="register.ward" @change="getProvidersByWards($event)">
+                                                                  <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                                                               </select>
+                                                            </div>
+
+                                                            <div class="form-group col-md-6">
+                                                              <label for="inputCity">LGA</label>
                                                                 <select class="form-control"  v-model="register.localgovt">
                                                                   <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
                                                                </select>
@@ -182,6 +196,7 @@ export default {
       employees:"",
       state:"",
       lga_states:"",
+      wards:"",
       register:{
                 firstname:"",
                 lastname:"",
@@ -222,19 +237,19 @@ export default {
                       console.error(error);
                   })
     },
-
-    getStates(){
-      this.axios.get(`/api/v1/auth/states`)
+    fetchWards(){
+      this.axios.get(`/api/v1/auth/getwards/${event.target.value}`)
                   .then(response => {
-                      this.states = response.data.data
+                      this.wards = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    fetchLga(state){
-      this.axios.get(`/api/v1/auth/lga/${state.id}`)
+
+    fetchLga(){
+      this.axios.get(`/api/v1/auth/lga/2676`)
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
@@ -243,6 +258,8 @@ export default {
                       console.error(error);
                   })
     },
+
+
     registerUser(){
       this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
@@ -254,7 +271,7 @@ export default {
           type: this.register.type,
           username: this.register.email,
           password: 'euhler',
-          state: 2669,
+          state: 2676,
           institutional_id: this.user.id,
           job_title: this.register.job_title,
           role: 0,

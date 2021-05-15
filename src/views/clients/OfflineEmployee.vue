@@ -126,22 +126,23 @@
                                                                  </select>
                                                               </div>
 
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-4">
                                                                   <label for="inputCity">LGA {{newStudent.localgovt}}</label>
                                                                   <select class="form-control"  v-model="newStudent.localgovt" @change="fetchWards($event)">
                                                                     <option v-for="lga in osun_lgas.data" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                  </select>
                                                                 </div>
-                                                                <!-- <div class="form-group col-md-4">
-                                                                  <label >Ward</label>
-                                                                  <select class="form-control"  v-model="newStudent.ward">
-                                                                      <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
-                                                                   </select>
-                                                                </div> -->
-                                                                <div class="form-group col-md-6">
+
+                                                                <div class="form-group col-md-4">
                                                                   <label >Ward</label>
                                                                   <select class="form-control"  v-model="newStudent.ward">
                                                                       <option v-for="ward in wards_offline.data" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                                                                   </select>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                  <label >TPA</label>
+                                                                  <select class="form-control"  v-model="newStudent.org_id">
+                                                                      <option v-for="tpa in tpa_offline.data" v-bind:key="tpa.id" :value="tpa.id">{{tpa.organization_name}}</option>
                                                                    </select>
                                                                 </div>
 
@@ -184,8 +185,8 @@
                                                               </div>
 
                                                              <div class="form-group">
-                                                                 <button class="btn btn-primary btn-block btn-lg" @click="showImage" v-if="client_number.length ==14">Proceed to Take Picture</button>
-                                                                 <button class="disabled btn btn-primary btn-block btn-lg" v-if="client_number.length != 14">Proceed to Take Picture</button>
+                                                                 <button class="btn btn-primary btn-block btn-lg" @click="showImage" v-if="client_number.length == 14 ">Proceed to Take Picture</button>
+                                                                 <button class="disabled btn btn-primary btn-block btn-lg" v-if="client_number.length != 14 ">Proceed to Take Picture</button>
                                                              </div>
 
                                                             </div>
@@ -281,6 +282,7 @@ import DatePicker from 'vue2-datepicker';
    import osunJson from './../../../public/offline/osun_lga.json'
    import osunProviderJson from './../../../public/offline/osun_providers.json'
    import wardsJson from './../../../public/offline/wards.json'
+   import tpaJson from './../../../public/offline/tpa_data_osun.json'
 
 export default {
   components: {
@@ -309,12 +311,12 @@ export default {
         rightfingers:null,
         twothumbs:null,
         sector:"",
-
         show:false,
         states:statesJson,
         osun_lgas:osunJson,
         osun_providers:osunProviderJson,
         wards_offline:wardsJson,
+        tpa_offline:tpaJson,
         isLoading: false,
         video_settings:{
                 video: {
@@ -338,14 +340,6 @@ export default {
   beforeMount: function() {
     this.clear();
     this.user = JSON.parse(localStorage.getItem('user'))
-    // this.axios.get(`/api/v1/auth/providerAgency/${this.user.institutional_id}`)
-    //             .then(response => {
-    //                 this.providers = response.data.data
-    //                 console.log(response)
-    //             })
-    //             .catch(error => {
-    //                 console.error(error);
-    //             })
 
   },
   methods: {
@@ -389,8 +383,7 @@ export default {
         gender: student.gender,
         sector: student.sector,
         sectorType: student.sectorType,
-        // place_of_work: client.place_of_work,
-        // point_of_care: client.point_of_care,
+        org_id: student.org_id,
         marital_status: student.marital_status,
         category_of_vulnerable_group: student.category_of_vulnerable_group,
         enrolled_by: student.id,
@@ -400,7 +393,7 @@ export default {
           console.log(response);
           this.isLoading = false;
           // this.refreshStudent();
-          this.$breadstick.notify("Client added successfully", {position: "top-right"});
+          this.$toasted.info('Enrollee synced Successfully', {position: 'top-center', duration:3000 })
           let user_added_id = response.data.data.id
 
           //Start upload Pic
@@ -484,6 +477,8 @@ export default {
         console.log(image)
         localStorage.setItem('snap',this.imagefile.src);
         this.imagefile = image.src
+        this.$toasted.info('Picture taken Successfully', {position: 'top-center', duration:3000 })
+
 
         // upload image
 
@@ -528,6 +523,7 @@ export default {
           address: this.newStudent.address,
           agency_id: this.user.id,
           enrolled_by: this.user.id,
+          org_id: this.newStudent.org_id,
         });
         this.$emit("add-item", studentsAdded[0]);
         this.clear();
@@ -567,6 +563,7 @@ export default {
           address: this.newStudent.address,
           agency_id: this.user.institutional_id,
           enrolled_by: this.user.id,
+          org_id: this.newStudent.org_id,
         });
         this.$emit("add-item", studentsAdded[0]);
         this.clear();

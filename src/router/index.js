@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Privacy from '../views/auth/Privacy.vue'
 import Login from '../views/auth/Login.vue'
 import Pusher from '../views/auth/Pusher.vue'
 import SelectType from '../views/auth/SelectType.vue'
@@ -97,6 +98,10 @@ const routes = [
   {
     path: '/',
     component: Login
+  },
+  {
+    path: '/privacy',
+    component: Privacy
   },
   {
     path: '/about',

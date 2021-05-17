@@ -59,7 +59,7 @@
                                                                                  class="avatar-img avatar-sm rounded-circle"
                                                                                  alt=""></div>
                                          </td> -->
-                                         <td >{{employee.firstname}} {{employee.lastname}}</td>
+                                         <td >{{employee.firstname}} {{employee.lastname}} </td>
                                          <td>{{employee.email}}</td>
                                          <td>{{employee.phone_number}}</td>
                                          <td>{{employee.job_title}}</td>

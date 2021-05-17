@@ -4,7 +4,7 @@
                    <div class="col-md-3">
                        <div class="row">
                            <button class="btn btn-info" @click="show = !show"
-                           style="margin-bottom:10px;margin-left:15px;">Filter Enrollee Provider</button>
+                           style="margin-bottom:10px;">Filter Enrollee Provider</button>
                        </div>
                    </div>
 
@@ -31,12 +31,11 @@
                             <vue-loaders name="line-spin-fade-loader" color="black" scale="1"></vue-loaders> Preparing data for download for Health Facility
                         </div>
                         <div v-else>
-                            <p class="alert alert-warning">
-                                  <download-excel :data="json_data" :fields="json_fields" type="csv" :escapeCsv=false :name="selected_provider.agency_name+'.csv'"
-                >
+                                  <download-excel :data="json_data" :fields="json_fields" class="btn btn-success"
+                                   :header="'Enrollee Data for'+selected_provider.agency_name" :escapeCsv=false :name="selected_provider.agency_name+'.xls'">
+                                  <span class="fe fe-download"></span>
                             Download Data for {{selected_provider.agency_name}}
-                            <!-- <img src="download_icon.png" /> -->
-                            </download-excel></p>
+                            </download-excel>
                         </div>
                       </div>
                        </div>
@@ -80,7 +79,7 @@ export default {
       edit:false,
       show:false,
       isLoading: false,
-      fullPage: true,
+      fullPage: false,
       agency_id:"",
       provider_id:"",
       mdas:[],
@@ -90,11 +89,23 @@ export default {
       wards:[],
 
       json_fields: {
-                // 'MDa name':'place_of_work',
-                'firstname': 'firstname',
-                'lastname':'lastname',
-                // 'computer number':'salary_number',
-                // 'Health Facility':'point_of_care',
+                'Sector':'sector',
+                'First Name': 'firstname',
+                'Last Name':'lastname',
+                'Middle Name':'middlename',
+                'User Image': {
+                  field:'user_image',
+                callback: (value) => {
+                    return `https://api.hayokinsurance.com/image/ ${value}`;
+                }
+              },
+                'Health Facility':'userprovider.agency_name',
+                'ID Number':'id_card_number',
+                'Sector Type':'sectorType',
+                'Date of Birth':'dob',
+                // 'LGA/Ward':'dob',
+                // 'HMO':'dob',
+                'Blood Group':'blood',
                 'gender':'gender',
                 'phone_number':'phone_number' },
                 json_data: [],
@@ -121,14 +132,16 @@ export default {
   },
   methods:{
     filterProvider(){
+      this.loader = true;
       this.axios.get(`/api/v1/auth/getProviderToUser/`+ this.selected_provider.id)
         .then(response => {
-          this.json_data = response.data.data
+          this.json_data = response.data
+          console.log(response)
           this.loader = false;
           this.showdownload = true;
         })
-        .catch(() => {
-            // console.error(error);
+        .catch((error) => {
+            console.error(error);
         })
     },
 

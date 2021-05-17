@@ -92,7 +92,8 @@
                                      {{ward.ward_short_name}}
                                    </td>
                                    <td>
-                                      <button type="button" class="btn btn-info" @click="editWard(ward)">edit</button>
+                                      <button type="button" class="btn btn-info" @click="editWard(ward)"> <i class="fe fe-edit"></i></button>
+                                      <button type="button" class="btn btn-destroy"  @click="deleteWard(ward)"> <i class="fe fe-delete"></i></button>
                                    </td>
                                </tr>
 
@@ -232,7 +233,9 @@ export default {
                     console.log(response);
                     this.isLoading = false;
                     this.clearIt()
-                    this.$toasted.info('Ward Change', {position: 'top-center', duration:5000 })
+                    this.$toasted.info('Ward Change Successfully', {position: 'top-center', duration:5000 })
+                    this.edit = false;
+
                     //get ward
                     this.axios.get(`/api/v1/auth/getwards/${this.lga}`)
                                 .then(response => {
@@ -251,10 +254,37 @@ export default {
                 })
 
     },
+    deleteWard(ward){
+      if (confirm('Are you sure you want to delete') ) {
+        this.isLoading = true;
+                this.axios.delete(`/api/v1/auth/wards/${ward.id}`)
+                .then(response=>{
+                    console.log(response);
+                    this.isLoading = false;
+                    this.$toasted.info('Ward Deleted Successfully', {position: 'top-center', duration:5000 })
+                    this.edit = false;
+                    //get ward
+                    this.axios.get(`/api/v1/auth/getwards/${this.lga}`)
+                                .then(response => {
+                                    this.wards = response.data.data
+                                    console.log(response)
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                })
+                    //end of get ward
 
+                })
+                .catch(error=>{
+                    console.log(error.response)
+                    this.isLoading = false;
+                    this.$toasted.error('Error', {position: 'top-left', duration:5000 })
+                })
+
+      }
+    },
 
     clearIt(){
-
       this.register.ward_name = "";
       this.register.ward_short_name = "";
       // this.lga = "";

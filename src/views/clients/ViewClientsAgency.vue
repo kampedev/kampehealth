@@ -61,7 +61,7 @@
                                                                                  alt=""></div>
                                          </td> -->
                                          <td >{{client.firstname}}, {{client.lastname}} {{client.middlename}}</td>
-                                         <td>{{client.phone_number}}</td>
+                                         <td>{{client.phone_number}} </td>
                                          <td>{{client.sector}}</td>
                                          <td>{{client.category_of_vulnerable_group}}</td>
                                          <td>

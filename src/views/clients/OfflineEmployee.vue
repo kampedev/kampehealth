@@ -136,7 +136,7 @@
                                                                 <div class="form-group col-md-4">
                                                                   <label >Ward</label>
                                                                   <select class="form-control"  v-model="newStudent.ward">
-                                                                      <option v-for="ward in wards_offline.data" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                                                                      <option v-for="ward in wards_offline" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                    </select>
                                                                 </div>
                                                                 <div class="form-group col-md-4">
@@ -281,7 +281,7 @@ import DatePicker from 'vue2-datepicker';
    import statesJson from './../../../public/offline/states.json'
    import osunJson from './../../../public/offline/osun_lga.json'
    import osunProviderJson from './../../../public/offline/osun_providers.json'
-   import wardsJson from './../../../public/offline/wards.json'
+   import wardsJson from './../../../public/offline/wards_data.json'
    import tpaJson from './../../../public/offline/tpa_data_osun.json'
 
 export default {

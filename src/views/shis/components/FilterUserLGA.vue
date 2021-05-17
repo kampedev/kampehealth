@@ -4,7 +4,7 @@
                    <div class="col-md-3">
                        <div class="row">
                            <button class="btn btn-info" @click="show = !show"
-                           style="margin-bottom:10px;margin-left:15px;">Filter Enrollee LGA</button>
+                           style="margin-bottom:10px;margin-left:15px;">Filter Enrollee LGA </button>
                        </div>
                    </div>
 
@@ -116,12 +116,23 @@ export default {
       wards:[],
       results:[],
       json_fields: {
+                'Sector':'sector',
                 'First Name': 'firstname',
                 'Last Name':'lastname',
-                'Sector':'sector',
-                // 'Plan':'sector',
+                'Middle Name':'middlename',
+                'User Image': {
+                  field:'user_image',
+                callback: (value) => {
+                return `https://api.hayokinsurance.com/image/ ${value}`;
+            }
+          },
+                'Blood Group':'blood',
+                'ID Number':'id_card_number',
+                'Sector Type':'sectorType',
                 'Date of Birth':'dob',
-                'gender':'gender',
+                // 'LGA/Ward':'dob',
+                // 'HMO':'dob',
+                'Gender':'gender',
                 'phone_number':'phone_number' },
                 json_data: [],
                 json_meta: [

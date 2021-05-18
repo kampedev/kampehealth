@@ -31,6 +31,7 @@
        <SearchUser/>
        <FilterUserProvider/>
        <FilterUserLGA/>
+       <FilterUserDate/>
 
        <section class="">
            <div class="container">
@@ -108,6 +109,7 @@
   import SearchUser from '@/views/shis/components/SearchUser.vue'
   import FilterUserProvider from '@/views/shis/components/FilterUserProvider.vue'
   import FilterUserLGA from '@/views/shis/components/FilterUserLGA.vue'
+  import FilterUserDate from '@/views/shis/components/FilterUserDate.vue'
 
   // Import component
      import Loading from 'vue-loading-overlay';
@@ -117,7 +119,7 @@
 
 export default {
   components: {
-     Navbar, Loading, SearchUser, FilterUserProvider, FilterUserLGA
+     Navbar, Loading, SearchUser, FilterUserProvider, FilterUserLGA, FilterUserDate
   },
   data(){
     return{

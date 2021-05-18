@@ -146,7 +146,6 @@ export default {
 
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-
       this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`)
                   .then(response => {
                       this.clients = response.data
@@ -159,7 +158,6 @@ export default {
 
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
-
       this.axios.get(`/api/v1/auth/providerAgency/95930`)
                   .then(response => {
                       this.providers = response.data.data
@@ -175,7 +173,6 @@ export default {
   },
   created(){
     this.getClients()
-    // this.getAppointments()
     this.getProviders()
 
   }

@@ -83,10 +83,10 @@
                                                                 </div> -->
 
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="inputPassword4">Phone Number {{client_number.length}}</label>
+                                                                    <label for="inputPassword4">Phone Number</label>
                                                                     <input type="text" class="form-control" v-model="client_number" placeholder="Phone Number" >
                                                                       <div color="alert alert-warning" role="alert" v-if="client_number.length < 14">
-                                                                        Number must be 14 characters
+                                                                        Number must be 11 characters
                                                                       </div>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
@@ -127,8 +127,8 @@
                                                               </div>
 
                                                                 <div class="form-group col-md-4">
-                                                                  <label for="inputCity">LGA {{newStudent.localgovt}}</label>
-                                                                  <select class="form-control"  v-model="newStudent.localgovt" @change="fetchWards($event)">
+                                                                  <label for="inputCity">LGA</label>
+                                                                  <select class="form-control"  v-model="newStudent.localgovt">
                                                                     <option v-for="lga in osun_lgas.data" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                  </select>
                                                                 </div>
@@ -185,8 +185,8 @@
                                                               </div>
 
                                                              <div class="form-group">
-                                                                 <button class="btn btn-primary btn-block btn-lg" @click="showImage" v-if="client_number.length == 14 ">Proceed to Take Picture</button>
-                                                                 <button class="disabled btn btn-primary btn-block btn-lg" v-if="client_number.length != 14 ">Proceed to Take Picture</button>
+                                                                 <button class="btn btn-primary btn-block btn-lg" @click="showImage" v-if="client_number.length == 11 ">Proceed to Take Picture</button>
+                                                                 <button class="disabled btn btn-primary btn-block btn-lg" v-if="client_number.length != 11 ">Proceed to Take Picture</button>
                                                              </div>
 
                                                             </div>
@@ -227,6 +227,22 @@
                               <button @click="remove(student.id)" class="btn btn-primary">Delete</button>
                              </div> -->
 
+                               <div class="col-md-12" v-if="students.length > 0">
+                                 <div class="alert alert-border-warning  alert-dismissible fade show" role="alert">
+                                     <div class="d-flex">
+                                         <div class="icon">
+                                             <i class="icon mdi mdi-alert-circle-outline"></i>
+                                         </div>
+                                         <div class="content">
+                                             <strong>{{students.length}} Users</strong> added offline.
+                                             <download-excel :data="students">
+                                                 <button type="button" class="btn btn-primary align-right" name="button" @click="syncClients">Sync all Data</button>
+                                               </download-excel>
+                                         </div>
+                                     </div>
+                                  </div>
+                               </div>
+
                              <div class="table-responsive">
                                  <table class="table align-td-middle table-card">
                                      <thead>
@@ -248,7 +264,9 @@
                                          <td>{{student.phone_number}}</td>
                                          <td>{{student.sector}}</td>
                                          <td>
-                                             <button type="button" class="btn btn-default" @click="syncUser(student)">Sync User</button>
+                                             <button type="button" class="btn btn-info" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
+                                             <!-- <button type="button" class="btn btn-secondary" @click="edit(student)"><i class="fe fe-edit"></i></button> -->
+                                             <button type="button" class="btn btn-danger" @click="remove(student)"><i class="fe fe-delete"></i></button>
                                          </td>
 
                                      </tr>
@@ -306,7 +324,7 @@ export default {
       user: null,
       editStudent: {},
         fullPage: true,
-        client_number:"+234",
+        client_number:"0",
         leftfingers:null,
         rightfingers:null,
         twothumbs:null,
@@ -360,15 +378,16 @@ export default {
 
     this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true;
-      this.axios.post('/api/v1/auth/registerProvider',{
+      this.axios.post('/api/v1/auth/syncUser',{
         agency_id: student.agency_id,
         nimc_number: student.nimc_number,
         firstname: student.firstname,
         lastname: student.lastname,
         middlename: student.middlename,
         email: student.email,
+        user_image: student.user_image,
         phone_number: student.phone_number,
-        type: 'client',
+        type: student.type,
         provider_id: student.provider_id,
         state: '2676',
         role: 0,
@@ -426,6 +445,63 @@ export default {
       })
     }
   },
+  async  syncClients(){
+    if (confirm('Are you Sure you want to Sync Data from your Device?') ) {
+
+      this.isLoading = true;
+
+      const result = this.students.map((item) => {
+            this.axios.post('/api/v1/auth/syncUser',{
+              firstname: item.firstname,
+              lastname: item.lastname,
+              middlename: item.middlename,
+              nimc_number: item.nimc_number,
+              email: item.email,
+              phone_number: item.phone_number,
+              type: item.type,
+              user_image: item.user_image,
+              sectorType: item.sectorType,
+              agency_id: item.agency_id,
+              provider_id: item.provider_id,
+              state: '2676',
+              role: 0,
+              password: 'euhler',
+              localgovt: item.localgovt,
+              address1: item.address,
+              sector: item.sector,
+              category_of_vulnerable_group: item.category_of_vulnerable_group,
+              ward: item.ward,
+              blood: item.blood,
+              dob: item.dob,
+              org_id: item.org_id,
+              genotype: item.genotype,
+              enrolled_by: item.enrolled_by,
+              gender: item.gender,
+            })
+            .then(response=>{
+                console.log(response)
+                let student = item
+                this.remove(student)
+
+
+
+            }).
+            catch(error=>{
+                console.log(error.response)
+                this.$toasted.error('Error Syncing! Reload Page', {position: 'top-center', duration:3000 })
+
+            })
+            result;
+
+      });
+      this.isLoading = false;
+      this.$toasted.info('Client Synced Successfully', {position: 'top-center', duration:3000 })
+      // this.getOfflineCLients()
+    }
+
+
+    },
+
 
 
  showInput(){
@@ -505,6 +581,7 @@ export default {
           provider_id: this.newStudent.provider_id,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
+          type: 'client',
           gender: this.newStudent.gender,
           user_image: this.imagefile,
           localgovt: this.newStudent.localgovt,
@@ -517,9 +594,9 @@ export default {
           place_of_work: this.newStudent.place_of_work,
           category_of_vulnerable_group: this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
-          left_fingers: this.leftfingers,
-          right_fingers: this.rightfingers,
-          thumbs_fingers: this.twothumbs,
+          // left_fingers: this.leftfingers,
+          // right_fingers: this.rightfingers,
+          // thumbs_fingers: this.twothumbs,
           address: this.newStudent.address,
           agency_id: this.user.id,
           enrolled_by: this.user.id,
@@ -545,6 +622,7 @@ export default {
           provider_id: this.newStudent.provider_id,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
+          type: 'client',
           gender: this.newStudent.gender,
           user_image: this.imagefile,
           localgovt: this.newStudent.localgovt,
@@ -557,9 +635,9 @@ export default {
           place_of_work: this.newStudent.place_of_work,
           category_of_vulnerable_group: this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
-          left_fingers: this.leftfingers,
-          right_fingers: this.rightfingers,
-          thumbs_fingers: this.twothumbs,
+          // left_fingers: this.leftfingers,
+          // right_fingers: this.rightfingers,
+          // thumbs_fingers: this.twothumbs,
           address: this.newStudent.address,
           agency_id: this.user.institutional_id,
           enrolled_by: this.user.id,
@@ -601,7 +679,7 @@ export default {
       this.newStudent = {
         name: "",
         gender: "",
-        client_number: "234",
+        client_number: "0",
         country: "",
         city: ""
       };
@@ -625,6 +703,7 @@ export default {
       const noOfStudentRemoved = await this.service.removeStudent(student.id);
       if (noOfStudentRemoved > 0) {
         this.$emit("remove-item");
+        console.log(noOfStudentRemoved)
       }
     },
     async update(id) {

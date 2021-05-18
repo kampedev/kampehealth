@@ -298,6 +298,7 @@ export default {
     this.user = JSON.parse(localStorage.getItem('user'))
 
   },
+
   methods:{
     selected(value){
       this.selected_provider = value.id
@@ -349,7 +350,7 @@ export default {
     getTPAs(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/org_agency/95930`)
+      this.axios.get(`/api/v1/auth/getorgenrollment/95930/A`)
                   .then(response => {
                       this.tpas = response.data.data
                       console.log(response)

@@ -17,6 +17,10 @@ const getDatabase = () => {
                 notNull: true,
                 dataType: DATA_TYPE.String
             },
+            type: {
+                notNull: true,
+                dataType: DATA_TYPE.String
+            },
             middlename: {
                 notNull: false,
                 unique: false,

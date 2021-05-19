@@ -56,7 +56,7 @@
                 </div>
 
             </div>
-            <lgadata/>
+            <informallga/>
 
             <div class="row">
               <div class="col-md-12 m-b-30">
@@ -112,11 +112,11 @@
 <script>
 import Navbar from '@/views/Navbar.vue'
 import Footer from '@/views/Footer.vue'
-import lgadata from '@/views/shis/components/lgadata.vue'
+import informallga from '@/views/shis/components/informallga.vue'
 
 export default {
   components: {
-     Navbar, lgadata, Footer
+     Navbar, informallga, Footer
   },
 
   data(){

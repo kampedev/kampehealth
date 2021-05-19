@@ -22,7 +22,7 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
                          <StudentGrid
                             :students="students"
@@ -34,7 +34,7 @@
                    </div>
 
                </div>
-              
+
 
                <div class="vld-parent">
                     <loading :active.sync="isLoading"

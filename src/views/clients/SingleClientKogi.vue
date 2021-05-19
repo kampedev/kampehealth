@@ -152,7 +152,7 @@
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{client.state}}/{{client.localgovt}} </p>
+                                   <p class="spacer-top-bottom"><strong>State/LGA:</strong> OSUN/{{singleward.ward_name}}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                                    <hr>
@@ -266,6 +266,8 @@ export default {
       healthFacility:"",
       signature:"",
       enrolled_by:"",
+      singleward:"",
+      singlelga:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -483,6 +485,18 @@ this.isLoading = true;
                                       console.error(error);
                                   })
                       //end of get tpa
+
+                      //get ward
+                      this.axios.get(`/api/v1/auth/wards/${this.client.ward}`)
+                                  .then(response => {
+                                      this.singleward = response.data[0]
+                                      console.log(response)
+                                  })
+                                  .catch(error => {
+                                      console.error(error);
+                                  })
+                      //end of get ward
+
                   })
                   .catch(error => {
                       console.error(error);

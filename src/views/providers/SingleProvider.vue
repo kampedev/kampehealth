@@ -36,7 +36,7 @@
                                </router-link>
 
                                <router-link :to="{ path: '/edit-provider/' + provider.id }">
-                               <button class="btn btn-primary"  style="margin-left:10px;">Edit Facilty</button>
+                               <button class="btn btn-primary"  style="margin-left:10px;">Edit Facility </button>
                              </router-link>
 
 

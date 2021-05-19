@@ -38,6 +38,10 @@
                                 <label for="inputPassword4">NIN Number</label>
                                 <input type="text" class="form-control" v-model="searchkey"  placeholder="NIN Number">
                             </div>
+                            <div class="form-group col-md-12" v-if="search == 'nimc_number'">
+                                 <label for="inputPassword4">OHIS Number</label>
+                                 <input type="text" class="form-control" v-model="searchkey"  placeholder="OHIS Number">
+                             </div>
 
                             <!--  <div class="form-group col-md-6">
                                 <label for="inputPassword4">E-mail</label>

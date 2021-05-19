@@ -41,8 +41,8 @@
                           </div>
 
                             <button type="submit" class="btn btn-primary btn-block btn-lg" @click="logIn">Login</button>
-                        <p class="text-right p-t-10">
-                            <a href="#!" class="text-underline">Forgot Password?</a>
+                        <p class="text-right p-t-10" v-if="user != null">
+                            <a href="/add-client/employee-offline" class="text-underline">Offline Access</a>
                         </p>
                     </div>
 
@@ -88,12 +88,14 @@ export default {
       response:"",
       isLoading: false,
       fullPage: true,
-      auth_user:""
+      auth_user:"",
+      user:null
 
     }
   },
   beforeMount(){
-//
+    this.user = JSON.parse(localStorage.getItem('user'))
+
   },
   methods:{
 
@@ -174,7 +176,7 @@ export default {
         }
   },
   created(){
-
+    //
   }
 
 }

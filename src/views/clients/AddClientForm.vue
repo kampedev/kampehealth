@@ -12,14 +12,16 @@
 
                            <div class="card-body">
                                <div class="text-center">
-
                                    <h1 > <strong>Add Enrollee Form </strong> </h1>
+                                   <p>(All fields marked with <span class="text-danger">*</span> are compulsory)</p>
                                </div>
+                               <form @submit.prevent="submitForm">
+
                                                         <div class="form-row">
                                                           <div class="col-md-12">
                                                               <div class="form-group">
-                                                                <label for="inputCity">Select Sector</label>
-                                                                    <select class="form-control"  v-model="sector" >
+                                                                <label for="inputCity">Select Sector <span class="text-danger">*</span></label>
+                                                                    <select class="form-control" required  v-model="sector" >
                                                                      <option  value="formal">Formal Sector</option>
                                                                      <option  value="informal">Informal Sector</option>
                                                                  </select>
@@ -28,8 +30,8 @@
 
                                                           <div class="col-md-12" v-if="sector == 'informal' " >
                                                               <div class="form-group">
-                                                                <label for="inputCity">Select Informal Sector</label>
-                                                                    <select class="form-control"  v-model="register.sector" >
+                                                                <label for="inputCity">Select Informal Sector <span class="text-danger">*</span></label>
+                                                                    <select class="form-control" required v-model="register.sector" >
                                                                      <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
                                                                      <option  value="Vulnerable Groups">Vulnerable Groups</option>
                                                                      <option  value="Voluntary Contributor">Voluntary Contributor</option>
@@ -40,8 +42,8 @@
 
                                                           <div class="col-md-12" v-if="sector == 'formal' " >
                                                               <div class="form-group">
-                                                                <label for="inputCity">Select Formal Sector</label>
-                                                                    <select class="form-control"  v-model="register.sector" >
+                                                                <label for="inputCity">Select Formal Sector <span class="text-danger">*</span></label>
+                                                                    <select class="form-control" required  v-model="register.sector" >
                                                                      <option  value="State Civil Servant Healthcare Plan">State Civil Servant Healthcare Plan</option>
                                                                      <option  value="LGA Civil Servant Healthcare Plan">LGA Civil Servant Healthcare Plan </option>
                                                                      <option  value="Universal Basic Education Board Healthcare Plan">Universal Basic Education Board Healthcare Plan</option>
@@ -69,12 +71,12 @@
                                                                  <input type="text" class="form-control" v-model="register.nimc_number" placeholder="NIN Number">
                                                              </div>
                                                              <div class="form-group col-md-6">
-                                                                 <label for="inputPassword4">Surname</label>
-                                                                 <input type="text" class="form-control" v-model="register.lastname"  placeholder="Last Name">
+                                                                 <label for="inputPassword4">Surname <span class="text-danger">*</span></label>
+                                                                 <input type="text" class="form-control" required v-model="register.lastname"  placeholder="Last Name">
                                                              </div>
                                                              <div class="form-group col-md-6">
-                                                                 <label for="inputEmail4">First Name</label>
-                                                                 <input type="text" class="form-control" v-model="register.firstname" placeholder="First Name">
+                                                                 <label for="inputEmail4">First Name <span class="text-danger">*</span></label>
+                                                                 <input type="text" class="form-control" required v-model="register.firstname" placeholder="First Name">
                                                              </div>
 
                                                              <div class="form-group col-md-6">
@@ -86,7 +88,7 @@
 
                                                          <div class="form-row">
                                                            <div class="form-group col-md-6">
-                                                             <p>  <label for="inputPassword4">Date of Birth</label></p>
+                                                             <p>  <label for="inputPassword4">Date of Birth </label></p>
                                                                <date-picker v-model="register.dob" valueType="format"></date-picker>
                                                            </div>
                                                               <div class="form-group col-md-6">
@@ -95,12 +97,12 @@
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                  <label for="inputPassword4">Phone Number</label>
+                                                                  <label for="inputPassword4">Phone Number <span class="text-danger">*</span></label>
                                                                   <input type="text" class="form-control" v-model="register.phone_number" placeholder="Phone Number" >
                                                               </div>
                                                               <div class="form-group col-md-6">
-                                                                <label for="inputCity">Gender</label>
-                                                                    <select class="form-control"  v-model="register.gender" >
+                                                                <label for="inputCity">Gender <span class="text-danger">*</span></label>
+                                                                    <select class="form-control" required v-model="register.gender" >
                                                                      <option  value="Male">Male</option>
                                                                      <option  value="Female">Female</option>
                                                                  </select>
@@ -129,8 +131,8 @@
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                <label >Marital Status</label>
-                                                                  <select class="form-control" v-model="register.marital_status">
+                                                                <label >Marital Status <span class="text-danger">*</span></label>
+                                                                  <select class="form-control" required v-model="register.marital_status">
                                                                     <option  value="Married">Married</option>
                                                                     <option  value="Widow">Widow</option>
                                                                     <option  value="Single">Single</option>
@@ -140,22 +142,22 @@
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                <label for="inputCity">Select TPA</label>
-                                                                  <select class="form-control"  v-model="register.org_id" >
+                                                                <label for="inputCity">Select TPA <span class="text-danger">*</span></label>
+                                                                  <select class="form-control"  required v-model="register.org_id" >
                                                                     <option v-for="tpa in tpas" v-bind:key="tpa" :value="tpa.id">{{tpa.organization_name}}</option>
                                                                  </select>
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                <label for="inputCity">LGA</label>
-                                                                  <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
+                                                                <label for="inputCity">LGA <span class="text-danger">*</span></label>
+                                                                  <select class="form-control" required  v-model="register.localgovt" @change="fetchWards($event)">
                                                                     <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                                                  </select>
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                <label >Ward</label>
-                                                                <select class="form-control"  v-model="register.ward" @change="getProvidersByWards($event)">
+                                                                <label >Ward <span class="text-danger">*</span></label>
+                                                                <select class="form-control" required  v-model="register.ward" @change="getProvidersByWards($event)">
                                                                     <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                  </select>
                                                               </div>
@@ -172,8 +174,8 @@
                                                               </div>
 
                                                                 <div class="form-group col-md-6" v-if="sector == 'informal'">
-                                                                  <label>Principal Facility for Accessing Health Care </label>
-                                                                  <select class="form-control"  v-model="register.provider_id">
+                                                                  <label>Principal Facility for Accessing Health Care <span class="text-danger">*</span></label>
+                                                                  <select class="form-control" required  v-model="register.provider_id">
                                                                       <option v-for="provider in providers_wards" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
                                                                    </select>
                                                                 </div>
@@ -201,8 +203,10 @@
                                                           </div>
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary btn-block btn-lg" @click="submitForm">Submit</button>
+                                                             <button class="btn btn-primary btn-block btn-lg" >Submit</button>
                                                          </div>
+                                                   </form>
+
 
 
                            </div>

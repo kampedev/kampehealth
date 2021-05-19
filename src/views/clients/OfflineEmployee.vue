@@ -261,7 +261,7 @@
                                          <td >{{student.firstname}} {{student.lastname}}</td>
                                          <td>{{student.gender}}</td>
                                          <td>{{student.phone_number}}</td>
-                                         <td>{{student.sector}}</td>
+                                         <td>{{student.sector}} </td>
                                          <td>
                                              <button type="button" class="btn btn-info" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
                                              <!-- <button type="button" class="btn btn-secondary" @click="edit(student)"><i class="fe fe-edit"></i></button> -->

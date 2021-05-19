@@ -35,7 +35,7 @@
                                     <div class="col-md-6" >
                                         <div class="form-group">
                                           <label for="inputCity">Sector</label>
-                                              <select class="form-control" disabled  v-model="auth_user.sectorType" >
+                                              <select class="form-control"   v-model="auth_user.sectorType" >
                                                <option  value="formal">Formal Sector</option>
                                                <option  value="informal">Informal Sector</option>
                                            </select>
@@ -45,7 +45,7 @@
                                       <div class="col-md-6" v-if="auth_user.sectorType == 'informal'">
                                           <div class="form-group">
                                             <label for="inputCity">Select Informal Sector</label>
-                                                <select class="form-control"  v-model="auth_user.sector"  disabled>
+                                                <select class="form-control"  v-model="auth_user.sector"  >
                                                  <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
                                                  <option  value="Vulnerable Groups">Vulnerable Groups</option>
                                                  <option  value="Voluntary Contributor">Voluntary Contributor</option>
@@ -94,8 +94,8 @@
                                           <input type="text" v-model="auth_user.middlename" class="form-control"  placeholder="Middle Name">
                                       </div>
                                       <div class="form-group col-md-6">
-                                          <label for="inputEmail4">Email</label>
-                                          <input type="email" class="form-control" id="inputEmail4" placeholder="Email" v-model="auth_user.email" >
+                                          <label for="inputEmail4">Email </label>
+                                          <input type="email" class="form-control"  placeholder="Email" v-model="autoEmail" >
                                       </div>
                                       <div class="form-group col-md-6">
                                           <label for="asd">Phone Number</label>
@@ -152,6 +152,12 @@
                                         <label for="inputCity">LGA</label>
                                           <select class="form-control"  v-model="auth_user.localgovt">
                                             <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                                         </select>
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                        <label for="inputCity">Ward</label>
+                                          <select class="form-control"  v-model="auth_user.localgovt">
+                                            <option v-for="ward in wards" v-bind:key="ward" :value="ward.id">{{ward.ward_name}}</option>
                                          </select>
                                       </div>
                                       <div class="form-group col-md-12" v-if="auth_user.type != 'client' ">
@@ -235,6 +241,7 @@ export default {
      user:null,
      image:'',
      sector:"",
+     wards:"",
      lga_states:"",
      isLoading: false,
      fullPage: true,
@@ -245,10 +252,34 @@ export default {
                .then(response => {
                    this.auth_user = response.data.user
                    console.log(response)
+
+
+                   //get ward
+                   this.axios.get(`/api/v1/auth/getwards/${this.auth_user.localgovt}`)
+                               .then(response => {
+                                   this.wards = response.data.data
+                                   console.log(response)
+                               })
+                               .catch(error => {
+                                   console.error(error);
+                               })
+                   //end of get ward
+
                })
                .catch(error => {
                    console.error(error);
                })
+ },
+ computed:{
+   autoEmail(){
+     if (this.auth_user.email == null) {
+      let  autogenemail = this.auth_user.phone_number+ this.$route.params.id+ '@ohisuser.com'
+      return autogenemail
+     }
+     else {
+       return this.auth_user.email
+     }
+   }
  },
  methods:{
    getProviders(){
@@ -291,7 +322,7 @@ export default {
    this.axios.post(`/api/v1/auth/editProfile/${this.$route.params.id}`,{
        firstname: this.auth_user.firstname,
        lastname: this.auth_user.lastname,
-       email: this.auth_user.email,
+       email: this.autoEmail,
        type: this.auth_user.type,
        state: '2676',
        localgovt: this.auth_user.localgovt,
@@ -310,7 +341,8 @@ export default {
        nimc_number: this.auth_user.nimc_number,
        password: this.auth_user.password,
        phone_number: this.auth_user.phone_number,
-       // sectorType: this.auth_user.sectorType,
+       sectorType: this.auth_user.sectorType,
+       category_of_vulnerable_group: this.auth_user.category_of_vulnerable_group,
        agency_name: this.auth_user.agency_name,
        address1: this.auth_user.address1,
        agencyAddress: this.auth_user.agencyAddress,

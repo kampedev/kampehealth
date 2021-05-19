@@ -48,7 +48,8 @@
                                      <tr>
                                          <!-- <th>Avatar</th> -->
                                          <th>Name</th>
-                                         <th>Phone Number</th>
+                                         <th>Phone Number </th>
+                                         <th>LGA/Ward </th>
                                          <th>Sector</th>
                                          <th>Vulnerable Group</th>
                                          <th>Action</th>
@@ -62,13 +63,16 @@
                                                                                  alt=""></div>
                                          </td> -->
                                          <td >{{client.firstname}}, {{client.lastname}} {{client.middlename}}</td>
-                                         <td>{{client.phone_number}} </td>
+                                         <td>{{client.phone_number}}</td>
+                                         <td>{{client.local_name}} / {{client.ward_name}} </td>
                                          <td>{{client.sector}}</td>
                                          <td>{{client.category_of_vulnerable_group}}</td>
                                          <td>
                                            <router-link :to="{ path: '/client/'+ client.id}">
                                              <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i> </button>
                                             </router-link>
+                                            <button type="button" @click="deleteUser(client)" class="btn btn-danger"  ><i class="fe fe-delete"></i></button>
+
 
                                          </td>
                                      </tr>
@@ -204,6 +208,22 @@ export default {
                       console.error(error);
                   })
     },
+    deleteUser(client){
+      if (confirm('Are you Sure you want to delete this user') ) {
+        this.axios.delete(`/api/v1/auth/deleteUser/${client.id}`)
+                    .then(response => {
+                        console.log(response)
+                        this.getClients()
+                        this.$toasted.info('Client deleted Successfully', {position: 'top-center', duration:3000 })
+
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        this.$toasted.error('Error  deleting', {position: 'top-center', duration:3000 })
+
+                    })
+      }
+    }
 
 
   },

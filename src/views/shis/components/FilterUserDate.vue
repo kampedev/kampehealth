@@ -74,7 +74,7 @@
                         <!-- <div v-if="loader == true">
                             <vue-loaders name="line-spin-fade-loader" color="black" scale="1"></vue-loaders> Preparing data for download for Health Facility
                         </div> -->
-
+                        <p class="h3">Result: {{results.length}} data filtered</p>
                         <div >
                             <p class="btn btn-success">
                                   <i class="fe fe-download"></i> <download-excel :data="results" :fields="json_fields" type="csv" :escapeCsv=false :name="sector+' _ '+category_of_vulnerable_group+'_'+from+'_'+to+'.csv'"
@@ -184,7 +184,7 @@ export default {
       })
                   .then(response => {
                       this.results = response.data
-                    //   console.log(response)
+                      console.log(response)
                       this.isLoading = false;
                       this.showdownload = true;
 

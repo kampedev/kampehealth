@@ -13,6 +13,7 @@
                </div>
            </div>
        </div>
+
        <SearchUser/>
        <FilterUserProvider/>
        <section class="">
@@ -75,7 +76,7 @@
 
                                      </tbody>
                                  </table>
-                                 <div class="col-lg-4 offset-lg-4">
+                                 <div class="col-md-4 offset-md-4">
                                    <button  class="btn btn-default btn-lg" @click="gotoPrevious">Previous</button>
                                    <button class="btn btn-default btn-lg" @click="gotoNext">Next</button>
                                  </div>
@@ -156,7 +157,7 @@ export default {
   beforeMount(){
     this.isLoading = true
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`,{
+    this.axios.get(`/api/v1/auth/employee_client/${this.user.id}`,{
     params:{
       page: this.current_page
     }
@@ -207,7 +208,7 @@ export default {
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true
-      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.institutional_id}`,{
+      this.axios.get(`/api/v1/auth/employee_client/${this.user.institutional_id}`,{
       params:{
         page: this.current_page
       }

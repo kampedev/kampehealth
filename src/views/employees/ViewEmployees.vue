@@ -64,9 +64,9 @@
                                          <td>{{employee.phone_number}}</td>
                                          <td>{{employee.job_title}}</td>
                                          <td v-if="user.id == 95930">
-                                          <!-- <router-link :to="{ path: '/employee/'+ employee.id}">
+                                          <router-link :to="{ path: '/employee/admin/'+ employee.id}">
                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
-                                        </router-link> -->
+                                        </router-link>
                                         <button type="button" @click="deleteUser(employee)" class="btn btn-danger"> <i class="fe fe-delete"></i></button>
 
                                         </td>

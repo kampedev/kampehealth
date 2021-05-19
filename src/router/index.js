@@ -86,6 +86,7 @@ import AddOfficers from '@/views/tpas/AddOfficers.vue'
 import TPADashboard from '@/views/tpas/TPADashboard.vue'
 import TPAData from '@/views/tpas/TPAData.vue'
 import TPAEmployeeDashboard from '@/views/tpas/TPAEmployeeDashboard.vue'
+import SingleEmployeeAdmin from '@/views/employees/SingleEmployeeAdmin.vue'
 
 Vue.use(VueRouter)
 
@@ -527,13 +528,20 @@ const routes = [
       requiresAuth: true,
     },
 },
-{
-  path: '/tpa-employee-dashboard',
-  component: TPAEmployeeDashboard,
-  meta: {
-      requiresAuth: true,
-    },
-},
+  {
+    path: '/tpa-employee-dashboard',
+    component: TPAEmployeeDashboard,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/employee/admin/:id',
+    component: SingleEmployeeAdmin,
+    meta: {
+        requiresAuth: true,
+      },
+  },
 {
   path: '/add-officers',
   component: AddOfficers,

@@ -211,8 +211,8 @@
                                                                 <div class="col-md-12 p-t-20 p-b-20">
                                                                     <video id="video" width="100%"  height="auto" autoplay></video>
 
-                                                                  <div class="col-md-7" style="margin-top:10px;">
-                                                                    <canvas id="canvas" width="600px"   height="450px"></canvas>
+                                                                  <div class="col-md-12" style="margin-top:10px;">
+                                                                    <canvas id="canvas" width="600px" height="450px"></canvas>
                                                                   </div>
                                                                 </div>
                                                               </div>
@@ -246,7 +246,7 @@
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <th>Sector Type</th>
+                                         <th>Avatar</th>
                                          <th>Name</th>
                                          <th>Gender</th>
                                          <th>Phone Number</th>
@@ -256,8 +256,13 @@
                                      </thead>
                                      <tbody>
                                      <tr v-for="student in students" v-bind:key="student.id">
-
-                                         <td >{{student.sectorType}}</td>
+                                       <td>
+                                           <div class="avatar avatar-sm ">
+                                             <img :src="student.user_image"
+                                                 class="avatar-img avatar-sm rounded-circle"
+                                                 alt="">
+                                            </div>
+                                       </td>
                                          <td >{{student.firstname}} {{student.lastname}}</td>
                                          <td>{{student.gender}}</td>
                                          <td>{{student.phone_number}}</td>
@@ -279,7 +284,7 @@
                              <div class="vld-parent">
                                   <loading :active.sync="isLoading"
                                   loader="dots"
-                                  :can-cancel="true"
+                                  :can-cancel="false"
                                   :is-full-page="fullPage"></loading>
                               </div>
                             </div>
@@ -451,7 +456,6 @@ export default {
     if (confirm('Are you Sure you want to Sync Data from your Device?') ) {
 
       this.isLoading = true;
-
       const result = this.students.map((item) => {
             this.axios.post('/api/v1/auth/syncUser',{
               firstname: item.firstname,
@@ -547,7 +551,7 @@ export default {
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
 
-      context.drawImage(video, 0, 0, 640, 480);
+      context.drawImage(video, 0, 0, 500, 350);
 
         // get image
         var image = new Image();
@@ -564,9 +568,13 @@ export default {
       this.user = JSON.parse(localStorage.getItem('user'))
       if (this.user.type == 'shis') {
         this.addUserAdmin()
+
+
       }
       if (this.user.type == 'employee') {
         this.addUserEmployee()
+
+
       }
     },
     async addUserAdmin() {
@@ -684,6 +692,9 @@ export default {
         country: "",
         city: ""
       };
+      localStorage.removeItem("snap");
+      this.imagefile = ""
+      this.client_number = "0"
     },
     edit(id) {
       var student = this.students.find(qry => qry.id === id);

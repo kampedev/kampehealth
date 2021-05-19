@@ -104,7 +104,7 @@ const getDatabase = () => {
             },
             sector: {
                 dataType: DATA_TYPE.String,
-                notNull: false
+                notNull: true
             },
             sectorType: {
                 dataType: DATA_TYPE.String,

@@ -97,7 +97,7 @@
 
                              <div class="col-md-4" >
                                <vue-initials-img :name="client.firstname+' '+client.lastname" class="img-thumbnail" size="300"  v-if="client.user_image == null "/>
-                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo"  height="400px" v-if="client.user_image != null ">
+                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo" v-if="client.user_image != null ">
                                <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null "> -->
                                <!-- <p class="btn btn-default spacer-top-bottom">
                                  <button type="button"  name="button"> Enrollment Card </button>
@@ -153,7 +153,7 @@
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom"><strong>State/LGA:</strong> OSUN/{{singleward.ward_name}}</p>
+                                   <p class="spacer-top-bottom"><strong>State/Ward:</strong> OSUN/{{singleward.ward_name}}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                                    <hr>

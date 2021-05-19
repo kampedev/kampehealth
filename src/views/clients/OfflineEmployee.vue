@@ -90,8 +90,11 @@
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                   <p>  <label for="inputPassword4">Date of Birth <span class="text-danger">*</span></label></p>
-                                                                    <!-- <input type="text" class="form-control" v-model="newStudent.dob" placeholder="1994/01/01" > -->
                                                                     <date-picker v-model="newStudent.dob" valueType="format"></date-picker>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                  <p>  <label for="inputPassword4">Expiry Date <span class="text-danger">*</span></label></p>
+                                                                    <date-picker v-model="newStudent.expiry_date" valueType="format"></date-picker>
                                                                 </div>
 
                                                                 <div class="form-group col-md-12" v-if="sector == 'formal'">
@@ -394,6 +397,7 @@ export default {
         ward: student.ward,
         blood: student.blood,
         dob: student.dob,
+        expiry_date: student.expiry_date,
         address1: student.address,
         genotype: student.genotype,
         weight: student.weight,
@@ -471,6 +475,7 @@ export default {
               ward: item.ward,
               blood: item.blood,
               dob: item.dob,
+              expiry_date: item.expiry_date,
               org_id: item.org_id,
               genotype: item.genotype,
               enrolled_by: item.enrolled_by,
@@ -577,6 +582,7 @@ export default {
           ward: this.selected_ward_id,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
+          expiry_date: this.newStudent.expiry_date,
           type: 'client',
           gender: this.newStudent.gender,
           user_image: this.imagefile,
@@ -618,6 +624,7 @@ export default {
           ward: this.selected_ward_id,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
+          expiry_date: this.newStudent.expiry_date,
           type: 'client',
           gender: this.newStudent.gender,
           user_image: this.imagefile,
@@ -686,6 +693,7 @@ export default {
         lastname: student.lastname,
         phone_number: student.phone_number,
         dob: student.dob,
+        expiry_date: student.expiry_date,
         gender: student.gender,
         genotype: student.genotype,
         address: student.address

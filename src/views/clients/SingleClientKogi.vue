@@ -108,9 +108,10 @@
                               <div class="col-md-8">
                                 <p class="h2 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p>
+                                <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p> -->
+                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>{{client.id_card_number}}</strong></p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"><strong class="text-primary">NIN NUMBER:</strong>  <strong>{{client.nimc_number}}</strong></p>
+                                <p class="h2 spacer-top-bottom"><strong class="text-primary">EXPIRY DATE:</strong>  <strong>{{client.expiry_date | moment("D/M/YYYY")}}</strong></p>
                                 <hr>
                                 <p class="h2 spacer-top-bottom"> <strong class="text-primary"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
                                 <!-- <hr> -->

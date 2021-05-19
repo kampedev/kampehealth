@@ -79,7 +79,7 @@ const getDatabase = () => {
                 notNull: true
             },
             ward: {
-                dataType: DATA_TYPE.string,
+                dataType: DATA_TYPE.Number,
                 notNull: false
             },
             enrolled_by: {
@@ -88,6 +88,10 @@ const getDatabase = () => {
             },
             org_id: {
                 dataType: DATA_TYPE.Number,
+                notNull: true
+            },
+            expiry_date: {
+                dataType: DATA_TYPE.String,
                 notNull: true
             },
             salary_number: {

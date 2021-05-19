@@ -91,6 +91,10 @@
                                                              <p>  <label for="inputPassword4">Date of Birth </label></p>
                                                                <date-picker v-model="register.dob" valueType="format"></date-picker>
                                                            </div>
+                                                           <div class="form-group col-md-6">
+                                                             <p>  <label for="inputPassword4">Expiry Date</label></p>
+                                                               <date-picker v-model="register.expiry_date" valueType="format"></date-picker>
+                                                           </div>
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputEmail4">Email</label>
                                                                   <input type="email" class="form-control" v-model="register.email" placeholder="Email">
@@ -284,6 +288,7 @@ export default {
         gender:"",
         genotype:"",
         dob:"",
+        expiry_date:"",
         salary_number:"",
         provider_id:"",
         point_of_care:"",
@@ -388,6 +393,7 @@ export default {
           ward: this.register.ward,
           blood: this.register.blood,
           dob: this.register.dob,
+          expiry_date: this.register.expiry_date,
           address1: this.register.address,
           genotype: this.register.genotype,
           weight: this.register.weight,
@@ -456,7 +462,7 @@ export default {
           localgovt: this.register.localgovt,
           ward: this.register.ward,
           blood: this.register.blood,
-          dob: this.register.dob,
+          expiry_date: this.register.expiry_date,
           address1: this.register.address,
           genotype: this.register.genotype,
           weight: this.register.weight,

@@ -113,7 +113,7 @@ const getDatabase = () => {
 
             category_of_vulnerable_group: {
                 dataType: DATA_TYPE.String,
-                notNull: false
+                notNull: true
             },
             point_of_care: {
                 dataType: DATA_TYPE.String,

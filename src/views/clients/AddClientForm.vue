@@ -300,7 +300,7 @@ export default {
         date_of_entry:"",
         marital_status:"",
         category_of_vulnerable_group:"",
-            }
+        }
     }
   },
   beforeMount(){
@@ -322,7 +322,7 @@ export default {
       }
 
       if (this.user.type == 'shis') {
-        this.registerUserAdmin()
+        this.registerUserAdmin()  
       }
     },
     fetchWards(){

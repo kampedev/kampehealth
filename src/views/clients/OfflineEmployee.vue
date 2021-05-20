@@ -280,12 +280,13 @@
                                  </table>
 
                              </div>
+                          
 
                              <div class="vld-parent">
                                   <loading :active.sync="isLoading"
-                                  loader="dots"
+                                  loader="spinner"
                                   :can-cancel="false"
-                                  :is-full-page="fullPage"></loading>
+                                  :is-full-page="true"></loading>
                               </div>
                             </div>
                         </section>
@@ -294,6 +295,7 @@
 </section>
 </template>
 <script>
+
 import { StudentService } from "../../service/student_service";
 import DatePicker from 'vue2-datepicker';
 // Import component
@@ -457,9 +459,9 @@ export default {
     }
   },
   async  syncClients(){
-    if (confirm('Are you Sure you want to Sync Data from your Device?') ) {
+    this.isLoading = true;
 
-      this.isLoading = true;
+    if (confirm('Are you Sure you want to Sync all Data from your Device?') ) {
       const result = this.students.map((item) => {
             this.axios.post('/api/v1/auth/syncUser',{
               firstname: item.firstname,
@@ -473,6 +475,7 @@ export default {
               sectorType: item.sectorType,
               agency_id: item.agency_id,
               provider_id: item.provider_id,
+              marital_status: item.marital_status,
               state: '2676',
               role: 0,
               password: 'euhler',
@@ -493,8 +496,6 @@ export default {
                 console.log(response)
                 let student = item
                 this.remove(student)
-
-
 
             }).
             catch(error=>{

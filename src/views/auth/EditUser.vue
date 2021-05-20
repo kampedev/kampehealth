@@ -155,8 +155,8 @@
                                          </select>
                                       </div>
                                       <div class="form-group col-md-6">
-                                        <label for="inputCity">Ward</label>
-                                          <select class="form-control"  v-model="auth_user.localgovt">
+                                        <label for="inputCity">Ward </label>
+                                          <select class="form-control"  v-model="auth_user.ward">
                                             <option v-for="ward in wards" v-bind:key="ward" :value="ward.id">{{ward.ward_name}}</option>
                                          </select>
                                       </div>
@@ -255,9 +255,9 @@ export default {
 
 
                    //get ward
-                   this.axios.get(`/api/v1/auth/getwards/${this.auth_user.localgovt}`)
+                   this.axios.get(`/api/v1/auth/getwardstate/2676`)
                                .then(response => {
-                                   this.wards = response.data.data
+                                   this.wards = response.data
                                    console.log(response)
                                })
                                .catch(error => {

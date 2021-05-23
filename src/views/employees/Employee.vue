@@ -48,14 +48,35 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Clients</p>
+                                <p class="text-muted text-overline m-0">Enrollees</p>
                                 <h1 class="fw-400">{{clients.meta.total | numeral(0,0)}}</h1>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
             </div>
+              <!-- {{facilities.length}}
+              {{wards.length}} -->
+
+              <div class="col-md-12">
+                <button type="button" class="btn btn-success" @click="fetchLga" style="margin-bottom:10px;">
+                  Update Facility and Ward Data</button>
+              </div>
+
+            <div class="col-md-12" v-show="show">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">LGA</label>
+                    <select class="form-control"   v-model="selected_lga"  @change="fetchFacilitiesperlga()">
+                      <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                   </select>
+
+                   <button type="button" class="btn btn-success" @click="saveData()" style="margin-top:10px;">Update Now</button>
+
+                </div>
+            </div>
+
             <informallga/>
 
             <div class="row">
@@ -89,6 +110,13 @@
                               </td>
 
                           </tr>
+                          <div class="vld-parent">
+                               <loading :active.sync="isLoading"
+                               loader="spinner"
+                               :can-cancel="false"
+                               :is-full-page="true"></loading>
+                           </div>
+
 
 
                           </tbody>
@@ -113,22 +141,29 @@
 import Navbar from '@/views/Navbar.vue'
 import Footer from '@/views/Footer.vue'
 import informallga from '@/views/shis/components/informallga.vue'
+// Import component
+   import Loading from 'vue-loading-overlay';
+   // Import stylesheet
+   import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   components: {
-     Navbar, informallga, Footer
+     Navbar, informallga, Footer, Loading
   },
 
   data(){
     return{
       auth_user:"",
       clients:"",
-      appointments:"",
+      selected_lga:"",
+      facilities:"",
+      wards:"",
       providers:"",
       user:null,
-      offlineclients: [],
-
-
+      isLoading: false,
+      show: false,
+      fullPage: true,
+      lga_states: true,
     }
   },
   beforeMount(){
@@ -142,7 +177,59 @@ export default {
                     console.error(error);
                 })
   },
+
   methods:{
+    fetchFacilitiesperlga(){
+      this.isLoading = true
+
+      this.axios.get(`/api/v1/auth/getProviderPerLGA/${this.selected_lga}`)
+                  .then(response => {
+                      this.facilities = response.data.data
+                      console.log(response)
+
+                      //get wards
+            this.axios.get(`/api/v1/auth/getwards/${this.selected_lga}`)
+                        .then(response => {
+                        this.wards = response.data.data
+
+                            console.log(response)
+                            this.isLoading = false
+
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            this.isLoading = false
+
+                        })
+                      //end of get wards
+                  })
+                  .catch(error => {
+                      console.error(error);
+                      this.isLoading = false
+
+                  })
+    },
+    fetchLga(){
+      this.show = true
+      this.axios.get(`/api/v1/auth/lga/2676`)
+                  .then(response => {
+                      this.lga_states = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    saveData(){
+      this.isLoading = true
+      localStorage.setItem('wards_data', JSON.stringify(this.wards));
+      localStorage.setItem('facilities', JSON.stringify(this.facilities));
+      this.isLoading = false
+      this.$toasted.info('Updated Successfully', {position: 'top-center', duration:3000 })
+
+
+
+    },
 
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))

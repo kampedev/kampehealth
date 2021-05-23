@@ -26,7 +26,7 @@
                         <loading :active.sync="isLoading"
                         loader="dots"
                         :can-cancel="true"
-                        :is-full-page="fullPage"></loading>
+                        :is-full-page="true"></loading>
                     </div>
 
 

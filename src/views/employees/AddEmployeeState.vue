@@ -23,7 +23,7 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
                            <div class="card-header">
                              <div class="text-center">

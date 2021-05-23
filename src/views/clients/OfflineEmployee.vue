@@ -117,18 +117,18 @@
 
                                                               <div class="form-group col-md-12" >
                                                                 <label>Principal Facility for Accessing Health Care <span class="text-danger">*</span></label>
-                                                                <v-select v-model="newStudent.provider_id" :options="egbedore_providers.data" label="agency_name" :value="newStudent.provider_id" @input="selected_provider"></v-select>
+                                                                <v-select v-model="newStudent.provider_id" :options="facilities_sync" label="agency_name" :value="newStudent.provider_id" @input="selected_provider"></v-select>
                                                               </div>
 
 
                                                                 <div class="form-group col-md-12" >
                                                                   <label>Select LGA <span class="text-danger">*</span></label>
-                                                                  <v-select v-model="newStudent.localgovt" :options="osun_lgas.data" label="local_name" :value="newStudent.localgovt" @input="selected_lga"></v-select>
+                                                                  <v-select v-model="newStudent.localgovt" :options="osun_lgas.data" label="local_name" :value="newStudent.localgovt" @input="selected_lga" ></v-select>
                                                                 </div>
 
                                                                 <div class="form-group col-md-12" >
                                                                   <label>Select Ward <span class="text-danger">*</span></label>
-                                                                  <v-select v-model="newStudent.ward" :options="egbedore_wards.data" label="ward_name" :value="newStudent.ward" @input="selected_ward"></v-select>
+                                                                  <v-select v-model="newStudent.ward" :options="wards_sync" label="ward_name" :value="newStudent.ward" @input="selected_ward"></v-select>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                   <label for="inputCity">Gender <span class="text-danger">*</span></label>
@@ -211,7 +211,7 @@
                                                                 <div class="col-md-12 p-t-20 p-b-20">
                                                                     <video id="video" width="100%"  height="auto" autoplay></video>
 
-                                                                  <div class="col-md-12" style="margin-top:10px;">
+                                                                  <div class="col-md-12" style="margin-top:10px;" v-show="showcanvas">
                                                                     <canvas id="canvas" width="600px" height="450px"></canvas>
                                                                   </div>
                                                                 </div>
@@ -265,7 +265,7 @@
                                        </td>
                                          <td >{{student.firstname}} {{student.lastname}}</td>
                                          <td>{{student.gender}}</td>
-                                         <td>{{student.phone_number}}</td>
+                                         <td>{{student.phone_number}}  {{student.ward}} {{student.org_id}}</td>
                                          <td>{{student.sector}} </td>
                                          <td>
                                              <button type="button" class="btn btn-info" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
@@ -280,7 +280,7 @@
                                  </table>
 
                              </div>
-                          
+
 
                              <div class="vld-parent">
                                   <loading :active.sync="isLoading"
@@ -325,12 +325,15 @@ export default {
     return {
       newStudent: null,
       showinput: true,
+      showcanvas: true,
       wards: "",
+      wards_sync: "",
+      facilities_sync: "",
       showcamera: false,
       providers:"",
       imagefile:"",
       selected_provider_id:"",
-      selected_lga_id:"",
+      selected_lga_id:"631",
       selected_ward_id:"",
       user: null,
       editStudent: {},
@@ -371,8 +374,11 @@ export default {
   beforeMount: function() {
     this.clear();
     this.user = JSON.parse(localStorage.getItem('user'))
+    this.wards_sync = JSON.parse(localStorage.getItem('wards_data'))
+    this.facilities_sync = JSON.parse(localStorage.getItem('facilities'))
 
   },
+
   methods: {
     selected_provider(value){
     this.selected_provider_id = value.id
@@ -418,7 +424,7 @@ export default {
         org_id: student.org_id,
         marital_status: student.marital_status,
         category_of_vulnerable_group: student.category_of_vulnerable_group,
-        enrolled_by: student.id,
+        enrolled_by: student.enrolled_by,
       })
       .then(response=>{
 
@@ -552,6 +558,7 @@ export default {
       }
     },
     takePic(){
+      this.showcanvas = true
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
@@ -700,6 +707,7 @@ export default {
       localStorage.removeItem("snap");
       this.imagefile = ""
       this.client_number = "0"
+      this.showcanvas = false
     },
     edit(id) {
       var student = this.students.find(qry => qry.id === id);

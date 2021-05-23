@@ -159,6 +159,8 @@
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Email:</strong> {{client.email}}</p>
                                    <hr>
+                                   <p class="spacer-top-bottom"><strong>Expiry Date:</strong> {{client.expiry_date}}</p>
+                                   <hr>
 
                                    <p class="spacer-top-bottom"><strong>Marital Status:</strong> {{client.marital_status }}</p>
                                    <hr>

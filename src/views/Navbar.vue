@@ -64,7 +64,7 @@
                 </a>
             </li>
 
-            <li class="menu-item active " v-if="user.type == 'employee'">
+            <li class="menu-item active " v-if="user.type == 'employee' && user.role == 0">
                 <a href="/employee-dashboard" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Dashboard

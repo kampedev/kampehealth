@@ -154,7 +154,7 @@ export default {
                       console.log(response)
                       this.getClients()
                       this.selected = []
-                      this.$toasted.success('Dependent deleted Successfully', {position: 'top-center', duration:3000 })
+                      this.$toasted.success('Deleted Successfully', {position: 'top-center', duration:3000 })
 
                   })
                   .catch(error => {

@@ -63,7 +63,7 @@
                             </div>
                             <div>
                                 <p class="h4">state Health Facilities</p>
-                                <!-- <h1 class="fw-400">{{providers.length}}</h1> -->
+                                <h1 class="fw-400">{{providers.length}}</h1>
                             </div>
                         </div>
                     </div>

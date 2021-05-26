@@ -28,7 +28,11 @@
                            <div class="card-body">
 
                                  <div class="form-group">
-                                     <button class="btn btn-primary" @click="show = !show">Ward Form</button>
+                                     <button class="btn btn-default" @click="show = !show" >Ward Form</button>
+                                     <router-link :to="{ path: '/lga/'+ lga}">
+                                     <button class="btn btn-info" v-if="lga != null">View Selected LGA</button>
+                                   </router-link>
+
                                  </div>
                            </div>
                        </div>
@@ -77,7 +81,7 @@
                                <thead>
                                <tr>
                                    <th>Name</th>
-                                   <th>Short Name</th>
+                                   <!-- <th>Short Name</th> -->
                                    <th>Action</th>
 
                                </tr>
@@ -88,10 +92,14 @@
                                    <td>
                                      {{ward.ward_name}}
                                    </td>
-                                   <td>
+                                   <!-- <td>
                                      {{ward.ward_short_name}}
-                                   </td>
+                                   </td> -->
+
                                    <td>
+                                     <router-link :to="{ path: '/ward/'+ ward.id}">
+                                     <button class="btn btn-default" ><i class="fe fe-eye"></i></button>
+                                    </router-link>
                                       <button type="button" class="btn btn-info" @click="editWard(ward)"> <i class="fe fe-edit"></i></button>
                                       <button type="button" class="btn btn-destroy"  @click="deleteWard(ward)"> <i class="fe fe-delete"></i></button>
                                    </td>
@@ -145,7 +153,7 @@ export default {
       fullPage: true,
       agency_id:"",
       provider_id:"",
-      lga:"",
+      lga:null,
       register:{
                 ward_name:"",
                 ward_short_name:"",

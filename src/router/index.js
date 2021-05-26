@@ -79,6 +79,8 @@ import Appointments from '../views/appointments/Appointments.vue'
 import SingleAppointment from '../views/appointments/SingleAppointment.vue'
 import MDApage from '../views/shis/MDApage.vue'
 import WardManager from '../views/shis/WardManager.vue'
+import SingleLGA from '../views/shis/SingleLGA.vue'
+import SingleWard from '../views/shis/SingleWard.vue'
 import ListTPAs from '@/views/tpas/ListTPAs.vue'
 import AddClientTPA from '@/views/tpas/AddClientTPA.vue'
 import ViewClientsTPA from '@/views/tpas/ViewClientsTPA.vue'
@@ -87,6 +89,7 @@ import TPADashboard from '@/views/tpas/TPADashboard.vue'
 import TPAData from '@/views/tpas/TPAData.vue'
 import TPAEmployeeDashboard from '@/views/tpas/TPAEmployeeDashboard.vue'
 import SingleEmployeeAdmin from '@/views/employees/SingleEmployeeAdmin.vue'
+import DuplicateUsers from '../views/clients/DuplicateUsers.vue'
 
 Vue.use(VueRouter)
 
@@ -320,6 +323,20 @@ const routes = [
   {
     path: '/mda-manager',
     component: MDApage,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/lga/:id',
+    component: SingleLGA,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/ward/:id',
+    component: SingleWard,
     meta: {
         requiresAuth: true,
       },
@@ -678,6 +695,13 @@ const routes = [
   {
     path: '/accountant',
     component: Accountant,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/duplicate',
+    component: DuplicateUsers,
     meta: {
         requiresAuth: true,
       },

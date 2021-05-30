@@ -265,11 +265,11 @@
                                        </td>
                                          <td >{{student.firstname}} {{student.lastname}}</td>
                                          <td>{{student.gender}}</td>
-                                         <td>{{student.phone_number}}  {{student.ward}} {{student.org_id}}</td>
+                                         <td>{{student.phone_number}}</td>
                                          <td>{{student.sector}} </td>
                                          <td>
                                              <button type="button" class="btn btn-info" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
-                                             <button type="button" class="btn btn-secondary" @click="pushvalue"><i class="fe fe-edit"></i></button>
+                                             <!-- <button type="button" class="btn btn-secondary" @click="pushvalue"><i class="fe fe-edit"></i></button> -->
                                              <button type="button" class="btn btn-danger" @click="remove(student)"><i class="fe fe-delete"></i></button>
                                          </td>
 

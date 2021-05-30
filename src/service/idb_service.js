@@ -31,7 +31,7 @@ const getDatabase = () => {
                 unique: false,
                 dataType: DATA_TYPE.String
             },
-          
+
             user_image: {
                 notNull: true,
                 dataType: DATA_TYPE.String
@@ -76,10 +76,10 @@ const getDatabase = () => {
                 dataType: DATA_TYPE.String,
                 notNull: false
             },
-            state: {
-                dataType: DATA_TYPE.Number,
-                notNull: true
-            },
+            // state: {
+            //     dataType: DATA_TYPE.Number,
+            //     notNull: true
+            // },
             localgovt: {
                 dataType: DATA_TYPE.Number,
                 notNull: true

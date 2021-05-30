@@ -769,18 +769,7 @@
                                                         </span>
                                     </router-link>
                                 </li>
-                                <li class="menu-item">
-                                    <router-link to="/lga-manager" class=" menu-link">
-                                                    <span class="menu-label">
-                                                            <span class="menu-name">LGA Manager
-                                                            </span>
-                                                        </span>
-                                        <span class="menu-icon">
-
-                                                                <i class="icon-placeholder  fe fe-map"></i>
-                                                        </span>
-                                    </router-link>
-                                </li>
+                              
                                 <li class="menu-item">
                                     <router-link to="/ward-manager" class=" menu-link">
                                                     <span class="menu-label">

@@ -208,7 +208,7 @@ export default {
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true
-      this.axios.get(`/api/v1/auth/employee_client/${this.user.institutional_id}`,{
+      this.axios.get(`/api/v1/auth/employee_client/${this.user.id}`,{
       params:{
         page: this.current_page
       }

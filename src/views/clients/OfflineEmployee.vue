@@ -269,7 +269,7 @@
                                          <td>{{student.sector}} </td>
                                          <td>
                                              <button type="button" class="btn btn-info" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
-                                             <!-- <button type="button" class="btn btn-secondary" @click="edit(student)"><i class="fe fe-edit"></i></button> -->
+                                             <button type="button" class="btn btn-secondary" @click="pushvalue"><i class="fe fe-edit"></i></button>
                                              <button type="button" class="btn btn-danger" @click="remove(student)"><i class="fe fe-delete"></i></button>
                                          </td>
 
@@ -352,6 +352,9 @@ export default {
         wards_offline:wardsJson,
         tpa_offline:tpaJson,
         isLoading: false,
+        newarray:{
+            data:""
+        },
         video_settings:{
                 video: {
                   width: {
@@ -379,7 +382,11 @@ export default {
 
   },
 
+
   methods: {
+    pushvalue(){
+      this.students = this.newarray.data
+    },
     selected_provider(value){
     this.selected_provider_id = value.id
   },
@@ -393,7 +400,7 @@ export default {
   },
 
     syncUser(student){
-    if (confirm('Ae you sure you want to sync this user to the server? It will be deleted from your computer!') ) {
+    if (confirm('Are you sure you want to sync this user to the server? It will be deleted from your computer!') ) {
     this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true;
       this.axios.post('/api/v1/auth/syncUser',{
@@ -468,50 +475,61 @@ export default {
     this.isLoading = true;
 
     if (confirm('Are you Sure you want to Sync all Data from your Device?') ) {
-      const result = this.students.map((item) => {
-            this.axios.post('/api/v1/auth/syncUser',{
-              firstname: item.firstname,
-              lastname: item.lastname,
-              middlename: item.middlename,
-              nimc_number: item.nimc_number,
-              email: item.email,
-              phone_number: item.phone_number,
-              type: item.type,
-              user_image: item.user_image,
-              sectorType: item.sectorType,
-              agency_id: item.agency_id,
-              provider_id: item.provider_id,
-              marital_status: item.marital_status,
-              state: '2676',
-              role: 0,
-              password: 'euhler',
-              localgovt: item.localgovt,
-              address1: item.address,
-              sector: item.sector,
-              category_of_vulnerable_group: item.category_of_vulnerable_group,
-              ward: item.ward,
-              blood: item.blood,
-              dob: item.dob,
-              expiry_date: item.expiry_date,
-              org_id: item.org_id,
-              genotype: item.genotype,
-              enrolled_by: item.enrolled_by,
-              gender: item.gender,
-            })
-            .then(response=>{
-                console.log(response)
-                let student = item
-                this.remove(student)
+      console.log("data sent to api ",this.students)
+      this.axios.post(`/api/v1/auth/syncUserOptim`,{
+        data: this.students
+      })
+                  .then(response => {
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+      // const result = this.students.map((item) => {
+      //       this.axios.post('/api/v1/auth/syncUser',{
+      //         firstname: item.firstname,
+      //         lastname: item.lastname,
+      //         middlename: item.middlename,
+      //         nimc_number: item.nimc_number,
+      //         email: item.email,
+      //         phone_number: item.phone_number,
+      //         type: item.type,
+      //         user_image: item.user_image,
+      //         sectorType: item.sectorType,
+      //         agency_id: item.agency_id,
+      //         provider_id: item.provider_id,
+      //         marital_status: item.marital_status,
+      //         state: '2676',
+      //         role: 0,
+      //         password: 'euhler',
+      //         localgovt: item.localgovt,
+      //         address1: item.address,
+      //         sector: item.sector,
+      //         category_of_vulnerable_group: item.category_of_vulnerable_group,
+      //         ward: item.ward,
+      //         blood: item.blood,
+      //         dob: item.dob,
+      //         expiry_date: item.expiry_date,
+      //         org_id: item.org_id,
+      //         genotype: item.genotype,
+      //         enrolled_by: item.enrolled_by,
+      //         gender: item.gender,
+      //       })
+      //       .then(response=>{
+      //           console.log(response)
+      //           let student = item
+      //           this.remove(student)
+      //
+      //       }).
+      //       catch(error=>{
+      //           console.log(error.response)
+      //           this.$toasted.error('Error Syncing! Reload Page', {position: 'top-center', duration:3000 })
+      //
+      //       })
+      //       result;
+      //
+      // });
 
-            }).
-            catch(error=>{
-                console.log(error.response)
-                this.$toasted.error('Error Syncing! Reload Page', {position: 'top-center', duration:3000 })
-
-            })
-            result;
-
-      });
       this.isLoading = false;
       this.$toasted.info('Client Synced Successfully', {position: 'top-center', duration:3000 })
       // this.getOfflineCLients()
@@ -617,7 +635,7 @@ export default {
           // left_fingers: this.leftfingers,
           // right_fingers: this.rightfingers,
           // thumbs_fingers: this.twothumbs,
-          address: this.newStudent.address,
+          address1: this.newStudent.address,
           agency_id: this.user.id,
           enrolled_by: this.user.id,
           org_id: this.newStudent.org_id,
@@ -709,27 +727,38 @@ export default {
       this.client_number = "0"
       this.showcanvas = false
     },
-    edit(id) {
-      var student = this.students.find(qry => qry.id === id);
-      this.editStudent = {
-        id: student.id,
-        firstname: student.firstname,
-        lastname: student.lastname,
-        phone_number: student.phone_number,
-        dob: student.dob,
-        expiry_date: student.expiry_date,
-        gender: student.gender,
-        genotype: student.genotype,
-        address: student.address
-      };
+    // edit(student) {
+    //   var student = this.students.find(qry => qry.id === student);
+    //   this.editStudent = {
+    //     id: student.id,
+    //     firstname: student.firstname,
+    //     lastname: student.lastname,
+    //     phone_number: student.phone_number,
+    //     dob: student.dob,
+    //     expiry_date: student.expiry_date,
+    //     gender: student.gender,
+    //     genotype: student.genotype,
+    //     address: student.address
+    //   };
+    // },
+    edit(student) {
+      // id = student.id
+      this.newStudent.firstname = student.firstname
+      this.newStudent.lastname = student.lastname
+      this.newStudent.phone_number = student.phone_number
+      this.newStudent.middlename = student.middlename
+      console.log('edit open')
+
     },
     async remove(student) {
-      const service = new StudentService();
-      service;
-      const noOfStudentRemoved = await this.service.removeStudent(student.id);
-      if (noOfStudentRemoved > 0) {
-        this.$emit("remove-item");
-        console.log(noOfStudentRemoved)
+      if (confirm('Are you Sure you want to delete?') ) {
+        const service = new StudentService();
+        service;
+        const noOfStudentRemoved = await this.service.removeStudent(student.id);
+        if (noOfStudentRemoved > 0) {
+          this.$emit("remove-item");
+          console.log(noOfStudentRemoved)
+        }
       }
     },
     async update(id) {

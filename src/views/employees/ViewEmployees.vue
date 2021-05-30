@@ -35,7 +35,7 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
 
                            <div class="card-body">
@@ -139,7 +139,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+    this.axios.get(`/api/v1/auth/getEmployee/95930`)
                 .then(response => {
                     this.employees = response.data.data
                     console.log(response)
@@ -164,7 +164,7 @@ export default {
     },
     getEmployees(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getEmployee/95930`)
                   .then(response => {
                       this.employees = response.data.data
                       console.log(response)

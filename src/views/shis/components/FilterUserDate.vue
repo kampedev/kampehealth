@@ -34,6 +34,7 @@
                             <div class="form-group col-md-4">
                                 <label >Special Needs</label>
                                 <select class="form-control" v-model="category_of_vulnerable_group">
+                                    <option  value="All">All</option>
                                     <option  value="Pregnant Women">Pregnant Women</option>
                                     <option  value="Children under 5">Children under 5</option>
                                     <option  value="Aged">Aged</option>

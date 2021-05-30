@@ -123,7 +123,7 @@ export default {
                 'User Image': {
                   field:'user_image',
                 callback: (value) => {
-                return `https://api.hayokinsurance.com/image/ ${value}`;
+                return `https://api.hayokinsurance.com/image/${value}`;
             }
           },
                 'Blood Group':'blood',

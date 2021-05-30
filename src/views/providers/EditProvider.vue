@@ -62,7 +62,7 @@
                                             <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                          </select>
                                       </div>
-                                      <div class="form-group col-md-12" v-if="auth_user.type != 'client' ">
+                                      <div class="form-group col-md-12">
                                           <label for="asd">Company Name</label>
                                           <input type="text" class="form-control" id="asd" placeholder="Company Name" v-model="auth_user.agency_name">
                                       </div>

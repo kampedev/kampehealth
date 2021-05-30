@@ -15,7 +15,7 @@
 
 
 
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -48,7 +48,7 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Enrollees</p>
+                                <p class="text-muted text-overline m-0">Total Enrollees</p>
                                 <h1 class="fw-400">{{clients.meta.total | numeral(0,0)}}</h1>
                             </div>
                         </div>
@@ -56,6 +56,28 @@
                     </div>
                 </div>
 
+                <div class="col-lg-4 col-md-4">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/manage-clients'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="fe fe-users"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">My Enrollees</p>
+                                <h1 class="fw-400">{{enrollee_clients.meta.total | numeral(0,0)}}</h1>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+              
             </div>
               <!-- {{facilities.length}}
               {{wards.length}} -->
@@ -154,12 +176,13 @@ export default {
   data(){
     return{
       auth_user:"",
+      user:null,
       clients:"",
+      enrollee_clients:"",
       selected_lga:"",
       facilities:"",
       wards:"",
       providers:"",
-      user:null,
       isLoading: false,
       show: false,
       fullPage: true,
@@ -167,7 +190,6 @@ export default {
     }
   },
   beforeMount(){
-
     this.axios.get(`/api/v1/auth/user`)
                 .then(response => {
                     this.auth_user = response.data
@@ -179,6 +201,21 @@ export default {
   },
 
   methods:{
+    myEnrollees(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/employee_client/${this.user.id}`)
+                  .then(response => {
+                      this.enrollee_clients = response.data
+                      this.isLoading = false
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                      this.isLoading = false
+
+                  })
+
+    },
     fetchFacilitiesperlga(){
       this.isLoading = true
 
@@ -261,6 +298,7 @@ export default {
   created(){
     this.getClients()
     this.getProviders()
+    this.myEnrollees()
 
   }
 }

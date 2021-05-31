@@ -117,6 +117,7 @@ export default {
       results:[],
       json_fields: {
                 'Sector':'sector',
+                'Type':'sectorType',
                 'First Name': 'firstname',
                 'Last Name':'lastname',
                 'Middle Name':'middlename',

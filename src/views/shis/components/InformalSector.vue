@@ -109,6 +109,7 @@
                         </div>
                     </div>
                 </div>
+                <FilterUserLGA/>
                 <FilterUserProvider/>
                 <FilterUserDate/>
             </div>
@@ -161,7 +162,7 @@
 // import LGaData from "./lgadata";
 import InformalLga from "./informallga";
 import BasicCategory from "./basicCategory";
-// import FilterUsers from "./FilterUsers";
+import FilterUserLGA from "./FilterUserLGA";
 import FilterUserProvider from "./FilterUserProvider";
 import FilterUserDate from "./FilterUserDate";
 
@@ -169,7 +170,7 @@ import FilterUserDate from "./FilterUserDate";
 export default {
   components: {
      // Navbar, ClientDataDashboard
-       FilterUserProvider, InformalLga, BasicCategory, FilterUserDate
+       FilterUserProvider, FilterUserLGA, InformalLga, BasicCategory, FilterUserDate
   },
 
   data(){

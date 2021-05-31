@@ -141,9 +141,19 @@ export default {
       json_fields: {
                 'First Name': 'firstname',
                 'Last Name':'lastname',
-                'Sector':'sector',
+                'User Image': {
+                  field:'user_image',
+                callback: (value) => {
+                return `https://api.hayokinsurance.com/image/${value}`;
+            }
+          },
+                'Plan':'sector',
                 'Vulnerable Group':'category_of_vulnerable_group',
                 'Date of Birth':'dob',
+                'OHIS Number':'id_card_number',
+                'Health Facility':'id_card_number',
+                'Expiry Card':'expiry_date',
+                'Sector':'sectorType',
                 'gender':'gender',
                 'phone_number':'phone_number',
                 'Local Govt':'local_name',

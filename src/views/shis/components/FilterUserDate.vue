@@ -141,23 +141,30 @@ export default {
       json_fields: {
                 'First Name': 'firstname',
                 'Last Name':'lastname',
+                'Middle Name':'middlename',
                 'User Image': {
                   field:'user_image',
                 callback: (value) => {
                 return `https://api.hayokinsurance.com/image/${value}`;
             }
           },
+                'phone_number':'phone_number',
                 'Plan':'sector',
                 'Vulnerable Group':'category_of_vulnerable_group',
                 'Date of Birth':'dob',
+                'Local Govt':'local_name',
+                'Ward': 'ward_name',
                 'OHIS Number':'id_card_number',
-                'Health Facility':'id_card_number',
-                'Expiry Card':'expiry_date',
+                'Health Facility':'userprovider.agency_name',
+                'Card Expiry Date':'expiry_date',
                 'Sector':'sectorType',
                 'gender':'gender',
-                'phone_number':'phone_number',
-                'Local Govt':'local_name',
-                'Ward': 'ward_name'
+                'Date Enrolled':'created_at',
+                'MDA':'place_of_work',
+                'NIN Number':'nimc_number',
+                'HMO':'usertpa.organization_name',
+                'Enrolled By First Name':'userenrolledby.firstname',
+                'Enrolled By Last Name':'userenrolledby.lastname',
                  },
                 json_data: [],
                 json_meta: [

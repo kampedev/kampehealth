@@ -299,7 +299,7 @@ export default {
     getTPAs(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/org_agency/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/org_agency/95930`)
                   .then(response => {
                       this.tpas = response.data.data
                       console.log(response)

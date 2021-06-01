@@ -7,72 +7,168 @@
                <div class="row p-b-60 p-t-60">
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
-                       <div class="m-b-10">
-                           <div class="avatar ">
-                               <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-                           </div>
-                       </div>
+
                        <h3 class="h3">Enrollees</h3>
 
                        <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
 
                            </div>
-                           <button type="button" class="btn btn-info " name="button" @click="getClients">Refresh Clients</button>
+                           <button type="button" class="btn btn-info " name="button" @click="getClients">
+                              <i class="fe fe-refresh-cw"></i></button>
 
                        </div>
 
                    </div>
 
+
                </div>
            </div>
        </div>
-       <!-- <FilterUsers/> -->
        <SearchUser/>
-       <FilterUserProvider/>
-       <FilterUserLGA/>
-       <FilterUserDate/>
+       <div class="card m-b-30 container">
+         <div class="card-body">
 
+            <div class="row" >
+
+              <div class="form-group col-md-4">
+                <label for="inputCity"><i class="fe fe-credit-card"></i> Select Sector Plan</label>
+                    <select class="form-control"  v-model="sector" >
+                     <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
+                     <option  value="Vulnerable Groups">Vulnerable Groups</option>
+                     <option  value="Voluntary Contributor">Voluntary Contributor</option>
+                     <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option>
+                     <option  value="State Civil Servant Healthcare Plan">State Civil Servant Healthcare Plan</option>
+                     <option  value="LGA Civil Servant Healthcare Plan">LGA Civil Servant Healthcare Plan </option>
+                     <option  value="Universal Basic Education Board Healthcare Plan">Universal Basic Education Board Healthcare Plan</option>
+                     <option  value="State Pensioneers Healthcare Plan">State Pensioneers Healthcare Plan</option>
+                     <option  value="LGA Pensioneers Healthcare Plan">LGA Pensioneers Healthcare Plan</option>
+                     <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
+                     <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
+                       Tertiary Student Health Insurance Plan (T-SHIP)</option>
+                 </select>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="inputCity"><i class="fe fe-map-pin"></i> Select LGA</label>
+                  <select class="form-control"  v-model="localgovt" @change="fetchWards($event)">
+                    <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                 </select>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label><i class="fe fe-navigation"></i> Ward</label>
+                <select class="form-control"  v-model="ward">
+                    <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                 </select>
+              </div>
+
+              <div class="form-group col-md-4" >
+                <label><i class="fe fe-activity"></i> Select Facility </label>
+                <select class="form-control" required v-model="provider_id">
+                    <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
+                 </select>
+              </div>
+              <div class="form-group col-md-4" >
+                     <label for="inputCity"><i class="fe fe-briefcase"></i> Select MDA </label>
+                         <select class="form-control"  v-model="place_of_work" >
+                          <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
+                      </select>
+               </div>
+
+               <div class="form-group col-md-4" >
+                      <label for="inputCity"><i class="fe fe-user-plus"></i> Select Employee</label>
+                          <select class="form-control"  v-model="enrolled_by" >
+                           <option  :value="emoployee.id" v-for="emoployee in employees.data" v-bind:key="emoployee.id">{{emoployee.firstname}} {{emoployee.lastname}}</option>
+                       </select>
+                </div>
+
+              <div class="form-group col-md-6">
+                  <label for="inputCity"><i class="fe fe-calendar"></i> Start Date </label>
+                  <input type="date" class="form-control" v-model="from"  @change="pushDate"/>
+              </div>
+
+               <div class="form-group col-md-6">
+                  <label for="inputCity"><i class="fe fe-calendar"></i> End Date </label>
+                  <input type="date" class="form-control" v-model="to"   @change="pushDate"/>
+              </div>
+
+
+            </div>
+
+           <button @click="getClients()" class="btn btn-primary btn-block btn-lg" style="margin-top:20px;"><i class="fe fe-filter"></i> </button>
+           <button @click="clearFilter" class="btn btn-default btn-block btn-lg" style="margin-top:20px;"><i class="fe fe-x-circle"></i> </button>
+          <br />
+
+         </div>
+       </div>
        <section class="">
            <div class="container">
 
                <div class="row list">
                    <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
-
                            <div class="card-body">
 
-                             <div class="table-responsive">
+                             <div class="text-center">
+                               <button  class="btn btn-default btn-lg" @click="gotoPrevious"><i class="fe fe-skip-back"></i></button>
+                               <button class="btn btn-default btn-lg" @click="gotoNext"><i class="fe fe-skip-forward"></i></button>
+                             </div>
+                             <p class="h4">
+                                Total Records: <span class="text-primary">{{clients.total | numeral(0,0)}}</span>
+                             </p>
+
+
+                             <div class="table table-stripe">
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <!-- <th>Avatar</th> -->
+                                         <th>Avatar</th>
                                          <th>Name</th>
-                                         <th>Phone Number </th>
-                                         <th>LGA/Ward </th>
+                                         <th>Phone Number</th>
                                          <th>Sector</th>
-                                         <th>Vulnerable Group</th>
+                                         <!-- <th>Hosp/Dep Hosp</th> -->
                                          <th>Action</th>
                                      </tr>
                                      </thead>
                                      <tbody>
                                      <tr v-for="client in clients.data" v-bind:key="client.id">
-                                         <!-- <td>
-                                             <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                                 class="avatar-img avatar-sm rounded-circle"
-                                                                                 alt=""></div>
-                                         </td> -->
-                                         <td >{{client.firstname}}, {{client.lastname}} {{client.middlename}}</td>
+                                       <td>
+                                           <div class="avatar avatar-sm " v-if="client.user_image != null ">
+                                             <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
+                                                                    class="avatar-img avatar-sm rounded-circle"
+                                                                               alt=""></div>
+                                       </td>
+                                         <td >{{client.firstname}}, {{client.middlename}} {{client.lastname}}</td>
                                          <td>{{client.phone_number}}</td>
-                                         <td>{{client.local_name}} / {{client.ward_name}} </td>
                                          <td>{{client.sector}}</td>
-                                         <td>{{client.category_of_vulnerable_group}}</td>
-                                         <td>
+                                         <!-- <td> {{client.point_of_care}}</td> -->
+                                         <td >
                                            <router-link :to="{ path: '/client/'+ client.id}">
-                                             <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i> </button>
+                                             <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i></button>
                                             </router-link>
-                                            <button type="button" @click="deleteUser(client)" class="btn btn-danger"  ><i class="fe fe-delete"></i></button>
 
+                                            <button class="btn btn-link" @click="getDependents(client)" data-toggle="collapse" :data-target="'#collapseExample' + client.id" aria-expanded="false" aria-controls="collapseExample">
+                                                 <i class="fe fe-users"></i>
+                                             </button>
+
+                                             <div class="collapse" :id="'collapseExample' + client.id">
+
+                                                <table class="table table-responsive">
+                                                  <!-- <tbody> -->
+                                                    <tr>
+                                                    <th>Name</th><th>Relationship</th><th>Gender</th>
+                                                  </tr>
+                                                  <tr v-for="dep in dependents" v-bind:key="dep.id">
+                                                    <td>{{dep.firstname}} {{dep.lastname}}</td>
+                                                    <td>{{dep.relationShipType}}</td>
+                                                    <td>{{dep.gender}}</td>
+                                                  </tr>
+                                                  <!-- </tbody> -->
+
+
+                                                </table>
+                                             </div>
 
                                          </td>
                                      </tr>
@@ -80,9 +176,9 @@
 
                                      </tbody>
                                  </table>
-                                 <div class="col-lg-4 offset-lg-4">
-                                   <button  class="btn btn-default btn-lg" @click="gotoPrevious">Previous</button>
-                                   <button class="btn btn-default btn-lg" @click="gotoNext">Next</button>
+                                 <div class="text-center">
+                                   <button  class="btn btn-default btn-lg" @click="gotoPrevious"><i class="fe fe-skip-back"></i></button>
+                                   <button class="btn btn-default btn-lg" @click="gotoNext"><i class="fe fe-skip-forward"></i></button>
                                  </div>
 
                              </div>
@@ -91,6 +187,8 @@
                            </div>
                        </div>
                    </div>
+
+
 
                    <div class="vld-parent">
                         <loading :active.sync="isLoading"
@@ -111,10 +209,6 @@
 <script>
   import Navbar from '@/views/Navbar.vue'
   import SearchUser from '@/views/shis/components/SearchUser.vue'
-  import FilterUserProvider from '@/views/shis/components/FilterUserProvider.vue'
-  import FilterUserLGA from '@/views/shis/components/FilterUserLGA.vue'
-  import FilterUserDate from '@/views/shis/components/FilterUserDate.vue'
-
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
@@ -123,37 +217,43 @@
 
 export default {
   components: {
-     Navbar, Loading, SearchUser, FilterUserProvider, FilterUserLGA, FilterUserDate
+     Navbar, Loading, SearchUser
   },
   data(){
     return{
       isLoading: false,
       fullPage: true,
-      states:"",
       clients:"",
+      providers:"",
+      mdas:"",
+      wards:"",
       state:"",
       lga_states:"",
+      employees:"",
+      provider_id:"",
+      sector:"",
+      place_of_work:"",
+      localgovt:"",
+      dependents:"",
+      enrolled_by:"",
+      ward:"",
+      date:"",
+      from:"",
+      to:"",
       current_page:1,
-      register:{
-                firstname:"",
-                lastname:"",
-                email:"",
-                phone_number:"",
-                type:"client",
-                username:"",
-                state:"",
-                lga:"",
-                ward:"",
-                address:"",
-            }
+
     }
   },
   beforeMount(){
     this.isLoading = true
+    let valee = 'eee'
+     let compa = valee/2
+    console.log( compa )
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`,{
+    this.axios.get(`/api/v1/auth/getUsersfilterparams`,{
     params:{
-      page: this.current_page
+      page: this.current_page,
+      agency_id: 95930
     }
   })
                 .then(response => {
@@ -169,8 +269,64 @@ export default {
                 })
   },
   methods:{
+    clearFilter(){
+      this.ward = ""
+      this.date =""
+      this.from =""
+      this.to =""
+      this.sector =""
+      this.localgovt =""
+      this.provider_id =""
+      this.place_of_work =""
+      this.enrolled_by =""
+    },
+    getLGA(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/lga/2676`)
+                  .then(response => {
+                      this.lga_states = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    pushDate(){
+      this.date = 'date'
+    },
+    getEmployees(){
+      this.axios.get(`/api/v1/auth/getEmployee/95930`)
+                  .then(response => {
+                      this.employees = response.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    fetchWards(){
+      this.axios.get(`/api/v1/auth/getwards/${this.localgovt}`)
+                  .then(response => {
+                      this.wards = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    getDependents(client){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/allDependantUser/${client.id}`)
+                  .then(response => {
+                      this.dependents = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
     gotoNext(){
-      if (this.clients.meta.current_page != this.clients.meta.last_page) {
+      if (this.clients.current_page != this.clients.last_page) {
             this.current_page ++
             this.getClients()
           }
@@ -180,7 +336,7 @@ export default {
           }
     },
     gotoPrevious(){
-      if (this.clients.meta.current_page != 1) {
+      if (this.clients.current_page != 1) {
           this.current_page --
           this.getClients()
         }
@@ -188,12 +344,31 @@ export default {
           this.$toasted.info('You have reached the First Page', {position: 'top-center', duration:3000 })
         }
     },
+    getProviders(){
+      this.axios.get(`/api/v1/auth/providerAgency/95930`)
+                  .then(response => {
+                      this.providers = response.data.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
     getClients(){
       this.isLoading = true
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`,{
+      this.axios.get(`/api/v1/auth/getUsersfilterparams`,{
       params:{
-        page: this.current_page
+        page: this.current_page,
+        agency_id: 95930,
+        provider_id: this.provider_id,
+        sector: this.sector,
+        place_of_work: this.place_of_work,
+        localgovt: this.localgovt,
+        enrolled_by: this.enrolled_by,
+        date: this.date,
+        from: this.from,
+        to: this.to
       }
     })
                   .then(response => {
@@ -208,27 +383,24 @@ export default {
                       console.error(error);
                   })
     },
-    deleteUser(client){
-      if (confirm('Are you Sure you want to delete this user') ) {
-        this.axios.delete(`/api/v1/auth/deleteUser/${client.id}`)
-                    .then(response => {
-                        console.log(response)
-                        this.getClients()
-                        this.$toasted.info('Client deleted Successfully', {position: 'top-center', duration:3000 })
-
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        this.$toasted.error('Error  deleting', {position: 'top-center', duration:3000 })
-
-                    })
-      }
-    }
+    getMDAs(){
+      this.axios.get(`/api/v1/auth/ministry/95930`)
+                  .then(response => {
+                    this.mdas = response.data.data
+                      console.log(response.data)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
 
 
   },
   created(){
-    // this.getClients()
+    this.getLGA()
+    this.getProviders()
+    this.getMDAs()
+    this.getEmployees()
   }
 
 }

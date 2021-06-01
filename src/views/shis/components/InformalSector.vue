@@ -145,7 +145,7 @@
                   <BasicCategory />
                 </div>
                 <div class="col-md-6">
-
+                  <genderCategory/>
                 </div>
               </div>
 
@@ -165,12 +165,13 @@ import BasicCategory from "./basicCategory";
 import FilterUserLGA from "./FilterUserLGA";
 import FilterUserProvider from "./FilterUserProvider";
 import FilterUserDate from "./FilterUserDate";
+import genderCategory from "./genderCategory";
 
 
 export default {
   components: {
      // Navbar, ClientDataDashboard
-       FilterUserProvider, FilterUserLGA, InformalLga, BasicCategory, FilterUserDate
+       FilterUserProvider, genderCategory, FilterUserLGA, InformalLga, BasicCategory, FilterUserDate
   },
 
   data(){

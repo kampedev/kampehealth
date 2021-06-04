@@ -58,7 +58,7 @@ const getDatabase = () => {
             },
             gender: {
                 dataType: DATA_TYPE.String,
-                notNull: false,
+                notNull: true,
             },
             genotype: {
                 notNull: false,

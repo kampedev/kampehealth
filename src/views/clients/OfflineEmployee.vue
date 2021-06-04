@@ -268,7 +268,7 @@
                                          <td>{{student.phone_number}}</td>
                                          <td>{{student.sector}} </td>
                                          <td>
-                                             <button type="button" class="btn btn-info" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
+                                             <button type="button" class="btn btn-info" :disabled="disabled" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
                                              <!-- <button type="button" class="btn btn-secondary" @click="pushvalue"><i class="fe fe-edit"></i></button> -->
                                              <button type="button" class="btn btn-danger" @click="remove(student)"><i class="fe fe-delete"></i></button>
                                          </td>
@@ -323,6 +323,7 @@ export default {
   },
   data: function() {
     return {
+      disabled: false,
       newStudent: null,
       showinput: true,
       showcanvas: true,
@@ -403,6 +404,7 @@ export default {
     if (confirm('Are you sure you want to sync this user to the server? It will be deleted from your computer!') ) {
     this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true;
+      this.disabled = true;
       this.axios.post('/api/v1/auth/syncUser',{
         agency_id: student.agency_id,
         nimc_number: student.nimc_number,
@@ -751,9 +753,10 @@ export default {
 
     },
     async remove(student) {
-      if (confirm('Are you Sure you want to delete?') ) {
+      if (confirm('Are you sure you want to delete? to "Confirm upload?') ) {
         const service = new StudentService();
         service;
+        this.disabled = false;
         const noOfStudentRemoved = await this.service.removeStudent(student.id);
         if (noOfStudentRemoved > 0) {
           this.$emit("remove-item");

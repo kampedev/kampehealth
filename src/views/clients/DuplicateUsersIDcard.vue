@@ -14,7 +14,6 @@
                        </div>
                        <h3>{{clients.length}} Clients</h3>
 
-                       <button type="button" class="btn btn-primary" @click="deleteAll">Delete selected</button>
 
 
                    </div>
@@ -26,9 +25,7 @@
        <section class="">
            <div class="container">
 
-             <p>
-               {{selected}}
-             </p>
+
 
 
                <div class="row list">
@@ -50,7 +47,7 @@
                                      <tbody>
                                      <tr v-for="client in clients" v-bind:key="client.id">
 
-                                         <td >{{client.firstname}} {{client.lastname}} {{client.id_card_number}}</td>
+                                         <td > {{client.firstname}} {{client.lastname}} {{client.id_card_number}}</td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.type}}</td>
                                          <td>

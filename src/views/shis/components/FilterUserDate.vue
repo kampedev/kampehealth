@@ -68,13 +68,14 @@
 
                           </div>
 
-                         <button @click="filterEnrollees()" class="btn btn-primary btn-block btn-lg" style="margin-top:20px;"> Filter </button>
+                         <button @click="filterEnrollees()" class="btn btn-primary btn-block btn-lg" :disabled="disabled" style="margin-top:20px;"> Filter </button>
                         <br />
+                          <div class="col-md-12" v-if="disabled == true">
+                            <p class="text-primary">We are preparing your document</p>
+                          </div>
 
                         <div v-show="showdownload">
-                        <!-- <div v-if="loader == true">
-                            <vue-loaders name="line-spin-fade-loader" color="black" scale="1"></vue-loaders> Preparing data for download for Health Facility
-                        </div> -->
+
                         <p class="h3">Result: {{results.length}} data filtered</p>
                         <div >
                             <p class="btn btn-success">
@@ -125,6 +126,7 @@ export default {
       place_of_work:"",
       edit:false,
       show:false,
+      disabled:false,
       isLoading: false,
       fullPage: false,
       agency_id:"",
@@ -189,7 +191,7 @@ export default {
   },
   methods:{
     filterEnrollees(){
-      this.isLoading = true;
+      this.disabled = true;
       this.axios.post(`/api/v1/auth/filtersectordashboardwardlgabydate`,{
       agency_id:'95930',
       sector:this.sector,
@@ -202,12 +204,12 @@ export default {
                   .then(response => {
                       this.results = response.data
                       console.log(response)
-                      this.isLoading = false;
+                      this.disabled = false;
                       this.showdownload = true;
 
                   })
                   .catch(error => {
-                    this.isLoading = false;
+                    this.disabled = false;
                       console.error(error);
                   })
     },

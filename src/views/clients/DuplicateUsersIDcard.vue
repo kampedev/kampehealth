@@ -15,17 +15,7 @@
                        <h3>{{clients.length}} Clients</h3>
 
                        <button type="button" class="btn btn-primary" @click="deleteAll">Delete selected</button>
-                       <!-- <div class="form-dark">
-                           <div class="input-group input-group-flush mb-3">
-                               <input placeholder="Filter Clients" type="search"
-                                      class="form-control form-control-lg search form-control-prepended">
-                               <div class="input-group-prepend">
-                                   <div class="input-group-text">
-                                       <i class="mdi mdi-magnify"></i>
-                                   </div>
-                               </div>
-                           </div>
-                       </div> -->
+
 
                    </div>
 
@@ -54,21 +44,22 @@
                                          <th>Name</th>
                                          <th>Phone Number</th>
                                          <th>Type</th>
-                                         <th>Agency Name</th>
+                                         <th>ID card</th>
                                      </tr>
                                      </thead>
                                      <tbody>
                                      <tr v-for="client in clients" v-bind:key="client.id">
-                                          <td>
-                                            <button type="button" @click="valuepasser(client)" class="btn btn-default" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-star"></i></button>
-                                          </td>
-                                         <td >{{client.firstname}} {{client.lastname}} {{client.id}}</td>
+
+                                         <td >{{client.firstname}} {{client.lastname}} {{client.id_card_number}}</td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.type}}</td>
-                                         <td>{{client.agency_name}}</td>
+                                         <td>
+                                           <input type="text" class="form-control" required v-model="client.id_card_number" placeholder="ID card Number">
+
+                                         </td>
                                          <td>
 
-                                             <button type="button" @click="deleteUser(client)" class="btn btn-danger" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-delete"></i></button>
+                                             <button type="button" @click="changeNumber(client)" class="btn btn-primary" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-edit"></i></button>
 
                                          </td>
                                      </tr>
@@ -169,7 +160,7 @@ export default {
     },
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/enrollee_duplicate/95930`)
+      this.axios.get(`/api/v1/auth/duplicate_id_card_number/95930`)
                   .then(response => {
                       this.clients = response.data.data
                       console.log(response)
@@ -178,13 +169,15 @@ export default {
                       console.error(error);
                   })
     },
-    deleteUser(client){
+    changeNumber(client){
       // if (confirm('Are you Sure you want to delete this user') ) {
-        this.axios.delete(`/api/v1/auth/deleteUser/${client.id}`)
+        this.axios.patch(`/api/v1/auth/id-card-number/change/${client.id}`,{
+          id_card_number: client.id_card_number
+        })
                     .then(response => {
                         console.log(response)
                         this.getClients()
-                        this.$toasted.success('Dependent deleted Successfully', {position: 'top-center', duration:3000 })
+                        this.$toasted.success('Changed Successfully', {position: 'top-center', duration:3000 })
 
                     })
                     .catch(error => {

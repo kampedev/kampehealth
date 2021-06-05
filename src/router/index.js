@@ -90,6 +90,7 @@ import TPAData from '@/views/tpas/TPAData.vue'
 import TPAEmployeeDashboard from '@/views/tpas/TPAEmployeeDashboard.vue'
 import SingleEmployeeAdmin from '@/views/employees/SingleEmployeeAdmin.vue'
 import DuplicateUsers from '../views/clients/DuplicateUsers.vue'
+import DuplicateUsersIDcard from '../views/clients/DuplicateUsersIDcard.vue'
 
 Vue.use(VueRouter)
 
@@ -702,6 +703,13 @@ const routes = [
   {
     path: '/duplicate',
     component: DuplicateUsers,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/duplicate-id-card',
+    component: DuplicateUsersIDcard,
     meta: {
         requiresAuth: true,
       },

@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>{{clients.length}} Clients</h3>
+                       <h3>{{clients.total}} Clients</h3>
 
 
 
@@ -45,7 +45,7 @@
                                      </tr>
                                      </thead>
                                      <tbody>
-                                     <tr v-for="client in clients" v-bind:key="client.id">
+                                     <tr v-for="client in clients.data" v-bind:key="client.id">
 
                                          <td > {{client.firstname}} {{client.lastname}} {{client.id_card_number}}</td>
                                          <td>{{client.phone_number}}</td>
@@ -132,34 +132,13 @@ export default {
   },
 
   methods:{
-    deleteAll(){
-        let answer = this.selected.toString();
-        console.log(answer)
-      this.axios.post(`/api/v1/auth/deletemultiple`,{
-        ids: answer
-      })
-                  .then(response => {
-                      console.log(response)
-                      this.getClients()
-                      this.selected = []
-                      this.$toasted.success('Deleted Successfully', {position: 'top-center', duration:3000 })
 
-                  })
-                  .catch(error => {
-                      console.error(error);
-                      this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
 
-                  })
-
-    },
-    valuepasser(client){
-          this.selected.push(client.id)
-    },
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/duplicate_id_card_number/95930`)
                   .then(response => {
-                      this.clients = response.data.data
+                      this.clients = response.data
                       console.log(response)
                   })
                   .catch(error => {

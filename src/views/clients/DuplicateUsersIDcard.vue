@@ -49,14 +49,13 @@
 
                                          <td>
                                            <router-link :to="{ path: '/client/'+client.id, params: {} }">
-                                           {{client.firstname}} {{client.lastname}} {{client.id_card_number}}
+                                           {{client.firstname}} {{client.lastname}}
                                          </router-link>
                                          </td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.type}}</td>
                                          <td>
-                                           <input type="text" class="form-control" required v-model="client.id_card_number" placeholder="ID card Number">
-
+                                            {{client.id_card_number}}
                                          </td>
                                          <td>
 
@@ -137,7 +136,6 @@ export default {
 
   methods:{
 
-
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/duplicate_id_card_number/95930`)
@@ -150,10 +148,7 @@ export default {
                   })
     },
     changeNumber(client){
-      // if (confirm('Are you Sure you want to delete this user') ) {
-        this.axios.patch(`/api/v1/auth/id-card-number/change/${client.id}`,{
-          id_card_number: client.id_card_number
-        })
+        this.axios.patch(`/api/v1/auth/id-card-number/change/${client.id}`)
                     .then(response => {
                         console.log(response)
                         this.getClients()
@@ -165,7 +160,7 @@ export default {
                         this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
 
                     })
-      // }
+
     },
 
 

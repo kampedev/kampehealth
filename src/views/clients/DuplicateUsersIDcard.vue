@@ -79,7 +79,7 @@
                    <div class="vld-parent">
                         <loading :active.sync="isLoading"
                         loader="dots"
-                        :can-cancel="true"
+                        :can-cancel="false"
                         :is-full-page="fullPage"></loading>
                     </div>
 
@@ -148,16 +148,19 @@ export default {
                   })
     },
     changeNumber(client){
+      this.isLoading = true
         this.axios.patch(`/api/v1/auth/id-card-number/change/${client.id}`)
                     .then(response => {
                         console.log(response)
                         this.getClients()
                         this.$toasted.success('Changed Successfully', {position: 'top-center', duration:3000 })
+                        this.isLoading = false
 
                     })
                     .catch(error => {
                         console.error(error);
                         this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
+                        this.isLoading = false
 
                     })
 

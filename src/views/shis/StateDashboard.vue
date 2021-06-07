@@ -6,7 +6,7 @@
     <!--site header begins-->
    <section class="admin-content">
         <div class="container">
-          
+
 
         <div class="col-md-12" style="margin-top:15px;">
           <button type="button" :class="buttoncolor.formal" @click="showFormal">Formal <i class="fe fe-list"></i> </button>
@@ -33,6 +33,7 @@
                                 <th>Name</th>
                                 <th>Phone Number</th>
                                 <th>Sector</th>
+                                <th>OHIS Number</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -41,6 +42,7 @@
                                 <td> {{client.firstname}} {{client.lastname}}</td>
                                 <td>{{client.phone_number}}</td>
                                 <td>{{client.sector}}</td>
+                                <td>{{client.id_card_number}}</td>
                                 <td>
                                   <router-link :to="{ path: '/client/'+ client.id}">
                                     <button type="button" name="button" class="btn btn-info" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-eye"></i></button>

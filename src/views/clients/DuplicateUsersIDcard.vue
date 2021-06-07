@@ -47,7 +47,11 @@
                                      <tbody>
                                      <tr v-for="client in clients.data" v-bind:key="client.id">
 
-                                         <td > {{client.firstname}} {{client.lastname}} {{client.id_card_number}}</td>
+                                         <td>
+                                           <router-link :to="{ path: '/client/'+client.id, params: {} }">
+                                           {{client.firstname}} {{client.lastname}} {{client.id_card_number}}
+                                         </router-link>
+                                         </td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.type}}</td>
                                          <td>

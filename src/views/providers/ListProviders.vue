@@ -317,7 +317,7 @@ export default {
           phone_number : this.register.phone_number,
           agency_name : this.register.agency_name,
           type : this.register.type,
-          state : '2683',
+          state : '2676',
           localgovt : this.register.localgovt,
           services_offered : this.register.services_offered,
           address1 : this.register.address1,
@@ -368,7 +368,6 @@ export default {
     },
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
-
       this.axios.get(`/api/v1/auth/providerAgency/95930`)
                   .then(response => {
                       this.providers = response.data.data

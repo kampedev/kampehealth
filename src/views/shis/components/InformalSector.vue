@@ -215,6 +215,7 @@ export default {
 
   methods:{
 
+
     AuthUser(){
       this.axios.get(`/api/v1/auth/user`)
                   .then(response => {

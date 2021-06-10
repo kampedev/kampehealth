@@ -48,6 +48,9 @@
                                     <button type="button" name="button" class="btn btn-info" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-eye"></i></button>
                                   </router-link>
                                   <button type="button" @click="deleteUser(client)" class="btn btn-danger" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-delete"></i></button>
+                                  <!-- <button type="button" @click="changeNumber(client)" class="btn btn-primary" v-if="user.id == 95930"
+                                  style="margin-left:10px; margin-top:10px;" >
+                                    <i class="fe fe-edit"></i></button> -->
                                 </td>
 
                             </tr>
@@ -214,6 +217,24 @@ export default {
                         console.error(error);
                     })
       }
+    },
+    changeNumber(client){
+      this.isLoading = true
+        this.axios.patch(`/api/v1/auth/id-card-number/change/${client.id}`)
+                    .then(response => {
+                        console.log(response)
+                        this.getClients()
+                        this.$toasted.success('Changed Successfully', {position: 'top-center', duration:3000 })
+                        this.isLoading = false
+
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
+                        this.isLoading = false
+
+                    })
+
     },
     fetchLga(){
       this.axios.get(`/api/v1/auth/lga/2676`)

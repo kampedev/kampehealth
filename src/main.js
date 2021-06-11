@@ -23,12 +23,6 @@ import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 import Highcharts from 'highcharts';
 import VueHighcharts from 'vue-highcharts';
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-
-// Import Bootstrap an BootstrapVue CSS files (order is important)
-// import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
-
 
 import HighchartsVue from 'highcharts-vue'
 import loadDrilldown from 'highcharts/modules/drilldown';
@@ -72,10 +66,6 @@ Vue.component("downloadExcel", JsonExcel);
 Vue.component('apexchart', VueApexCharts)
 Vue.component('v-select', vSelect)
 Vue.use(HighchartsVue)
-// Make BootstrapVue available throughout your project
-Vue.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
-Vue.use(IconsPlugin)
 
 
 window.axios=axios

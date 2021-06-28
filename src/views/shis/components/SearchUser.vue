@@ -4,7 +4,7 @@
                    <div class="col-md-3">
                        <div class="row">
                            <button class="btn btn-primary" @click="show = !show"
-                           style="margin-bottom:10px;margin-left:15px;">Search Enrollee</button>
+                           style="margin-bottom:10px;margin-left:15px;"><i class="fe fe-search"></i></button>
                        </div>
                    </div>
 
@@ -20,15 +20,15 @@
                             <div class="form-group col-md-12">
                               <label> Select Search Parameter {{search}}</label>
                                   <select class="form-control"  v-model="search" >
-                                    <option  value="salary_number">Computer Number</option>
+                                    <option  value="ohis_number">OHIS Number</option>
                                     <option  value="phone_number">Phone Number</option>
                                     <option  value="nimc_number">NIN</option>
                                </select>
                             </div>
 
-                            <div class="form-group col-md-12" v-if="search == 'salary_number'">
-                                <label for="inputEmail4">Computer Number</label>
-                                <input type="text" class="form-control" v-model="searchkey" placeholder="Computer Number">
+                            <div class="form-group col-md-12" v-if="search == 'ohis_number'">
+                                <label for="inputEmail4">OHIS Number</label>
+                                <input type="text" class="form-control" v-model="searchkey" placeholder="OHIS Number">
                             </div>
                             <div class="form-group col-md-12" v-if="search == 'phone_number'">
                                 <label for="inputPassword4">Phone Number</label>
@@ -38,15 +38,8 @@
                                 <label for="inputPassword4">NIN Number</label>
                                 <input type="text" class="form-control" v-model="searchkey"  placeholder="NIN Number">
                             </div>
-                            <div class="form-group col-md-12" v-if="search == 'nimc_number'">
-                                 <label for="inputPassword4">OHIS Number</label>
-                                 <input type="text" class="form-control" v-model="searchkey"  placeholder="OHIS Number">
-                             </div>
 
-                            <!--  <div class="form-group col-md-6">
-                                <label for="inputPassword4">E-mail</label>
-                                <input type="text" class="form-control" v-model="email"  placeholder="Email">
-                            </div> -->
+
 
 
                           </div>
@@ -89,11 +82,11 @@ export default {
     return{
       user:null,
       providers:"",
-        salary_number:"",
+        ohis_number:"",
         phone_number:"",
         nimc_number:"",
         email:"",
-        search:"salary_number",
+        search:"ohis_number",
         searchkey:"",
       search_result:"",
       edit:false,
@@ -118,7 +111,7 @@ export default {
       if (this.search == 'phone_number') {
           this.searchPhone()
       }
-      if (this.search == 'salary_number') {
+      if (this.search == 'ohis_number') {
           this.searchSalary()
       }
       if (this.search == 'nimc_number') {
@@ -184,24 +177,19 @@ export default {
     },
     searchSalary(){
       this.loading = true
-      this.axios.post(`/api/v1/auth/searchbymultiplevalues`,{
-            agency_id: 95930,
-            salary_number: this.searchkey,
+      this.axios.post(`/api/v1/auth/getuserbyIdcard`,{
+            // agency_id: 95930,
+            id_card_number: this.searchkey,
       })
                   .then(response => {
                       this.search_result = response.data
-                      let user = response.data
+                      let user = response.data.data
                       console.log(user)
 
-                      if (user.length >= 1) {
-                        this.$router.push(`/client/${user[0].id}`)
+                        this.$router.push(`/client/${user.id}`)
                         this.$toasted.info('Searched Successfully', {position: 'top-center', duration:3000 })
 
-                      }
-                      else {
-                        this.$toasted.info('User not Found', {position: 'top-center', duration:3000 })
 
-                      }
                       console.log(response)
                       this.loading = false
 
@@ -209,6 +197,7 @@ export default {
                   .catch(error => {
                       console.error(error);
                       this.loading = false
+                      this.$toasted.info('User not Found', {position: 'top-center', duration:3000 })
                   })
     },
 

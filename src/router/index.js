@@ -88,7 +88,7 @@ import AddOfficers from '@/views/tpas/AddOfficers.vue'
 import TPADashboard from '@/views/tpas/TPADashboard.vue'
 import TPAData from '@/views/tpas/TPAData.vue'
 import TPAEmployeeDashboard from '@/views/tpas/TPAEmployeeDashboard.vue'
-import SingleEmployeeAdmin from '@/views/employees/SingleEmployeeAdmin.vue'
+import SingleEmployee from '@/views/employees/SingleEmployee.vue'
 import DuplicateUsers from '../views/clients/DuplicateUsers.vue'
 import DuplicateUsersIDcard from '../views/clients/DuplicateUsersIDcard.vue'
 
@@ -554,8 +554,8 @@ const routes = [
       },
   },
   {
-    path: '/employee/admin/:id',
-    component: SingleEmployeeAdmin,
+    path: '/employee/:id',
+    component: SingleEmployee,
     meta: {
         requiresAuth: true,
       },

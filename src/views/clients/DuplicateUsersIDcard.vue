@@ -32,7 +32,7 @@
                                 <div class="card m-b-30">
 
                                     <div class="card-body">
-                                      {{clients.total}} Clients
+                                      {{clients.total}} Duplicate ID Cards
                                       <div class="table-responsive">
                                           <table class="table align-td-middle table-card">
                                               <thead>
@@ -75,15 +75,12 @@
                                 </div>
                             </div>
 
-
-
                             <div class="vld-parent">
                                  <loading :active.sync="isLoading"
                                  loader="dots"
                                  :can-cancel="false"
                                  :is-full-page="fullPage"></loading>
                              </div>
-
 
                         </div>
                       </b-card-text>
@@ -95,6 +92,9 @@
 
                             <div class="card-body">
                               <h3>Current Page: {{smallestcards.current_page}} </h3>
+                              <input type="text" class="form-control" v-model="smallestcards.current_page" placeholder="Computer Employment Number">
+                              <button type="button" class="btn btn-primary" @click="getSmallCads">Fetch</button>
+
                               <div class="table-responsive">
                                   <table class="table align-td-middle table-card">
                                       <thead>
@@ -177,7 +177,7 @@ export default {
       smallestcards:"",
       state:"",
       lga_states:"",
-      current_page:1,
+      current_page:31,
 
     }
   },

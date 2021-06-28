@@ -48,7 +48,7 @@
                                          <th>Name</th>
                                          <th>Phone Number</th>
                                          <th>Sector</th>
-                                         <th>NIN Number</th>
+                                         <th>OHIS Number Number</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -63,7 +63,7 @@
                                          <td >{{client.firstname}} {{client.lastname}}</td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.sector}}</td>
-                                         <td>{{client.nimc_number}}</td>
+                                         <td>{{client.id_card_number}}</td>
                                          <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
                                          <td>
 

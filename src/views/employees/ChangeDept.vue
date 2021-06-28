@@ -11,22 +11,24 @@
                     <div class="mx-auto col-md-8">
                         <div class="text-center">
                             <p class="admin-brand-content">
-                                Change Password
+                                Change Department/ Job Title
                             </p>
                         </div>
 
                             <div class="form-row">
-                                <div class="form-group floating-label col-md-12">
-                                    <label>Password</label>
-                                    <input type="password" required class="form-control" v-model="password" placeholder="Password">
-                                </div>
-                                <div class="form-group floating-label col-md-12">
-                                    <label>Confirm Password</label>
-                                    <input type="password" required class="form-control "  v-model="password_confirmation" placeholder="Confirm Password">
-                                </div>
+                              <div class="form-group col-md-12">
+                                  <label for="inputCity">Job Title</label>
+                                  <select class="form-control"  v-model="job_title">
+                                    <option  value="ICT">ICT</option>
+                                   <option  value="Claims">Claims</option>
+                                   <option  value="Enrollment Officer">Enrollment Officer</option>
+                                   <option  value="Quality Assurance">Quality Assurance</option>
+                                   <option  value="Finance">Finance</option>
+                               </select>
+                              </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-block btn-lg" @click="changePassword">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg" @click="changeDept">Submit</button>
 
                     </div>
 
@@ -65,8 +67,7 @@ export default {
   },
   data(){
     return{
-      password:"password",
-      password_confirmation:"",
+      job_title:"",
       response:"",
       isLoading: false,
       fullPage: true,
@@ -77,53 +78,34 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
+
   },
   methods:{
-    getUser(){
-      this.axios.get(`/api/v1/auth/user/${this.user.id}`)
-                  .then(response => {
-                      this.auth_user = response.data.data
-                      console.log(response)
-                       localStorage.setItem('user',JSON.stringify(response.data.data))
-                       // let type = response.data.data.type
-
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-
-    changePassword(){
-      if (this.password == this.password_confirmation) {
+    changeDept(){
         this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-              this.axios.patch(`/api/v1/auth/change-password/${this.user.id}`,{
-              password:this.password
+              this.axios.post(`/api/v1/auth/update-dept/${this.$route.params.id}`,{
+              job_title:this.job_title
             })
 
           .then(response=>{
             console.log(response)
             this.isLoading = false;
-            this.$toasted.info('Password Changed', {position: 'top-center', duration:3000 })
+            this.$toasted.info('Department Changed', {position: 'top-center', duration:3000 })
             // this.$router.push('/')
               })
               .catch(error=>{
                   console.log(error.response)
                   this.isLoading = false;
-                  this.$toasted.error('Password not changed', {position: 'top-center', duration:3000 })
+                  this.$toasted.error('Dept. not changed', {position: 'top-center', duration:3000 })
 
               })
-      }
-      else {
-        this.$toasted.error('Password not the same', {position: 'top-center', duration:3000 })
-
-      }
 
 
         }
   },
   created(){
-      //
+
   }
 
 }

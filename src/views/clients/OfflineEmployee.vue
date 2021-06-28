@@ -69,7 +69,7 @@
                                                                 <input type="text" class="form-control" v-model="newStudent.lastname"  placeholder="Last Name">
                                                             </div>
                                                                <div class="form-group col-md-6">
-                                                                   <label for="inputEmail4">First Name <span class="text-danger">*</span></label>
+                                                                   <label for="inputEmail4">First Name {{newStudent.firstname}}<span class="text-danger">*</span></label>
                                                                    <input type="text" class="form-control" v-model="newStudent.firstname" placeholder="First Name">
                                                                </div>
                                                                <div class="form-group col-md-6">
@@ -234,9 +234,9 @@
                                          </div>
                                          <div class="content">
                                              <strong>{{students.length}} Users</strong> added offline.
-                                             <download-excel :data="students">
+                                             <!-- <download-excel :data="students"> -->
                                                  <button type="button" class="btn btn-primary align-right" name="button" @click="syncClients">Sync all Data</button>
-                                               </download-excel>
+                                               <!-- </download-excel> -->
                                          </div>
                                      </div>
                                   </div>
@@ -269,7 +269,7 @@
                                          <td>{{student.sector}} </td>
                                          <td>
                                              <button type="button" class="btn btn-info" :disabled="disabled" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
-                                             <!-- <button type="button" class="btn btn-secondary" @click="pushvalue"><i class="fe fe-edit"></i></button> -->
+                                             <!-- <button type="button" class="btn btn-secondary" @click="pushvalue(student)"><i class="fe fe-edit"></i></button> -->
                                              <button type="button" class="btn btn-danger" @click="remove(student)"><i class="fe fe-delete"></i></button>
                                          </td>
 
@@ -385,8 +385,13 @@ export default {
 
 
   methods: {
-    pushvalue(){
-      this.students = this.newarray.data
+
+    pushvalue(student){
+      // this.students = this.newarray.data
+        this.newStudent.firstname = student.firstname
+        this.newStudent.lastname = student.lastname
+        this.newStudent.middlename = student.middlename
+        console.log(this.newStudent.firstname)
     },
     selected_provider(value){
     this.selected_provider_id = value.id
@@ -405,7 +410,8 @@ export default {
     this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true;
       this.disabled = true;
-      this.axios.post('/api/v1/auth/syncUser',{
+      // this.axios.post('/api/v1/auth/syncUser',{
+      this.axios.post('/api/v1/auth/syncUserOptim',{
         agency_id: student.agency_id,
         nimc_number: student.nimc_number,
         firstname: student.firstname,
@@ -460,7 +466,7 @@ export default {
           //End upload Pic
 
           //start Delete User
-          this.remove(student)
+          this.removesync(student)
           //End Delete User
 
       })
@@ -483,6 +489,8 @@ export default {
       })
                   .then(response => {
                       console.log(response)
+                      this.$toasted.info('Client Synced Successfully', {position: 'top-center', duration:3000 })
+
                   })
                   .catch(error => {
                       console.error(error);
@@ -533,7 +541,6 @@ export default {
       // });
 
       this.isLoading = false;
-      this.$toasted.info('Client Synced Successfully', {position: 'top-center', duration:3000 })
       // this.getOfflineCLients()
     }
 
@@ -763,6 +770,16 @@ export default {
           console.log(noOfStudentRemoved)
         }
       }
+    },
+    async removesync(student) {
+        const service = new StudentService();
+        service;
+        this.disabled = false;
+        const noOfStudentRemoved = await this.service.removeStudent(student.id);
+        if (noOfStudentRemoved > 0) {
+          this.$emit("remove-item");
+          console.log(noOfStudentRemoved)
+        }
     },
     async update(id) {
       id;

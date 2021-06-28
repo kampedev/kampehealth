@@ -11,7 +11,7 @@
                     <div class="mx-auto col-md-8">
                         <div class="text-center">
                             <p class="admin-brand-content">
-                                Change Password {{$route.params.id}}
+                                Change Password
                             </p>
                         </div>
 
@@ -99,15 +99,15 @@ export default {
       if (this.password == this.password_confirmation) {
         this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-              this.axios.patch(`/api/v1/auth/user/${this.$route.params.id}/change-password`,{
+              this.axios.patch(`/api/v1/auth/change-password/${this.$route.params.id}`,{
               password:this.password
             })
 
           .then(response=>{
             console.log(response)
             this.isLoading = false;
-            this.$toasted.success('Password Changed', {position: 'top-center', duration:3000 })
-            this.$router.push('/')
+            this.$toasted.info('Password Changed', {position: 'top-center', duration:3000 })
+            // this.$router.push('/')
               })
               .catch(error=>{
                   console.log(error.response)

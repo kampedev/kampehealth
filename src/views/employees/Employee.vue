@@ -77,7 +77,7 @@
                     </div>
                 </div>
 
-              
+
             </div>
               <!-- {{facilities.length}}
               {{wards.length}} -->
@@ -111,7 +111,7 @@
                               <th>Name</th>
                               <th>Phone Number</th>
                               <th>Sector</th>
-                              <th>NIN Number</th>
+                              <th>OHIS Number</th>
                               <!-- <th>Facility</th> -->
                           </tr>
                           </thead>
@@ -122,7 +122,7 @@
                               </td>
                               <td>{{client.phone_number}} </td>
                               <td>{{client.sector}}</td>
-                              <td> {{client.nimc_number}}</td>
+                              <td> {{client.id_card_number}}</td>
                               <!-- <td>{{client.provider_id}}</td> -->
 
                               <td>

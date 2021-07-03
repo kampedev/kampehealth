@@ -13,6 +13,9 @@
                     <i class=" mdi mdi-magnify mdi-24px align-middle"></i>
                 </a>
             </li> -->
+            <li class="nav-item">
+              <SearchUser/>
+            </li>
         </ul>
     </nav>
     <nav class=" ml-auto">
@@ -55,6 +58,9 @@
                     </div> -->
                 <!-- </div>
             </li> -->
+              <li class="nav-item">
+                <button type="button" @click="toggleFull"  class="btn btn-default"><i class="fe fe-maximize"></i></button>
+              </li>
             <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#"   role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -231,16 +237,18 @@
 </template>
 
 <script>
-
+  import SearchUser from '@/views/shis/components/SearchUser.vue'
 
 export default {
-
   components: {
-    // HelloWorld
+    SearchUser
   },
   data(){
     return{
-      auth_user:""
+      auth_user:"",
+      fullscreen: false,
+      teleport: true,
+      pageOnly: false
 
     }
   },
@@ -260,7 +268,15 @@ export default {
       localStorage.removeItem('user')
       this.$router.push('/')
 
-    }
+    },
+    toggleFull () {
+      this.$fullscreen.toggle(this.$el.querySelector('.fullscreen-wrapper'), {
+        teleport: this.teleport,
+        callback: (isFullscreen) => {
+          this.fullscreen = isFullscreen
+        },
+      })
+     },
   },
   created(){
 

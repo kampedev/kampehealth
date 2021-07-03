@@ -28,7 +28,7 @@ export default {
                     console.log(response)
                      localStorage.setItem('user',JSON.stringify(response.data))
                      let type = response.data.type
-                     let role = response.data.role
+                     let role = response.data.user_role
                      let job_title = response.data.job_title
                      if (type == 'client') {
                        this.$router.push('/client-dashboard')

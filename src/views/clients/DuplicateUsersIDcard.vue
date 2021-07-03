@@ -177,7 +177,7 @@ export default {
       smallestcards:"",
       state:"",
       lga_states:"",
-      current_page:31,
+      current_page:1,
 
     }
   },

@@ -91,7 +91,7 @@
                 <div class="form-group col-md-6">
                   <label for="inputCity">LGA</label>
                     <select class="form-control"   v-model="selected_lga"  @change="fetchFacilitiesperlga()">
-                      <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                      <option v-for="lga in lga_states" v-bind:key="lga" :value="lga">{{lga.local_name}}</option>
                    </select>
 
                    <button type="button" class="btn btn-success" @click="saveData()" style="margin-top:10px;">Update Now</button>
@@ -219,13 +219,13 @@ export default {
     fetchFacilitiesperlga(){
       this.isLoading = true
 
-      this.axios.get(`/api/v1/auth/getProviderPerLGA/${this.selected_lga}`)
+      this.axios.get(`/api/v1/auth/getProviderPerLGA/${this.selected_lga.id}`)
                   .then(response => {
                       this.facilities = response.data.data
                       console.log(response)
 
                       //get wards
-            this.axios.get(`/api/v1/auth/getwards/${this.selected_lga}`)
+            this.axios.get(`/api/v1/auth/getwards/${this.selected_lga.id}`)
                         .then(response => {
                         this.wards = response.data.data
 
@@ -261,6 +261,7 @@ export default {
       this.isLoading = true
       localStorage.setItem('wards_data', JSON.stringify(this.wards));
       localStorage.setItem('facilities', JSON.stringify(this.facilities));
+      localStorage.setItem('selected_lga', JSON.stringify(this.selected_lga))
       this.isLoading = false
       this.$toasted.info('Updated Successfully', {position: 'top-center', duration:3000 })
 

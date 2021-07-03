@@ -88,7 +88,7 @@
                                        <td>
 
                                          <router-link :to="{ path: '/client/'+ client.id}">
-                                           <button type="button" name="button" class="btn btn-info">view</button>
+                                           <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i></button>
                                           </router-link>
                                        </td>
                                    </tr>

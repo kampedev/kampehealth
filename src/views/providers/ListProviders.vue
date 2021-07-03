@@ -186,7 +186,7 @@
                                    </td>
                                    <td>
                                      <router-link :to="{ path: '/provider-'+ provider.id}">
-                                       <button type="button" name="button" class="btn btn-info">view</button>
+                                       <button type="button" name="button" class="btn btn-secondary"><i class="fe fe-eye"></i></button>
                                       </router-link>
                                    </td>
                                </tr>

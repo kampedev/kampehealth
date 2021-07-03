@@ -24,6 +24,7 @@ import 'vue-select/dist/vue-select.css';
 import Highcharts from 'highcharts';
 import VueHighcharts from 'vue-highcharts';
 import { BootstrapVue } from 'bootstrap-vue'
+import VueFullscreen from 'vue-fullscreen'
 
 
 import HighchartsVue from 'highcharts-vue'
@@ -69,6 +70,7 @@ Vue.component('apexchart', VueApexCharts)
 Vue.component('v-select', vSelect)
 Vue.use(HighchartsVue)
 Vue.use(BootstrapVue)
+Vue.use(VueFullscreen)
 
 
 window.axios=axios

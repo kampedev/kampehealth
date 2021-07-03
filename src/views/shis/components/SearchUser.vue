@@ -3,8 +3,8 @@
                <div class="row list">
                    <div class="col-md-3">
                        <div class="row">
-                           <button class="btn btn-primary" @click="show = !show"
-                           style="margin-bottom:10px;margin-left:15px;"><i class="fe fe-search"></i></button>
+                           <button class="btn btn-default" @click="show = !show"
+                           style="margin-bottom:10px;margin-left:15px;"><i class="mdi mdi-magnify mdi-24px"></i></button>
                        </div>
                    </div>
 

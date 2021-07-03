@@ -126,7 +126,7 @@
                                          <th>Name</th>
                                          <th>Phone Number</th>
                                          <th>Sector</th>
-                                         <!-- <th>Hosp/Dep Hosp</th> -->
+                                         <th>OHIS Number</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -141,7 +141,7 @@
                                          <td >{{client.firstname}}, {{client.middlename}} {{client.lastname}}</td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.sector}}</td>
-                                         <!-- <td> {{client.point_of_care}}</td> -->
+                                         <td> {{client.id_card_number}}</td>
                                          <td >
                                            <router-link :to="{ path: '/client/'+ client.id}">
                                              <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i></button>

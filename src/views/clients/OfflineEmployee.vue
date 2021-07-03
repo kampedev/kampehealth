@@ -7,6 +7,27 @@
 
                          <section>
                            <div class="container row">
+
+                             <div class="col-md-12" v-if="students.length > 0">
+                               <div class="alert alert-border-info  alert-dismissible fade show" role="alert">
+                                   <div class="d-flex">
+                                       <div class="icon">
+                                           <i class="icon mdi mdi-alert-circle-outline"></i>
+                                       </div>
+                                       <div class="row col-md-12">
+                                           <download-excel :data="students">
+                                               <button type="button" class="btn btn-primary align-right">Download excel Data</button>
+                                            </download-excel>
+                                            <router-link :to="{ path: '/offline-sync'}">
+                                            <button type="button" class="btn btn-info align-right" style="margin-left:10px;">Start Syncing</button>
+                                          </router-link>
+
+                                       </div>
+                                   </div>
+                                </div>
+                             </div>
+
+
                              <div class="col-md-12" v-show="showinput">
                                  <div class="text-center">
                                      <h3 class="h3">(Offline) Bio Data Form </h3>
@@ -14,6 +35,7 @@
 
                                  </div>
                                                           <div class="form-row">
+
 
                                                             <div class="form-group col-md-12">
                                                               <label for="inputCity">Select Sector <span class="text-danger">*</span></label>
@@ -123,7 +145,9 @@
 
                                                                 <div class="form-group col-md-12" >
                                                                   <label>Select LGA <span class="text-danger">*</span></label>
-                                                                  <v-select v-model="newStudent.localgovt" :options="osun_lgas.data" label="local_name" :value="newStudent.localgovt" @input="selected_lga" ></v-select>
+                                                                  <input type="text" class="form-control" :value="selected_lga_sync.local_name" disabled placeholder="Selected LGA">
+
+                                                                  <!-- <v-select v-model="newStudent.localgovt" :options="osun_lgas.data" label="local_name" :value="newStudent.localgovt" @input="selected_lga" ></v-select> -->
                                                                 </div>
 
                                                                 <div class="form-group col-md-12" >
@@ -226,22 +250,8 @@
                               <button @click="remove(student.id)" class="btn btn-primary">Delete</button>
                              </div> -->
 
-                               <div class="col-md-12" v-if="students.length > 0">
-                                 <div class="alert alert-border-warning  alert-dismissible fade show" role="alert">
-                                     <div class="d-flex">
-                                         <div class="icon">
-                                             <i class="icon mdi mdi-alert-circle-outline"></i>
-                                         </div>
-                                         <div class="content">
-                                             <strong>{{students.length}} Users</strong> added offline.
-                                             <!-- <download-excel :data="students"> -->
-                                                 <button type="button" class="btn btn-primary align-right" name="button" @click="syncClients">Sync all Data</button>
-                                               <!-- </download-excel> -->
-                                         </div>
-                                     </div>
-                                  </div>
-                               </div>
 
+                             <!-- <p class="h2">Recent Enrollees Overview</p>
                              <div class="table-responsive">
                                  <table class="table align-td-middle table-card">
                                      <thead>
@@ -255,7 +265,7 @@
                                      </tr>
                                      </thead>
                                      <tbody>
-                                     <tr v-for="student in students" v-bind:key="student.id">
+                                     <tr v-for="student in trimEnrollees" v-bind:key="student.id">
                                        <td>
                                            <div class="avatar avatar-sm ">
                                              <img :src="student.user_image"
@@ -263,13 +273,14 @@
                                                  alt="">
                                             </div>
                                        </td>
-                                         <td >{{student.firstname}} {{student.lastname}}</td>
+                                         <td> {{student.firstname}} {{student.lastname}}</td>
                                          <td>{{student.gender}}</td>
                                          <td>{{student.phone_number}}</td>
                                          <td>{{student.sector}} </td>
                                          <td>
                                              <button type="button" class="btn btn-info" :disabled="disabled" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
-                                             <!-- <button type="button" class="btn btn-secondary" @click="pushvalue(student)"><i class="fe fe-edit"></i></button> -->
+
+
                                              <button type="button" class="btn btn-danger" @click="remove(student)"><i class="fe fe-delete"></i></button>
                                          </td>
 
@@ -279,7 +290,7 @@
                                      </tbody>
                                  </table>
 
-                             </div>
+                             </div> -->
 
 
                              <div class="vld-parent">
@@ -327,6 +338,7 @@ export default {
       newStudent: null,
       showinput: true,
       showcanvas: true,
+      singleuser: "",
       wards: "",
       wards_sync: "",
       facilities_sync: "",
@@ -376,23 +388,21 @@ export default {
   },
 
   beforeMount: function() {
-    this.clear();
+    this.clear()
     this.user = JSON.parse(localStorage.getItem('user'))
     this.wards_sync = JSON.parse(localStorage.getItem('wards_data'))
     this.facilities_sync = JSON.parse(localStorage.getItem('facilities'))
+    this.selected_lga_sync = JSON.parse(localStorage.getItem('selected_lga'))
 
   },
+  computed:{
 
+    trimEnrollees(){
+      return this.students.slice(0,10)
+    }
+  },
 
   methods: {
-
-    pushvalue(student){
-      // this.students = this.newarray.data
-        this.newStudent.firstname = student.firstname
-        this.newStudent.lastname = student.lastname
-        this.newStudent.middlename = student.middlename
-        console.log(this.newStudent.firstname)
-    },
     selected_provider(value){
     this.selected_provider_id = value.id
   },
@@ -411,7 +421,7 @@ export default {
       this.isLoading = true;
       this.disabled = true;
       // this.axios.post('/api/v1/auth/syncUser',{
-      this.axios.post('/api/v1/auth/syncUserOptim',{
+      this.axios.post('/api/v1/auth/syncUser',{
         agency_id: student.agency_id,
         nimc_number: student.nimc_number,
         firstname: student.firstname,
@@ -437,6 +447,7 @@ export default {
         sector: student.sector,
         sectorType: student.sectorType,
         org_id: student.org_id,
+        // org_id: 10,
         marital_status: student.marital_status,
         category_of_vulnerable_group: student.category_of_vulnerable_group,
         enrolled_by: student.enrolled_by,
@@ -447,27 +458,6 @@ export default {
           this.isLoading = false;
           // this.refreshStudent();
           this.$toasted.info('Enrollee synced Successfully', {position: 'top-center', duration:3000 })
-          let user_added_id = response.data.data.id
-
-          //Start upload Pic
-          this.axios.post(`/api/v1/auth/uploadcustomerpicImage`,
-           {
-              user_image: student.user_image,
-              user_id: user_added_id,
-
-            })
-              .then(response => {
-                  console.log(response)
-                  // this.$breadstick.notify("Profile pushed Successfully!", {position: "top-right"});
-              })
-              .catch(error => {
-                  console.error(error);
-              })
-          //End upload Pic
-
-          //start Delete User
-          this.removesync(student)
-          //End Delete User
 
       })
       .catch(error=>{
@@ -479,74 +469,6 @@ export default {
       })
     }
   },
-  async  syncClients(){
-    this.isLoading = true;
-
-    if (confirm('Are you Sure you want to Sync all Data from your Device?') ) {
-      console.log("data sent to api ",this.students)
-      this.axios.post(`/api/v1/auth/syncUserOptim`,{
-        data: this.students
-      })
-                  .then(response => {
-                      console.log(response)
-                      this.$toasted.info('Client Synced Successfully', {position: 'top-center', duration:3000 })
-
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-      // const result = this.students.map((item) => {
-      //       this.axios.post('/api/v1/auth/syncUser',{
-      //         firstname: item.firstname,
-      //         lastname: item.lastname,
-      //         middlename: item.middlename,
-      //         nimc_number: item.nimc_number,
-      //         email: item.email,
-      //         phone_number: item.phone_number,
-      //         type: item.type,
-      //         user_image: item.user_image,
-      //         sectorType: item.sectorType,
-      //         agency_id: item.agency_id,
-      //         provider_id: item.provider_id,
-      //         marital_status: item.marital_status,
-      //         state: '2676',
-      //         role: 0,
-      //         password: 'euhler',
-      //         localgovt: item.localgovt,
-      //         address1: item.address,
-      //         sector: item.sector,
-      //         category_of_vulnerable_group: item.category_of_vulnerable_group,
-      //         ward: item.ward,
-      //         blood: item.blood,
-      //         dob: item.dob,
-      //         expiry_date: item.expiry_date,
-      //         org_id: item.org_id,
-      //         genotype: item.genotype,
-      //         enrolled_by: item.enrolled_by,
-      //         gender: item.gender,
-      //       })
-      //       .then(response=>{
-      //           console.log(response)
-      //           let student = item
-      //           this.remove(student)
-      //
-      //       }).
-      //       catch(error=>{
-      //           console.log(error.response)
-      //           this.$toasted.error('Error Syncing! Reload Page', {position: 'top-center', duration:3000 })
-      //
-      //       })
-      //       result;
-      //
-      // });
-
-      this.isLoading = false;
-      // this.getOfflineCLients()
-    }
-
-
-    },
-
 
 
  showInput(){
@@ -559,17 +481,7 @@ export default {
       this.showcamera = true;
       this.streamPic()
     },
-    takeFinger(){
-      this.showinput = false;
-      this.showcamera = false;
-      this.showfinger = true;
-      this.l_l_finger = true;
-    },
 
-    showPreviewFinger(){
-      this.r_t_finger = false;
-      this.previewfingers = true;
-    },
 
     streamPic(){
       var video = document.getElementById('video');
@@ -625,7 +537,7 @@ export default {
           middlename: this.newStudent.middlename,
           nimc_number: this.newStudent.nimc_number,
           provider_id: this.selected_provider_id,
-          localgovt: this.selected_lga_id,
+          localgovt: this.selected_lga_sync.id,
           ward: this.selected_ward_id,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
@@ -667,7 +579,7 @@ export default {
           middlename: this.newStudent.middlename,
           nimc_number: this.newStudent.nimc_number,
           provider_id: this.selected_provider_id,
-          localgovt: this.selected_lga_id,
+          localgovt: this.selected_lga_sync.id,
           ward: this.selected_ward_id,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
@@ -700,29 +612,7 @@ export default {
         alert(ex.message);
       }
     },
-    getProviders(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      if (this.user.type == 'employee') {
-        this.axios.get(`/api/v1/auth/providerAgency/${this.user.institutional_id}`)
-                    .then(response => {
-                        this.providers = response.data.data
-                        console.log(response)
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    })
-      }
-      if(this.user.type == 'shis') {
-        this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
-                    .then(response => {
-                        this.providers = response.data.data
-                        console.log(response)
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    })
-      }
-    },
+
     clear() {
       this.newStudent = {
         name: "",
@@ -797,7 +687,7 @@ export default {
     }
   },
   created(){
-    this.getProviders()
+    // this.getProviders()
   }
 };
 </script>

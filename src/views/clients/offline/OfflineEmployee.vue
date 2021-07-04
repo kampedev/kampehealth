@@ -15,9 +15,9 @@
                                            <i class="icon mdi mdi-alert-circle-outline"></i>
                                        </div>
                                        <div class="row col-md-12">
-                                           <download-excel :data="students">
+                                           <!-- <download-excel :data="students">
                                                <button type="button" class="btn btn-primary align-right">Download excel Data</button>
-                                            </download-excel>
+                                            </download-excel> -->
                                             <router-link :to="{ path: '/offline-sync'}">
                                             <button type="button" class="btn btn-info align-right" style="margin-left:10px;">Start Syncing</button>
                                           </router-link>
@@ -91,7 +91,7 @@
                                                                 <input type="text" class="form-control" v-model="newStudent.lastname"  placeholder="Last Name">
                                                             </div>
                                                                <div class="form-group col-md-6">
-                                                                   <label for="inputEmail4">First Name {{newStudent.firstname}}<span class="text-danger">*</span></label>
+                                                                   <label for="inputEmail4">First Name<span class="text-danger">*</span></label>
                                                                    <input type="text" class="form-control" v-model="newStudent.firstname" placeholder="First Name">
                                                                </div>
                                                                <div class="form-group col-md-6">
@@ -498,6 +498,7 @@ export default {
       }
     },
     takePic(){
+      this.isLoading = true
       this.showcanvas = true
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
@@ -512,6 +513,7 @@ export default {
         console.log(image)
         localStorage.setItem('snap',this.imagefile.src);
         this.imagefile = image.src
+        this.isLoading = false
         this.$toasted.info('Picture taken Successfully', {position: 'top-center', duration:3000 })
 
 

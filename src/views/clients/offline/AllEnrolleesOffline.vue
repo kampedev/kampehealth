@@ -5,18 +5,17 @@
       <main class="admin-main">
 
           <div class="col-md-12">
-            <button type="button" class="btn btn-info" @click="AllSync">Sync All Enrollees {{totalValue}}</button>
+            <button type="button" class="btn btn-info" @click="AllSync" :disabled="disabled">Sync All {{this.students.length}} Enrollees </button>
           </div>
 
-          <div class="col-md-12" v-show="showsync" style="margin-top:10px,margin-botton:10px;">
-              <div class="card m-b-30">
-                <!-- <h3>Sync Progress Meter</h3> -->
-                <b-progress :value="syncvalue" :max="synctotal" show-progress animated></b-progress>
-                  <p class="text-info text-center">Syncing in Progress</p>
+          <div class="col-md-12" v-show="showsync" >
+              <div class="card m-b-30" style="margin-top:10px,margin-botton:10px;">
+                <p class=" h5 text-info text-center">Syncing in Progress -- {{this.students.length}} remaining</p>
+
+                <b-progress :value="syncvalue" :max="synctotal" show-progress animated height="2rem"></b-progress>
                   <br>
                   <p><strong>Total to be Synced:</strong> {{synctotal}}</p>
                   <p><strong>Successfully Synced:</strong> {{syncvalue}}</p>
-                  <p><strong>Remaining to be Synced:</strong> {{this.students.length}}</p>
               </div>
           </div>
                          <section>
@@ -43,7 +42,7 @@
                                                  alt="">
                                             </div>
                                        </td>
-                                         <td >{{student.agency_id}} {{student.firstname}} {{student.lastname}}</td>
+                                         <td >{{student.firstname}} {{student.lastname}}</td>
                                          <!-- <td>{{student.gender}}</td> -->
                                          <td>{{student.phone_number}}</td>
                                          <td>{{student.sector}} </td>
@@ -127,7 +126,7 @@ export default {
 
   methods: {
     AllSync() {
-      if (confirm('Are you wwant you want to start syncing?')) {
+      if (confirm('Are you sure you want to start syncing?')) {
         this.synctotal = localStorage.getItem('synctotal')
             this.showsync = true;
              setInterval(function(){
@@ -146,6 +145,7 @@ export default {
            if (this.students.length == 0) {
              this.$toasted.info('Syncing Completed Successfully!', {position: 'top-center', duration:10000 })
              this.showsync = false;
+             this.disabled = false;
              this.$router.go()
              this.$toasted.info('Syncing Completed Successfully!', {position: 'top-center', duration:10000 })
              this.$router.push('/employee-dashboard')
@@ -189,12 +189,12 @@ export default {
 
                  console.log(response);
                  // this.isLoading = false;
-                 this.$toasted.info('done', {position: 'top-center', duration:3000 })
+                 this.$toasted.info('one down!', {position: 'top-center', duration:3000 })
                  this.syncvalue ++;
-                 let deleteID = this.students[0]
+                 // let deleteID = this.students[0]
                  //End Delete User
 
-                 this.removesync(deleteID)
+                 this.removegroupsync(singlesync)
 
              })
              .catch(error=>{
@@ -202,18 +202,22 @@ export default {
                  // this.isLoading = false;
                  let errormessage = error.response.data.message;
                  if (errormessage == 'user exist') {
-                   this.$toasted.info('Enrollee already Exist! Deleting and will continue syncing', {position: 'top-center', duration:3000 })
-                   let deleteID = this.students[0]
+                   this.$toasted.info('Duplicate! Deleting and will continue syncing', {position: 'top-center', duration:3000 })
+                   // let deleteID = this.students[0]
                    //End Delete User
 
-                   this.removesync(deleteID)
+                   this.removegroupsync(singlesync)
                    // this.removesync(student)
+                 }
+                 else {
+                   this.$toasted.info('Network Error, retrying!', {position: 'top-center', duration:7000 })
+
                  }
              })
            }
        },
     syncUser(student){
-    if (confirm('Are you sure you want to sync this user to the server? It will be deleted from your computer!') ) {
+    // if (confirm('Are you sure you want to sync this user to the server? It will be deleted from your computer!') ) {
     this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true;
       this.disabled = true;
@@ -264,7 +268,7 @@ export default {
           this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
 
       })
-    }
+    // }
   },
 
     editUser(student) {
@@ -292,6 +296,15 @@ export default {
         const service = new StudentService();
         service;
         this.disabled = false;
+        const noOfStudentRemoved = await this.service.removeStudent(student.id);
+        if (noOfStudentRemoved > 0) {
+          this.$emit("remove-item");
+          console.log(noOfStudentRemoved)
+        }
+    },
+    async removegroupsync(student) {
+        const service = new StudentService();
+        service;
         const noOfStudentRemoved = await this.service.removeStudent(student.id);
         if (noOfStudentRemoved > 0) {
           this.$emit("remove-item");

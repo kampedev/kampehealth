@@ -4,7 +4,15 @@
     <main class="admin-main">
        <div class="bg-dark m-b-30">
            <div class="container">
-               <div class="row p-b-1 p-t-1">
+               <div class="row p-b-60 p-t-60">
+
+                   <div class="col-md-6 text-center mx-auto text-white p-b-30">
+                       <div class="m-b-10">
+
+                       </div>
+                       <h3 class="h3">{{students.length}} User Enrolled Offline</h3>
+
+                   </div>
 
 
                </div>
@@ -14,7 +22,7 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-md-12">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
                          <StudentGrid
                             :students="students"
@@ -25,16 +33,17 @@
                        </div>
                    </div>
 
-
-                   <div class="vld-parent">
-                        <loading :active.sync="isLoading"
-                        loader="dots"
-                        :can-cancel="true"
-                        :is-full-page="fullPage"></loading>
-                    </div>
-
-
                </div>
+
+
+               <div class="vld-parent">
+                    <loading :active.sync="isLoading"
+                    loader="dots"
+                    :can-cancel="true"
+                    :is-full-page="fullPage"></loading>
+                </div>
+
+
            </div>
 
        </section>
@@ -50,9 +59,9 @@
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
      import StudentGrid from "./OfflineEmployee.vue";
-     import { initJsStore } from "./../../service/idb_service";
-     import { StudentService } from "./../../service/student_service";
-     import { Global } from "./../../global";
+     import { initJsStore } from "./../../../service/idb_service";
+     import { StudentService } from "./../../../service/student_service";
+     import { Global } from "./../../../global";
 
 export default {
   components: {
@@ -111,6 +120,7 @@ export default {
                 })
   },
   methods:{
+
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)

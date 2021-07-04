@@ -7,14 +7,38 @@
 
                          <section>
                            <div class="container row">
-                             <div class="col-md-11" v-show="showinput">
+
+                             <div class="col-md-12" v-if="students.length > 0">
+                               <div class="alert alert-border-info  alert-dismissible fade show" role="alert">
+                                   <div class="d-flex">
+                                       <div class="icon">
+                                           <i class="icon mdi mdi-alert-circle-outline"></i>
+                                       </div>
+                                       <div class="row col-md-12">
+                                           <download-excel :data="students">
+                                               <button type="button" class="btn btn-primary align-right">Download excel Data</button>
+                                            </download-excel>
+                                            <router-link :to="{ path: '/offline-sync'}">
+                                            <button type="button" class="btn btn-info align-right" style="margin-left:10px;">Start Syncing</button>
+                                          </router-link>
+
+                                       </div>
+                                   </div>
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-12" v-show="showinput">
                                  <div class="text-center">
-                                     <h3 class="h3">(Offline) Bio Data Form A</h3>
+                                     <h3 class="h3">(Offline) Bio Data Form </h3>
+                                     <p>(All fields marked with <span class="text-danger">*</span> are compulsory)</p>
+
                                  </div>
                                                           <div class="form-row">
 
+
                                                             <div class="form-group col-md-12">
-                                                              <label for="inputCity">Select Sector</label>
+                                                              <label for="inputCity">Select Sector <span class="text-danger">*</span></label>
                                                                   <select class="form-control"  v-model="sector" >
                                                                    <option  value="formal">Formal Sector</option>
                                                                    <option  value="informal">Informal Sector</option>
@@ -37,7 +61,7 @@
                                                             </div>
 
                                                             <div class="form-group col-md-6"  v-if="sector == 'informal'">
-                                                              <label >Informal Sector</label>
+                                                              <label >Informal Sector <span class="text-danger">*</span></label>
                                                                 <select class="form-control" v-model="newStudent.sector">
                                                                   <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
                                                                   <option  value="Vulnerable Groups">Vulnerable Groups</option>
@@ -63,11 +87,11 @@
                                                                 <input type="text" class="form-control" v-model="newStudent.nimc_number"  placeholder="NIN Number">
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label for="inputPassword4">Surname</label>
+                                                                <label for="inputPassword4">Surname <span class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control" v-model="newStudent.lastname"  placeholder="Last Name">
                                                             </div>
                                                                <div class="form-group col-md-6">
-                                                                   <label for="inputEmail4">First Name</label>
+                                                                   <label for="inputEmail4">First Name {{newStudent.firstname}}<span class="text-danger">*</span></label>
                                                                    <input type="text" class="form-control" v-model="newStudent.firstname" placeholder="First Name">
                                                                </div>
                                                                <div class="form-group col-md-6">
@@ -77,22 +101,22 @@
 
                                                            </div>
                                                            <div class="form-row">
-                                                                <!-- <div class="form-group col-md-6">
-                                                                    <label for="inputEmail4">Email</label>
-                                                                    <input type="email" class="form-control" v-model="newStudent.email" placeholder="Email">
-                                                                </div> -->
+
 
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="inputPassword4">Phone Number {{client_number.length}}</label>
+                                                                    <label for="inputPassword4">Phone Number</label>
                                                                     <input type="text" class="form-control" v-model="client_number" placeholder="Phone Number" >
                                                                       <div color="alert alert-warning" role="alert" v-if="client_number.length < 14">
-                                                                        Number must be 14 characters
+                                                                        Number must be 11 characters({{client_number.length}})
                                                                       </div>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                  <p>  <label for="inputPassword4">Date of Birth</label></p>
-                                                                    <!-- <input type="text" class="form-control" v-model="newStudent.dob" placeholder="1994/01/01" > -->
+                                                                  <p>  <label for="inputPassword4">Date of Birth <span class="text-danger">*</span></label></p>
                                                                     <date-picker v-model="newStudent.dob" valueType="format"></date-picker>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                  <p>  <label for="inputPassword4">Expiry Date <span class="text-danger">*</span></label></p>
+                                                                    <date-picker v-model="newStudent.expiry_date" valueType="format"></date-picker>
                                                                 </div>
 
                                                                 <div class="form-group col-md-12" v-if="sector == 'formal'">
@@ -112,40 +136,38 @@
                                                                    </div>
 
                                                             <div class="row">
-                                                              <div class="form-group col-md-6">
-                                                                <label >Facility for Accessing Care: </label>
-                                                                  <select class="form-control" v-model="newStudent.provider_id">
-                                                                    <option  :value="provider.id" v-for="provider in providers" v-bind:key="provider.id">{{provider.agency_name}}</option>
-                                                                 </select>
-                                                              </div>
-                                                              <div class="col-md-6">
-                                                                <label for="inputCity">Gender</label>
-                                                                    <select class="form-control"  v-model="newStudent.gender" >
-                                                                     <option  value="Male">Male</option>
-                                                                     <option  value="Female">Female</option>
-                                                                 </select>
+
+                                                              <div class="form-group col-md-12" >
+                                                                <label>Principal Facility for Accessing Health Care <span class="text-danger">*</span></label>
+                                                                <v-select v-model="newStudent.provider_id" :options="facilities_sync" label="agency_name" :value="newStudent.provider_id" @input="selected_provider"></v-select>
                                                               </div>
 
-                                                              <div class="form-group col-md-4">
-                                                                <label for="inputCity">LGA {{newStudent.localgovt}}</label>
-                                                                <select class="form-control"  v-model="newStudent.localgovt" @change="fetchWards($event)">
-                                                                  <option v-for="lga in kogi_lgas.data" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
-                                                               </select>
-                                                              </div>
 
-                                                              <div class="form-group col-md-4">
-                                                                <label >Ward</label>
-                                                                <select class="form-control"  v-model="newStudent.ward">
-                                                                    <option v-for="ward in wards_offline" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
-                                                                 </select>
-                                                              </div>
+                                                                <div class="form-group col-md-12" >
+                                                                  <label>Select LGA <span class="text-danger">*</span></label>
+                                                                  <input type="text" class="form-control" :value="selected_lga_sync.local_name" disabled placeholder="Selected LGA">
 
-                                                              <div class="form-group col-md-4">
-                                                                <label >TPA</label>
-                                                                <select class="form-control"  v-model="newStudent.org_id">
-                                                                    <option v-for="tpa in tpa_offline.data" v-bind:key="tpa.id" :value="tpa.id">{{tpa.ward_name}}</option>
-                                                                 </select>
-                                                              </div>
+                                                                  <!-- <v-select v-model="newStudent.localgovt" :options="osun_lgas.data" label="local_name" :value="newStudent.localgovt" @input="selected_lga" ></v-select> -->
+                                                                </div>
+
+                                                                <div class="form-group col-md-12" >
+                                                                  <label>Select Ward <span class="text-danger">*</span></label>
+                                                                  <v-select v-model="newStudent.ward" :options="wards_sync" label="ward_name" :value="newStudent.ward" @input="selected_ward"></v-select>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                  <label for="inputCity">Gender <span class="text-danger">*</span></label>
+                                                                      <select class="form-control"  v-model="newStudent.gender" >
+                                                                       <option  value="Male">Male</option>
+                                                                       <option  value="Female">Female</option>
+                                                                   </select>
+                                                                </div>
+
+                                                                <div class="form-group col-md-6">
+                                                                  <label >TPA <span class="text-danger">*</span></label>
+                                                                  <select class="form-control"  v-model="newStudent.org_id">
+                                                                      <option v-for="tpa in tpa_offline.data" v-bind:key="tpa.id" :value="tpa.id">{{tpa.organization_name}}</option>
+                                                                   </select>
+                                                                </div>
 
                                                              <div class="form-group col-md-6">
                                                                 <label for="inputCity">Blood Group</label>
@@ -157,12 +179,12 @@
                                                                  </select>
                                                               </div>
                                                               <div class="form-group col-md-6">
-                                                                <label >Marital Status</label>
+                                                                <label >Marital Status <span class="text-danger">*</span></label>
                                                                   <select class="form-control" v-model="newStudent.marital_status">
                                                                     <option  value="Married">Married</option>
                                                                     <option  value="Widow">Widow</option>
                                                                     <option  value="Single">Single</option>
-                                                                    <option  value="Divorced">Separated</option>
+                                                                    <option  value="Divorced">Seperated</option>
                                                                     <option  value="Divorced">Divorced</option>
                                                                  </select>
                                                               </div>
@@ -178,20 +200,16 @@
                                                                  </select>
                                                               </div>
 
-
+                                                              <div class="form-group col-md-6">
+                                                                 <label for="inputAddress">Home Address</label>
+                                                                 <input type="text" class="form-control" v-model="newStudent.address" placeholder="1234 Main St">
+                                                             </div>
 
                                                               </div>
 
-                                                              <div class="form-group">
-                                                                 <label for="inputAddress">Home Address</label>
-                                                                 <textarea name="name" rows="3" cols="80"  class="form-control" v-model="newStudent.address" placeholder="1234 Main St"></textarea>
-                                                             </div>
-
-
-
                                                              <div class="form-group">
-                                                                 <button class="btn btn-primary btn-block btn-lg" @click="showImage" v-if="client_number.length ==14">Proceed to Take Picture</button>
-                                                                 <button class="disabled btn btn-primary btn-block btn-lg" v-if="client_number.length != 14">Proceed to Take Picture</button>
+                                                                 <button class="btn btn-primary btn-block btn-lg" @click="showImage" v-if="client_number.length == 11 ">Proceed to Take Picture</button>
+                                                                 <button class="disabled btn btn-primary btn-block btn-lg" v-if="client_number.length != 11 ">Proceed to Take Picture</button>
                                                              </div>
 
                                                             </div>
@@ -207,30 +225,22 @@
                                                                   <div class="col-md-4">
                                                                     <button  class="btn btn-default btn-block btn-lg" @click="takePic">Capture</button>
                                                                   </div>
-                                                                  <div class="col-md-4">
-                                                                    <button class="btn btn-primary btn-block btn-lg" @click="add">Submit</button>
-                                                                  </div>
 
                                                                 </div>
-
                                                               </div>
-                                                              <div class="row ">
+                                                              <div class="row">
+                                                                <div class="col-md-12 p-t-20 p-b-20">
+                                                                  <button class="btn btn-primary btn-block btn-lg" @click="addUSer">Submit</button>
+                                                                </div>
                                                                 <div class="col-md-12 p-t-20 p-b-20">
                                                                     <video id="video" width="100%"  height="auto" autoplay></video>
 
-                                                                  <div class="col-md-7">
-                                                                    <canvas id="canvas" width="300" height="150"></canvas>
+                                                                  <div class="col-md-12" style="margin-top:10px;" v-show="showcanvas">
+                                                                    <canvas id="canvas" width="600px" height="450px"></canvas>
                                                                   </div>
                                                                 </div>
-
                                                               </div>
                                                             </div>
-
-
-
-
-                                        <div>
-                                  </div>
 
 
                               <!-- <div class="card-body" v-for="student in students" v-bind:key="student.id">
@@ -240,11 +250,54 @@
                               <button @click="remove(student.id)" class="btn btn-primary">Delete</button>
                              </div> -->
 
+
+                             <!-- <p class="h2">Recent Enrollees Overview</p>
+                             <div class="table-responsive">
+                                 <table class="table align-td-middle table-card">
+                                     <thead>
+                                     <tr>
+                                         <th>Avatar</th>
+                                         <th>Name</th>
+                                         <th>Gender</th>
+                                         <th>Phone Number</th>
+                                         <th>Sector</th>
+                                         <th>Action</th>
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                     <tr v-for="student in trimEnrollees" v-bind:key="student.id">
+                                       <td>
+                                           <div class="avatar avatar-sm ">
+                                             <img :src="student.user_image"
+                                                 class="avatar-img avatar-sm rounded-circle"
+                                                 alt="">
+                                            </div>
+                                       </td>
+                                         <td> {{student.firstname}} {{student.lastname}}</td>
+                                         <td>{{student.gender}}</td>
+                                         <td>{{student.phone_number}}</td>
+                                         <td>{{student.sector}} </td>
+                                         <td>
+                                             <button type="button" class="btn btn-info" :disabled="disabled" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
+
+
+                                             <button type="button" class="btn btn-danger" @click="remove(student)"><i class="fe fe-delete"></i></button>
+                                         </td>
+
+                                     </tr>
+
+
+                                     </tbody>
+                                 </table>
+
+                             </div> -->
+
+
                              <div class="vld-parent">
                                   <loading :active.sync="isLoading"
-                                  loader="dots"
-                                  :can-cancel="true"
-                                  :is-full-page="fullPage"></loading>
+                                  loader="spinner"
+                                  :can-cancel="false"
+                                  :is-full-page="true"></loading>
                               </div>
                             </div>
                         </section>
@@ -253,18 +306,20 @@
 </section>
 </template>
 <script>
-import { StudentService } from "../../service/student_service";
+
+import { StudentService } from "../../../service/student_service";
 import DatePicker from 'vue2-datepicker';
 // Import component
    import Loading from 'vue-loading-overlay';
    // Import stylesheet
    import 'vue-loading-overlay/dist/vue-loading.css';
-   import statesJson from './../../../public/offline/states.json'
-   import zamfaraJson from './../../../public/offline/zamfara_lga.json'
-   import yobeJson from './../../../public/offline/yobe_lga.json'
-   import kogiJson from './../../../public/offline/kogi_lga.json'
-   import wardsJson from './../../../public/offline/wards_data.json'
-   import tpaJson from './../../../public/offline/tpa_data_osun.json'
+   import statesJson from './../../../../public/offline/states.json'
+   import osunJson from './../../../../public/offline/osun_lga.json'
+   import osunProviderJson from './../../../../public/offline/osun_providers.json'
+   import egbedorewardJson from './../../../../public/offline/egbedore_wards.json'
+   import egbedoreJson from './../../../../public/offline/egbedore_facility.json'
+   import wardsJson from './../../../../public/offline/wards_data.json'
+   import tpaJson from './../../../../public/offline/tpa_data_osun.json'
 
 export default {
   components: {
@@ -279,28 +334,40 @@ export default {
   },
   data: function() {
     return {
+      disabled: false,
       newStudent: null,
       showinput: true,
-      showcamera: false,
-      showfinger: false,
+      showcanvas: true,
+      singleuser: "",
       wards: "",
+      wards_sync: "",
+      facilities_sync: "",
+      showcamera: false,
       providers:"",
       imagefile:"",
+      selected_provider_id:"",
+      selected_lga_id:"631",
+      selected_ward_id:"",
       user: null,
       editStudent: {},
         fullPage: true,
-        client_number:"+234",
-
+        client_number:"0",
+        leftfingers:null,
+        rightfingers:null,
+        twothumbs:null,
         sector:"",
-
         show:false,
         states:statesJson,
-        zamfara_lgas:zamfaraJson,
-        yobe_lgas:yobeJson,
-        kogi_lgas:kogiJson,
+        osun_lgas:osunJson,
+        osun_providers:osunProviderJson,
+        egbedore_providers:egbedoreJson,
+        egbedore_wards:egbedorewardJson,
         wards_offline:wardsJson,
         tpa_offline:tpaJson,
         isLoading: false,
+        newarray:{
+            data:""
+        },
         video_settings:{
                 video: {
                   width: {
@@ -321,30 +388,89 @@ export default {
   },
 
   beforeMount: function() {
-    this.clear();
+    this.clear()
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
-                .then(response => {
-                    this.providers = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+    this.wards_sync = JSON.parse(localStorage.getItem('wards_data'))
+    this.facilities_sync = JSON.parse(localStorage.getItem('facilities'))
+    this.selected_lga_sync = JSON.parse(localStorage.getItem('selected_lga'))
 
   },
-  methods: {
+  computed:{
+    //
+    // trimEnrollees(){
+    //   return this.students.reverse().slice(0,5)
+    // }
+  },
 
-    fetchWards(){
-      this.axios.get(`/api/v1/auth/getwards/` + event.target.value)
-                  .then(response => {
-                      this.wards = response.data.data
-                      console.log(response.data.data)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
+  methods: {
+    selected_provider(value){
+    this.selected_provider_id = value.id
+  },
+  selected_ward(value){
+    this.selected_ward_id = value.id
+
+  },
+  selected_lga(value){
+    this.selected_lga_id = value.id
+
+  },
+
+    syncUser(student){
+    if (confirm('Are you sure you want to sync this user to the server? It will be deleted from your computer!') ) {
+    this.user = JSON.parse(localStorage.getItem('user'))
+      this.isLoading = true;
+      this.disabled = true;
+      // this.axios.post('/api/v1/auth/syncUser',{
+      this.axios.post('/api/v1/auth/syncUser',{
+        agency_id: student.agency_id,
+        nimc_number: student.nimc_number,
+        firstname: student.firstname,
+        lastname: student.lastname,
+        middlename: student.middlename,
+        email: student.email,
+        user_image: student.user_image,
+        phone_number: student.phone_number,
+        type: student.type,
+        provider_id: student.provider_id,
+        state: '2676',
+        role: 0,
+        password: 'euhler',
+        localgovt: student.localgovt,
+        ward: student.ward,
+        blood: student.blood,
+        dob: student.dob,
+        expiry_date: student.expiry_date,
+        address1: student.address,
+        genotype: student.genotype,
+        weight: student.weight,
+        gender: student.gender,
+        sector: student.sector,
+        sectorType: student.sectorType,
+        org_id: student.org_id,
+        // org_id: 10,
+        marital_status: student.marital_status,
+        category_of_vulnerable_group: student.category_of_vulnerable_group,
+        enrolled_by: student.enrolled_by,
+      })
+      .then(response=>{
+
+          console.log(response);
+          this.isLoading = false;
+          // this.refreshStudent();
+          this.$toasted.info('Enrollee synced Successfully', {position: 'top-center', duration:3000 })
+
+      })
+      .catch(error=>{
+          console.log(error.response)
+          this.isLoading = false;
+
+          // this.getClients();
+          this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+
+      })
+    }
+  },
+
 
  showInput(){
    this.showinput = true;
@@ -372,11 +498,12 @@ export default {
       }
     },
     takePic(){
+      this.showcanvas = true
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
 
-      context.drawImage(video, 0, 0, 300, 150);
+      context.drawImage(video, 0, 0, 500, 350);
 
         // get image
         var image = new Image();
@@ -385,13 +512,24 @@ export default {
         console.log(image)
         localStorage.setItem('snap',this.imagefile.src);
         this.imagefile = image.src
+        this.$toasted.info('Picture taken Successfully', {position: 'top-center', duration:3000 })
 
-        // upload image
-
-        // end of upload image
 
     },
-    async add() {
+    addUSer(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      if (this.user.type == 'shis') {
+        this.addUserAdmin()
+
+
+      }
+      if (this.user.type == 'employee') {
+        this.addUserEmployee()
+
+
+      }
+    },
+    async addUserAdmin() {
       try {
         // const studentsAdded = await this.service.addStudent(this.newStudent);
         const studentsAdded = await this.service.addStudent({
@@ -399,26 +537,27 @@ export default {
           lastname: this.newStudent.lastname,
           middlename: this.newStudent.middlename,
           nimc_number: this.newStudent.nimc_number,
-          provider_id: this.newStudent.provider_id,
+          provider_id: this.selected_provider_id,
+          localgovt: this.selected_lga_sync.id,
+          ward: this.selected_ward_id,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
+          expiry_date: this.newStudent.expiry_date,
+          type: 'client',
           gender: this.newStudent.gender,
           user_image: this.imagefile,
-          localgovt: this.newStudent.localgovt,
-          ward: this.newStudent.ward,
           sector: this.newStudent.sector,
+          sectorType: this.sector,
           marital_status: this.newStudent.marital_status,
           blood: this.newStudent.blood,
           salary_number: this.newStudent.salary_number,
           place_of_work: this.newStudent.place_of_work,
           category_of_vulnerable_group: this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
-          left_fingers: this.leftfingers,
-          right_fingers: this.rightfingers,
-          thumbs_fingers: this.twothumbs,
-          address: this.newStudent.address,
+          address1: this.newStudent.address,
           agency_id: this.user.id,
           enrolled_by: this.user.id,
+          org_id: this.newStudent.org_id,
         });
         this.$emit("add-item", studentsAdded[0]);
         this.clear();
@@ -429,46 +568,81 @@ export default {
         alert(ex.message);
       }
     },
-    getProviders(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
-                  .then(response => {
-                      this.providers = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
+    async addUserEmployee() {
+      try {
+        // const studentsAdded = await this.service.addStudent(this.newStudent);
+        const studentsAdded = await this.service.addStudent({
+          firstname: this.newStudent.firstname,
+          lastname: this.newStudent.lastname,
+          middlename: this.newStudent.middlename,
+          nimc_number: this.newStudent.nimc_number,
+          provider_id: this.selected_provider_id,
+          localgovt: this.selected_lga_sync.id,
+          ward: this.selected_ward_id,
+          phone_number: this.client_number,
+          dob: this.newStudent.dob,
+          expiry_date: this.newStudent.expiry_date,
+          type: 'client',
+          gender: this.newStudent.gender,
+          user_image: this.imagefile,
+          sector: this.newStudent.sector,
+          sectorType: this.sector,
+          marital_status: this.newStudent.marital_status,
+          blood: this.newStudent.blood,
+          salary_number: this.newStudent.salary_number,
+          place_of_work: this.newStudent.place_of_work,
+          category_of_vulnerable_group: this.newStudent.category_of_vulnerable_group,
+          genotype: this.newStudent.genotype,
+          address: this.newStudent.address,
+          agency_id: this.user.institutional_id,
+          enrolled_by: this.user.id,
+          org_id: this.newStudent.org_id,
+        });
+        this.$emit("add-item", studentsAdded[0]);
+        this.clear();
+        this.showInput();
+        this.$toasted.info('Client Added Successfully', {position: 'top-center', duration:3000 })
+
+      } catch (ex) {
+        alert(ex.message);
+      }
     },
+
     clear() {
       this.newStudent = {
         name: "",
         gender: "",
-        client_number: "234",
+        client_number: "0",
         country: "",
         city: ""
       };
+      localStorage.removeItem("snap");
+      this.imagefile = ""
+      this.client_number = "0"
+      this.showcanvas = false
     },
-    edit(id) {
-      var student = this.students.find(qry => qry.id === id);
-      this.editStudent = {
-        id: student.id,
-        firstname: student.firstname,
-        lastname: student.lastname,
-        phone_number: student.phone_number,
-        dob: student.dob,
-        gender: student.gender,
-        genotype: student.genotype,
-        address: student.address
-      };
-    },
-    async remove(id) {
-      const service = new StudentService();
-      service;
-      const noOfStudentRemoved = await this.service.removeStudent(id);
-      if (noOfStudentRemoved > 0) {
-        this.$emit("remove-item");
+
+    async remove(student) {
+      if (confirm('Are you sure you want to delete? to "Confirm upload?') ) {
+        const service = new StudentService();
+        service;
+        this.disabled = false;
+        const noOfStudentRemoved = await this.service.removeStudent(student.id);
+        if (noOfStudentRemoved > 0) {
+          this.$emit("remove-item");
+          console.log(noOfStudentRemoved)
+        }
       }
+    },
+    async removesync(student) {
+        const service = new StudentService();
+        service;
+        this.disabled = false;
+        const noOfStudentRemoved = await this.service.removeStudent(student.id);
+        if (noOfStudentRemoved > 0) {
+          this.$emit("remove-item");
+          console.log(noOfStudentRemoved)
+        }
     },
     async update(id) {
       id;
@@ -484,6 +658,9 @@ export default {
     cancelUpdate() {
       this.editStudent = {};
     }
+  },
+  created(){
+    // this.getProviders()
   }
 };
 </script>

@@ -10,7 +10,7 @@
                        <div class="m-b-10">
 
                        </div>
-                       <h3 class="h3">{{students.length}} User Enrolled Offline</h3>
+                       <h3 class="h3">{{students.length}}  Enrollees added Offline</h3>
 
                    </div>
 
@@ -24,7 +24,7 @@
                <div class="row list">
                    <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
-                         <StudentGrid
+                         <AllEnrolleesOffline
                             :students="students"
                             @add-item="addStudent"
                             @remove-item="refreshStudent"
@@ -58,14 +58,14 @@
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
-     import StudentGrid from "./OfflineEmployee.vue";
-     import { initJsStore } from "./../../service/idb_service";
-     import { StudentService } from "./../../service/student_service";
-     import { Global } from "./../../global";
+     import AllEnrolleesOffline from "./AllEnrolleesOffline.vue";
+     import { initJsStore } from "./../../../service/idb_service";
+     import { StudentService } from "./../../../service/student_service";
+     import { Global } from "./../../../global";
 
 export default {
   components: {
-     Navbar, Loading, StudentGrid
+     Navbar, Loading, AllEnrolleesOffline
   },
   async beforeCreate() {
     try {
@@ -110,30 +110,16 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
-                .then(response => {
-                    this.clients = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+
   },
   methods:{
-
-    getClients(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
-                  .then(response => {
-                      this.clients = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
     async refreshStudent() {
+      this.isLoading = true
       this.students = await new StudentService().getStudents();
+      let total = this.students.length;
+      localStorage.setItem('synctotal', total)
+      this.isLoading = false
+
     },
     addStudent(student) {
       this.students.push(student);
@@ -142,7 +128,7 @@ export default {
 
   },
   created(){
-    this.getClients()
+    //
   }
 
 }

@@ -15,9 +15,10 @@ import AllDashboard from '../views/Dashboard.vue'
 import Dashboard from '../views/clients/Dashboard.vue'
 import Subscribe from '../views/clients/Subscribe.vue'
 import AddClientAgency from '../views/clients/AddClientAgency.vue'
-import AddClientAgencyOffline from '../views/clients/AddClientAgencyOffline.vue'
-import AddClientEmployeeOffline from '../views/clients/AddClientEmployeeOffline.vue'
-import EditOfflineEmployee from '../views/clients/EditOfflineEmployee.vue'
+import AddClientAgencyOffline from '../views/clients/offline/AddClientAgencyOffline.vue'
+import AddClientEmployeeOffline from '../views/clients/offline/AddClientEmployeeOffline.vue'
+import ALLEnrolleesOfflineEmployee from '../views/clients/offline/ALLEnrolleesOfflineEmployee.vue'
+import EditOfflineEmployee from '../views/clients/offline/EditOfflineEmployee.vue'
 import AddClientProvider from '../views/clients/AddClientProvider.vue'
 import EditProvider from '../views/providers/EditProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
@@ -205,6 +206,13 @@ const routes = [
 
   {
     path: '/offline-sync',
+    component: ALLEnrolleesOfflineEmployee,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/edit-offline',
     component: EditOfflineEmployee,
     meta: {
         requiresAuth: true,

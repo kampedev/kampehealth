@@ -10,7 +10,7 @@
                        <div class="m-b-10">
 
                        </div>
-                       <h3 class="h3">{{students.length}}  Enrollees added Offline</h3>
+                       <h3 class="h3">Edit  Enrollee Form</h3>
 
                    </div>
 
@@ -59,9 +59,9 @@
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
      import OfflineEditForm from "./OfflineEditForm.vue";
-     import { initJsStore } from "./../../service/idb_service";
-     import { StudentService } from "./../../service/student_service";
-     import { Global } from "./../../global";
+     import { initJsStore } from "./../../../service/idb_service";
+     import { StudentService } from "./../../../service/student_service";
+     import { Global } from "./../../../global";
 
 export default {
   components: {

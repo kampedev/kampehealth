@@ -7,7 +7,6 @@
    <section class="admin-content">
         <div class="container">
 
-
         <div class="col-md-12" style="margin-top:15px;">
           <button type="button" :class="buttoncolor.formal" @click="showFormal">Formal <i class="fe fe-list"></i> </button>
           <button type="button" :class="buttoncolor.informal" @click="showInformal">Informal <i class="fe fe-grid"></i> </button>

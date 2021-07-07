@@ -35,7 +35,7 @@
                                     <label for="inputCity">Relationship Type</label>
 
                                         <select class="form-control"  v-model="dependent.relationShipType">
-                                         <option id="Spouse" value="Spouse">Spouse</option>
+                                         <option id="Spouse">Spouse</option>
                                          <option id="Child 1">Child 1</option>
                                          <option id="Child 2">Child 2</option>
                                          <option id="Child 3">Child 3</option>
@@ -281,10 +281,10 @@ export default {
  },
  getIdNum(){
    if (this.dependent.relationShipType == 'Spouse') {
-     return 'ZAMCHEMA/DEP-S/'+ this.$route.params.id
+     return 'OHIS/DEP-S/'+ this.$route.params.id
    }
    else {
-     return 'ZAMCHEMA/DEP-C'+ this.dependent.relationShipType.slice(-1) +'/'+ this.$route.params.id
+     return 'OHIS/DEP-C'+ this.dependent.relationShipType.slice(-1) +'/'+ this.$route.params.id
    }
  }
 
@@ -491,7 +491,7 @@ export default {
           this.savePic(dependent_id);
           this.edit = false;
           this.isLoading = false;
-          this.$toasted.success('Dependent Updated Successfully', {position: 'top-center', duration:3000 })
+          this.$toasted.success('Dependent Updated Successfully!', {position: 'top-center', duration:3000 })
           this.getDependents();
           this.clearIt();
 
@@ -509,7 +509,7 @@ export default {
       this.axios.delete(`/api/v1/auth/deletedependent/${dependent.id}`)
                   .then(response => {
                       console.log(response)
-                      this.$toasted.success('Dependent deleted Successfully', {position: 'top-center', duration:3000 })
+                      this.$toasted.success('Dependent deleted Successfully!', {position: 'top-center', duration:3000 })
                       this.getDependents()
                   })
                   .catch(error => {

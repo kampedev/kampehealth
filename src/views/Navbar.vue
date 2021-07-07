@@ -573,7 +573,7 @@
             <li class="menu-item "  v-if="user.type == 'provider'">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Inventory Management
+                                                <span class="menu-name">Service Management
                                                     <span class="menu-arrow"></span>
                                                 </span>
 
@@ -586,9 +586,9 @@
                 <ul class="sub-menu">
 
                     <li class="menu-item">
-                        <router-link to="/add-inventory" class=" menu-link">
+                        <router-link to="/service-summary-form" class=" menu-link">
                                         <span class="menu-label">
-                                                <span class="menu-name">Add inventory
+                                                <span class="menu-name">Add Encounters/Service
                                                 </span>
                                             </span>
                             <span class="menu-icon">
@@ -599,9 +599,9 @@
                     </li>
 
                     <li class="menu-item">
-                        <router-link to="/my-inventories" class=" menu-link">
+                        <router-link to="/my-added-services" class=" menu-link">
                                         <span class="menu-label">
-                                                <span class="menu-name">My Inventories
+                                                <span class="menu-name">My Services
                                                 </span>
                                             </span>
                             <span class="menu-icon">
@@ -614,7 +614,7 @@
                 </ul>
             </li>
 
-            <li class="menu-item "  v-if="user.type == 'shis' || user.user_role == 1">
+            <li class="menu-item "  v-if="user.type == 'shis' || user.type == 'provider' || user.job_title == 'Claims'">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Claims and Referrals Manager
@@ -643,7 +643,7 @@
                         </router-link>
                     </li>
                     <li class="menu-item">
-                        <router-link to="/add-claim" class=" menu-link">
+                        <router-link to="/all-claims" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">View Claims
                                                 </span>
@@ -833,29 +833,71 @@
                 </a>
             </li>
 
-            <!-- <li class="menu-item  "  v-if="user.type == 'shis' || user.role == 1">
-                <a href="/mda-manager" class=" menu-link">
-                        <span class="menu-label">
-                              <span class="menu-name">MDAs</span>
-                        </span>
-                    <span class="menu-icon">
-                      <i class="icon-placeholder fe fe-airplay"></i>
-                    </span>
+            <li class="menu-item  "  v-if="user.type == 'shis' || user.role == 1">
+              <a href="/mda-manager" class=" menu-link">
+                      <span class="menu-label">
+                            <span class="menu-name">MDAs</span>
+                      </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-airplay"></i>
+                  </span>
+              </a>
+          </li>
+          <li class="menu-item" >
+                <a href="/my-complaints" class=" menu-link">
+                            <span class="menu-label">
+                                    <span class="menu-name">Complaints/Inquiry
+                                    </span>
+                                  </span>
+                            <span class="menu-icon">
+                          <i class="icon-placeholder  fe fe-thumbs-down"></i>
+                                </span>
                 </a>
-            </li> -->
+              </li>
 
-            <!-- <li class="menu-item active "  v-if="user.type == 'client'">
-                <a href="add-complaint" class=" menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Complaints
-                                                </span>
+                            <li class="menu-item "  v-if="user.type == 'client'">
+                                <a href="#" class="open-dropdown menu-link">
+                                        <span class="menu-label">
+                                                                <span class="menu-name">Complaints
+                                                                    <span class="menu-arrow"></span>
+                                                                </span>
 
-                                            </span>
-                    <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-thumbs-down "></i>
-                                            </span>
-                </a>
-            </li> -->
+                                                            </span>
+                                    <span class="menu-icon">
+                                                                 <i class="icon-placeholder fe fe-thumbs-down"></i>
+                                                            </span>
+                                </a>
+                                <!--submenu-->
+                                <ul class="sub-menu">
+
+                                    <li class="menu-item">
+                                        <router-link to="/add-complaint" class=" menu-link">
+                                                        <span class="menu-label">
+                                                                <span class="menu-name">Make Complaint
+                                                                </span>
+                                                            </span>
+                                            <span class="menu-icon">
+
+                                                                    <i class="icon-placeholder fe fe-edit "></i>
+                                                            </span>
+                                        </router-link>
+                                    </li>
+
+                                    <li class="menu-item">
+                                        <router-link to="/my-complaints" class=" menu-link">
+                                                        <span class="menu-label">
+                                                                <span class="menu-name">View Complaints
+                                                                </span>
+                                                            </span>
+                                            <span class="menu-icon">
+
+                                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
+                                                            </span>
+                                        </router-link>
+                                    </li>
+
+                                </ul>
+                            </li>
 
                         <li class="menu-item "  v-if="user.type == 'client'">
                             <a href="#" class="open-dropdown menu-link">

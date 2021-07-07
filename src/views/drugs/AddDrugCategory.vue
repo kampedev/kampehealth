@@ -1,4 +1,5 @@
 <template>
+<section>
 <div class="card m-b-30">
 
   <div class="card-body">
@@ -24,6 +25,15 @@
 
   </div>
 </div>
+<div class="row col-md-4">
+  <ol>
+    <li class="h5" v-for="cat in drug_categories" v-bind:key="cat.id">{{cat.category_name}}
+      <button class="btn btn-danger" @click="deleteCategory(cat)"><i class="fe fe-delete"></i> </button>
+    </li>
+  </ol>
+</div>
+</section>
+
 </template>
 
 <script>
@@ -61,6 +71,21 @@ export default {
                 })
   },
   methods:{
+    deleteCategory(cat){
+      if (confirm('Are you sure you want to delete Category?') ) {
+        this.axios.delete(`/api/v1/auth/drug_category/${cat.id}`)
+                    .then(response => {
+                        console.log(response)
+                        this.getCategories()
+                        this.$toasted.success('Deleted Successfully!', {position: 'top-left', duration:5000 })
+
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
+
+    },
 
     getCategories(){
       this.axios.get(`/api/v1/auth/drug_category`)
@@ -83,6 +108,7 @@ export default {
 
             console.log(response);
             this.isLoading = false;
+            this.getCategories()
             this.$toasted.success('Added Successfully! ', {position: 'top-left', duration:5000 })
 
         })

@@ -39,12 +39,17 @@
                                 <input type="text" class="form-control" v-model="searchkey"  placeholder="NIN Number">
                             </div>
 
-
-
-
                           </div>
-
                          <button  class="btn btn-primary btn-block btn-lg" @click="SearchUser" style="margin-top:20px;"> Search </button>
+                         <div class="col-md-12">
+                            <p class="h4" v-if="searched_phonenumbers != ''">Searched Results</p>
+                            <p v-for="search in searched_phonenumbers" v-bind:key="search.id">
+                              <a :href="`/client/${search.id}`">
+                              {{search.firstname}} {{search.lastname}} {{search.middlename}}
+                            </a>
+                            </p>
+                            <br>
+                         </div>
 
                        </div>
                      </div>
@@ -59,10 +64,6 @@
                     :is-full-page="fullPage"></loading>
                 </div>
            </div>
-
-
-
-
 
 </template>
 
@@ -94,6 +95,7 @@ export default {
       isLoading: false,
       fullPage: true,
       agency_id:"",
+      searched_phonenumbers:"",
       provider_id:"",
       mdas:"",
       state:"",
@@ -120,17 +122,18 @@ export default {
     },
 
     searchPhone(){
-      this.loading = true
+      this.isLoading = true
       this.axios.post(`/api/v1/auth/searchbymultiplevalues`,{
             agency_id: 95930,
             phone_number: this.searchkey,
       })
                   .then(response => {
-                      this.search_result = response.data
-                      let user = response.data
+                      // this.search_result = response.data
+                      // let user = response.data
+                      this.searched_phonenumbers = response.data
 
-                      if (user.length >= 1) {
-                        this.$router.push(`/client/${user[0].id}`)
+                      if (this.searched_phonenumbers.length >= 1) {
+                        // this.$router.push(`/client/${user[0].id}`)
                         this.$toasted.info('Searched Successfully', {position: 'top-center', duration:3000 })
 
                       }
@@ -139,7 +142,7 @@ export default {
 
                       }
                       console.log(response)
-                      this.loading = false
+                      this.isLoading = false
 
                   })
                   .catch(error => {

@@ -8,9 +8,7 @@
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
                        <div class="m-b-10">
-                           <div class="avatar ">
-                               <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-                           </div>
+
                        </div>
                        <strong>Make a Complaint</strong>
                    </div>
@@ -26,48 +24,47 @@
                        <div class="card m-b-30">
                            <div class="card-header">
 
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
+                             <h3 class="h3">Add Complaint</h3>
+
                            </div>
 
                            <div class="card-body">
-                               <div class="text-center">
+                               <div class="">
 
-                                   <h3 class="p-t-10 searchBy-name">Add Complaint</h3>
-                               </div>
+                                    <div class="form-row">
 
-                                                        <div class="form-row">
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputEmail4">Complaint Title</label>
-                                                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Name" v-model="complaint.title">
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Type</label>
-
-                                                                   <select class="form-control" v-model="complaint.type">
-                                                                    <option id="Quality of Service">Quality of Service</option>
-                                                                    <option id="Financial Issue">Financial Issue</option>
-                                                                    <option id="Administrative">Administrative</option>
-                                                                </select>
-                                                             </div>
-
-
-                                                         </div>
-
-                                                         <div class="form-row">
-                                                             <div class="form-group col-md-12">
-                                                                 <label for="inputCity">Description</label>
-                                                                 <!-- <ckeditor :editor="editor" v-model="complaint.description" :config="editorConfig"></ckeditor> -->
-                                                                 <textarea class="form-control" rows="6" v-model="complaint.description" ></textarea>
+                                      <div class="form-group col-md-6">
+                                        <label for="inputCity">Type</label>
+                                            <select class="form-control" v-model="complaint.type">
+                                             <option id="Inquiry">Inquiry</option>
+                                             <option id="Request Change">Request Change</option>
+                                             <option id="Dependents">Dependents</option>
+                                             <option id="Quality of Service">Facility Quality of Service</option>
+                                             <option id="Incorrect Details">Incorrect Details</option>
+                                             <option id="Others">Others</option>
+                                         </select>
+                                      </div>
+                                         <div class="form-group col-md-6">
+                                             <label for="inputEmail4">Complaint Title</label>
+                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Name" v-model="complaint.title">
+                                         </div>
 
 
-                                                             </div>
+                                     </div>
+
+                                     <div class="form-row">
+                                         <div class="form-group col-md-12">
+                                             <label for="inputCity">Description</label>
+                                             <textarea class="form-control" rows="6" v-model="complaint.description" ></textarea>
+
+                                         </div>
 
 
-                                                         </div>
+                                     </div>
 
-                                                         <div class="form-group">
-                                                             <button class="btn btn-primary" @click="AddComplaint">Submit</button>
-                                                         </div>
+                                     <div class="form-group">
+                                         <button class="btn btn-primary" @click="AddComplaint">Submit</button>
+                                     </div>
 
                            </div>
                        </div>
@@ -82,6 +79,7 @@
 
 
                </div>
+           </div>
            </div>
 
        </section>
@@ -120,7 +118,7 @@ export default {
     }
   },
   beforeMount(){
-
+//
   },
   methods:{
 
@@ -149,8 +147,8 @@ export default {
             title: this.complaint.title,
             description: this.complaint.description,
             type: this.complaint.type,
+            agency_id: 4,
             status: 'unanswered'
-
           })
 
           .then(response=>{

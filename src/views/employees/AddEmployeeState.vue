@@ -75,9 +75,10 @@
                                                           <div class="form-row">
 
                                                             <div class="form-group col-md-6">
-                                                                <label for="inputCity">Job Title</label>
+                                                                <label for="inputCity">Job Title/Depatment</label>
                                                                 <select class="form-control"  v-model="register.job_title">
                                                                   <option  value="Administrative Officer">Administrative Staff</option>
+                                                                 <option  value="ICT">ICT Department</option>
                                                                  <option  value="Claims Officer">Claims Officer</option>
                                                                  <option  value="Enrollment Officer">Enrollment Officer</option>
                                                                  <option  value="Quality Assurance">Quality Assurance</option>
@@ -220,12 +221,13 @@ export default {
           password: 'euhler',
           state : '2676',
           enrolled_by : 0,
+          org_id:10,
           localgovt : this.register.localgovt,
           ward: this.register.ward,
           id_card_number : this.register.id_card_number,
           institutional_id: 95930,
           job_title: this.register.job_title,
-          role: this.register.role,
+          user_role: this.register.role,
         })
         .then(response=>{
 

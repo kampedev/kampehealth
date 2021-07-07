@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import GetAccount from '../views/auth/GetAccount.vue'
 import Privacy from '../views/auth/Privacy.vue'
 import Login from '../views/auth/Login.vue'
 import Pusher from '../views/auth/Pusher.vue'
@@ -45,7 +46,9 @@ import AddPlan from '../views/plans/AddPlan.vue'
 import Plans from '../views/plans/Plans.vue'
 import Funds from '../views/funds/Funds.vue'
 import StateDashboard from '../views/shis/StateDashboard.vue'
+import AllClaims from '../views/claims/AllClaims.vue'
 import AddClaim from '../views/claims/AddClaim.vue'
+import UploadClaimDocuments from '../views/claims/UploadClaimDocuments.vue'
 import ProvidersClaims from '../views/claims/ProvidersClaims.vue'
 import SingleClaim from '../views/claims/SingleClaim.vue'
 import ServiceProcessing from '../views/claims/ServiceProcessing.vue'
@@ -101,6 +104,10 @@ const routes = [
     path: '/landing',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/activate-account',
+    component: GetAccount
   },
   {
     path: '/',
@@ -437,6 +444,13 @@ const routes = [
       },
   },
   {
+  path: '/all-claims',
+  component: AllClaims,
+  meta: {
+      requiresAuth: true,
+    },
+},
+  {
     path: '/add-claim',
     component: AddClaim,
     meta: {
@@ -444,7 +458,21 @@ const routes = [
       },
   },
   {
-    path: '/service-processing-form',
+    path: '/claim/:id',
+    component: SingleClaim,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+  path: '/upload-claims-docs/:id',
+  component: UploadClaimDocuments,
+  meta: {
+      requiresAuth: true,
+    },
+},
+  {
+    path: '/service-processing-form/:id',
     component: ServiceProcessing,
     meta: {
         requiresAuth: true,

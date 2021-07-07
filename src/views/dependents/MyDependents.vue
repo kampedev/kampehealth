@@ -37,7 +37,6 @@
                        <div class="card m-b-30">
                            <div class="card-header">
 
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
                            </div>
 
                            <div class="card-body" >
@@ -72,10 +71,8 @@
                                                                <label for="inputCity">Relationship type</label>
 
                                                                    <select class="form-control"  v-model="dependent.relationShipType">
-                                                                    <!-- <option id="Parent">Parent</option> -->
-                                                                    <!-- <option id="Sibling">Sibling</option> -->
                                                                     <option id="Spouse">Spouse</option>
-                                                                    <option id="ward">Ward</option>
+                                                                    <option id="Child">Child</option>
                                                                 </select>
                                                              </div>
                                                              <div class="form-group col-md-6">

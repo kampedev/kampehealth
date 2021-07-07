@@ -24,7 +24,7 @@
                    <div class="col-lg-12 text-center">
                        <div class="card m-b-30">
                          <div class="card-header">
-                           <h4 class="h4">{{clients.length}} LGA Enrollees</h4>
+                           <h4 class="h4">{{clients.length}} LGA Users/Facilities</h4>
                          </div>
 
                            <div class="card-body">
@@ -51,6 +51,7 @@
                                          <th>Name</th>
                                          <th>Contact</th>
                                          <th>Status</th>
+                                         <th>Type</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -58,14 +59,15 @@
                                      <tr v-for="enrollee in clients" v-bind:key="enrollee.id">
 
                                          <td>
-                                           {{enrollee.firstname}} {{enrollee.lastname}}
+                                           {{enrollee.firstname}} {{enrollee.lastname}} {{enrollee.agency_name}}
 
                                          </td>
                                          <td>{{enrollee.phone_number}}</td>
                                          <td>{{enrollee.sector}}</td>
+                                         <td>{{enrollee.type}}</td>
 
                                          <td>
-                                           <router-link :to="{ path: '/client/'+ enrollee.id}">
+                                           <router-link :to="{ path: '/client/'+ enrollee.id}" v-if="enrollee.type == 'client'">
                                              <button type="button" name="button" class="btn btn-info">view</button>
                                             </router-link>
                                          </td>

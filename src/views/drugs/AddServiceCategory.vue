@@ -1,19 +1,25 @@
 <template>
+<section>
 <div class="card m-b-30">
-
   <div class="card-body">
     <p class="h3 text-center">Add Service Category</p>
 
-
-    <div class="form-row">
-      <div class="form-group floating-label col-md-8">
+    <div class="row col-md-12">
+      <div class="form-group floating-label col-md-12">
           <label>Name of Category</label>
-          <input type="text" required class="form-control" placeholder="Category Name" v-model="register.firstname">
+          <input type="text" required class="form-control" placeholder="Category Name" v-model="register.category_name">
       </div>
-
+      <div class="form-group col-md-12">
+        <label for="inputCity">Laboratory Test?</label>
+            <select class="form-control"  v-model="register.is_laboratory_test">
+             <option :value="option_true" >Yes</option>
+             <option :value="option_false" selected>No</option>
+         </select>
+      </div>
   </div>
 
-    <button @click="registerUser" class="btn btn-primary btn-block btn-lg">Add Category</button>
+
+    <button @click="registerCat" class="btn btn-primary btn-block btn-lg">Add Category</button>
     <div class="vld-parent">
          <loading :active.sync="isLoading"
          loader="dots"
@@ -23,6 +29,15 @@
 
   </div>
 </div>
+
+<div class="row col-md-4">
+  <ol>
+    <li class="h5" v-for="cat in categories" v-bind:key="cat.id">{{cat.category_name}}
+      <span><button @click="deleteCat(cat)" class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger"> <i class="fe fe-delete"></i> </button></span>
+     </li>
+  </ol>
+</div>
+</section>
 </template>
 
 <script>
@@ -40,28 +55,24 @@ export default {
   data(){
     return{
       user:null,
-      providers:"",
-      agencies:"",
+      option_true:true,
+      option_false:false,
       edit:false,
       show:false,
       isLoading: false,
       fullPage: true,
-      agency_id:"",
-      provider_id:"",
-      states:"",
-      state:"",
-      lga_states:"",
+      categories:"",
       register:{
-                firstname:"",
-
+                category_name:"",
+                is_laboratory_test:"",
             }
     }
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+    this.axios.get(`/api/v1/auth/service_category`)
                 .then(response => {
-                    this.providers = response.data.data
+                    this.categories = response.data.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -69,102 +80,66 @@ export default {
                 })
   },
   methods:{
+    deleteCat(cat){
+      if (confirm('Are you sure you want to delete Category?') ) {
+        this.axios.delete(`/api/v1/auth/service_category/${cat.id}`)
+                    .then(response => {
+                        console.log(response)
+                        this.getCategories()
+                        this.$toasted.success('Deleted Successfully!', {position: 'top-left', duration:5000 })
 
-    getStates(){
-      this.axios.get(`/api/v1/auth/states`)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
+
+    },
+
+    getCategories(){
+      this.axios.get(`/api/v1/auth/service_category`)
                   .then(response => {
-                      this.states = response.data.data
+                      this.categories = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    fetchLga(state){
-      this.axios.get(`/api/v1/auth/lga/${state.id}`)
-                  .then(response => {
-                      this.lga_states = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    registerUser(){
+
+    registerCat(){
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/registerProvider',{
-          firstname : this.register.firstname,
-          lastname : this.register.lastname,
-          email : this.register.email,
-          phone_number : this.register.phone_number,
-          agency_name : this.register.agency_name,
-          type : this.register.type,
-          state : this.state.name,
-          localgovt : this.register.localgovt,
-          services_offered : this.register.services_offered,
-          address1 : this.register.address1,
-          ward : this.register.ward,
-          role : this.register.role,
-          password : this.register.password,
-          password_confirmation : this.register.password_confirmation
+        this.axios.post('/api/v1/auth/service_category',{
+          category_name : this.register.category_name,
+          is_laboratory_test : this.register.is_laboratory_test,
+          // agency_id : this.user.id
         })
         .then(response=>{
-          let user_id = response.data.data.id
-
-            //add provider
-              this.show = false;
-              console.log(user_id)
-              this.axios.post('/api/v1/auth/providerApply',{
-                    provider_id: user_id,
-                    agency_id: this.user.id,
-                    status: true,
-                  })
-
-                  .then(response=>{
-                      console.log(response);
-                      this.$toasted.info('Provider added Successfully!', {position: 'top-left', duration:5000 })
-                      this.$router.push(`/provider-${user_id}`)
-
-                  })
-                  .catch(error=>{
-                      console.log(error.response)
-                  })
-                  //end of provider
 
             console.log(response);
             this.isLoading = false;
-            // localStorage.setItem('jwt',token);
+            this.$toasted.success('Added!', {position: 'top-left', duration:5000 })
+            this.getCategories()
+            this.$emit('getCategories')
+            this.clearIt()
 
         })
         .catch(error=>{
             console.log(error.response)
             this.isLoading = false;
-            this.$toasted.error('Sign up not Successful', {position: 'top-left', duration:5000 })
+            this.$toasted.error('Not added', {position: 'top-left', duration:5000 })
 
         })
     },
-    getProviders(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
-                  .then(response => {
-                      this.providers = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
 
     clearIt(){
-
-      this.agency_id = "";
-
+      this.register.category_name = "";
+      this.register.is_laboratory_test = "";
     },
 
   },
   created(){
-    this.getStates()
+//
   }
 
 }

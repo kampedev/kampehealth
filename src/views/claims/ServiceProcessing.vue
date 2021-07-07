@@ -7,84 +7,131 @@
                <div class="row p-b-60 p-t-60">
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
-                       <div class="m-b-10">
-                           <div class="avatar ">
-                               <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-                           </div>
-                       </div>
-                       <h3 class="h3">Drugs/Services Processing Form</h3>
+                     <div class="m-b-10">
+                         <div class="avatar ">
+                         </div>
+                     </div>
+                       <h3 class="h3">Drugs/Services Processing Form </h3>
 
                    </div>
 
                </div>
            </div>
        </div>
-       <section class="pull-up">
+       <section class="">
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12">
                        <div class="card m-b-30">
 
                            <div class="card-body">
 
                              <div class="row col-md-12">
-                               <!-- <textarea name="name" rows="8" cols="80" class="form-control" v-model="claim.treatment"></textarea> -->
                                <div class="col-md-12">
-                                 <p class="h4">Service: {{services}}</p>
+                                 <p class="h4">Service </p>
                                </div>
-                               <div class="form-group col-md-4">
+
+                               <div class="form-group col-md-12">
+                                   <label for="inputPassword4">Select Type</label>
+                                   <select class="form-control"  v-model="type"  @change="handleData">
+                                    <option value="Drug">Drug </option>
+                                    <option value="Service">Service </option>
+                                </select>
+                               </div>
+
+                               <div class="form-group col-md-6" v-if="type == 'Service'">
                                  <label for="inputPassword4">Select Service</label>
-                                 <select class="form-control"  v-model="claim.client_id">
-                                   <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.agency_name}}</option>
+                                 <select class="form-control"  v-model="addservice.services_id" @change="getService()">
+                                   <option v-for="service in services.data" v-bind:key="service.id" :value="service.id">{{service.description}}</option>
                                   </select>
                                </div>
-
-                               <div class="form-group col-md-2">
-                                 <label for="inputCity">Quantity</label>
-                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Qty" v-model="claim.diagnosis">
-                               </div>
-                               <div class="form-group col-md-3">
-                                 <label for="inputCity">Cost</label>
-                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Cost" v-model="claim.diagnosis" disabled>
-                               </div>
-                               <div class="col-md-3">
-                                 <button type="button" class="btn btn-info" style="margin-top:30px;">Add</button>
-                               </div>
-
-                               <div class="col-md-12">
-                                 <p class="h4">Drug:</p>
-                               </div>
-                               <div class="form-group col-md-4">
+                               <div class="form-group col-md-6" v-if="type == 'Drug'">
                                  <label for="inputPassword4">Select Drug</label>
-                                 <select class="form-control"  v-model="claim.client_id">
-                                   <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.agency_name}}</option>
+                                 <select class="form-control"  v-model="addservice.drugs_id" @change="getDrug()">
+                                   <option v-for="drug in drugs.data" v-bind:key="drug.id" :value="drug.id">{{drug.drug_name}}</option>
                                   </select>
                                 </div>
+
+                                <div class="form-group col-md-6" v-if="type == 'Drug'">
+                                  <label for="inputCity">Quantity</label>
+                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Qty" v-model="quantity">
+                                </div>
+
+
+                               <div class="form-group col-md-6">
+                                 <label for="inputCity">Cost</label>
+                                 <input type="text" class="form-control" id="inputEmail4" placeholder="Cost" v-model="calcCost" disabled>
+                               </div>
+                               <div class="col-md-12">
+                                 <button type="button" class="btn btn-info" style="margin-bottom:30px;" @click="addServiceRendered">Add</button>
+                               </div>
+
+                               <!-- <div class="col-md-12">
+                                 <p class="h4">Drug:</p>
+                               </div>
+
 
                                 <div class="form-group col-md-2">
                                   <label for="inputCity">Quantity</label>
-                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Qty" v-model="claim.diagnosis">
+                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Qty" v-model="quantity">
                                 </div>
                                 <div class="form-group col-md-3">
                                   <label for="inputCity">Cost</label>
-                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Cost" v-model="claim.diagnosis" disabled>
+                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Cost" v-model="calcCost" disabled>
                                 </div>
                                 <div class="col-md-3">
-                                  <button type="button" class="btn btn-info" style="margin-top:30px;">Add</button>
-                                </div>
-
-
+                                  <button type="button" class="btn btn-info" style="margin-top:30px;" @click="addServiceRendered">Add</button>
+                                </div> -->
 
                              </div>
 
-
-
-                                                         <div class="form-group">
-                                                             <button class="btn btn-primary btn-block btn-lg" @click="makeClaim">Proceed to Claim</button>
-                                                         </div>
+                               <div class="form-group">
+                                   <button class="btn btn-primary btn-block btn-lg" @click="singleClaim()">Proceed to Document Upload</button>
+                               </div>
 
                            </div>
+                       </div>
+                   </div>
+
+                   <div class="col-md-12 m-b-30">
+                       <h5> <i class="fe fe-activity"></i> Claim Services/Drugs</h5>
+                       <div class="table-responsive">
+                           <table class="table align-td-middle table-card">
+                               <thead>
+                               <tr>
+                                   <th>Name</th>
+                                   <th>Cost</th>
+
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr v-for="service in singleclaim.services" v-bind:key="service.id">
+
+
+                                   <td>{{service.description}}</td>
+                                   <td>{{service.cost | numeral(0,0)}}</td>
+                                   <td>
+                                     <!-- <button class="btn btn-info" name="button"><i class="fe fe-edit"></i> </button> -->
+                                     <button class="btn btn-danger" name="button" @click="deleteService(service)"><i class="fe fe-delete"></i> </button>
+                                   </td>
+
+                               </tr>
+                               <tr v-for="drug in singleclaim.drugs" v-bind:key="drug.id">
+
+
+                                   <td>{{drug.drug_name}}</td>
+                                   <td>{{drug.cost | numeral(0,0)}}</td>
+                                   <td>
+                                     <!-- <button class="btn btn-info" name="button"><i class="fe fe-edit"></i> </button> -->
+                                     <button class="btn btn-danger" name="button" @click="deleteDrug(drug)"><i class="fe fe-delete"></i> </button>
+                                   </td>
+
+                               </tr>
+
+                               </tbody>
+                           </table>
+
                        </div>
                    </div>
 
@@ -123,20 +170,21 @@ export default {
       editor: ClassicEditor,
       user:null,
       services:"",
-      randomvalue:"",
+      singleclaim:"",
+      drugs:"",
+      quantity:1,
+      cost:"",
+      singleservice:"",
+      singledrug:"",
       claims:"",
-      min:100000000000000000,
-      max:1000000000000000000,
       edit:false,
       isLoading: false,
       fullPage: true,
-      claim:{
-        agency_id:"",
-        diagnosis:"",
-        treatment:"",
-        client_name:"",
-        seen_date:"",
-        cost:"",
+      type:"",
+      selected_type:"",
+      addservice:{
+        services_id:"",
+        drugs_id:"",
       },
 
 
@@ -144,7 +192,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/services`)
+    this.axios.get(`/api/v1/auth/service-agency/95930`)
                 .then(response => {
                     this.services = response.data
                     console.log(response)
@@ -154,25 +202,79 @@ export default {
                 })
   },
   computed:{
-    randomNumber: function () {
-     let authorization_code = Math.floor(Math.random()*(this.max-this.min+1)+this.min);
-     return  authorization_code
+    calcCost(){
+      if (this.type == 'Service') {
+        return this.quantity * this.singleservice.price
+
+      }else {
+        return this.quantity * this.singledrug.price
+
+      }
     }
+
+
   },
   methods:{
+    deleteDrug(drug){
+      this.axios.delete(`/api/v1/auth/claim_service/${drug.id}`)
+                  .then(response => {
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    deleteService(service){
+      this.axios.delete(`/api/v1/auth/claim_service/${service.id}`)
+                  .then(response => {
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+
+    handleData(){
+      if (this.type == 'Drug') {
+        this.addservice.services_id = ''
+      }
+      if (this.type == 'Service') {
+        this.addservice.drugs_id = ''
+      }
+    },
+    singleClaim(){
+      this.$router.push(`/upload-claims-docs/${this.$route.params.id}`)
+
+    },
+    getDrugs(){
+      this.axios.get(`/api/v1/auth/drug-agency/95930`)
+                  .then(response => {
+                      this.drugs = response.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
 
     clearIt(){
-
-      this.claim.client_name =""
-      this.claim.cost = ""
-      this.claim.treatment = ""
-      this.claim.seen_date = ""
-      this.claim.agency_id = ""
-      this.claim.diagnosis = ""
+      this.addservice.services_id =""
+      this.addservice.drugs_id = ""
+      this.quantity = 1
+      this.calcCost = ""
+    },
+    getSingleClaim(){
+      this.axios.get(`/api/v1/auth/detailedClaim/${this.$route.params.id}`)
+                  .then(response => {
+                      this.singleclaim = response.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
     },
 
 getClaims(){
-  this.user = JSON.parse(localStorage.getItem('user'))
   this.axios.get(`/api/v1/auth/claminByProvider${this.user.id}`)
               .then(response => {
                   this.claims = response.data.data
@@ -183,84 +285,61 @@ getClaims(){
               })
 },
 
-getHmo(){
-  this.user = JSON.parse(localStorage.getItem('user'))
-  this.axios.get(`/api/v1/auth/hmoProvider/${this.user.id}`)
-              .then(response => {
-                  this.agencies = response.data.data
-                  console.log(response)
-              })
-              .catch(error => {
-                  console.error(error);
-              })
-},
-makeClaim(){
+  getService(){
+    this.axios.get(`/api/v1/auth/services/${this.addservice.services_id}`)
+                .then(response => {
+                    this.singleservice = response.data
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+  },
+  getDrug(){
+    this.axios.get(`/api/v1/auth/drugs/${this.addservice.drugs_id}`)
+                .then(response => {
+                    this.singledrug = response.data[0]
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+  },
+
+  addServiceRendered(){
 
         this.user = JSON.parse(localStorage.getItem('user'))
 
-        if (this.edit === false) {
-        // Add claim
+        // Add claim_service
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/addClaim',{
+        this.axios.post('/api/v1/auth/claim_service',{
 
-          provider_id: this.user.id,
-          user_id: this.user.id,
-          agency_id: this.claim.agency_id,
-          client_name: this.claim.client_name,
-          seen_date: this.claim.seen_date,
-          diagnosis: this.claim.diagnosis,
-          treatment: this.claim.treatment,
-          cost: this.claim.cost,
+          services_id: this.addservice.services_id,
+          drugs_id: this.addservice.drugs_id,
+          claims_id: this.$route.params.id,
+          cost: this.calcCost
+
         })
 
         .then(response=>{
             console.log(response);
             this.clearIt();
-            this.getClaims();
+            this.getSingleClaim();
             this.isLoading = false;
-            this.$breadstick.notify("Claim added Successfuly!", {position: "top-right"});
+            this.$breadstick.notify("Added Successfully!", {position: "top-right"});
 
 
         })
         .catch(error=>{
             console.log(error.response)
         })
-        }else {
-        // Update
-        this.isLoading = true;
-        this.axios.put('/api/v1/auth/addDependant',{
-
-          topic_id: this.topic.id,
-          topic_name: this.topic.topic_name,
-          // module_id: this.course.id,
-          module_id: this.$route.params.id,
-          topic_content: this.topic.topic_content,
-          video: this.topic.video,
-          audio: this.audio,
-          doc: this.doc,
-
-        })
-
-        .then(response=>{
-            console.log(response);
-            // this.clearIt();
-            this.fetchModule();
-            this.edit = true;
-            this.isLoading = false;
-            this.$toasted.global.crudUpdated().goAway(1500);
-
-        })
-        .catch(error=>{
-            console.log(error.response)
-        })
-
-      }
 
     }
 
   },
   created(){
-    this.getHmo()
+    this.getDrugs()
+    this.getSingleClaim()
   }
 
 }

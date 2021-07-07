@@ -29,15 +29,20 @@
                    <div class="col-lg-12 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
-
-                             <h3 class="p-t-10 searchBy-name">{{ministries.length}} MDAs Added</h3>
+                             <h3 class="h5 text-center">{{ministries.length}} MDAs</h3>
                            </div>
 
                            <div class="card-body">
 
-                                                         <div class="form-group">
-                                                             <button class="btn btn-primary" @click="show = !show">Add MDA</button>
-                                                         </div>
+                             <div class="form-group">
+                                 <button class="btn btn-primary" @click="show = !show">Add MDA</button>
+                             </div>
+
+                             <download-excel :data="ministries.data" :fields="json_fields" class="btn btn-success"
+                                    :escapeCsv=false name="mda.xls">
+                                  <span class="fe fe-download"></span>
+                            Export Data for MDA
+                            </download-excel>
                            </div>
                        </div>
                    </div>
@@ -47,22 +52,6 @@
                        <div class="card-body">
 
                          <div class="form-row">
-
-                           <!-- <div class="form-group col-md-12">
-                             <label for="inputCity">Select MDA </label>
-                                 <select class="form-control"  v-model="selector">
-                                  <option value="ministry">Ministry</option>
-                                  <option value="department">Department</option>
-                                  <option value="parastatal">Parastatal</option>
-                              </select>
-                           </div> -->
-
-                           <!-- <div class="form-group col-md-12" v-if="selector != 'ministry' && selector != null">
-                             <label for="inputCity">Select Ministry</label>
-                                 <select class="form-control"  v-model="ministry_id" @change="fetchLga(state)">
-                                  <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
-                              </select>
-                           </div> -->
 
                            <div class="form-group floating-label col-md-12 col-sm-12" v-if="selector == 'ministry'">
                                <label>MDA</label>
@@ -81,37 +70,35 @@
                        </div>
 
                          <button @click="registerMDA" class="btn btn-primary btn-block btn-lg">Submit</button>
-
                        </div>
                      </div>
 
                    </div>
 
-                   <div class="col-md-10 m-b-30">
+                   <div class="col-sm-6 offset-sm-3">
                        <h5> <i class="fe fe-airplay"></i> MDAs </h5>
                        <div class="table-responsive">
                            <table class="table align-td-middle table-card">
                                <thead>
                                <tr>
-                                   <th>Name</th>
-                                   <th>Action</th>
+                                   <th class="text-center">MDA</th>
 
                                </tr>
                                </thead>
                                <tbody>
-                               <tr v-for="mda in ministries" v-bind:key="mda.id">
+                               <tr v-for="mda in ministries.data" v-bind:key="mda.id">
 
-                                   <td>
-                                     {{mda.name}}
-                                   </td>
-                                   <td>
+                                   <td >{{mda.name}}</td>
+
+                                   <!-- <td>
                                       <button type="button" class="btn btn-info" name="button">edit</button>
-                                   </td>
+                                   </td> -->
 
                                </tr>
 
                                </tbody>
                            </table>
+
 
                        </div>
                    </div>
@@ -151,6 +138,7 @@ export default {
       ministries:"",
       departments:"",
       parastatals:"",
+      current_page:1,
       edit:false,
       show:false,
       selector:"ministry",
@@ -163,32 +151,58 @@ export default {
                 ministry:"",
                 department:"",
                 parastatal:"",
-            }
+            },
+      json_fields: {
+                'MDA Name':'name',
+                 },
+                json_data: [],
+                json_meta: [
+                [
+                    {
+                    key: "charset",
+                    value: "utf-8",
+                    },
+                ]],
     }
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/ministry`)
+    this.axios.get(`/api/v1/auth/ministry/95930`)
                 .then(response => {
-                    this.ministries = response.data.data
+                    this.ministries = response.data
                     console.log(response)
                 })
                 .catch(error => {
                     console.error(error);
                 })
   },
-  computed:{
-    allMDAs(){
-    let answer =  this.ministries + this.departments + this.parastatals;
-      return [answer]
-    }
-  },
-  methods:{
 
+  methods:{
+    gotoNext(){
+      if (this.ministries.meta.current_page != this.ministries.meta.last_page) {
+            this.current_page ++
+            this.getDepts()
+          }
+          else {
+            this.$toasted.info('You have reached the Last Page', {position: 'top-center', duration:3000 })
+
+          }
+    },
+    gotoPrevious(){
+      if (this.ministries.meta.current_page != 1) {
+          this.current_page --
+          this.getDepts()
+        }
+        else {
+          this.$toasted.info('You have reached the First Page', {position: 'top-center', duration:3000 })
+        }
+    },
     getDepts(){
       this.axios.get(`/api/v1/auth/ministry`)
                   .then(response => {
-                      this.ministries = response.data.data
+                      this.ministries = response.data;
+                      this.json_data = this.ministries;
+
                       console.log(response)
                   })
                   .catch(error => {
@@ -200,7 +214,7 @@ export default {
         this.isLoading = true;
           if (this.selector == 'ministry') {
                 this.axios.post('/api/v1/auth/ministry',{
-                  agency_id  : 90,
+                  agency_id  : 95930,
                   name : this.register.ministry,
                 })
                 .then(response=>{
@@ -250,14 +264,11 @@ export default {
 
 
     clearIt(){
-
       this.register.ministry = "";
-
     },
 
   },
   created(){
-    // this.fetchParas()
     this.getDepts()
   }
 

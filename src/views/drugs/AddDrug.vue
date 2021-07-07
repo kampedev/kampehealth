@@ -8,14 +8,14 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputCity">Drug Category </label>
-            <select class="form-control"  v-model="state" @change="fetchLga(state)">
-             <option v-for="state in states" v-bind:key="state.id" :value="state">{{state.name}}</option>
+            <select class="form-control"  v-model="register.category_id">
+             <option v-for="cat in categories" v-bind:key="cat.id" :value="cat.id">{{cat.category_name}}</option>
          </select>
       </div>
       <div class="form-group col-md-6">
         <label for="inputCity">Sub Category</label>
-            <select class="form-control"  v-model="register.localgovt">
-             <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
+            <select class="form-control"  v-model="register.subcategory_id">
+             <option v-for="sub in sub_categories" v-bind:key="sub.id" :value="sub.id">{{sub.sub_category_name}}</option>
          </select>
       </div>
     </div>
@@ -23,28 +23,63 @@
     <div class="form-row">
       <div class="form-group floating-label col-md-6 ">
           <label>Name of Drug</label>
-          <input type="text" required class="form-control" placeholder="Drug Name" v-model="register.firstname">
+          <input type="text" required class="form-control" placeholder="Drug Name" v-model="register.drug_name">
       </div>
       <div class="form-group floating-label col-md-6 ">
           <label>Dosage Form</label>
-          <input type="text" required class="form-control" placeholder="Dosage" v-model="register.lastname">
+          <input type="text" required class="form-control" placeholder="Dosage" v-model="register.dosage">
       </div>
       <div class="form-group floating-label col-md-6">
           <label>Strengths</label>
-          <input type="text" required class="form-control" placeholder="Strengths" v-model="register.agency_name">
+          <input type="text" required class="form-control" placeholder="Strengths" v-model="register.strengths">
       </div>
 
         <div class="form-group floating-label col-md-3">
             <label>Presentation</label>
-            <input type="email" required class="form-control" placeholder="Presentation" v-model="register.email">
+            <input type="email" required class="form-control" placeholder="Presentation" v-model="register.presentation">
         </div>
         <div class="form-group floating-label col-md-3">
-            <label>Sales/Price</label>
-            <input type="text" required class="form-control" placeholder="Price" v-model="register.phone_number">
+            <label>Price</label>
+            <input type="text" required class="form-control" placeholder="Price" v-model="register.price">
         </div>
   </div>
 
-    <button @click="registerUser" class="btn btn-primary btn-block btn-lg">Add Drug</button>
+    <button @click="submitForm" class="btn btn-primary btn-block btn-lg">Add Drug</button>
+
+    <div class="col-md-12 m-b-30">
+        <h5 class="h4"> <i class="fe fe-droplet"></i>{{drugs.meta.total}} Drugs</h5>
+        <div class="table-responsive">
+           <table class="table align-td-middle table-card">
+               <thead>
+               <tr>
+                   <th>Drug Name</th>
+                   <th>Dosage Form</th>
+                   <th>Strengths</th>
+                   <th>Presentation</th>
+                   <th>Price</th>
+                   <th>Action</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr v-for="drug in drugs.data" v-bind:key="drug.id">
+                   <td >{{drug.drug_name}}</td>
+                   <td >{{drug.dosage}}</td>
+                   <td >{{drug.strengths}}</td>
+                   <td>{{drug.presentation}}</td>
+                   <td>  <i class="mdi mdi-currency-ngn"></i>{{drug.price | numeral('0,0.00')}}</td>
+                   <td>
+                     <button class="btn btn-info" @click="editDrug(drug)"><i class="fe fe-edit"></i> </button>
+                     <button class="btn btn-danger" style="margin-left:10px;" @click="deleteDrug(drug)"><i class="fe fe-delete"></i> </button>
+                   </td>
+               </tr>
+               </tbody>
+           </table>
+           <div class="col-lg-4 offset-lg-4">
+             <button  class="btn btn-default btn-lg" @click="gotoPrevious">Previous</button>
+             <button class="btn btn-default btn-lg" @click="gotoNext">Next</button>
+           </div>
+         </div>
+    </div>
 
     <div class="vld-parent">
          <loading :active.sync="isLoading"
@@ -68,7 +103,6 @@
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
 
-
 export default {
   components: {
       Loading
@@ -76,143 +110,194 @@ export default {
   data(){
     return{
       user:null,
-      providers:"",
-      agencies:"",
+      categories:"",
+      sub_categories:"",
       edit:false,
       show:false,
       isLoading: false,
       fullPage: true,
       agency_id:"",
       provider_id:"",
-      states:"",
-      state:"",
-      lga_states:"",
+      drugs:"",
+      drug_id:"",
+      current_page:1,
       register:{
-                firstname:"",
-                lastname:"",
-                email:"",
-                type:"provider",
-                phone_number:"",
-                state:"",
-                agency_name:"",
-                ward:"",
-                services_offered:"",
-                localgovt:"",
-                address1:"",
-                role:0,
-                password:"euhler",
-                password_confirmation:"euhler"
+                category_id:"",
+                subcategory_id:"",
+                drug_name:"",
+                dosage:"",
+                strengths:"",
+                presentation:"",
+                price:"",
+
             }
     }
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
-                .then(response => {
-                    this.providers = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
   },
   methods:{
+    deleteDrug(drug){
+      if (confirm('Are you sure you want to delete Drug?') ) {
+        this.axios.delete(`/api/v1/auth/drugs/${drug.id}`)
+                    .then(response => {
+                        console.log(response)
+                        this.getDrugs()
+                        this.$toasted.success('Deleted Successfully!', {position: 'top-left', duration:5000 })
 
-    getStates(){
-      this.axios.get(`/api/v1/auth/states`)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
+
+    },
+    editDrug(drug){
+      this.register.category_id = drug.category_id
+      this.register.drug_name = drug.drug_name
+      this.register.dosage = drug.dosage
+      this.register.strengths = drug.strengths
+      this.register.presentation = drug.presentation
+      this.register.price = drug.price
+      this.drug_id = drug.id
+      this.edit = true
+    },
+
+    getCategories(){
+      this.axios.get(`/api/v1/auth/drug_category`)
                   .then(response => {
-                      this.states = response.data.data
+                      this.categories = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    fetchLga(state){
-      this.axios.get(`/api/v1/auth/lga/${state.id}`)
+    getSubCategories(){
+      this.axios.get(`/api/v1/auth/drug_subcategory`)
                   .then(response => {
-                      this.lga_states = response.data.data
+                      this.sub_categories = response.data.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    registerUser(){
+    submitForm(){
+      if (this.edit == false) {
+        this.registerDrug()
+      }
+      else {
+        this.updateDrug()
+      }
+    },
+    registerDrug(){
+        this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/registerProvider',{
-          firstname : this.register.firstname,
-          lastname : this.register.lastname,
-          email : this.register.email,
-          phone_number : this.register.phone_number,
-          agency_name : this.register.agency_name,
-          type : this.register.type,
-          state : this.state.name,
-          localgovt : this.register.localgovt,
-          services_offered : this.register.services_offered,
-          address1 : this.register.address1,
-          ward : this.register.ward,
-          role : this.register.role,
-          password : this.register.password,
-          password_confirmation : this.register.password_confirmation
+        this.axios.post('/api/v1/auth/drugs',{
+          agency_id : 95930,
+          category_id : this.register.category_id,
+          sub_category_id : this.register.subcategory_id,
+          drug_name : this.register.drug_name,
+          dosage : this.register.dosage,
+          strengths : this.register.strengths,
+          presentation : this.register.presentation,
+          price : this.register.price,
+
         })
         .then(response=>{
-          let user_id = response.data.data.id
-
-            //add provider
-              this.show = false;
-              console.log(user_id)
-              this.axios.post('/api/v1/auth/providerApply',{
-                    provider_id: user_id,
-                    agency_id: this.user.id,
-                    status: true,
-                  })
-
-                  .then(response=>{
-                      console.log(response);
-                      this.$toasted.info('Provider added Successfully!', {position: 'top-left', duration:5000 })
-                      this.$router.push(`/provider-${user_id}`)
-
-                  })
-                  .catch(error=>{
-                      console.log(error.response)
-                  })
-                  //end of provider
-
             console.log(response);
             this.isLoading = false;
-            // localStorage.setItem('jwt',token);
+            this.$toasted.success('Added!', {position: 'top-center', duration:2000 })
+            this.clearIt()
+            this.getDrugs()
 
         })
         .catch(error=>{
             console.log(error.response)
             this.isLoading = false;
-            this.$toasted.error('Sign up not Successful', {position: 'top-left', duration:5000 })
+            this.$toasted.error('Not Successful', {position: 'top-left', duration:5000 })
 
         })
     },
-    getProviders(){
-      this.user = JSON.parse(localStorage.getItem('user'))
+    updateDrug(drug){
+        this.user = JSON.parse(localStorage.getItem('user'))
+        this.isLoading = true;
+        this.axios.put(`/api/v1/auth/drugs/${drug.id}`,{
+          agency_id : 95930,
+          category_id : this.register.category_id,
+          sub_category_id : this.register.subcategory_id,
+          drug_name : this.register.drug_name,
+          dosage : this.register.dosage,
+          strengths : this.register.strengths,
+          presentation : this.register.presentation,
+          price : this.register.price,
 
-      this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+        })
+        .then(response=>{
+            console.log(response);
+            this.isLoading = false;
+            this.edit = false;
+            this.$toasted.success('Updated Successfully!', {position: 'top-center', duration:2000 })
+            this.clearIt()
+            this.getDrugs()
+
+        })
+        .catch(error=>{
+            console.log(error.response)
+            this.isLoading = false;
+            this.$toasted.error('Not Successful', {position: 'top-left', duration:5000 })
+
+        })
+    },
+    getDrugs(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/drug-agency/95930`)
                   .then(response => {
-                      this.providers = response.data.data
+                      this.drugs = response.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
+    gotoNext(){
+      if (this.drugs.meta.current_page != this.drugs.meta.last_page) {
+            this.current_page ++
+            this.getDrugs()
+          }
+          else {
+            this.$toasted.info('You have reached the Last Page', {position: 'top-center', duration:3000 })
+
+          }
+    },
+    gotoPrevious(){
+      if (this.drugs.meta.current_page != 1) {
+          this.current_page --
+          this.getDrugs()
+        }
+        else {
+          this.$toasted.info('You have reached the First Page', {position: 'top-center', duration:3000 })
+        }
+    },
 
     clearIt(){
 
-      this.agency_id = "";
+      this.register.drug_name = "";
+      this.register.dosage = "";
+      this.register.price = "";
+      this.register.presentation = "";
+      this.register.strengths = "";
+      this.register.category_id = "";
+      this.register.subcategory_id = "";
 
     },
 
   },
   created(){
-    this.getStates()
+    this.getCategories()
+    this.getSubCategories()
+    this.getDrugs()
   }
 
 }

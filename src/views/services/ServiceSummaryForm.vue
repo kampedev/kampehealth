@@ -23,71 +23,62 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
 
                            <div class="card-body">
 
+                                <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="inputCity">Admission Type</label>
+                                        <select class="form-control"  v-model="claim.provider_id" >
+                                          <option  value="Inpatient">Inpatient</option>
+                                          <option  value="Outpatient">Outpatient</option>
+                                     </select>
+                                  </div>
+                                     <div class="form-group col-md-6">
+                                       <label for="inputCity">OHIS Number</label>
+                                       <input type="text" class="form-control" id="inputEmail4" :value="client.email">
+                                     </div>
+                                     <div class="form-group col-md-6">
+                                       <label for="inputCity">First Name</label>
+                                       <input type="text" class="form-control" id="inputEmail4" :value="client.email" disabled>
+                                     </div>
 
-                                                        <div class="form-row">
+                                     <div class="form-group col-md-6">
+                                       <label for="inputCity">Last Name</label>
+                                       <input type="text" class="form-control" id="inputEmail4" :value="client.email" disabled>
+                                     </div>
+                                     <div class="form-group col-md-6">
+                                       <label for="inputCity">Enrollee Phone Number</label>
+                                       <input type="text" class="form-control" id="inputEmail4" :value="client.phone_number" disabled>
+                                     </div>
+                                     <div class="form-group col-md-6">
+                                       <label for="inputCity">Diagnosis</label>
+                                           <select class="form-control"  v-model="claim.provider_id" >
+                                             <option  value="Inpatient">Malaria</option>
+                                             <option  value="Outpatient">Cholera</option>
+                                        </select>
+                                     </div>
 
-                                                          <div class="form-group col-md-6">
-                                                              <label for="inputPassword4">Select Facility</label>
-                                                              <select class="form-control"  v-model="claim.provider_id">
-                                                               <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
-                                                           </select>
-                                                          </div>
+                                 </div>
 
-                                                          <div class="form-group col-md-6">
-                                                              <label for="inputPassword4">Select Enrollee</label>
-                                                              <select class="form-control"  v-model="claim.client_id" @change="getClient(claim.client_id)">
-                                                               <option v-for="client in clients" v-bind:key="client.id" :value="client.id">{{client.lastname}} {{client.firstname}}</option>
-                                                           </select>
-                                                          </div>
+                                 <div class="row col-md-12">
 
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">First Name</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.email" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Last Name</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.email" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Enrollee Phone Number</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.phone_number" disabled>
-                                                             </div>
+                                   <div class="form-group col-md-4">
+                                     <p>  <label for="inputPassword4">Date of Admission</label></p>
+                                        <date-picker v-model="claim.seen_date" valueType="format"></date-picker>
+                                   </div>
+                                   <div class="form-group col-md-4">
+                                     <p>  <label for="inputPassword4">Date of Discharge</label></p>
+                                        <date-picker v-model="claim.discharge_date" valueType="format"></date-picker>
+                                   </div>
 
-                                                         </div>
+                                 </div>
 
-
-                                                         <div class="row col-md-12">
-                                                           <div class="form-group col-md-6">
-                                                             <div class="custom-control custom-checkbox">
-                                                               <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                               <label class="custom-control-label" for="customCheck1">Outpatient</label>
-                                                              </div>
-                                                           </div>
-                                                           <div class="form-group col-md-6">
-                                                             <div class="custom-control custom-checkbox">
-                                                               <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                               <label class="custom-control-label" for="customCheck1">Inpatient</label>
-                                                              </div>
-                                                           </div>
-                                                           <div class="form-group col-md-4">
-                                                             <p>  <label for="inputPassword4">Date of Admission</label></p>
-                                                                <date-picker v-model="claim.seen_date" valueType="format"></date-picker>
-                                                           </div>
-                                                           <div class="form-group col-md-4">
-                                                             <p>  <label for="inputPassword4">Date of Discharge</label></p>
-                                                                <date-picker v-model="claim.discharge_date" valueType="format"></date-picker>
-                                                           </div>
-
-                                                         </div>
-
-                                                         <div class="form-group">
-                                                             <button class="btn btn-primary btn-block btn-lg" @click="makeClaim">Submit and Proceed to Details of Treatment</button>
-                                                         </div>
+                                 <div class="form-group">
+                                     <button class="btn btn-primary btn-block btn-lg" @click="makeClaim">Submit and Proceed to Details of Treatment</button>
+                                 </div>
 
                            </div>
                        </div>

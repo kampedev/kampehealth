@@ -86,6 +86,12 @@
                       </b-card-text>
                     </b-tab>
 
+                    <b-tab title="No Gender" >
+                      <b-card-text>
+                        <NoGender/>
+                      </b-card-text>
+                    </b-tab>
+
                     <b-tab title="Examine ID Card Number">
                       <b-card-text>
                         <div class="card m-b-30">
@@ -157,6 +163,7 @@
 
 <script>
   import Navbar from '@/views/Navbar.vue'
+  import NoGender from '@/views/clients/NoGender.vue'
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
@@ -165,7 +172,7 @@
 
 export default {
   components: {
-     Navbar, Loading
+     Navbar, Loading, NoGender
   },
   data(){
     return{

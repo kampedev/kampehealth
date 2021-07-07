@@ -52,17 +52,18 @@
                                           <span class="fileinput-filename"></span>
                                           <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                       </div>
-                                         <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
+                                         <!-- <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  > <i class="mdi mdi-hand"></i> </button>
-                                        </router-link>
+                                        </router-link> -->
+
                                         <button class="btn btn-primary spacer"  @click="printMe"><i class="fe fe-printer"></i></button>
 
-                                        <router-link :to="{ path: '/client/capture-signature/'+client.id, params: {} }">
+                                        <!-- <router-link :to="{ path: '/client/capture-signature/'+client.id, params: {} }">
                                           <button class="btn btn-info spacer" ><i class="fe fe-edit-2"></i></button>
-                                        </router-link>
+                                        </router-link> -->
 
                                          <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
-                                           <button class="btn btn-info spacer"  v-if = "client.type == 'client' && client.category_of_vulnerable_group == null">Dependents</button>
+                                           <button class="btn btn-info spacer"  v-if = "client.type == 'client'"><i class="fe fe-users"></i> </button>
                                          </router-link>
                                          <router-link :to="{ path: '/edit-user/'+$route.params.id, params: {} }">
                                            <button class="btn btn-secondary spacer"><i class="fe fe-edit"></i></button>
@@ -153,7 +154,7 @@
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom"><strong>State/Ward:</strong> OSUN/{{singleward.ward_name}}</p>
+                                   <p class="spacer-top-bottom"><strong>LGA/Ward:</strong> {{singlelga.local_name}}/{{singleward.ward_name}}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                                    <hr>
@@ -510,6 +511,17 @@ this.isLoading = true;
                                       console.error(error);
                                   })
                       //end of get ward
+
+                      //get lga
+                      this.axios.get(`/api/v1/auth/lgas/${this.client.localgovt}`)
+                                  .then(response => {
+                                      this.singlelga = response.data[0]
+                                      console.log(response)
+                                  })
+                                  .catch(error => {
+                                      console.error(error);
+                                  })
+                      //end of get lga
 
                   })
                   .catch(error => {

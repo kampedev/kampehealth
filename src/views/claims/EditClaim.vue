@@ -7,7 +7,7 @@
                <div class="row p-b-60 p-t-60">
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
-                       <h3 class="h3">Add Claim</h3>
+                       <h3 class="h3">Edit Claim</h3>
                    </div>
 
                </div>
@@ -17,7 +17,7 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-12">
+                   <div class="col-lg-12 col-md-8">
                        <div class="card m-b-30">
 
                            <div class="card-body">
@@ -25,44 +25,32 @@
                                 <div class="form-row">
                                   <div class="form-group col-md-12">
                                     <p>  <label for="inputPassword4">Date of Care</label></p>
-                                       <date-picker v-model="claim.seen_date" valueType="format"></date-picker>
+                                       <date-picker v-model="claimdetails.seen_date" valueType="format"></date-picker>
                                   </div>
 
                                   <div class="form-group col-md-6" v-if="user.type == 'shis'">
                                       <label for="inputPassword4">Select Facility</label>
-                                      <select class="form-control"  v-model="claim.provider_id">
+                                      <select class="form-control"  v-model="claimdetails.provider_id">
                                        <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
                                    </select>
                                   </div>
                                      <div class="form-group col-md-6">
                                          <label for="inputPassword4">Select Enrollee</label>
-                                         <select class="form-control"  v-model="claim.client_id" @change="getClient(claim.client_id)">
+                                         <select class="form-control"  v-model="claimdetails.client_name" @change="getClient">
                                           <option v-for="client in clients" v-bind:key="client.id" :value="client.id">{{client.lastname}} {{client.firstname}}</option>
                                       </select>
                                      </div>
                                      <div class="form-group col-md-6">
                                        <label for="inputCity">Enrollee Surname</label>
-                                       <input type="text" class="form-control" id="inputEmail4" :value="client.firstname" disabled>
+                                       <input type="text" class="form-control" id="inputEmail4" :value="clientdetail.firstname" disabled>
                                      </div>
                                      <div class="form-group col-md-6">
                                        <label for="inputCity">Enrollee First Name</label>
-                                       <input type="text" class="form-control" id="inputEmail4" :value="client.lastname" disabled>
+                                       <input type="text" class="form-control" id="inputEmail4" :value="clientdetail.lastname" disabled>
                                      </div>
                                      <div class="form-group col-md-6">
                                        <label for="inputCity">Enrollee ZAMCHEMA Number</label>
-                                       <input type="text" class="form-control" id="inputEmail4" :value="client.id_card_number" disabled>
-                                     </div>
-
-                                     <div class="form-group col-md-6">
-                                       <label for="inputCity">Phone Number</label>
-                                       <input type="text" class="form-control" id="inputEmail4" :value="client.phone_number" disabled>
-                                     </div>
-
-                                     <div class="form-group col-md-6">
-                                       <label for="inputCity">Select Diagnosis</label>
-                                       <select class="form-control"  v-model="claim.diagnosis" >
-                                        <option v-for="dis in diseases" v-bind:key="dis.id" :value="dis.name">{{dis.name}} </option>
-                                       </select>
+                                       <input type="text" class="form-control" id="inputEmail4" :value="clientdetail.id_card_number" disabled>
                                      </div>
 
                                  </div>
@@ -70,21 +58,18 @@
                                  <div class="form-row">
 
 
-
-                                   <!-- <div class="form-group col-md-6">
-                                     <label for="inputCity">Cost</label>
-                                     <input type="text" class="form-control" id="inputEmail4" placeholder="Cost of treatment" v-model="claim.cost">
-                                   </div> -->
-                                   <!-- <div class="form-group col-md-6">
-                                     <label for="inputCity">Authorization Code </label>
-                                     <input type="text" class="form-control" id="inputEmail4" :value="randomNumber" disabled>
-                                   </div> -->
+                                   <div class="form-group col-md-6">
+                                     <label for="inputCity">Select Diagnosis</label>
+                                     <select class="form-control"  v-model="claimdetails.diagnosis" >
+                                      <option v-for="dis in diseases" v-bind:key="dis.name" :value="dis.name">{{dis.name}} </option>
+                                     </select>
+                                   </div>
 
                                  </div>
 
                                  <div class="form-group col-md-12">
                                     <label for="inputAddress">Treatment Summary</label>
-                                    <textarea name="name" rows="5" cols="80" class="form-control" v-model="claim.treatment"></textarea>
+                                    <textarea name="name" rows="5" cols="80" class="form-control" v-model="claimdetails.treatment"></textarea>
                                 </div>
                                  <!-- <div class="row col-md-12">
                                    <div class="col-md-12">
@@ -151,7 +136,7 @@
                                  </div> -->
 
                                  <div class="form-group">
-                                     <button class="btn btn-primary btn-block btn-lg" @click="makeClaim">Proceed to Drugs/Service Processing</button>
+                                     <button class="btn btn-primary btn-block btn-lg" @click="updateClaim">Update Claim</button>
                                  </div>
 
                            </div>
@@ -197,8 +182,12 @@ export default {
       employees:"",
       clients:"",
       client:"",
+      selected_user:"",
       claims:"",
       diseases:"",
+      singleclaim:"",
+      claimdetails:"",
+      clientdetail:"",
       min:100000000000000000,
       max:1000000000000000000,
       edit:false,
@@ -227,13 +216,39 @@ export default {
     }
   },
   methods:{
-    // saveClaim(){
-    //   localStorage.setItem('claim',JSON.stringify(this.claim))
-    //   this.$router.push(`/service-processing-form`)
-    //
-    //
-    // },
+    getClaim(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/detailedClaim/${this.$route.params.id}`)
+                  .then(response => {
+                      this.singleclaim = response.data
+                      this.comment = response.data.comments[0]
+                      this.claimdetails = response.data.singleclaim[0]
+                      //single client
+                      this.axios.get(`/api/v1/auth/user/${response.data.singleclaim[0].client_name}`)
+                                  .then(response => {
+                                      this.clientdetail = response.data.user
+                                      console.log(response)})
+                      //end of single client
 
+                      // Prepared by
+                      this.axios.get(`/api/v1/auth/user/${response.data.singleclaim[0].user_id}`)
+                                  .then(response => {
+                                      this.prepared_by = response.data.user
+                                      console.log(response)})
+                      //end of Prepared by
+                      //get facility
+                      this.axios.get(`/api/v1/auth/detailedProviderHmo/${response.data.singleclaim[0].provider_id}`)
+                                  .then(response => {
+                                      this.facility = response.data.data[0]
+                                      console.log(response)
+                                  })
+                      //end of get facility
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
 
     getEnrollees(){
 
@@ -258,33 +273,12 @@ export default {
                     })
       }
     },
-    getEmployees(){
-      this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
-                  .then(response => {
-                      this.employees = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
 
-getClaims(){
-  this.user = JSON.parse(localStorage.getItem('user'))
-  this.axios.get(`/api/v1/auth/claminByProvider${this.user.id}`)
-              .then(response => {
-                  this.claims = response.data.data
-                  console.log(response)
-              })
-              .catch(error => {
-                  console.error(error);
-              })
-},
+
 
   getClient(){
-    this.axios.get(`/api/v1/auth/user/${this.claim.client_id}`)
+    this.axios.get(`/api/v1/auth/user/${this.claimdetails.id}`)
                 .then(response => {
                     this.client = response.data.user
                     console.log(response)
@@ -305,6 +299,10 @@ getProviders(){
                   console.error(error);
               })
 },
+  // updateClaim(){
+  //   this.$toasted.info('updated Successfully', {position: 'top-center', duration:3000 })
+  //   this.$router.push(`/all-claims`)
+  // },
 getDiseases(){
   this.user = JSON.parse(localStorage.getItem('user'))
   this.axios.get(`https://disease-info-api.herokuapp.com/diseases`)
@@ -316,64 +314,66 @@ getDiseases(){
                   console.error(error);
               })
 },
-  makeClaim(){
+  updateClaim(){
 
         this.user = JSON.parse(localStorage.getItem('user'))
 
         if (this.user.type == 'shis') {
         // Add claim
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/claims',{
+        this.axios.post('/api/v1/auth/editClaim/' + this.claimdetails.id,{
 
-          provider_id: this.claim.provider_id,
+          provider_id: this.claimdetails.provider_id,
           user_id: this.user.id,
-          agency_id: 95930,
-          client_name: this.claim.client_id,
-          seen_date: this.claim.seen_date,
-          diagnosis: this.claim.diagnosis,
-          treatment: this.claim.treatment,
+          agency_id: 4,
+          client_name: this.claimdetails.client_name,
+          seen_date: this.claimdetails.seen_date,
+          diagnosis: this.claimdetails.diagnosis,
+          treatment: this.claimdetails.treatment,
           cost: 0.00,
         })
 
         .then(response=>{
             console.log(response);
-            let id = response.data.id
+            // let id = response.data.id
             this.isLoading = false;
-            // this.$breadstick.notify("Claim added Successfuly!", {position: "top-right"});
-            this.$router.push(`/service-processing-form/${id}`)
+              this.$toasted.info('updated Successfully', {position: 'top-center', duration:3000 })
+            // this.$router.push(`/service-processing-form/${id}`)
 
         })
         .catch(error=>{
             console.log(error.response)
+            this.isLoading = false;
         })
         }
         else {
 
           // Add claim
           this.isLoading = true;
-          this.axios.post('/api/v1/auth/claims',{
+          this.axios.post('/api/v1/auth/editClaim/' + this.claimdetails.id,{
 
             provider_id: this.user.id,
             user_id: this.user.id,
-            agency_id: 95930,
-            client_name: this.claim.client_id,
-            seen_date: this.claim.seen_date,
-            diagnosis: this.claim.diagnosis,
-            treatment: this.claim.treatment,
+            agency_id: 4,
+            client_name: this.claimdetails.client_name,
+            seen_date: this.claimdetails.seen_date,
+            diagnosis: this.claimdetails.diagnosis,
+            treatment: this.claimdetails.treatment,
             cost: 0.00,
           })
 
           .then(response=>{
               console.log(response);
-              let id = response.data.id
+              // let id = response.data.id
               this.isLoading = false;
-              // this.$breadstick.notify("Claim added Successfuly!", {position: "top-right"});
-              this.$router.push(`/service-processing-form/${id}`)
+              this.$toasted.info('updated Successfully', {position: 'top-center', duration:3000 })
+              this.$router.push(`/all-claims`)
 
 
           })
           .catch(error=>{
               console.log(error.response)
+              this.isLoading = false;
           })
 
         }
@@ -382,9 +382,10 @@ getDiseases(){
 
   },
   created(){
-    this.getProviders()
-    this.getEmployees()
     this.getDiseases()
+    this.getClaim()
+    this.getProviders()
+    // this.getEmployees()
     this.getEnrollees()
   }
 

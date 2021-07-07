@@ -87,7 +87,7 @@
                     </div>
                 </a>
                 <div class="dropdown-menu  dropdown-menu-right"   >
-                    <a class="dropdown-item" href="/user-settings">  Settings
+                    <a class="dropdown-item" href="/user-settings" v-if="auth_user.user_role != 'client'">  Settings
                     </a>
                     <a class="dropdown-item" href="#">  Help </a>
                     <div class="dropdown-divider"></div>

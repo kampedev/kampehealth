@@ -9,7 +9,6 @@
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
                        <div class="m-b-10">
                            <div class="avatar ">
-                               <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
 
@@ -80,21 +79,30 @@
                            <table class="table align-td-middle table-card">
                                <thead>
                                <tr>
-                                   <th>Complain Number</th>
                                    <th>Title</th>
                                    <th>Type</th>
+                                   <th>Status</th>
                                    <th>Action</th>
 
                                </tr>
                                </thead>
                                <tbody>
                                <tr v-for="complaint in complaints" v-bind:key="complaint.id">
-                                 <td>122333932</td>
                                    <td>{{complaint.title}}</td>
                                    <td>{{complaint.type}}</td>
                                    <td>
-                                     <button type="button" class="btn btn-default"  @click="editComplaint(complaint)">edit</button>
-                                     <!-- <button type="button" class="btn btn-info"  name="button">view</button> -->
+                                     <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-secondary" v-if="complaint.status == 'unanswered'">unanswered</button>
+                                     <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning" v-if="complaint.status == 'open'">open</button>
+                                     <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-info" v-if="complaint.status == 'closed'">closed</button>
+
+
+                                   </td>
+                                   <td>
+                                     <!-- <button type="button" class="btn btn-default"  @click="editComplaint(complaint)">edit</button> -->
+                                     <router-link :to="{ path: '/complaint/'+complaint.id, params: {} }">
+                                     <button type="button" class="btn btn-info"  name="button">view</button>
+                                   </router-link>
+
                                    </td>
                                </tr>
 
@@ -152,25 +160,36 @@ export default {
     }
   },
   beforeMount(){
+    this.user = JSON.parse(localStorage.getItem('user'))
 
   },
   methods:{
 
     getComplaints(){
       this.user = JSON.parse(localStorage.getItem('user'))
-
-      this.axios.get(`/api/v1/auth/complaints/${this.user.id}`)
-                  .then(response => {
-                      this.complaints = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
+      if (this.user.type =='client') {
+        this.axios.get(`/api/v1/auth/complaints/${this.user.id}`)
+                    .then(response => {
+                        this.complaints = response.data.data
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
+      else {
+        this.axios.get(`/api/v1/auth/complaints/agency/95930`)
+                    .then(response => {
+                        this.complaints = response.data.data
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
     },
 
         AddComplaint(){
-
           this.user = JSON.parse(localStorage.getItem('user'))
           if (this.edit === false) {
           // Add comp

@@ -822,9 +822,7 @@ export default {
         this.isLoading = true;
         this.axios.post('/api/v1/auth/workWithUs',this.work)
         .then(response=>{
-
             console.log(response);
-
             this.isLoading = false;
             this.$breadstick.notify("Thank you for your message we would get back to your shortly", {position: "top-right"});
             this.work.fullname= "";

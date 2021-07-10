@@ -89,6 +89,18 @@
             </li>
 
             <li class="menu-item" v-if="user.type == 'employee'">
+                <a href="/add-client-formal" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Add Enrollee (Formal)
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-user-plus "></i>
+                                            </span>
+                </a>
+            </li>
+
+            <li class="menu-item" v-if="user.type == 'employee'">
                 <a href="/add-client/employee-offline" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Offline Management

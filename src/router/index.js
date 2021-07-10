@@ -20,7 +20,7 @@ import AddClientAgencyOffline from '../views/clients/offline/AddClientAgencyOffl
 import AddClientEmployeeOffline from '../views/clients/offline/AddClientEmployeeOffline.vue'
 import ALLEnrolleesOfflineEmployee from '../views/clients/offline/ALLEnrolleesOfflineEmployee.vue'
 import EditOfflineEmployee from '../views/clients/offline/EditOfflineEmployee.vue'
-import AddClientProvider from '../views/clients/AddClientProvider.vue'
+import AddClientFormFormal from '../views/clients/AddClientFormFormal.vue'
 import EditProvider from '../views/providers/EditProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import SingleClient from '../views/clients/SingleClient.vue'
@@ -233,8 +233,8 @@ const routes = [
       },
   },
   {
-    path: '/add-client-provider',
-    component: AddClientProvider,
+    path: '/add-client-formal',
+    component: AddClientFormFormal,
     meta: {
         requiresAuth: true,
       },

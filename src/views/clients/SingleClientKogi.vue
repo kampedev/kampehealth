@@ -57,6 +57,7 @@
                                         </router-link> -->
 
                                         <button class="btn btn-primary spacer"  @click="printMe"><i class="fe fe-printer"></i></button>
+                                        <!-- <button class="btn btn-primary spacer"  @click="changeNumber">Change ID Card Number </button> -->
 
                                         <!-- <router-link :to="{ path: '/client/capture-signature/'+client.id, params: {} }">
                                           <button class="btn btn-info spacer" ><i class="fe fe-edit-2"></i></button>
@@ -154,7 +155,7 @@
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom"><strong>LGA/Ward:</strong> {{singlelga.local_name}}/{{singleward.ward_name}}</p>
+                                   <p class="spacer-top-bottom"><strong>LGA/Ward:</strong> {{singlelga.local_name}}/{{client.ward_name}}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                                    <hr>
@@ -353,6 +354,24 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 
   methods:{
 
+    changeNumber(){
+      this.isLoading = true
+        this.axios.patch(`/api/v1/auth/id-card-number/change/${this.$route.params.id}`)
+                    .then(response => {
+                        console.log(response)
+                        // this.getClients()
+                        this.$toasted.success('Changed Successfully', {position: 'top-center', duration:3000 })
+                        this.isLoading = false
+
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
+                        this.isLoading = false
+
+                    })
+
+    },
     attachPic(event){
 this.user = JSON.parse(localStorage.getItem('user'))
 console.log(event)

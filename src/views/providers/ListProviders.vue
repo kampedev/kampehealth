@@ -165,11 +165,11 @@
                                </tr>
                                </thead>
                                <tbody>
-                               <tr v-for="provider in providers" v-bind:key="provider.id">
+                               <tr v-for="(provider, index) in providers" v-bind:key="provider.id">
 
                                    <td>
                                      <router-link :to="{ path: '/provider-' + provider.id }">
-                                     {{provider.agency_name}}
+                                    {{index+1}} {{provider.agency_name}}
                                    </router-link>
 
                                    </td>

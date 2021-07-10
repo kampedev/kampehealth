@@ -28,76 +28,71 @@
 
                            <div class="card-body">
 
+                                <div class="form-row">
+                                  <!-- <div class="form-group col-md-12">
+                                    <p>  <label for="inputPassword4">Date</label></p>
+                                       <date-picker v-model="claim.seen_date" valueType="format"></date-picker>
+                                  </div> -->
 
-                                                        <div class="form-row">
-                                                          <div class="form-group col-md-12">
-                                                            <p>  <label for="inputPassword4">Date</label></p>
-                                                               <date-picker v-model="claim.seen_date" valueType="format"></date-picker>
-                                                          </div>
+                                     <!-- <div class="form-group col-md-6">
+                                         <label for="inputPassword4">Select Client</label>
+                                         <select class="form-control"  v-model="claim.client_id" @change="getClient(claim.client_id)">
+                                          <option v-for="client in clients" v-bind:key="client.id" :value="client.id">{{client.lastname}} {{client.firstname}}</option>
+                                      </select>
+                                     </div> -->
+                                     <div class="form-group col-md-6">
+                                       <label for="inputCity">Enrollee OHIS Number</label>
+                                       <input type="text" class="form-control"  v-model="searchkey" @change="searchIDCard">
+                                     </div>
 
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputPassword4">Select Client</label>
-                                                                 <select class="form-control"  v-model="claim.client_id" @change="getClient(claim.client_id)">
-                                                                  <option v-for="client in clients" v-bind:key="client.id" :value="client.id">{{client.lastname}} {{client.firstname}}</option>
-                                                              </select>
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Client Surname</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.firstname" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Client First Name</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.lastname" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Enrolle OHIS Number</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="'KGSHIA/0' +client.id" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Gender</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.gender" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                               <label for="inputCity">Date of Birth</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" :value="client.dob" disabled>
-                                                             </div>
+                                     <div class="form-group col-md-6" v-if="enrollee_details != ''">
+                                       <label for="inputCity">Client Surname</label>
+                                       <input type="text" class="form-control"  :value="enrollee_details.user.lastname" disabled>
+                                     </div>
 
-                                                         </div>
+                                     <div class="form-group col-md-6" v-if="enrollee_details != ''">
+                                       <label for="inputCity">Client First Name</label>
+                                       <input type="text" class="form-control"  :value="enrollee_details.user.firstname" disabled>
+                                     </div>
+                                     <div class="form-group col-md-6" v-if="enrollee_details != ''">
+                                       <label for="inputCity">Client Phone Number</label>
+                                       <input type="text" class="form-control" :value="enrollee_details.user.phone_number" disabled>
+                                     </div>
 
-                                                         <div class="form-row">
+                                 </div>
 
-                                                           <div class="form-group col-md-12">
-                                                             <label for="inputCity">Reason for Change</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Reason for Change" v-model="claim.diagnosis">
-                                                           </div>
+                                 <div class="form-row">
+
+                                   <div class="form-group col-md-12">
+                                     <label for="inputCity">Reason for Change</label>
+                                     <textarea rows="5" cols="80" class="form-control" v-model="transfer.reason_for_change"></textarea>
+                                     <!-- <input type="text" class="form-control"  placeholder="Reason for Change" v-model="transfer.reason_for_change"> -->
+                                   </div>
 
 
-                                                         </div>
-                                                         <div class="row col-md-12">
-                                                           <!-- <textarea name="name" rows="8" cols="80" class="form-control" v-model="claim.treatment"></textarea> -->
-                                                           <div class="col-md-12 text-center">
-                                                             <p class="h4">Change of HCP</p>
-                                                           </div>
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputPassword4">From Facility</label>
-                                                             <select class="form-control"  v-model="claim.from_facility_id">
-                                                              <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
-                                                          </select>
-                                                           </div>
-                                                           <div class="form-group col-md-6">
-                                                             <label for="inputPassword4">To Facility</label>
-                                                             <select class="form-control"  v-model="claim.to_facility_id">
-                                                              <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
-                                                          </select>
-                                                            </div>
+                                 </div>
+                                 <div class="row col-md-12" v-if="enrollee_details != ''">
+                                   <!-- <textarea name="name" rows="8" cols="80" class="form-control" v-model="claim.treatment"></textarea> -->
+                                   <div class="col-md-12 text-center">
+                                     <p class="h4">Change of HCP</p>
+                                   </div>
+                                   <div class="form-group col-md-6">
+                                     <label for="inputCity">From Facility</label>
+                                     <input type="text" class="form-control" :value="enrollee_details.provider.agency_name" disabled>
+                                   </div>
+                                   <div class="form-group col-md-6">
+                                     <label for="inputPassword4">New Facility</label>
+                                     <v-select v-model="transfer.new_health_facility" :options="providers" label="agency_name" :value="transfer.new_health_facility" @input="selected"></v-select>
 
-                                                         </div>
+                                    </div>
+
+                                 </div>
 
 
 
-                                                         <div class="form-group">
-                                                             <button class="btn btn-primary btn-block btn-lg" @click="makeClaim">Submit</button>
-                                                         </div>
+                                 <div class="form-group">
+                                     <button class="btn btn-primary btn-block btn-lg" @click="makeRequest">Submit</button>
+                                 </div>
 
                            </div>
                        </div>
@@ -120,85 +115,91 @@
 
 <script>
   import Navbar from '@/views/Navbar.vue'
-  import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+  // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
-     // Init plugin
-     import DatePicker from 'vue2-datepicker';
 
 
 export default {
   components: {
-     Navbar, Loading, DatePicker
+     Navbar, Loading
   },
   data(){
     return{
-      editor: ClassicEditor,
+      // editor: ClassicEditor,
       user:null,
-      agencies:"",
-      clients:"",
-      client:"",
-      claims:"",
-      min:100000000000000000,
-      max:1000000000000000000,
+      search_result:"",
+      enrollee_details:"",
+      searchkey:"",
       edit:false,
       isLoading: false,
       fullPage: true,
-      claim:{
-        provider_id:"",
+      transfer:{
+        reason_for_change:"",
         client_id:"",
-        diagnosis:"",
-        treatment:"",
-        client_name:"",
-        seen_date:"",
-        cost:"",
+        new_health_facility:"",
+        previous_health_facility:"",
+        status:"",
+        prepared_by:"",
       },
 
     }
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
-                .then(response => {
-                    this.clients = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+
   },
   computed:{
-    randomNumber: function () {
-     let authorization_code = Math.floor(Math.random()*(this.max-this.min+1)+this.min);
-     return  authorization_code
-    }
+    //
   },
   methods:{
-
-    clearIt(){
-
-      this.claim.client_name =""
-      this.claim.cost = ""
-      this.claim.treatment = ""
-      this.claim.seen_date = ""
-      this.claim.agency_id = ""
-      this.claim.diagnosis = ""
+    selected(value){
+      this.transfer.new_health_facility = value.id
     },
 
-getClaims(){
-  this.user = JSON.parse(localStorage.getItem('user'))
-  this.axios.get(`/api/v1/auth/claminByProvider${this.user.id}`)
-              .then(response => {
-                  this.claims = response.data.data
-                  console.log(response)
-              })
-              .catch(error => {
-                  console.error(error);
-              })
-},
+    clearIt(){
+      this.transfer.reason_for_change =""
+      this.transfer.new_health_facility = ""
+      this.transfer.previous_health_facility = ""
+      this.transfer.status = ""
+      this.transfer.prepared_by = ""
+
+    },
+
+    searchIDCard(){
+      this.loading = true
+      this.axios.post(`/api/v1/auth/getuserbyIdcard`,{
+            id_card_number: this.searchkey,
+      })
+            .then(response => {
+                this.search_result = response.data.data
+                 // this.enrollee_details = response.data.data
+                 //Get Enrollee Details
+                 this.axios.get(`/api/v1/auth/user/zam/${this.search_result.id}`)
+                             .then(response => {
+                                 this.enrollee_details = response.data
+                                 console.log(response)
+                             })
+                             .catch(error => {
+                                 console.error(error);
+                             })
+                 //End of Enrollee Details
+                console.log(response)
+                  // this.$router.push(`/client/${user.id}`)
+                  this.$toasted.info('Searched Successfully', {position: 'top-center', duration:3000 })
+
+                this.loading = false
+
+            })
+            .catch(error => {
+                console.error(error);
+                this.loading = false
+                this.$toasted.info('User not Found', {position: 'top-center', duration:3000 })
+            })
+    },
 
   getClient(){
     this.axios.get(`/api/v1/auth/user/${this.claim.client_id}`)
@@ -222,33 +223,26 @@ getProviders(){
                   console.error(error);
               })
 },
-makeClaim(){
-
+makeRequest(){
         this.user = JSON.parse(localStorage.getItem('user'))
-        // this.$router.push('/service-processing-form')
-
         if (this.edit === false) {
         // Add claim
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/addClaim',{
-
-          provider_id: this.user.id,
-          user_id: this.user.id,
-          agency_id: this.claim.agency_id,
-          client_name: this.claim.client_name,
-          seen_date: this.claim.seen_date,
-          diagnosis: this.claim.diagnosis,
-          treatment: this.claim.treatment,
-          cost: this.claim.cost,
+        this.axios.post('/api/v1/auth/change_providers',{
+          client_id: this.search_result.id,
+          prepared_by: this.user.id,
+          agency_id: 95930,
+          new_health_facility: this.transfer.new_health_facility,
+          previous_health_facility: this.search_result.provider_id,
+          status: 'created',
+          reason_for_change: this.transfer.reason_for_change,
         })
 
         .then(response=>{
             console.log(response);
             this.clearIt();
-            this.getClaims();
             this.isLoading = false;
-            this.$breadstick.notify("Claim added Successfuly!", {position: "top-right"});
-
+            this.$toasted.info('Request submitted Successfully', {position: 'top-center', duration:3000 })
 
         })
         .catch(error=>{

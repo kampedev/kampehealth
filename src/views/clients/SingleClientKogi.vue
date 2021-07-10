@@ -464,6 +464,7 @@ this.isLoading = true;
     },
 
     savePic(){
+      this.isLoading = true
       this.axios.post(`/api/v1/auth/uploadcustomerpicImage`,
        {
           user_image: this.imagefile,
@@ -472,11 +473,15 @@ this.isLoading = true;
         })
             .then(response => {
             console.log(response)
-            this.$breadstick.notify("Profile Image changed Successfully!", {position: "top-right"});
+            this.$toasted.success('uploaded Successfully', {position: 'top-center', duration:3000 })
             this.fetchUser()
+            this.isLoading = false
+
         })
         .catch(error => {
             console.error(error);
+            this.isLoading = false
+
         })
     },
 

@@ -88,13 +88,17 @@
                                                          </div>
 
                                                          <div class="form-row">
-                                                           <div class="form-group col-md-6">
+                                                           <div class="form-group col-md-4">
                                                              <p>  <label for="inputPassword4">Date of Birth: {{register.dob}}</label></p>
-                                                               <date-picker v-model="register.dob" valueType="format"></date-picker>
+                                                               <date-picker v-model="register.dob" valueType="format" required></date-picker>
                                                            </div>
-                                                           <div class="form-group col-md-6">
+                                                           <div class="form-group col-md-4" v-if="sector == 'formal'">
+                                                             <p>  <label for="inputPassword4">Date of First Appointment: {{register.date_of_entry}}</label></p>
+                                                               <date-picker v-model="register.date_of_entry" valueType="format" required></date-picker>
+                                                           </div>
+                                                           <div class="form-group col-md-4">
                                                              <p>  <label for="inputPassword4">Expiry Date: {{register.expiry_date}}</label></p>
-                                                               <date-picker v-model="register.expiry_date" valueType="format"></date-picker>
+                                                               <date-picker v-model="register.expiry_date" valueType="format" required></date-picker>
                                                            </div>
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputEmail4">Email</label>
@@ -115,25 +119,22 @@
 
                                                               <div class="form-group col-md-6" v-if="sector == 'formal'">
                                                                      <label for="inputCity">Select MDA</label>
-                                                                         <select class="form-control"  v-model="register.place_of_work" >
+                                                                         <select class="form-control"  v-model="register.place_of_work"  required>
                                                                           <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
                                                                       </select>
                                                                </div>
 
                                                               <div class="form-group col-md-6" v-if="sector == 'formal'">
                                                                   <label for="inputEmail4">Salary Number/Staff ID</label>
-                                                                  <input type="text" class="form-control" v-model="register.salary_number" placeholder="Computer Employment Number">
+                                                                  <input type="text" class="form-control" v-model="register.salary_number" placeholder="Staff ID" required>
                                                               </div>
 
                                                               <div class="form-group col-md-6" v-if="sector == 'formal'">
                                                                   <label for="inputEmail4">Grade Level/Step</label>
-                                                                  <input type="text" class="form-control" v-model="register.grade_level" placeholder="Grade Level/Step">
+                                                                  <input type="text" class="form-control" v-model="register.grade_level" placeholder="Grade Level/Step" required>
                                                               </div>
 
-                                                              <div class="form-group col-md-6" v-if="sector == 'formal'">
-                                                                <p>  <label for="inputPassword4">Date of First Appointment: {{register.date_of_entry}}</label></p>
-                                                                  <date-picker v-model="register.date_of_entry" valueType="format"></date-picker>
-                                                              </div>
+
 
                                                               <div class="form-group col-md-6">
                                                                 <label >Marital Status <span class="text-danger">*</span></label>

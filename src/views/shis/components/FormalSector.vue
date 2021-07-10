@@ -115,7 +115,7 @@
               <div class="col-md-12">
                 <div class="card m-b-30">
                   <div class="card-body">
-                    <MDA />
+                    <MDAData />
                   </div>
                 </div>
               </div>
@@ -142,7 +142,7 @@
 
 <script>
 // import LGaData from "./lgadata";
-// import MDA from "./mda";
+import MDAData from "./mda";
 // import InformalLga from "./informallga";
 // import BasicCategory from "./basicCategory";
 // import FilterUsers from "./FilterUsers";
@@ -154,8 +154,7 @@ export default {
   components: {
      // Navbar, ClientDataDashboard
     //  LGaData,
-       FilterUserProvider, FilterUserDate
-       // MDA
+       FilterUserProvider, FilterUserDate, MDAData
   },
 
   data(){

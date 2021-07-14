@@ -113,7 +113,7 @@
                                <thead>
                                <tr>
                                    <th>Name of TPA</th>
-                                   <!-- <th>E mail</th> -->
+                                   <th>E mail</th>
                                    <th>Phone Number</th>
                                    <!-- <th>Beneficiaries Enrolled</th> -->
                                    <th>Action</th>
@@ -128,14 +128,13 @@
                                    <!-- </router-link> -->
 
                                    </td>
-                                   <!-- <td>{{tpa.email}}</td> -->
+                                   <td>{{tpa.email}}</td>
                                    <td>{{tpa.phone_number}}</td>
-                                   <!-- <td> <strong>{{tpa.enrolledusers_count | numeral('0,0')}}</strong> Enrollees</td> -->
 
 
                                    <td>
-                                     <!-- <router-link :to="{ path: '/tpa/'+ tpa.id}"> -->
-                                     <router-link :to="{ path: '#'}">
+                                     <router-link :to="{ path: '/tpa/'+ tpa.id}">
+                                     <!-- <router-link :to="{ path: '#'}"> -->
                                        <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i></button>
                                      </router-link>
 

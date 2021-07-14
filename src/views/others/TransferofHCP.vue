@@ -12,34 +12,26 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3 class="h3">Transfer of Health Facility</h3>
+                       <h3 class="h4"> Transfer of Health Facility</h3>
 
                    </div>
 
                </div>
            </div>
        </div>
-       <section class="pull-up">
+       <section >
            <div class="container">
+             <button type="button" class="btn btn-primary" @click="show = !show" style="margin-bottom:20px;">
+               Make New Request <i class="fe fe-plus"></i></button>
 
-               <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+               <div class="row list" v-show="show">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
 
                            <div class="card-body">
 
                                 <div class="form-row">
-                                  <!-- <div class="form-group col-md-12">
-                                    <p>  <label for="inputPassword4">Date</label></p>
-                                       <date-picker v-model="claim.seen_date" valueType="format"></date-picker>
-                                  </div> -->
 
-                                     <!-- <div class="form-group col-md-6">
-                                         <label for="inputPassword4">Select Client</label>
-                                         <select class="form-control"  v-model="claim.client_id" @change="getClient(claim.client_id)">
-                                          <option v-for="client in clients" v-bind:key="client.id" :value="client.id">{{client.lastname}} {{client.firstname}}</option>
-                                      </select>
-                                     </div> -->
                                      <div class="form-group col-md-6">
                                        <label for="inputCity">Enrollee OHIS Number</label>
                                        <input type="text" class="form-control"  v-model="searchkey" @change="searchIDCard">
@@ -99,17 +91,97 @@
                    </div>
 
                </div>
+
+                <div class="row">
+
+                                 <div class="col-md-8">
+                                   <div class="card">
+                                     <div class="card card-header">
+                                       <p class="h4">{{transfers.total}} Transfer of Facility Requests <i class="mdi mdi-bank-transfer"></i></p>
+                                     </div>
+                                     <div class="card card-body">
+                                       <div class="table-responsive">
+                                           <table class="table align-td-middle table-card">
+                                               <thead>
+                                               <tr>
+                                                   <!-- <th>Date</th> -->
+                                                   <th>Patient Name</th>
+                                                   <th>Current facility</th>
+                                                   <th>Proposed (New) Facility</th>
+                                                   <th>Status</th>
+                                                   <th>Action</th>
+                                               </tr>
+                                               </thead>
+                                               <tbody>
+                                               <tr v-for="ref in transfers.data" v-bind:key="ref.id">
+
+                                                   <!-- <td> {{ref.created_at}} </td> -->
+
+                                                   <td>{{ref.client.firstname}} {{ref.client.lastname}}</td>
+                                                   <td>{{ref.oldfacility.agency_name}}</td>
+                                                   <td>{{ref.newfacility.agency_name}}</td>
+
+                                                   <td>
+                                                     <span v-if="ref.status == 'approved'">
+                                                       <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
+                                                      </span>
+                                                      <span v-if="ref.status == 'declined'">
+                                                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger">declined</button>
+                                                       </span>
+                                                      <span v-if="ref.status == 'created'">
+                                                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
+                                                      </span>
+
+                                                   </td>
+                                                   <td>
+                                                     <router-link :to="{ path: '/transfer/'+ ref.id}">
+                                                       <button type="button" name="button" class="btn btn-default"><i class="fe fe-eye"></i></button>
+                                                      </router-link>
+                                                      <button  class="btn btn-info" @click="quickView(ref)"><i class="mdi mdi-eye-check"></i></button>
+
+                                                   </td>
+                                               </tr>
+
+                                               </tbody>
+                                           </table>
+                                       </div>
+                                     </div>
+                                   </div>
+                                 </div>
+                                <div class="col-md-4" v-if="quickref != ''">
+                                    <div class="card">
+                                      <div class="card card-header">
+                                        <div class="card card-body">
+                                            <!-- <p class="h4">Request Details</p> -->
+                                            <p class="h5"> <strong>Reason for Referral:</strong> </p>
+
+                                              <p>{{quickref.reason_for_change}}</p>
+                                              <hr>
+                                              <button class="btn btn-info spacer" v-if="quickref.status != 'approved'"
+                                                @click="updateRequestA">
+                                                approve <i class="fe fe-check-square"></i>
+                                              </button>
+
+                                              <button class="btn btn-danger spacer"   v-if="quickref.status != 'approved'"
+                                              @click="updateRequestR">decline <i class="fe fe-x-circle"></i> </button>
+
+                                              <p class="text-right">{{quickref.created_at}}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+
            </div>
 
-           <div class="vld-parent">
-                <loading :active.sync="isLoading"
-                loader="dots"
-                :can-cancel="true"
-                :is-full-page="fullPage"></loading>
-            </div>
-
-
        </section>
+
+       <div class="vld-parent">
+            <loading :active.sync="isLoading"
+            loader="dots"
+            :can-cancel="true"
+            :is-full-page="fullPage"></loading>
+        </div>
    </section>
 </template>
 
@@ -134,8 +206,11 @@ export default {
       search_result:"",
       enrollee_details:"",
       searchkey:"",
+      transfers:"",
+      quickref:"",
       edit:false,
       isLoading: false,
+      show: false,
       fullPage: true,
       transfer:{
         reason_for_change:"",
@@ -157,7 +232,7 @@ export default {
   },
   methods:{
     selected(value){
-      this.transfer.new_health_facility = value.id
+      this.transfer.new_health_facility = value
     },
 
     clearIt(){
@@ -168,7 +243,59 @@ export default {
       this.transfer.prepared_by = ""
 
     },
+    quickView(ref) {
+      this.isLoading = true;
+      this.axios.get(`/api/v1/auth/change_providers/${ref.id}`)
+        .then(response => {
+          console.log(response);
+          this.quickref = response.data
+          this.isLoading = false;
 
+        })
+        .catch(error => {
+          console.log(error.response)
+          this.isLoading = false;
+
+        })
+    },
+    updateRequestA(){
+      if (confirm('Are you sure you want to approve this request')) {
+        this.isLoading = true;
+        this.axios.post(`/api/v1/auth/change_providers/update/${this.quickref.id}`,{
+            status: 'approved'
+        })
+          .then(response => {
+            console.log(response);
+            this.getTransfer()
+            this.isLoading = false;
+
+          })
+          .catch(error => {
+            console.log(error.response)
+            this.isLoading = false;
+
+          })
+      }
+    },
+    updateRequestR(){
+      if (confirm('Are you sure you want to reject?')) {
+        this.isLoading = true;
+        this.axios.post(`/api/v1/auth/change_providers/update/${this.quickref.id}`,{
+            status: 'declined'
+        })
+          .then(response => {
+            console.log(response);
+            this.getTransfer()
+            this.isLoading = false;
+
+          })
+          .catch(error => {
+            console.log(error.response)
+            this.isLoading = false;
+
+          })
+      }
+    },
     searchIDCard(){
       this.loading = true
       this.axios.post(`/api/v1/auth/getuserbyIdcard`,{
@@ -214,9 +341,20 @@ export default {
 
 getProviders(){
   this.user = JSON.parse(localStorage.getItem('user'))
-  this.axios.get(`/api/v1/auth/providerAgency/${this.user.id}`)
+  this.axios.get(`/api/v1/auth/providerAgency/95930`)
               .then(response => {
                   this.providers = response.data.data
+                  console.log(response)
+              })
+              .catch(error => {
+                  console.error(error);
+              })
+},
+AllTransfers(){
+  this.user = JSON.parse(localStorage.getItem('user'))
+  this.axios.get(`/api/v1/auth/all/change_providers/95930`)
+              .then(response => {
+                  this.transfers = response.data
                   console.log(response)
               })
               .catch(error => {
@@ -232,7 +370,7 @@ makeRequest(){
           client_id: this.search_result.id,
           prepared_by: this.user.id,
           agency_id: 95930,
-          new_health_facility: this.transfer.new_health_facility,
+          new_health_facility: this.transfer.new_health_facility.id,
           previous_health_facility: this.search_result.provider_id,
           status: 'created',
           reason_for_change: this.transfer.reason_for_change,
@@ -240,6 +378,7 @@ makeRequest(){
 
         .then(response=>{
             console.log(response);
+            this.AllTransfers()
             this.clearIt();
             this.isLoading = false;
             this.$toasted.info('Request submitted Successfully', {position: 'top-center', duration:3000 })
@@ -283,6 +422,7 @@ makeRequest(){
 
   },
   created(){
+    this.AllTransfers()
     this.getProviders()
   }
 

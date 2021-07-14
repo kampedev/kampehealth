@@ -44,30 +44,24 @@
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <!-- <th>Avatar</th> -->
                                          <th>Name</th>
-                                         <th>E mail</th>
+                                         <th>OHIS Number</th>
                                          <th>Phone Number</th>
-                                         <th>State</th>
+                                         <th>Plan</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
                                      <tbody>
                                      <tr v-for="client in clients" v-bind:key="client.id">
-                                         <!-- <td>
-                                             <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                                 class="avatar-img avatar-sm rounded-circle"
-                                                                                 alt=""></div>
-                                         </td> -->
+
                                          <td >{{client.firstname}} {{client.lastname}}</td>
-                                         <td>{{client.email}}</td>
+                                         <td>{{client.id_card_number}}</td>
                                          <td>{{client.phone_number}}</td>
-                                         <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
-                                         <td>{{client.state}}</td>
+                                         <td>{{client.sector}}</td>
                                          <td>
 
-                                           <router-link :to="{ path: '/client/'+ client.id}">
-                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                           <router-link :to="{ path: '/patient/'+ client.id}">
+                                             <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i></button>
                                             </router-link>
 
                                          </td>
@@ -119,20 +113,7 @@ export default {
       fullPage: true,
       states:"",
       clients:"",
-      state:"",
-      lga_states:"",
-      register:{
-                firstname:"",
-                lastname:"",
-                email:"",
-                phone_number:"",
-                type:"client",
-                username:"",
-                state:"",
-                lga:"",
-                ward:"",
-                address:"",
-            }
+
     }
   },
   beforeMount(){
@@ -141,67 +122,20 @@ export default {
   methods:{
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.id}`)
                   .then(response => {
-                      this.clients = response.data.data
+                      this.clients = response.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
                   })
     },
-    getStates(){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states`)
-                  .then(response => {
-                      this.states = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    fetchLga(state){
-      this.axios.get(`http://locationsng-api.herokuapp.com/api/v1/states/${state}/details`)
-                  .then(response => {
-                      this.lga_states = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    registerUser(){
-        this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
-          firstname: this.register.firstname,
-          lastname: this.register.lastname,
-          email: this.register.email,
-          phone_number: this.register.phone_number,
-          type: this.register.type,
-          username: this.register.username,
-          state: this.state,
-          role: 0,
-          lga: this.register.lga,
-          ward: this.register.ward,
-        })
-        .then(response=>{
 
-            console.log(response);
-            this.isLoading = false;
-            this.$breadstick.notify("Client added successfully", {position: "top-right"});
 
-        })
-        .catch(error=>{
-            console.log(error.response)
-            this.isLoading = false;
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
-
-        })
-    }
 
   },
   created(){
-    this.getStates()
     this.getClients()
   }
 

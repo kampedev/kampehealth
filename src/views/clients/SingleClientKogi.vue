@@ -57,6 +57,7 @@
                                         </router-link> -->
 
                                         <button class="btn btn-primary spacer"  @click="printMe"><i class="fe fe-printer"></i></button>
+                                        <button class="btn btn-danger spacer"  @click="deleteUser"><i class="fe fe-delete"></i></button>
                                         <!-- <button class="btn btn-primary spacer"  @click="changeNumber">Change ID Card Number </button> -->
 
                                         <!-- <router-link :to="{ path: '/client/capture-signature/'+client.id, params: {} }">
@@ -483,6 +484,20 @@ this.isLoading = true;
             this.isLoading = false
 
         })
+    },
+    deleteUser(){
+      if (confirm('Are you Sure you want to delete this user') ) {
+        this.axios.delete(`/api/v1/auth/deleteUser/${this.$route.params.id}`)
+                    .then(response => {
+                        console.log(response)
+                        // this.getClients()
+                        this.$breadstick.notify("Deleted Successfully!", {position: "top-right"});
+
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
     },
 
     fetchUser(){

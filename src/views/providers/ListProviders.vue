@@ -29,8 +29,14 @@
                            <div class="card-body">
                                  <div class="row">
                                      <button class="btn btn-primary" @click="show = !show" style="margin-right:10px;">Add Facility</button>
-                                     <button class="btn btn-info" @click="showsearch = !showsearch"
+                                     <button class="btn btn-info"
+                                     @click="showsearch = !showsearch" style="margin-right:10px;"
                                      >Search Facility</button>
+
+                                     <download-excel :data="providers" :fields="json_fields" class="btn btn-success"
+                                     header="Health Facilty Data for OHIS " :escapeCsv="false" name="Health Facilty Data for OHIS ">
+                                        Export to CSV <i class="fe fe-file-text"></i>
+                                   </download-excel>
 
 
                                  </div>
@@ -93,8 +99,8 @@
                          <div class="form-group  col-md-6 col-sm-12">
                              <label>Ward</label>
                              <select class="form-control"  v-model="register.ward">
-                                                                    <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
-                                                                 </select>
+                                <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                             </select>
                          </div>
 
                          <div class="form-group col-md-6 col-sm-12">
@@ -249,7 +255,7 @@ export default {
         'Contact First Name': "firstname",
         'Contact Last Name': "lastname",
         'Contact Number': 'phone_number',
-        'Email': 'email',
+        'Email': 'email'
         // ' Recipient Merchant': 'receiver.merchant_name',
         // 'Pay Point': 'point.pay_point_name',
         // 'Payment Date': 'created_at',

@@ -219,7 +219,7 @@ export default {
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/providerAgency/90`)
+      this.axios.get(`/api/v1/auth/providerAgency/95930`)
                   .then(response => {
                       this.providers = response.data.data
                       console.log(response)
@@ -231,7 +231,7 @@ export default {
     getEmployees(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/getEmployee/90`)
+      this.axios.get(`/api/v1/auth/getEmployee/95930`)
                   .then(response => {
                       this.employees = response.data.data
                       console.log(response)
@@ -242,7 +242,7 @@ export default {
     },
     getClaims(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getClaims/90`)
+      this.axios.get(`/api/v1/auth/getClaims/95930`)
                   .then(response => {
                       this.claims = response.data.data
                       console.log(response)
@@ -265,7 +265,7 @@ export default {
       }
     },
     fetchLga(){
-      this.axios.get(`/api/v1/auth/lga/2669`)
+      this.axios.get(`/api/v1/auth/lga/2676`)
                   .then(response => {
                       this.optionso.xaxis.categories = response.data.data
                       console.log(response)
@@ -276,7 +276,7 @@ export default {
     },
 
     getClients(){
-      this.axios.get(`/api/v1/auth/getAgencyToUser/90`)
+      this.axios.get(`/api/v1/auth/getAgencyToUser/95930`)
                   .then(response => {
                       this.clients = response.data.data
                       this.total_clients = response.data.meta.total

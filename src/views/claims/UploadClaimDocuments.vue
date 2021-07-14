@@ -28,22 +28,27 @@
                            <table class="table align-td-middle table-card">
                                <thead>
                                <tr>
-                                   <th>Document</th>
+                                   <th>Number</th>
+                                   <th>Name</th>
+                                   <th>Uploaded By</th>
                                    <th>Date Uploaded</th>
                                    <th>Action</th>
 
                                </tr>
                                </thead>
                                <tbody>
-                               <tr v-for="doc in singleclaim.docs" v-bind:key="doc.id">
+                               <tr v-for="(doc, index) in singleclaim.docs" v-bind:key="doc.id">
 
-
-                                   <td>{{doc.document}}</td>
+                                   <td>{{index+1}}</td>
+                                   <td>{{doc.name}}</td>
+                                   <td>{{doc.user.firstname}} {{doc.user.lastname}}</td>
                                    <td>{{doc.created_at}}</td>
                                    <td>
                                      <a :href="'https://api.hayokinsurance.com/documents/'+ doc.document"  target="_blank">
-                                       <button class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                       <button class="btn btn-default" name="button"><i class="fe fe-eye"></i> </button>
                                      </a>
+                                     <button class="btn btn-danger" name="button" @click="deleteDoc(doc)"><i class="fe fe-delete"></i> </button>
+
                                    </td>
 
                                </tr>
@@ -58,8 +63,16 @@
                        <div class="card m-b-30">
 
                            <div class="card-body">
+                          <form  @submit.prevent="singleClaim" >
 
-                             <div class="row ">
+                             <div class="row">
+
+                               <div class="form-group col-md-12">
+                                   <label for="inputEmail4">Name of Document <span class="text-danger">*</span></label>
+                                   <input type="text" class="form-control" v-model="doc_name" placeholder="e.g Receipt for drugs, x-ray scan, letter of acceptance, etc">
+                               </div>
+
+
                                <div class="fileinput fileinput-new" data-provides="fileinput" >
                                  <span class="btn btn-secondary  btn-lg btn-file">
                                    <span class="fileinput-new"><i class="fe fe-upload"></i> Upload Document</span>
@@ -70,9 +83,9 @@
                                  <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                               </div>
 
-                              <button class="btn btn-primary btn-lg" @click="singleClaim()" style="margin-left:25px;">Proceed to Claim</button>
-
+                              <button class="btn btn-primary " style="margin-left:25px;">Proceed to Claim</button>
                              </div>
+                           </form>
 
 
                            </div>
@@ -114,9 +127,8 @@ export default {
     return{
       editor: ClassicEditor,
       user:null,
-      services:"",
       singleclaim:"",
-      drugs:"",
+      doc_name:"",
       quantity:"",
       cost:"",
       singleservice:"",
@@ -135,14 +147,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/services`)
-                .then(response => {
-                    this.services = response.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+
   },
 
   methods:{
@@ -150,18 +155,28 @@ export default {
       this.$router.push(`/claim/${this.$route.params.id}`)
 
     },
+    deleteDoc(doc){
+      if (confirm('Are you want you want to delete permanently?')) {
+        this.axios.delete(`/api/v1/auth/deleteClaimDocument/${doc.id}`)
+                    .then(response => {
+                        console.log(response)
+                        this.getSingleClaim()
+                        this.$toasted.info('Deleted Successfully', {position: 'top-center', duration:3000 })
 
-
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
+    },
     clearIt(){
-      this.addservice.services_id =""
-      this.addservice.drugs_id = ""
-      this.quantity = ""
-      this.calcCost = ""
+      this.doc_name = ""
     },
     getSingleClaim(){
       this.axios.get(`/api/v1/auth/detailedClaim/${this.$route.params.id}`)
                   .then(response => {
                       this.singleclaim = response.data
+
                       console.log(response)
                   })
                   .catch(error => {
@@ -182,6 +197,7 @@ export default {
          var formData = new FormData();
          formData.append("claim_document", this.image)
          formData.append("claim_id", this.$route.params.id)
+         formData.append("doc_name", this.doc_name)
          this.axios.post("/api/v1/auth/uploadClaimDocument", formData, {
            headers: {
              'Content-Type': 'multipart/form-data'
@@ -190,8 +206,8 @@ export default {
          .then(response => {
            console.log(response);
               this.isLoading = false;
-              this.$toasted.info('Added Successfully', {position: 'top-center', duration:3000 })
-
+              this.$toasted.info('uploaded Successfully', {position: 'top-center', duration:3000 })
+              this.clearIt()
               this.getSingleClaim()
 
          })

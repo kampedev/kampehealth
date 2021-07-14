@@ -34,7 +34,7 @@
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <!-- <th>Picture</th> -->
+                                         <th>Picture</th>
                                          <th>Name</th>
                                          <th>E mail</th>
                                          <th>Phone Number</th>
@@ -44,12 +44,12 @@
                                      </thead>
                                      <tbody>
                                      <tr v-for="employee in employees.data" v-bind:key="employee.id">
-                                       <!-- <td>
+                                       <td>
                                            <div class="avatar avatar-sm " v-if="employee.user_image != null ">
                                              <img :src="`https://api.hayokinsurance.com/image/${employee.user_image}`"
                                               class="avatar-img avatar-sm rounded-circle"
                                                     alt=""></div>
-                                       </td> -->
+                                       </td>
                                          <td >   {{employee.firstname}} {{employee.lastname}}
 
                                          </td>

@@ -12,111 +12,113 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3> {{employees.length}} Employees</h3>
+                       <p class="h3"> {{employees.length}} Employees</p>
 
                    </div>
 
                </div>
            </div>
        </div>
-       <section class="pull-up">
-           <div class="container">
+
+       <section class="">
+         <div class="container">
+
+                  <div class="row list">
+                      <div class=" col-md-12">
+                          <div class="card m-b-30">
+
+                              <div class="card-body">
+                                 <button type="button" class="btn btn-primary" @click="showadder = !showadder">Add Personnel</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+         </div>
+       </section>
+
+       <section class="" >
+           <div class="container" >
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-12" v-show="showadder">
                        <div class="card m-b-30">
                            <div class="card-header">
 
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
+                             <h3 class="p-t-10 searchBy-name">Add Employee</h3>
                            </div>
 
                            <div class="card-body">
                                <div class="text-center">
 
-                                   <h3 class="p-t-10 searchBy-name">Add Employee</h3>
                                </div>
 
-                                                        <div class="form-row">
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputEmail4">First Name</label>
-                                                                 <input type="text" class="form-control" v-model="register.firstname" placeholder="First Name">
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputPassword4">Last Name</label>
-                                                                 <input type="text" class="form-control" v-model="register.lastname"  placeholder="Last Name">
-                                                             </div>
-                                                         </div>
-                                                         <div class="form-row">
-                                                              <div class="form-group col-md-6">
-                                                                  <label for="inputEmail4">Email</label>
-                                                                  <input type="email" class="form-control" v-model="register.email" placeholder="Email">
-                                                              </div>
+                                      <div class="form-row">
+                                           <div class="form-group col-md-6">
+                                               <label for="inputEmail4">First Name</label>
+                                               <input type="text" class="form-control" v-model="register.firstname" placeholder="First Name">
+                                           </div>
+                                           <div class="form-group col-md-6">
+                                               <label for="inputPassword4">Last Name</label>
+                                               <input type="text" class="form-control" v-model="register.lastname"  placeholder="Last Name">
+                                           </div>
+                                       </div>
+                                       <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputEmail4">Email</label>
+                                                <input type="email" class="form-control" v-model="register.email" placeholder="Email">
+                                            </div>
 
-                                                              <div class="form-group col-md-6">
-                                                                  <label for="inputPassword4">Phone Number</label>
-                                                                  <input type="text" class="form-control" v-model="register.phone_number" placeholder="Phone Number" >
-                                                              </div>
-                                                          </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputPassword4">Phone Number</label>
+                                                <input type="text" class="form-control" v-model="register.phone_number" placeholder="Phone Number" >
+                                            </div>
+                                        </div>
 
-                                                          <div class="row">
+                                        <div class="row">
 
-                                                            <div class="form-group col-md-6">
-                                                              <label for="inputCity">LGA</label>
-                                                                <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
-                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
-                                                               </select>
-                                                            </div>
+                                          <div class="form-group col-md-6">
+                                            <label for="inputCity">LGA</label>
+                                              <select class="form-control"  v-model="register.localgovt" @change="fetchWards($event)">
+                                                <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
+                                             </select>
+                                          </div>
 
-                                                            <div class="form-group col-md-6">
-                                                              <label >Ward</label>
-                                                              <select class="form-control"  v-model="register.ward" @change="getProvidersByWards($event)">
-                                                                  <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
-                                                               </select>
-                                                            </div>
+                                          <div class="form-group col-md-6">
+                                            <label >Ward</label>
+                                            <select class="form-control"  v-model="register.ward" @change="getProvidersByWards($event)">
+                                                <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
+                                             </select>
+                                          </div>
 
-                                                            <div class="form-group col-md-6">
-                                                              <label for="inputCity">LGA</label>
-                                                                <select class="form-control"  v-model="register.localgovt">
-                                                                  <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.local_name">{{lga.local_name}}</option>
-                                                               </select>
-                                                            </div>
-                                                          </div>
+                                        </div>
 
-                                                          <div class="form-row">
-                                                              <div class="form-group col-md-6">
-                                                                  <label for="inputCity">Job Title</label>
-                                                                  <select class="form-control"  v-model="register.job_title">
-                                                                   <option  value="desk">Desk Officer</option>
-                                                                   <option  value="m_and_e">Monitoring and Evaluation Officer</option>
-                                                                   <option  value="qao">Quality Assurance Officer</option>
-                                                                   <option  value="doctor">Doctor</option>
-                                                                   <option  value="pharmacist">Pharmacist</option>
-                                                                   <option  value="nurse">Nurse</option>
-                                                                   <option  value="laboratorist">Laboratorist</option>
-                                                                   <option  value="receptionist">Receptionist</option>
-                                                                   <option  value="accountant">Accountant</option>
-                                                                   <option  value="extension_worker">Community health extension workers (CHEWs)</option>
-                                                               </select>
-                                                              </div>
-                                                          </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputCity">Job Title</label>
+                                                <select class="form-control"  v-model="register.job_title">
+                                                 <option  value="Desk">Desk Officer</option>
+                                                 <!-- <option  value="m_and_e">Monitoring and Evaluation Officer</option> -->
+                                                 <!-- <option  value="qao">Quality Assurance Officer</option> -->
+                                                 <option  value="Doctor">Doctor</option>
+                                                 <option  value="Pharmacist">Pharmacist</option>
+                                                 <option  value="Nurse">Nurse</option>
+                                                 <option  value="Laboratorist">Laboratorist</option>
+                                                 <!-- <option  value="receptionist">Receptionist</option> -->
+                                                 <option  value="Accountant">Accountant</option>
+                                                 <option  value="Extension Worker">Community health extension workers (CHEWs)</option>
+                                             </select>
+                                            </div>
+                                        </div>
 
-                                                         <div class="form-group">
-                                                             <button class="btn btn-primary" @click="registerUser">Submit</button>
-                                                         </div>
+                                       <div class="form-group">
+                                           <button class="btn btn-primary" @click="registerUser">Submit</button>
+                                       </div>
 
                            </div>
                        </div>
                    </div>
 
-
-
-
-                   <div class="vld-parent">
-                        <loading :active.sync="isLoading"
-                        loader="dots"
-                        :can-cancel="true"
-                        :is-full-page="fullPage"></loading>
-                    </div>
                </div>
 
                <div class="row list">
@@ -125,7 +127,7 @@
 
                            <div class="card-body">
 
-                              <h1>{{employees.length}} Clients</h1>
+                              <h1>{{employees.length}} Employee</h1>
 
                              <div class="table-responsive">
                                  <table class="table align-td-middle table-card">
@@ -135,7 +137,7 @@
                                          <th>Name</th>
                                          <th>E mail</th>
                                          <th>Phone Number</th>
-                                         <th>State</th>
+                                         <!-- <th>State</th> -->
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -145,12 +147,12 @@
                                          <td >{{employee.firstname}} {{employee.lastname}}</td>
                                          <td>{{employee.email}}</td>
                                          <td>{{employee.phone_number}}</td>
-                                         <td>{{employee.state}}</td>
+                                         <!-- <td>{{employee.state}}</td> -->
                                          <td>
 
-                                           <router-link :to="{ path: '/client/'+ employee.id}">
-                                             <button type="button" name="button" class="btn btn-info">view</button>
-                                            </router-link>
+                                           <!-- <router-link :to="{ path: '/client/'+ employee.id}"> -->
+                                             <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i></button>
+                                            <!-- </router-link> -->
 
                                          </td>
                                      </tr>
@@ -167,7 +169,12 @@
                    </div>
                </div>
 
-
+               <div class="vld-parent">
+                    <loading :active.sync="isLoading"
+                    loader="dots"
+                    :can-cancel="true"
+                    :is-full-page="fullPage"></loading>
+                </div>
 
            </div>
 
@@ -193,6 +200,7 @@ export default {
       isLoading: false,
       fullPage: true,
       states:"",
+      showadder:false,
       employees:"",
       state:"",
       lga_states:"",
@@ -202,7 +210,7 @@ export default {
                 lastname:"",
                 email:"",
                 phone_number:"",
-                type:"employee",
+                type:"provider_employee",
                 state:"",
                 username:"",
                 institutional_id:"",
@@ -300,10 +308,13 @@ export default {
       this.register.email = "";
       this.register.phone_number = "";
       this.register.job_title = "";
-    }
+    },
+
+
   },
   created(){
-    this.getStates()
+    this.fetchLga()
+    this.getEmployees()
   }
 
 }

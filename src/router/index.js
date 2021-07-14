@@ -24,6 +24,7 @@ import AddClientFormFormal from '../views/clients/AddClientFormFormal.vue'
 import EditProvider from '../views/providers/EditProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import SingleClient from '../views/clients/SingleClient.vue'
+import SinglePatient from '../views/clients/SinglePatient.vue'
 import SingleClientBiometrics from '../views/clients/SingleClientBiometrics.vue'
 import SingleClientCaptureSignature from '../views/clients/SingleClientCaptureSignature.vue'
 import SingleClientSelectSector from '../views/clients/SingleClientSelectSector.vue'
@@ -47,13 +48,17 @@ import Plans from '../views/plans/Plans.vue'
 import Funds from '../views/funds/Funds.vue'
 import StateDashboard from '../views/shis/StateDashboard.vue'
 import AllClaims from '../views/claims/AllClaims.vue'
+import Allreferrals from '../views/claims/Allreferrals.vue'
 import AddClaim from '../views/claims/AddClaim.vue'
 import UploadClaimDocuments from '../views/claims/UploadClaimDocuments.vue'
 import ProvidersClaims from '../views/claims/ProvidersClaims.vue'
 import SingleClaim from '../views/claims/SingleClaim.vue'
+import SingleReferral from '../views/claims/SingleReferral.vue'
+import EditClaim from '../views/claims/EditClaim.vue'
 import ServiceProcessing from '../views/claims/ServiceProcessing.vue'
 import AddReferral from '../views/claims/AddReferral.vue'
 import TransferofHCP from '../views/others/TransferofHCP.vue'
+import SingleTransferofHCP from '../views/others/SingleTransferofHCP.vue'
 import QualityAssurance from '../views/others/QualityAssurance.vue'
 import QualityAssuranceItemsHR from '../views/others/QualityAssuranceItemsHR.vue'
 import QualityAssuranceItemsMntIssues from '../views/others/QualityAssuranceItemsMntIssues.vue'
@@ -87,6 +92,7 @@ import WardManager from '../views/shis/WardManager.vue'
 import SingleLGA from '../views/shis/SingleLGA.vue'
 import SingleWard from '../views/shis/SingleWard.vue'
 import ListTPAs from '@/views/tpas/ListTPAs.vue'
+import SingleTPA from '@/views/tpas/SingleTPA.vue'
 import AddClientTPA from '@/views/tpas/AddClientTPA.vue'
 import ViewClientsTPA from '@/views/tpas/ViewClientsTPA.vue'
 import AddOfficers from '@/views/tpas/AddOfficers.vue'
@@ -250,6 +256,13 @@ const routes = [
   {
     path: '/client/:id',
     component: SingleClient,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/patient/:id',
+    component: SinglePatient,
     meta: {
         requiresAuth: true,
       },
@@ -451,6 +464,13 @@ const routes = [
     },
 },
   {
+  path: '/all-referrals',
+  component: Allreferrals,
+  meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/add-claim',
     component: AddClaim,
     meta: {
@@ -464,6 +484,20 @@ const routes = [
         requiresAuth: true,
       },
   },
+  {
+    path: '/referral/:id',
+    component: SingleReferral,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+  path: '/edit-claim/:id',
+  component: EditClaim,
+  meta: {
+      requiresAuth: true,
+    },
+},
   {
   path: '/upload-claims-docs/:id',
   component: UploadClaimDocuments,
@@ -488,6 +522,13 @@ const routes = [
   {
     path: '/transfer-of-hcp',
     component: TransferofHCP,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/transfer/:id',
+    component: SingleTransferofHCP,
     meta: {
         requiresAuth: true,
       },
@@ -521,14 +562,14 @@ const routes = [
       },
   },
   {
-    path: '/service-summary-form',
+    path: '/service-summary-form/:id',
     component: ServiceSummaryForm,
     meta: {
         requiresAuth: true,
       },
   },
   {
-    path: '/details-of-treatment',
+    path: '/details-of-treatment/:id',
     component: DetailsofTreatment,
     meta: {
         requiresAuth: true,
@@ -575,6 +616,13 @@ const routes = [
   meta: {
       requiresAuth: true,
     },
+},
+{
+path: '/tpa/:id',
+component: SingleTPA,
+meta: {
+    requiresAuth: true,
+  },
 },
 
 {

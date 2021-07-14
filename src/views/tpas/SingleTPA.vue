@@ -1,7 +1,7 @@
 <template>
   <section class="admin-content " id="contact-search">
     <Navbar/>
-    <div v-for="provider in singleprovider" v-bind:key="provider.id">
+    <div >
        <div class="bg-dark m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
@@ -11,7 +11,7 @@
                            <div class="avatar ">
                            </div>
                        </div>
-                       <h3 class="h5"> {{provider.agency_name}} </h3>
+                       <h3 class="h5"> {{tpa.organization_name}} </h3>
                    </div>
 
 
@@ -21,12 +21,10 @@
        <section class="pull-up">
            <div class="container">
 
-               <div class="row list">
+           <!--     <div class="row list">
                    <div class="col-lg-12 col-md-8">
                        <div class="card m-b-30">
-                           <div class="card-header">
 
-                           </div>
 
                            <div class="card-body">
 
@@ -40,7 +38,6 @@
                                <button class="btn btn-primary"  style="margin-left:10px;">Edit Facilty</button>
                              </router-link>
 
-
                              </div>
 
 
@@ -48,14 +45,14 @@
                            </div>
                        </div>
                    </div>
-               </div>
+               </div>   -->
 
                <div class="row">
                    <div class="col-lg-8 col-md-8">
 
                        <div class="card m-b-30">
                          <div class="card-header">
-                           <h4 class="h4"> Facility Enrollees</h4>
+                           <h4 class="h4 text-center"> Enrollees</h4>
 
                          </div>
 
@@ -66,25 +63,27 @@
                                      <tr>
                                          <th>Name</th>
                                          <th>Contact</th>
-                                         <th>Status</th>
+                                         <th>Plan</th>
+                                         <th>ID Number</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
                                      <tbody>
-                                     <tr v-for="enrollee in providerclients" v-bind:key="enrollee.id">
+                                     <tr v-for="enrollee in tpaclients.data" v-bind:key="enrollee.id">
 
                                          <td>
-                                           <router-link :to="{ path: '/provider-' + provider.id }">
-                                           {{enrollee.firstname}} {{enrollee.lastname}}
+                                           <router-link :to="{ path: '/client/' + enrollee.id }">
+                                           {{enrollee.firstname}} {{enrollee.lastname}} {{enrollee.middlename}}
                                          </router-link>
 
                                          </td>
                                          <td>{{enrollee.phone_number}}</td>
                                          <td>{{enrollee.sector}}</td>
+                                         <td>{{enrollee.id_card_number}}</td>
 
                                          <td>
                                            <router-link :to="{ path: '/client/'+ enrollee.id}">
-                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                             <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i> </button>
                                             </router-link>
                                          </td>
                                      </tr>
@@ -102,29 +101,25 @@
                        <div class="col-lg-4 col-md-4">
                            <div class="card m-b-30">
                              <div class="card-header">
-                               <strong class="h4">Facility Details</strong>
+                               <strong class="h4">HMO Details</strong>
                              </div>
 
                                <div class="card-body">
-                                 <p>
-                                   <span v-if="provider.status == true">
+                                 <!-- <p>
+                                   <span v-if="tpa.status == true">
                                      <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
                                      </span>
                                     <span v-if="provider.status == false">
                                     <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
                                   </span>
-                                 </p>
-                                 <p><strong>Beneficiaries Enrolled:</strong>  {{providerclients.length}}</p>
+                                 </p> -->
+                                 <p><strong>Total Beneficiaries:</strong>  {{tpaclients.meta.total}}</p>
                                  <br>
-                                 <p><strong>Contact Name:</strong>  {{provider.firstname}} {{provider.lastname}}</p>
+                                 <!-- <p><strong>Contact Name:</strong>  {{provider.firstname}} {{provider.lastname}}</p> -->
                                  <br>
-                                 <p><strong>E - Mail:</strong>  {{provider.email}}</p>
+                                 <p><strong>E - Mail:</strong>  {{tpa.email}}</p>
                                  <br>
-                                 <p><strong>Phone Number:</strong> {{provider.phone_number}}</p>
-                                 <br>
-                                 <p><strong>Facilty Type:</strong> {{provider.phc_general}}</p>
-                                 <br>
-                                 <p><strong>Website:</strong> {{provider.website}}</p>
+                                 <p><strong>Phone Number:</strong> {{tpa.phone_number}}</p>
                                  <br>
 
                                </div>
@@ -183,9 +178,8 @@ export default {
   data(){
     return{
       user:null,
-      singleprovider:"",
-      providerclients:"",
-      agencies:"",
+      tpa:"",
+      tpaclients:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -194,9 +188,9 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/detailedProviderHmo/${this.$route.params.id}`)
+    this.axios.get(`/api/v1/auth/orgenrollment/${this.$route.params.id}`)
                 .then(response => {
-                    this.singleprovider = response.data.data
+                    this.tpa = response.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -204,11 +198,11 @@ export default {
                 })
   },
   methods:{
-    getProvider(){
+    getTPA(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/detailedProviderHmo/${this.$route.params.id}`)
+      this.axios.get(`/api/v1/auth/orgenrollment/${this.$route.params.id}`)
                   .then(response => {
-                      this.singleprovider = response.data.data
+                      this.tpa = response.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -216,11 +210,11 @@ export default {
                   })
     },
 
-    getProviderClients(){
+    getTPAClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getProviderToUser/${this.$route.params.id}`)
+      this.axios.get(`/api/v1/auth/org_client/${this.$route.params.id}`)
                   .then(response => {
-                      this.providerclients = response.data
+                      this.tpaclients = response.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -290,8 +284,7 @@ export default {
 
   },
   created(){
-    this.getProvider()
-    this.getProviderClients()
+    this.getTPAClients()
   }
 
 }

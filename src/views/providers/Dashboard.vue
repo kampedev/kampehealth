@@ -10,36 +10,18 @@
 
             <div class="row">
                 <div class="col-12 m-b-20">
-                    <h5 class="spacer-top">{{auth_user.agency_name}}</h5>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <div class="pb-2">
-                              <router-link :to="{ path: '/my-funds'}">
-                                <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-database"></i>
-                                    </div>
-                                </div>
-                              </router-link>
-                            </div>
-                            <div>
-                                <p class="text-muted text-overline m-0">Revenue</p>
-                                <h1 class="fw-400">&#8358;1,500</h1>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="h4 spacer-top">{{auth_user.agency_name}}</p>
+
                 </div>
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
                               <router-link :to="{ path: '/view-clients-provider'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-users"></i>
+                                        <i class="mdi mdi-account-group"></i>
                                     </div>
                                 </div>
                               </router-link>
@@ -52,11 +34,11 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/add-agency'}">
+                              <router-link :to="{ path: '/all-claims'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-credit-card"></i>
@@ -65,8 +47,28 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Agencies</p>
-                                <h1 class="fw-400">{{agencies.length}}</h1>
+                                <p class="text-muted text-overline m-0">Claims</p>
+                                <h1 class="fw-400">{{claims.length}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/all-claims'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="mdi mdi-account-multiple"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">Employees</p>
+                                <h1 class="fw-400">{{employees.length}}</h1>
                             </div>
                         </div>
                     </div>
@@ -85,90 +87,12 @@
                     <div class="card m-b-30">
                       <div class="card-body">
 
-                        <zingchart :data="chartData" ></zingchart>
+                        <!-- <zingchart :data="chartData" ></zingchart> -->
 
-                          <!-- <div class="apexcharts-canvas" id="chart-06"></div> -->
                       </div>
                     </div>
                 </div>
 
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-users"></i>{{employees.length}}  Employees</h5>
-                    <div class="table-responsive">
-                        <table class="table align-td-middle table-card">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="employee in employees" v-bind:key="employee.id">
-                                <!-- <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td> -->
-                                <td>{{employee.firstname}} {{employee.lastname}}</td>
-                                <td>{{employee.email}}</td>
-                                <td>{{employee.phone_number}}</td>
-                                <td>{{employee.job_title}}</td>
-
-                            </tr>
-
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-                <div class="col-md-6 m-b-30">
-                    <h5> <i class="fe fe-alert-circle"></i> Agencies</h5>
-                    <div class="table-responsive">
-                        <table class="table align-td-middle table-card">
-                            <thead>
-                            <tr>
-                                <!-- <th>Avatar</th> -->
-                                <th>Name</th>
-                                <th>E mail</th>
-                                <th>Phone Number</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="agency in agencies" v-bind:key="agency.id">
-                                <!-- <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td> -->
-                                <td >{{agency.agency_name}}</td>
-                                <td>{{agency.email}}</td>
-                                <td>{{agency.phone_number}}</td>
-                                <td>
-                                  <span v-if="agency.status == 1">
-                                    <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
-                                    </span>
-                                   <span v-if="agency.status != 1">
-                                   <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
-                                  </span>
-
-                                </td>
-                            </tr>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
             </div>
 
             <div class="row">
@@ -178,28 +102,20 @@
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
-                                <th>Avatar</th>
                                 <th>Name</th>
-                                <th>E mail</th>
+                                <th>OHIS Number</th>
                                 <th>Phone Number</th>
+                                <th>Plan</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="client in clients" v-bind:key="client.id">
-                                <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td>
-                                <td>{{client.firstname}} {{client.lastname}}</td>
-                                <td>{{client.email}}</td>
+
+                                <td>{{client.firstname}} {{client.lastname}} {{client.middlename}}</td>
+                                <td>{{client.id_card_number}}</td>
                                 <td>{{client.phone_number}}</td>
+                                <td>{{client.sector}}</td>
                             </tr>
-
-
-
-
-
 
 
                             </tbody>
@@ -216,21 +132,15 @@
                                 <th>Patient</th>
                                 <th>Diagnosis</th>
                                 <th>Seen date</th>
-                                <th>Cost</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="claim in claims" v-bind:key="claim.id">
-                                <!-- <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td> -->
-                                <td>{{claim.client_name}}</td>
-                                <td>{{claim.diagnosis}}</td>
+
+                                <td>{{claim.patient.firstname}} {{claim.patient.lastname}}</td>
+                                <td>{{claim.diagnosis.name}}</td>
                                 <td>{{claim.seen_date}}</td>
-                                <td>{{claim.cost}}</td>
                                 <td>
                                   <span v-if="claim.status == 1">
                                     <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
@@ -272,22 +182,13 @@ export default {
       claims:"",
       clients:"",
       employees:"",
-      chartData: {
-                type: 'line',
-                title: {
-                    text: 'Total Patients',
-                },
-                series: [{
-                    values: [11,15,7,13,12,14]
-                }]
-            },
 
     }
   },
   beforeMount(){
     this.axios.get(`/api/v1/auth/user`)
                 .then(response => {
-                    this.auth_user = response.data.data
+                    this.auth_user = response.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -306,22 +207,12 @@ export default {
                       console.error(error);
                   })
     },
-    getHmo(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/hmoProvider/${this.user.id}`)
-                  .then(response => {
-                      this.agencies = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
+
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getSubscribedProvider/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.id}`)
                   .then(response => {
-                      this.clients = response.data.data
+                      this.clients = response.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -342,7 +233,6 @@ export default {
 
   },
   created(){
-    this.getHmo()
     this.getClaims()
     this.getClients()
     this.getEmployees()

@@ -95,36 +95,28 @@
                    </div>
 
                    <div class="col-md-12 m-b-30">
-                       <h5> <i class="fe fe-activity"></i> Claim Services/Drugs</h5>
+                       <h5> <i class="fe fe-activity"></i> Claim Services/Drugs <i class="fe fe-thermometer"></i></h5>
                        <div class="table-responsive">
                            <table class="table align-td-middle table-card">
                                <thead>
                                <tr>
+                                   <th>Number</th>
                                    <th>Name</th>
                                    <th>Cost</th>
 
                                </tr>
                                </thead>
                                <tbody>
-                               <tr v-for="service in singleclaim.services" v-bind:key="service.id">
+                               <tr v-for="(service, index) in singleclaim.services" v-bind:key="service.id">
 
-
-                                   <td>{{service.description}}</td>
-                                   <td>{{service.cost | numeral(0,0)}}</td>
+                                  <td>{{index+1}}</td>
                                    <td>
-                                     <!-- <button class="btn btn-info" name="button"><i class="fe fe-edit"></i> </button> -->
+                                     <span v-if="service.service != null ">{{service.service.description}}</span>
+                                      <span v-if="service.drugs_id != null ">{{service.drug.drug_name}}</span>
+                                    </td>
+                                   <td>&#8358;{{service.cost | numeral(0,0)}}</td>
+                                   <td>
                                      <button class="btn btn-danger" name="button" @click="deleteService(service)"><i class="fe fe-delete"></i> </button>
-                                   </td>
-
-                               </tr>
-                               <tr v-for="drug in singleclaim.drugs" v-bind:key="drug.id">
-
-
-                                   <td>{{drug.drug_name}}</td>
-                                   <td>{{drug.cost | numeral(0,0)}}</td>
-                                   <td>
-                                     <!-- <button class="btn btn-info" name="button"><i class="fe fe-edit"></i> </button> -->
-                                     <button class="btn btn-danger" name="button" @click="deleteDrug(drug)"><i class="fe fe-delete"></i> </button>
                                    </td>
 
                                </tr>
@@ -215,23 +207,18 @@ export default {
 
   },
   methods:{
-    deleteDrug(drug){
-      this.axios.delete(`/api/v1/auth/claim_service/${drug.id}`)
-                  .then(response => {
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
+  
     deleteService(service){
-      this.axios.delete(`/api/v1/auth/claim_service/${service.id}`)
-                  .then(response => {
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
+      if (confirm('Are you want you want to delete permanently?')) {
+        this.axios.delete(`/api/v1/auth/claim_service/${service.id}`)
+                    .then(response => {
+                        console.log(response)
+                        this.getSingleClaim()
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
     },
 
     handleData(){

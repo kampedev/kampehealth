@@ -8,14 +8,14 @@
    <section class="admin-content">
         <div class="container">
 
-            <div class="row">
+            <div class="row" style="margin-top:30px;">
                 <div class="col-12 m-b-20">
                     <h5 class="h5">{{orgDetails.organization_name}}</h5>
                 </div>
 
 
 
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -28,14 +28,14 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Enrolled Users</p>
-                                <h1 class="fw-400">{{clients.meta.total | numeral(0,0)}}</h1>
+                                <p class="text-muted text-overline m-0">Enrollees</p>
+                                <h1 class="fw-400" v-if="clients != ''">{{clients.meta.total | numeral(0,0)}}</h1>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -49,7 +49,27 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Enrollment Officers</p>
-                                <h1 class="fw-400">{{employees.meta.total}}</h1>
+                                <h1 class="fw-400" v-if="employees != ''">{{employees.meta.total}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/add-officers'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="mdi mdi-view-day"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">Claims</p>
+                                <h1 class="fw-400" v-if="employees != ''">{{employees.meta.total}}</h1>
                             </div>
                         </div>
                     </div>
@@ -59,7 +79,7 @@
 
             <div class="row">
               <div class="col-md-10 m-b-30">
-                  <h5 class="h5"> <i class="fe fe-alert-circle"></i>Enrollment Officers</h5>
+                  <h5 class="h5"> <i class="fe fe-users"></i>Employees</h5>
                   <div class="table-responsive">
                       <table class="table align-td-middle table-card">
                           <thead>

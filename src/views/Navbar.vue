@@ -27,6 +27,30 @@
                 </router-link>
             </li>
 
+            <li class="menu-item active " v-if="user.type == 'tpa'">
+              <router-link to="/tpa-dashboard" class=" menu-link">
+                      <span class="menu-label">
+                                              <span class="menu-name">Dashboard
+                                              </span>
+                                          </span>
+                  <span class="menu-icon">
+                                               <i class="icon-placeholder fe fe-home "></i>
+                                          </span>
+              </router-link>
+          </li>
+
+          <li class="menu-item active " v-if="user.type == 'tpa_employee'">
+            <router-link to="/tpa-employee-dashboard" class=" menu-link">
+                    <span class="menu-label">
+                                            <span class="menu-name">Dashboard
+                                            </span>
+                                        </span>
+                <span class="menu-icon">
+                                             <i class="icon-placeholder fe fe-home "></i>
+                                        </span>
+            </router-link>
+        </li>
+
             <li class="menu-item active " v-if="user.type == 'hmo'">
                 <router-link to="/hmo-dashboard" class=" menu-link">
                         <span class="menu-label">
@@ -76,6 +100,18 @@
                 </a>
             </li>
 
+            <li class="menu-item active " v-if="user.type == 'provider_employee'">
+                <a href="/provider-employee-dashboard" class=" menu-link">
+                        <span class="menu-label">
+                                                <span class="menu-name">Dashboard
+                                                </span>
+                                            </span>
+                    <span class="menu-icon">
+                                                 <i class="icon-placeholder fe fe-home "></i>
+                                            </span>
+                </a>
+            </li>
+
             <li class="menu-item" v-if="user.type == 'employee'">
                 <a href="/manage-clients" class=" menu-link">
                         <span class="menu-label">
@@ -88,7 +124,7 @@
                 </a>
             </li>
 
-            <li class="menu-item" v-if="user.type == 'employee'">
+            <li class="menu-item" v-if="user.type == 'employee' || user.type =='shis'">
                 <a href="/add-client-formal" class=" menu-link">
                         <span class="menu-label">
                                                 <span class="menu-name">Add Enrollee (Formal)
@@ -193,28 +229,8 @@
                 </ul>
             </li>
 
-            <li class="menu-item" v-if="user.type == 'tpa'">
-                <a href="/add-client/employee-offline" class=" menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">View Enrollees
-                                                </span>
-                                            </span>
-                    <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-cloud-off "></i>
-                                            </span>
-                </a>
-            </li>
-            <li class="menu-item" v-if="user.type == 'tpa'">
-                <a href="/add-client/employee-offline" class=" menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Add Agent
-                                                </span>
-                                            </span>
-                    <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-cloud-off "></i>
-                                            </span>
-                </a>
-            </li>
+
+
 
             <!-- <li class="menu-item "  v-if="user.type == 'shis' || user.role == 1">
                 <a href="#" class="open-dropdown menu-link">
@@ -320,7 +336,7 @@
                 <ul class="sub-menu">
 
                     <li class="menu-item">
-                        <router-link to="/add-client-provider" class=" menu-link">
+                        <router-link to="/#" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">Add Client
                                                 </span>
@@ -553,7 +569,7 @@
                 <ul class="sub-menu">
 
                     <li class="menu-item">
-                        <router-link to="/add-employee" class=" menu-link">
+                        <router-link :to="{ path: '/provider/add-employee/' + user.id }" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">Add Employee
                                                 </span>
@@ -565,7 +581,7 @@
                         </router-link>
                     </li>
 
-                    <li class="menu-item">
+                    <!-- <li class="menu-item">
                         <router-link to="/my-employees" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">My Employees
@@ -576,60 +592,16 @@
                                                     <i class="icon-placeholder mdi mdi-view-day "></i>
                                             </span>
                         </router-link>
-                    </li>
+                    </li> -->
 
                 </ul>
             </li>
 
-
-            <li class="menu-item "  v-if="user.type == 'provider'">
-                <a href="#" class="open-dropdown menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">Service Management
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-
-                                            </span>
-                    <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-clipboard "></i>
-                                            </span>
-                </a>
-                <!--submenu-->
-                <ul class="sub-menu">
-
-                    <li class="menu-item">
-                        <router-link to="/service-summary-form" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">Add Encounters/Service
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder fe fe-edit "></i>
-                                            </span>
-                        </router-link>
-                    </li>
-
-                    <li class="menu-item">
-                        <router-link to="/my-added-services" class=" menu-link">
-                                        <span class="menu-label">
-                                                <span class="menu-name">My Services
-                                                </span>
-                                            </span>
-                            <span class="menu-icon">
-
-                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
-                                            </span>
-                        </router-link>
-                    </li>
-
-                </ul>
-            </li>
 
             <li class="menu-item "  v-if="user.type == 'shis' || user.type == 'provider' || user.job_title == 'Claims'">
                 <a href="#" class="open-dropdown menu-link">
                         <span class="menu-label">
-                                                <span class="menu-name">Claims and Referrals Manager
+                                                <span class="menu-name">Claims <span v-if="user.type != 'tpa_employee' && user.type != 'tpa'">and Referrals</span> Manager
                                                     <span class="menu-arrow"></span>
                                                 </span>
 
@@ -668,10 +640,10 @@
                         </router-link>
                     </li>
 
-                    <li class="menu-item">
+                    <li class="menu-item" >
                         <router-link to="/add-referral" class=" menu-link">
                                         <span class="menu-label">
-                                                <span class="menu-name">Referrals Manager
+                                                <span class="menu-name">Add Referral
                                                 </span>
                                             </span>
                             <span class="menu-icon">
@@ -680,10 +652,21 @@
                                             </span>
                         </router-link>
                     </li>
+                    <li class="menu-item">
+                      <router-link to="/all-referrals" class=" menu-link">
+                                      <span class="menu-label">
+                                              <span class="menu-name">View Referrals
+                                              </span>
+                                          </span>
+                          <span class="menu-icon">
+
+                                                  <i class="icon-placeholder mdi mdi-view-day "></i>
+                                          </span>
+                      </router-link>
+                  </li>
 
                 </ul>
             </li>
-
 
                         <li class="menu-item "  v-if="user.type == 'shis' || user.user_role == 1">
                             <a href="#" class="open-dropdown menu-link">
@@ -772,15 +755,17 @@
                                 <li class="menu-item">
                                     <router-link to="/transfer-of-hcp" class=" menu-link">
                                                     <span class="menu-label">
-                                                            <span class="menu-name">Change of HCP Form
+                                                            <span class="menu-name">Change of HCP
                                                             </span>
                                                         </span>
                                         <span class="menu-icon">
 
-                                                                <i class="icon-placeholder  mdi mdi-view-day "></i>
+                                                                <i class="icon-placeholder  mdi mdi-bank-transfer "></i>
                                                         </span>
                                     </router-link>
                                 </li>
+
+
 
                                 <li class="menu-item">
                                     <router-link to="/ward-manager" class=" menu-link">
@@ -809,18 +794,7 @@
 
                             </ul>
                         </li>
-            <li class="menu-item  "  v-if="user.type == 'provider'">
-                <router-link to="/add-agency" class=" menu-link">
-                        <span class="menu-label">
-                                                <span class="menu-name">My Agencies
-                                                </span>
 
-                                            </span>
-                    <span class="menu-icon">
-                                                 <i class="icon-placeholder fe fe-briefcase "></i>
-                                            </span>
-                </router-link>
-            </li>
             <li class="menu-item  "  v-if="user.type == 'hmo'">
                 <router-link to="/my-providers" class=" menu-link">
                         <span class="menu-label">
@@ -844,6 +818,88 @@
                     </span>
                 </a>
             </li>
+            <li class="menu-item  "  v-if="user.type == 'shis' || user.user_role == 1">
+                <a href="/my-tpas" class=" menu-link">
+                        <span class="menu-label">
+                              <span class="menu-name">TPAs/ HMOs</span>
+                        </span>
+                    <span class="menu-icon">
+                      <i class="icon-placeholder fe fe-briefcase"></i>
+                    </span>
+                </a>
+            </li>
+
+
+            <li class="menu-item" v-if="user.type == 'tpa'">
+              <a href="/view-clients-tpa" class=" menu-link">
+                      <span class="menu-label">
+                                              <span class="menu-name">View Enrollees
+                                              </span>
+                                          </span>
+                  <span class="menu-icon">
+                                               <i class="icon-placeholder fe fe-users"></i>
+                                          </span>
+              </a>
+          </li>
+
+          <li class="menu-item" v-if="user.type == 'tpa_employee'">
+            <a href="/view-clients-tpa" class=" menu-link">
+                    <span class="menu-label">
+                                            <span class="menu-name">View Enrollees
+                                            </span>
+                                        </span>
+                <span class="menu-icon">
+                                             <i class="icon-placeholder fe fe-users"></i>
+                                        </span>
+            </a>
+        </li>
+
+          <li class="menu-item" v-if="user.type == 'tpa'">
+            <a href="/add-officers" class=" menu-link">
+                    <span class="menu-label">
+                                            <span class="menu-name">Add Agents
+                                            </span>
+                                        </span>
+                <span class="menu-icon">
+                                             <i class="icon-placeholder fe fe-briefcase"></i>
+                                        </span>
+            </a>
+        </li>
+
+        <li class="menu-item" v-if="user.type == 'tpa_employee'">
+          <a href="/add-client-tpa" class=" menu-link">
+                  <span class="menu-label">
+                                          <span class="menu-name">Add Enrollee
+                                          </span>
+                                      </span>
+              <span class="menu-icon">
+                                           <i class="icon-placeholder fe fe-edit"></i>
+                                      </span>
+          </a>
+      </li>
+      <li class="menu-item" v-if="user.type == 'tpa' || user.type == 'tpa_employee'">
+        <a href="/all-claims" class=" menu-link">
+                <span class="menu-label">
+                                        <span class="menu-name">Claims Management
+                                        </span>
+                                    </span>
+            <span class="menu-icon">
+                                         <i class="icon-placeholder mdi mdi-view-day"></i>
+                                    </span>
+        </a>
+    </li>
+
+    <li class="menu-item" v-if="user.type == 'tpa' || user.type == 'tpa_employee'">
+      <a href="/all-referrals" class=" menu-link">
+              <span class="menu-label">
+                                      <span class="menu-name">Referrals Management
+                                      </span>
+                                  </span>
+          <span class="menu-icon">
+                                       <i class="icon-placeholder fe fe-help-circle"></i>
+                                  </span>
+      </a>
+  </li>
 
             <li class="menu-item  "  v-if="user.type == 'shis' || user.role == 1">
               <a href="/mda-manager" class=" menu-link">
@@ -855,7 +911,8 @@
                   </span>
               </a>
           </li>
-          <li class="menu-item" >
+
+          <!-- <li class="menu-item" >
                 <a href="/my-complaints" class=" menu-link">
                             <span class="menu-label">
                                     <span class="menu-name">Complaints/Inquiry
@@ -865,7 +922,7 @@
                           <i class="icon-placeholder  fe fe-thumbs-down"></i>
                                 </span>
                 </a>
-              </li>
+              </li> -->
 
                             <li class="menu-item "  v-if="user.type == 'client'">
                                 <a href="#" class="open-dropdown menu-link">
@@ -955,7 +1012,7 @@
                             </ul>
                         </li>
 
-                        <li class="menu-item "  v-if="user.type == 'provider'">
+                        <li class="menu-item "  v-if="user.type == 'provider' || user.type == 'provider_employee'">
                             <a href="#" class="open-dropdown menu-link">
                                     <span class="menu-label">
                                                             <span class="menu-name">EHR

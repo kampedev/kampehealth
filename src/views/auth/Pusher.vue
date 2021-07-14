@@ -49,16 +49,23 @@ export default {
                        this.$router.push('/state-dashboard')
 
                      }
+                     if (type == 'tpa') {
+                      this.$router.push('/tpa-dashboard')
 
-                     if (job_title == 'doctor') {
+                    }
+                    if (type == 'tpa_employee') {
+                      this.$router.push('/tpa-employee-dashboard')
+
+                    }
+
+                     if (job_title == 'Doctor') {
                        this.$router.push('/doctor')
-
                      }
-                     if (job_title == 'nurse') {
+                     if (job_title == 'Nurse') {
                        this.$router.push('/nurse')
 
                      }
-                     if (job_title == 'receptionist') {
+                     if (job_title == 'Desk') {
                        this.$router.push('/receptionist')
                      }
                      if (job_title == 'laboratorist') {

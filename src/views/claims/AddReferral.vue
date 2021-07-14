@@ -24,107 +24,90 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
 
                            <div class="card-body">
 
 
                                                         <div class="form-row">
-                                                          <div class="form-group col-md-12">
+                                                          <!-- <div class="form-group col-md-12">
                                                             <p>  <label for="inputPassword4">Date</label></p>
                                                                <date-picker v-model="claim.seen_date" valueType="format"></date-picker>
-                                                          </div>
+                                                          </div> -->
 
-                                                          <div class="form-group col-md-10">
-                                                              <label for="inputPassword4">Select Enrollee</label>
-                                                              <select class="form-control"  v-model="claim.agency_id">
-                                                               <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.agency_name}}</option>
-                                                           </select>
-                                                          </div>
                                                           <div class="form-group col-md-6">
+                                                            <label for="inputCity">Enrollee OHIS Number</label>
+                                                            <input type="text" class="form-control"  v-model="searchkey" @change="searchIDCard">
+                                                          </div>
+                                                          <!-- <div class="form-group col-md-6">
                                                               <label for="inputPassword4">Referring Facility</label>
                                                               <select class="form-control"  v-model="claim.agency_id">
                                                                <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.agency_name}}</option>
                                                            </select>
-                                                          </div>
+                                                          </div> -->
+
                                                           <div class="form-group col-md-6">
-                                                              <label for="inputPassword4">Recipient Facility</label>
-                                                              <select class="form-control"  v-model="claim.agency_id">
-                                                               <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.agency_name}}</option>
+                                                              <label >Provisional Diagnosis</label>
+                                                              <select class="form-control"  v-model="referral.provisional_diagnosis">
+                                                               <option v-for="dis in diseases" v-bind:key="dis.id" :value="dis.id">{{dis.name}}</option>
                                                            </select>
                                                           </div>
 
-                                                             <div class="form-group col-md-4">
-                                                               <label for="inputCity">Client Surname</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" value="My name" disabled>
+                                                             <div class="form-group col-md-6">
+                                                               <label for="inputCity">Investigations</label>
+                                                               <input type="text" class="form-control" id="inputEmail4" placeholder="Summary of investigations carried out"
+                                                               v-model="referral.investigations">
                                                              </div>
-                                                             <div class="form-group col-md-4">
-                                                               <label for="inputCity">Client First Name</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" value="My First name" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-4">
-                                                               <label for="inputCity">Middle Name</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" value="My Number" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-4">
-                                                               <label for="inputCity">Age</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" value="My Number" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-4">
-                                                               <label for="inputCity">Sex</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" value="My Number" disabled>
-                                                             </div>
-                                                             <div class="form-group col-md-4">
-                                                               <label for="inputCity">Home Address</label>
-                                                               <input type="text" class="form-control" id="inputEmail4" value="My Number" disabled>
-                                                             </div>
+
+                                                          <div class="form-group col-md-6">
+                                                              <label >Recipient Facility</label>
+                                                              <select class="form-control"  v-model="referral.recipient_facility">
+                                                               <option v-for="agency in providers" v-bind:key="agency.id" :value="agency.id">{{agency.agency_name}}</option>
+                                                           </select>
+                                                          </div>
+
+
+                                                            <div class="row col-md-12" v-if="enrollee_details != ''">
+                                                              <div class="form-group col-md-6">
+                                                                <label for="inputCity">Client Surname</label>
+                                                                <input type="text" class="form-control" :value="enrollee_details.user.firstname" disabled>
+                                                              </div>
+                                                              <div class="form-group col-md-6">
+                                                                <label for="inputCity">Client First Name</label>
+                                                                <input type="text" class="form-control" :value="enrollee_details.user.lastname" disabled>
+                                                              </div>
+
+                                                              <div class="form-group col-md-6">
+                                                                <label for="inputCity">Sex</label>
+                                                                <input type="text" class="form-control" id="inputEmail4" :value="enrollee_details.user.gender" disabled>
+                                                              </div>
+                                                              <div class="form-group col-md-6">
+                                                                <label for="inputCity">Phone Number</label>
+                                                                <input type="text" class="form-control" id="inputEmail4" :value="enrollee_details.user.phone_number" disabled>
+                                                              </div>
+                                                            </div>
 
                                                          </div>
 
                                                          <div class="form-row">
-                                                           <div class="form-group col-md-12">
+                                                           <!-- <div class="form-group col-md-12">
                                                              <label for="inputCity">Authorization Code </label>
                                                              <input type="text" class="form-control" id="inputEmail4" :value="randomNumber" disabled>
-                                                           </div>
-                                                           <div class="form-group col-md-8">
+                                                           </div> -->
+                                                           <div class="form-group col-md-10">
                                                              <label for="inputCity">Clinical Findings/Treatment Given</label>
-                                                             <textarea name="name" rows="8" cols="80" class="form-control" v-model="claim.treatment"></textarea>
+                                                             <textarea name="name" rows="8" cols="80" class="form-control"
+                                                              v-model="referral.treatment_given"></textarea>
                                                            </div>
-                                                         </div>
-
-                                                         <div class="row col-md-12">
-
-                                                           <div class="form-group col-md-8">
-                                                             <label for="inputCity">Diagnosis</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Diagnosis" v-model="claim.diagnosis">
-                                                           </div>
-
-
-
-
-
-                                                           <div class="form-group col-md-8">
-                                                             <label for="inputCity">Investigations</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Diagnosis" v-model="claim.diagnosis">
-                                                           </div>
-
-
-
-                                                           <div class="form-group col-md-8">
+                                                           <div class="form-group col-md-10">
                                                              <label for="inputCity">Reason for Referral</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Diagnosis" v-model="claim.diagnosis">
+                                                             <textarea name="name" rows="8" cols="80" class="form-control" v-model="referral.reason"></textarea>
                                                            </div>
-
-                                                           <div class="form-group col-md-8">
-                                                             <label for="inputCity">Name of Referring Personnel</label>
-                                                             <input type="text" class="form-control" id="inputEmail4" placeholder="Diagnosis" v-model="claim.diagnosis">
-                                                           </div>
-
                                                          </div>
 
                                                          <div class="form-group">
-                                                             <button class="btn btn-primary" @click="makeClaim">Submit</button>
+                                                             <button class="btn btn-primary" @click="AddReferral">Submit</button>
                                                          </div>
 
                            </div>
@@ -154,33 +137,35 @@
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
-     // Init plugin
-     import DatePicker from 'vue2-datepicker';
 
 
 export default {
   components: {
-     Navbar, Loading, DatePicker
+     Navbar, Loading
   },
   data(){
     return{
       editor: ClassicEditor,
       user:null,
-      agencies:"",
+      searchkey:"",
+      search_result:"",
+      enrollee_details:"",
       randomvalue:"",
-      claims:"",
+      providers:"",
+      diseases:"",
       min:100000000000000000,
       max:1000000000000000000,
       edit:false,
       isLoading: false,
       fullPage: true,
-      claim:{
-        agency_id:"",
-        diagnosis:"",
-        treatment:"",
-        client_name:"",
-        seen_date:"",
-        cost:"",
+      referral:{
+        client_id:"",
+        recipient_facility:"",
+        provisional_diagnosis:"",
+        treatment_given:"",
+        investigations:"",
+        reason:"",
+        name_of_reffering_personnel:"",
       },
 
 
@@ -188,9 +173,9 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/claminByProvider${this.user.id}`)
+    this.axios.get(`/api/v1/auth/diagnosis`)
                 .then(response => {
-                    this.claims = response.data.data
+                    this.diseases = response.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -204,107 +189,87 @@ export default {
     }
   },
   methods:{
+      getProviders(){
+        this.axios.get(`/api/v1/auth/providerAgency/95930`)
+                    .then(response => {
+                        this.providers = response.data.data
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      },
+        searchIDCard(){
+          this.isLoading = true
+          this.axios.post(`/api/v1/auth/getuserbyIdcard`,{
+                id_card_number: this.searchkey,
+          })
+                .then(response => {
+                    this.search_result = response.data.data
+                     //Get Enrollee Details
+                     this.axios.get(`/api/v1/auth/user/zam/${this.search_result.id}`)
+                                 .then(response => {
+                                     this.enrollee_details = response.data
+                                     console.log(response)
+                                 })
+                                 .catch(error => {
+                                     console.error(error);
+                                 })
+                     //End of Enrollee Details
+                    console.log(response)
+                      // this.$router.push(`/client/${user.id}`)
+                      this.$toasted.info('Searched Successfully', {position: 'top-center', duration:3000 })
+
+                    this.isLoading = false
+
+                })
+                .catch(error => {
+                    console.error(error);
+                    this.isLoading = false
+                    this.$toasted.info('User not Found', {position: 'top-center', duration:3000 })
+                })
+        },
 
     clearIt(){
-
-      this.claim.client_name =""
-      this.claim.cost = ""
-      this.claim.treatment = ""
-      this.claim.seen_date = ""
-      this.claim.agency_id = ""
-      this.claim.diagnosis = ""
+      this.referral.recipient_facility= ""
+      this.referral.provisional_diagnosis= ""
+      this.referral.treatment_given= ""
+      this.referral.investigations=""
+      this.referral.reason=""
+      this.searchkey=""
     },
 
-getClaims(){
-  this.user = JSON.parse(localStorage.getItem('user'))
-  this.axios.get(`/api/v1/auth/claminByProvider${this.user.id}`)
-              .then(response => {
-                  this.claims = response.data.data
-                  console.log(response)
-              })
-              .catch(error => {
-                  console.error(error);
-              })
-},
-
-getHmo(){
-  this.user = JSON.parse(localStorage.getItem('user'))
-  this.axios.get(`/api/v1/auth/hmoProvider/${this.user.id}`)
-              .then(response => {
-                  this.agencies = response.data.data
-                  console.log(response)
-              })
-              .catch(error => {
-                  console.error(error);
-              })
-},
-makeClaim(){
-
-        this.user = JSON.parse(localStorage.getItem('user'))
-
-        if (this.edit === false) {
-        // Add claim
+    AddReferral(){
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/addClaim',{
-
-          provider_id: this.user.id,
-          user_id: this.user.id,
-          agency_id: this.claim.agency_id,
-          client_name: this.claim.client_name,
-          seen_date: this.claim.seen_date,
-          diagnosis: this.claim.diagnosis,
-          treatment: this.claim.treatment,
-          cost: this.claim.cost,
+        this.axios.post('/api/v1/auth/referrals',{
+          name_of_reffering_personnel: this.user.id,
+          client_id: this.enrollee_details.user.id,
+          agency_id: 95930,
+          referring_facility: this.enrollee_details.user.provider_id,
+          recipient_facility: this.referral.recipient_facility,
+          provisional_diagnosis: this.referral.provisional_diagnosis,
+          treatment_given: this.referral.treatment_given,
+          investigations: this.referral.investigations,
+          reason: this.referral.reason,
         })
 
         .then(response=>{
             console.log(response);
             this.clearIt();
-            this.getClaims();
             this.isLoading = false;
-            this.$breadstick.notify("Claim added Successfuly!", {position: "top-right"});
+            this.$breadstick.notify("Referral submitted Successfuly!", {position: "top-right"});
 
 
         })
         .catch(error=>{
             console.log(error.response)
         })
-        }else {
-        // Update
-        this.isLoading = true;
-        this.axios.put('/api/v1/auth/addDependant',{
-
-          topic_id: this.topic.id,
-          topic_name: this.topic.topic_name,
-          // module_id: this.course.id,
-          module_id: this.$route.params.id,
-          topic_content: this.topic.topic_content,
-          video: this.topic.video,
-          audio: this.audio,
-          doc: this.doc,
-
-        })
-
-        .then(response=>{
-            console.log(response);
-            // this.clearIt();
-            this.fetchModule();
-            this.edit = true;
-            this.isLoading = false;
-            this.$toasted.global.crudUpdated().goAway(1500);
-
-        })
-        .catch(error=>{
-            console.log(error.response)
-        })
-
-      }
 
     }
 
   },
   created(){
-    this.getHmo()
+    this.getProviders()
   }
 
 }

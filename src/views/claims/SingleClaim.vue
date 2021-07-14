@@ -30,14 +30,39 @@
                            <div class="card-body">
 
                              <div class="form-group" >
+                                 <button class="btn btn-info spacer" @click="approveClaim"
+                                 v-if="claimdetails.status != 1 && user.type == 'shis' || user.institutional_id == 95930">
+                                 Approve <i class="fe fe-check"></i></button>
 
-                                 <button class="btn btn-info spacer" @click="approveClaim" v-if="claimdetails.status != 1 && user.type == 'shis'">Approve</button>
+                                 <button class="btn btn-info spacer" @click="verifyClaim"
+                                 v-if="claimdetails.status != 1 && claimdetails.verified_by_id == null && user.type == 'tpa' || user.type == 'tpa_employee'">
+                                 Vet and verify <i class="fe fe-check"></i></button>
 
                                  <router-link :to="{ path: '/edit-claim/' + claimdetails.id}">
-                                 <button class="btn btn-warning spacer" v-if="claimdetails.status == 0 && user.type == 'provider'">Update Claim Application</button>
+                                 <button class="btn btn-warning spacer" v-if="claimdetails.status == 0 && user.type == 'provider'">
+                                   Update Claim Application</button>
                                </router-link>
 
-                               <button class="btn btn-primary"  style="margin-left:10px;" @click="rejectClaim" v-if="claimdetails.status != 0 && claimdetails.status == null && user.type == 'shis'">Reject</button>
+                               <button class="btn btn-default spacer"  @click="shownotes = !shownotes">
+                                 Notes <i class="fe fe-clipboard"></i>
+                               </button>
+
+                               <router-link :to="{ path: '/upload-claims-docs/' + claimdetails.id}">
+                                   <button class="btn btn-pink spacer" v-if="claimdetails.status != 1" >
+                                      Documents <i class="fe fe-file-plus"></i>
+                                   </button>
+                               </router-link>
+
+                               <router-link :to="{ path: '/service-processing-form/' + claimdetails.id}">
+                                   <button class="btn btn-pink spacer" v-if="claimdetails.status != 1 " >
+                                      Services <i class="fe fe-thermometer"></i>
+                                   </button>
+                               </router-link>
+
+
+                               <button class="btn btn-primary"  style="margin-left:10px;" @click="rejectClaim"
+                                v-if="claimdetails.status != 1 && claimdetails.verified_by_id != null &&
+                                user.type == 'shis' || user.type == 'tpa' || user.type == 'tpa_employee'">Reject</button>
 
                                <div class="form-group col-md-12" v-show="show">
                                   <label for="inputAddress">Please add a Rejection Comment</label>
@@ -55,46 +80,60 @@
                </div>
 
                <div class="row">
+
+                 <div class="col-lg-8 col-md-8" v-show="shownotes">
+                     <div class="card m-b-30">
+                         <div class="card-body">
+
+                           <div class="card bg-default" v-for="comment in comments"
+                            v-bind:key="comment.id"
+                            style="margin-top:10px;">
+                              <div class="card-body">
+                                <p class="">
+                                  {{comment.body}}
+                                </p>
+                                <p class="text-info">By: {{comment.user.firstname}} {{comment.user.lastname}} -
+                                  <span >{{comment.user.type}}</span> </p>
+                              </div>
+                           </div>
+
+
+                         </div>
+                     </div>
+                 </div>
+
+
                    <div class="col-lg-8 col-md-8">
 
                        <div class="card m-b-30">
                          <div class="card-header">
-                           <p> <strong>Services/Drugs</strong></p>
+                           <p> <strong>Services/Drugs <i class="fe fe-thermometer"></i></strong></p>
                          </div>
 
                            <div class="card-body">
+                             <p class="h3">Claim Summary:</p>
+                             <p>{{claimdetails.treatment}}</p>
                              <div class="table-responsive">
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <th>Name</th>
-                                         <th>Cost</th>
-
+                                       <th>Number</th>
+                                       <th>Name</th>
+                                       <th>Cost</th>
                                      </tr>
                                      </thead>
                                      <tbody>
-                                     <tr v-for="service in singleclaim.services" v-bind:key="service.id">
+                                       <tr v-for="(service, index) in singleclaim.services" v-bind:key="service.id">
 
+                                          <td>{{index+1}}</td>
+                                           <td>
+                                             <span v-if="service.service != null ">{{service.service.description}}</span>
+                                              <span v-if="service.drugs_id != null ">{{service.drug.drug_name}}</span>
+                                            </td>
+                                           <td>&#8358;{{service.cost | numeral(0,0)}}</td>
 
-                                         <td>{{service.description}}</td>
-                                         <td>&#8358;{{service.cost | numeral(0,0)}}</td>
-                                         <!-- <td>
-                                           <button class="btn btn-info" name="button"><i class="fe fe-edit"></i> </button>
-                                           <button class="btn btn-danger" name="button"><i class="fe fe-delete"></i> </button>
-                                         </td> -->
+                                       </tr>
 
-                                     </tr>
-                                     <tr v-for="drug in singleclaim.drugs" v-bind:key="drug.id">
-
-
-                                         <td>{{drug.drug_name}}</td>
-                                         <td>&#8358;{{drug.cost | numeral(0,0)}}</td>
-                                         <!-- <td>
-                                           <button class="btn btn-info" name="button"><i class="fe fe-edit"></i> </button>
-                                           <button class="btn btn-danger" name="button"><i class="fe fe-delete"></i> </button>
-                                         </td> -->
-
-                                     </tr>
                                      <tr>
                                        <td> <strong>Total Fee</strong></td>
                                        <td> <strong>&#8358;{{singleclaim.sum | numeral(0,0)}}</strong></td>
@@ -126,15 +165,18 @@
                                     <span v-if="claimdetails.status == null">
                                     <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
                                  </span>
+                                 <span v-if="claimdetails.verified_by_id != null">
+                                    <button class="btn m-b-15 ml-2 mr-2 badge badge-soft-info">verified</button>
+                                 </span>
                                  </p>
 
-                                 <div class="card bg-success" v-if="claimdetails.status == 0">
+                                 <!-- <div class="card bg-success" v-if="claimdetails.status == 0">
                                     <div class="card-body">
                                       <p class="text-white"> <strong>Rejection Note:</strong>
                                         {{comment.body}}
                                       </p>
                                     </div>
-                                 </div>
+                                 </div> -->
 
                                  <p><strong>Health Facility:</strong>  {{facility.agency_name}}</p>
                                  <br>
@@ -145,7 +187,17 @@
 
                                  <p><strong>Date Seen:</strong> {{claimdetails.seen_date}}</p>
                                  <br>
-                                 <p><strong>Diagnosis:</strong> {{claimdetails.diagnosis}}</p>
+                                 <p><strong>Diagnosis:</strong> {{claimdetails.diagnosis.name}}</p>
+                                 <br>
+                                 <p v-if="claimdetails.verified_by_id != null">
+                                   <strong>Vetted By:</strong>
+                                   {{claimdetails.verfieduser.firstname}} {{claimdetails.verfieduser.lastname}}
+                                 </p>
+                                 <br>
+                                 <p v-if="claimdetails.approved_by_id != null">
+                                   <strong v-if="claimdetails.verified_by_id != null">Approved By:</strong>
+                                   {{claimdetails.approveduser.firstname}} {{claimdetails.approveduser.lastname}}
+                                 </p>
                                  <br>
 
 
@@ -160,7 +212,7 @@
                    <div class="col-lg-8 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
-                             <p><strong>Claim Documents:</strong></p>
+                             <p><strong>Claim Documents <i class="fe fe-file"></i></strong></p>
                            </div>
 
                            <div class="card-body">
@@ -169,17 +221,20 @@
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <th>Document</th>
+                                         <th>Number</th>
+                                         <th>Name</th>
+                                         <th>Uploaded By</th>
                                          <th>Date Uploaded</th>
                                          <th>Action</th>
 
                                      </tr>
                                      </thead>
                                      <tbody>
-                                     <tr v-for="doc in singleclaim.docs" v-bind:key="doc.id">
+                                     <tr v-for="(doc, index) in singleclaim.docs" v-bind:key="doc.id">
 
-
-                                         <td>{{doc.document}}</td>
+                                         <td>{{index+1}}</td>
+                                         <td>{{doc.name}}</td>
+                                         <td>{{doc.user.firstname}} {{doc.user.lastname}}</td>
                                          <td>{{doc.created_at}}</td>
                                          <td>
                                            <a :href="'https://api.hayokinsurance.com/documents/'+ doc.document"  target="_blank">
@@ -200,24 +255,6 @@
 
 
                </div>
-
-               <!-- <div class="col-lg-4 col-md-4">
-                   <div class="card m-b-30">
-                     <div class="card-header">
-                       <strong class="h4">Rejection Note</strong>
-                     </div>
-
-                       <div class="card-body">
-
-                        <p></p>
-
-
-                       </div>
-                   </div>
-               </div> -->
-
-
-
 
            </div>
 
@@ -252,7 +289,8 @@ export default {
     return{
       user:null,
       singleclaim:"",
-      comment:"",
+      comments:"",
+      shownotes:false,
       facility:"",
       clientdetail:"",
       body:"",
@@ -270,11 +308,12 @@ export default {
   methods:{
 
     getClaim(){
+      this.isLoading = true
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/detailedClaim/${this.$route.params.id}`)
                   .then(response => {
                       this.singleclaim = response.data
-                      this.comment = response.data.comments[0]
+                      this.comments = response.data.comments
                       this.claimdetails = response.data.singleclaim[0]
                       //single client
                       this.axios.get(`/api/v1/auth/user/${response.data.singleclaim[0].client_name}`)
@@ -297,9 +336,11 @@ export default {
                                   })
                       //end of get facility
                       console.log(response)
+                      this.isLoading = false
                   })
                   .catch(error => {
                       console.error(error);
+                      this.isLoading = true
                   })
     },
 
@@ -324,6 +365,17 @@ export default {
                         console.log(response)
                         this.getClaim()
                         this.$toasted.info('updated Successfully!', {position: 'top-center', duration:3000 })
+
+                })
+      }
+    },
+    verifyClaim(){
+      if (confirm('Are you sure you want to mark as vetted?') ) {
+        this.axios.post(`/api/v1/auth/verify-claims/${this.$route.params.id}`)
+                    .then(response => {
+                        console.log(response)
+                        this.getClaim()
+                        this.$toasted.info('vetted Successfully!', {position: 'top-center', duration:3000 })
 
                 })
       }

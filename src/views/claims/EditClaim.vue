@@ -61,7 +61,7 @@
                                    <div class="form-group col-md-6">
                                      <label for="inputCity">Select Diagnosis</label>
                                      <select class="form-control"  v-model="claimdetails.diagnosis" >
-                                      <option v-for="dis in diseases" v-bind:key="dis.name" :value="dis.name">{{dis.name}} </option>
+                                      <option v-for="dis in diseases" v-bind:key="dis.id" :value="dis.id">{{dis.name}} </option>
                                      </select>
                                    </div>
 
@@ -299,15 +299,12 @@ getProviders(){
                   console.error(error);
               })
 },
-  // updateClaim(){
-  //   this.$toasted.info('updated Successfully', {position: 'top-center', duration:3000 })
-  //   this.$router.push(`/all-claims`)
-  // },
+
 getDiseases(){
   this.user = JSON.parse(localStorage.getItem('user'))
-  this.axios.get(`https://disease-info-api.herokuapp.com/diseases`)
+  this.axios.get(`/api/v1/auth/diagnosis`)
               .then(response => {
-                  this.diseases = response.data.diseases
+                  this.diseases = response.data
                   console.log(response)
               })
               .catch(error => {

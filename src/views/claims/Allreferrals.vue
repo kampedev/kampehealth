@@ -8,16 +8,21 @@
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
 
-                       <h3 class="h4"> Claims  </h3>
+                       <h3 class="h4"> Referrals  </h3>
 
                    </div>
-
 
                </div>
            </div>
        </div>
        <section class="">
            <div class="container">
+
+             <div class="col-md-12" style="margin-top:15px;" v-if="user.type == 'provider'">
+               <button type="button" :class="buttoncolor.formal" @click="showPrimary">Primary (Referring) <i class="fe fe-list"></i> </button>
+               <button type="button" :class="buttoncolor.informal" @click="showSecondary">Secondary (Recipient) <i class="fe fe-grid"></i> </button>
+             </div>
+
 
                <div class="row list">
 
@@ -26,42 +31,38 @@
                            <table class="table align-td-middle table-card">
                                <thead>
                                <tr>
-                                   <th>Date </th>
-                                   <th>Health Facility</th>
+                                   <th>Date</th>
+                                   <th>Refering HCP</th>
+                                   <th>Recipient HCP</th>
                                    <th>Diagnosis</th>
                                    <th>Status</th>
                                    <th>Action</th>
                                </tr>
                                </thead>
                                <tbody>
-                               <tr v-for="claim in claims.data" v-bind:key="claim.id">
+                               <tr v-for="ref in referrals.data" v-bind:key="ref.id">
 
                                    <td>
-                                     <router-link :to="{ path: '/claim/' + claim.id }">
-                                     {{claim.seen_date}} / {{claim.agency_id}}
+                                     <router-link :to="{ path: '/referral/' + ref.id }">
+                                     {{ref.date}}
                                    </router-link>
 
                                    </td>
-                                   <td>{{claim.provider.agency_name}}</td>
-                                   <td>{{claim.diagnosis.name}}</td>
+                                   <td>{{ref.referring.agency_name}}</td>
+                                   <td>{{ref.referred.agency_name}}</td>
+                                   <td>{{ref.diagnosis.name}}</td>
                                    <td>
-                                     <span v-if="claim.status == 1">
+                                     <span v-if="ref.authorization_code != null">
                                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
                                       </span>
 
-                                      <span v-if="claim.verified_by_id != null">
-                                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-info" >verified</button>
-                                      </span>
-                                      <span v-if="claim.status == 0">
-                                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger">rejected</button>
-                                       </span>
-                                      <span v-if="claim.status == null">
+                                      <span v-if="ref.authorization_code == null">
                                       <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
                                    </span>
 
                                    </td>
                                    <td>
-                                     <router-link :to="{ path: '/claim/'+ claim.id}">
+                                     <router-link :to="{ path: '/referral/'+ ref.id}">
                                        <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i></button>
                                       </router-link>
                                    </td>
@@ -105,12 +106,17 @@ export default {
   data(){
     return{
       user:null,
-      claims:"",
+      referrals:"",
+      provider_referral_category:"primary",
       edit:false,
       show:false,
       showsearch:false,
       isLoading: false,
       fullPage: true,
+      buttoncolor:{
+        informal:"btn btn-default",
+        formal:"btn btn-info",
+      },
       json_fields: {
         'Facility Name': 'agency_name',
         'Contact First Name': "firstname",
@@ -139,50 +145,61 @@ export default {
 
   },
   methods:{
-    getClaims(){
+    showPrimary(){
+      this.provider_referral_category = 'primary';
+      this.buttoncolor.formal = 'btn btn-info'
+      this.buttoncolor.informal = 'btn btn-default'
+      this.getReferrals()
+    },
+    showSecondary(){
+      this.provider_referral_category = 'secondary';
+      this.buttoncolor.informal = 'btn btn-info'
+      this.buttoncolor.formal = 'btn btn-default'
+      this.getReferrals()
+    },
+    getReferrals(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      if (this.user.type == 'shis') {
-        this.axios.get(`/api/v1/auth/claims/${this.user.id}`)
+      this.isLoading = true
+      if (this.user.type == 'shis' || this.user.type == 'employee') {
+        this.axios.get(`/api/v1/auth/referrals-agency/95930`)
                     .then(response => {
-                        this.claims = response.data
+                        this.referrals = response.data
                         console.log(response)
+                        this.isLoading = false
                     })
                     .catch(error => {
+                      this.isLoading = false
                         console.error(error);
                     })
       }
       if (this.user.type == 'provider') {
-        this.axios.get(`/api/v1/auth/claminByProvider${this.user.id}`)
+        this.axios.get(`/api/v1/auth/referrals-${this.provider_referral_category}/${this.user.id}`)
                     .then(response => {
-                        this.claims = response.data
+                        this.referrals = response.data
                         console.log(response)
+                        this.isLoading = false
                     })
                     .catch(error => {
                         console.error(error);
                     })
       }
       if (this.user.type == 'tpa' || this.user.type =='tpa_employee') {
-        this.axios.post(`/api/v1/auth/claim-org`,{
-          user_id: this.user.id
-        })
-                    .then(response => {
-
-                        this.claims = response.data
-                        console.log(response)
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    })
+        this.axios.get(`/api/v1/auth/referrals-tpa/${this.user.id}`)
+            .then(response => {
+                this.referrals = response.data
+                console.log(response)
+                this.isLoading = false
+            })
+            .catch(error => {
+                console.error(error);
+            })
       }
-    },
-
-
-
+    }
 
 
   },
   created(){
-    this.getClaims()
+    this.getReferrals()
   }
 
 }

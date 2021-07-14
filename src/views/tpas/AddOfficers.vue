@@ -43,20 +43,21 @@
 
                            </div>
 
-                           <div class="card-body">
-                                    <div class="form-group">
-                                        <button class="btn btn-primary" @click="show = !show">Add Officer</button>
-                                    </div>
+                           <div class="row card-body">
+                              <div class="form-group col-md-12">
+                                  <button class="btn btn-primary" @click="show = !show" style="margin-right:20px;">Add Officer</button>
+                                  <download-excel :data="json_data" :fields="json_fields" class="btn btn-success"
+                                                 :escapeCsv=false>
+                                               <span class="fe fe-download"></span>
+                                         Download Officer Data
+                                  </download-excel>
+
+                              </div>
+
                            </div>
                        </div>
                    </div>
-                   <div class="col-lg-12 col-md-8">
-                     <download-excel :data="json_data" :fields="json_fields" class="btn btn-success"
-                                    :escapeCsv=false>
-                                  <span class="fe fe-download"></span>
-                            Download Officer Data
-                            </download-excel>
-                   </div>
+
 
                    <div class="col-md-12" v-show="show">
                      <div class="card m-b-30">
@@ -250,8 +251,8 @@ export default {
           agency_name : this.register.agency_name,
           firstname : this.register.firstname,
           lastname : this.register.lastname,
-          state : '2683',
-          localgovt : '767',
+          state : '2676',
+          localgovt : '631',
           type : 'tpa_employee',
           password : this.register.password,
           password_confirmation : this.register.password_confirmation,
@@ -330,7 +331,7 @@ export default {
         .then(response => {
             this.officers = response.data
             // console.log(response)
-            
+
         })
         .catch(error => {
             console.error(error);

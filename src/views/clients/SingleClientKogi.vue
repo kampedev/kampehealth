@@ -145,7 +145,6 @@
                                        <button class="btn btn-info">Other Details</button>
                                    </div>
 
-
                                    <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Enrolled By:</strong> {{enrolled_by.firstname}} {{enrolled_by.lastname}}</p>
@@ -532,7 +531,7 @@ this.isLoading = true;
                       //get tpa
                       this.axios.get(`/api/v1/auth/orgenrollment/${this.client.org_id}`)
                                   .then(response => {
-                                      this.singletpa = response.data[0]
+                                      this.singletpa = response.data
                                       console.log(response)
                                   })
                                   .catch(error => {

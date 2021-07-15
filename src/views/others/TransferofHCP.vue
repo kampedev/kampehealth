@@ -157,6 +157,7 @@
 
                                               <p>{{quickref.reason_for_change}}</p>
                                               <hr>
+                                              <div class="col-md-12" v-if="user.type =='shis' || user.user_role != 0">
                                               <button class="btn btn-info spacer" v-if="quickref.status != 'approved'"
                                                 @click="updateRequestA">
                                                 approve <i class="fe fe-check-square"></i>
@@ -164,8 +165,16 @@
 
                                               <button class="btn btn-danger spacer"   v-if="quickref.status != 'approved'"
                                               @click="updateRequestR">decline <i class="fe fe-x-circle"></i> </button>
+                                            </div>
 
-                                              <p class="text-right">{{quickref.created_at}}</p>
+                                              <div class="row col-md-12">
+                                                <div class="col-md-6">
+                                                  <p class="text-left"><strong>{{quickref.status}} </strong>  </p>
+                                                </div>
+                                                  <div class="col-md-6">
+                                                    <p class="text-right">{{quickref.created_at}}</p>
+                                                  </div>
+                                              </div>
                                         </div>
                                       </div>
                                     </div>

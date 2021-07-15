@@ -42,7 +42,7 @@
                                      <div class="form-group">
                                        <!-- <button class="btn btn-info spacer"  >Principal's Details</button> -->
 
-                                         <button class="btn btn-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_01"><i class="fe fe-camera"></i> </button>
+                                         <button class="btn btn-outline-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_01"><i class="fe fe-camera"></i> </button>
                                          <div class="fileinput fileinput-new" data-provides="fileinput" >
                                           <span class="btn btn-file">
                                             <span class="fileinput-new"><i class="fe fe-upload"></i></span>
@@ -56,19 +56,19 @@
                                            <button class="btn btn-info spacer"  > <i class="mdi mdi-hand"></i> </button>
                                         </router-link> -->
 
-                                        <button class="btn btn-primary spacer"  @click="printMe"><i class="fe fe-printer"></i></button>
-                                        <button class="btn btn-danger spacer"  @click="deleteUser"><i class="fe fe-delete"></i></button>
+                                        <button class="btn btn-outline-primary spacer"  @click="printMe"><i class="fe fe-printer"></i></button>
+                                        <button class="btn btn-outline-danger spacer"  @click="deleteUser"><i class="fe fe-delete"></i></button>
                                         <!-- <button class="btn btn-primary spacer"  @click="changeNumber">Change ID Card Number </button> -->
 
-                                        <!-- <router-link :to="{ path: '/client/capture-signature/'+client.id, params: {} }">
-                                          <button class="btn btn-info spacer" ><i class="fe fe-edit-2"></i></button>
-                                        </router-link> -->
+                                        <router-link :to="{ path: '/patient/'+$route.params.id, params: {} }">
+                                          <button class="btn btn-outline-info spacer" ><i class="fe fe-clipboard"></i></button>
+                                        </router-link>
 
-                                         <router-link :to="{ path: '/add-dependent/'+client.id, params: {} }">
-                                           <button class="btn btn-info spacer"  v-if = "client.type == 'client'"><i class="fe fe-users"></i> </button>
+                                         <router-link :to="{ path: '/add-dependent/'+$route.params.id, params: {} }">
+                                           <button class="btn btn-outline-info spacer"  v-if = "client.type == 'client'"><i class="fe fe-users"></i> </button>
                                          </router-link>
                                          <router-link :to="{ path: '/edit-user/'+$route.params.id, params: {} }">
-                                           <button class="btn btn-secondary spacer"><i class="fe fe-edit"></i></button>
+                                           <button class="btn btn-outline-secondary spacer"><i class="fe fe-edit"></i></button>
                                          </router-link>
                                      </div>
 

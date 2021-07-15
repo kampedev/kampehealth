@@ -54,7 +54,11 @@
                                    <td>
                                      <span v-if="ref.authorization_code != null">
                                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">approved</button>
-                                      </span>
+
+                                          <b-button v-b-tooltip.hover variant="outline-success" :title="ref.authorization_code">
+                                              <i class="mdi mdi-eye-check"></i>
+                                            </b-button>
+                                    </span>
 
                                       <span v-if="ref.authorization_code == null">
                                       <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>

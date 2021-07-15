@@ -8,12 +8,12 @@
             <div class="row p-b-60 p-t-60">
 
               <div class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image">
-                <div class="m-b-10">
+                <p class="h1 text-primary">O'HIS PATIENT RECORD MANAGEMENT </p>
 
-                </div>
-                <button v-clipboard="client.firstname">
+                <!-- <button v-clipboard="client.firstname">
+
                   <strong> <span class="h3">{{client.firstname}} {{client.lastname}}</span> </strong>
-                </button>
+                </button> -->
 
               </div>
 
@@ -58,7 +58,6 @@
                       </div>
                       <div class="col-md-10 ">
 
-                          <p class="h1 text-primary">O'HIS PATIENT RECORD MANAGEMENT </p>
 
 
                       </div>

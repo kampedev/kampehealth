@@ -28,7 +28,7 @@
                           <div class="card m-b-30">
 
                               <div class="card-body">
-                                 <button type="button" class="btn btn-primary" @click="showadder = !showadder">Add Personnel</button>
+                                 <button type="button" class="btn btn-primary" @click="showadder = !showadder">Add Personnel <i class="fe fe-plus"></i></button>
                               </div>
                           </div>
                       </div>

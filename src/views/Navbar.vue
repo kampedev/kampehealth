@@ -335,7 +335,7 @@
                 <!--submenu-->
                 <ul class="sub-menu">
 
-                    <li class="menu-item">
+                    <!-- <li class="menu-item">
                         <router-link to="/#" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">Add Client
@@ -346,7 +346,7 @@
                                                     <i class="icon-placeholder fe fe-edit"></i>
                                             </span>
                         </router-link>
-                    </li>
+                    </li> -->
 
                     <li class="menu-item">
                         <router-link to="/view-clients-provider" class=" menu-link">
@@ -356,7 +356,7 @@
                                             </span>
                             <span class="menu-icon">
 
-                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
+                                                    <i class="icon-placeholder mdi mdi-account-group-outline"></i>
                                             </span>
                         </router-link>
                     </li>
@@ -388,7 +388,7 @@
                                                         </span>
                                         <span class="menu-icon">
 
-                                                                <i class="icon-placeholder fe fe-edit"></i>
+                                                                <i class="icon-placeholder mdi mdi-account-multiple-plus"></i>
                                                         </span>
                                     </a>
                                 </li>
@@ -414,7 +414,7 @@
                                                         </span>
                                         <span class="menu-icon">
 
-                                                                <i class="icon-placeholder mdi mdi-view-day "></i>
+                                                                <i class="icon-placeholder mdi mdi-account-group-outline"></i>
                                                         </span>
                                     </a>
                                 </li>
@@ -635,7 +635,7 @@
 
                             <span class="menu-icon">
 
-                                                    <i class="icon-placeholder  mdi mdi-view-day "></i>
+                                                    <i class="icon-placeholder  mdi mdi-file-document-outline"></i>
                                             </span>
                         </router-link>
                     </li>
@@ -648,7 +648,7 @@
                                             </span>
                             <span class="menu-icon">
 
-                                                    <i class="icon-placeholder mdi mdi-view-day "></i>
+                                             <i class="icon-placeholder mdi mdi-plus-box"></i>
                                             </span>
                         </router-link>
                     </li>
@@ -660,7 +660,7 @@
                                           </span>
                           <span class="menu-icon">
 
-                                                  <i class="icon-placeholder mdi mdi-view-day "></i>
+                                                  <i class="icon-placeholder mdi mdi-bank-transfer-out"></i>
                                           </span>
                       </router-link>
                   </li>
@@ -1048,7 +1048,7 @@
                                                         </span>
                                         <span class="menu-icon">
 
-                                                                <i class="icon-placeholder mdi mdi-view-day "></i>
+                                                                <i class="icon-placeholder mdi mdi-medical-bag"></i>
                                                         </span>
                                     </router-link>
                                 </li>

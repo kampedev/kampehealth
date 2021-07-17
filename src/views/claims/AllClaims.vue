@@ -38,7 +38,7 @@
 
                                    <td>
                                      <router-link :to="{ path: '/claim/' + claim.id }">
-                                     {{claim.seen_date}} / {{claim.agency_id}}
+                                     {{claim.seen_date}}
                                    </router-link>
 
                                    </td>

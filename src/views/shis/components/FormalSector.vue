@@ -228,18 +228,7 @@ export default {
                       console.error(error);
                   })
     },
-    getEmployees(){
-      this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/getEmployee/95930`)
-                  .then(response => {
-                      this.employees = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
     getClaims(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/getClaims/95930`)
@@ -252,28 +241,6 @@ export default {
                   })
     },
 
-    deleteUser(client){
-      if (confirm('Are you Sure you want to delete this user') ) {
-        this.axios.delete(`/api/v1/auth/deleteUser/${client.id}`)
-                    .then(response => {
-                        console.log(response)
-                        this.getClients()
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    })
-      }
-    },
-    fetchLga(){
-      this.axios.get(`/api/v1/auth/lga/2676`)
-                  .then(response => {
-                      this.optionso.xaxis.categories = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
 
     getClients(){
       this.axios.get(`/api/v1/auth/getAgencyToUser/95930`)
@@ -293,9 +260,6 @@ export default {
     this.getProviders()
     this.getClaims()
     this.getClients()
-    this.getEmployees()
-    // this.getOfflineCLients()
-    this.fetchLga()
     this.AuthUser()
     this.getTPAs()
   }

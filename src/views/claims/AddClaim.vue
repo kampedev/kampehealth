@@ -35,29 +35,34 @@
                                                <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
                                            </select>
                                           </div>
-                                             <div class="form-group col-md-6">
-                                                 <label for="inputPassword4">Select Enrollee {{client.org_id}}</label>
-                                                 <select class="form-control"  v-model="claim.client_id" @change="getClient(claim.client_id)">
-                                                   <option v-for="client in clients" v-bind:key="client.id" :value="client.id">{{client.lastname}} {{client.firstname}}</option>
-                                                </select>
-                                             </div>
-                                             <div class="form-group col-md-6">
-                                               <label for="inputCity">Enrollee Surname</label>
-                                               <input type="text" class="form-control" id="inputEmail4" :value="client.firstname" disabled>
-                                             </div>
-                                             <div class="form-group col-md-6">
-                                               <label for="inputCity">Enrollee First Name</label>
-                                               <input type="text" class="form-control" id="inputEmail4" :value="client.lastname" disabled>
-                                             </div>
-                                             <div class="form-group col-md-6">
-                                               <label for="inputCity">OHIS Number</label>
-                                               <input type="text" class="form-control" id="inputEmail4" :value="client.id_card_number" disabled>
-                                             </div>
+                                             
 
                                              <div class="form-group col-md-6">
-                                               <label for="inputCity">Phone Number</label>
-                                               <input type="text" class="form-control" id="inputEmail4" :value="client.phone_number" disabled>
+                                               <label for="inputCity">Enrollee OHIS Number</label>
+                                               <input type="text" class="form-control"  v-model="searchkey" @change="searchIDCard">
                                              </div>
+
+
+                                            <div class="row col-md-12" v-if="enrollee_details != ''">
+                                              <div class="form-group col-md-6">
+                                                <label for="inputCity">Enrollee Surname</label>
+                                                <input type="text" class="form-control" id="inputEmail4" :value="enrollee_details.user.firstname" disabled>
+                                              </div>
+
+                                              <div class="form-group col-md-6">
+                                                <label for="inputCity">Enrollee First Name</label>
+                                                <input type="text" class="form-control" id="inputEmail4" :value="enrollee_details.user.lastname" disabled>
+                                              </div>
+                                              <div class="form-group col-md-6">
+                                                <label for="inputCity">OHIS Number</label>
+                                                <input type="text" class="form-control" id="inputEmail4" :value="enrollee_details.user.id_card_number" disabled>
+                                              </div>
+
+                                              <div class="form-group col-md-6">
+                                                <label for="inputCity">Phone Number</label>
+                                                <input type="text" class="form-control" id="inputEmail4" :value="enrollee_details.user.phone_number" disabled>
+                                              </div>
+                                            </div>
 
                                              <div class="form-group col-md-6">
                                                <label for="inputCity">Select Diagnosis</label>
@@ -123,7 +128,9 @@ export default {
       client:"",
       claims:"",
       diseases:"",
-
+      searchkey:"",
+      search_result:"",
+      enrollee_details:"",
       edit:false,
       isLoading: false,
       fullPage: true,
@@ -150,13 +157,6 @@ export default {
     }
   },
   methods:{
-    // saveClaim(){
-    //   localStorage.setItem('claim',JSON.stringify(this.claim))
-    //   this.$router.push(`/service-processing-form`)
-    //
-    //
-    // },
-
 
     getEnrollees(){
 
@@ -239,6 +239,36 @@ getDiseases(){
                   console.error(error);
               })
 },
+searchIDCard(){
+  this.isLoading = true
+  this.axios.post(`/api/v1/auth/getuserbyIdcard`,{
+        id_card_number: this.searchkey,
+  })
+        .then(response => {
+            this.search_result = response.data.data
+             //Get Enrollee Details
+             this.axios.get(`/api/v1/auth/user/zam/${this.search_result.id}`)
+                         .then(response => {
+                             this.enrollee_details = response.data
+                             console.log(response)
+                         })
+                         .catch(error => {
+                             console.error(error);
+                         })
+             //End of Enrollee Details
+            console.log(response)
+              // this.$router.push(`/client/${user.id}`)
+              this.$toasted.info('Searched Successfully', {position: 'top-center', duration:3000 })
+
+            this.isLoading = false
+
+        })
+        .catch(error => {
+            console.error(error);
+            this.isLoading = false
+            this.$toasted.info('User not Found', {position: 'top-center', duration:3000 })
+        })
+},
   makeClaim(){
         this.user = JSON.parse(localStorage.getItem('user'))
         if (this.user.type == 'shis') {
@@ -250,7 +280,7 @@ getDiseases(){
           user_id: this.user.id,
           agency_id: 95930,
           // org_id: this.client.org_id,
-          client_name: this.claim.client_id,
+          client_name: this.enrollee_details.user.id,
           seen_date: this.claim.seen_date,
           diagnosis: this.claim.diagnosis,
           treatment: this.claim.treatment,
@@ -279,7 +309,7 @@ getDiseases(){
             provider_id: this.user.id,
             user_id: this.user.id,
             agency_id: 95930,
-            client_name: this.claim.client_id,
+            client_name: this.enrollee_details.user.id,
             seen_date: this.claim.seen_date,
             diagnosis: this.claim.diagnosis,
             treatment: this.claim.treatment,

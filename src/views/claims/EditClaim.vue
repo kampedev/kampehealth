@@ -59,8 +59,8 @@
 
 
                                    <div class="form-group col-md-6">
-                                     <label for="inputCity">Select Diagnosis</label>
-                                     <select class="form-control"  v-model="claimdetails.diagnosis" >
+                                     <label for="inputCity">Select Diagnosis {{claimdetails.diagnosis.id}}</label>
+                                     <select class="form-control"  v-model="claimdetails.diagnosis.id" >
                                       <option v-for="dis in diseases" v-bind:key="dis.id" :value="dis.id">{{dis.name}} </option>
                                      </select>
                                    </div>
@@ -71,69 +71,6 @@
                                     <label for="inputAddress">Treatment Summary</label>
                                     <textarea name="name" rows="5" cols="80" class="form-control" v-model="claimdetails.treatment"></textarea>
                                 </div>
-                                 <!-- <div class="row col-md-12">
-                                   <div class="col-md-12">
-                                     <p class="h4">Prepared By:</p>
-                                   </div>
-                                   <div class="form-group col-md-6">
-                                     <label for="inputPassword4">Select staff</label>
-                                     <select class="form-control"  v-model="claim.prepared_by_id">
-                                       <option v-for="employee in employees" v-bind:key="employee.id" :value="employee.id">{{employee.firstname}} {{employee.lastname}}</option>
-                                      </select>
-                                   </div>
-
-                                   <div class="form-group col-md-6">
-                                     <p>  <label for="inputPassword4">Date  </label></p>
-                                     <date-picker required v-model="claim.date" valueType="format"></date-picker>
-                                   </div>
-
-                                   <div class="col-md-12">
-                                     <p class="h4">Checked By:</p>
-                                   </div>
-                                   <div class="form-group col-md-6">
-                                     <label for="inputPassword4">Select staff</label>
-                                     <select class="form-control"  v-model="claim.checked_by_id">
-                                       <option v-for="employee in employees" v-bind:key="employee.id" :value="employee.id">{{employee.firstname}} {{employee.lastname}}</option>
-                                      </select>
-                                    </div>
-
-
-                                   <div class="form-group col-md-6">
-                                     <p>  <label for="inputPassword4">Date  </label></p>
-                                     <date-picker required v-model="claim.date" valueType="format"></date-picker>
-                                   </div>
-
-                                   <div class="col-md-12">
-                                     <p class="h4">Verified By:</p>
-                                   </div>
-                                   <div class="form-group col-md-6">
-                                     <label for="inputPassword4">Select staff</label>
-                                     <select class="form-control"  v-model="claim.verified_by_id">
-                                       <option v-for="employee in employees" v-bind:key="employee.id" :value="employee.id">{{employee.firstname}} {{employee.lastname}}</option>
-                                      </select>
-                                   </div>
-
-                                   <div class="form-group col-md-6">
-                                     <p>  <label for="inputPassword4">Date  </label></p>
-                                     <date-picker required v-model="claim.date" valueType="format"></date-picker>
-                                   </div>
-
-                                   <div class="col-md-12">
-                                     <p class="h4">Approved By:</p>
-                                   </div>
-                                   <div class="form-group col-md-6">
-                                     <label for="inputPassword4">Select staff</label>
-                                     <select class="form-control"  v-model="claim.approved_by_id">
-                                       <option v-for="employee in employees" v-bind:key="employee.id" :value="employee.id">{{employee.firstname}} {{employee.lastname}}</option>
-                                      </select>
-                                   </div>
-
-                                   <div class="form-group col-md-6">
-                                     <p>  <label for="inputPassword4">Date  </label></p>
-                                     <date-picker required v-model="claim.date" valueType="format"></date-picker>
-                                   </div>
-
-                                 </div> -->
 
                                  <div class="form-group">
                                      <button class="btn btn-primary btn-block btn-lg" @click="updateClaim">Update Claim</button>
@@ -325,7 +262,7 @@ getDiseases(){
           agency_id: 4,
           client_name: this.claimdetails.client_name,
           seen_date: this.claimdetails.seen_date,
-          diagnosis: this.claimdetails.diagnosis,
+          diagnosis: this.claimdetails.diagnosis.id,
           treatment: this.claimdetails.treatment,
           cost: 0.00,
         })
@@ -354,7 +291,7 @@ getDiseases(){
             agency_id: 4,
             client_name: this.claimdetails.client_name,
             seen_date: this.claimdetails.seen_date,
-            diagnosis: this.claimdetails.diagnosis,
+            diagnosis: this.claimdetails.diagnosis.id,
             treatment: this.claimdetails.treatment,
             cost: 0.00,
           })

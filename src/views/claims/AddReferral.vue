@@ -257,7 +257,8 @@ export default {
             console.log(response);
             this.clearIt();
             this.isLoading = false;
-            this.$breadstick.notify("Referral submitted Successfuly!", {position: "top-right"});
+            this.$toasted.info('Referral Submitted Successfully', {position: 'top-center', duration:3000 })
+            this.$router.push(`/all-referrals`)
 
 
         })

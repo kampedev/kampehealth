@@ -94,7 +94,7 @@
 
                 <div class="row">
 
-                                 <div class="col-md-8">
+                                 <div :class="card_style">
                                    <div class="card">
                                      <div class="card card-header">
                                        <p class="h4">{{transfers.total}} Transfer of Facility Requests <i class="mdi mdi-bank-transfer"></i></p>
@@ -217,6 +217,7 @@ export default {
       searchkey:"",
       transfers:"",
       quickref:"",
+      card_style:"col-md-12",
       edit:false,
       isLoading: false,
       show: false,
@@ -254,6 +255,7 @@ export default {
     },
     quickView(ref) {
       this.isLoading = true;
+      this.card_style = 'col-md-8'
       this.axios.get(`/api/v1/auth/change_providers/${ref.id}`)
         .then(response => {
           console.log(response);

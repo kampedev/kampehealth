@@ -182,9 +182,12 @@
                                  <br>
                                  <p><strong>Prepared by:</strong>  {{prepared_by.firstname}} {{prepared_by.lastname}}</p>
                                  <br>
-                                 <p><strong>Enrollee/ Patient:</strong>  {{clientdetail.firstname}} {{clientdetail.lastname}}</p>
+                                 <p><strong>Enrollee/ Patient Name:</strong>  {{clientdetail.firstname}} {{clientdetail.lastname}}</p>
                                  <br>
-
+                                 <p><strong>Enrollee/ Patient O'HIS Number:</strong>  {{clientdetail.id_card_number}}</p>
+                                 <br>
+                                 <p><strong>HMO/TPA:</strong>  {{claimdetails.tpa.organization_name}}</p>
+                                 <br>
                                  <p><strong>Date Seen:</strong> {{claimdetails.seen_date}}</p>
                                  <br>
                                  <p><strong>Diagnosis:</strong> {{claimdetails.diagnosis.name}}</p>

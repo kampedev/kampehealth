@@ -751,8 +751,15 @@ meta: {
         requiresAuth: true,
       },
   },
+  // {
+  //   path: '/provider-employee',
+  //   component: ProviderEmployee,
+  //   meta: {
+  //       requiresAuth: true,
+  //     },
+  // },
   {
-    path: '/doctor',
+    path: '/personnel',
     component: Doctor,
     meta: {
         requiresAuth: true,

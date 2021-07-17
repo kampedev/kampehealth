@@ -69,7 +69,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Claims</p>
-                                <h1 class="fw-400" v-if="employees != ''">{{employees.meta.total}}</h1>
+                                <h1 class="fw-400" v-if="employees != ''">{{claims.total}}</h1>
                             </div>
                         </div>
                     </div>
@@ -145,6 +145,7 @@ export default {
       officers:"",
       orgDetails:"",
       employees:"",
+      claims:"",
       user:null,
 
     }
@@ -181,6 +182,8 @@ export default {
                         })
                       //end of get ss
 
+
+
                       // get employees
                       this.axios.get(`/api/v1/auth/enrollment_user/${org_id}`)
                         .then(response => {
@@ -210,6 +213,20 @@ export default {
         })
       //end of employees
     },
+    getClaims(){
+      this.axios.post(`/api/v1/auth/claim-org`,{
+        user_id: this.user.id
+
+      })
+        .then(response => {
+            this.claims = response.data
+            console.log(response)
+        })
+        .catch(error => {
+            console.error(error);
+        })
+
+    },
 
       deleteAgent(client){
         if (confirm('Are you sure you want to delete?') ) {
@@ -230,7 +247,7 @@ export default {
   },
   created(){
     this.getOrgDetails()
-    // this.getEmployees()
+    this.getClaims()
 
   }
 }

@@ -6,28 +6,6 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-12 m-b-20">
-                    <h5 class="spacer-top">Hello, {{auth_user.firstname}} {{auth_user.lastname}}</h5>
-                </div>
-
-                <div class="col-md-12" v-if="offlineclients.length > 0">
-                  <div class="alert alert-border-warning  alert-dismissible fade show" role="alert">
-                                  <div class="d-flex">
-                                      <div class="icon">
-                                          <i class="icon mdi mdi-alert-circle-outline"></i>
-                                      </div>
-                                      <div class="content">
-                                          <strong>{{offlineclients.length}} Users</strong> added offline.
-                                          <download-excel :data="offlineclients">
-                                              <button type="button" class="btn btn-primary align-right" name="button" @click="syncClients">Sync Now</button>
-                                            </download-excel>
-
-                                      </div>
-                                  </div>
-
-
-                              </div>
-                </div>
 
                 <div class="col-lg-3 col-md-3">
                     <div class="card m-b-30 bg-secondary">
@@ -104,7 +82,7 @@
                             </div>
                             <div>
                                 <p class="h4">Claims</p>
-                                <h1 class="fw-400">{{plans.length}}</h1>
+                                <h1 class="fw-400">{{claims.meta.total}}</h1>
                             </div>
                         </div>
                     </div>
@@ -115,17 +93,7 @@
             </div>
 
              <div class="row">
-              <!-- <div class="col-md-12 p-t-20">
-                <h5 class="h5"> <i class="fe fe-activity"></i> Formal Sector Enrollment Data</h5>
 
-              </div> -->
-              <!-- <div class="col-md-12">
-                <div class="card m-b-30">
-                  <div class="card-body">
-                    <LGaData />
-                  </div>
-                </div>
-              </div> -->
               <div class="col-md-12 p-t-20">
                 <h5 class="h5"> <i class="fe fe-activity"></i> Informal Sector Enrollment Data</h5>
 
@@ -147,9 +115,7 @@
                 <div class="col-md-6">
                   <genderCategory/>
                 </div>
-                <!-- <div class="col-md-6">
-                  <ClaimsCategory/>
-                </div> -->
+
               </div>
 
         </div>
@@ -162,9 +128,7 @@
 </template>
 
 <script>
-// import LGaData from "./lgadata";
 import InformalLga from "./informallga";
-// import ClaimsCategory from "./ClaimStatusChart";
 import BasicCategory from "./basicCategory";
 import FilterUserLGA from "./FilterUserLGA";
 import FilterUserProvider from "./FilterUserProvider";
@@ -207,8 +171,7 @@ export default {
   },
   computed:{
     totalEnrollees(){
-      // var sum = this.totalusers.reduce((acc, item) => acc + item.y, 0);
-      // return sum;
+
       let total = 0;
     for(let i = 0; i < this.totalusers.length; i++){
       total += parseInt(this.totalusers[i].y);
@@ -218,17 +181,6 @@ export default {
   },
 
   methods:{
-
-    AuthUser(){
-      this.axios.get(`/api/v1/auth/user`)
-                  .then(response => {
-                      this.auth_user = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
 
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
@@ -245,9 +197,9 @@ export default {
 
     getClaims(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getClaims/95930`)
+      this.axios.get(`/api/v1/auth/claims/95930`)
                   .then(response => {
-                      this.claims = response.data.data
+                      this.claims = response.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -255,21 +207,8 @@ export default {
                   })
     },
 
-
-    getClients(){
-      this.axios.get(`/api/v1/auth/getAgencyToUser/95930`)
-                  .then(response => {
-                      this.clients = response.data.data
-                      this.total_clients = response.data.meta.total
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
     getTPAs(){
       this.user = JSON.parse(localStorage.getItem('user'))
-
       this.axios.get(`/api/v1/auth/org_agency/95930`)
                   .then(response => {
                       this.tpas = response.data.data
@@ -284,9 +223,7 @@ export default {
   created(){
     this.getProviders()
     this.getClaims()
-    this.getClients()
     this.getTPAs()
-    this.AuthUser()
   }
 }
 </script>

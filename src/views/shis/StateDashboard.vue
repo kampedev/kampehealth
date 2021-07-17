@@ -7,9 +7,14 @@
    <section class="admin-content">
         <div class="container">
 
+
         <div class="col-md-12" style="margin-top:15px;">
           <button type="button" :class="buttoncolor.formal" @click="showFormal">Formal <i class="fe fe-list"></i> </button>
           <button type="button" :class="buttoncolor.informal" @click="showInformal">Informal <i class="fe fe-grid"></i> </button>
+        </div>
+
+        <div class="col-md-12 spacer">
+          <p class="h5"> <b>{{auth_user.firstname}} {{auth_user.lastname}}</b> </p>
         </div>
 
             <div class="" v-show="formal_S">
@@ -161,41 +166,6 @@ export default {
       this.buttoncolor.formal = 'btn btn-default'
     },
 
-    getProviders(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/providerAgency/95930`)
-                  .then(response => {
-                      this.providers = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-
-    getClaims(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getClaims/95930`)
-                  .then(response => {
-                      this.claims = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    getTPAs(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/org_agency/95930`)
-                  .then(response => {
-                      this.tpas = response.data;
-                      console.log("this response is for tpa");
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
     deleteUser(client){
       if (confirm('Are you Sure you want to delete this user') ) {
         this.axios.delete(`/api/v1/auth/deleteUser/${client.id}`)
@@ -225,11 +195,8 @@ export default {
 
   },
   created(){
-    this.getProviders()
-    this.getClaims()
     this.getClients()
-    // this.getTPAs()
-    // this.totalArray()
+
   }
 }
 </script>

@@ -42,10 +42,10 @@
                                      <div class="form-group">
                                        <!-- <button class="btn btn-info spacer"  >Principal's Details</button> -->
 
-                                         <button class="btn btn-outline-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_01"><i class="fe fe-camera"></i> </button>
+                                         <button class="btn btn-outline-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_01">Take Photo <i class="fe fe-camera"></i> </button>
                                          <div class="fileinput fileinput-new" data-provides="fileinput" >
                                           <span class="btn btn-file">
-                                            <span class="fileinput-new"><i class="fe fe-upload"></i></span>
+                                            <span class="fileinput-new">Upload Picture <i class="fe fe-upload"></i></span>
                                             <span class="fileinput-exists">Change</span>
                                             <input type="file" name="..." multiple   v-on:change="attachPic">
                                           </span>
@@ -56,19 +56,19 @@
                                            <button class="btn btn-info spacer"  > <i class="mdi mdi-hand"></i> </button>
                                         </router-link> -->
 
-                                        <button class="btn btn-outline-primary spacer"  @click="printMe"><i class="fe fe-printer"></i></button>
-                                        <button class="btn btn-outline-danger spacer"  @click="deleteUser"><i class="fe fe-delete"></i></button>
+                                        <button class="btn btn-outline-primary spacer"  @click="printMe">Print <i class="fe fe-printer"></i></button>
+                                        <button class="btn btn-outline-danger spacer"  @click="deleteUser">Delete <i class="fe fe-delete"></i></button>
                                         <!-- <button class="btn btn-primary spacer"  @click="changeNumber">Change ID Card Number </button> -->
 
                                         <router-link :to="{ path: '/patient/'+$route.params.id, params: {} }">
-                                          <button class="btn btn-outline-info spacer" ><i class="fe fe-clipboard"></i></button>
+                                          <button class="btn btn-outline-info spacer" >Medical<i class="mdi mdi-medical-bag"></i></button>
                                         </router-link>
 
                                          <router-link :to="{ path: '/add-dependent/'+$route.params.id, params: {} }">
-                                           <button class="btn btn-outline-info spacer"  v-if = "client.type == 'client'"><i class="fe fe-users"></i> </button>
+                                           <button class="btn btn-outline-info spacer"  v-if = "client.type == 'client'">Dependents <i class="fe fe-users"></i> </button>
                                          </router-link>
                                          <router-link :to="{ path: '/edit-user/'+$route.params.id, params: {} }">
-                                           <button class="btn btn-outline-secondary spacer"><i class="fe fe-edit"></i></button>
+                                           <button class="btn btn-outline-dark spacer">Edit <i class="fe fe-edit"></i></button>
                                          </router-link>
                                      </div>
 
@@ -142,7 +142,7 @@
 
                                <div class="card-body" >
                                    <div class="form-group">
-                                       <button class="btn btn-info">Other Details</button>
+                                       <button class="btn btn-outline-dark">Other Details</button>
                                    </div>
 
                                    <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
@@ -588,93 +588,6 @@ this.isLoading = true;
 
         },
 
-    createRecord(){
-        this.isLoading = true;
-        this.user = JSON.parse(localStorage.getItem('user'))
-        this.axios.post('/api/v1/auth/addHealthRecord',{
-          notes: this.notes,
-          medications: this.medications,
-          patient_id: this.appoint.data.patient_id,
-          appointment_id: this.$route.params.id,
-          professional_id: this.appoint.data.professional_id,
-          provider_id: this.user.institutional_id,
-
-          reasonVisit: 'Consulation',
-          testResult: "this.user.institutional_id",
-          drVisited: 'this.user.institutional_id',
-          documents: 'this.user.institutional_id',
-        })
-        .then(response=>{
-
-            console.log(response);
-            this.isLoading = false;
-            this.fetchSingelAPpointment()
-            this.$breadstick.notify("Record created successfully", {position: "top-right"});
-
-        })
-        .catch(error=>{
-            console.log(error.response)
-            this.isLoading = false;
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
-
-        })
-    },
-
-    acceptProvider(){
-      if (confirm('Are You Sure You Want to Approve Provider?')) {
-
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.isLoading = true;
-    this.axios.post('/api/v1/auth/approveDisapproveProviderByAgency',{
-        agency_id: this.user.id,
-        provider_id: this.$route.params.id,
-        status: 1
-
-      })
-    .then(response=>{
-        console.log(response);
-        this.$breadstick.notify("Provider Approved!", {position: "top-right"});
-        this.isLoading = false;
-        this.getProvider()
-
-    })
-    .catch(error=>{
-        console.log(error.response)
-        this.isLoading = false;
-
-        })
-      }
-    },
-    rejectProvider(){
-      if (confirm('Are You Sure You Want to Disapprove this Provider?')) {
-
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.isLoading = true;
-    this.axios.post('/api/v1/auth/approveDisapproveProviderByAgency',{
-        agency_id: this.user.id,
-        provider_id: this.$route.params.id,
-        status: 0
-
-      })
-    .then(response=>{
-        console.log(response);
-        this.$breadstick.notify("Provider Disapproved!", {position: "top-right"});
-        this.isLoading = false;
-        this.getProvider()
-
-    })
-    .catch(error=>{
-        console.log(error.response)
-        this.isLoading = false;
-
-        })
-      }
-    },
-    clearIt(){
-
-      this.agency_id = "";
-
-    },
 
 
   },

@@ -613,7 +613,7 @@
                 <!--submenu-->
                 <ul class="sub-menu">
 
-                    <li class="menu-item">
+                    <li class="menu-item" v-if="user.type == 'provider' || user.type == 'provider_employee' ">
                         <router-link to="/add-claim" class=" menu-link">
                                         <span class="menu-label">
                                                 <span class="menu-name">Add Claim
@@ -740,7 +740,7 @@
                             <!--submenu-->
                             <ul class="sub-menu">
 
-                                <li class="menu-item">
+                                <!-- <li class="menu-item">
                                     <router-link to="/quality-assurance" class=" menu-link">
                                                     <span class="menu-label">
                                                             <span class="menu-name">Quality Assurance
@@ -751,7 +751,7 @@
                                                                 <i class="icon-placeholder  fe fe-check-circle"></i>
                                                         </span>
                                     </router-link>
-                                </li>
+                                </li> -->
                                 <li class="menu-item">
                                     <router-link to="/transfer-of-hcp" class=" menu-link">
                                                     <span class="menu-label">

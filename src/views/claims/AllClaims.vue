@@ -141,8 +141,8 @@ export default {
   methods:{
     getClaims(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      if (this.user.type == 'shis') {
-        this.axios.get(`/api/v1/auth/claims/${this.user.id}`)
+      if (this.user.type == 'shis' || this.user.type == 'employee') {
+        this.axios.get(`/api/v1/auth/claims/95930`)
                     .then(response => {
                         this.claims = response.data
                         console.log(response)

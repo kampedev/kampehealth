@@ -163,7 +163,9 @@
                            <table class="table align-td-middle table-card">
                                <thead>
                                <tr>
-                                   <th>Name</th>
+                                   <th>Serial Number</th>
+                                   <th>Facility Name</th>
+                                   <th>LGA</th>
                                    <th>E mail</th>
                                    <th>Contact</th>
                                    <th>Status</th>
@@ -173,12 +175,14 @@
                                <tbody>
                                <tr v-for="(provider, index) in providers" v-bind:key="provider.id">
 
+                                 <td>{{index+1}}</td>
                                    <td>
                                      <router-link :to="{ path: '/provider-' + provider.id }">
-                                    {{index+1}} {{provider.agency_name}}
+                                    {{provider.agency_name}}
                                    </router-link>
 
                                    </td>
+                                   <td>{{provider.local_name}}</td>
                                    <td>{{provider.email}}</td>
                                    <td>{{provider.phone_number}}</td>
                                    <td>
@@ -255,6 +259,7 @@ export default {
         'Contact First Name': "firstname",
         'Contact Last Name': "lastname",
         'Contact Number': 'phone_number',
+        'LGA': 'local_name',
         'Email': 'email'
         // ' Recipient Merchant': 'receiver.merchant_name',
         // 'Pay Point': 'point.pay_point_name',

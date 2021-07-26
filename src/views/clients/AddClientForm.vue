@@ -55,7 +55,7 @@
                                                                  </select>
                                                               </div>
                                                           </div>
-                                                          <div class="form-group col-md-12"  v-if="sector == 'informal'">
+                                                          <div class="form-group col-md-12"  v-if="register.sector == 'Basic Healthcare Provision Fund'">
                                                             <label >Special Needs</label>
                                                               <select class="form-control" v-model="register.category_of_vulnerable_group">
                                                                 <option  value="Pregnant Women">Pregnant Women</option>
@@ -166,7 +166,7 @@
                                                                  </select>
                                                               </div>
 
-                                                              <div class="col-md-12 row"  v-if="sector == 'formal'">
+                                                              <div class="col-md-12 row"  >
                                                                 <div class="form-group col-md-6" >
                                                                   <label>Principal Facility for Accessing Health Care</label>
                                                                   <v-select v-model="register.provider_id" :options="providers" label="agency_name" :value="register.provider_id" @input="selected"></v-select>
@@ -177,12 +177,12 @@
                                                                 </div>
                                                               </div>
 
-                                                                <div class="form-group col-md-6" v-if="sector == 'informal'">
+                                                                <!-- <div class="form-group col-md-6" v-if="sector == 'informal'">
                                                                   <label>Principal Facility for Accessing Health Care <span class="text-danger">*</span></label>
                                                                   <select class="form-control" required  v-model="register.provider_id">
                                                                       <option v-for="provider in providers_wards" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
                                                                    </select>
-                                                                </div>
+                                                                </div> -->
 
 
 
@@ -322,7 +322,7 @@ export default {
       }
 
       if (this.user.type == 'shis') {
-        this.registerUserAdmin()  
+        this.registerUserAdmin()
       }
     },
     fetchWards(){

@@ -35,7 +35,7 @@
                                                <option v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
                                            </select>
                                           </div>
-                                             
+
 
                                              <div class="form-group col-md-6">
                                                <label for="inputCity">Enrollee OHIS Number</label>
@@ -279,7 +279,6 @@ searchIDCard(){
           provider_id: this.claim.provider_id,
           user_id: this.user.id,
           agency_id: 95930,
-          // org_id: this.client.org_id,
           client_name: this.enrollee_details.user.id,
           seen_date: this.claim.seen_date,
           diagnosis: this.claim.diagnosis,

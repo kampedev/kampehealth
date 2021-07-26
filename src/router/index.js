@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Zarota from '../views/Zarota.vue'
 import GetAccount from '../views/auth/GetAccount.vue'
 import Privacy from '../views/auth/Privacy.vue'
 import Login from '../views/auth/Login.vue'
@@ -110,6 +111,10 @@ const routes = [
     path: '/landing',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/zarota',
+    component: Zarota
   },
   {
     path: '/activate-account',

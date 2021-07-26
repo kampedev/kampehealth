@@ -259,7 +259,7 @@ getDiseases(){
 
           provider_id: this.claimdetails.provider_id,
           user_id: this.user.id,
-          agency_id: 4,
+          agency_id: 95930,
           client_name: this.claimdetails.client_name,
           seen_date: this.claimdetails.seen_date,
           diagnosis: this.claimdetails.diagnosis.id,

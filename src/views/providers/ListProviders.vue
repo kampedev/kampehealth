@@ -165,7 +165,8 @@
                                <tr>
                                    <th>Serial Number</th>
                                    <th>Facility Name</th>
-                                   <th>LGA</th>
+                                   <th>Type</th>
+                                   <!-- <th>LGA</th> -->
                                    <th>E mail</th>
                                    <th>Contact</th>
                                    <th>Status</th>
@@ -182,7 +183,8 @@
                                    </router-link>
 
                                    </td>
-                                   <td>{{provider.local_name}}</td>
+                                   <td>{{provider.phc_general}}</td>
+                                   <!-- <td>{{provider.local_name}}</td> -->
                                    <td>{{provider.email}}</td>
                                    <td>{{provider.phone_number}}</td>
                                    <td>

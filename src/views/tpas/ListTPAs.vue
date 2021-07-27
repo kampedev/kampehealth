@@ -112,6 +112,8 @@
                            <table class="table align-td-middle table-card">
                                <thead>
                                <tr>
+                                 <th>Serial Number</th>
+                                 <th>Category</th>
                                    <th>Name of TPA</th>
                                    <th>E mail</th>
                                    <th>Phone Number</th>
@@ -120,13 +122,12 @@
                                </tr>
                                </thead>
                                <tbody>
-                               <tr v-for="tpa in tpas" v-bind:key="tpa.id">
+                               <tr v-for="(tpa, index) in tpas" v-bind:key="tpa.id">
 
+                                 <td> {{index+1}}</td>
+                                 <td> {{tpa.category}}</td>
                                    <td>
-                                     <!-- <router-link :to="{ path: '/provider-' + provider.id }"> -->
                                        {{tpa.organization_name}}
-                                   <!-- </router-link> -->
-
                                    </td>
                                    <td>{{tpa.email}}</td>
                                    <td>{{tpa.phone_number}}</td>

@@ -62,9 +62,18 @@
                                             <option v-for="lga in lga_states" v-bind:key="lga" :value="lga.id">{{lga.local_name}}</option>
                                          </select>
                                       </div>
-                                      <div class="form-group col-md-12">
-                                          <label for="asd">Company Name</label>
+                                      <div class="form-group col-md-6">
+                                          <label for="asd">Facility Name</label>
                                           <input type="text" class="form-control" id="asd" placeholder="Company Name" v-model="auth_user.agency_name">
+                                      </div>
+                                      <div class="col-md-6">
+                                          <label>
+                                              Facility type
+                                          </label>
+                                          <select class="form-control" v-model="auth_user.phc_general">
+                                              <option>Public Hospital</option>
+                                              <option>Private Hospital</option>
+                                          </select>
                                       </div>
                                   </div>
 
@@ -179,14 +188,11 @@ export default {
        localgovt: this.auth_user.localgovt,
        ward: this.auth_user.ward,
        dob: this.auth_user.dob,
-       salary_number: this.auth_user.salary_number,
+       phc_general: this.auth_user.phc_general,
        gender: this.auth_user.gender,
        genotype: this.auth_user.genotype,
        institutional_id: this.auth_user.institutional_id,
-       point_of_care: this.auth_user.point_of_care,
-       provider_id: this.auth_user.provider_id,
        sector: this.auth_user.sector,
-       blood: this.auth_user.blood,
        user_image: this.auth_user.user_image,
        middlename: this.auth_user.middlename,
        nimc_number: this.auth_user.nimc_number,
@@ -199,7 +205,7 @@ export default {
      })
    .then(response=>{
        console.log(response);
-       this.$breadstick.notify("User updated Successfully!", {position: "top-right"});
+       this.$breadstick.notify("Provider updated Successfully!", {position: "top-right"});
        this.isLoading = false;
 
    })

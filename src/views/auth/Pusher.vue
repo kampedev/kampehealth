@@ -61,26 +61,7 @@ export default {
                      if (type == 'provider_employee') {
                        this.$router.push('/provider-employee')
                      }
-                     // if (job_title == 'Doctor') {
-                     //   this.$router.push('/doctor')
-                     // }
-                     // if (job_title == 'Nurse') {
-                     //   this.$router.push('/nurse')
-                     //
-                     // }
-                     // if (job_title == 'Desk') {
-                     //   this.$router.push('/receptionist')
-                     // }
-                     // if (job_title == 'laboratorist') {
-                     //   this.$router.push('/laboratorist')
-                     // }
-                     // if (job_title == 'pharmacist') {
-                     //   this.$router.push('/pharmacist')
-                     // }
-                     //
-                     // if (job_title == 'accountant') {
-                     //   this.$router.push('/accountant')
-                     // }
+
                      this.$router.go()
 
                 })

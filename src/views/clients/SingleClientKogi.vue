@@ -161,16 +161,16 @@
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>Email:</strong> {{client.email}}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom"><strong>Enrolment Date:</strong> {{client.created_at}}</p>
-                                   <hr>
+                                   <!-- <p class="spacer-top-bottom"><strong>Enrolment Date:</strong> {{client.created_at}}</p>
+                                   <hr> -->
                                    <p class="spacer-top-bottom"><strong>Expiry Date:</strong> {{client.expiry_date}}</p>
                                    <hr>
 
                                    <p class="spacer-top-bottom"><strong>Marital Status:</strong> {{client.marital_status }}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom" v-if = "client.type == 'client' && client.category_of_vulnerable_group == null"><strong>Grade Level:</strong> {{client.grade_level }}</p>
+                                   <p class="spacer-top-bottom" ><strong>MDA:</strong> {{client.place_of_work }}</p>
                                    <hr>
-                                   <p class="spacer-top-bottom" v-if = "client.type == 'client' && client.category_of_vulnerable_group == null"><strong>Date of Entry:</strong> {{client.date_of_entry }}</p>
+                                   <p class="spacer-top-bottom" ><strong>Staff ID:</strong> {{client.salary_number }}</p>
                                    <hr>
                                    <p class="spacer-top-bottom" v-if = "client.type == 'client' && client.category_of_vulnerable_group != null"><strong>Category of Vulnerable Group:</strong> {{client.category_of_vulnerable_group }}</p>
 

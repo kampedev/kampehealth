@@ -32,8 +32,8 @@
                              <div class="form-group" v-if="user.id == 95930 || user.role == 1">
                                  <button class="btn btn-info spacer-left" @click="show = !show" >Change Password</button>
                                  <button class="btn btn-secondary spacer-left" @click="showupdatedep = !showupdatedep" >Change Department</button>
-                                 <button class="btn btn-primary spacer-left" @click="updateRole"  v-if="employeee.user.role == 0">make admin</button>
-                                 <button class="btn btn-primary spacer-left" @click="updateRole" v-if="employeee.user.role == 1">make maintainer</button>
+                                 <button class="btn btn-primary spacer-left" @click="updateRole"  v-if="employeee.user.user_role == 0">make admin</button>
+                                 <button class="btn btn-primary spacer-left" @click="updateRole" v-if="employeee.user.user_role == 1">make maintainer</button>
                                  <button class="btn btn-warning spacer-left" @click="blockUnblock" v-if="employeee.user.blocked_at == null">Block</button>
                                  <button class="btn btn-primary spacer-left" @click="blockUnblock" v-if="employeee.user.blocked_at != null">Unblock</button>
 

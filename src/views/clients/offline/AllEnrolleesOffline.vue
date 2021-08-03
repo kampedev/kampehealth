@@ -175,6 +175,8 @@ export default {
                dob: singlesync.dob,
                expiry_date: singlesync.expiry_date,
                address1: singlesync.address,
+               place_of_work: singlesync.place_of_work,
+               salary_number: singlesync.salary_number,
                genotype: singlesync.genotype,
                weight: singlesync.weight,
                gender: singlesync.gender,
@@ -202,7 +204,7 @@ export default {
                  // this.isLoading = false;
                  let errormessage = error.response.data.message;
                  if (errormessage == 'user exist') {
-                   this.$toasted.info('Duplicate! Deleting and will continue syncing', {position: 'top-center', duration:3000 })
+                   // this.$toasted.info('Duplicate! Deleting and will continue syncing', {position: 'top-center', duration:3000 })
                    // let deleteID = this.students[0]
                    //End Delete User
 

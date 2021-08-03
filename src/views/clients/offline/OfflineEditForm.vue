@@ -248,8 +248,6 @@ import DatePicker from 'vue2-datepicker';
    import statesJson from './../../../../public/offline/states.json'
    import osunJson from './../../../../public/offline/osun_lga.json'
    import osunProviderJson from './../../../../public/offline/osun_providers.json'
-   import egbedorewardJson from './../../../../public/offline/egbedore_wards.json'
-   import egbedoreJson from './../../../../public/offline/egbedore_facility.json'
    import wardsJson from './../../../../public/offline/wards_data.json'
    import tpaJson from './../../../../public/offline/tpa_data_osun.json'
 
@@ -293,8 +291,6 @@ export default {
         states:statesJson,
         osun_lgas:osunJson,
         osun_providers:osunProviderJson,
-        egbedore_providers:egbedoreJson,
-        egbedore_wards:egbedorewardJson,
         wards_offline:wardsJson,
         tpa_offline:tpaJson,
         isLoading: false,

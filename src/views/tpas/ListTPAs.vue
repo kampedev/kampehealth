@@ -21,7 +21,7 @@
                </div>
            </div>
        </div>
-       <section class="pull-up" v-if="user.type =='shis'">
+       <section class="pull-up">
            <div class="container">
 
                <div class="row list">

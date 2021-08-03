@@ -102,7 +102,6 @@
                                                            </div>
                                                            <div class="form-row">
 
-
                                                                 <div class="form-group col-md-6">
                                                                     <label for="inputPassword4">Phone Number</label>
                                                                     <input type="text" class="form-control" v-model="client_number" placeholder="Phone Number" >
@@ -119,41 +118,58 @@
                                                                     <date-picker v-model="newStudent.expiry_date" valueType="format"></date-picker>
                                                                 </div>
 
-                                                                <div class="form-group col-md-12" v-if="sector == 'formal'">
-                                                                    <label for="inputEmail4">Computer Number</label>
+                                                                <div class="form-group col-md-6" v-if="sector == 'formal'">
+                                                                    <label for="inputEmail4">Staff ID</label>
                                                                     <input type="text" class="form-control" v-model="newStudent.salary_number" placeholder="Computer Employment Number">
                                                                 </div>
                                                             </div>
 
                                                                   <div class="form-row" v-if="sector == 'formal'">
                                                                        <div class="form-group col-md-6">
-                                                                         <label for="inputCity">Select MDA</label>
-                                                                             <select class="form-control"  v-model="newStudent.place_of_work" >
-                                                                               <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
-                                                                          </select>
+                                                                         <label for="inputCity">Select MDA </label>
+                                                                         <v-select v-model="newStudent.place_of_work" :options="mda_offline.data" label="name"
+                                                                          :value="newStudent.place_of_work" @input="selected_mda"></v-select>
+
                                                                        </div>
 
                                                                    </div>
 
                                                             <div class="row">
 
-                                                              <div class="form-group col-md-12" >
+                                                              <div class="form-group col-md-12" v-if="sector == 'informal'">
                                                                 <label>Principal Facility for Accessing Health Care <span class="text-danger">*</span></label>
                                                                 <v-select v-model="newStudent.provider_id" :options="facilities_sync" label="agency_name" :value="newStudent.provider_id" @input="selected_provider"></v-select>
                                                               </div>
-
+                                                              <div class="form-group col-md-12" v-if="sector == 'formal'">
+                                                                <label>Principal Facility for Accessing Health Care <span class="text-danger">*</span></label>
+                                                                <v-select v-model="newStudent.provider_id" :options="osun_providers.data" label="agency_name" :value="newStudent.provider_id" @input="selected_provider"></v-select>
+                                                              </div>
 
                                                                 <div class="form-group col-md-12" >
                                                                   <label>Select LGA <span class="text-danger">*</span></label>
-                                                                  <input type="text" class="form-control" :value="selected_lga_sync.local_name" disabled placeholder="Selected LGA">
 
-                                                                  <!-- <v-select v-model="newStudent.localgovt" :options="osun_lgas.data" label="local_name" :value="newStudent.localgovt" @input="selected_lga" ></v-select> -->
+                                                                   <select class="form-control"  v-model="newStudent.localgovt" @change="getWards()">
+                                                                    <option v-for="loc in osun_lgas.data" v-bind:key="loc.id" :value="loc.id" >
+                                                                      {{loc.local_name}}
+                                                                    </option>
+                                                                 </select>
+
                                                                 </div>
 
-                                                                <div class="form-group col-md-12" >
-                                                                  <label>Select Ward <span class="text-danger">*</span></label>
+                                                                <div class="form-group col-md-12" v-if="sector == 'informal'">
+                                                                  <label>Select Ward<span class="text-danger">*</span></label>
                                                                   <v-select v-model="newStudent.ward" :options="wards_sync" label="ward_name" :value="newStudent.ward" @input="selected_ward"></v-select>
                                                                 </div>
+
+                                                                <div class="form-group col-md-12" v-if="sector == 'formal'">
+                                                                  <label>Select Ward  <span class="text-danger">*</span></label>
+                                                                  <select class="form-control"  v-model="newStudent.ward" >
+                                                                   <option  v-for="loc in wards_lga.wards" v-bind:key="loc.id" :value="loc.id">
+                                                                     {{loc.ward_name}}
+                                                                   </option>
+                                                                </select>
+                                                               </div>
+
                                                                 <div class="col-md-6">
                                                                   <label for="inputCity">Gender <span class="text-danger">*</span></label>
                                                                       <select class="form-control"  v-model="newStudent.gender" >
@@ -192,11 +208,10 @@
                                                                 <label for="inputCity">Genotype</label>
                                                                     <select class="form-control"  v-model="newStudent.genotype" >
                                                                      <option  value="AA">AA</option>
-                                                                     <option  value="AO">AO</option>
-                                                                     <option  value="BB">BB</option>
-                                                                     <option  value="BO">BO</option>
-                                                                     <option  value="AB">AB</option>
-                                                                     <option  value="OO">OO</option>
+                                                                     <option  value="AS">AS</option>
+                                                                     <option  value="SS">SS</option>
+                                                                     <option  value="AC">AC</option>
+
                                                                  </select>
                                                               </div>
 
@@ -251,47 +266,6 @@
                              </div> -->
 
 
-                             <!-- <p class="h2">Recent Enrollees Overview</p>
-                             <div class="table-responsive">
-                                 <table class="table align-td-middle table-card">
-                                     <thead>
-                                     <tr>
-                                         <th>Avatar</th>
-                                         <th>Name</th>
-                                         <th>Gender</th>
-                                         <th>Phone Number</th>
-                                         <th>Sector</th>
-                                         <th>Action</th>
-                                     </tr>
-                                     </thead>
-                                     <tbody>
-                                     <tr v-for="student in trimEnrollees" v-bind:key="student.id">
-                                       <td>
-                                           <div class="avatar avatar-sm ">
-                                             <img :src="student.user_image"
-                                                 class="avatar-img avatar-sm rounded-circle"
-                                                 alt="">
-                                            </div>
-                                       </td>
-                                         <td> {{student.firstname}} {{student.lastname}}</td>
-                                         <td>{{student.gender}}</td>
-                                         <td>{{student.phone_number}}</td>
-                                         <td>{{student.sector}} </td>
-                                         <td>
-                                             <button type="button" class="btn btn-info" :disabled="disabled" @click="syncUser(student)"><i class="fe fe-refresh-cw"></i></button>
-
-
-                                             <button type="button" class="btn btn-danger" @click="remove(student)"><i class="fe fe-delete"></i></button>
-                                         </td>
-
-                                     </tr>
-
-
-                                     </tbody>
-                                 </table>
-
-                             </div> -->
-
 
                              <div class="vld-parent">
                                   <loading :active.sync="isLoading"
@@ -313,12 +287,9 @@ import DatePicker from 'vue2-datepicker';
    import Loading from 'vue-loading-overlay';
    // Import stylesheet
    import 'vue-loading-overlay/dist/vue-loading.css';
-   import statesJson from './../../../../public/offline/states.json'
-   import osunJson from './../../../../public/offline/osun_lga.json'
-   import osunProviderJson from './../../../../public/offline/osun_providers.json'
-   import egbedorewardJson from './../../../../public/offline/egbedore_wards.json'
-   import egbedoreJson from './../../../../public/offline/egbedore_facility.json'
-   import wardsJson from './../../../../public/offline/wards_data.json'
+   import allfacilitiesJson from './../../../../public/offline/allfacilities.json'
+   import lgaswardsJson from './../../../../public/offline/lgas_wards.json'
+   import mdaJson from './../../../../public/offline/mda.json'
    import tpaJson from './../../../../public/offline/tpa_data_osun.json'
 
 export default {
@@ -347,6 +318,7 @@ export default {
       imagefile:"",
       selected_provider_id:"",
       selected_lga_id:"631",
+      selected_mda_name:"",
       selected_ward_id:"",
       user: null,
       editStudent: {},
@@ -357,12 +329,10 @@ export default {
         twothumbs:null,
         sector:"",
         show:false,
-        states:statesJson,
-        osun_lgas:osunJson,
-        osun_providers:osunProviderJson,
-        egbedore_providers:egbedoreJson,
-        egbedore_wards:egbedorewardJson,
-        wards_offline:wardsJson,
+        osun_lgas:lgaswardsJson,
+        wards_lga:"",
+        osun_providers:allfacilitiesJson,
+        mda_offline:mdaJson,
         tpa_offline:tpaJson,
         isLoading: false,
         newarray:{
@@ -397,9 +367,6 @@ export default {
   },
   computed:{
     //
-    // trimEnrollees(){
-    //   return this.students.reverse().slice(0,5)
-    // }
   },
 
   methods: {
@@ -412,9 +379,17 @@ export default {
   },
   selected_lga(value){
     this.selected_lga_id = value.id
-
   },
-
+  selected_mda(value){
+    this.selected_mda_name = value.name
+  },
+    getWards(){
+      // let newarr = [1,2, 3].filter(x=> x<2)
+      let osunlgaarray = this.osun_lgas.data
+      let formatter = osunlgaarray.filter(x => x.id == this.newStudent.localgovt)
+      this.wards_lga= formatter[0]
+      console.log(formatter)
+    },
     syncUser(student){
     if (confirm('Are you sure you want to sync this user to the server? It will be deleted from your computer!') ) {
     this.user = JSON.parse(localStorage.getItem('user'))
@@ -540,8 +515,8 @@ export default {
           middlename: this.newStudent.middlename,
           nimc_number: this.newStudent.nimc_number,
           provider_id: this.selected_provider_id,
-          localgovt: this.selected_lga_sync.id,
-          ward: this.selected_ward_id,
+          localgovt: this.newStudent.localgovt,
+          ward: this.newStudent.ward,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
           expiry_date: this.newStudent.expiry_date,
@@ -553,7 +528,7 @@ export default {
           marital_status: this.newStudent.marital_status,
           blood: this.newStudent.blood,
           salary_number: this.newStudent.salary_number,
-          place_of_work: this.newStudent.place_of_work,
+          place_of_work: this.newStudent.place_of_work.name,
           category_of_vulnerable_group: this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
           address1: this.newStudent.address,
@@ -579,8 +554,8 @@ export default {
           middlename: this.newStudent.middlename,
           nimc_number: this.newStudent.nimc_number,
           provider_id: this.selected_provider_id,
-          localgovt: this.selected_lga_sync.id,
-          ward: this.selected_ward_id,
+          localgovt: this.newStudent.localgovt,
+          ward: this.newStudent.ward,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
           expiry_date: this.newStudent.expiry_date,
@@ -592,7 +567,7 @@ export default {
           marital_status: this.newStudent.marital_status,
           blood: this.newStudent.blood,
           salary_number: this.newStudent.salary_number,
-          place_of_work: this.newStudent.place_of_work,
+          place_of_work: this.newStudent.place_of_work.name,
           category_of_vulnerable_group: this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
           address: this.newStudent.address,
@@ -662,7 +637,7 @@ export default {
     }
   },
   created(){
-    // this.getProviders()
+    //
   }
 };
 </script>

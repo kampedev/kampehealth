@@ -84,10 +84,10 @@
 
               <div class="col-md-12">
                 <button type="button" class="btn btn-success" @click="fetchLga" style="margin-bottom:10px;">
-                  Update Facility and Ward Data</button>
+                  Upload Facility Data to Offline</button>
               </div>
 
-            <div class="col-md-12" v-show="show">
+            <div class="col-md-6" v-show="show">
                 <div class="form-group col-md-6">
                   <label for="inputCity">LGA</label>
                     <select class="form-control"   v-model="selected_lga"  @change="fetchFacilitiesperlga()">
@@ -218,7 +218,6 @@ export default {
     },
     fetchFacilitiesperlga(){
       this.isLoading = true
-
       this.axios.get(`/api/v1/auth/getProviderPerLGA/${this.selected_lga.id}`)
                   .then(response => {
                       this.facilities = response.data.data

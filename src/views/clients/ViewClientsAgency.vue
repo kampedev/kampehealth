@@ -11,13 +11,17 @@
                        <h3 class="h3">Enrollees</h3>
 
                        <div class="form-dark">
-                           <div class="input-group input-group-flush mb-3">
+             <div class="input-group input-group-flush mb-3"></div>
+             <button
+               type="button"
+               class="btn btn-outline-info "
+               name="button"
+               @click="getClients(currentPage ? currentPage : 1)"
+             >
+               <i class="fe fe-refresh-cw"></i>
+             </button>
+           </div>
 
-                           </div>
-                           <button type="button" class="btn btn-info " name="button" @click="getClients">
-                              <i class="fe fe-refresh-cw"></i></button>
-
-                       </div>
 
                    </div>
 
@@ -95,7 +99,13 @@
 
             </div>
 
-           <button @click="getClients()" class="btn btn-primary btn-block btn-lg" style="margin-top:20px;"><i class="fe fe-filter"></i> </button>
+            <button
+          @click="getClients(currentPage ? currentPage : 1)"
+          class="btn btn-primary btn-block btn-lg"
+          style="margin-top:20px;"
+        >
+          <i class="fe fe-filter"></i>
+        </button>
            <button @click="clearFilter" class="btn btn-default btn-block btn-lg" style="margin-top:20px;"><i class="fe fe-x-circle"></i> </button>
           <br />
 
@@ -109,12 +119,8 @@
                        <div class="card m-b-30">
                            <div class="card-body">
 
-                             <div class="text-center">
-                               <button  class="btn btn-default btn-lg" @click="gotoPrevious"><i class="fe fe-skip-back"></i></button>
-                               <button class="btn btn-default btn-lg" @click="gotoNext"><i class="fe fe-skip-forward"></i></button>
-                             </div>
                              <p class="h4">
-                                Total Records: <span class="text-primary">{{clients.total | numeral(0,0)}}</span>
+                                Total Records: <span class="text-primary">{{ rows | numeral(0, 0) }}</span>
                              </p>
 
 
@@ -176,8 +182,13 @@
                                      </tbody>
                                  </table>
                                  <div class="text-center">
-                                   <button  class="btn btn-default btn-lg" @click="gotoPrevious"><i class="fe fe-skip-back"></i></button>
-                                   <button class="btn btn-default btn-lg" @click="gotoNext"><i class="fe fe-skip-forward"></i></button>
+                                   <b-pagination
+                                       v-model="currentPage"
+                                       :total-rows="rows"
+                                       :per-page="perPage"
+                                       aria-controls="my-table"
+                                       @input="getUserData(currentPage ? currentPage : 1)"
+                                     ></b-pagination>
                                  </div>
 
                              </div>
@@ -237,35 +248,16 @@ export default {
       enrolled_by:"",
       ward:"",
       date:"",
-      from:"",
-      to:"",
-      current_page:1,
+      from: "",
+      to: "",
+      current_page: 1,
+      rows: "1",
+      perPage: 15,
 
     }
   },
   beforeMount(){
-    this.isLoading = true
-    let valee = 'eee'
-     let compa = valee/2
-    console.log( compa )
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getUsersfilterparams`,{
-    params:{
-      page: this.current_page,
-      agency_id: 95930
-    }
-  })
-                .then(response => {
-                    this.clients = response.data
-                    console.log(response)
-                    this.isLoading = false
-
-                })
-                .catch(error => {
-                  this.isLoading = false
-
-                    console.error(error);
-                })
+    this.getClients()
   },
   methods:{
     clearFilter(){
@@ -324,25 +316,7 @@ export default {
                       console.error(error);
                   })
     },
-    gotoNext(){
-      if (this.clients.current_page != this.clients.last_page) {
-            this.current_page ++
-            this.getClients()
-          }
-          else {
-            this.$toasted.info('You have reached the Last Page', {position: 'top-center', duration:3000 })
 
-          }
-    },
-    gotoPrevious(){
-      if (this.clients.current_page != 1) {
-          this.current_page --
-          this.getClients()
-        }
-        else {
-          this.$toasted.info('You have reached the First Page', {position: 'top-center', duration:3000 })
-        }
-    },
     getProviders(){
       this.axios.get(`/api/v1/auth/providerAgency/95930`)
                   .then(response => {
@@ -353,34 +327,37 @@ export default {
                       console.error(error);
                   })
     },
-    getClients(){
-      this.isLoading = true
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getUsersfilterparams`,{
-      params:{
-        page: this.current_page,
-        agency_id: 95930,
-        provider_id: this.provider_id,
-        sector: this.sector,
-        place_of_work: this.place_of_work,
-        localgovt: this.localgovt,
-        enrolled_by: this.enrolled_by,
-        date: this.date,
-        from: this.from,
-        to: this.to
-      }
-    })
-                  .then(response => {
-                      this.clients = response.data
-                      console.log(response)
-                      this.isLoading = false
-                      // this.$toasted.success('Success', {position: 'top-center', duration:3000 })
-                  })
-                  .catch(error => {
-                    this.isLoading = false
-                    this.$toasted.error('Error getting clients', {position: 'top-center', duration:3000 })
-                      console.error(error);
-                  })
+    getClients(currentPage){
+      this.isLoading = true;
+
+    this.user = JSON.parse(localStorage.getItem("user"));
+    this.axios
+      .get(`/api/v1/auth/getUsersfilterparams`, {
+        params: {
+          page: currentPage,
+          agency_id: 95930,
+          provider_id: this.provider_id ? this.provider_id : "",
+          sector: this.sector ? this.sector : "",
+          place_of_work: this.place_of_work ? this.place_of_work : "",
+          localgovt: this.localgovt ? this.localgovt : "",
+          enrolled_by: this.enrolled_by ? this.enrolled_by : "",
+          date: this.date ? this.date : "",
+          from: this.from ? this.from : "",
+          to: this.to ? this.to : "",
+          ward: this.ward ? this.ward : "",
+        },
+      })
+      .then((response) => {
+        this.clients = response.data;
+        console.log(response)
+        this.rows = response.data.meta.total;
+        this.isLoading = false;
+      })
+      .catch((error) => {
+        this.isLoading = false;
+
+        console.error(error);
+      });
     },
     getMDAs(){
       this.axios.get(`/api/v1/auth/ministry/95930`)

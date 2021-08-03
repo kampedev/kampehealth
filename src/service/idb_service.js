@@ -86,7 +86,7 @@ const getDatabase = () => {
             },
             ward: {
                 dataType: DATA_TYPE.Number,
-                notNull: false
+                notNull: true
             },
             enrolled_by: {
                 dataType: DATA_TYPE.Number,
@@ -119,7 +119,7 @@ const getDatabase = () => {
 
             category_of_vulnerable_group: {
                 dataType: DATA_TYPE.String,
-                notNull: true
+                notNull: false
             },
             point_of_care: {
                 dataType: DATA_TYPE.String,

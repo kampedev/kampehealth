@@ -33,6 +33,7 @@
                                                                 <label for="inputCity">Select Informal Sector <span class="text-danger">*</span></label>
                                                                     <select class="form-control" required v-model="register.sector" >
                                                                      <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
+                                                                     <option  value="State Equity Program">State Equity Program</option>
                                                                      <option  value="Vulnerable Groups">Vulnerable Groups</option>
                                                                      <option  value="Voluntary Contributor">Voluntary Contributor</option>
                                                                      <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option>

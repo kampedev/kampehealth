@@ -21,7 +21,7 @@
                             </div>
                             <div>
                                 <p class="h4">State Formal Sector Enrollees</p>
-                                <h1 class="fw-400">{{totalEnrollees | numeral(0,0)}}</h1>
+                                <h1 class="fw-400">{{formaldata.enrollees | numeral(0,0)}}</h1>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                             </div>
                             <div>
                                 <p class="h4">state Health Facilities</p>
-                                <h1 class="fw-400">{{providers.length}}</h1>
+                                <h1 class="fw-400">{{formaldata.providers}}</h1>
                             </div>
                         </div>
                     </div>
@@ -116,7 +116,7 @@ export default {
     return{
       user:null,
       mydata:"",
-      totalusers:"",
+      formaldata:"",
       auth_user:"",
       providers:"",
       clients:"",
@@ -130,9 +130,9 @@ export default {
     }
   },
   beforeMount(){
-    this.axios.get('/api/v1/auth/dashboardlga/2669')
+    this.axios.get('/api/v1/auth/getformalsectorenrollees/95930')
                 .then(response => {
-                  this.totalusers = response.data[0].lga.data
+                  this.formaldata = response.data
                     console.log(response)
                 })
                 .catch(error => {
@@ -140,39 +140,11 @@ export default {
                 })
   },
   computed:{
-    totalEnrollees(){
-      let total = 0;
-    for(let i = 0; i < this.totalusers.length; i++){
-      total += parseInt(this.totalusers[i].y);
-    }
-    return total;
-    }
+  //
   },
 
   methods:{
 
-    getTPAs(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/orgenrollment`)
-                  .then(response => {
-                      this.tpas = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    getProviders(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/providerAgency/95930`)
-                  .then(response => {
-                      this.providers = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
 
     getClaims(){
       this.user = JSON.parse(localStorage.getItem('user'))
@@ -189,9 +161,7 @@ export default {
 
   },
   created(){
-    this.getProviders()
     this.getClaims()
-    this.getTPAs()
   }
 }
 </script>

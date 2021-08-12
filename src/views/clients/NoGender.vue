@@ -3,9 +3,24 @@
   <div class="row list">
                         <div class="col-lg-12 col-md-12">
                             <div class="card m-b-30">
+                              <div class="card card-header">
+                                <strong> {{idcard_offline.length}} Special Filter  {{clients.length}}pp</strong>
+
+                                <div >
+                                    <p class="btn btn-success">
+                                          <i class="fe fe-download"></i> <download-excel :data="clients" :fields="json_fields" type="csv" :escapeCsv=false name="Picture Error List.csv"
+                        >
+                                    Download Data for BHCPF
+                                    <!-- <img src="download_icon.png" /> -->
+                                    </download-excel></p>
+                                </div>
+
+
+
+                              </div>
 
                                 <div class="card-body">
-                                  <strong> {{clients.total}} No Gender Enrollees {{gender}} </strong>
+
                                   <div class="table-responsive">
                                       <table class="table align-td-middle table-card">
                                           <thead>
@@ -16,13 +31,13 @@
                                           </tr>
                                           </thead>
                                           <tbody>
-                                          <tr v-for="client in clients.data" v-bind:key="client.id">
+                                          <tr v-for="(client, index) in clients" v-bind:key="client.id">
                                               <td>
                                                 <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" height="170px" width="120px" alt="User Photo">
                                               </td>
                                               <td>
                                                 <router-link :to="{ path: '/client/'+client.id, params: {} }">
-                                                {{client.firstname}} {{client.lastname}}
+                                                {{index+1}} {{client.firstname}} {{client.lastname}}
                                               </router-link>
                                               </td>
                                               <td>{{client.phone_number}}</td>
@@ -74,6 +89,8 @@
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
      // Init plugin
+     import idcardJson from './../../../public/offline/id_card_number.json'
+
 
 export default {
   components: {
@@ -86,6 +103,43 @@ export default {
       states:"",
       clients:"",
       gender:"",
+      idcard_offline:idcardJson,
+      json_fields: {
+                'First Name': 'firstname',
+                'Last Name':'lastname',
+                'Middle Name':'middlename',
+                'User Image': {
+                  field:'user_image',
+                callback: (value) => {
+                return `https://api.hayokinsurance.com/image/${value}`;
+            }
+          },
+                'phone_number':'phone_number',
+                'Plan':'sector',
+                'Vulnerable Group':'category_of_vulnerable_group',
+                'Date of Birth':'dob',
+                'Local Govt':'localgovt.local_name',
+                'Ward': 'ward.ward_name',
+                'OHIS Number':'id_card_number',
+                'Health Facility':'userprovider.agency_name',
+                'Card Expiry Date':'expiry_date',
+                'Sector':'sectorType',
+                'gender':'gender',
+                'Date Enrolled':'created_at',
+                // 'MDA':'place_of_work',
+                'NIN Number':'nimc_number',
+                'HMO':'usertpa.organization_name',
+                'Enrolled By First Name':'userenrolledby.firstname',
+                'Enrolled By Last Name':'userenrolledby.lastname',
+                 },
+                json_data: [],
+                json_meta: [
+                [
+                    {
+                    key: "charset",
+                    value: "utf-8",
+                    },
+                ]],
 
     }
   },
@@ -94,7 +148,9 @@ export default {
 
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/filter-no-gender/95930`)
+      this.axios.post(`/api/v1/auth/sp-filter/95930`,{
+        list_items: this.idcard_offline
+      })
                   .then(response => {
                       this.clients = response.data
                       console.log(response)

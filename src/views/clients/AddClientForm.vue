@@ -36,20 +36,16 @@
                                                                      <option  value="State Equity Program">State Equity Program</option>
                                                                      <option  value="Vulnerable Groups">Vulnerable Groups</option>
                                                                      <option  value="Voluntary Contributor">Voluntary Contributor</option>
-                                                                     <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option>
+                                                                     <!-- <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option> -->
                                                                  </select>
                                                               </div>
                                                           </div>
 
                                                           <div class="col-md-12" v-if="sector == 'formal' " >
                                                               <div class="form-group">
-                                                                <label for="inputCity">Select Formal Sector <span class="text-danger">*</span></label>
+                                                                <label for="inputCity">Select Category<span class="text-danger">*</span></label>
                                                                     <select class="form-control" required  v-model="register.sector" >
-                                                                     <option  value="State Civil Servant Healthcare Plan">State Civil Servant Healthcare Plan</option>
-                                                                     <option  value="LGA Civil Servant Healthcare Plan">LGA Civil Servant Healthcare Plan </option>
-                                                                     <option  value="Universal Basic Education Board Healthcare Plan">Universal Basic Education Board Healthcare Plan</option>
-                                                                     <option  value="State Pensioneers Healthcare Plan">State Pensioneers Healthcare Plan</option>
-                                                                     <option  value="LGA Pensioneers Healthcare Plan">LGA Pensioneers Healthcare Plan</option>
+                                                                     <option  value="Civil Servant">Civil Servant</option>
                                                                      <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
                                                                      <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
                                                                        Tertiary Student Health Insurance Plan (T-SHIP)</option>
@@ -147,7 +143,7 @@
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                <label for="inputCity">Select TPA <span class="text-danger">*</span></label>
+                                                                <label for="inputCity">Select TPA/HMO <span class="text-danger">*</span></label>
                                                                   <select class="form-control"  required v-model="register.org_id" >
                                                                     <option v-for="tpa in tpas" v-bind:key="tpa" :value="tpa.id">{{tpa.organization_name}}</option>
                                                                  </select>

@@ -41,31 +41,32 @@
                                                               </div>
                                                           </div>
 
-                                                          <div class="col-md-12" v-if="sector == 'formal' " >
+                                                          <div class="col-md-6" v-if="sector == 'formal' " >
                                                               <div class="form-group">
-                                                                <label for="inputCity">Select Formal Sector <span class="text-danger">*</span></label>
-                                                                    <select class="form-control" required  v-model="register.sector" >
-                                                                     <option  value="State Civil Servant Healthcare Plan">State Civil Servant Healthcare Plan</option>
-                                                                     <option  value="LGA Civil Servant Healthcare Plan">LGA Civil Servant Healthcare Plan </option>
-                                                                     <option  value="Universal Basic Education Board Healthcare Plan">Universal Basic Education Board Healthcare Plan</option>
-                                                                     <option  value="State Pensioneers Healthcare Plan">State Pensioneers Healthcare Plan</option>
-                                                                     <option  value="LGA Pensioneers Healthcare Plan">LGA Pensioneers Healthcare Plan</option>
-                                                                     <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
-                                                                     <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
-                                                                       Tertiary Student Health Insurance Plan (T-SHIP)</option>
+                                                                <label for="inputCity">Select Category<span class="text-danger">*</span></label>
+                                                                <select class="form-control" required  v-model="register.sector" >
+                                                                  <option  value="Civil Servant">Civil Servant</option>
+                                                                  <option  value="Organized Private Sector Plan">Organized Private Sector Plan</option>
+                                                                  <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
+                                                                   Tertiary Student Health Insurance Plan (T-SHIP)</option>
                                                                  </select>
                                                               </div>
                                                           </div>
-                                                          <div class="form-group col-md-12"  v-if="sector == 'informal'">
-                                                            <label >Special Needs</label>
-                                                              <select class="form-control" v-model="register.category_of_vulnerable_group">
-                                                                <option  value="Pregnant Women">Pregnant Women</option>
-                                                                <option  value="Children under 5">Children under 5</option>
-                                                                <option  value="Aged">Aged</option>
-                                                                <option  value="People with Special Needs">People with Special Needs</option>
-                                                                <option  value="Poorest of the Poor">Poorest of the Poor</option>
-                                                             </select>
-                                                          </div>
+
+                                                          <div class="form-group col-md-6" v-if="register.sector == 'Civil Servant'">
+                                                                 <label for="inputCity">Select MDA</label>
+                                                                     <select class="form-control"  v-model="register.place_of_work"  required>
+                                                                      <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
+                                                                  </select>
+                                                           </div>
+                                                           <div class="form-group col-md-6"  v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                               <label for="inputEmail4">Institution Name</label>
+                                                               <input type="text" class="form-control" v-model="register.place_of_work" placeholder="example; University of Ife">
+                                                           </div>
+                                                           <div class="form-group col-md-6"  v-if="register.sector == 'Organized Private Sector Plan'">
+                                                               <label for="inputEmail4">Organization Name</label>
+                                                               <input type="text" class="form-control"  v-model="register.place_of_work" placeholder="example;  Name of Company">
+                                                           </div>
 
                                                              <div class="form-group col-md-6">
                                                                  <label for="inputEmail4">NIN Number</label>
@@ -89,17 +90,29 @@
 
                                                          <div class="form-row">
                                                            <div class="form-group col-md-4">
-                                                             <p>  <label for="inputPassword4">Date of Birth: {{register.dob}}</label></p>
+                                                             <p>  <label for="inputPassword4">Date of Birth: </label></p>
                                                                <date-picker v-model="register.dob" valueType="format" required></date-picker>
                                                            </div>
-                                                           <div class="form-group col-md-4" v-if="sector == 'formal'">
-                                                             <p>  <label for="inputPassword4">Date of First Appointment: {{register.date_of_entry}}</label></p>
+
+                                                           <div class="form-group col-md-4" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                             <p>  <label for="inputPassword4">Date of First Appointment: </label></p>
                                                                <date-picker v-model="register.date_of_entry" valueType="format" required></date-picker>
                                                            </div>
-                                                           <div class="form-group col-md-4">
-                                                             <p>  <label for="inputPassword4">Expiry Date: {{register.expiry_date}}</label></p>
+
+                                                           <div class="form-group col-md-4" v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                             <p>  <label for="inputPassword4">Year of Admission: </label></p>
+                                                               <date-picker v-model="register.date_of_entry" valueType="format" required></date-picker>
+                                                           </div>
+
+                                                           <div class="form-group col-md-4" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                             <p>  <label for="inputPassword4">Expiry Date: </label></p>
                                                                <date-picker v-model="register.expiry_date" valueType="format" required></date-picker>
                                                            </div>
+                                                           <div class="form-group col-md-4" v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                             <p>  <label for="inputPassword4">Year of Graduation: </label></p>
+                                                               <date-picker v-model="register.expiry_date" valueType="format" required></date-picker>
+                                                           </div>
+
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputEmail4">Email</label>
                                                                   <input type="email" class="form-control" v-model="register.email" placeholder="Email">
@@ -117,21 +130,25 @@
                                                                  </select>
                                                               </div>
 
-                                                              <div class="form-group col-md-6" v-if="sector == 'formal'">
-                                                                     <label for="inputCity">Select MDA</label>
-                                                                         <select class="form-control"  v-model="register.place_of_work"  required>
-                                                                          <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
-                                                                      </select>
-                                                               </div>
 
-                                                              <div class="form-group col-md-6" v-if="sector == 'formal'">
+
+                                                              <div class="form-group col-md-6" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
                                                                   <label for="inputEmail4">Salary Number/Staff ID</label>
                                                                   <input type="text" class="form-control" v-model="register.salary_number" placeholder="Staff ID" required>
                                                               </div>
+                                                              <div class="form-group col-md-6" v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                                  <label for="inputEmail4">Matriculation Number</label>
+                                                                  <input type="text" class="form-control" v-model="register.salary_number" placeholder="Matric. Number" required>
+                                                              </div>
 
-                                                              <div class="form-group col-md-6" v-if="sector == 'formal'">
+                                                              <div class="form-group col-md-6"  v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
                                                                   <label for="inputEmail4">Grade Level/Step</label>
                                                                   <input type="text" class="form-control" v-model="register.grade_level" placeholder="Grade Level/Step" required>
+                                                              </div>
+
+                                                              <div class="form-group col-md-6"  v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                                  <label for="inputEmail4">Class Year</label>
+                                                                  <input type="text" class="form-control" v-model="register.grade_level" placeholder="200L" required>
                                                               </div>
 
 
@@ -162,31 +179,22 @@
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                <label >Ward <span class="text-danger">*</span></label>
-                                                                <select class="form-control" required  v-model="register.ward" @change="getProvidersByWards($event)">
+                                                                <label >Ward </label>
+                                                                <select class="form-control"  v-model="register.ward" @change="getProvidersByWards($event)">
                                                                     <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                  </select>
                                                               </div>
 
-                                                              <div class="col-md-12 row"  v-if="sector == 'formal'">
+                                                              <div class="col-md-12 row" >
                                                                 <div class="form-group col-md-6" >
                                                                   <label>Principal Facility for Accessing Health Care </label>
                                                                   <v-select v-model="register.provider_id" :options="providers" label="agency_name" :value="register.provider_id" @input="selected"></v-select>
                                                                 </div>
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-6" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
                                                                   <label> Dependents Facility for Accessing Health Care </label>
                                                                   <v-select v-model="register.point_of_care" :options="providers" label="agency_name" :value="register.point_of_care" @input="selectedPointocare"></v-select>
                                                                 </div>
                                                               </div>
-
-                                                                <div class="form-group col-md-6" v-if="sector == 'informal'">
-                                                                  <label>Principal Facility for Accessing Health Care <span class="text-danger">*</span></label>
-                                                                  <select class="form-control" required  v-model="register.provider_id">
-                                                                      <option v-for="provider in providers_wards" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
-                                                                   </select>
-                                                                </div>
-
-
 
                                                               <div class="form-group col-md-6">
                                                                 <label for="inputCity">Blood Group</label>

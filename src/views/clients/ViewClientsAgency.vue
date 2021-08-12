@@ -359,6 +359,7 @@ export default {
         console.error(error);
       });
     },
+    
     getMDAs(){
       this.axios.get(`/api/v1/auth/ministry/95930`)
                   .then(response => {

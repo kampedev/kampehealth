@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                             <div>
-                                <p class="h4">State Formal Sector Enrollees</p>
+                                <p class="h4">Formal Sector Enrollees</p>
                                 <h1 class="fw-400">{{formaldata.enrollees | numeral(0,0)}}</h1>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="h4">state Health Facilities</p>
+                                <p class="h4">Accredited Health Facilities</p>
                                 <h1 class="fw-400">{{formaldata.providers}}</h1>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="h4">State Claims</p>
+                                <p class="h4">Claims</p>
                                 <h1 class="fw-400">{{claims.meta.total}}</h1>
                             </div>
                         </div>

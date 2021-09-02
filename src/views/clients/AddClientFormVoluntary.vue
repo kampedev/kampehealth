@@ -1,6 +1,24 @@
 <template>
   <section class="admin-content " id="contact-search">
   <Navbar/>
+  <div class="bg-dark m-b-30">
+      <div class="container">
+          <div class="row p-b-60 p-t-60">
+
+              <div class="col-md-6 text-center mx-auto text-white p-b-30">
+                  <div class="m-b-10">
+                      <div class="avatar ">
+                          <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
+                      </div>
+                  </div>
+                  <p class="h4" > <strong>Voluntary Contributor Registration Form </strong> </p>
+
+              </div>
+
+
+          </div>
+      </div>
+  </div>
 
     <main class="admin-main">
 
@@ -13,15 +31,14 @@
 
                            <div class="card-body">
                                <div class="text-center">
-                                   <h1 > <strong>Add Enrollee Form </strong> </h1>
                                    <p>(All fields marked with <span class="text-danger">*</span> are compulsory)</p>
                                </div>
                                <form @submit.prevent="submitForm">
 
                                                         <div class="form-row">
-                                                          <div class="col-md-12">
+                                                          <div class="col-md-6">
                                                               <div class="form-group">
-                                                                <label for="inputCity">Select Sector <span class="text-danger">*</span></label>
+                                                                <label for="inputCity">Sector <span class="text-danger">*</span></label>
                                                                     <select class="form-control" required  v-model="sector" disabled>
                                                                      <option  value="formal" >Formal Sector</option>
                                                                      <option  value="informal">Informal Sector</option>
@@ -29,10 +46,10 @@
                                                               </div>
                                                           </div>
 
-                                                          <div class="col-md-12" v-if="sector == 'informal' " >
+                                                          <div class="col-md-6" v-if="sector == 'informal' " >
                                                               <div class="form-group">
-                                                                <label for="inputCity">Select Informal Sector <span class="text-danger">*</span></label>
-                                                                    <select class="form-control" required v-model="register.sector" >
+                                                                <label for="inputCity">Category<span class="text-danger">*</span></label>
+                                                                    <select class="form-control" required v-model="register.sector" disabled>
                                                                      <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
                                                                      <option  value="Vulnerable Groups">Vulnerable Groups</option>
                                                                      <option  value="Voluntary Contributor">Voluntary Contributor</option>
@@ -89,29 +106,29 @@
                                                          </div>
 
                                                          <div class="form-row">
-                                                           <div class="form-group col-md-4">
+                                                           <div class="form-group col-md-6">
                                                              <p>  <label for="inputPassword4">Date of Birth: </label></p>
                                                                <date-picker v-model="register.dob" valueType="format" required></date-picker>
                                                            </div>
 
-                                                           <div class="form-group col-md-4" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                           <!-- <div class="form-group col-md-4" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
                                                              <p>  <label for="inputPassword4">Date of First Appointment: </label></p>
                                                                <date-picker v-model="register.date_of_entry" valueType="format" required></date-picker>
+                                                           </div> -->
+
+
+
+                                                           <div class="form-group col-md-6" >
+                                                             <p>  <label for="inputPassword4">Expiry Date:</label></p>
+                                                             <input type="text" class="form-control" v-model="addYear"  placeholder="" disabled>
+
+                                                               <!-- <date-picker v-model="register.expiry_date" valueType="format" required></date-picker> -->
                                                            </div>
 
-                                                           <div class="form-group col-md-4" v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
-                                                             <p>  <label for="inputPassword4">Year of Admission: </label></p>
-                                                               <date-picker v-model="register.date_of_entry" valueType="format" required></date-picker>
-                                                           </div>
-
-                                                           <div class="form-group col-md-4" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
-                                                             <p>  <label for="inputPassword4">Expiry Date: </label></p>
-                                                               <date-picker v-model="register.expiry_date" valueType="format" required></date-picker>
-                                                           </div>
-                                                           <div class="form-group col-md-4" v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                           <!-- <div class="form-group col-md-4" v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
                                                              <p>  <label for="inputPassword4">Year of Graduation: </label></p>
                                                                <date-picker v-model="register.expiry_date" valueType="format" required></date-picker>
-                                                           </div>
+                                                           </div> -->
 
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputEmail4">Email</label>
@@ -131,25 +148,17 @@
                                                               </div>
 
 
-                                                              <div class="form-group col-md-6" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
+                                                              <!-- <div class="form-group col-md-6" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
                                                                   <label for="inputEmail4">Salary Number/Staff ID</label>
                                                                   <input type="text" class="form-control" v-model="register.salary_number" placeholder="Staff ID" required>
                                                               </div>
-                                                              <div class="form-group col-md-6" v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
-                                                                  <label for="inputEmail4">Matriculation Number</label>
-                                                                  <input type="text" class="form-control" v-model="register.salary_number" placeholder="Matric. Number" required>
-                                                              </div>
+                                                               -->
+                                                            <!--
 
                                                               <div class="form-group col-md-6"  v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
                                                                   <label for="inputEmail4">Grade Level/Step</label>
                                                                   <input type="text" class="form-control" v-model="register.grade_level" placeholder="Grade Level/Step" required>
-                                                              </div>
-
-                                                              <div class="form-group col-md-6"  v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
-                                                                  <label for="inputEmail4">Class Year</label>
-                                                                  <input type="text" class="form-control" v-model="register.grade_level" placeholder="200L" required>
-                                                              </div>
-
+                                                              </div> -->
 
 
                                                               <div class="form-group col-md-6">
@@ -272,7 +281,7 @@ export default {
       show:false,
       clients:"",
       providers:"",
-      sector:"formal",
+      sector:"informal",
       mdas:"",
       wards:"",
       tpas:"",
@@ -301,11 +310,11 @@ export default {
         gender:"",
         genotype:"",
         dob:"",
-        expiry_date:"",
+        expiry_date:new Date(),
         salary_number:"",
         provider_id:"",
         point_of_care:"",
-        sector:"",
+        sector:"Voluntary Contributor",
         finger_print:"",
         place_of_work:"",
         org_id:"",
@@ -317,8 +326,20 @@ export default {
     }
   },
   beforeMount(){
-    this.user = JSON.parse(localStorage.getItem('user'))
     //
+  },
+  computed:{
+
+    addYear(){
+      var d = new Date();
+      var year = d.getFullYear();
+      var month = d.getMonth();
+      var day = d.getDate();
+      var c = new Date(year + 1, month, day);
+      // var c = new Date(year + 1);
+      console.log(c);
+      return c;
+    }
   },
 
   methods:{
@@ -330,13 +351,8 @@ export default {
 
     },
     submitForm(){
-      if (this.user.type == 'employee') {
-        this.registerUserEmployee()
-      }
 
-      if (this.user.type == 'shis') {
         this.registerUserAdmin()
-      }
     },
     fetchWards(){
       this.axios.get(`/api/v1/auth/getwards/${event.target.value}`)
@@ -370,8 +386,6 @@ export default {
                   })
     },
     getTPAs(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-
       this.axios.get(`/api/v1/auth/getorgenrollment/95930/A`)
                   .then(response => {
                       this.tpas = response.data.data
@@ -384,10 +398,8 @@ export default {
 
 
     registerUserAdmin(){
-      // console.log(this.selected_provider ? this.selected_provider : this.register.provider_id);
-      this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/registerProvider',{
+        this.axios.post('/api/v1/auth/register',{
           nimc_number: this.register.nimc_number,
           firstname: this.register.firstname.toUpperCase(),
           lastname: this.register.lastname.toUpperCase(),
@@ -406,7 +418,7 @@ export default {
           ward: this.register.ward,
           blood: this.register.blood,
           dob: this.register.dob,
-          expiry_date: this.register.expiry_date,
+          // expiry_date: this.register.expiry_date,
           address1: this.register.address,
           genotype: this.register.genotype,
           weight: this.register.weight,
@@ -420,16 +432,16 @@ export default {
           date_of_entry: this.register.date_of_entry,
           marital_status: this.register.marital_status,
           category_of_vulnerable_group: this.register.category_of_vulnerable_group,
-          enrolled_by: this.user.id,
+          // enrolled_by: this.user.id,
         })
         .then(response=>{
 
             console.log(response);
             this.isLoading = false;
-            this.$toasted.info('Client added Successfully', {position: 'top-center', duration:3000 })
+            this.$toasted.info('Submited Successfully. Make Payment to complete your registration.', {position: 'top-center', duration:8000 })
             let user_id = response.data.data.id
 
-            this.$router.push(`/client/${user_id}`)
+            this.$router.push(`/subscribe/${user_id}`)
 
         })
         .catch(error=>{
@@ -454,62 +466,8 @@ export default {
         })
     },
 
-    registerUserEmployee(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-        this.isLoading = true;
-        this.axios.post('/api/v1/auth/registerProvider',{
-          agency_id: this.user.institutional_id,
-          nimc_number: this.register.nimc_number,
-          firstname: this.register.firstname.toUpperCase(),
-          lastname: this.register.lastname.toUpperCase(),
-          middlename: this.register.middlename.toUpperCase(),
-          email: this.register.email,
-          phone_number: this.register.phone_number,
-          type: this.register.type,
-          sectorType : this.sector,
-          provider_id: this.register.provider_id.id,
-          state: '2676',
-          role: 0,
-          password: 'euhler',
-          org_id: this.register.org_id,
-          localgovt: this.register.localgovt,
-          ward: this.register.ward,
-          blood: this.register.blood,
-          address1: this.register.address,
-          genotype: this.register.genotype,
-          dob: this.register.dob,
-          expiry_date: this.register.expiry_date,
-          date_of_entry: this.register.date_of_entry,
-          gender: this.register.gender,
-          sector: this.register.sector,
-          place_of_work: this.register.place_of_work,
-          point_of_care: this.selected_provider_dependents,
-          // finger_print: this.register.finger_print,
-          salary_number: this.register.salary_number,
-          grade_level: this.register.grade_level,
-          marital_status: this.register.marital_status,
-          // category_of_vulnerable_group: this.register.category_of_vulnerable_group,
-          enrolled_by: this.user.id,
-        })
-        .then(response=>{
-            console.log(response);
-            this.isLoading = false;
-            // this.getClients();
-            this.$toasted.info('Client added Successfully', {position: 'top-center', duration:3000 })
-            let user_id = response.data.data.id
-            this.$router.push(`/client/${user_id}`)
 
-        })
-        .catch(error=>{
-            console.log(error.response)
-            this.isLoading = false;
-            // this.getClients();
-            this.$toasted.error(`Ooop! Not added`, {position: 'top-center', duration:3000 })
-
-        })
-    },
     getProviders(){
-      this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/providerAgency/95930`)
                   .then(response => {
                       this.providers = response.data.data
@@ -521,7 +479,6 @@ export default {
     },
 
     getProvidersByWards(){
-      this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/providerAgencies/95930/${this.register.localgovt}/${this.register.ward}`)
                   .then(response => {
                       this.providers_wards = response.data.data
@@ -535,7 +492,7 @@ export default {
   },
   created(){
     this.fetchLga()
-    this.getMDAs()
+    // this.getMDAs()
     this.getProviders()
     this.getTPAs()
   }

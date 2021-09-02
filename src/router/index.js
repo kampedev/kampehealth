@@ -22,6 +22,7 @@ import AddClientEmployeeOffline from '../views/clients/offline/AddClientEmployee
 import ALLEnrolleesOfflineEmployee from '../views/clients/offline/ALLEnrolleesOfflineEmployee.vue'
 import EditOfflineEmployee from '../views/clients/offline/EditOfflineEmployee.vue'
 import AddClientFormFormal from '../views/clients/AddClientFormFormal.vue'
+import AddClientFormVoluntary from '../views/clients/AddClientFormVoluntary.vue'
 import EditProvider from '../views/providers/EditProvider.vue'
 import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
 import SingleClient from '../views/clients/SingleClient.vue'
@@ -201,11 +202,11 @@ const routes = [
       },
   },
   {
-    path: '/subscribe',
+    path: '/subscribe/:id',
     component: Subscribe,
-    meta: {
-        requiresAuth: true,
-      },
+    // meta: {
+    //     requiresAuth: true,
+    //   },
   },
   {
     path: '/add-client-agency',
@@ -249,6 +250,13 @@ const routes = [
     meta: {
         requiresAuth: true,
       },
+  },
+  {
+    path: '/voluntary-registration-form',
+    component: AddClientFormVoluntary,
+    // meta: {
+    //     requiresAuth: true,
+    //   },
   },
   {
     path: '/manage-clients',

@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <strong>Subscribe Plan</strong>
+                      <p class="h4"> <strong>Subscribe to a Plan</strong>  </p>
 
                    </div>
 
@@ -24,7 +24,7 @@
            <div class="container">
 
                <div class="row list">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
                            <div class="card-header">
 
@@ -32,102 +32,52 @@
                            </div>
 
                            <div class="card-body">
-                               <!-- <div class="text-center">
 
-                                   <h3 class="p-t-10 searchBy-name">Make Subscription</h3>
-                               </div> -->
-                               <!-- pp{{hmos}} -->
+                                   <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                          <label for="inputPassword4"><strong>Select Plan</strong></label>
+                                          <select class="form-control"  v-model="plan_id" >
+                                           <option  value="12066">Individual Plan (&#8358; 12,066)</option>
+                                           <option  value="57600">Family Plan (&#8358; 57,600)</option>
+                                         </select>
 
-                                                        <div class="form-row">
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputEmail4">Select HMO or State </label>
-                                                                 <select class="form-control"  v-model="agency_id" @change="getProviders(agency_id);getPlans(agency_id)">
-                                                                  <option id="Parent" v-for="hmo in hmos" v-bind:key="hmo.id" :value="hmo.id" >{{hmo.agency_name}}</option>
-                                                              </select>
-                                                             </div>
-                                                             <div class="form-group col-md-6">
-                                                                 <label for="inputPassword4">Select Provider</label>
-                                                                 <select class="form-control"  v-model="provider_id">
-                                                                  <option id="Parent" v-for="provider in providers" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
-                                                                </select>
-                                                              </div>
-                                                         </div>
-                                                         <div class="form-row">
-                                                              <div class="form-group col-md-6">
-                                                                <label for="inputPassword4">Select Plan</label>
-                                                                <select class="form-control"  v-model="plan_id" @change="getSinglePlan(plan_id)">
-                                                                 <option id="Parent" v-for="plan in plans" v-bind:key="plan.id" :value="plan.id">{{plan.title}}  (&#8358;{{plan.cost | numeral('0,0')}})</option>
-                                                               </select>
+                                         <!-- <div class="card">
 
-                                                               <div class="card" v-html="singleplan.description"></div>
+                                         </div> -->
 
-                                                              </div>
+                                        </div>
 
-                                                          </div>
+                                    </div>
 
-                                                         <div class="form-group" >
-                                                           <paystack
-                                                                  :amount="newAmount*100"
-                                                                  :email="user.email"
-                                                                  :paystackkey="paystackkey"
-                                                                  :reference="reference"
-                                                                  :callback="callback"
-                                                                  :close="close"
-                                                                  :embed="false"
-                                                                  v-if="agency_id != '' && provider_id != '' && plan_id != ''"
-                                                              >
-                                                             <button class="btn btn-primary" >Submit and Proceed to Pay {{newAmount}}</button>
-                                                           </paystack>
+                                   <div class="col-md-6 form-group" >
+                                     <paystack
+                                            :amount="plan_id*100"
+                                            :email="randomemail"
+                                            :paystackkey="paystackkey"
+                                            :reference="reference"
+                                            :callback="callback"
+                                            :close="close"
+                                            :embed="false"
+                                            v-if="plan_id != null"
+                                        >
+                                       <button class="btn btn-primary btn-block btn-lg" >Proceed to Pay </button>
+                                     </paystack>
 
-                                                             <button class="btn btn-primary" disabled v-if="agency_id == '' && provider_id == '' && plan_id == ''">
-                                                               Submit</button>
-                                                         </div>
-
-                           </div>
-                       </div>
-                   </div>
-
-
-                   <div class="col-lg-4 col-md-6" v-for="plan in myplan" v-bind:key="plan.id">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-
-                               <div class="card-controls">
-                                   <a class="badge badge-soft-success" href="#">5000</a>
-
-                               </div>
-                           </div>
-                           <div class="card-body">
-                               <div class="text-center">
-                                   <div>
-
+                                       <button class="btn btn-primary btn-block btn-lg" disabled v-if="plan_id == null">
+                                         Submit</button>
                                    </div>
-                                   <h3 class="p-t-10 searchBy-name">Gold Plan</h3>
-                               </div>
-                               <div class="text-muted text-center m-b-10">
-                                   {{plan.agency_name}}
 
-                               </div>
-
-                               <div class="row text-center p-b-10">
-                                   <!-- <div class="col">
-                                       <a href="#">
-                                           <h3 class="fe fe-edit"></h3>
-                                           <div class="text-overline">change plan</div>
-                                       </a>
-                                   </div> -->
-                                   <!-- <div class="col">
-                                       <a href="#">
-                                           <h3 class="fe fe-trash-2"></h3>
-                                           <div class="text-overline">delete plan</div>
-                                       </a>
-
-                                   </div> -->
-
-                               </div>
                            </div>
                        </div>
                    </div>
+
+                    <!-- <div class="col-md-12">
+                      <div class="card">
+
+                      </div>
+
+                    </div> -->
+
 
                    <div class="vld-parent">
                         <loading :active.sync="isLoading"
@@ -162,7 +112,7 @@ export default {
       agency_id:"",
       provider_id:"",
       amount:"",
-      plan_id:"",
+      plan_id:null,
       paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
       providers:"",
       singleplan:"",
@@ -175,14 +125,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/allHmo`)
-                .then(response => {
-                    this.hmos = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+
 
   },
   computed: {
@@ -195,130 +138,51 @@ export default {
 
        return text;
      },
-     newAmount(){
-       let newmonie = this.singleplan.cost + 100
-       return newmonie
+     randomemail(){
+       return 'randomuseremail' + this.$route.params.id + '@ohisuser.com'
      }
+
    },
   methods:{
 
     callback: function(response){
       // this.makeSubscribe()
-      this.fundWallet()
+      this.makeSubscribe()
       console.log(response)
     },
     close: function(){
         console.log("Payment closed")
     },
-    getProviders(agency_id){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/providerAgency/${agency_id}`)
-                  .then(response => {
-                      this.providers = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    getPlans(agency_id){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/planAgency/${agency_id}`)
-                  .then(response => {
-                      this.plans = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    getSinglePlan(plan_id){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/detailedPlan/${plan_id}`)
-                  .then(response => {
-                      this.singleplan = response.data.data[0]
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
+
+
+
     makeSubscribe(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.isLoading = true;
-    this.axios.post('/api/v1/auth/subscribePlan',{
+    this.axios.post('/api/v1/auth/make/transaction',{
         agency_id: this.agency_id,
-        plan_id: this.plan_id,
-        provider_id: this.provider_id,
-        user_id: this.user.id,
-        status: true
+        amount: this.plan_id,
+        user_id: this.$route.params.id
       })
     .then(response=>{
         console.log(response);
-        // this.getMyPlan()
-        this.payForPlan()
-        this.$breadstick.notify("Subscription initialized", {position: "top-right"});
+        this.$toasted.info('Congratulations you have successfully enrolled to O\'HIS', {position: 'top-center', duration:8000 })
         this.isLoading = false;
+        // this.$router.push(`https://oshia.ng`)
+        window.location = 'https://www.oshia.ng';
+
+
 
     })
     .catch(error=>{
         console.log(error.response)
     })
-  },
-  fundWallet(){
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this.isLoading = true;
-    this.axios.post('/api/v1/auth/fundWallet',{
-      amount: this.newAmount,
+  }
 
-    })
-  .then(response=>{
-      console.log(response);
-      // this.getMyPlan()
-      this.makeSubscribe()
-      // this.payForPlan()
-      this.$breadstick.notify("Wallet funded Successfully!", {position: "top-right"});
-      this.isLoading = false;
-
-  })
-  .catch(error=>{
-      console.log(error.response)
-  })
-},
-  payForPlan(){
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this.isLoading = true;
-  this.axios.post('/api/v1/auth/payForPlan')
-  .then(response=>{
-      console.log(response);
-      this.getMyPlan()
-      this.$breadstick.notify("Subscription completed Successfully!", {position: "top-right"});
-      this.isLoading = false;
-      this.$toasted.info('Subscription Completed Successfully!', {position: 'top-center', duration:3000 })
-
-      this.$router.push('/client-dashboard')
-
-  })
-  .catch(error=>{
-      console.log(error.response)
-  })
-},
-
-  getMyPlan(){
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/userSubscribedPlan`)
-                .then(response => {
-                    this.myplan = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
-          }
     },
 
   created(){
-    this.getMyPlan()
+    //
   }
 
 }

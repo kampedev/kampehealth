@@ -21,6 +21,7 @@ import AddClientAgencyOffline from '../views/clients/offline/AddClientAgencyOffl
 import AddClientEmployeeOffline from '../views/clients/offline/AddClientEmployeeOffline.vue'
 import ALLEnrolleesOfflineEmployee from '../views/clients/offline/ALLEnrolleesOfflineEmployee.vue'
 import EditOfflineEmployee from '../views/clients/offline/EditOfflineEmployee.vue'
+import AddDependentsOffline from '../views/clients/offline/AddDependentsOffline.vue'
 import AddClientFormFormal from '../views/clients/AddClientFormFormal.vue'
 import AddClientFormVoluntary from '../views/clients/AddClientFormVoluntary.vue'
 import EditProvider from '../views/providers/EditProvider.vue'
@@ -245,6 +246,14 @@ const routes = [
       },
   },
   {
+    path: '/add/dependent-offline',
+    component: AddDependentsOffline,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+
     path: '/add-client-formal',
     component: AddClientFormFormal,
     meta: {

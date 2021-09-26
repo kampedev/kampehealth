@@ -372,12 +372,12 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                     })
 
     },
-    attachPic(event){
-this.user = JSON.parse(localStorage.getItem('user'))
-console.log(event)
- this.image = event.target.files[0];
- this.uploadPicture()
-},
+  attachPic(event){
+    this.user = JSON.parse(localStorage.getItem('user'))
+    console.log(event)
+    this.image = event.target.files[0];
+    this.uploadPicture()
+  },
 uploadPicture(){
 this.isLoading = true;
    this.user = JSON.parse(localStorage.getItem('user'))

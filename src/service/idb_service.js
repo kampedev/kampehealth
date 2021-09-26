@@ -102,7 +102,7 @@ const getDatabase = () => {
             },
             salary_number: {
                 dataType: DATA_TYPE.String,
-                notNull: false
+                notNull: true
             },
             place_of_work: {
                 dataType: DATA_TYPE.String,
@@ -129,7 +129,38 @@ const getDatabase = () => {
             agency_id: {
                 dataType: DATA_TYPE.Number,
                 notNull: true
-            }
+            },
+           
+            dependent_identifier: { // the id of the principal for the dependent, will be the staff_id of the principal
+                dataType: DATA_TYPE.String,
+                notNull: false
+            },
+            dependent_firstname: {
+                dataType: DATA_TYPE.String,
+                notNull: false
+            },
+            dependent_lastname: {
+                dataType: DATA_TYPE.String,
+                notNull: false
+            },
+            dependent_rel_type: {
+                dataType: DATA_TYPE.String,
+                notNull: false
+            },
+            
+            dependent_gender: {
+                dataType: DATA_TYPE.String,
+                notNull: false
+            },
+            dependent_dob: {
+                dataType: DATA_TYPE.String,
+                notNull: false
+            },
+            dependent_phone_number: {
+                dataType: DATA_TYPE.String,
+                notNull: false
+            },
+           
         }
     };
     const dataBase = {

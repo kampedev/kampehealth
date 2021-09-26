@@ -29,13 +29,10 @@
                                                                 <div class="form-group">
                                                                   <label for="inputCity">Select Formal Sector</label>
                                                                       <select class="form-control"  v-model="editUser.sector" >
-                                                                       <option  value="State Civil Servant Healthcare Plan">State Civil Servant Healthcare Plan</option>
-                                                                       <option  value="LGA Civil Servant Healthcare Plan">LGA Civil Servant Healthcare Plan </option>
-                                                                       <option  value="State Pensioneers Healthcare Plan">State Pensioneers Healthcare Plan</option>
-                                                                       <option  value="LGA Pensioneers Healthcare Plan">LGA Pensioneers Healthcare Plan</option>
-                                                                       <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
-                                                                       <option value="Tertiary Institution Contributory Health Insurance Plan (TICHIP)">
-                                                                         Tertiary Institution Contributory Health Insurance Plan (TICHIP)</option>
+                                                                      <option  value="Civil Servant">Civil Servant</option>
+                                                                  <option  value="Organized Private Sector Plan">Organized Private Sector Plan</option>
+                                                                  <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
+                                                                   Tertiary Student Health Insurance Plan (T-SHIP)</option>
                                                                    </select>
                                                                 </div>
                                                             </div>

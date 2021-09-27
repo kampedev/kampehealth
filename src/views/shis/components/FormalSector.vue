@@ -7,9 +7,9 @@
 
             <div class="row">
 
-                <div class="col-lg-4 col-md-4">
-                    <div class="card m-b-30 bg-secondary">
-                        <div class="card-body text-white">
+                <div class="col-lg-3 col-md-3">
+                    <div class="card m-b-30 bg-default">
+                        <div class="card-body text-black">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
                                   <router-link :to="{ path: '/view-clients-agency'}">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-3 col-md-3">
                     <div class="card m-b-30 bg-info">
                         <div class="card-body text-dark">
                             <div class="pb-2">
@@ -48,8 +48,28 @@
                 </div>
 
 
-                <div class="col-lg-4 col-md-4">
-                    <div class="card m-b-30 bg-warning">
+                <div class="col-lg-3 col-md-3">
+                    <div class="card m-b-30 bg-dark">
+                        <div class="card-body text-white">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/plans'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="fe fe-user-plus"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="h4">Dependents</p>
+                                <h1 class="fw-400">{{formaldata.dependants}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-lg-3 col-md-3">
+                    <div class="card m-b-30 bg-success">
                         <div class="card-body text-dark">
                             <div class="pb-2">
                               <router-link :to="{ path: '/plans'}">

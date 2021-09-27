@@ -35,10 +35,10 @@
                </div> -->
 
                <div class="row">
-                   <div class="col-lg-8 col-md-8">
+                   <div class="col-md-8 offset-md-2">
                        <div class="card m-b-30">
                            <div class="card-header">
-                             <h3 class="p-t-10 searchBy-name">Dependent Details</h3>
+                             <p class="h4">Dependent Details</p>
                            </div>
 
                            <div class="card-body">
@@ -62,11 +62,13 @@
 
                              <p class="spacer-top-bottom"><strong>Name:</strong>  {{dependent.firstname }} {{dependent.lastname}}</p>
                              <hr>
-                             <p class="spacer-top-bottom"><strong>Email:</strong> {{dependent.email}}</p>
+                             <p class="spacer-top-bottom"><strong>OHIS Number:</strong> {{dependent.id_card_number}}</p>
+                             <hr>
+                              <p class="spacer-top-bottom"><strong>Principal:</strong> {{dependent.user.firstname}} {{dependent.user.lastname}}</p>
                              <hr>
                              <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{dependent.phone_number}}</p>
                              <hr>
-                             <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{dependent.state}}/{{dependent.localgovt}}</p>
+                             <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{dependent.state.name}}/{{dependent.lga.local_name}}</p>
                              <hr>
                              <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{dependent.dob | moment("dddd, MMMM Do YYYY") }}</p>
                              <hr>

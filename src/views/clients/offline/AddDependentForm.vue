@@ -408,6 +408,7 @@ export default {
           dependent_last_name: this.newStudent.dependent_last_name,
           dependent_rel_type: this.newStudent.dependent_rel_type,
           dependent_id_number: this.newStudent.dependent_id_number,
+          dependent_gender: this.newStudent.dependent_gender,
           dependent_dob: this.newStudent.dependent_dob,
           dependent_phone_number: this.phone_number,
           dependent_provider: this.provider_id,

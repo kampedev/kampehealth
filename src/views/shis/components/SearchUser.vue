@@ -188,9 +188,13 @@ export default {
                       this.search_result = response.data
                       let user = response.data.data
                       console.log(user)
-
-                        this.$router.push(`/client/${user.id}`)
                         this.$toasted.info('Searched Successfully', {position: 'top-center', duration:3000 })
+                        if (response.data.type == 'dependent') {
+                           this.$router.push(`/dependent/${user.id}`)
+                        }
+                        else{
+                           this.$router.push(`/client/${user.id}`)
+                        }
 
 
                       console.log(response)

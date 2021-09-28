@@ -240,7 +240,7 @@
               </div>
 
               <div class="form-group col-md-12">
-                <label>Select LGA <span class="text-danger">*</span> {{newStudent.localgovt}} </label>
+                <label>Select LGA <span class="text-danger">*</span> </label>
 
                 <select
                   class="form-control"
@@ -281,19 +281,22 @@
                 </select>
               </div>
 
-              <div class="col-md-6">
-                <label for="inputCity"
-                  >Gender <span class="text-danger">*</span></label
-                >
-                <select class="form-control" v-model="newStudent.gender">
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
-              </div>
+             
 
-              <div class="form-group col-md-6">
-                <label
-                  >TPA {{newStudent.org_id}}
+              <div class="form-group col-md-12">
+
+                <label for="inputAddress">TPA</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  :value="getTPA.tpa_name"
+                  v-if="newStudent.localgovt != null"
+                  disabled
+                />
+                
+
+                <!-- <label
+                  >TPA: {{newStudent.org_id}} {{getTPA.tpa_name}}
                   <span class="text-danger">*</span></label
                 >
                 <select class="form-control" v-model="newStudent.org_id">
@@ -304,6 +307,15 @@
                   >
                     {{ tpa.organization_name }}
                   </option>
+                </select> -->
+              </div>
+               <div class="col-md-6">
+                <label for="inputCity"
+                  >Gender <span class="text-danger">*</span></label
+                >
+                <select class="form-control" v-model="newStudent.gender">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
                 </select>
               </div>
 
@@ -339,7 +351,7 @@
                 </select>
               </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-12">
                 <label for="inputAddress">Home Address</label>
                 <input
                   type="text"
@@ -484,6 +496,7 @@ import allfacilitiesJson from "./../../../../public/offline/allfacilities.json";
 import lgaswardsJson from "./../../../../public/offline/lgas_wards.json";
 import mdaJson from "./../../../../public/offline/mda.json";
 import tpaJson from "./../../../../public/offline/tpa_data_osun.json";
+import tpaLGAJson from "./../../../../public/offline/lga_tpa.json";
 
 export default {
   components: {
@@ -531,6 +544,7 @@ export default {
       osun_providers: allfacilitiesJson,
       mda_offline: mdaJson,
       tpa_offline: tpaJson,
+      tpa_Lga: tpaLGAJson,
       isLoading: false,
 
       newarray: {
@@ -563,7 +577,16 @@ export default {
     this.selected_lga_sync = JSON.parse(localStorage.getItem("selected_lga"));
   },
   computed: {
-    //
+    getTPA(){
+       // let newarr = [1,2, 3].filter(x=> x<2)
+      let osunlgaarray = this.tpa_Lga.lgas;
+      let formatter = osunlgaarray.filter(
+        (x) => x.id == this.newStudent.localgovt
+      );
+      // this.wards_lga = formatter[0];
+      console.log(formatter);
+      return formatter[0]
+    }
   },
 
   methods: {
@@ -684,7 +707,7 @@ export default {
           address1: this.newStudent.address,
           agency_id: this.user.id,
           enrolled_by: this.user.id,
-          org_id: this.newStudent.org_id,
+          org_id: parseInt(this.getTPA.tpa_id),
         });
         this.$emit("add-item", studentsAdded[0]);
         // this.clear();
@@ -731,7 +754,7 @@ export default {
           address: this.newStudent.address,
           agency_id: this.user.institutional_id,
           enrolled_by: this.user.id,
-          org_id: this.newStudent.org_id,
+          org_id: parseInt(this.getTPA.tpa_id),
         });
         this.$emit("add-item", studentsAdded[0]);
 

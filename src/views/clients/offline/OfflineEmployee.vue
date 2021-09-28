@@ -157,13 +157,12 @@
                   v-model="client_number"
                   placeholder="Phone Number"
                 />
-                <div
-                  color="alert alert-warning"
-                  role="alert"
-                  v-if="client_number.length < 14"
+                <p
+                 class="text-danger"
+                  v-if="client_number.length != 11 && client_number != 0"
                 >
-                  Number must be 11 characters({{ client_number.length }})
-                </div>
+                  phone number must be 11 characters ({{ client_number.length }})
+                </p>
               </div>
               <div class="form-group col-md-6">
                 <p>
@@ -241,7 +240,7 @@
               </div>
 
               <div class="form-group col-md-12">
-                <label>Select LGA <span class="text-danger">*</span></label>
+                <label>Select LGA <span class="text-danger">*</span> {{newStudent.localgovt}} </label>
 
                 <select
                   class="form-control"
@@ -294,7 +293,7 @@
 
               <div class="form-group col-md-6">
                 <label
-                  >TPA
+                  >TPA {{newStudent.org_id}}
                   <span class="text-danger">*</span></label
                 >
                 <select class="form-control" v-model="newStudent.org_id">
@@ -400,7 +399,7 @@
                   Submit
                 </button>
               </div>
-              <div class="col-md-12 p-t-20 p-b-20">
+              <div class="col-md-12 p-t-20 p-b-20" v-show="gotoDependent">
                 <button
                   @click="modalShow = !modalShow"
                   class="btn btn-primary btn-block btn-lg"
@@ -502,6 +501,7 @@ export default {
     return {
       disabled: false,
       modalShow: false,
+      gotoDependent: false,
       newStudent: null,
       showinput: true,
       showcanvas: true,
@@ -689,6 +689,10 @@ export default {
         this.$emit("add-item", studentsAdded[0]);
         // this.clear();
         // this.showInput();
+        localStorage.removeItem("snap");
+        this.imagefile = "";
+        this.modalShow = true;
+        this.gotoDependent = true;
         this.$toasted.info("Client Added Successfully", {
           position: "top-center",
           duration: 3000,
@@ -736,6 +740,7 @@ export default {
         localStorage.removeItem("snap");
         this.imagefile = "";
         this.modalShow = true;
+        this.gotoDependent = true;
         this.$toasted.info("Client Added Successfully", {
           position: "top-center",
           duration: 3000,

@@ -88,7 +88,7 @@
 
                     <b-tab title="Special  Filter">
                       <b-card-text>
-                        <!-- <NoGender/> -->
+                        <NoGender/>
                       </b-card-text>
                     </b-tab>
 
@@ -163,7 +163,7 @@
 
 <script>
   import Navbar from '@/views/Navbar.vue'
-  // import NoGender from '@/views/clients/NoGender.vue'
+  import NoGender from '@/views/clients/NoGender.vue'
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
@@ -172,8 +172,8 @@
 
 export default {
   components: {
-     Navbar, Loading
-      // NoGender
+     Navbar, Loading,
+      NoGender
   },
   data(){
     return{

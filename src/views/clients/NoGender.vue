@@ -17,6 +17,7 @@
 
 
 
+
                               </div>
 
                                 <div class="card-body">
@@ -43,13 +44,14 @@
                                               <td>{{client.phone_number}}</td>
 
                                               <td>
-                                                <div class="form-group col-md-6">
+                                                <!-- <div class="form-group col-md-6">
                                                   <label for="inputCity">Gender <span class="text-danger">*</span></label>
                                                       <select class="form-control" required v-model="gender" >
                                                        <option  value="Male">Male</option>
                                                        <option  value="Female">Female</option>
                                                    </select>
-                                                </div>
+                                                </div> -->
+                                                {{client.id_card_number}}
 
                                                   <button type="button" @click="changeNumber(client)" class="btn btn-primary"
                                                   style="margin-left:10px; margin-top:10px;" >
@@ -142,6 +144,9 @@ export default {
                 ]],
 
     }
+  },
+  computed:{
+   //
   },
 
   methods:{

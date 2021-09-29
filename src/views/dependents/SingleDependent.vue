@@ -47,7 +47,7 @@
 
                              <div class="" v-if="dependent.image != null ">
                                <!-- <img :src="`http://localhost:8000/image/${dependent.image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"> -->
-                               <img :src="`https://hayokinsurance.com/image/${dependent.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+                               <img :src="`https://api.hayokinsurance.com/image/${dependent.image}`" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
                              </div>
 
                              <div class="fileinput fileinput-new" data-provides="fileinput" v-if="dependent.image == null">

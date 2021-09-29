@@ -58,7 +58,7 @@
                       />
                     </div>
                   </td>
-                  <td>{{ student.firstname }} {{ student.lastname }}</td>
+                  <td>{{ student.firstname }} {{ student.lastname }} {{student.org_id}} </td>
                   <td>{{ student.type }}</td>
                   <!-- <td>{{student.gender}}</td> -->
                   <td>{{ student.phone_number }}</td>

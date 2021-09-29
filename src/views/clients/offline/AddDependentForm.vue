@@ -10,7 +10,7 @@
             <div class="text-center">
               <h3 class="h3"> {{ offline_user.firstname }} {{ offline_user.lastname }} Dependent Page</h3>
               <b>
-                 {{getDep.length}}  Depedents Added 
+                 {{getDep.length}}  Depedents Added  {{offline_user.org_id}}
                 
                </b
               >
@@ -347,7 +347,7 @@ export default {
           address1: this.offline_user.address,
           agency_id: 95930,
           enrolled_by: this.user.id,
-          org_id: this.offline_user.org_id,
+          org_id: 12,
            dependent_identifier: this.offline_user.salary_number,
           dependent_firstname: this.newStudent.dependent_firstname,
           dependent_last_name: this.newStudent.dependent_last_name,
@@ -402,7 +402,7 @@ export default {
           address: this.offline_user.address,
           agency_id: 95930,
           enrolled_by: this.user.id,
-          org_id: this.offline_user.org_id,
+          org_id: 11,
             dependent_identifier: this.offline_user.salary_number,
           dependent_firstname: this.newStudent.dependent_firstname,
           dependent_last_name: this.newStudent.dependent_last_name,

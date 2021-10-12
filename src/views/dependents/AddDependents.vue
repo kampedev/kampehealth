@@ -35,11 +35,11 @@
                                     <label for="inputCity">Relationship Type</label>
 
                                         <select class="form-control"  v-model="dependent.relationShipType">
-                                         <option id="Spouse">Spouse</option>
-                                         <option id="Child 1">Child 1</option>
-                                         <option id="Child 2">Child 2</option>
-                                         <option id="Child 3">Child 3</option>
-                                         <option id="Child 4">Child 4</option>
+                                          <option value="Spouse A">Spouse</option>
+                                          <option value="Child B">Child 1</option>
+                                          <option value="Child C">Child 2</option>
+                                          <option value="Child D">Child 3</option>
+                                          <option value="Child E">Child 4</option>
                                      </select>
                                   </div>
                                   <div class="form-group col-md-6">
@@ -433,7 +433,7 @@ export default {
         lastname:  this.dependent.lastname,
         middlename: this.dependent.middlename,
         institution_attending: this.dependent.institution_attending,
-        relationShipType: this.dependent.relationShipType,
+        relationShipType: this.dependent.relationShipType.slice(0, -1),
         user_id: this.$route.params.id,
         email: this.dependent.email,
         phone_number: this.client.phone_number,
@@ -444,7 +444,7 @@ export default {
         provider: this.client.provider_id,
         enrolled_by: this.user.id,
         agency_id: 4,
-        id_card_number: this.getIdNum,
+        id_card_number: this.client.id_card_number + '/' + this.dependent.relationShipType.slice( this.dependent.relationShipType.length-1),
       })
 
       .then(response=>{
@@ -473,7 +473,7 @@ export default {
         lastname:  this.dependent.lastname,
         middlename: this.dependent.middlename,
         institution_attending: this.dependent.institution_attending,
-        relationShipType: this.dependent.relationShipType,
+        relationShipType: this.dependent.relationShipType.slice(0, -1),
         user_id: this.$route.params.id,
         email: this.dependent.email,
         phone_number: this.client.phone_number,
@@ -525,10 +525,11 @@ export default {
       this.dependent.firstname = dependent.firstname
       this.dependent.lastname = dependent.lastname
       this.dependent.middlename = dependent.middlename
-      this.dependent.relationShipType = dependent.relationShipType
+      this.dependent.relationShipType = dependent.relationShipType + ' ' + dependent.id_card_number.slice( dependent.id_card_number.length-1)
       this.dependent.gender = dependent.gender
       this.dependent.dob = dependent.dob
       this.client.phone_number = dependent.phone_number
+      
     },
     clearIt(){
       this.dependent.firstname = "";

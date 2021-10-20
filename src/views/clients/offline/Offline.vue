@@ -280,6 +280,9 @@ export default {
   data: function() {
     return {
       newStudent: null,
+      // newStudent: {
+      //   salary_number: 'nil'
+      // },
       showinput: true,
       showcamera: false,
       showfinger: false,

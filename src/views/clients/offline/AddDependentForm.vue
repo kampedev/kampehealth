@@ -10,7 +10,7 @@
             <div class="text-center">
               <h3 class="h3"> {{ offline_user.firstname }} {{ offline_user.lastname }} Dependent Page</h3>
               <b>
-                 {{getDep.length}}  Depedents Added  {{offline_user.org_id}}
+                 {{getDep.length}}  Depedents Added 
                 
                </b
               >
@@ -247,7 +247,23 @@ export default {
         (x) => x.dependent_identifier ==  this.offline_user.salary_number);
         return formatter 
 
-    }
+    },
+     getsalaryNumber(){
+      if (this.offline_user.salary_number ==  null) {
+          return 'nil'
+      } else {
+        return this.offline_user.salary_number
+        
+      }
+    },
+    getplaceofWork(){
+      if (this.offline_user.place_of_work ==  null) {
+          return null
+      } else {
+        return this.offline_user.place_of_work.name
+        
+      }
+    },
   },
 
   methods: {
@@ -339,8 +355,8 @@ export default {
           sectorType: 'this.offline_user.sectorType',
           marital_status: this.offline_user.marital_status,
           blood: this.offline_user.blood,
-          salary_number: this.offline_user.salary_number,
-          place_of_work: this.offline_user.place_of_work.name,
+          salary_number: this.getsalaryNumber,
+          place_of_work: this.getplaceofWork,
           category_of_vulnerable_group:
             this.offline_user.category_of_vulnerable_group,
           genotype: this.offline_user.genotype,
@@ -348,7 +364,7 @@ export default {
           agency_id: 95930,
           enrolled_by: this.user.id,
           org_id: 12,
-           dependent_identifier: this.offline_user.salary_number,
+           dependent_identifier: this.getsalaryNumber,
           dependent_firstname: this.newStudent.dependent_firstname,
           dependent_last_name: this.newStudent.dependent_last_name,
           dependent_rel_type: this.newStudent.dependent_rel_type,
@@ -394,8 +410,8 @@ export default {
           sectorType: 'this.offline_user.sectorType',
           marital_status: this.offline_user.marital_status,
           blood: this.offline_user.blood,
-          salary_number: this.offline_user.salary_number,
-          place_of_work: this.offline_user.place_of_work.name,
+          salary_number: this.getsalaryNumber,
+          place_of_work: this.getplaceofWork,
           category_of_vulnerable_group:
             this.offline_user.category_of_vulnerable_group,
           genotype: this.offline_user.genotype,
@@ -403,7 +419,7 @@ export default {
           agency_id: 95930,
           enrolled_by: this.user.id,
           org_id: 11,
-            dependent_identifier: this.offline_user.salary_number,
+            dependent_identifier: this.getsalaryNumber,
           dependent_firstname: this.newStudent.dependent_firstname,
           dependent_last_name: this.newStudent.dependent_last_name,
           dependent_rel_type: this.newStudent.dependent_rel_type,

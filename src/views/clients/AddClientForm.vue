@@ -165,7 +165,7 @@
 
                                                               <div class="col-md-12 row"  >
                                                                 <div class="form-group col-md-6" >
-                                                                  <label>Principal Facility for Accessing Health Care</label>
+                                                                  <label>Principal Facility for Accessing Health Care </label>
                                                                   <v-select v-model="register.provider_id" :options="providers" label="agency_name" :value="register.provider_id" @input="selected"></v-select>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
@@ -451,7 +451,8 @@ export default {
           phone_number: this.register.phone_number,
           type: this.register.type,
           sectorType : this.sector,
-          provider_id: this.register.provider_id,
+          provider_id: this.register.provider_id.id,
+          // provider_id: this.selected_provider ? this.selected_provider : this.register.provider_id,
           state: '2676',
           role: 0,
           password: 'euhler',

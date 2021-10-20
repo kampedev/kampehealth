@@ -200,7 +200,7 @@
 
             <div class="form-row" v-if="sector == 'formal'">
               <div class="form-group col-md-12">
-                <label for="inputCity">Select MDA </label>
+                <label for="inputCity">Select MDA</label>
                 <v-select
                   v-model="newStudent.place_of_work"
                   :options="mda_offline.data"
@@ -212,7 +212,7 @@
             </div>
 
             <div class="row">
-              <div class="form-group col-md-12" v-if="sector == 'informal'">
+              <!-- <div class="form-group col-md-12" v-if="sector == 'informal'">
                 <label
                   >Principal Facility for Accessing Health Care
                   <span class="text-danger">*</span></label
@@ -224,8 +224,8 @@
                   :value="newStudent.provider_id"
                   @input="selected_provider"
                 ></v-select>
-              </div>
-              <div class="form-group col-md-12" v-if="sector == 'formal'">
+              </div> -->
+              <div class="form-group col-md-12" >
                 <label
                   >Principal Facility for Accessing Health Care 
                   <span class="text-danger">*</span></label
@@ -257,7 +257,7 @@
                 </select>
               </div>
 
-              <div class="form-group col-md-12" v-if="sector == 'informal'">
+              <!-- <div class="form-group col-md-12" v-if="sector == 'informal'">
                 <label>Select Ward<span class="text-danger">*</span></label>
                 <v-select
                   v-model="newStudent.ward"
@@ -266,9 +266,9 @@
                   :value="newStudent.ward"
                   @input="selected_ward"
                 ></v-select>
-              </div>
+              </div> -->
 
-              <div class="form-group col-md-12" v-if="sector == 'formal'">
+              <div class="form-group col-md-12">
                 <label>Select Ward <span class="text-danger">*</span></label>
                 <select class="form-control" v-model="newStudent.ward">
                   <option
@@ -516,6 +516,7 @@ export default {
       modalShow: false,
       gotoDependent: false,
       newStudent: null,
+      
       showinput: true,
       showcanvas: true,
       dependents_counter: 0,
@@ -586,6 +587,22 @@ export default {
       // this.wards_lga = formatter[0];
       console.log(formatter);
       return formatter[0]
+    },
+    getplaceofWork(){
+      if (this.newStudent.place_of_work ==  null) {
+          return null
+      } else {
+        return this.newStudent.place_of_work.name
+        
+      }
+    },
+    getsalaryNumber(){
+      if (this.newStudent.salary_number ==  null) {
+          return 'nil'
+      } else {
+        return this.newStudent.salary_number
+        
+      }
     }
   },
 
@@ -699,8 +716,9 @@ export default {
           sectorType: this.sector,
           marital_status: this.newStudent.marital_status,
           blood: this.newStudent.blood,
-          salary_number: this.newStudent.salary_number,
-          place_of_work: this.newStudent.place_of_work.name,
+          salary_number: this.getsalaryNumber,
+          // place_of_work: this.newStudent.place_of_work.name,
+          place_of_work: this.getplaceofWork,
           category_of_vulnerable_group:
             this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
@@ -746,8 +764,9 @@ export default {
           sectorType: this.sector,
           marital_status: this.newStudent.marital_status,
           blood: this.newStudent.blood,
-          salary_number: this.newStudent.salary_number,
-          place_of_work: this.newStudent.place_of_work.name,
+          salary_number: this.getsalaryNumber,
+          // place_of_work: this.newStudent.place_of_work.name,
+          place_of_work: this.getplaceofWork,
           category_of_vulnerable_group:
             this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,

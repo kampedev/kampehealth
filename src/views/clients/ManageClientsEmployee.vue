@@ -5,19 +5,26 @@
        <div class="bg-dark m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
+                 <div class="col-md-12">
+                                    <p class="h4 text-center text-white">Enrollee Management</p>
 
-                   <div class="col-md-12 mx-auto text-white p-b-30">
-                       <button type="button" name="button" class="btn btn-primary text-right" @click="show = true" >Add Enrollee</button>
-                   </div>
+                 </div>
 
                </div>
            </div>
        </div>
+                  
 
        <SearchUser/>
-       <FilterUserProvider/>
+       <!-- <FilterUserProvider/> -->
        <section class="">
            <div class="container">
+
+             <div class="col-md-12 mx-auto text-white p-b-30">
+                       <button type="button" name="button" class="btn btn-primary text-right" @click="show = true" >Add Enrollee 
+                         <i class="fe fe-plus"></i>
+                       </button>
+                   </div>
 
                <div class="row list" v-show="show">
                  <AddClientForm/>
@@ -99,7 +106,7 @@
   import Navbar from '@/views/Navbar.vue'
   import AddClientForm from '@/views/clients/AddClientForm.vue'
   import SearchUser from '@/views/shis/components/SearchUser.vue'
-  import FilterUserProvider from '@/views/shis/components/FilterUserProvider.vue'
+  // import FilterUserProvider from '@/views/shis/components/FilterUserProvider.vue'
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
@@ -107,7 +114,9 @@
 
 export default {
   components: {
-     Navbar, Loading,  AddClientForm, SearchUser, FilterUserProvider
+     Navbar, Loading,  AddClientForm, 
+     SearchUser
+      // FilterUserProvider
   },
   data(){
     return{

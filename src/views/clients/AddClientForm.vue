@@ -21,7 +21,7 @@
                                                           <div class="col-md-12">
                                                               <div class="form-group">
                                                                 <label for="inputCity">Select Sector <span class="text-danger">*</span></label>
-                                                                    <select class="form-control" required  v-model="sector" >
+                                                                    <select class="form-control" required  v-model="sector" disabled>
                                                                      <option  value="formal">Formal Sector</option>
                                                                      <option  value="informal">Informal Sector</option>
                                                                  </select>
@@ -256,7 +256,7 @@ export default {
       show:false,
       clients:"",
       providers:"",
-      sector:"",
+      sector:"informal",
       mdas:"",
       wards:"",
       tpas:"",

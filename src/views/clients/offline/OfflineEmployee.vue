@@ -187,14 +187,18 @@
                 ></date-picker>
               </div>
 
-              <div class="form-group col-md-6" v-if="sector == 'formal'">
-                <label for="inputEmail4">Staff ID <span class="text-danger">*</span></label>
+              <div class="form-group col-md-6" >
+                <label for="inputEmail4"> Staff ID/ Phone Number/Bank Account Number <span class="text-danger">*</span>
+                
+                </label>
                 <input
                   type="text"
                   class="form-control"
                   v-model="newStudent.salary_number"
                   placeholder="Computer Employment Number"
                 />
+                <p> <strong> Hint: the field is compulsory and needs a unique identifier from the principal.</strong> </p>
+
               </div>
             </div>
 

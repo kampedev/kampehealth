@@ -11,6 +11,7 @@
 
                        </div>
                        <strong class="h4" style="margin-top:10px">Manage Dependents </strong>
+                       
 
                    </div>
 
@@ -145,6 +146,10 @@
                                <td>{{dependent.gender}}</td>
                                <td>{{dependent.relationShipType}}</td>
                                <td>
+                                <router-link :to="{ path: '/dependent/' + dependent.id }">
+                                   <button class="btn btn-default" name="button" ><i class="fe fe-eye"></i> </button>
+                               </router-link>
+
                                  <button class="btn btn-info" name="button" @click="editDep(dependent)"><i class="fe fe-edit"></i> </button>
                                  <button class="btn btn-danger" name="button" @click="deleteDep(dependent)"><i class="fe fe-delete"></i> </button>
                                </td>
@@ -411,7 +416,7 @@ export default {
                   })
     },
     submitForm(){
-      if (this.getAge >= 18 && this.dependent.relationShipType != 'Spouse' ) {
+      if (this.getAge >= 18 && this.dependent.relationShipType != 'Spouse A' ) {
         this.$toasted.error('Dependent older than 18 years', {position: 'top-center', duration:3000 })
 
       }

@@ -47,9 +47,9 @@
                                             <label for="inputCity">Select Informal Sector</label>
                                                 <select class="form-control"  v-model="auth_user.sector"  >
                                                  <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
-                                                 <option  value="Vulnerable Groups">Vulnerable Groups</option>
-                                                 <option  value="Voluntary Contributor">Voluntary Contributor</option>
-                                                 <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option>
+                                                                     <option  value="State Equity Program">State Equity Program</option>
+                                                                     <option  value="Vulnerable Groups">Vulnerable Groups</option>
+                                                                     <option  value="Voluntary Contributor">Voluntary Contributor</option>
                                              </select>
                                           </div>
                                       </div>
@@ -58,17 +58,14 @@
                                           <div class="form-group">
                                             <label for="inputCity">Select Formal Sector</label>
                                                 <select class="form-control"  v-model="auth_user.sector" >
-                                                 <option  value="State Civil Servant Healthcare Plan">State Civil Servant Healthcare Plan</option>
-                                                 <option  value="LGA Civil Servant Healthcare Plan">LGA Civil Servant Healthcare Plan </option>
-                                                 <option  value="State Pensioneers Healthcare Plan">State Pensioneers Healthcare Plan</option>
-                                                 <option  value="LGA Pensioneers Healthcare Plan">LGA Pensioneers Healthcare Plan</option>
-                                                 <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
-                                                 <option value="Tertiary Institution Contributory Health Insurance Plan (TICHIP)">
-                                                   Tertiary Institution Contributory Health Insurance Plan (TICHIP)</option>
+                                                  <option  value="Civil Servant">Civil Servant</option>
+                                                                     <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
+                                                                     <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
+                                                                       Tertiary Student Health Insurance Plan (T-SHIP)</option>
                                              </select>
                                           </div>
                                       </div>
-                                      <div class="form-group col-md-12" >
+                                      <div class="form-group col-md-12" v-if="sectorType == 'informal' ">
                                         <label >Special Needs</label>
                                           <select class="form-control" v-model="auth_user.category_of_vulnerable_group">
                                             <option  value="Pregnant Women">Pregnant Women</option>
@@ -128,7 +125,7 @@
                                          </select>
                                       </div>
                                       <div class="form-group col-md-12">
-                                        <label for="inputCity">Principal Facility for Accessing Care</label>
+                                        <label for="inputCity">Principal Facility for Accessing Care  </label>
                                           <select class="form-control"  v-model="auth_user.provider_id">
                                             <option v-for="facility in providers" v-bind:key="facility.id" :value="facility.id">{{facility.agency_name}}</option>
                                          </select>

@@ -64,12 +64,12 @@
                              <hr>
                              <p class="spacer-top-bottom"><strong>OHIS Number:</strong> {{dependent.id_card_number}}</p>
                              <hr>
-                              <p class="spacer-top-bottom"><strong>Principal:</strong> {{dependent.user.firstname}} {{dependent.user.lastname}}</p>
+                              <p class="spacer-top-bottom" v-if="dependent.user != null" ><strong>Principal:</strong> {{dependent.user.firstname}} {{dependent.user.lastname}}</p>
                              <hr>
                              <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{dependent.phone_number}}</p>
                              <hr>
-                             <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{dependent.state.name}}/{{dependent.lga.local_name}}</p>
-                             <hr>
+                             <!-- <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{dependent.state.name}}/{{dependent.lga.local_name}}</p>
+                             <hr> -->
                              <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{dependent.dob | moment("dddd, MMMM Do YYYY") }}</p>
                              <hr>
                              <p class="spacer-top-bottom"><strong>Gender:</strong> {{dependent.gender}}</p>

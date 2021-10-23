@@ -104,6 +104,7 @@ import TPAData from '@/views/tpas/TPAData.vue'
 import TPAEmployeeDashboard from '@/views/tpas/TPAEmployeeDashboard.vue'
 import SingleEmployee from '@/views/employees/SingleEmployee.vue'
 import DuplicateUsers from '../views/clients/DuplicateUsers.vue'
+import DuplicateDependents from '../views/clients/DuplicateDependents.vue'
 import DuplicateUsersIDcard from '../views/clients/DuplicateUsersIDcard.vue'
 
 Vue.use(VueRouter)
@@ -825,6 +826,13 @@ meta: {
   {
     path: '/duplicate',
     component: DuplicateUsers,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/duplicate-dependent',
+    component: DuplicateDependents,
     meta: {
         requiresAuth: true,
       },

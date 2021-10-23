@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>{{total.total}} Clients</h3>
+                       <h3>{{total.total}} Dependents</h3>
 
                        <button type="button" class="btn btn-primary" @click="deleteAll">Delete selected</button>
                        <!-- <div class="form-dark">
@@ -51,10 +51,10 @@
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
+                                         <th>Mark</th>
                                          <th>Name</th>
-                                         <th>Phone Number</th>
-                                         <th>Type</th>
-                                         <th>Agency Name</th>
+                                         <th>ID Number</th>
+                                         <th>Delete</th>
                                      </tr>
                                      </thead>
                                      <tbody>
@@ -63,12 +63,10 @@
                                             <button type="button" @click="valuepasser(client)" class="btn btn-default" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-star"></i></button>
                                           </td>
                                          <td >{{client.firstname}} {{client.lastname}} {{client.id}}</td>
-                                         <td>{{client.phone_number}}</td>
-                                         <td>{{client.type}}</td>
-                                         <td>{{client.agency_name}}</td>
+                                         <td>{{client.id_card_number}}</td>
                                          <td>
 
-                                             <button type="button" @click="deleteUser(client)" class="btn btn-danger" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-delete"></i></button>
+                                             <!-- <button type="button" @click="deleteUser(client)" class="btn btn-danger" style="margin-left:10px; margin-top:10px;" ><i class="fe fe-delete"></i></button> -->
 
                                          </td>
                                      </tr>
@@ -150,8 +148,7 @@ export default {
         console.log(answer)
       this.axios.post(`/api/v1/auth/deletemultiple`,{
         ids: answer,
-        selected_table: 'users',
-
+        selected_table: 'dependants',
       })
                   .then(response => {
                       console.log(response)
@@ -172,7 +169,7 @@ export default {
     },
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/enrollee_duplicate/95930`)
+      this.axios.get(`/api/v1/auth/dependent_duplicate/95930`)
                   .then(response => {
                       this.clients = response.data.data
                       this.total = response.data

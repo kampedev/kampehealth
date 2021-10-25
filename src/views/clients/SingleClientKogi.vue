@@ -100,7 +100,7 @@
 
                              <div class="col-md-4" >
                                <vue-initials-img :name="client.firstname+' '+client.lastname" class="img-thumbnail" size="300"  v-if="client.user_image == null "/>
-                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo" v-if="client.user_image != null ">
+                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo" v-if="client.user_image != null " onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'">
                                <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null "> -->
                                <!-- <p class="btn btn-default spacer-top-bottom">
                                  <button type="button"  name="button"> Enrollment Card </button>
@@ -341,7 +341,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+    this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
                 .then(response => {
                     this.client = response.data.user
                     console.log(response)
@@ -501,7 +501,7 @@ this.isLoading = true;
 
     fetchUser(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+      this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
                   .then(response => {
                       this.client = response.data.user
                       console.log(response)

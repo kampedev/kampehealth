@@ -137,8 +137,8 @@
                                        <td>
                                            <div class="avatar avatar-sm " v-if="client.user_image != null ">
                                              <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
-                                                                    class="avatar-img avatar-sm rounded-circle"
-                                                                               alt=""></div>
+                                                class="avatar-img avatar-sm rounded-circle"
+                                                alt="User Photo"  onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"></div>
                                        </td>
                                          <td >{{client.firstname}}, {{client.middlename}} {{client.lastname}}</td>
                                          <td>{{client.phone_number}}</td>

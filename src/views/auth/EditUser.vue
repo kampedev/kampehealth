@@ -12,7 +12,7 @@
                                <div class="avatar-title bg-info rounded-circle mdi mdi-settings "></div>
                            </div>
                        </div>
-                       <h3>Edit User</h3>
+                       <h3>Edit User </h3>
                    </div>
 
                </div>
@@ -27,7 +27,7 @@
 
                                   <h3 class="">Personal Data</h3>
                                   <p class="text-muted">
-                                      Use this page to update your bio-data information.
+                                      Use this page to update enrollee's bio-data information.
                                   </p>
 
                                   <div class="form-row">
@@ -65,7 +65,7 @@
                                              </select>
                                           </div>
                                       </div>
-                                      <div class="form-group col-md-12" v-if="sectorType == 'informal' ">
+                                      <div class="form-group col-md-12" v-if="auth_user.sectorType == 'informal' ">
                                         <label >Special Needs</label>
                                           <select class="form-control" v-model="auth_user.category_of_vulnerable_group">
                                             <option  value="Pregnant Women">Pregnant Women</option>
@@ -245,7 +245,7 @@ export default {
    }
  },
  beforeMount(){
-   this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+   this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
                .then(response => {
                    this.auth_user = response.data.user
                    console.log(response)
@@ -292,7 +292,7 @@ export default {
                  })
    },
    getUser(){
-     this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+     this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
                  .then(response => {
                      this.auth_user = response.data.user
                      console.log(response)

@@ -18,7 +18,7 @@
                              </label>
                            </div> -->
                        </div>
-                       <button v-clipboard="client.firstname">
+                       <button v-clipboard="client.firstname"> 
                        <strong>{{client.firstname}} {{client.lastname}}</strong>
                      </button>
 
@@ -65,7 +65,8 @@
                                         </router-link>
 
                                          <router-link :to="{ path: '/add-dependent/'+$route.params.id, params: {} }">
-                                           <button class="btn btn-outline-info spacer"  v-if = "client.type == 'client'">Dependents <i class="fe fe-users"></i> </button>
+                                           <button class="btn btn-outline-info spacer"  v-if = "client.type == 'client'" @click="findDependents">
+                                             Dependents <i class="fe fe-users"></i> </button>
                                          </router-link>
                                          <router-link :to="{ path: '/edit-user/'+$route.params.id, params: {} }">
                                            <button class="btn btn-outline-dark spacer">Edit <i class="fe fe-edit"></i></button>
@@ -147,6 +148,11 @@
 
                                    <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
                                    <hr>
+                                    <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
+                                      <p class="spacer-top-bottom"  ><strong>Dependent Name {{index+1}} :</strong> {{dep.firstname }} {{dep.lastname}} </p>
+                                   <hr>
+                                    </div>
+                                   
                                    <p class="spacer-top-bottom"><strong>Enrolled By:</strong> {{enrolled_by.firstname}} {{enrolled_by.lastname}}</p>
                                    <hr>
                                    <p class="spacer-top-bottom"><strong>NIMC Number:</strong> {{client.nimc_number}}</p>
@@ -173,7 +179,9 @@
                                    <p class="spacer-top-bottom" ><strong>Staff ID:</strong> {{client.salary_number }}</p>
                                    <hr>
                                    <p class="spacer-top-bottom" v-if = "client.type == 'client' && client.category_of_vulnerable_group != null"><strong>Category of Vulnerable Group:</strong> {{client.category_of_vulnerable_group }}</p>
-
+                                    <hr>
+                                   
+                                    
                                </div>
                            </div>
 
@@ -269,6 +277,7 @@ export default {
       auth_user:"",
       client:"",
       notes:"",
+      dependents:"",
       medications:"",
       healthFacility:"",
       signature:"",
@@ -447,6 +456,7 @@ this.isLoading = true;
                       console.error(error);
                   })
     },
+   
     takePic(){
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
@@ -504,6 +514,7 @@ this.isLoading = true;
       this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
                   .then(response => {
                       this.client = response.data.user
+                      this.dependents = response.data.dependents
                       console.log(response)
 
                       // get facility
@@ -559,12 +570,48 @@ this.isLoading = true;
                                   .catch(error => {
                                       console.error(error);
                                   })
-                      //end of get lga
+                      //end of get 
+                      
+                      //get dependents
+                         this.axios.post(`/api/v1/auth/allDependantsUser`,{
+                          agency_id:95930,
+                          id_card_number: this.client.id_card_number,
+                          user_id: this.$route.params.id
+       
+                             })
+                  .then(response => {
+                      let answers = response.data
+                      answers
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+                      //end of get dependents
 
                   })
                   .catch(error => {
                       console.error(error);
                   })
+    },
+    findDependents(){
+       //get dependents
+                         this.axios.post(`/api/v1/auth/allDependantsUser`,{
+                          agency_id:95930,
+                          id_card_number: this.client.id_card_number,
+                          user_id: this.$route.params.id
+       
+                             })
+                  .then(response => {
+                      let answers = response.data
+                      answers
+                      this.fetchUser()
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+                      //end of get dependents
     },
 
     uploadPic(){
@@ -594,6 +641,7 @@ this.isLoading = true;
   created(){
     this.fetchUser()
     this.streamPic()
+    this.findDependents()
 
   }
 

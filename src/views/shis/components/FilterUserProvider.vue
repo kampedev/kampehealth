@@ -27,10 +27,11 @@
                         <br />
 
                         <div v-show="showdownload">
-                        <div v-if="loader == true">
-                            <vue-loaders name="line-spin-fade-loader" color="black" scale="1"></vue-loaders> Preparing data for download for Health Facility
+                        <div v-if="isLoading == true">
+                           <p> Preparing data for download for Health Facility</p>
                         </div>
                         <div v-else>
+                          <p class="h3">Result: {{json_data.length}} data filtered</p>
                                   <download-excel :data="json_data" :fields="json_fields" class="btn btn-success"
                                    :header="'Enrollee Data for'+selected_provider.agency_name" :escapeCsv=false :name="selected_provider.agency_name+'.xls'">
                                   <span class="fe fe-download"></span>
@@ -71,6 +72,8 @@ export default {
   data(){
     return{
       loader:true,
+      isLoading: false,
+      fullPage: true,
       showdownload:false,
       user:null,
       providers:"",
@@ -78,8 +81,7 @@ export default {
       place_of_work:"",
       edit:false,
       show:false,
-      isLoading: false,
-      fullPage: false,
+     
       agency_id:"",
       provider_id:"",
       mdas:[],
@@ -103,10 +105,12 @@ export default {
                 'ID Number':'id_card_number',
                 'Sector Type':'sectorType',
                 'Date of Birth':'dob',
-                // 'LGA/Ward':'dob',
-                // 'HMO':'dob',
+                'Date of Expiry':'expiry_date',
+                'HMO':'usertpa.organization_name',
+                'MDA':'place_of_work',
                 'Blood Group':'blood',
                 'gender':'gender',
+                'Plan Type':'plan_type',
                 'phone_number':'phone_number' },
                 json_data: [],
                 json_meta: [
@@ -132,16 +136,22 @@ export default {
   },
   methods:{
     filterProvider(){
-      this.loader = true;
+      this.isLoading = true;
       this.axios.get(`/api/v1/auth/getProviderToUser/`+ this.selected_provider.id)
         .then(response => {
           this.json_data = response.data
           console.log(response)
-          this.loader = false;
+          this.isLoading = false;
           this.showdownload = true;
+       this.$toasted.success('Filtered Successfully', {position: 'top-center', duration:3000 })
+
         })
         .catch((error) => {
             console.error(error);
+            this.isLoading = false;
+         this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
+
+
         })
     },
 

@@ -18,17 +18,13 @@
                               <label for="inputCity">Select Sector *</label>
                                   <select class="form-control"  v-model="sector" >
                                    <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
-                                   <option  value="Vulnerable Groups">Vulnerable Groups</option>
-                                   <option  value="Voluntary Contributor">Voluntary Contributor</option>
-                                   <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option>
-                                   <option  value="State Civil Servant Healthcare Plan">State Civil Servant Healthcare Plan</option>
-                                   <option  value="LGA Civil Servant Healthcare Plan">LGA Civil Servant Healthcare Plan </option>
-                                   <option  value="Universal Basic Education Board Healthcare Plan">Universal Basic Education Board Healthcare Plan</option>
-                                   <option  value="State Pensioneers Healthcare Plan">State Pensioneers Healthcare Plan</option>
-                                   <option  value="LGA Pensioneers Healthcare Plan">LGA Pensioneers Healthcare Plan</option>
-                                   <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
-                                   <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
-                                     Tertiary Student Health Insurance Plan (T-SHIP)</option>
+                      <option  value="State Equity Program">State Equity Program</option>
+                      <option  value="Vulnerable Groups">Vulnerable Groups</option>
+                      <option  value="Voluntary Contributor">Voluntary Contributor</option>
+                     <option  value="Civil Servant">Civil Servant</option>
+                    <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
+                    <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
+                      Tertiary Student Health Insurance Plan (T-SHIP)</option>
                                </select>
                             </div>
                             <div class="form-group col-md-4">
@@ -58,12 +54,12 @@
 
                             <div class="form-group col-md-4">
                                 <label for="inputCity">Start Date *</label>
-                                <input type="date" class="form-control" v-model="from"  />
+                                <input type="date" class="form-control" v-model="from"   @change="pushDate"/>
                             </div>
 
                              <div class="form-group col-md-4">
                                 <label for="inputCity">End Date *</label>
-                                <input type="date" class="form-control" v-model="to"  />
+                                <input type="date" class="form-control" v-model="to"  @change="pushDate" />
                             </div>
 
                           </div>
@@ -138,6 +134,7 @@ export default {
       wards:[],
       from:"",
       to:"",
+      date:"",
       results:[],
       json_fields: {
                 'First Name': 'firstname',
@@ -150,7 +147,7 @@ export default {
             }
           },
                 'phone_number':'phone_number',
-                'Plan':'sector',
+                'Sector Category':'sector',
                 'Vulnerable Group':'category_of_vulnerable_group',
                 'Date of Birth':'dob',
                 'Local Govt':'local_name',
@@ -163,6 +160,7 @@ export default {
                 'Date Enrolled':'created_at',
                 'MDA':'place_of_work',
                 'NIN Number':'nimc_number',
+                'Plan Type':'plan_type',
                 'HMO':'usertpa.organization_name',
                 'Enrolled By First Name':'userenrolledby.firstname',
                 'Enrolled By Last Name':'userenrolledby.lastname',
@@ -192,10 +190,12 @@ export default {
   methods:{
     filterEnrollees(){
       this.disabled = true;
+      this.isLoading = true;
       this.axios.post(`/api/v1/auth/filtersectordashboardwardlgabydate`,{
       agency_id:'95930',
       sector:this.sector,
       category_of_vulnerable_group:this.category_of_vulnerable_group,
+      date:this.date,
       from:this.from,
       to:this.to,
       lga_id:this.localgovt.id,
@@ -206,10 +206,15 @@ export default {
                       console.log(response)
                       this.disabled = false;
                       this.showdownload = true;
+                      this.isLoading = false;
+       this.$toasted.success('Filtered Successfully', {position: 'top-center', duration:3000 })
 
                   })
                   .catch(error => {
                     this.disabled = false;
+                     this.isLoading = false;
+         this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
+
                       console.error(error);
                   })
     },
@@ -236,6 +241,9 @@ export default {
     },
     clearIt(){
       this.agency_id = "";
+    },
+     pushDate(){
+      this.date = 'date'
     },
 
   },

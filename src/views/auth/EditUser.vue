@@ -42,29 +42,25 @@
                                         </div>
                                     </div>
 
-                                      <div class="col-md-6" v-if="auth_user.sectorType == 'informal'">
+                                      <div class="col-md-6">
                                           <div class="form-group">
-                                            <label for="inputCity">Select Informal Sector</label>
+                                            <label for="inputCity">Select Sector Type</label>
                                                 <select class="form-control"  v-model="auth_user.sector"  >
                                                  <option  value="Basic Healthcare Provision Fund">Basic Healthcare Provision Fund</option>
                                                                      <option  value="State Equity Program">State Equity Program</option>
                                                                      <option  value="Vulnerable Groups">Vulnerable Groups</option>
                                                                      <option  value="Voluntary Contributor">Voluntary Contributor</option>
+
+                                                                      <option  value="Civil Servant">Civil Servant</option>
+                                                                     <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
+                                                                     <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
+                                                                       Tertiary Student Health Insurance Plan (T-SHIP)</option>
+                                                                    
                                              </select>
                                           </div>
                                       </div>
 
-                                      <div class="col-md-6" v-if="auth_user.sectorType == 'formal'">
-                                          <div class="form-group">
-                                            <label for="inputCity">Select Formal Sector</label>
-                                                <select class="form-control"  v-model="auth_user.sector" >
-                                                  <option  value="Civil Servant">Civil Servant</option>
-                                                                     <option  value="Oganized Private Sector Plan">Organized Private Sector Plan</option>
-                                                                     <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
-                                                                       Tertiary Student Health Insurance Plan (T-SHIP)</option>
-                                             </select>
-                                          </div>
-                                      </div>
+                                    
                                       <div class="form-group col-md-12" v-if="auth_user.sectorType == 'informal' ">
                                         <label >Special Needs</label>
                                           <select class="form-control" v-model="auth_user.category_of_vulnerable_group">
@@ -92,7 +88,7 @@
                                       </div>
                                       <div class="form-group col-md-6">
                                           <label for="inputEmail4">Email </label>
-                                          <input type="email" class="form-control"  placeholder="Email" v-model="autoEmail" >
+                                          <input type="email" class="form-control"  placeholder="Email" v-model="auth_user.email" >
                                       </div>
                                       <div class="form-group col-md-6">
                                           <label for="asd">Phone Number</label>
@@ -102,9 +98,23 @@
                                           <label for="asd">NIN Number</label>
                                           <input type="text" class="form-control" id="asd" placeholder="NIN Number" v-model="auth_user.nimc_number">
                                       </div>
-                                      <div class="form-group col-md-12">
+                                      <div class="form-group col-md-6">
                                           <label for="asd">Computer Number</label>
                                           <input type="text" class="form-control"  placeholder="Computer Number" v-model="auth_user.salary_number">
+                                      </div>
+                                      <div class="form-group col-md-6" >
+                                            <label for="inputCity">Principal MDA </label>
+                                                <select class="form-control"  v-model="place_of_work" >
+                                                  <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
+                                              </select>
+                                      </div>
+                                       <div class="form-group col-md-6">
+                                          <label for="inputCity">Date of Birth </label>
+                                          <input type="date" class="form-control" v-model="auth_user.dob" />
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                          <label for="inputCity">Date of Expiry</label>
+                                          <input type="date" class="form-control" v-model="auth_user.expiry_date" />
                                       </div>
                                       <div class="form-group col-md-6">
                                         <label for="inputCity">Gender</label>
@@ -239,6 +249,7 @@ export default {
      image:'',
      sector:"",
      wards:"",
+     mdas:"",
      lga_states:"",
      isLoading: false,
      fullPage: true,
@@ -278,6 +289,7 @@ export default {
      }
    }
  },
+
  methods:{
    getProviders(){
      this.user = JSON.parse(localStorage.getItem('user'))
@@ -291,6 +303,16 @@ export default {
                      console.error(error);
                  })
    },
+    getMDAs(){
+      this.axios.get(`/api/v1/auth/ministry/95930`)
+                  .then(response => {
+                    this.mdas = response.data.data
+                      console.log(response.data)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
    getUser(){
      this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
                  .then(response => {
@@ -319,7 +341,7 @@ export default {
    this.axios.post(`/api/v1/auth/editProfile/${this.$route.params.id}`,{
        firstname: this.auth_user.firstname,
        lastname: this.auth_user.lastname,
-       email: this.autoEmail,
+       email: this.auth_user.email,
        type: this.auth_user.type,
        state: '2676',
        localgovt: this.auth_user.localgovt,
@@ -361,6 +383,7 @@ export default {
  created(){
    this.fetchLga()
    this.getProviders()
+   this.getMDAs()
  }
 }
 </script>

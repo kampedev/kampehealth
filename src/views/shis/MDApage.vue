@@ -90,9 +90,9 @@
 
                                    <td >{{mda.name}}</td>
 
-                                   <!-- <td>
-                                      <button type="button" class="btn btn-info" name="button">edit</button>
-                                   </td> -->
+                                   <td>
+                                      <button type="button" class="btn btn-info" name="button" @click="editMin(mda)" >edit</button>
+                                   </td>
 
                                </tr>
 
@@ -209,10 +209,17 @@ export default {
                       console.error(error);
                   })
     },
+    editMin(mda){
+      this.show = true
+      this.edit = true
+      this.register.ministry = mda.name
+      this.ministry_id = mda.id
+
+    },
 
     registerMDA(){
         this.isLoading = true;
-          if (this.selector == 'ministry') {
+          if (this.edit == false) {
                 this.axios.post('/api/v1/auth/ministry',{
                   agency_id  : 95930,
                   name : this.register.ministry,
@@ -230,29 +237,17 @@ export default {
                     this.$toasted.error('Error', {position: 'top-left', duration:5000 })
                 })
           }
-          if (this.selector == 'department') {
-            this.axios.post('/api/v1/auth/department',{
-              name : this.register.department,
-            })
-            .then(response=>{
-                console.log(response);
-                this.isLoading = false;
-                this.$toasted.success('Department Added', {position: 'top-left', duration:5000 })
-            })
-            .catch(error=>{
-                console.log(error.response)
-                this.isLoading = false;
-                this.$toasted.error('Error', {position: 'top-left', duration:5000 })
-            })
-          }
-          if (this.selector == 'parastatal') {
-                this.axios.post('/api/v1/auth/parastatars',{
-                  name : this.register.parastatal,
+          else{
+             this.axios.put('/api/v1/auth/ministry',{
+                  id  : this.ministry_id,
+                  name : this.register.ministry,
                 })
                 .then(response=>{
                     console.log(response);
                     this.isLoading = false;
-                    this.$toasted.success('Parastatal Added', {position: 'top-left', duration:5000 })
+                    this.getDepts()
+                    this.clearIt()
+                    this.$toasted.info('MDA Updated', {position: 'top-center', duration:5000 })
                 })
                 .catch(error=>{
                     console.log(error.response)
@@ -260,6 +255,7 @@ export default {
                     this.$toasted.error('Error', {position: 'top-left', duration:5000 })
                 })
           }
+         
     },
 
 

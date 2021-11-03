@@ -73,6 +73,9 @@
                         <div v-show="showdownload">
 
                         <p class="h3">Result: {{results.length}} data filtered</p>
+                        <!-- <p v-for=" (res,index) in results" v-bind:key="res.id"> {{index}} /{{res.firstname}} {{res.lastname}} /{{res.id_card_number}}/ {{res.sector}}/
+                                {{res.middlename}}/ {{res.localgovt}} / {{res.place_of_work}}
+                           </p> -->
                         <div >
                             <p class="btn btn-success">
                                   <i class="fe fe-download"></i> <download-excel :data="results" :fields="json_fields" type="csv" :escapeCsv=false :name="sector+' _ '+category_of_vulnerable_group+'_'+from+'_'+to+'.csv'"
@@ -140,20 +143,38 @@ export default {
                 'First Name': 'firstname',
                 'Last Name':'lastname',
                 'Middle Name':'middlename',
-                'User Image': {
+                'User Image Principal': {
                   field:'user_image',
                 callback: (value) => {
+                  if (value == null) {
+                    return '' 
+                  }
+                  else
+                  {
                 return `https://api.hayokinsurance.com/image/${value}`;
+
+                  }
+            }
+          },
+          'User Image Dependent': {
+                  field:'image',
+                callback: (value) => {
+                if (value == null) {
+                  return ''
+                } else {
+                  return `https://api.hayokinsurance.com/image/${value}`;
+                }
             }
           },
                 'phone_number':'phone_number',
                 'Sector Category':'sector',
                 'Vulnerable Group':'category_of_vulnerable_group',
                 'Date of Birth':'dob',
-                'Local Govt':'local_name',
-                'Ward': 'ward_name',
+                'Local Govt':'localgovt.local_name',
+                'Ward': 'ward.ward_name',
                 'OHIS Number':'id_card_number',
                 'Health Facility':'userprovider.agency_name',
+                // 'Dependent Health Facility':'userprovider.agency_name',
                 'Card Expiry Date':'expiry_date',
                 'Sector':'sectorType',
                 'gender':'gender',

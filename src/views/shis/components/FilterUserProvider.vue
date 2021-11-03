@@ -91,6 +91,7 @@ export default {
       wards:[],
 
       json_fields: {
+                'User Type':'account_type',
                 'Sector':'sector',
                 'First Name': 'firstname',
                 'Last Name':'lastname',
@@ -108,9 +109,10 @@ export default {
                 'Date of Expiry':'expiry_date',
                 'HMO':'usertpa.organization_name',
                 'MDA':'place_of_work',
-                'Blood Group':'blood',
                 'gender':'gender',
                 'Plan Type':'plan_type',
+                'Enrolled By First Name':'userenrolledby.firstname',
+                'Enrolled By Last Name':'userenrolledby.lastname',
                 'phone_number':'phone_number' },
                 json_data: [],
                 json_meta: [

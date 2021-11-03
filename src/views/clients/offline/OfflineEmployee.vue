@@ -51,6 +51,16 @@
                 </select>
               </div>
 
+              <div class="form-group col-md-12">
+                <label for="inputCity"
+                  >Select Plan Type <span class="text-danger">*</span></label
+                >
+                <select class="form-control" v-model="newStudent.plan_type">
+                  <option value="Family">Family</option>
+                  <option value="Individual">Individual</option>
+                </select>
+              </div>
+
               <div class="col-md-12" v-if="sector == 'formal'">
                 <div class="form-group">
                   <label for="inputCity">Select Formal Sector</label>
@@ -709,6 +719,7 @@ export default {
           nimc_number: this.newStudent.nimc_number,
           provider_id: this.selected_provider_id,
           localgovt: this.newStudent.localgovt,
+          plan_type: this.newStudent.plan_type,
           ward: this.newStudent.ward,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
@@ -757,6 +768,7 @@ export default {
           nimc_number: this.newStudent.nimc_number,
           provider_id: this.selected_provider_id,
           localgovt: this.newStudent.localgovt,
+                    plan_type: this.newStudent.plan_type,
           ward: this.newStudent.ward,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
@@ -795,56 +807,7 @@ export default {
         alert(ex.message);
       }
     },
-    async addUserDependent() {
-      try {
-        // const studentsAdded = await this.service.addStudent(this.newStudent);
-        const studentsAdded = await this.service.addStudent({
-          firstname: this.newStudent.firstname,
-          lastname: this.newStudent.lastname,
-          middlename: this.newStudent.middlename,
-          nimc_number: this.newStudent.nimc_number,
-          provider_id: this.selected_provider_id,
-          localgovt: this.newStudent.localgovt,
-          ward: this.newStudent.ward,
-          phone_number: this.client_number,
-          dob: this.newStudent.dob,
-          expiry_date: this.newStudent.expiry_date,
-          type: "dependent",
-          gender: this.newStudent.gender,
-          user_image: this.imagefile,
-          sector: this.newStudent.sector,
-          sectorType: this.sector,
-          marital_status: this.newStudent.marital_status,
-          blood: this.newStudent.blood,
-          salary_number: this.newStudent.salary_number,
-          place_of_work: this.newStudent.place_of_work.name,
-          category_of_vulnerable_group:
-            this.newStudent.category_of_vulnerable_group,
-          genotype: this.newStudent.genotype,
-          address: this.newStudent.address,
-          agency_id: this.user.institutional_id,
-          enrolled_by: this.user.id,
-          org_id: this.newStudent.org_id,
-          dependent_identifier: this.newStudent.salary_number,
-          dependent_firstname: this.newStudent.dependent_firstname,
-          dependent_last_name: this.newStudent.dependent_last_name,
-          dependent_rel_type: this.newStudent.dependent_rel_type,
-          dependent_id_number: this.newStudent.dependent_id_number,
-          dependent_dob: this.newStudent.dependent_dob,
-          dependent_phone_number: this.client_number,
-        });
-        this.$emit("add-item", studentsAdded[0]);
-        // this.clear();
-        // this.showInput();
-        this.dependents_counter++;
-        this.$toasted.info("Dependent Added Successfully", {
-          position: "top-center",
-          duration: 3000,
-        });
-      } catch (ex) {
-        alert(ex.message);
-      }
-    },
+   
     closeDep() {
       this.clear();
       this.modalShow = true;

@@ -42,6 +42,16 @@
                                         </div>
                                     </div>
 
+                                     <div class="col-md-6" >
+                                        <div class="form-group">
+                                          <label for="inputCity">Plan Type</label>
+                                              <select class="form-control"   v-model="auth_user.plan_type" >
+                                               <option  value="Family">Family</option>
+                                               <option  value="Individual">Individual</option>
+                                           </select>
+                                        </div>
+                                    </div>
+
                                       <div class="col-md-6">
                                           <div class="form-group">
                                             <label for="inputCity">Select Sector Type</label>
@@ -99,12 +109,12 @@
                                           <input type="text" class="form-control" id="asd" placeholder="NIN Number" v-model="auth_user.nimc_number">
                                       </div>
                                       <div class="form-group col-md-6">
-                                          <label for="asd">Computer Number</label>
+                                          <label for="asd">Computer Number/Salary Number</label>
                                           <input type="text" class="form-control"  placeholder="Computer Number" v-model="auth_user.salary_number">
                                       </div>
                                       <div class="form-group col-md-6" >
-                                            <label for="inputCity">Principal MDA </label>
-                                                <select class="form-control"  v-model="place_of_work" >
+                                            <label for="inputCity">Principal MDA: <b>{{auth_user.place_of_work}}</b> </label>
+                                                <select class="form-control"  v-model="auth_user.place_of_work" >
                                                   <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
                                               </select>
                                       </div>
@@ -134,7 +144,7 @@
                                             <option  value="Divorced">Divorced</option>
                                          </select>
                                       </div>
-                                      <div class="form-group col-md-12">
+                                      <div class="form-group col-md-6">
                                         <label for="inputCity">Principal Facility for Accessing Care  </label>
                                           <select class="form-control"  v-model="auth_user.provider_id">
                                             <option v-for="facility in providers" v-bind:key="facility.id" :value="facility.id">{{facility.agency_name}}</option>
@@ -367,11 +377,13 @@ export default {
        agency_name: this.auth_user.agency_name,
        address1: this.auth_user.address1,
        agencyAddress: this.auth_user.agencyAddress,
-       agencyWebsite: this.auth_user.agencyWebsite
+       plan_type: this.auth_user.plan_type,
+       place_of_work: this.auth_user.place_of_work,
+       expiry_date: this.auth_user.expiry_date
      })
    .then(response=>{
        console.log(response);
-       this.$toasted.info('User updated Successfully!', {position: 'top-center', duration:3000 })
+       this.$toasted.info('Enrollee updated Successfully!', {position: 'top-center', duration:3000 })
        this.isLoading = false;
 
    })

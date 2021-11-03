@@ -35,6 +35,22 @@
                           </select>
                         </div>
                       </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Select Plan Type
+                            <span class="text-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="register.plan_type"
+                          >
+                            <option value="Family">Family</option>
+                            <option value="Individual">Individual</option>
+                          </select>
+                        </div>
+                      </div>
 
                       <div class="col-md-12" v-if="sector == 'informal'">
                         <div class="form-group">
@@ -566,6 +582,7 @@ export default {
         lastname: "",
         middlename: "",
         nimc_number: "",
+        plan_type: "",
         email: "",
         phone_number: "",
         type: "client",
@@ -675,6 +692,7 @@ export default {
           middlename: this.register.middlename.toUpperCase(),
           email: this.register.email,
           phone_number: this.register.phone_number,
+          plan_type: this.register.plan_type,
           type: this.register.type,
           sectorType: this.sector,
           agency_id: 95930,
@@ -754,6 +772,7 @@ export default {
           middlename: this.register.middlename.toUpperCase(),
           email: this.register.email,
           phone_number: this.register.phone_number,
+          plan_type: this.register.plan_type,
           type: this.register.type,
           sectorType: this.sector,
           provider_id: this.register.provider_id.id,

@@ -21,6 +21,10 @@ const getDatabase = () => {
                 notNull: true,
                 dataType: DATA_TYPE.String
             },
+            plan_type: {
+                notNull: true,
+                dataType: DATA_TYPE.String
+            },
             middlename: {
                 notNull: false,
                 unique: false,

@@ -125,8 +125,8 @@
                                 <hr>
                                 <p class="h2 spacer-top-bottom"> <strong class="text-primary">BLOOD GROUP:</strong> <strong> {{client.blood}}</strong> </p>
                                 <hr>
-                                <!-- <p class="h2 spacer-top-bottom"><strong class="text-primary">SECTOR:</strong>  <strong>{{client.sector}}</strong></p>
-                                <hr> -->
+                                <p class="h2 spacer-top-bottom"><strong class="text-primary">Plan Type:</strong>  <strong>{{client.plan_type}}</strong></p>
+                                <hr>
                                 <p class="h2 spacer-top-bottom"> <strong class="text-primary">SECTOR:</strong> <strong> {{client.sector}}</strong> </p>
                                 <hr>
                               </div>

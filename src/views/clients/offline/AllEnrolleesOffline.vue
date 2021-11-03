@@ -40,6 +40,7 @@
                   <th>Avatar</th>
                   <th>Name</th>
                   <th>User Type</th>
+                  <th>Plan Type</th>
                   <!-- <th>Gender</th> -->
                   <th>Phone Number</th>
                   <th>Sector</th>
@@ -62,6 +63,7 @@
                      <!-- {{student.place_of_work}} -->
                       </td>
                   <td>{{ student.type }}</td>
+                  <td>{{ student.plan_type }}</td>
                   <!-- <td>{{student.gender}}</td> -->
                   <td>{{ student.phone_number }}</td>
                   <td ><span v-if="student.type == 'client'">{{ student.sector }}</span> </td>

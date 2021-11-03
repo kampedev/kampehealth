@@ -72,17 +72,22 @@
 
                         <div v-show="showdownload">
 
-                        <p class="h3">Result: {{results.length}} data filtered</p>
-                        <!-- <p v-for=" (res,index) in results" v-bind:key="res.id"> {{index}} /{{res.firstname}} {{res.lastname}} /{{res.id_card_number}}/ {{res.sector}}/
-                                {{res.middlename}}/ {{res.localgovt}} / {{res.place_of_work}}
-                           </p> -->
-                        <div >
-                            <p class="btn btn-success">
+                        <p class="h5">Result: {{results.length}} data filtered <span class="text-success" @click="inspect = true">inspect data</span> </p>
+
+                         <p class="btn btn-success">
                                   <i class="fe fe-download"></i> <download-excel :data="results" :fields="json_fields" type="csv" :escapeCsv=false :name="sector+' _ '+category_of_vulnerable_group+'_'+from+'_'+to+'.csv'"
                 >
                             Download Data for {{from}} to {{to}} {{category_of_vulnerable_group}} {{sector}}
-                            <!-- <img src="download_icon.png" /> -->
+                           
                             </download-excel></p>
+
+                       <div class="" v-show="inspect"> 
+                          <p v-for=" (res,index) in results" v-bind:key="res.id"> {{index+1}}. {{res.firstname}} {{res.lastname}} ({{res.id_card_number}})/ {{res.sector}}/
+                                {{res.middlename}}/ {{res.localgovt.local_name}} / {{res.place_of_work}}
+                           </p>
+                       </div>
+                        <div >
+                           
                         </div>
                       </div>
                        </div>
@@ -118,6 +123,7 @@ export default {
     return{
       loader:true,
       showdownload:false,
+      inspect:false,
       user:null,
       sector:"",
       ward:"",
@@ -140,13 +146,14 @@ export default {
       date:"",
       results:[],
       json_fields: {
+                 'User Type':'account_type',
                 'First Name': 'firstname',
                 'Last Name':'lastname',
                 'Middle Name':'middlename',
-                'User Image Principal': {
+                'User Image': {
                   field:'user_image',
                 callback: (value) => {
-                  if (value == null) {
+                  if (value == '') {
                     return '' 
                   }
                   else
@@ -156,16 +163,7 @@ export default {
                   }
             }
           },
-          'User Image Dependent': {
-                  field:'image',
-                callback: (value) => {
-                if (value == null) {
-                  return ''
-                } else {
-                  return `https://api.hayokinsurance.com/image/${value}`;
-                }
-            }
-          },
+         
                 'phone_number':'phone_number',
                 'Sector Category':'sector',
                 'Vulnerable Group':'category_of_vulnerable_group',
@@ -174,7 +172,6 @@ export default {
                 'Ward': 'ward.ward_name',
                 'OHIS Number':'id_card_number',
                 'Health Facility':'userprovider.agency_name',
-                // 'Dependent Health Facility':'userprovider.agency_name',
                 'Card Expiry Date':'expiry_date',
                 'Sector':'sectorType',
                 'gender':'gender',

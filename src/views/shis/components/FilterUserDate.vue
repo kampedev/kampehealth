@@ -72,7 +72,7 @@
 
                         <div v-show="showdownload">
 
-                        <p class="h5">Result: {{results.length}} data filtered <span class="text-success" @click="inspect = true">inspect data</span> </p>
+                        <p class="h5">Result: {{results.length}} data filtered <span class="text-success" @click="inspect = true">preview data</span> </p>
 
                          <p class="btn btn-success">
                                   <i class="fe fe-download"></i> <download-excel :data="results" :fields="json_fields" type="csv" :escapeCsv=false :name="sector+' _ '+category_of_vulnerable_group+'_'+from+'_'+to+'.csv'"
@@ -81,11 +81,45 @@
                            
                             </download-excel></p>
 
-                       <div class="" v-show="inspect"> 
-                          <p v-for=" (res,index) in results" v-bind:key="res.id"> {{index+1}}. {{res.firstname}} {{res.lastname}} ({{res.id_card_number}})/ {{res.sector}}/
-                                {{res.middlename}}/ {{res.localgovt.local_name}} / {{res.place_of_work}}
-                           </p>
+                             <div class="col-lg-12 col-md-12" v-show="inspect">
+                       <div class="card m-b-30">
+
+                           <div class="card-body">
+
+                             <div class="table-responsive">
+                                 <table class="table align-td-middle table-card">
+                                     <thead>
+                                     <tr>
+                                         <th>NO.</th>
+                                         <th>Name (OHIS Number)</th>
+                                         <th> Account Type</th>
+                                         <th>Phone Number</th>
+                                         <th>Facility</th>
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                     <tr v-for="(client,index) in results" v-bind:key="client.id">
+                                          <td> {{index+1 }} </td>
+                                         <td >{{client.firstname}} {{client.lastname}} <b> ({{client.id_card_number}}) </b> </td>
+                                         <td>{{client.account_type}} </td>
+                                         <td>{{client.phone_number}}</td>
+                                         <td>
+                                            {{client.userprovider.agency_name}}
+
+                                         </td>
+                                     </tr>
+
+
+                                     </tbody>
+                                 </table>
+
+                             </div>
+
+                           </div>
                        </div>
+                   </div>
+
+                       
                         <div >
                            
                         </div>
@@ -150,17 +184,13 @@ export default {
                 'First Name': 'firstname',
                 'Last Name':'lastname',
                 'Middle Name':'middlename',
+                'OHIS Number':'id_card_number',
                 'User Image': {
                   field:'user_image',
                 callback: (value) => {
-                  if (value == '') {
-                    return '' 
-                  }
-                  else
-                  {
+                 
                 return `https://api.hayokinsurance.com/image/${value}`;
 
-                  }
             }
           },
          
@@ -170,18 +200,21 @@ export default {
                 'Date of Birth':'dob',
                 'Local Govt':'localgovt.local_name',
                 'Ward': 'ward.ward_name',
-                'OHIS Number':'id_card_number',
-                'Health Facility':'userprovider.agency_name',
                 'Card Expiry Date':'expiry_date',
                 'Sector':'sectorType',
                 'gender':'gender',
                 'Date Enrolled':'created_at',
-                'MDA':'place_of_work',
                 'NIN Number':'nimc_number',
                 'Plan Type':'plan_type',
+                'Plan Type (Dependent)':'user.plan_type',
                 'HMO':'usertpa.organization_name',
                 'Enrolled By First Name':'userenrolledby.firstname',
                 'Enrolled By Last Name':'userenrolledby.lastname',
+                'MDA':'place_of_work',
+                'MDA (Dependent)':'user.place_of_work',
+                'Health Facility':'userprovider.agency_name',
+
+
                  },
                 json_data: [],
                 json_meta: [

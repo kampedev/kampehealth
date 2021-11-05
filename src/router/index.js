@@ -106,6 +106,7 @@ import SingleEmployee from '@/views/employees/SingleEmployee.vue'
 import DuplicateUsers from '../views/clients/DuplicateUsers.vue'
 import DuplicateDependents from '../views/clients/DuplicateDependents.vue'
 import DuplicateUsersIDcard from '../views/clients/DuplicateUsersIDcard.vue'
+import DBQuery from '../views/shis/DBQuery.vue'
 
 Vue.use(VueRouter)
 
@@ -840,6 +841,13 @@ meta: {
   {
     path: '/duplicate-id-card',
     component: DuplicateUsersIDcard,
+    meta: {
+        requiresAuth: true,
+      },
+  },
+  {
+    path: '/db-query',
+    component: DBQuery,
     meta: {
         requiresAuth: true,
       },

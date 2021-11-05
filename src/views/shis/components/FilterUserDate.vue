@@ -92,21 +92,25 @@
                                      <tr>
                                          <th>NO.</th>
                                          <th>Name (OHIS Number)</th>
-                                         <th> Account Type</th>
                                          <th>Phone Number</th>
                                          <th>Facility</th>
+                                             <th> DOB/ Expiry Date</th>
+                                             <th> Account Type</th>
+
                                      </tr>
                                      </thead>
                                      <tbody>
                                      <tr v-for="(client,index) in results" v-bind:key="client.id">
                                           <td> {{index+1 }} </td>
                                          <td >{{client.firstname}} {{client.lastname}} <b> ({{client.id_card_number}}) </b> </td>
-                                         <td>{{client.account_type}} </td>
                                          <td>{{client.phone_number}}</td>
                                          <td>
                                             {{client.userprovider.agency_name}}
-
                                          </td>
+                                          <td>{{client.dob}}|| {{client.expiry_date}} </td>
+                                          <td>{{client.account_type}} </td>
+
+                                         <td v-if="user.id == '95930'"> <button class="btn btn-default" @click="updateExp(client)">update Exp {{client.id}} </button> </td>
                                      </tr>
 
 
@@ -275,6 +279,20 @@ export default {
                   .then(response => {
                       this.lga_states = response.data.data
                       console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
+    },
+    updateExp(client){
+      this.axios.post(`/api/v1/auth/dep/expiry`, {
+        dep_id : client.id
+        })
+                  .then(response => {
+                      this.lga_states = response.data.data
+                      console.log(response)
+                             this.$toasted.success('updated Successfully', {position: 'top-center', duration:3000 })
+
                   })
                   .catch(error => {
                       console.error(error);

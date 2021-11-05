@@ -110,24 +110,24 @@
                              </div>
 
                               <div class="col-md-8">
-                                <p class="h2 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
+                                <p class="h3 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
                                 <hr>
                                 <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p> -->
-                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>{{client.id_card_number}}</strong></p>
+                                <p class="h3 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>{{client.id_card_number}}</strong></p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"><strong class="text-primary">EXPIRY DATE:</strong>  <strong>{{client.expiry_date | moment("D/M/YYYY")}}</strong></p>
+                                <p class="h3 spacer-top-bottom"><strong class="text-primary">EXPIRY DATE:</strong>  <strong>{{client.expiry_date | moment("D/M/YYYY")}}</strong></p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-primary"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
+                                <p class="h3 spacer-top-bottom"> <strong class="text-primary"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
                                 <!-- <hr> -->
                                 <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ALTERNATE HEALTH FACILITY:</strong> <strong>{{healthFacility.agency_name}}</strong> </p> -->
                                 <hr>
-                                <p class="h2 spacer-top-bottom" v-if="client.place_of_work != null"> <strong class="text-primary">MDA:</strong> <strong> {{client.place_of_work}}</strong> </p>
+                                <p class="h3 spacer-top-bottom" v-if="client.place_of_work != null"> <strong class="text-primary">MDA:</strong> <strong> {{client.place_of_work}}</strong> </p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">BLOOD GROUP:</strong> <strong> {{client.blood}}</strong> </p>
+                                <p class="h3 spacer-top-bottom"> <strong class="text-primary">HMO/TPA:</strong> <strong> {{singletpa.organization_name}}</strong> </p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"><strong class="text-primary">Plan Type:</strong>  <strong>{{client.plan_type}}</strong></p>
+                                <p class="h3 spacer-top-bottom"><strong class="text-primary">Plan Type:</strong>  <strong>{{client.plan_type}} </strong></p>
                                 <hr>
-                                <p class="h2 spacer-top-bottom"> <strong class="text-primary">SECTOR:</strong> <strong> {{client.sector}}</strong> </p>
+                                <p class="h3 spacer-top-bottom"> <strong class="text-primary">SECTOR:</strong> <strong> {{client.sector}}</strong> </p>
                                 <hr>
                               </div>
 
@@ -146,8 +146,8 @@
                                        <button class="btn btn-outline-dark">Other Details</button>
                                    </div>
 
-                                   <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
-                                   <hr>
+                                   <!-- <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
+                                   <hr> -->
                                     <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
                                       <p class="spacer-top-bottom"  ><strong>Dependent Name {{index+1}} :</strong> {{dep.firstname }} {{dep.lastname}} </p>
                                    <hr>

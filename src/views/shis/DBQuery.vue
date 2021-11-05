@@ -28,6 +28,15 @@
          <button class="btn btn-outline-info spacer"  @click="firstshow = true">Add First Param</button>
          <button class="btn btn-outline-info spacer"  @click="secondshow = true">Add second Param</button>
          <button class="btn btn-outline-info spacer"  @click="thirdshow = true">Add Third Param</button>
+         <a href="/duplicate-id-card"> 
+         <button class="btn btn-outline-dark spacer"  >DB Filter</button>
+         </a>
+         <a href="/duplicate"> 
+         <button class="btn btn-outline-dark spacer"  >Duplicate Principal</button>
+         </a>
+         <a href="/duplicate-dependent"> 
+         <button class="btn btn-outline-dark spacer"  >Duplicate Dependent</button>
+         </a>
 
         </div>
       <div class="card m-b-30 container">

@@ -19,7 +19,7 @@
        <section class="pull-up">
            <div class="container">
 
-               <!-- <div class="row list">
+               <div class="row list">
                    <div class="col-lg-12 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
@@ -27,12 +27,16 @@
 
                            <div class="card-body">
                                <div class="form-group">
-                                   <button class="btn btn-default spacer" data-toggle="modal" data-target="#example_01">Upload Photo </button>
+                                   <!-- <button class="btn btn-default spacer" >Upload Photo </button> -->
+                                       <router-link :to="{ path: '/add-dependent/'+dependent.user.id, params: {} }">
+                                         <button class="btn btn-default spacer" >Edit <i class="fe fe-edit"></i> </button>
+                                        </router-link>
+
                                </div>
                            </div>
                        </div>
                    </div>
-               </div> -->
+               </div>
 
                <div class="row">
                    <div class="col-md-8 offset-md-2">
@@ -51,7 +55,7 @@
                                 width="304" height="236"  onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'">
                              </div>
 
-                             <div class="fileinput fileinput-new" data-provides="fileinput" v-if="dependent.image == null">
+                             <div class="fileinput fileinput-new" data-provides="fileinput" >
                                <span class="btn btn-file">
                                  <span class="fileinput-exists">Change</span>
                                  <input type="file" name="..." multiple   v-on:change="attachPic">
@@ -72,6 +76,8 @@
                              <!-- <p class="spacer-top-bottom"><strong>State/LGA:</strong> {{dependent.state.name}}/{{dependent.lga.local_name}}</p>
                              <hr> -->
                              <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{dependent.dob | moment("dddd, MMMM Do YYYY") }}</p>
+                             <hr>
+                             <p class="spacer-top-bottom"><strong>Date of Expiry:</strong> {{dependent.expiry_date | moment("dddd, MMMM Do YYYY") }}</p>
                              <hr>
                              <p class="spacer-top-bottom"><strong>Gender:</strong> {{dependent.gender}}</p>
                              <hr>

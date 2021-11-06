@@ -43,7 +43,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-4">
+                <div class="col-md-1">
                      <label for="inputCity"
                 ><i class="fe fe-map-pin"></i>Per Row</label
               >
@@ -51,6 +51,8 @@
                 <option value="20" selected>20</option>
                 <option value="50" >50</option>
                 <option value="100" >100</option>
+                <option value="200" >200</option>
+                <option value="500" >500</option>
               </select>
 
                 </div>
@@ -245,8 +247,8 @@
             <div class="col-lg-12 col-md-12">
 
                 
-              <div class="card m-b-30">
-                <div class="card-body">
+              <div class="">
+                <div class="">
                   
                   <p class="h4">
                     Total Records:

@@ -117,7 +117,7 @@
                                <th>Avatar</th>
                                <th>Name</th>
                                <th>ID Number</th>
-                               <th>Contact</th>
+                               <th>DOB / Date of Expiry</th>
                                <th>Gender</th>
                                <th>Relationship</th>
                                <th>Action</th>
@@ -131,6 +131,7 @@
                                    <div class="avatar avatar-md " v-if="dependent.image != null ">
                                      <img :src="`https://api.hayokinsurance.com/image/${dependent.image}`"
                                            class="avatar-img avatar-lg rounded"
+                                           onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                                            alt="">
                                     </div>
 
@@ -142,7 +143,7 @@
 
                                </td>
                                <td>{{dependent.id_card_number}}</td>
-                               <td>{{dependent.phone_number}}</td>
+                               <td>{{dependent.dob}} <b>/</b> {{dependent.expiry_date}} </td>
                                <td>{{dependent.gender}}</td>
                                <td>{{dependent.relationShipType}}</td>
                                <td>
@@ -483,9 +484,10 @@ export default {
         email: this.dependent.email,
         phone_number: this.client.phone_number,
         gender: this.dependent.gender,
+        expiry_date: this.dependent.expiry_date,
+        dob: this.dependent.dob,
         state: 2683,
         lga: this.client.localgovt,
-        dob: this.dependent.dob,
         provider: this.client.provider_id,
 
       })
@@ -533,6 +535,7 @@ export default {
       this.dependent.relationShipType = dependent.relationShipType + ' ' + dependent.id_card_number.slice( dependent.id_card_number.length-1)
       this.dependent.gender = dependent.gender
       this.dependent.dob = dependent.dob
+      this.dependent.expiry_date = dependent.expiry_date
       this.client.phone_number = dependent.phone_number
       
     },

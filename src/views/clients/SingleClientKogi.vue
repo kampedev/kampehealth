@@ -1,14 +1,22 @@
 <template>
-  <section class="admin-content " id="contact-search">
-    <Navbar/>
-    <div >
-       <div class="bg-dark m-b-30">
-           <div class="container">
-               <div class="row p-b-60 p-t-60">
-
-                   <div class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image">
-                       <div class="m-b-10">
-                           <!-- <div class="avatar">
+  <section class="admin-content" id="contact-search">
+    <Navbar />
+    <div>
+      <div class="bg-dark m-b-30">
+        <div class="container">
+          <div class="row p-b-60 p-t-60">
+            <div
+              class="
+                col-md-6
+                text-center
+                mx-auto
+                text-white
+                p-b-30
+                spacer-image
+              "
+            >
+              <div class="m-b-10">
+                <!-- <div class="avatar">
                              <label class="avatar-input">
                           <span class="avatar avatar-lg">
                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
@@ -17,180 +25,312 @@
 
                              </label>
                            </div> -->
-                       </div>
-                       <button v-clipboard="client.firstname"> 
-                       <strong>{{client.firstname}} {{client.lastname}}</strong>
-                     </button>
+              </div>
+              <button v-clipboard="client.firstname">
+                <strong>{{ client.firstname }} {{ client.lastname }}</strong>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="pull-up">
+        <div class="container">
+          <div class="row list">
+            <div class="col-lg-12 col-md-12">
+              <div class="card m-b-30">
+                <div class="card-header">
+                  <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
+                </div>
 
-                   </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <!-- <button class="btn btn-info spacer"  >Principal's Details</button> -->
 
-               </div>
-           </div>
-       </div>
-       <section class="pull-up">
-           <div class="container">
-
-               <div class="row list">
-                   <div class="col-lg-12 col-md-12">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-
-                             <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
-                           </div>
-
-                           <div class="card-body">
-                                     <div class="form-group">
-                                       <!-- <button class="btn btn-info spacer"  >Principal's Details</button> -->
-
-                                         <button class="btn btn-outline-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_01">Take Photo <i class="fe fe-camera"></i> </button>
-                                         <div class="fileinput fileinput-new" data-provides="fileinput" >
-                                          <span class="btn btn-file">
-                                            <span class="fileinput-new">Upload Picture <i class="fe fe-upload"></i></span>
-                                            <span class="fileinput-exists">Change</span>
-                                            <input type="file" name="..." multiple   v-on:change="attachPic">
-                                          </span>
-                                          <span class="fileinput-filename"></span>
-                                          <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                                      </div>
-                                         <!-- <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
+                    <button
+                      class="btn btn-outline-success spacer"
+                      @click="streamPic"
+                      data-toggle="modal"
+                      data-target="#example_01"
+                    >
+                      Take Photo <i class="fe fe-camera"></i>
+                    </button>
+                    <div
+                      class="fileinput fileinput-new"
+                      data-provides="fileinput"
+                    >
+                      <span class="btn btn-file">
+                        <span class="fileinput-new"
+                          >Upload Picture <i class="fe fe-upload"></i
+                        ></span>
+                        <span class="fileinput-exists">Change</span>
+                        <input
+                          type="file"
+                          name="..."
+                          multiple
+                          v-on:change="attachPic"
+                        />
+                      </span>
+                      <span class="fileinput-filename"></span>
+                      <a
+                        href="#"
+                        class="close fileinput-exists"
+                        data-dismiss="fileinput"
+                        style="float: none"
+                        >&times;</a
+                      >
+                    </div>
+                    <!-- <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
                                            <button class="btn btn-info spacer"  > <i class="mdi mdi-hand"></i> </button>
                                         </router-link> -->
 
-                                        <button class="btn btn-outline-primary spacer"  @click="printMe">Print <i class="fe fe-printer"></i></button>
-                                        <button class="btn btn-outline-danger spacer"  @click="deleteUser">Delete <i class="fe fe-delete"></i></button>
-                                        <!-- <button class="btn btn-primary spacer"  @click="changeNumber">Change ID Card Number </button> -->
+                    <button
+                      class="btn btn-outline-primary spacer"
+                      @click="printMe"
+                    >
+                      Print <i class="fe fe-printer"></i>
+                    </button>
+                    <button
+                      class="btn btn-outline-danger spacer"
+                      @click="deleteUser"
+                    >
+                      Delete <i class="fe fe-delete"></i>
+                    </button>
+                    <!-- <button class="btn btn-primary spacer"  @click="changeNumber">Change ID Card Number </button> -->
 
-                                        <router-link :to="{ path: '/patient/'+$route.params.id, params: {} }">
-                                          <button class="btn btn-outline-info spacer" >Medical<i class="mdi mdi-medical-bag"></i></button>
-                                        </router-link>
+                    <router-link
+                      :to="{ path: '/patient/' + $route.params.id, params: {} }"
+                    >
+                      <button class="btn btn-outline-info spacer">
+                        Medical<i class="mdi mdi-medical-bag"></i>
+                      </button>
+                    </router-link>
 
-                                         <router-link :to="{ path: '/add-dependent/'+$route.params.id, params: {} }">
-                                           <button class="btn btn-outline-info spacer"  v-if = "client.type == 'client'" @click="findDependents">
-                                             Dependents <i class="fe fe-users"></i> </button>
-                                         </router-link>
-                                         <router-link :to="{ path: '/edit-user/'+$route.params.id, params: {} }">
-                                           <button class="btn btn-outline-dark spacer">Edit <i class="fe fe-edit"></i></button>
-                                         </router-link>
-                                     </div>
+                    <router-link
+                      :to="{
+                        path: '/add-dependent/' + $route.params.id,
+                        params: {},
+                      }"
+                    >
+                      <button
+                        class="btn btn-outline-info spacer"
+                        v-if="client.type == 'client'"
+                        @click="findDependents"
+                      >
+                        Dependents <i class="fe fe-users"></i>
+                      </button>
+                    </router-link>
+                    <router-link
+                      :to="{
+                        path: '/edit-user/' + $route.params.id,
+                        params: {},
+                      }"
+                    >
+                      <button class="btn btn-outline-dark spacer">
+                        Edit <i class="fe fe-edit"></i>
+                      </button>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                           </div>
-                       </div>
-                   </div>
-               </div>
+          <div class="row">
+            <div class="col-lg-8 col-md-12" id="printDiv" ref="printNow">
+              <div
+                class="card"
+                style="
+                  background-image: url('../assets/img/ohis_transparent.png');
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                "
+              >
+                <div class="card-header">
+                  <div class="row spacer-top">
+                    <div class="col-md-2">
+                      <span class="avatar avatar-xl">
+                        <img
+                          src="/assets/img/ohis_logo.png"
+                          class="rounded-circle"
+                        />
+                      </span>
+                    </div>
+                    <div class="col-md-10">
+                      <strong
+                        ><h2 class="h1 text-primary">
+                          OSUN HEALTH INSURANCE SCHEME
+                        </h2>
+                      </strong>
+                      <strong><p class="h2 text-center">(O'HIS)</p></strong>
+                    </div>
+                  </div>
+                </div>
 
-               <div class="row">
-                   <div class="col-lg-8 col-md-12" id="printDiv" ref="printNow">
-                       <div class="card" style="background-image: url('../assets/img/ohis_transparent.png'); background-size: cover; background-repeat: no-repeat;">
-                           <div class="card-header ">
-                             <div class="row spacer-top">
-                               <div class="col-md-2">
-                                 <span class="avatar avatar-xl">
-                                     <img src="/assets/img/ohis_logo.png"
-                                          class=" rounded-circle" >
-                                 </span>
-                               </div>
-                               <div class="col-md-10 ">
-                                 <strong ><h2 class="h1 text-primary">OSUN HEALTH INSURANCE SCHEME </h2> </strong>
-                                 <strong><p class="h2 text-center">(O'HIS)</p></strong>
-                               </div>
-                             </div>
-
-                           </div>
-
-                           <div class="card-body row">
-
-                             <div class="col-md-4" >
-                               <vue-initials-img :name="client.firstname+' '+client.lastname" class="img-thumbnail" size="300"  v-if="client.user_image == null "/>
-                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo" v-if="client.user_image != null " onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'">
-                               <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null "> -->
-                               <!-- <p class="btn btn-default spacer-top-bottom">
+                <div class="card-body row">
+                  <div class="col-md-4">
+                    <vue-initials-img
+                      :name="client.firstname + ' ' + client.lastname"
+                      class="img-thumbnail"
+                      size="300"
+                      v-if="client.user_image == null"
+                    />
+                    <img
+                      :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
+                      class="img spacer-top"
+                      alt="User Photo"
+                      v-if="client.user_image != null"
+                      onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                    />
+                    <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null "> -->
+                    <!-- <p class="btn btn-default spacer-top-bottom">
                                  <button type="button"  name="button"> Enrollment Card </button>
                                </p> -->
+                  </div>
 
-                             </div>
+                  <div class="col-md-8">
+                    <p class="h3 spacer-top-bottom">
+                      <strong class="text-primary">NAME :</strong>
+                      <strong>{{ client.firstname }}</strong
+                      >, {{ client.lastname }} {{ client.middlename }}
+                    </p>
+                    <hr />
+                    <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p> -->
+                    <p class="h3 spacer-top-bottom">
+                      <strong class="text-primary">ID NUMBER:</strong>
+                      <strong>{{ client.id_card_number }}</strong>
+                    </p>
+                    <hr />
+                    <p class="h3 spacer-top-bottom">
+                      <strong class="text-primary">EXPIRY DATE:</strong>
+                      <strong>{{
+                        client.expiry_date | moment("D/M/YYYY")
+                      }}</strong>
+                    </p>
+                    <hr />
+                    <p class="h3 spacer-top-bottom">
+                      <strong class="text-primary">
+                        FACILITY TO ACCESS CARE:</strong
+                      >
+                      <strong>{{ healthFacility.agency_name }}</strong>
+                    </p>
+                    <!-- <hr> -->
+                    <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ALTERNATE HEALTH FACILITY:</strong> <strong>{{healthFacility.agency_name}}</strong> </p> -->
+                    <hr />
+                    <p
+                      class="h3 spacer-top-bottom"
+                      v-if="client.place_of_work != null"
+                    >
+                      <strong class="text-primary">MDA:</strong>
+                      <strong> {{ client.place_of_work }}</strong>
+                    </p>
+                    <hr />
+                    <p class="h3 spacer-top-bottom">
+                      <strong class="text-primary">HMO/TPA:</strong>
+                      <strong> {{ singletpa.organization_name }}</strong>
+                    </p>
+                    <hr />
+                    <p class="h3 spacer-top-bottom">
+                      <strong class="text-primary">Plan Type:</strong>
+                      <strong>{{ client.plan_type }} </strong>
+                    </p>
+                    <hr />
+                    <p class="h3 spacer-top-bottom">
+                      <strong class="text-primary">SECTOR:</strong>
+                      <strong> {{ client.sector }}</strong>
+                    </p>
+                    <hr />
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                              <div class="col-md-8">
-                                <p class="h3 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
-                                <hr>
-                                <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p> -->
-                                <p class="h3 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>{{client.id_card_number}}</strong></p>
-                                <hr>
-                                <p class="h3 spacer-top-bottom"><strong class="text-primary">EXPIRY DATE:</strong>  <strong>{{client.expiry_date | moment("D/M/YYYY")}}</strong></p>
-                                <hr>
-                                <p class="h3 spacer-top-bottom"> <strong class="text-primary"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
-                                <!-- <hr> -->
-                                <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ALTERNATE HEALTH FACILITY:</strong> <strong>{{healthFacility.agency_name}}</strong> </p> -->
-                                <hr>
-                                <p class="h3 spacer-top-bottom" v-if="client.place_of_work != null"> <strong class="text-primary">MDA:</strong> <strong> {{client.place_of_work}}</strong> </p>
-                                <hr>
-                                <p class="h3 spacer-top-bottom"> <strong class="text-primary">HMO/TPA:</strong> <strong> {{singletpa.organization_name}}</strong> </p>
-                                <hr>
-                                <p class="h3 spacer-top-bottom"><strong class="text-primary">Plan Type:</strong>  <strong>{{client.plan_type}} </strong></p>
-                                <hr>
-                                <p class="h3 spacer-top-bottom"> <strong class="text-primary">SECTOR:</strong> <strong> {{client.sector}}</strong> </p>
-                                <hr>
-                              </div>
+            <div class="col-lg-4 col-md-12">
+              <div class="card m-b-30">
+                <div class="card-header"></div>
 
-                           </div>
-                       </div>
-                   </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <button class="btn btn-outline-dark">Other Details</button>
+                  </div>
 
-                       <div class="col-lg-4 col-md-12">
-                           <div class="card m-b-30">
-                               <div class="card-header">
-
-                               </div>
-
-                               <div class="card-body" >
-                                   <div class="form-group">
-                                       <button class="btn btn-outline-dark">Other Details</button>
-                                   </div>
-
-                                   <!-- <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
+                  <!-- <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
                                    <hr> -->
-                                    <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
-                                      <p class="spacer-top-bottom"  ><strong>Dependent Name {{index+1}} :</strong> {{dep.firstname }} {{dep.lastname}} </p>
-                                   <hr>
-                                    </div>
-                                   
-                                   <p class="spacer-top-bottom"><strong>Enrolled By:</strong> {{enrolled_by.firstname}} {{enrolled_by.lastname}}</p>
-                                   <hr>
-                                   <p class="spacer-top-bottom"><strong>NIMC Number:</strong> {{client.nimc_number}}</p>
-                                   <hr>
-                                   <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
-                                   <hr>
-                                   <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
-                                   <hr>
-                                   <p class="spacer-top-bottom"><strong>LGA/Ward:</strong> {{singlelga.local_name}}/{{client.ward_name}}</p>
-                                   <hr>
-                                   <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
-                                   <hr>
-                                   <p class="spacer-top-bottom"><strong>Email:</strong> {{client.email}}</p>
-                                   <hr>
-                                   <!-- <p class="spacer-top-bottom"><strong>Enrolment Date:</strong> {{client.created_at}}</p>
+                  <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
+                    <p class="spacer-top-bottom">
+                      <strong>Dependent Name {{ index + 1 }} :</strong>
+                      {{ dep.firstname }} {{ dep.lastname }}
+                    </p>
+                    <hr />
+                  </div>
+
+                  <p class="spacer-top-bottom">
+                    <strong>Enrolled By:</strong> {{ enrolled_by.firstname }}
+                    {{ enrolled_by.lastname }}
+                  </p>
+                  <hr />
+                  <p class="spacer-top-bottom">
+                    <strong>NIMC Number:</strong> {{ client.nimc_number }}
+                  </p>
+                  <hr />
+                  <p class="spacer-top-bottom">
+                    <strong>Gender:</strong> {{ client.gender }}
+                  </p>
+                  <hr />
+                  <p class="spacer-top-bottom">
+                    <strong>Phone Number:</strong> {{ client.phone_number }}
+                  </p>
+                  <hr />
+                  <p class="spacer-top-bottom">
+                    <strong>LGA/Ward:</strong> {{ singlelga.local_name }}/{{
+                      client.ward_name
+                    }}
+                  </p>
+                  <hr />
+                  <p class="spacer-top-bottom">
+                    <strong>Date of Birth:</strong>
+                    {{ client.dob | moment("D/M/YYYY") }}
+                  </p>
+                  <hr />
+                  <p class="spacer-top-bottom">
+                    <strong>Email:</strong> {{ client.email }}
+                  </p>
+                  <hr />
+                  <!-- <p class="spacer-top-bottom"><strong>Enrolment Date:</strong> {{client.created_at}}</p>
                                    <hr> -->
-                                   <p class="spacer-top-bottom"><strong>Expiry Date:</strong> {{client.expiry_date}}</p>
-                                   <hr>
+                  <p class="spacer-top-bottom">
+                    <strong>Expiry Date:</strong> {{ client.expiry_date }}
+                  </p>
+                  <hr />
 
-                                   <p class="spacer-top-bottom"><strong>Marital Status:</strong> {{client.marital_status }}</p>
-                                   <hr>
-                                   <p class="spacer-top-bottom" ><strong>MDA:</strong> {{client.place_of_work }}</p>
-                                   <hr>
-                                   <p class="spacer-top-bottom" ><strong>Staff ID:</strong> {{client.salary_number }}</p>
-                                   <hr>
-                                   <p class="spacer-top-bottom" v-if = "client.type == 'client' && client.category_of_vulnerable_group != null"><strong>Category of Vulnerable Group:</strong> {{client.category_of_vulnerable_group }}</p>
-                                    <hr>
-                                   
-                                    
-                               </div>
-                           </div>
+                  <p class="spacer-top-bottom">
+                    <strong>Marital Status:</strong> {{ client.marital_status }}
+                  </p>
+                  <hr />
+                  <p class="spacer-top-bottom">
+                    <strong>MDA:</strong> {{ client.place_of_work }}
+                  </p>
+                  <hr />
+                  <p class="spacer-top-bottom">
+                    <strong>Staff ID:</strong> {{ client.salary_number }}
+                  </p>
+                  <hr />
+                  <p
+                    class="spacer-top-bottom"
+                    v-if="
+                      client.type == 'client' &&
+                      client.category_of_vulnerable_group != null
+                    "
+                  >
+                    <strong>Category of Vulnerable Group:</strong>
+                    {{ client.category_of_vulnerable_group }}
+                  </p>
+                  <hr />
+                </div>
+              </div>
+            </div>
+          </div>
 
-                       </div>
-
-
-               </div>
-
-               <!-- <div class="row">
+          <!-- <div class="row">
                    <div class="col-lg-8 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
@@ -206,472 +346,497 @@
 
                </div> -->
 
-               <!-- Modal for Prescription/Notes -->
-                                             <div class="modal fade "   id="example_01" tabindex="-1" role="dialog"
-                                                  aria-labelledby="example_02" aria-hidden="true">
-                                                 <div class="modal-dialog modal-dialog-centered modal-lg"  role="document">
-                                                     <div class="modal-content " >
+          <!-- Modal for Prescription/Notes -->
+          <div
+            class="modal fade"
+            id="example_01"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="example_02"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered modal-lg"
+              role="document"
+            >
+              <div class="modal-content">
+                <div class="container-fluid">
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <div class="row">
+                    <div class="col-md-12 p-t-20 p-b-20">
+                      <video
+                        id="video"
+                        width="100%"
+                        height="auto"
+                        autoplay
+                      ></video>
+                      <p>
+                        <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
+                        <button @click="takePic" class="bg-navy btn btn-flat">
+                          Snap Photo
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-info"
+                          name="button"
+                          @click="savePic"
+                        >
+                          Save pic
+                        </button>
+                      </p>
+                      <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
+                      <!-- <p>{{imagefile}}</p> -->
 
-                                                         <div class="container-fluid ">
-                                                             <button type="button" class="close" data-dismiss="modal"
-                                                                     aria-label="Close">
-                                                                 <span aria-hidden="true">&times;</span>
-                                                             </button>
-                                                             <div class="row ">
-                                                                 <div class="col-md-12 p-t-20 p-b-20">
-
-                                                                     <video id="video" width="100%" height="auto" autoplay></video>
-                                                                     <p>
-                                                                       <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
-                                                                       <button @click="takePic" class="bg-navy btn btn-flat">Snap Photo</button>
-                                                                       <button type="button" class="btn btn-info" name="button" @click="savePic">Save pic</button>
-
-                                                                     </p>
-                                                                     <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
-                                                                     <!-- <p>{{imagefile}}</p> -->
-
-                                                                       <canvas id="canvas"  width="600px"   height="450px"></canvas>
-
-                                                                 </div>
-                                                             </div>
-                                                         </div>
-
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                             <!-- Modal Ends -->
-
-           </div>
-
-
-           <div class="vld-parent">
-                <loading :active.sync="isLoading"
-                loader="dots"
-                :can-cancel="true"
-                :is-full-page="fullPage"></loading>
+                      <canvas id="canvas" width="600px" height="450px"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+          <!-- Modal Ends -->
+        </div>
 
-       </section>
-     </div>
-
-   </section>
+        <div class="vld-parent">
+          <loading
+            :active.sync="isLoading"
+            loader="dots"
+            :can-cancel="true"
+            :is-full-page="fullPage"
+          ></loading>
+        </div>
+      </section>
+    </div>
+  </section>
 </template>
 
 <script>
-
-  import Navbar from '@/views/Navbar.vue'
-  // Import component
-     import Loading from 'vue-loading-overlay';
-     // Import stylesheet
-     import 'vue-loading-overlay/dist/vue-loading.css';
-     // Init plugin
+import Navbar from "@/views/Navbar.vue";
+// Import component
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
+// Init plugin
 // import { WebCam } from "vue-web-cam";
 
 export default {
   components: {
-     Navbar, Loading
+    Navbar,
+    Loading,
   },
-  data(){
-    return{
-      user:null,
-      auth_user:"",
-      client:"",
-      notes:"",
-      dependents:"",
-      medications:"",
-      healthFacility:"",
-      signature:"",
-      enrolled_by:"",
-      singleward:"",
-      singlelga:"",
-      edit:false,
+  data() {
+    return {
+      user: null,
+      auth_user: "",
+      client: "",
+      notes: "",
+      dependents: "",
+      medications: "",
+      healthFacility: "",
+      signature: "",
+      enrolled_by: "",
+      singleward: "",
+      singlelga: "",
+      edit: false,
       isLoading: false,
       fullPage: true,
-      agency_id:"",
-      imagefile:"",
-      image:"",
-      output:"",
-      singletpa:"",
-      pictureShower:true,
-      video_settings:{
-              video: {
-                width: {
-                  min: 1280,
-                  ideal: 1920,
-                  max: 2560,
-                },
-                height: {
-                  min: 720,
-                  ideal: 1080,
-                  max: 1440
-                },
-                facingMode: 'environment'
-              }
-            }
-
-    }
+      agency_id: "",
+      imagefile: "",
+      image: "",
+      output: "",
+      singletpa: "",
+      pictureShower: true,
+      video_settings: {
+        video: {
+          width: {
+            min: 1280,
+            ideal: 1920,
+            max: 2560,
+          },
+          height: {
+            min: 720,
+            ideal: 1080,
+            max: 1440,
+          },
+          facingMode: "environment",
+        },
+      },
+    };
   },
-  mounted(){
+  mounted() {
+    this.print();
 
-    this.print()
+    var video = document.getElementById("video");
+    // Get access to the camera!
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      // Not adding `{ audio: true }` since we only want video now
+      // navigator.mediaDevices.getUserMedia({ video: true}).then(function(stream) {
+      navigator.mediaDevices
+        .getUserMedia(this.video_settings)
+        .then(function (stream) {
+          //video.src = window.URL.createObjectURL(stream);
+          video.srcObject = stream;
+          video.play();
+        });
+    }
 
-  var video = document.getElementById('video');
-// Get access to the camera!
-if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    // Not adding `{ audio: true }` since we only want video now
-    // navigator.mediaDevices.getUserMedia({ video: true}).then(function(stream) {
-    navigator.mediaDevices.getUserMedia(this.video_settings).then(function(stream) {
-        //video.src = window.URL.createObjectURL(stream);
-        video.srcObject = stream;
-        video.play();
-    });
-
-  }
-
-  var canvas = document.getElementById('canvas');
-  var context = canvas.getContext('2d');
-  // var video = document.getElementById('video');
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+    // var video = document.getElementById('video');
 
     // Trigger photo take
-  document.getElementById("snap").addEventListener("click", function() {
-	context.drawImage(video, 0, 0, 500, 350);
+    document.getElementById("snap").addEventListener("click", function () {
+      context.drawImage(video, 0, 0, 500, 350);
 
-    // get image
-    var image = new Image();
-    image.src = canvas.toDataURL("image/png");
-    console.log(image)
-    localStorage.setItem('snap',image);
-    // this.this.uploadPic()
-
-});
-
-
-
+      // get image
+      var image = new Image();
+      image.src = canvas.toDataURL("image/png");
+      console.log(image);
+      localStorage.setItem("snap", image);
+      // this.this.uploadPic()
+    });
   },
-  beforeMount(){
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
-                .then(response => {
-                    this.client = response.data.user
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
-
+  beforeMount() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    this.axios
+      .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
+      .then((response) => {
+        this.client = response.data.user;
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
 
-  methods:{
-
-    changeNumber(){
-      this.isLoading = true
-        this.axios.patch(`/api/v1/auth/id-card-number/change/${this.$route.params.id}`)
-                    .then(response => {
-                        console.log(response)
-                        // this.getClients()
-                        this.$toasted.success('Changed Successfully', {position: 'top-center', duration:3000 })
-                        this.isLoading = false
-
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
-                        this.isLoading = false
-
-                    })
-
-    },
-  attachPic(event){
-    this.user = JSON.parse(localStorage.getItem('user'))
-    console.log(event)
-    this.image = event.target.files[0];
-    this.uploadPicture()
-  },
-uploadPicture(){
-this.isLoading = true;
-   this.user = JSON.parse(localStorage.getItem('user'))
-     var formData = new FormData();
-     formData.append("user_image", this.image)
-     formData.append("user_id", this.$route.params.id)
-     this.axios.post("/api/v1/auth/uploadUserImage", formData, {
-       headers: {
-         'Content-Type': 'multipart/form-data'
-       }
-     })
-     .then(response => {
-       console.log(response);
+  methods: {
+    changeNumber() {
+      this.isLoading = true;
+      this.axios
+        .patch(`/api/v1/auth/id-card-number/change/${this.$route.params.id}`)
+        .then((response) => {
+          console.log(response);
+          // this.getClients()
+          this.$toasted.success("Changed Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
           this.isLoading = false;
-          this.$toasted.info('Image added Successfully!', {position: 'top-center', duration:3000 })
-          this.fetchUser()
-
-     })
- },
+        })
+        .catch((error) => {
+          console.error(error);
+          this.$toasted.error("Error!", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.isLoading = false;
+        });
+    },
+    attachPic(event) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      console.log(event);
+      this.image = event.target.files[0];
+      this.uploadPicture();
+    },
+    uploadPicture() {
+      this.isLoading = true;
+      this.user = JSON.parse(localStorage.getItem("user"));
+      var formData = new FormData();
+      formData.append("user_image", this.image);
+      formData.append("user_id", this.$route.params.id);
+      this.axios
+        .post("/api/v1/auth/uploadUserImage", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.isLoading = false;
+          this.$toasted.info("Image added Successfully!", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.fetchUser();
+        });
+    },
 
     async print() {
-     const el = this.$refs.printNow;
-     // add option type to get the image version
-     // if not provided the promise will return
-     // the canvas.
-     const options = {
-       type: 'dataURL'
-     }
-     this.output = await this.$html2canvas(el, options);
-   },
-   streamPic(){
-     console.log('hello pic')
+      const el = this.$refs.printNow;
+      // add option type to get the image version
+      // if not provided the promise will return
+      // the canvas.
+      const options = {
+        type: "dataURL",
+      };
+      this.output = await this.$html2canvas(el, options);
+    },
+    streamPic() {
+      console.log("hello pic");
 
-     var video = document.getElementById('video');
-   // Get access to the camera!
-   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-       // Not adding `{ audio: true }` since we only want video now
-       navigator.mediaDevices.getUserMedia(this.video_settings).then(function(stream) {
-           //video.src = window.URL.createObjectURL(stream);
-           video.srcObject = stream;
-           video.play();
-       });
-
-     }
-   },
-    printMe(){
-          var printContents = document.getElementById('printDiv').innerHTML;
-          var originalContents = document.body.innerHTML;
-          document.body.innerHTML = printContents;
-          window.print();
-          document.body.innerHTML = originalContents;
-       },
-       attachSign(event){
-       this.user = JSON.parse(localStorage.getItem('user'))
-        this.signature = event.target.files[0];
-        console.log(event)
-        this.uploadSign()
+      var video = document.getElementById("video");
+      // Get access to the camera!
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices
+          .getUserMedia(this.video_settings)
+          .then(function (stream) {
+            //video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+          });
+      }
+    },
+    printMe() {
+      var printContents = document.getElementById("printDiv").innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+    },
+    attachSign(event) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.signature = event.target.files[0];
+      console.log(event);
+      this.uploadSign();
     },
 
-    authUser(){
-      this.axios.get(`/api/v1/auth/user`)
-                  .then(response => {
-                      this.auth_user = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
+    authUser() {
+      this.axios
+        .get(`/api/v1/auth/user`)
+        .then((response) => {
+          this.auth_user = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-   
-    takePic(){
-      var video = document.getElementById('video');
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
+
+    takePic() {
+      var video = document.getElementById("video");
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
 
       context.drawImage(video, 0, 0, 640, 480);
 
-        // get image
-        var image = new Image();
-        image.src = canvas.toDataURL("image/png");
-        console.log(image)
-        localStorage.setItem('snap',this.imagefile.src);
-        this.imagefile = image.src
-
+      // get image
+      var image = new Image();
+      image.src = canvas.toDataURL("image/png");
+      console.log(image);
+      localStorage.setItem("snap", this.imagefile.src);
+      this.imagefile = image.src;
     },
 
-    savePic(){
-      this.isLoading = true
-      this.axios.post(`/api/v1/auth/uploadcustomerpicImage`,
-       {
+    savePic() {
+      this.isLoading = true;
+      this.axios
+        .post(`/api/v1/auth/uploadcustomerpicImage`, {
           user_image: this.imagefile,
           user_id: this.$route.params.id,
-
         })
-            .then(response => {
-            console.log(response)
-            this.$toasted.success('uploaded Successfully', {position: 'top-center', duration:3000 })
-            this.fetchUser()
-            this.isLoading = false
-
+        .then((response) => {
+          console.log(response);
+          this.$toasted.success("uploaded Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.fetchUser();
+          this.isLoading = false;
         })
-        .catch(error => {
-            console.error(error);
-            this.isLoading = false
-
-        })
+        .catch((error) => {
+          console.error(error);
+          this.isLoading = false;
+        });
     },
-    deleteUser(){
-      if (confirm('Are you Sure you want to delete this user') ) {
-        this.axios.delete(`/api/v1/auth/deleteUser/${this.$route.params.id}`)
-                    .then(response => {
-                        console.log(response)
-                        // this.getClients()
-                        this.$breadstick.notify("Deleted Successfully!", {position: "top-right"});
-
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    })
+    deleteUser() {
+      if (confirm("Are you Sure you want to delete this user")) {
+        this.axios
+          .delete(`/api/v1/auth/deleteUser/${this.$route.params.id}`)
+          .then((response) => {
+            console.log(response);
+            // this.getClients()
+            this.$breadstick.notify("Deleted Successfully!", {
+              position: "top-right",
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       }
     },
 
-    fetchUser(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
-                  .then(response => {
-                      this.client = response.data.user
-                      this.dependents = response.data.dependents
-                      console.log(response)
+    fetchUser() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
+        .then((response) => {
+          this.client = response.data.user;
+          this.dependents = response.data.dependents;
+          console.log(response);
 
-                      // get facility
-                      this.axios.get(`/api/v1/auth/user/${this.client.provider_id}`)
-                                  .then(response => {
-                                      this.healthFacility = response.data.user
-                                      console.log(response)
-                                  })
-                                  .catch(error => {
-                                      console.error(error);
-                                  })
-                      //end of facility
-
-                      // get enrolled by
-                      this.axios.get(`/api/v1/auth/user/${this.client.enrolled_by}`)
-                                  .then(response => {
-                                      this.enrolled_by = response.data.user
-                                      console.log(response)
-                                  })
-                                  .catch(error => {
-                                      console.error(error);
-                                  })
-                      //end of enrolled by
-
-                      //get tpa
-                      this.axios.get(`/api/v1/auth/orgenrollment/${this.client.org_id}`)
-                                  .then(response => {
-                                      this.singletpa = response.data
-                                      console.log(response)
-                                  })
-                                  .catch(error => {
-                                      console.error(error);
-                                  })
-                      //end of get tpa
-
-                      //get ward
-                      this.axios.get(`/api/v1/auth/wards/${this.client.ward}`)
-                                  .then(response => {
-                                      this.singleward = response.data[0]
-                                      console.log(response)
-                                  })
-                                  .catch(error => {
-                                      console.error(error);
-                                  })
-                      //end of get ward
-
-                      //get lga
-                      this.axios.get(`/api/v1/auth/lgas/${this.client.localgovt}`)
-                                  .then(response => {
-                                      this.singlelga = response.data[0]
-                                      console.log(response)
-                                  })
-                                  .catch(error => {
-                                      console.error(error);
-                                  })
-                      //end of get 
-                      
-                      //get dependents
-                         this.axios.post(`/api/v1/auth/allDependantsUser`,{
-                          agency_id:95930,
-                          id_card_number: this.client.id_card_number,
-                          user_id: this.$route.params.id
-       
-                             })
-                  .then(response => {
-                      let answers = response.data
-                      answers
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-                      //end of get dependents
-
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    findDependents(){
-       //get dependents
-                         this.axios.post(`/api/v1/auth/allDependantsUser`,{
-                          agency_id:95930,
-                          id_card_number: this.client.id_card_number,
-                          user_id: this.$route.params.id
-       
-                             })
-                  .then(response => {
-                      let answers = response.data
-                      answers
-                      this.fetchUser()
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-                      //end of get dependents
-    },
-
-    uploadPic(){
-              this.isLoading = true;
-        let  snap = localStorage.getItem('snap')
-
-            var formData = new FormData();
-            formData.append("user_image", snap)
-            this.axios.post("/api/v1/auth/uploadUserImage", formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            })
-            .then(response => {
+          // get facility
+          this.axios
+            .get(`/api/v1/auth/user/${this.client.provider_id}`)
+            .then((response) => {
+              this.healthFacility = response.data.user;
               console.log(response);
-                 this.isLoading = false;
-                 this.$breadstick.notify("Profile Image changed Successfully!", {position: "top-right"});
-                 // this.getUser()
-
             })
+            .catch((error) => {
+              console.error(error);
+            });
+          //end of facility
 
-        },
+          // get enrolled by
+          this.axios
+            .get(`/api/v1/auth/user/${this.client.enrolled_by}`)
+            .then((response) => {
+              this.enrolled_by = response.data.user;
+              console.log(response);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+          //end of enrolled by
 
+          //get tpa
+          this.axios
+            .get(`/api/v1/auth/orgenrollment/${this.client.org_id}`)
+            .then((response) => {
+              this.singletpa = response.data;
+              console.log(response);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+          //end of get tpa
 
+          //get ward
+          this.axios
+            .get(`/api/v1/auth/wards/${this.client.ward}`)
+            .then((response) => {
+              this.singleward = response.data[0];
+              console.log(response);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+          //end of get ward
 
+          //get lga
+          this.axios
+            .get(`/api/v1/auth/lgas/${this.client.localgovt}`)
+            .then((response) => {
+              this.singlelga = response.data[0];
+              console.log(response);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+          //end of get
+
+          //get dependents
+          this.axios
+            .post(`/api/v1/auth/allDependantsUser`, {
+              agency_id: 95930,
+              id_card_number: this.client.id_card_number,
+              user_id: this.$route.params.id,
+            })
+            .then((response) => {
+              let answers = response.data;
+              answers;
+              console.log(response);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+          //end of get dependents
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    findDependents() {
+      //get dependents
+      this.axios
+        .post(`/api/v1/auth/allDependantsUser`, {
+          agency_id: 95930,
+          id_card_number: this.client.id_card_number,
+          user_id: this.$route.params.id,
+        })
+        .then((response) => {
+          let answers = response.data;
+          answers;
+          this.fetchUser();
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      //end of get dependents
+    },
+
+    uploadPic() {
+      this.isLoading = true;
+      let snap = localStorage.getItem("snap");
+
+      var formData = new FormData();
+      formData.append("user_image", snap);
+      this.axios
+        .post("/api/v1/auth/uploadUserImage", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.isLoading = false;
+          this.$breadstick.notify("Profile Image changed Successfully!", {
+            position: "top-right",
+          });
+          // this.getUser()
+        });
+    },
   },
-  created(){
-    this.fetchUser()
-    this.streamPic()
-    this.findDependents()
-
-  }
-
-}
+  created() {
+    this.fetchUser();
+    this.streamPic();
+    this.findDependents();
+  },
+};
 </script>
 <style >
-.spacer{
-  margin-left:1px;
-  margin-top:5px;
-  margin-bottom:5px;
+.spacer {
+  margin-left: 1px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
-.spacer-image{
-  margin-top:25px;
+.spacer-image {
+  margin-top: 25px;
 }
-.spacer-top-bottom{
-  margin-top:10px;
-  margin-bottom:10px;
+.spacer-top-bottom {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-.spacer-top{
-  margin-top:50px;
+.spacer-top {
+  margin-top: 50px;
 }
 #container {
-	margin: 0px auto;
-	width: 500px;
-	height: 375px;
-	border: 10px #333 solid;
+  margin: 0px auto;
+  width: 500px;
+  height: 375px;
+  border: 10px #333 solid;
 }
 #videoElement {
-	width: 500px;
-	height: 375px;
-	background-color: #666;
+  width: 500px;
+  height: 375px;
+  background-color: #666;
 }
 </style>

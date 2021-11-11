@@ -81,7 +81,7 @@
                            
                             </download-excel></p>
 
-                             <div class="col-lg-12 col-md-12" v-show="inspect">
+                      <div class="col-lg-12 col-md-12" v-show="inspect">
                        <div class="card m-b-30">
 
                            <div class="card-body">
@@ -91,6 +91,7 @@
                                      <thead>
                                      <tr>
                                          <th>NO.</th>
+                                         <th>Plan Type</th>
                                          <th>Name (OHIS Number)</th>
                                          <th>Phone Number</th>
                                          <th>Facility</th>
@@ -102,7 +103,15 @@
                                      <tbody>
                                      <tr v-for="(client,index) in results" v-bind:key="client.id">
                                           <td> {{index+1 }} </td>
-                                         <td >{{client.firstname}} {{client.lastname}} <b> ({{client.id_card_number}}) </b> </td>
+                                          <td> <span v-if="client.account_type == 'Principal'">{{client.plan_type}}</span>
+                                               <span v-if="client.account_type != 'Principal'">{{client.user.plan_type}}</span>
+                                          </td>
+                                         <td >
+                                           <router-link
+                                                :to="{ path: '/client/' + client.id, params: {} }"
+                                              >
+                                           {{client.firstname}} {{client.lastname}} </router-link> 
+                                           <b> ({{client.id_card_number}}) </b> </td>
                                          <td>{{client.phone_number}}</td>
                                          <td>
                                             {{client.userprovider.agency_name}}
@@ -200,6 +209,7 @@ export default {
          
                 'phone_number':'phone_number',
                 'Sector Category':'sector',
+                'Sector Category(Dependent) ':'user.sector',
                 'Vulnerable Group':'category_of_vulnerable_group',
                 'Date of Birth':'dob',
                 'Local Govt':'localgovt.local_name',
@@ -212,6 +222,7 @@ export default {
                 'Plan Type':'plan_type',
                 'Plan Type (Dependent)':'user.plan_type',
                 'HMO':'usertpa.organization_name',
+                'HMO(Dependent) ':'user.usertpa.organization_name',
                 'Enrolled By First Name':'userenrolledby.firstname',
                 'Enrolled By Last Name':'userenrolledby.lastname',
                 'MDA':'place_of_work',

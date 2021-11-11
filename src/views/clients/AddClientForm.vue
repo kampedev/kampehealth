@@ -95,12 +95,12 @@
 
                                                          <div class="form-row">
                                                            <div class="form-group col-md-6">
-                                                             <p>  <label for="inputPassword4">Date of Birth </label></p>
-                                                               <date-picker v-model="register.dob" valueType="format"></date-picker>
+                                                             <p>  <label for="inputPassword4">Date of Birth<span class="text-danger">*</span> </label></p>
+                                                               <input type="date" required class="form-control" v-model="register.dob" >
                                                            </div>
                                                            <div class="form-group col-md-6">
-                                                             <p>  <label for="inputPassword4">Expiry Date</label></p>
-                                                               <date-picker v-model="register.expiry_date" valueType="format"></date-picker>
+                                                             <p>  <label for="inputPassword4">Expiry Date<span class="text-danger">*</span> </label></p>
+                                                               <input type="date" required class="form-control" v-model="register.expiry_date" >
                                                            </div>
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputEmail4">Email</label>

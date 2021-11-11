@@ -31,13 +31,57 @@
                            <p> Preparing data for download for Health Facility</p>
                         </div>
                         <div v-else>
-                          <p class="h3">Result: {{json_data.length}} data filtered</p>
+                          <p class="h5">Result: {{json_data.length}} data filtered  <span class="text-success" @click="inspect = true">preview data</span> </p>
                                   <download-excel :data="json_data" :fields="json_fields" class="btn btn-success"
                                    :header="'Enrollee Data for'+selected_provider.agency_name" :escapeCsv=false :name="selected_provider.agency_name+'.xls'">
                                   <span class="fe fe-download"></span>
                             Download Data for {{selected_provider.agency_name}}
                             </download-excel>
                         </div>
+
+                        <div class="col-lg-12 col-md-12" v-show="inspect">
+                       <div class="card m-b-30">
+
+                           <div class="card-body">
+
+                             <div class="table-responsive">
+                                 <table class="table align-td-middle table-card">
+                                     <thead>
+                                     <tr>
+                                         <th>NO.</th>
+                                         <th>Name (OHIS Number)</th>
+                                         <th>Phone Number</th>
+                                         <th>Facility</th>
+                                             <th> DOB/ Expiry Date</th>
+                                             <th> Account Type</th>
+
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                     <tr v-for="(client,index) in json_data" v-bind:key="client.id">
+                                          <td> {{index+1 }} </td>
+                                         <td >{{client.firstname}} {{client.lastname}} <b> ({{client.id_card_number}}) </b> </td>
+                                         <td>{{client.phone_number}}</td>
+                                         <td>
+                                            {{client.userprovider.agency_name}}
+                                         </td>
+                                          <td>{{client.dob}}|| {{client.expiry_date}} </td>
+                                          <td>{{client.account_type}} </td>
+
+                                         <td v-if="user.id == '95930'"> <button class="btn btn-default" @click="updateExp(client)">update Exp {{client.id}} </button> </td>
+                                     </tr>
+
+
+                                     </tbody>
+                                 </table>
+
+                             </div>
+
+                           </div>
+                       </div>
+                   </div>
+
+
                       </div>
                        </div>
                      </div>
@@ -75,6 +119,7 @@ export default {
       isLoading: false,
       fullPage: true,
       showdownload:false,
+      inspect:false,
       user:null,
       providers:"",
       selected_provider:"",

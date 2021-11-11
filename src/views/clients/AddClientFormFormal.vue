@@ -203,11 +203,9 @@
                         <p>
                           <label for="inputPassword4">Date of Birth: </label>
                         </p>
-                        <date-picker
+                        <input type="date" required class="form-control"
                           v-model="register.dob"
-                          valueType="format"
-                          required
-                        ></date-picker>
+                        > 
                       </div>
 
                       <div
@@ -222,11 +220,9 @@
                             >Date of First Appointment:
                           </label>
                         </p>
-                        <date-picker
+                        <input type="date" required class="form-control"
                           v-model="register.date_of_entry"
-                          valueType="format"
-                          required
-                        ></date-picker>
+                        > 
                       </div>
 
                       <div
@@ -241,11 +237,9 @@
                             >Year of Admission:
                           </label>
                         </p>
-                        <date-picker
+                        <input type="date" required class="form-control"
                           v-model="register.date_of_entry"
-                          valueType="format"
-                          required
-                        ></date-picker>
+                        >
                       </div>
 
                       <div
@@ -256,11 +250,9 @@
                         "
                       >
                         <p><label for="inputPassword4">Expiry Date: </label></p>
-                        <date-picker
+                        <input type="date" required class="form-control"
                           v-model="register.expiry_date"
-                          valueType="format"
-                          required
-                        ></date-picker>
+                        >
                       </div>
                       <div
                         class="form-group col-md-4"
@@ -274,11 +266,9 @@
                             >Year of Graduation:
                           </label>
                         </p>
-                        <date-picker
+                        <input type="date" required class="form-control"
                           v-model="register.expiry_date"
-                          valueType="format"
-                          required
-                        ></date-picker>
+                        > 
                       </div>
 
                       <div class="form-group col-md-6">
@@ -548,16 +538,12 @@ import Navbar from "@/views/Navbar.vue";
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
-// Init plugin
-import DatePicker from "vue2-datepicker";
-import "vue2-datepicker/index.css";
 
 export default {
   components: {
     Navbar,
-    Loading,
-    DatePicker,
-  },
+    Loading
+      },
   data() {
     return {
       isLoading: false,

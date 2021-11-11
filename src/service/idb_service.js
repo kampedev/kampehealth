@@ -57,7 +57,7 @@ const getDatabase = () => {
                 dataType: DATA_TYPE.String
             },
             dob: {
-                notNull: false,
+                notNull: true,
                 dataType: DATA_TYPE.String
             },
             gender: {

@@ -680,18 +680,19 @@ export default {
         .then((response) => {
           this.client = response.data.user;
           this.dependents = response.data.dependents;
+          this.healthFacility = response.data.provider
           console.log(response);
 
           // get facility
-          this.axios
-            .get(`/api/v1/auth/user/${this.client.provider_id}`)
-            .then((response) => {
-              this.healthFacility = response.data.user;
-              console.log(response);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
+          // this.axios
+          //   .get(`/api/v1/auth/user/${this.client.provider_id}`)
+          //   .then((response) => {
+          //     this.healthFacility = response.data.user;
+          //     console.log(response);
+          //   })
+          //   .catch((error) => {
+          //     console.error(error);
+          //   });
           //end of facility
 
           // get enrolled by

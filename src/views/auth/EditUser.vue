@@ -114,10 +114,13 @@
                                       </div>
                                       <div class="form-group col-md-6" >
                                             <label for="inputCity">Principal MDA: <b>{{auth_user.place_of_work}}</b> </label>
+
                                                 <select class="form-control"  v-model="auth_user.place_of_work" >
                                                   <option  :value="mda.name" v-for="mda in mdas" v-bind:key="mda.id">{{mda.name}}</option>
                                               </select>
                                       </div>
+                                     
+
                                        <div class="form-group col-md-6">
                                           <label for="inputCity">Date of Birth </label>
                                           <input type="date" class="form-control" v-model="auth_user.dob" />

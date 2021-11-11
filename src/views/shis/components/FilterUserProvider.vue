@@ -49,6 +49,7 @@
                                      <thead>
                                      <tr>
                                          <th>NO.</th>
+                                         <th>Plan Type</th>
                                          <th>Name (OHIS Number)</th>
                                          <th>Phone Number</th>
                                          <th>Facility</th>
@@ -60,7 +61,15 @@
                                      <tbody>
                                      <tr v-for="(client,index) in json_data" v-bind:key="client.id">
                                           <td> {{index+1 }} </td>
-                                         <td >{{client.firstname}} {{client.lastname}} <b> ({{client.id_card_number}}) </b> </td>
+                                          <td> <span v-if="client.account_type == 'Principal'">{{client.plan_type}}</span>
+                                               <span v-if="client.account_type != 'Principal'">{{client.user.plan_type}}</span>
+                                          </td>
+                                         <td >
+                                           <router-link
+                                                :to="{ path: '/client/' + client.id, params: {} }"
+                                              >
+                                           {{client.firstname}} {{client.lastname}} </router-link>
+                                            <b> ({{client.id_card_number}}) </b> </td>
                                          <td>{{client.phone_number}}</td>
                                          <td>
                                             {{client.userprovider.agency_name}}
@@ -70,7 +79,6 @@
 
                                          <td v-if="user.id == '95930'"> <button class="btn btn-default" @click="updateExp(client)">update Exp {{client.id}} </button> </td>
                                      </tr>
-
 
                                      </tbody>
                                  </table>
@@ -134,10 +142,8 @@ export default {
       lga_states:"",
       sector:"",
       wards:[],
-
-      json_fields: {
-                'User Type':'account_type',
-                'Sector':'sector',
+    json_fields: {
+                 'User Type':'account_type',
                 'First Name': 'firstname',
                 'Last Name':'lastname',
                 'Middle Name':'middlename',
@@ -145,25 +151,37 @@ export default {
                 'User Image': {
                   field:'user_image',
                 callback: (value) => {
-                    return `https://api.hayokinsurance.com/image/ ${value}`;
-                }
-              },
-                'Sector Type':'sectorType',
+                 
+                return `https://api.hayokinsurance.com/image/${value}`;
+
+            }
+          },
+         
+                'phone_number':'phone_number',
+                'Sector Category':'sector',
+                'Sector Category(Dependent) ':'user.sector',
+                'Vulnerable Group':'category_of_vulnerable_group',
                 'Date of Birth':'dob',
-                'Date of Expiry':'expiry_date',
-                'HMO':'usertpa.organization_name',
+                'Local Govt':'localgovt.local_name',
+                'Ward': 'ward.ward_name',
+                'Card Expiry Date':'expiry_date',
+                'Sector(Principal) ':'sectorType',
+                'Sector(Dependent) ':'user.sectorType',
                 'gender':'gender',
+                'Date Enrolled':'created_at',
+                'NIN Number':'nimc_number',
                 'Plan Type':'plan_type',
                 'Plan Type (Dependent)':'user.plan_type',
+                'HMO':'usertpa.organization_name',
+                'HMO(Dependent) ':'user.usertpa.organization_name',
                 'Enrolled By First Name':'userenrolledby.firstname',
                 'Enrolled By Last Name':'userenrolledby.lastname',
-                'phone_number':'phone_number',
-                 'MDA':'place_of_work',
+                'MDA':'place_of_work',
                 'MDA (Dependent)':'user.place_of_work',
-               'Health Facility':'userprovider.agency_name',
+                'Health Facility':'userprovider.agency_name',
 
 
-},
+                 },
                 json_data: [],
                 json_meta: [
                 [

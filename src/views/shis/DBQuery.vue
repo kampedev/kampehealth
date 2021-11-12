@@ -328,15 +328,28 @@ export default {
       to: "",
       currentPage: 1,
       paginate: 20,
+      arrayone:[
+        {id:1, name: "blue", stat:"0"},
+        {id:2, name: "blue", stat:"0"},
+        {id:3, name: "blue", stat:"0"}
+      ],
+       arraytwo:[
+        {id:1, name: "blue", stat:"0"},
+        {id:2, name: "blue", stat:"0"},
+        // {id:3, name: "blue", stat:"0"}
+      ]
      
     };
   },
   beforeMount() {
+
     this.axios
       .get(`/api/v1/auth/db-tables`)
       .then((response) => {
         this.tables = response.data;
         console.log(response);
+      
+
       })
       .catch((error) => {
         console.error(error);

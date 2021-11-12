@@ -3,9 +3,14 @@
     <div class="col-lg-12 col-md-12">
       <div class="card m-b-30">
         <div class="card card-header">
-          <strong> {{ idcard_offline.length }} Special Filter </strong>
+          <strong>Total  {{ clients.total_dep + clients.total_prin}} No Dates </strong>
+          <p>Dependents: {{clients.total_dep}} </p>
+          <p>Principal: {{clients.total_prin}} </p>
+          <!-- <button class="btn btn-primary" @click="getlist">ffdd</button> -->
+          <!-- {{value_list}} -->
+          <!-- {{findUser}} -->
 
-          <button class="btn btn-primary" @click="updateDOB">Update DOB</button>
+          <!-- <button class="btn btn-primary" @click="updateDOB">Update DOB</button> -->
 
           <!-- <div >
                                     <p class="btn btn-success">
@@ -23,11 +28,15 @@
                 <tr>
                   <th>Avatar</th>
                   <th>Name</th>
-                  <th>Phone Number</th>
+                  <th>Account Type</th>
+                  <th>Sector Type</th>
+                  <th>DOB || Expiry </th>
+                  <th>OHIS Number </th>
+                  <th>Created </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(client, index) in clients" v-bind:key="client.id">
+                <tr v-for="(client, index) in clients.data" v-bind:key="client.id">
                   <td>
                     <img
                       :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
@@ -44,26 +53,29 @@
                       {{ client.lastname }}
                     </router-link>
                   </td>
-                  <td>{{ client.phone_number }}</td>
+                  <td> {{client.account_type}} </td>
+                  <td> {{client.sector}} </td>
+                  <td>{{ client.dob }} || {{client.expiry_date}} </td>
+
+                  <td>{{ client.id_card_number }} </td>
+                  <td>{{ client.created_at }} </td>
+
+                    
+
+                   
+                 
 
                   <td>
-                    <!-- <div class="form-group col-md-6">
-                                                  <label for="inputCity">Gender <span class="text-danger">*</span></label>
-                                                      <select class="form-control" required v-model="gender" >
-                                                       <option  value="Male">Male</option>
-                                                       <option  value="Female">Female</option>
-                                                   </select>
-                                                </div> -->
-                    {{ client.id_card_number }}
-
-                    <button
+                     <button
                       type="button"
-                      @click="changeNumber(client)"
+                      @click="updateDate(client)"
                       class="btn btn-primary"
                       style="margin-left: 10px; margin-top: 10px"
                     >
                       Update
                     </button>
+
+                    <button class="btn btn-destroy" @click="deleteUser(client)">delete</button>
                   </td>
                 </tr>
               </tbody>
@@ -90,7 +102,7 @@ import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
-import idcardJson from "./../../../public/offline/DOB_expiry_principal.json";
+import idcardJson from "./../../../public/offline/Fuu_list_expiry_dob_all.json";
 
 export default {
   components: {
@@ -103,6 +115,8 @@ export default {
       states: "",
       clients: "",
       gender: "",
+      value_list: "",
+      newarray: [],
       idcard_offline: idcardJson,
       json_fields: {
         "First Name": "firstname",
@@ -148,31 +162,72 @@ export default {
   },
 
   methods: {
-    // getClients(){
-    //   this.user = JSON.parse(localStorage.getItem('user'))
-    //   this.axios.post(`/api/v1/auth/sp-filter/95930`,{
-    //     list_items: this.idcard_offline
-    //   })
-    //               .then(response => {
-    //                   this.clients = response.data
-    //                   console.log(response)
-    //               })
-    //               .catch(error => {
-    //                   console.error(error);
-    //               })
-    // },
-
- updateDOB(){
+    getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.post(`/api/v1/auth/users/dob`,{
-        values: this.idcard_offline
+      this.axios.post(`/api/v1/auth/null-expiry`,{
+        agency_id: 95930
       })
                   .then(response => {
-                      // this.clients = response.data
+                      this.clients = response.data
                       console.log(response)
                   })
                   .catch(error => {
                       console.error(error);
+                  })
+    },
+
+  deleteUser(client) {
+    if (confirm('Are you sure you want to delete?') ) {
+      if (client.account_type == 'Dependent') {
+      
+      this.axios.delete(`/api/v1/auth/deletedependent/${client.id}`)
+                  .then(response => {
+                      console.log(response)
+                      this.$toasted.success('deleted Successfully!', {position: 'top-center', duration:3000 })
+                  })
+                  .catch(error => {
+                      console.error(error);
+                      this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
+
+                  })
+    
+
+    } else {
+       this.axios.delete(`/api/v1/auth/deleteUser/${client.id}`)
+                    .then(response => {
+                        console.log(response)
+                      this.$toasted.success('deleted Successfully!', {position: 'top-center', duration:3000 })
+                    })
+                    .catch(error => {
+                        console.error(error);
+                       this.$toasted.error('Error!', {position: 'top-center', duration:3000 })
+
+                    })
+      }
+    }
+
+  },
+
+ updateDate(client){
+   this.isLoading = true
+       let formatter =  this.idcard_offline.filter((x) => x.id_card_number == client.id_card_number);
+
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.post(`/api/v1/auth/update-dates-all`,{
+        values: formatter
+      })
+                  .then(response => {
+                     
+                      console.log(response)
+                      this.getClients()
+                         this.isLoading = false
+                       this.$toasted.success('updated Successfully!', {position: 'top-center', duration:3000 })
+
+                  })
+                  .catch(error => {
+                      console.error(error);
+                       this.isLoading = false
+                       this.$toasted.success('error!', {position: 'top-center', duration:3000 })
                   })
     },
 

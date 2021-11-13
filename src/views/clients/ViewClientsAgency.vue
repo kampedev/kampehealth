@@ -129,6 +129,7 @@
                                          <th>Phone Number</th>
                                          <th>Sector</th>
                                          <th>OHIS Number</th>
+                                         <th>Status</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -144,6 +145,16 @@
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.sector}}</td>
                                          <td> {{client.id_card_number}}</td>
+                                         <td>
+                                            <p>
+                                              <span v-if="client.status == 'active'">
+                                                <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">active</button>
+                                                </span>
+                                                <span v-if="client.status ==  'inactive' ">
+                                                <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">inactive</button>
+                                              </span>
+                                            </p>
+                                         </td>
                                          <td >
                                            <router-link :to="{ path: '/client/'+ client.id}">
                                              <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i></button>

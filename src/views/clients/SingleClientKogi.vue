@@ -129,6 +129,16 @@
                         Edit <i class="fe fe-edit"></i>
                       </button>
                     </router-link>
+
+        
+                      <span v-if="client.status == 'active'">
+                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">active</button>
+                        </span>
+                      <span v-if="client.status ==  'inactive' ">
+                      <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">inactive</button>
+                    </span>
+                                
+
                   </div>
                 </div>
               </div>

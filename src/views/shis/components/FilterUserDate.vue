@@ -110,7 +110,7 @@
                                            <router-link
                                                 :to="{ path: '/client/' + client.id, params: {} }"
                                               >
-                                           {{client.firstname}} {{client.lastname}} </router-link> 
+                                           {{client.firstname}} {{client.lastname}} <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark">{{client.status}} </button> </router-link> 
                                            <b> ({{client.id_card_number}}) </b> </td>
                                          <td>{{client.phone_number}}</td>
                                          <td>
@@ -198,6 +198,7 @@ export default {
                 'Last Name':'lastname',
                 'Middle Name':'middlename',
                 'OHIS Number':'id_card_number',
+                'User Status':'status',
                 'User Image': {
                   field:'user_image',
                 callback: (value) => {

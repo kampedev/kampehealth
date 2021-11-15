@@ -6,6 +6,9 @@
           <strong>Total  {{ clients.total_dep + clients.total_prin}} No Dates </strong>
           <p>Dependents: {{clients.total_dep}} </p>
           <p>Principal: {{clients.total_prin}} </p>
+          <p>
+            <button class="btn btn-primary" @click="autoUpdate">Update All</button>
+          </p>
           <!-- <button class="btn btn-primary" @click="getlist">ffdd</button> -->
           <!-- {{value_list}} -->
           <!-- {{findUser}} -->
@@ -26,7 +29,7 @@
             <table class="table align-td-middle table-card">
               <thead>
                 <tr>
-                  <th>Avatar</th>
+                  <!-- <th>Avatar</th> -->
                   <th>Name</th>
                   <th>Account Type</th>
                   <th>Sector Type</th>
@@ -37,14 +40,14 @@
               </thead>
               <tbody>
                 <tr v-for="(client, index) in clients.data" v-bind:key="client.id">
-                  <td>
+                  <!-- <td>
                     <img
                       :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
                       height="170px"
                       width="120px"
                       alt="User Photo"
                     />
-                  </td>
+                  </td> -->
                   <td>
                     <router-link
                       :to="{ path: '/client/' + client.id, params: {} }"
@@ -116,6 +119,7 @@ export default {
       clients: "",
       gender: "",
       value_list: "",
+      auto_selected: "",
       newarray: [],
       idcard_offline: idcardJson,
       json_fields: {
@@ -208,7 +212,76 @@ export default {
 
   },
 
- updateDate(client){
+   autoUpdate() {
+      if (confirm("Are you sure you want to auto update?")) {
+       
+        setInterval(
+          function () {
+            this.updateDateauto();
+             
+          }.bind(this),
+          10000
+        );
+      }
+    },
+
+ updateDateauto(){
+      this.isLoading = true
+      //  this.auto_selected = this.clients.data[Math.random()]
+       this.auto_selected = this.clients.data[0]
+       console.log(this.auto_selected)
+       let formatter =  this.idcard_offline.filter((x) => x.id_card_number == this.auto_selected.id_card_number);
+
+     if (formatter.length >=1) {
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.post(`/api/v1/auth/update-dates-all`,{
+        values: formatter
+      })
+            .then(response => {
+                
+                console.log(response)
+                this.getClients()
+                    this.isLoading = false
+                  this.$toasted.success('updated Successfully!', {position: 'top-center', duration:3000 })
+
+            })
+            .catch(error => {
+                console.error(error);
+                  this.isLoading = false
+                  this.$toasted.success('error!', {position: 'top-center', duration:3000 })
+            })
+     } else {
+     let  formatter = [
+          {
+             "dob": this.clients.data[0].dob,
+              "expiry_date": "01-01-2030",
+              "id_card_number": this.clients.data[0].id_card_number,
+              "category": this.clients.data[0].account_type
+           },
+       ]
+
+       this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.post(`/api/v1/auth/update-dates-all`,{
+        values: formatter
+      })
+            .then(response => {
+                
+                console.log(response)
+                this.getClients()
+                    this.isLoading = false
+                  this.$toasted.success('updated!', {position: 'top-center', duration:3000 })
+
+            })
+            .catch(error => {
+                console.error(error);
+                  this.isLoading = false
+                  this.$toasted.success('error!', {position: 'top-center', duration:3000 })
+            })
+
+     }
+    },
+
+    updateDate(client){
    this.isLoading = true
        let formatter =  this.idcard_offline.filter((x) => x.id_card_number == client.id_card_number);
 
@@ -231,31 +304,7 @@ export default {
                   })
     },
 
-    changeNumber(client) {
-      this.isLoading = true;
-      this.axios
-        .post(`/api/v1/auth/update-gender`, {
-          id: client.id,
-          gender: this.gender,
-        })
-        .then((response) => {
-          console.log(response);
-          this.getClients();
-          this.$toasted.success("Changed Successfully", {
-            position: "top-center",
-            duration: 3000,
-          });
-          this.isLoading = false;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.$toasted.error("Error!", {
-            position: "top-center",
-            duration: 3000,
-          });
-          this.isLoading = false;
-        });
-    },
+   
   },
   created() {
     this.getClients();

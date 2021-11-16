@@ -16,9 +16,8 @@
               >
             </div>
             <div class="form-row">
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-6">
                 <label for="inputCity">Relationship Type</label>
-
                 <select
                   class="form-control"
                   v-model="newStudent.dependent_rel_type"
@@ -62,10 +61,22 @@
 
               <div class="form-group col-md-6">
                 <p> <label for="inputCity">Date of Birth</label></p> 
-                <date-picker
+                  <input type="date" class="form-control"  placeholder="YYYY/MM/DD" v-model="newStudent.dependent_dob" >
+
+                <!-- <date-picker
                   v-model="newStudent.dependent_dob"
                   valueType="format"
-                ></date-picker>
+                ></date-picker> -->
+              </div>
+               <div class="form-group col-md-6">
+                <p> <label for="inputCity">Date of Expiry: {{getExpiry}} </label></p> 
+                  <input type="date" class="form-control"  placeholder="YYYY/MM/DD" v-model="getExpiry" >
+                  <p class="text-success">Principal Expiry: {{offline_user.expiry_date}} </p>
+
+                <!-- <date-picker
+                  v-model="newStudent.dependent_dob"
+                  valueType="format"
+                ></date-picker> -->
               </div>
              
             </div>
@@ -154,7 +165,6 @@
 import { StudentService } from "../../../service/student_service";
 import { connection } from "../../../service/jsstore_con";
 
-import DatePicker from "vue2-datepicker";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -167,7 +177,6 @@ import tpaJson from "./../../../../public/offline/tpa_data_osun.json";
 export default {
   components: {
     Loading,
-    DatePicker,
   },
   name: "Student",
   props: {
@@ -241,6 +250,49 @@ export default {
     this.provider_id = localStorage.getItem("provider_id");
   },
   computed: {
+
+     getAge(){
+            var today = new Date();
+        var birthDate = new Date (this.newStudent.dependent_dob);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+      },
+
+     getExpiry(){
+
+      if (this.newStudent.dependent_rel_type == 'Spouse A') {
+        return this.offline_user.expiry_date
+        
+      } else {
+        var today = new Date();
+        var principalExpiry = new Date (this.offline_user.expiry_date);
+        var principalExpYear = principalExpiry.getFullYear() 
+
+        var birthDate = new Date (this.newStudent.dependent_dob);
+        // var year = birthDate.getFullYear();
+        var month = birthDate.getMonth();
+        var day = birthDate.getDate();
+        month;
+        day;
+        let remainingYears = 18 - this.getAge
+        let finaldate = today.getFullYear() + remainingYears
+          
+          if (finaldate > principalExpYear) {
+            return this.offline_user.expiry_date
+          } else {
+            
+            return  finaldate + '-12-31' 
+          }
+      
+      
+      }
+
+  },
+
     getDep(){
     let  enrollees = this.students
     let formatter = enrollees.filter(
@@ -347,7 +399,7 @@ export default {
           ward: this.offline_user.ward,
           phone_number: this.client_number,
           dob: this.offline_user.dob,
-          expiry_date: this.offline_user.expiry_date,
+          expiry_date: this.getExpiry,
           plan_type: this.offline_user.plan_type,
           type: "dependent",
           gender: this.offline_user.gender,
@@ -358,8 +410,7 @@ export default {
           blood: this.offline_user.blood,
           salary_number: this.getsalaryNumber,
           place_of_work: this.getplaceofWork,
-          category_of_vulnerable_group:
-            this.offline_user.category_of_vulnerable_group,
+          category_of_vulnerable_group: this.offline_user.category_of_vulnerable_group,
           genotype: this.offline_user.genotype,
           address1: this.offline_user.address,
           agency_id: 95930,
@@ -404,7 +455,7 @@ export default {
           phone_number: this.phone_number,
          plan_type: this.offline_user.plan_type,
           dob: this.offline_user.dob,
-          expiry_date: this.offline_user.expiry_date,
+          expiry_date: this.getExpiry,
           type: "dependent",
           gender: this.offline_user.gender,
           user_image: this.imagefile,

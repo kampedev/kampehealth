@@ -90,7 +90,7 @@ const getDatabase = () => {
             },
             ward: {
                 dataType: DATA_TYPE.Number,
-                notNull: true
+                notNull: false
             },
             enrolled_by: {
                 dataType: DATA_TYPE.Number,

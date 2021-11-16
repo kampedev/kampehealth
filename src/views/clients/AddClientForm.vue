@@ -167,8 +167,8 @@
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                <label >Ward <span class="text-danger">*</span></label>
-                                                                <select class="form-control" required  v-model="register.ward" @change="getProvidersByWards($event)">
+                                                                <label >Ward </label>
+                                                                <select class="form-control"   v-model="register.ward" @change="getProvidersByWards($event)">
                                                                     <option v-for="ward in wards" v-bind:key="ward.id" :value="ward.id">{{ward.ward_name}}</option>
                                                                  </select>
                                                               </div>

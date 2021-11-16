@@ -66,17 +66,23 @@
                                          <label for="inputEmail4">First Name</label>
                                          <input type="text" class="form-control"  placeholder="First Name" v-model="dependent.firstname">
                                      </div>
-                                     <!-- <div class="form-group col-md-12">
+                                     <div class="form-group col-md-6">
                                          <label for="inputPassword4">Middle Name</label>
-                                         <input type="text" class="form-control"  placeholder="Middle Name" v-model="dependent.middlename" >
-                                     </div> -->
+                                         <input type="text" class="form-control"  placeholder="Middle Name" v-model="dependent.middle_name" >
+                                     </div>
 
-                                 </div>
-                                 <div class="form-row">
-                                      <div class="form-group col-md-6">
+                                
+                                    <div class="form-group col-md-6">
                                    <label for="inputCity">Date of Birth </label>
                                       <input type="date" class="form-control"  placeholder="YYYY/MM/DD" v-model="dependent.dob" >
                                  </div>
+
+                                  <div class="form-group col-md-6">
+                                   <label for="inputCity">Date of Expiry:   <b>{{getExpiry}}</b> </label>
+                                      <input type="date" class="form-control"  placeholder="YYYY/MM/DD" v-model="getExpiry" >
+                                      <p class="text-success">Principal Expiry: {{client.expiry_date}} </p>
+                                 </div>
+
                                       <div class="form-group col-md-6">
                                           <label for="inputPassword4">Phone Number</label>
                                           <input type="text" class="form-control" id="inputPassword4" placeholder="Mobile No" :value="client.phone_number" >
@@ -86,6 +92,7 @@
                                  <div class="form-row">
                                    <button class="btn btn-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_01">
                                      Snap Photo <i class="fe fe-camera"></i> </button>
+
                                    <!-- <div class="fileinput fileinput-new" data-provides="fileinput" >
                                      <span class="btn btn-file">
                                        <span class="fileinput-new">Upload Picture <i class="fe fe-upload"></i></span>
@@ -285,6 +292,36 @@ export default {
    }
    return age;
  },
+  getExpiry(){
+
+      if (this.dependent.relationShipType == 'Spouse A') {
+        return this.client.expiry_date
+        
+      } else {
+        var today = new Date();
+        var principalExpiry = new Date (this.client.expiry_date);
+        var principalExpYear = principalExpiry.getFullYear() 
+
+        var birthDate = new Date (this.dependent.dob);
+        // var year = birthDate.getFullYear();
+        var month = birthDate.getMonth();
+        var day = birthDate.getDate();
+        month;
+        day;
+        let remainingYears = 18 - this.getAge
+        let finaldate = today.getFullYear() + remainingYears
+        // return  year  + '/' + principalExpYear + '/' + month + '/' + day + '/'+ finaldate 
+          if (finaldate > principalExpYear) {
+            return this.client.expiry_date
+          } else {
+            // return  finaldate + '-' + month + '-' + day 
+            return  finaldate + '-12-31' 
+          }
+      
+      
+      }
+
+  },
  getIdNum(){
    if (this.dependent.relationShipType == 'Spouse') {
      return 'OHIS/DEP-S/'+ this.$route.params.id
@@ -437,11 +474,12 @@ export default {
         firstname: this.dependent.firstname,
         // lastname: this.getSurname ? this.getSurname : this.dependent.lastname,
         lastname:  this.dependent.lastname,
-        middlename: this.dependent.middlename,
+        middle_name: this.dependent.middle_name,
         institution_attending: this.dependent.institution_attending,
         relationShipType: this.dependent.relationShipType.slice(0, -1),
         user_id: this.$route.params.id,
         email: this.dependent.email,
+        expiry_date: this.getExpiry,
         phone_number: this.client.phone_number,
         gender: this.dependent.gender,
         state: 2683,
@@ -477,7 +515,7 @@ export default {
         firstname: this.dependent.firstname,
         // lastname: this.getSurname ? this.getSurname : this.dependent.lastname,
         lastname:  this.dependent.lastname,
-        middlename: this.dependent.middlename,
+        middle_name: this.dependent.middle_name,
         institution_attending: this.dependent.institution_attending,
         relationShipType: this.dependent.relationShipType.slice(0, -1),
         user_id: this.$route.params.id,
@@ -531,7 +569,7 @@ export default {
       this.dependent_id = dependent.id;
       this.dependent.firstname = dependent.firstname
       this.dependent.lastname = dependent.lastname
-      this.dependent.middlename = dependent.middlename
+      this.dependent.middle_name = dependent.middle_name
       this.dependent.relationShipType = dependent.relationShipType + ' ' + dependent.id_card_number.slice( dependent.id_card_number.length-1)
       this.dependent.gender = dependent.gender
       this.dependent.dob = dependent.dob
@@ -542,6 +580,7 @@ export default {
     clearIt(){
       this.dependent.firstname = "";
       this.dependent.lastname = '';
+      this.dependent.middle_name = '';
       this.dependent.email = "";
       this.dependent.phone_number ="";
       this.dependent.relationShipType ="";
@@ -549,6 +588,7 @@ export default {
       this.dependent.middlename ="";
       this.dependent.institution_attending ="";
       this.dependent.dob ="";
+      this.dependent.expiry_date ="";
     },
     singleClient(){
       this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)

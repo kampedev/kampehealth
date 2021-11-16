@@ -58,17 +58,24 @@
                                                               </div>
                                                           </div>
 
-                                                          <div class="col-md-6" v-if="sector == 'formal' " >
+                                                         
+
+                                                          <div class="col-md-6">
                                                               <div class="form-group">
-                                                                <label for="inputCity">Select Category<span class="text-danger">*</span></label>
-                                                                <select class="form-control" required  v-model="register.sector" >
-                                                                  <option  value="Civil Servant">Civil Servant</option>
-                                                                  <option  value="Organized Private Sector Plan">Organized Private Sector Plan</option>
-                                                                  <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
-                                                                   Tertiary Student Health Insurance Plan (T-SHIP)</option>
-                                                                 </select>
+                                                                <label for="inputCity"
+                                                                  >Select Plan Type
+                                                                  <span class="text-danger">*</span></label
+                                                                >
+                                                                <select
+                                                                  class="form-control"
+                                                                  required
+                                                                  v-model="register.plan_type"
+                                                                >
+                                                                  <option value="Family">Family</option>
+                                                                  <option value="Individual">Individual</option>
+                                                                </select>
                                                               </div>
-                                                          </div>
+                                                            </div>
 
                                                           <div class="form-group col-md-6" v-if="register.sector == 'Civil Servant'">
                                                                  <label for="inputCity">Select MDA</label>
@@ -103,32 +110,24 @@
                                                                  <input type="text" class="form-control" v-model="register.middlename"  placeholder="Last Name">
                                                              </div>
 
-                                                         </div>
+                                                         <!-- </div>
 
-                                                         <div class="form-row">
+                                                         <div class="form-row"> -->
                                                            <div class="form-group col-md-6">
                                                              <p>  <label for="inputPassword4">Date of Birth: </label></p>
-                                                               <date-picker v-model="register.dob" valueType="format" required></date-picker>
+                                                              
+                                                               <input type="date" required class="form-control" v-model="register.dob" placeholder="DD/MM/YYYY">
+
                                                            </div>
 
-                                                           <!-- <div class="form-group col-md-4" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
-                                                             <p>  <label for="inputPassword4">Date of First Appointment: </label></p>
-                                                               <date-picker v-model="register.date_of_entry" valueType="format" required></date-picker>
-                                                           </div> -->
-
+                                                       
 
 
                                                            <div class="form-group col-md-6" >
                                                              <p>  <label for="inputPassword4">Expiry Date:</label></p>
                                                              <input type="text" class="form-control" v-model="addYear"  placeholder="" disabled>
 
-                                                               <!-- <date-picker v-model="register.expiry_date" valueType="format" required></date-picker> -->
                                                            </div>
-
-                                                           <!-- <div class="form-group col-md-4" v-if="register.sector == 'Tertiary Student Health Insurance Plan (T-SHIP)'">
-                                                             <p>  <label for="inputPassword4">Year of Graduation: </label></p>
-                                                               <date-picker v-model="register.expiry_date" valueType="format" required></date-picker>
-                                                           </div> -->
 
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputEmail4">Email</label>
@@ -146,19 +145,6 @@
                                                                      <option  value="Female">Female</option>
                                                                  </select>
                                                               </div>
-
-
-                                                              <!-- <div class="form-group col-md-6" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
-                                                                  <label for="inputEmail4">Salary Number/Staff ID</label>
-                                                                  <input type="text" class="form-control" v-model="register.salary_number" placeholder="Staff ID" required>
-                                                              </div>
-                                                               -->
-                                                            <!--
-
-                                                              <div class="form-group col-md-6"  v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
-                                                                  <label for="inputEmail4">Grade Level/Step</label>
-                                                                  <input type="text" class="form-control" v-model="register.grade_level" placeholder="Grade Level/Step" required>
-                                                              </div> -->
 
 
                                                               <div class="form-group col-md-6">
@@ -193,17 +179,11 @@
                                                                  </select>
                                                               </div>
 
-                                                              <div class="col-md-12 row" >
                                                                 <div class="form-group col-md-6" >
                                                                   <label>Principal Facility for Accessing Health Care </label>
                                                                   <v-select v-model="register.provider_id" :options="providers" label="agency_name" :value="register.provider_id" @input="selected"></v-select>
                                                                 </div>
-                                                                <div class="form-group col-md-6" v-if="register.sector != 'Tertiary Student Health Insurance Plan (T-SHIP)'">
-                                                                  <label> Dependents Facility for Accessing Health Care </label>
-                                                                  <v-select v-model="register.point_of_care" :options="providers" label="agency_name" :value="register.point_of_care" @input="selectedPointocare"></v-select>
-                                                                </div>
-                                                              </div>
-
+                                                                
                                                               <div class="form-group col-md-6">
                                                                 <label for="inputCity">Blood Group</label>
                                                                     <select class="form-control"  v-model="register.blood" >
@@ -218,10 +198,14 @@
                                                                  </select>
                                                               </div>
 
-                                                              <div class="form-group col-md-6">
+                                                              <div class="form-group col-md-12">
                                                                  <label for="inputAddress">Home Address</label>
                                                                  <input type="text" class="form-control" v-model="register.address" placeholder="1234 Main St">
                                                              </div>
+                                                             
+                                                           
+                                                              
+
                                                           </div>
 
                                                          <div class="form-group">
@@ -265,13 +249,11 @@
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
      import 'vue-loading-overlay/dist/vue-loading.css';
-     // Init plugin
-     import DatePicker from 'vue2-datepicker';
-     import 'vue2-datepicker/index.css';
+    
 
 export default {
   components: {
-    Navbar,  Loading, DatePicker
+    Navbar,  Loading
   },
   data(){
     return{
@@ -291,6 +273,8 @@ export default {
       current_page:"",
       selected_provider:"",
       selected_provider_dependents:"",
+      image:"",
+      imagefile:null,
       lga_states:"",
       register:{
         firstname:"",
@@ -326,7 +310,7 @@ export default {
     }
   },
   beforeMount(){
-    //
+      //
   },
   computed:{
 
@@ -353,7 +337,8 @@ export default {
     submitForm(){
 
         this.registerUserAdmin()
-    },
+    }, 
+   
     fetchWards(){
       this.axios.get(`/api/v1/auth/getwards/${event.target.value}`)
                   .then(response => {
@@ -399,33 +384,37 @@ export default {
 
     registerUserAdmin(){
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
+         let snap = localStorage.getItem("voluntary_snap");
+
+
+        this.axios.post('/api/v1/auth/register', {
           nimc_number: this.register.nimc_number,
           firstname: this.register.firstname.toUpperCase(),
           lastname: this.register.lastname.toUpperCase(),
           middlename: this.register.middlename.toUpperCase(),
           email: this.register.email,
+          plan_type: this.register.plan_type,
           phone_number: this.register.phone_number,
           type: this.register.type,
           sectorType : this.sector,
+          user_image : snap,
           agency_id: 95930,
           provider_id: this.selected_provider ? this.selected_provider : this.register.provider_id,
           state: '2676',
           role: 0,
-          password: 'euhler',
+          password: 'jacobi',
           org_id: this.register.org_id,
           localgovt: this.register.localgovt,
           ward: this.register.ward,
           blood: this.register.blood,
           dob: this.register.dob,
-          // expiry_date: this.register.expiry_date,
           address1: this.register.address,
           genotype: this.register.genotype,
           weight: this.register.weight,
           gender: this.register.gender,
           sector: this.register.sector,
           place_of_work: this.register.place_of_work,
-          point_of_care: this.selected_provider_dependents,
+          point_of_care: this.selected_provider ? this.selected_provider : this.register.provider_id,
           finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
           grade_level: this.register.grade_level,
@@ -487,7 +476,8 @@ export default {
                   .catch(error => {
                       console.error(error);
                   })
-    }
+    },
+   
 
   },
   created(){

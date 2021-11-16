@@ -9,6 +9,8 @@
           <p>
             <button class="btn btn-primary" @click="autoUpdate">Update All</button>
           </p>
+          
+         
           <!-- <button class="btn btn-primary" @click="getlist">ffdd</button> -->
           <!-- {{value_list}} -->
           <!-- {{findUser}} -->
@@ -220,7 +222,7 @@ export default {
             this.updateDateauto();
              
           }.bind(this),
-          10000
+          7000
         );
       }
     },

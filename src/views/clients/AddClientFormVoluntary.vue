@@ -130,13 +130,13 @@
                                                            </div>
 
                                                               <div class="form-group col-md-6">
-                                                                  <label for="inputEmail4">Email</label>
-                                                                  <input type="email" class="form-control" v-model="register.email" placeholder="Email">
+                                                                  <label for="inputEmail4">Email <span class="text-danger">*</span></label>
+                                                                  <input type="email" class="form-control" required v-model="register.email" placeholder="Email">
                                                               </div>
 
                                                               <div class="form-group col-md-6">
                                                                   <label for="inputPassword4">Phone Number <span class="text-danger">*</span></label>
-                                                                  <input type="text" class="form-control" v-model="register.phone_number" placeholder="Phone Number" >
+                                                                  <input type="tel" class="form-control" required v-model="register.phone_number" placeholder="Phone Number" >
                                                               </div>
                                                               <div class="form-group col-md-6">
                                                                 <label for="inputCity">Gender <span class="text-danger">*</span></label>
@@ -159,7 +159,7 @@
                                                               </div>
 
                                                               <div class="form-group col-md-6">
-                                                                <label for="inputCity">Select TPA <span class="text-danger">*</span></label>
+                                                                <label for="inputCity">Select TPA/HMO <span class="text-danger">*</span></label>
                                                                   <select class="form-control"  required v-model="register.org_id" >
                                                                     <option v-for="tpa in tpas" v-bind:key="tpa" :value="tpa.id">{{tpa.organization_name}}</option>
                                                                  </select>
@@ -181,7 +181,7 @@
 
                                                                 <div class="form-group col-md-6" >
                                                                   <label>Principal Facility for Accessing Health Care </label>
-                                                                  <v-select v-model="register.provider_id" :options="providers" label="agency_name" :value="register.provider_id" @input="selected"></v-select>
+                                                                  <v-select v-model="register.provider_id"  required :options="providers" label="agency_name" :value="register.provider_id" @input="selected"></v-select>
                                                                 </div>
                                                                 
                                                               <div class="form-group col-md-6">
@@ -204,7 +204,6 @@
                                                              </div>
                                                              
                                                            
-                                                              
 
                                                           </div>
 

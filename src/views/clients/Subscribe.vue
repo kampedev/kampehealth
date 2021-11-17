@@ -111,6 +111,7 @@
                           Snap Photo
                         </button>
                         <button
+                        v-if="imagefile != ''"
                           type="button"
                           class="btn btn-info"
                            data-dismiss="modal"
@@ -118,7 +119,7 @@
                           name="button"
                           @click="savePic"
                         >
-                          Save pic
+                          Save Photo
                         </button>
                       </p>
                      
@@ -155,6 +156,17 @@
                 <p class="h5 text-center">
                   {{ auth_user.firstname }} {{ auth_user.lastname }}
                 </p>
+
+                 <div class="avatar  mx-auto d-block">
+                             <label class="avatar-input">
+                          <span class="avatar avatar-lg">
+                              <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                              onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                                   class="avatar-img rounded-circle "  >
+                          </span>
+
+                             </label>
+                  </div>
               </div>
 
               <div class="card-body">
@@ -296,14 +308,14 @@ export default {
           id: 1,
           plan_name: "Individual",
           description:
-            "This Plan type is a General Plan package with 12-month duration. It grants you access to cheap and qualititative healthcare coverage. It allows no depandant(s).",
+            "This Plan type is a General Plan package with a 12-month duration. It grants you access to cheap and qualititative healthcare coverage. It allows no depandant(s).",
           plan_cost: 12066,
         },
         {
           id: 2,
           plan_name: "Family",
           description:
-            " This Plan type is a General Plan package with 12-month duration. It grants you access to cheap and qualititative healthcare coverage. It allows a Maximum of 5-depandant(s).",
+            " This Plan type is a General Plan package with a 12-month duration. It grants you access to cheap and qualititative healthcare coverage. It allows a Maximum of 5-depandant(s).",
           plan_cost: 57600,
         },
       ],
@@ -398,7 +410,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.isLoading = true;
       this.axios
-        .post("/api/v1/auth/make/transaction", {
+        .post("/api/v1/make/transaction", {
           agency_id: 95930,
           amount: this.getPlan.plan_cost,
           description: "OHIS Plan Payment",

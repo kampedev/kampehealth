@@ -128,6 +128,7 @@
                                          <th>Name</th>
                                          <th>Phone Number</th>
                                          <th>Sector</th>
+                                         <th>Enrollment Date</th>
                                          <th>OHIS Number</th>
                                          <th>Status</th>
                                          <th>Action</th>
@@ -144,6 +145,7 @@
                                          <td >{{client.firstname}}, {{client.middlename}} {{client.lastname}}</td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.sector}}</td>
+                                         <td>{{client.created_at | moment("dddd, MMMM Do YYYY") }}</td>
                                          <td> {{client.id_card_number}}</td>
                                          <td>
                                             <p>

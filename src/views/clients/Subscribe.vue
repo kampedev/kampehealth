@@ -11,12 +11,20 @@
                 <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
               </div>
             </div>
-            <p class="h4"><strong>Subscribe to a Plan</strong></p>
+            <p class="h4"><strong>Complete Registration</strong></p>
           </div>
         </div>
       </div>
     </div>
-    <section class="pull-up" v-show="showpic">
+      
+    <div class="col-md-6 offset-md-3" v-if="showdependent == true"> 
+      <div class="spacer-top-bot">
+       <button class="btn btn-dark btn-block btn-lg " @click="showPayPart">Proceed to Payment</button>
+
+      </div>
+    </div>
+
+    <section class="" v-show="showpic">
       <div class="container">
         <div class="row list">
           <div class="col-lg-8 offset-lg-2">
@@ -115,7 +123,7 @@
                           type="button"
                           class="btn btn-info"
                            data-dismiss="modal"
-                    aria-label="Close"
+                         aria-label="Close"
                           name="button"
                           @click="savePic"
                         >
@@ -146,8 +154,11 @@
         </div>
       </div>
     </section>
+    <section class="" v-show="showdependent">
+      <AddDependentVoluntary/>
+    </section>
 
-     <section class="pull-up" v-show="showpay">
+     <section class="" v-show="showpay">
       <div class="container">
         <div class="row list">
           <div class="col-lg-8 offset-lg-2">
@@ -174,7 +185,7 @@
                   <div class="form-group col-md-12">
                     <label for="inputPassword4"
                       ><strong
-                        >Select Plan {{ auth_user.plan_type }}
+                        >Selected Plan: {{ auth_user.plan_type }}
                       </strong></label
                     >
                     <select
@@ -191,6 +202,9 @@
                         {{ plan.plan_cost | numeral(0, 0) }} )
                       </option>
                     </select>
+                    <p class="h6 spacer-top-bot" >Fee: &#8358; {{getPlan.fee}}  </p>
+                    <hr>
+                    <p class="h5 spacer-top-bot"><b>Total: &#8358; {{getPlan.plan_cost + getPlan.fee| numeral(0,0) }} </b> </p>
 
                     <div
                       class="col-lg-12"
@@ -225,7 +239,7 @@
 
                 <div class="col-lg-12">
                   <paystack
-                    :amount="getPlan.plan_cost * 100"
+                    :amount="totalCost * 100"
                     :email="auth_user.email"
                     :paystackkey="paystackkey"
                     :reference="reference"
@@ -242,13 +256,7 @@
             </div>
           </div>
 
-          <!-- <div class="col-md-12">
-                      <div class="card">
-
-                      </div>
-
-                    </div> -->
-
+         
           <div class="vld-parent">
             <loading
               :active.sync="isLoading"
@@ -272,12 +280,16 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
 import paystack from "vue-paystack";
+  import AddDependentVoluntary from '@/views/clients/AddDependentVoluntary.vue'
+
 
 export default {
   components: {
     Navbar,
     Loading,
     paystack,
+    AddDependentVoluntary,
+    
   },
   data() {
     return {
@@ -288,6 +300,7 @@ export default {
       amount: "",
       showpay: false,
       showpic: true,
+      showdependent: false,
        video_settings: {
         video: {
           width: {
@@ -308,15 +321,18 @@ export default {
           id: 1,
           plan_name: "Individual",
           description:
-            "This Plan type is a General Plan package with a 12-month duration. It grants you access to cheap and qualititative healthcare coverage. It allows no depandant(s).",
+            "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to cheap and qualititative healthcare coverage. It allows no depandent(s).",
           plan_cost: 12066,
+          fee: 280.99,
+
         },
         {
           id: 2,
           plan_name: "Family",
           description:
-            " This Plan type is a General Plan package with a 12-month duration. It grants you access to cheap and qualititative healthcare coverage. It allows a Maximum of 5-depandant(s).",
+            " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to cheap and qualititative healthcare coverage. It allows a Maximum of 5-depandent(s).",
           plan_cost: 57600,
+          fee: 964.00,
         },
       ],
       plan_id: null,
@@ -346,14 +362,18 @@ export default {
   },
   computed: {
     getPlan() {
-      // let newarr = [1,2, 3].filter(x=> x<2)
-      // let osunlgaarray = this.tpa_Lga.lgas;
+      
       let formatter = this.selected_plan.filter(
         (x) => x.plan_name == this.auth_user.plan_type
       );
-      // this.wards_lga = formatter[0];
       console.log(formatter);
       return formatter[0];
+    },
+
+totalCost() {
+      
+      
+      return this.getPlan.plan_cost + this.getPlan.fee;
     },
 
     reference() {
@@ -369,6 +389,12 @@ export default {
    
   },
   methods: {
+
+    showPayPart(){
+      this.showpay = true
+      this.showpic = false
+      this.showdependent = false
+    },
     callback: function (response) {
       this.makeSubscribe();
       console.log(response);
@@ -396,8 +422,14 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.showpay = true;
-          this.showpic = false;
+           if (this.auth_user.plan_type == 'Individual' ) {
+            this.showpay = true;
+            this.showpic = false;
+          } else {
+              this.showpay = false;
+              this.showdependent = true;
+               this.showpic = false;
+          }
           this.isLoading = false;
           this.$toasted.info("Image added Successfully!", {
             position: "top-center",
@@ -479,8 +511,14 @@ export default {
             position: "top-center",
             duration: 3000,
           });
-          this.showpay = true;
-          this.showpic = false;
+          if (this.auth_user.plan_type == 'Individual' ) {
+            this.showpay = true;
+            this.showpic = false;
+          } else {
+              this.showpay = false;
+              this.showdependent = true;
+               this.showpic = false;
+          }
           this.isLoading = false;
         })
         .catch((error) => {
@@ -495,3 +533,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.spacer-top-bot{
+  margin-top:10px;
+  margin-bottom: 15px;
+}
+</style>

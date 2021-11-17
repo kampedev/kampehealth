@@ -51,11 +51,11 @@
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <!-- <th>SN</th> -->
                                          <th>Name</th>
                                          <th>Phone Number</th>
                                          <th>Sector</th>
                                          <th>OHIS Number Number</th>
+                                         <th>Date Enrolled</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -67,15 +67,17 @@
                                                                                  alt=""></div>
                                          </td> -->
                                          <!-- <td >{{index+1}} </td> -->
-                                         <td >{{client.firstname}} {{client.lastname}}</td>
+                                         <td >{{client.firstname}} {{client.lastname}} {{client.middlename}} </td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.sector}}</td>
                                          <td>{{client.id_card_number}}</td>
-                                         <!-- <td>{{client.state}}/{{client.localgovt}}</td> -->
+                                         <td>{{client.created_at | moment("dddd, MMMM Do YYYY") }}</td>
                                          <td>
 
                                            <router-link :to="{ path: '/client/'+ client.id}">
-                                             <button type="button" name="button" class="btn btn-info">view</button>
+                                             <button type="button" name="button" class="btn btn-info">
+                                               <i class="fe fe-eye"></i>
+                                             </button>
                                             </router-link>
 
                                          </td>
@@ -96,6 +98,13 @@
                </div>
 
            </div>
+
+              <div class="vld-parent">
+                        <loading :active.sync="isLoading"
+                        loader="dots"
+                        :can-cancel="true"
+                        :is-full-page="fullPage"></loading>
+                    </div>
 
        </section>
        </main>

@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
 
-       <div class="bg-dark m-b-30">
+       <!-- <div class="bg-dark m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
@@ -11,13 +11,21 @@
 
                        </div>
                        <strong class="h4" style="margin-top:10px">Manage Dependents </strong>
-                       
+                       <p class="h5">{{client.firstname}} {{client.lastname}} </p>
 
                    </div>
 
                </div>
            </div>
-       </div>
+       </div> -->
+       <div class="col-md-6 text-center mx-auto text-dark p-b-10">
+                       <div class="m-b-10">
+
+                       </div>
+                       <strong class="h4" style="margin-top:10px">Manage Dependents </strong>
+                       <p class="h5">{{client.firstname}} {{client.lastname}} </p>
+
+         </div>
        <section >
            <div class="container">
 
@@ -26,7 +34,7 @@
                        <div class="card m-b-30" v-if="dependents.length <= 4" >
                            <div class="card-header text-center">
 
-                             <strong>Add Dependent {{client.id_card_number}} </strong>
+                             <strong>Add Dependent </strong>
                            </div>
 
                            <div class="card-body">
@@ -90,8 +98,8 @@
                                   </div>
 
                                  <div class="form-row">
-                                   <button class="btn btn-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_01">
-                                     Snap Photo <i class="fe fe-camera"></i> </button>
+                                   <!-- <button class="btn btn-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_02">
+                                     Snap Photo <i class="fe fe-camera"></i> </button> -->
 
                                    <div class="fileinput fileinput-new" data-provides="fileinput" >
                                      <span class="btn btn-file">
@@ -145,7 +153,7 @@
                                </td>
                                <td>
                                  <router-link :to="{ path: '/provider-' + dependent.id }">
-                                 {{dependent.firstname}} {{dependent.middlename}} {{dependent.lastname}}
+                                 {{dependent.firstname}} {{dependent.middle_name}} {{dependent.lastname}}
                                </router-link>
 
                                </td>
@@ -154,9 +162,9 @@
                                <td>{{dependent.gender}}</td>
                                <td>{{dependent.relationShipType}}</td>
                                <td>
-                                <router-link :to="{ path: '/dependent/' + dependent.id }">
+                                <!-- <router-link :to="{ path: '/dependent/' + dependent.id }">
                                    <button class="btn btn-default" name="button" ><i class="fe fe-eye"></i> </button>
-                               </router-link>
+                               </router-link> -->
 
                                  <button class="btn btn-info" name="button" @click="editDep(dependent)"><i class="fe fe-edit"></i> </button>
                                  <button class="btn btn-danger" name="button" @click="deleteDep(dependent)"><i class="fe fe-delete"></i> </button>
@@ -170,40 +178,40 @@
                    </div>
                </div>
 
-               <!-- Modal for Prescription/Notes -->
-                                             <div class="modal fade "   id="example_01" tabindex="-1" role="dialog"
-                                                  aria-labelledby="example_02" aria-hidden="true">
-                                                 <div class="modal-dialog modal-dialog-centered modal-lg"  role="document">
-                                                     <div class="modal-content " >
+               <!-- Modal for Streaming Picture -->
+                    <div class="modal fade "   id="example_02" tabindex="-1" role="dialog"
+                        aria-labelledby="example_02" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg"  role="document">
+                            <div class="modal-content " >
 
-                                                         <div class="container-fluid ">
-                                                             <button type="button" class="close" data-dismiss="modal"
-                                                                     aria-label="Close">
-                                                                 <span aria-hidden="true">&times;</span>
-                                                             </button>
-                                                             <div class="row ">
-                                                                 <div class="col-md-12 p-t-20 p-b-20">
+                                <div class="container-fluid ">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <div class="row ">
+                                        <div class="col-md-12 p-t-20 p-b-20">
 
-                                                                     <video id="video" width="100%" height="auto" autoplay></video>
-                                                                     <p>
-                                                                       <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
-                                                                       <button @click="takePic" class="bg-navy btn btn-flat">Snap Photo</button>
-                                                                       <!-- <button type="button" class="btn btn-info" name="button" @click="savePic">Save pic</button> -->
+                                            <video id="video" width="100%" height="auto" autoplay></video>
+                                            <p>
+                                            <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
+                                            <button @click="takePic" class="bg-navy btn btn-flat">Snap Photo</button>
+                                            <!-- <button type="button" class="btn btn-info" name="button" @click="savePic">Save pic</button> -->
 
-                                                                     </p>
-                                                                     <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
-                                                                     <!-- <p>{{imagefile}}</p> -->
+                                            </p>
+                                            <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
+                                            <!-- <p>{{imagefile}}</p> -->
 
-                                                                       <canvas id="canvas"  width="720px"   height="550px"></canvas>
+                                            <canvas id="canvas"  width="720px"   height="550px"></canvas>
 
-                                                                 </div>
-                                                             </div>
-                                                         </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                             <!-- Modal Ends -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Ends -->
 
 
            </div>
@@ -334,6 +342,9 @@ export default {
 
   },
   methods:{
+    //   showPayPart(){
+    //       this.showpi
+    //   },
     attachPic(event){
     this.user = JSON.parse(localStorage.getItem('user'))
     console.log(event)
@@ -361,7 +372,7 @@ export default {
          var formData = new FormData();
          formData.append("user_image", this.image)
          formData.append("dependant_id", dependent_id)
-         this.axios.post("/api/v1/auth/uploadDependantImage", formData, {
+         this.axios.post("/api/v1/uploadDependantImage", formData, {
            headers: {
              'Content-Type': 'multipart/form-data'
            }
@@ -405,7 +416,7 @@ export default {
     },
     savePic(dependent_id){
       this.isLoading = true;
-      this.axios.post(`/api/v1/auth/uploadDependantImage/canvas`,
+      this.axios.post(`/api/v1/uploadDependantImage/canvas`,
        {
           image: this.imagefile,
           dependant_id: dependent_id,
@@ -425,7 +436,7 @@ export default {
     },
     getDependents(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/allDependantUser/${this.$route.params.id}`)
+      this.axios.get(`/api/v1/allDependantUser/${this.$route.params.id}`)
                   .then(response => {
                       this.dependents = response.data.data
                       console.log(response)
@@ -435,6 +446,7 @@ export default {
                   })
     },
 
+   
     submitForm(){
       if (this.getAge >= 18 && this.dependent.relationShipType != 'Spouse A' ) {
         this.$toasted.error('Dependent older than 18 years', {position: 'top-center', duration:3000 })
@@ -452,7 +464,7 @@ export default {
       if (this.edit === false) {
       // Add dependent
       this.isLoading = true;
-      this.axios.post('/api/v1/auth/addDependant',{
+      this.axios.post('/api/v1/addDependant',{
         firstname: this.dependent.firstname,
         // lastname: this.getSurname ? this.getSurname : this.dependent.lastname,
         lastname:  this.dependent.lastname,
@@ -468,7 +480,7 @@ export default {
         lga: this.client.localgovt,
         dob: this.dependent.dob,
         provider: this.client.provider_id,
-        enrolled_by: this.user.id,
+        enrolled_by: this.client.id,
         agency_id: 95930,
         id_card_number: this.client.id_card_number + '/' + this.dependent.relationShipType.slice( this.dependent.relationShipType.length-1),
       })
@@ -491,13 +503,13 @@ export default {
       })
       .catch(error=>{
         this.isLoading = false;
-        this.$toasted.error('uploading error, recheck the fields', {position: 'top-center', duration:3000 })
+        this.$toasted.error('duplicate relationship type or incomplete fields', {position: 'top-center', duration:3000 })
           console.log(error.response)
       })
       }else {
       // Update
       this.isLoading = true;
-      this.axios.put(`/api/v1/auth/editDependant/${this.dependent_id}`,{
+      this.axios.put(`/api/v1/editDependant/${this.dependent_id}`,{
 
         firstname: this.dependent.firstname,
         // lastname: this.getSurname ? this.getSurname : this.dependent.lastname,
@@ -511,7 +523,7 @@ export default {
         gender: this.dependent.gender,
         expiry_date: this.dependent.expiry_date,
         dob: this.dependent.dob,
-        state: 2676,
+        state: 2683,
         lga: this.client.localgovt,
         provider: this.client.provider_id,
 
@@ -538,7 +550,7 @@ export default {
     },
     deleteDep(dependent){
     if (confirm('Are you sure you want to delete?') ) {
-      this.axios.delete(`/api/v1/auth/deletedependent/${dependent.id}`)
+      this.axios.delete(`/api/v1/deletedependent/${dependent.id}`)
                   .then(response => {
                       console.log(response)
                       this.$toasted.success('Dependent deleted Successfully!', {position: 'top-center', duration:3000 })
@@ -578,7 +590,7 @@ export default {
       this.dependent.expiry_date ="";
     },
     singleClient(){
-      this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
+      this.axios.get(`/api/v1/user-no-auth/${this.$route.params.id}`)
           .then(response => {
               this.client = response.data.user
               console.log(response)

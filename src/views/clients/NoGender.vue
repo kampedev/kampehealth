@@ -5,30 +5,33 @@
         <div class="card card-header">
           <p class="h5">Total to be Uploaded sheet: {{idcard_offline.length}} </p>
           <p class="h5"> {{this.json_index}} Index Uploaded </p>
-          <p>
-            <button class="btn btn-primary" @click="autoUpdate">Update All</button>
-          </p>
-
-          <div class="col-md-12"> 
-            <label for="">Start From Index: {{json_index}} </label>
-            <input type="text" class="form-control" v-model="json_index">
-
-          </div>
-          
          
-          <!-- <button class="btn btn-primary" @click="getlist">ffdd</button> -->
-          <!-- {{value_list}} -->
-          <!-- {{findUser}} -->
 
-          <!-- <button class="btn btn-primary" @click="updateDOB">Update DOB</button> -->
+          <div class="col-md-3"> 
+            <label for="">Start From Index: {{json_index }} </label>
+            <input type="text" class="form-control" v-model="json_index">
+          </div>
+          <div class="col-md-12">
+                 <!-- <input type="file"  accept="application/JSON" @change="onFileChange" class="form-control" /> -->
+                 <!-- {{idcard_offline[0].id_card_number }} -->
 
-          <!-- <div >
-                                    <p class="btn btn-success">
-                                          <i class="fe fe-download"></i> <download-excel :data="clients" :fields="json_fields" type="csv" :escapeCsv=false name="Picture Error List.csv"
-                        >
-                                    Download Data for BHCPF
-                                    </download-excel></p>
-                                </div> -->
+                 <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file"  @change="onFileChange" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                  </div>
+          </div>
+
+         
+           <p>
+            <button class="btn btn-dark btn-block" @click="autoUpdate">Update All</button>
+          </p>
+          
+        
         </div>
 
         <div class="card-body">
@@ -121,7 +124,8 @@ export default {
       value_list: "",
       auto_selected: "",
       json_index: 0,
-      idcard_offline: idcardJson,
+      idcard_offlines: idcardJson,
+      idcard_offline: [],
       json_fields: {
         "First Name": "firstname",
         "Last Name": "lastname",
@@ -166,6 +170,19 @@ export default {
   },
 
   methods: {
+      onFileChange(e) {
+     let files = e.target.files || e.dataTransfer.files;
+     if (!files.length) return;
+     this.readFile(files[0]);
+   },
+   readFile(file) {
+     let reader = new FileReader();
+     reader.onload = e => {
+       console.log(e.target.result);
+        this.idcard_offline = JSON.parse(e.target.result);
+     };
+     reader.readAsText(file);
+   },
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.post(`/api/v1/auth/null-expiry`,{
@@ -220,7 +237,7 @@ export default {
             this.updateDateauto();
              
           }.bind(this),
-          7000
+          5000
         );
       }
     },
@@ -272,7 +289,7 @@ export default {
     },
 
     updateDate(client){
-   this.isLoading = true
+       this.isLoading = true
        let formatter =  this.idcard_offline.filter((x) => x.id_card_number == client.id_card_number);
 
       this.user = JSON.parse(localStorage.getItem('user'))

@@ -237,7 +237,7 @@ export default {
             this.updateDateauto();
              
           }.bind(this),
-          5000
+          3000
         );
       }
     },

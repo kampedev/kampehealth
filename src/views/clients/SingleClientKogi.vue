@@ -130,15 +130,22 @@
                       </button>
                     </router-link>
 
-        
-                      <span v-if="client.status == 'active'">
-                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">active</button>
-                        </span>
-                      <span v-if="client.status ==  'inactive' ">
-                      <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">inactive</button>
+                    <span v-if="client.status == 'active'">
+                      <button
+                        type="button"
+                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                      >
+                        active
+                      </button>
                     </span>
-                                
-
+                    <span v-if="client.status == 'inactive'">
+                      <button
+                        type="button"
+                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+                      >
+                        inactive
+                      </button>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -185,7 +192,9 @@
                       v-if="client.user_image == null"
                     />
                     <img
-                      :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
+                      :src="
+                        `https://api.hayokinsurance.com/image/${client.user_image}`
+                      "
                       class="img spacer-top"
                       alt="User Photo"
                       v-if="client.user_image != null"
@@ -328,7 +337,7 @@
                     class="spacer-top-bottom"
                     v-if="
                       client.type == 'client' &&
-                      client.category_of_vulnerable_group != null
+                        client.category_of_vulnerable_group != null
                     "
                   >
                     <strong>Category of Vulnerable Group:</strong>
@@ -490,7 +499,7 @@ export default {
       // navigator.mediaDevices.getUserMedia({ video: true}).then(function(stream) {
       navigator.mediaDevices
         .getUserMedia(this.video_settings)
-        .then(function (stream) {
+        .then(function(stream) {
           //video.src = window.URL.createObjectURL(stream);
           video.srcObject = stream;
           video.play();
@@ -502,7 +511,7 @@ export default {
     // var video = document.getElementById('video');
 
     // Trigger photo take
-    document.getElementById("snap").addEventListener("click", function () {
+    document.getElementById("snap").addEventListener("click", function() {
       context.drawImage(video, 0, 0, 500, 350);
 
       // get image
@@ -597,7 +606,7 @@ export default {
         // Not adding `{ audio: true }` since we only want video now
         navigator.mediaDevices
           .getUserMedia(this.video_settings)
-          .then(function (stream) {
+          .then(function(stream) {
             //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
             video.play();
@@ -690,7 +699,7 @@ export default {
         .then((response) => {
           this.client = response.data.user;
           this.dependents = response.data.dependents;
-          this.healthFacility = response.data.provider
+          this.healthFacility = response.data.provider;
           console.log(response);
 
           // get facility
@@ -823,7 +832,7 @@ export default {
   },
 };
 </script>
-<style >
+<style>
 .spacer {
   margin-left: 1px;
   margin-top: 5px;

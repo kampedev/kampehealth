@@ -128,6 +128,7 @@
                                          <th>Name</th>
                                          <th>Phone Number</th>
                                          <th>Sector</th>
+                                         <th>Enrollment Date</th>
                                          <th>OHIS Number</th>
                                          <th>Status</th>
                                          <th>Action</th>
@@ -144,6 +145,7 @@
                                          <td >{{client.firstname}}, {{client.middlename}} {{client.lastname}}</td>
                                          <td>{{client.phone_number}}</td>
                                          <td>{{client.sector}}</td>
+                                         <td>{{client.created_at | moment("dddd, MMMM Do YYYY") }}</td>
                                          <td> {{client.id_card_number}}</td>
                                          <td>
                                             <p>
@@ -256,7 +258,7 @@ export default {
       ward:"",
       date:"",
       from: "",
-      to: "",
+      to: new Date(),
       current_page: 1,
       rows: "1",
       perPage: 15,
@@ -266,12 +268,19 @@ export default {
   beforeMount(){
     this.getClients()
   },
+  computed:{
+             addOneDay() {
+              var result = new Date(this.to);
+              result.setDate(result.getDate() + 1);
+              return result;
+        }
+  },
   methods:{
     clearFilter(){
       this.ward = ""
       this.date =""
       this.from =""
-      this.to =""
+      this.to = new Date()
       this.sector =""
       this.localgovt =""
       this.provider_id =""
@@ -350,7 +359,7 @@ export default {
           enrolled_by: this.enrolled_by ? this.enrolled_by : "",
           date: this.date ? this.date : "",
           from: this.from ? this.from : "",
-          to: this.to ? this.to : "",
+          to: this.addOneDay ? this.addOneDay : "",
           ward: this.ward ? this.ward : "",
         },
       })

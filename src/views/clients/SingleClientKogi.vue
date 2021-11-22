@@ -218,12 +218,13 @@
                       <strong class="text-primary">ID NUMBER:</strong>
                       <strong>{{ client.id_card_number }}</strong>
                     </p>
-                    <hr />
+                    <hr /> 
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">EXPIRY DATE:</strong>
-                      <strong>{{
-                        client.expiry_date | moment("D/M/YYYY")
-                      }}</strong>
+                      <!-- <strong>{{ client.expiry_date | moment("D/M/YYYY")  }}</strong> -->
+                      <strong>{{ client.expiry_date | moment("dddd, MMMM Do YYYY")  }}</strong>
+                       
+                     
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">
@@ -272,8 +273,8 @@
                     <button class="btn btn-outline-dark">Other Details</button>
                   </div>
 
-                  <!-- <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
-                                   <hr> -->
+                  <p class="spacer-top-bottom"><strong>Date Enrolled:</strong> {{client.created_at | moment("dddd, MMMM Do YYYY")}}</p>
+                                   <hr>
                   <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
                     <p class="spacer-top-bottom">
                       <strong>Dependent Name {{ index + 1 }} :</strong>

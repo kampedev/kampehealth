@@ -611,12 +611,8 @@ export default {
       }
     },
     getsalaryNumber(){
-      if (this.newStudent.salary_number ==  null) {
-          return 'nil'
-      } else {
         return this.newStudent.salary_number
         
-      }
     }
   },
 
@@ -743,16 +739,22 @@ export default {
           org_id: parseInt(this.getTPA.tpa_id),
         });
         this.$emit("add-item", studentsAdded[0]);
-        // this.clear();
-        // this.showInput();
+        
         localStorage.removeItem("snap");
         this.imagefile = "";
-        this.modalShow = true;
-        this.gotoDependent = true;
-        this.$toasted.info("Client Added Successfully", {
+        if (this.newStudent.plan_type != 'Family') {
+         this.clear() 
+         this.showInput() 
+         this.$toasted.info("Client Added Successfully", {
           position: "top-center",
           duration: 3000,
         });
+        }
+        else{
+          this.modalShow = true;
+        this.gotoDependent = true;
+        }
+        
       } catch (ex) {
         alert(ex.message);
       }
@@ -768,7 +770,7 @@ export default {
           nimc_number: this.newStudent.nimc_number,
           provider_id: this.selected_provider_id,
           localgovt: this.newStudent.localgovt,
-                    plan_type: this.newStudent.plan_type,
+          plan_type: this.newStudent.plan_type,
           ward: this.newStudent.ward,
           phone_number: this.client_number,
           dob: this.newStudent.dob,
@@ -793,16 +795,20 @@ export default {
         });
         this.$emit("add-item", studentsAdded[0]);
 
-        // this.clear();
-        // this.showInput();
         localStorage.removeItem("snap");
         this.imagefile = "";
-        this.modalShow = true;
-        this.gotoDependent = true;
-        this.$toasted.info("Client Added Successfully", {
+        if (this.newStudent.plan_type != 'Family') {
+         this.clear() 
+         this.showInput() 
+         this.$toasted.info("Client Added Successfully", {
           position: "top-center",
           duration: 3000,
         });
+        }
+        else{
+          this.modalShow = true;
+        this.gotoDependent = true;
+        }
       } catch (ex) {
         alert(ex.message);
       }

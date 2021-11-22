@@ -41,7 +41,7 @@
                   <th>Name</th>
                   <th>User Type</th>
                   <th>Plan Type</th>
-                  <!-- <th>Gender</th> -->
+                  <th>Date of Birth || Date of Expiry</th>
                   <th>Phone Number</th>
                   <th>Sector</th>
                   <!-- <th>Dep</th> -->
@@ -64,7 +64,7 @@
                       </td>
                   <td>{{ student.type }}</td>
                   <td>{{ student.plan_type }}</td>
-                  <!-- <td>{{student.gender}}</td> -->
+                  <td>{{student.dob}} || {{student.expiry_date}} </td>
                   <td>{{ student.phone_number }}</td>
                   <td ><span v-if="student.type == 'client'">{{ student.sector }}</span> </td>
                   <!-- <td>{{student.dependent_rel_type}}</td> -->

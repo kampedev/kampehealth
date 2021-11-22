@@ -2,6 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar />
     <main class="admin-main">
+<<<<<<< HEAD
       <div class="bg-dark m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
@@ -67,10 +68,73 @@
                           v-bind:key="client.id"
                         >
                           <!-- <td>
+=======
+       <div class="bg-dark m-b-30">
+           <div class="container">
+               <div class="row p-b-60 p-t-60">
+                 <div class="col-md-12">
+                                    <p class="h4 text-center text-white">Enrollee Management</p>
+
+                 </div>
+
+               </div>
+           </div>
+       </div>
+                  
+
+       <SearchUser/>
+       <!-- <FilterUserProvider/> -->
+       <section class="">
+           <div class="container">
+
+             <div class="col-md-12 mx-auto text-white p-b-30">
+                       <button type="button" name="button" class="btn btn-primary text-right" @click="show = true" >Add Enrollee 
+                         <i class="fe fe-plus"></i>
+                       </button>
+                   </div>
+
+               <div class="row list" v-show="show">
+                 <AddClientForm/>
+
+                   <div class="vld-parent">
+                        <loading :active.sync="isLoading"
+                        loader="dots"
+                        :can-cancel="true"
+                        :is-full-page="true"></loading>
+                    </div>
+
+
+               </div>
+
+               <div class="row list">
+                   <div class="col-md-12">
+                       <div class="card m-b-30">
+
+                           <div class="card-body">
+
+                              <h4 class="h4 text-center">{{clients.meta.total | numeral(0,0)}} Enrollees</h4>
+
+                             <div class="table-responsive">
+                                 <table class="table align-td-middle table-card">
+                                     <thead>
+                                     <tr>
+                                         <th>Name</th>
+                                         <th>Phone Number</th>
+                                         <th>Sector</th>
+                                         <th>OHIS Number Number</th>
+                                         <th>Date Enrolled</th>
+                                         <th>Action</th>
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                     <tr v-for="client in clients.data" v-bind:key="client.id">
+                                         <!-- <td>
+>>>>>>> 901479ff50c9056f95b0addefb5b189f4492aba4
                                              <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
                                                                                  class="avatar-img avatar-sm rounded-circle"
                                                                                  alt=""></div>
                                          </td> -->
+<<<<<<< HEAD
                           <!-- <td >{{index+1}} </td> -->
                           <td>{{ client.firstname }} {{ client.lastname }}</td>
                           <td>{{ client.phone_number }}</td>
@@ -111,6 +175,51 @@
       </section>
     </main>
   </section>
+=======
+                                         <!-- <td >{{index+1}} </td> -->
+                                         <td >{{client.firstname}} {{client.lastname}} {{client.middlename}} </td>
+                                         <td>{{client.phone_number}}</td>
+                                         <td>{{client.sector}}</td>
+                                         <td>{{client.id_card_number}}</td>
+                                         <td>{{client.created_at | moment("dddd, MMMM Do YYYY") }}</td>
+                                         <td>
+
+                                           <router-link :to="{ path: '/client/'+ client.id}">
+                                             <button type="button" name="button" class="btn btn-info">
+                                               <i class="fe fe-eye"></i>
+                                             </button>
+                                            </router-link>
+
+                                         </td>
+                                     </tr>
+
+                                     </tbody>
+                                 </table>
+                                 <div class="col-md-4 offset-md-4">
+                                   <button  class="btn btn-default btn-lg" @click="gotoPrevious">Previous</button>
+                                   <button class="btn btn-default btn-lg" @click="gotoNext">Next</button>
+                                 </div>
+
+                             </div>
+
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+           </div>
+
+              <div class="vld-parent">
+                        <loading :active.sync="isLoading"
+                        loader="dots"
+                        :can-cancel="true"
+                        :is-full-page="fullPage"></loading>
+                    </div>
+
+       </section>
+       </main>
+   </section>
+>>>>>>> 901479ff50c9056f95b0addefb5b189f4492aba4
 </template>
 
 <script>

@@ -26,7 +26,7 @@
                        <div class="card m-b-30" v-if="dependents.length <= 4" >
                            <div class="card-header text-center">
 
-                             <strong>Add Dependent </strong>
+                             <strong>Add Dependent {{client.id_card_number}} </strong>
                            </div>
 
                            <div class="card-body">
@@ -54,29 +54,35 @@
 
                                   <div class="form-group col-md-6" v-if="dependent.relationShipType != 'Spouse'">
                                       <label for="inputPassword4">Surname </label>
-                                      <input type="text" class="form-control"   v-model="dependent.lastname"  >
+                                      <input type="text" class="form-control"   v-model="dependent.lastname"   placeholder="Surname" >
                                   </div>
 
                                   <div class="form-group col-md-6" v-if="dependent.relationShipType == 'Spouse'">
                                       <label for="inputPassword4">Surname </label>
-                                      <input type="text" class="form-control"   v-model="dependent.lastname"  >
+                                      <input type="text" class="form-control"   v-model="dependent.lastname" placeholder="Surname" >
                                   </div>
 
                                      <div class="form-group col-md-6">
                                          <label for="inputEmail4">First Name</label>
                                          <input type="text" class="form-control"  placeholder="First Name" v-model="dependent.firstname">
                                      </div>
-                                     <!-- <div class="form-group col-md-12">
+                                     <div class="form-group col-md-6">
                                          <label for="inputPassword4">Middle Name</label>
-                                         <input type="text" class="form-control"  placeholder="Middle Name" v-model="dependent.middlename" >
-                                     </div> -->
+                                         <input type="text" class="form-control"  placeholder="Middle Name" v-model="dependent.middle_name" >
+                                     </div>
 
-                                 </div>
-                                 <div class="form-row">
-                                      <div class="form-group col-md-6">
+                                
+                                    <div class="form-group col-md-6">
                                    <label for="inputCity">Date of Birth </label>
                                       <input type="date" class="form-control"  placeholder="YYYY/MM/DD" v-model="dependent.dob" >
                                  </div>
+
+                                  <div class="form-group col-md-6">
+                                   <label for="inputCity">Date of Expiry:   <b>{{getExpiry}}</b> </label>
+                                      <input type="date" class="form-control" disabled placeholder="YYYY/MM/DD" v-model="getExpiry" >
+                                      <p class="text-success">Principal Expiry: {{client.expiry_date}} </p>
+                                 </div>
+
                                       <div class="form-group col-md-6">
                                           <label for="inputPassword4">Phone Number</label>
                                           <input type="text" class="form-control" id="inputPassword4" placeholder="Mobile No" :value="client.phone_number" >
@@ -86,7 +92,8 @@
                                  <div class="form-row">
                                    <button class="btn btn-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_01">
                                      Snap Photo <i class="fe fe-camera"></i> </button>
-                                   <!-- <div class="fileinput fileinput-new" data-provides="fileinput" >
+
+                                   <div class="fileinput fileinput-new" data-provides="fileinput" >
                                      <span class="btn btn-file">
                                        <span class="fileinput-new">Upload Picture <i class="fe fe-upload"></i></span>
                                        <span class="fileinput-exists">Change</span>
@@ -94,7 +101,7 @@
                                      </span>
                                      <span class="fileinput-filename"></span>
                                      <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                                 </div> -->
+                                 </div>
 
                                </div>
 
@@ -241,6 +248,7 @@ export default {
       dependent_id:"",
       imagefile:"",
       image:"",
+      upload_pic:false,
       dependent:{
         firstname:"",
         lastname:"",
@@ -285,6 +293,36 @@ export default {
    }
    return age;
  },
+  getExpiry(){
+
+      if (this.dependent.relationShipType == 'Spouse A') {
+        return this.client.expiry_date
+        
+      } else {
+        var today = new Date();
+        var principalExpiry = new Date (this.client.expiry_date);
+        var principalExpYear = principalExpiry.getFullYear() 
+
+        var birthDate = new Date (this.dependent.dob);
+        // var year = birthDate.getFullYear();
+        var month = birthDate.getMonth();
+        var day = birthDate.getDate();
+        month;
+        day;
+        let remainingYears = 18 - this.getAge
+        let finaldate = today.getFullYear() + remainingYears
+        // return  year  + '/' + principalExpYear + '/' + month + '/' + day + '/'+ finaldate 
+          if (finaldate > principalExpYear) {
+            return this.client.expiry_date
+          } else {
+            // return  finaldate + '-' + month + '-' + day 
+            return  finaldate + '-12-31' 
+          }
+      
+      
+      }
+
+  },
  getIdNum(){
    if (this.dependent.relationShipType == 'Spouse') {
      return 'OHIS/DEP-S/'+ this.$route.params.id
@@ -300,10 +338,10 @@ export default {
     this.user = JSON.parse(localStorage.getItem('user'))
     console.log(event)
      this.image = event.target.files[0];
-     // this.uploadPicture()
-     // this.getDependents()
+     this.upload_pic = true
  },
  streamPic(){
+   this.upload_pic = false
     var video = document.getElementById('video');
   // Get access to the camera!
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -312,6 +350,7 @@ export default {
           //video.src = window.URL.createObjectURL(stream);
           video.srcObject = stream;
           video.play();
+          
       });
 
     }
@@ -362,6 +401,7 @@ export default {
         console.log(image)
         localStorage.setItem('snap',this.imagefile.src);
         this.imagefile = image.src
+        this.upload_pic = false
     },
     savePic(dependent_id){
       this.isLoading = true;
@@ -395,27 +435,6 @@ export default {
                   })
     },
 
-
-    fetchLga(){
-      this.axios.get(`/api/v1/auth/lga/2683`)
-                  .then(response => {
-                      this.lga_states = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
-    fetchProviders(){
-      this.axios.get(`/api/v1/auth/providerAgency/4`)
-                  .then(response => {
-                      this.providers = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    },
     submitForm(){
       if (this.getAge >= 18 && this.dependent.relationShipType != 'Spouse A' ) {
         this.$toasted.error('Dependent older than 18 years', {position: 'top-center', duration:3000 })
@@ -437,19 +456,20 @@ export default {
         firstname: this.dependent.firstname,
         // lastname: this.getSurname ? this.getSurname : this.dependent.lastname,
         lastname:  this.dependent.lastname,
-        middlename: this.dependent.middlename,
+        middle_name: this.dependent.middle_name,
         institution_attending: this.dependent.institution_attending,
         relationShipType: this.dependent.relationShipType.slice(0, -1),
         user_id: this.$route.params.id,
         email: this.dependent.email,
+        expiry_date: this.getExpiry,
         phone_number: this.client.phone_number,
         gender: this.dependent.gender,
-        state: 2683,
+        state: 2676,
         lga: this.client.localgovt,
         dob: this.dependent.dob,
         provider: this.client.provider_id,
         enrolled_by: this.user.id,
-        agency_id: 4,
+        agency_id: 95930,
         id_card_number: this.client.id_card_number + '/' + this.dependent.relationShipType.slice( this.dependent.relationShipType.length-1),
       })
 
@@ -457,8 +477,13 @@ export default {
           console.log(response);
           let dependent_id = response.data.dependent.id
           this.clearIt();
-          // this.uploadPicture(dependent_id);
-          this.savePic(dependent_id);
+          
+          if (this.upload_pic == true ) {
+            this.uploadPicture(dependent_id);
+          } else {
+              this.savePic(dependent_id);            
+          }
+          
           this.isLoading = false;
           this.$toasted.success('Dependent added Successfully', {position: 'top-center', duration:3000 })
           this.getDependents();
@@ -466,7 +491,7 @@ export default {
       })
       .catch(error=>{
         this.isLoading = false;
-        this.$toasted.error('Fill up all Fields', {position: 'top-center', duration:3000 })
+        this.$toasted.error('uploading error, recheck the fields', {position: 'top-center', duration:3000 })
           console.log(error.response)
       })
       }else {
@@ -477,7 +502,7 @@ export default {
         firstname: this.dependent.firstname,
         // lastname: this.getSurname ? this.getSurname : this.dependent.lastname,
         lastname:  this.dependent.lastname,
-        middlename: this.dependent.middlename,
+        middle_name: this.dependent.middle_name,
         institution_attending: this.dependent.institution_attending,
         relationShipType: this.dependent.relationShipType.slice(0, -1),
         user_id: this.$route.params.id,
@@ -486,7 +511,7 @@ export default {
         gender: this.dependent.gender,
         expiry_date: this.dependent.expiry_date,
         dob: this.dependent.dob,
-        state: 2683,
+        state: 2676,
         lga: this.client.localgovt,
         provider: this.client.provider_id,
 
@@ -531,7 +556,7 @@ export default {
       this.dependent_id = dependent.id;
       this.dependent.firstname = dependent.firstname
       this.dependent.lastname = dependent.lastname
-      this.dependent.middlename = dependent.middlename
+      this.dependent.middle_name = dependent.middle_name
       this.dependent.relationShipType = dependent.relationShipType + ' ' + dependent.id_card_number.slice( dependent.id_card_number.length-1)
       this.dependent.gender = dependent.gender
       this.dependent.dob = dependent.dob
@@ -542,6 +567,7 @@ export default {
     clearIt(){
       this.dependent.firstname = "";
       this.dependent.lastname = '';
+      this.dependent.middle_name = '';
       this.dependent.email = "";
       this.dependent.phone_number ="";
       this.dependent.relationShipType ="";
@@ -549,6 +575,7 @@ export default {
       this.dependent.middlename ="";
       this.dependent.institution_attending ="";
       this.dependent.dob ="";
+      this.dependent.expiry_date ="";
     },
     singleClient(){
       this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
@@ -565,8 +592,6 @@ export default {
   },
   created(){
     this.getDependents()
-    this.fetchLga()
-    this.fetchProviders()
     this.singleClient()
   }
 

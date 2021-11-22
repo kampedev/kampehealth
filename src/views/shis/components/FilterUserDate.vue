@@ -92,11 +92,12 @@
                                      <tr>
                                          <th>NO.</th>
                                          <th>Plan Type</th>
+                                         <th>Account Type</th>
                                          <th>Name (OHIS Number)</th>
                                          <th>Phone Number</th>
                                          <th>Facility</th>
-                                             <th> DOB/ Expiry Date</th>
-                                             <th> Account Type</th>
+                                         <th> Date Enrolled</th>
+                                         <th> DOB/ Expiry Date</th>
 
                                      </tr>
                                      </thead>
@@ -106,6 +107,8 @@
                                           <td> <span v-if="client.account_type == 'Principal'">{{client.plan_type}}</span>
                                                <span v-if="client.account_type != 'Principal'">{{client.user.plan_type}}</span>
                                           </td>
+                                                                                    <td>{{client.account_type}} </td>
+
                                          <td >
                                            <router-link
                                                 :to="{ path: '/client/' + client.id, params: {} }"
@@ -116,8 +119,10 @@
                                          <td>
                                             {{client.userprovider.agency_name}}
                                          </td>
+                                         <td>
+                                           {{client.created_at}} 
+                                         </td>
                                           <td>{{client.dob}}|| {{client.expiry_date}} </td>
-                                          <td>{{client.account_type}} </td>
 
                                          <td v-if="user.id == '95930'"> <button class="btn btn-default" @click="updateExp(client)">update Exp {{client.id}} </button> </td>
                                      </tr>
@@ -189,14 +194,15 @@ export default {
       lga_states:"",
       wards:[],
       from:"",
-      to:"",
+      to:new Date(),
       date:"",
       results:[],
       json_fields: {
                  'User Type':'account_type',
-                'First Name': 'firstname',
-                'Last Name':'lastname',
-                'Middle Name':'middlename',
+                // 'First Name': 'firstname',
+                // 'Last Name':'lastname',
+                // 'Middle Name':'middlename',
+                'Full Name':'full_name',
                 'OHIS Number':'id_card_number',
                 'User Status':'status',
                 'User Image': {
@@ -225,8 +231,8 @@ export default {
                 'Plan Type (Dependent)':'user.plan_type',
                 'HMO':'usertpa.organization_name',
                 'HMO(Dependent) ':'user.usertpa.organization_name',
-                'Enrolled By First Name':'userenrolledby.firstname',
-                'Enrolled By Last Name':'userenrolledby.lastname',
+                'Enrolled By':'userenrolledby.full_name',
+                '(Dependent) Enrolled By':'user.userenrolledby.full_name',
                 'MDA':'place_of_work',
                 'MDA (Dependent)':'user.place_of_work',
                 'Health Facility':'userprovider.agency_name',
@@ -255,6 +261,13 @@ export default {
                     console.error(error);
                 })
   },
+  computed:{
+    addOneDay() {
+              var result = new Date(this.to);
+              result.setDate(result.getDate() + 1);
+              return result;
+        }
+  },
   methods:{
     filterEnrollees(){
       this.disabled = true;
@@ -265,7 +278,7 @@ export default {
       category_of_vulnerable_group:this.category_of_vulnerable_group,
       date:this.date,
       from:this.from,
-      to:this.to,
+      to:this.addOneDay,
       lga_id:this.localgovt.id,
       ward:this.ward.id,
       })

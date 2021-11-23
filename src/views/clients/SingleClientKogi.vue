@@ -16,18 +16,10 @@
               "
             >
               <div class="m-b-10">
-                <!-- <div class="avatar">
-                             <label class="avatar-input">
-                          <span class="avatar avatar-lg">
-                              <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
-                                   class="avatar-img rounded-circle"  v-if="client.user_image != null " >
-                          </span>
-
-                             </label>
-                           </div> -->
+               
               </div>
-              <button v-clipboard="client.firstname">
-                <strong>{{ client.firstname }} {{ client.lastname }}</strong>
+              <button v-clipboard="client.user.firstname">
+                <strong>{{ client.user.firstname }} {{ client.user.lastname }}</strong>
               </button>
             </div>
           </div>
@@ -79,7 +71,7 @@
                         >&times;</a
                       >
                     </div>
-                    <!-- <router-link :to="{ path: '/client/biometrics/'+client.id, params: {} }">
+                    <!-- <router-link :to="{ path: '/client.user/biometrics/'+client.user.id, params: {} }">
                                            <button class="btn btn-info spacer"  > <i class="mdi mdi-hand"></i> </button>
                                         </router-link> -->
 
@@ -113,7 +105,7 @@
                     >
                       <button
                         class="btn btn-outline-info spacer"
-                        v-if="client.type == 'client'"
+                        v-if="client.user.type == 'client.user'"
                         @click="findDependents"
                       >
                         Dependents <i class="fe fe-users"></i>
@@ -129,16 +121,97 @@
                         Edit <i class="fe fe-edit"></i>
                       </button>
                     </router-link>
+                    <!-- <router-link
+                      :to="{
+                        path: '/edit-user/' + $route.params.id,
+                        params: {},
+                      }"
+                    > -->
+                    <span>
+                      <!-- Button trigger modal -->
+                      <button
+                        type="button"
+                        class="btn btn-outline-dark spacer"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                      >
+                        Add Payment
+                      </button>
 
-        
-                      <span v-if="client.status == 'active'">
-                        <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-success">active</button>
-                        </span>
-                      <span v-if="client.status ==  'inactive' ">
-                      <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">inactive</button>
+                      <!-- Modal -->
+                      <div
+                        class="modal fade"
+                        id="exampleModal"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">
+                                Add Payment
+                              </h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <input
+                                type="text"
+                                placeholder="Enter Payment Description"
+                                class="form-control mb-4"
+                                v-model="userPayment.description"
+                              />
+                              <input
+                                type="text"
+                                placeholder="Enter Amount"
+                                class="form-control"
+                                v-model="userPayment.amount"
+                              />
+                            </div>
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-dismiss="modal"
+                                @click="addPayment"
+                              >
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </span>
-                                
+                    <!-- </router-link> -->
 
+                    <span v-if="client.user.status == 'active'">
+                      <button
+                        type="button"
+                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                      >
+                        active
+                      </button>
+                    </span>
+                    <span v-if="client.user.status == 'inactive'">
+                      <button
+                        type="button"
+                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+                      >
+                        inactive
+                      </button>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -179,19 +252,21 @@
                 <div class="card-body row">
                   <div class="col-md-4">
                     <vue-initials-img
-                      :name="client.firstname + ' ' + client.lastname"
+                      :name="client.user.firstname + ' ' + client.user.lastname"
                       class="img-thumbnail"
                       size="300"
-                      v-if="client.user_image == null"
+                      v-if="client.user.user_image == null"
                     />
                     <img
-                      :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
+                      :src="
+                        `https://api.hayokinsurance.com/image/${client.user.user_image}`
+                      "
                       class="img spacer-top"
                       alt="User Photo"
-                      v-if="client.user_image != null"
+                      v-if="client.user.user_image != null"
                       onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                     />
-                    <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null "> -->
+                    <!-- <img :src="`http://localhost:8000/image/${client.user.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user.user_image != null "> -->
                     <!-- <p class="btn btn-default spacer-top-bottom">
                                  <button type="button"  name="button"> Enrollment Card </button>
                                </p> -->
@@ -200,54 +275,55 @@
                   <div class="col-md-8">
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">NAME :</strong>
-                      <strong>{{ client.firstname }}</strong
-                      >, {{ client.lastname }} {{ client.middlename }}
+                      <strong>{{ client.user.lastname }}</strong
+                      >{{ client.user.firstname }}, {{ client.user.middlename }}
                     </p>
                     <hr />
-                    <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p> -->
+                    <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.user.id_card_number}}</strong></p> -->
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">ID NUMBER:</strong>
-                      <strong>{{ client.id_card_number }}</strong>
+                      <strong>{{ client.user.id_card_number }}</strong>
                     </p>
-                    <hr /> 
+                    <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">EXPIRY DATE:</strong>
-                      <!-- <strong>{{ client.expiry_date | moment("D/M/YYYY")  }}</strong> -->
-                      <strong>{{ client.expiry_date | moment("dddd, MMMM Do YYYY")  }}</strong>
-                       
-                     
+
+                      <!-- <strong>{{ client.user.expiry_date | moment("D/M/YYYY")  }}</strong> -->
+                      <strong>{{
+                        client.user.expiry_date | moment("dddd, MMMM Do YYYY")
+                      }}</strong>
                     </p>
+
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">
                         FACILITY TO ACCESS CARE:</strong
                       >
-                      <strong>{{ healthFacility.agency_name }}</strong>
+                      <strong>{{ client.provider.agency_name }}</strong>
                     </p>
-                    <!-- <hr> -->
-                    <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ALTERNATE HEALTH FACILITY:</strong> <strong>{{healthFacility.agency_name}}</strong> </p> -->
+                    
                     <hr />
                     <p
                       class="h3 spacer-top-bottom"
-                      v-if="client.place_of_work != null"
+                      v-if="client.user.place_of_work != null"
                     >
                       <strong class="text-primary">MDA:</strong>
-                      <strong> {{ client.place_of_work }}</strong>
+                      <strong> {{ client.user.place_of_work }}</strong>
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">HMO/TPA:</strong>
-                      <strong> {{ singletpa.organization_name }}</strong>
+                      <strong> {{ client.tpa.organization_name }}</strong>
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">Plan Type:</strong>
-                      <strong>{{ client.plan_type }} </strong>
+                      <strong>{{ client.user.plan_type }} </strong>
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">SECTOR:</strong>
-                      <strong> {{ client.sector }}</strong>
+                      <strong> {{ client.user.sector }}</strong>
                     </p>
                     <hr />
                   </div>
@@ -264,8 +340,11 @@
                     <button class="btn btn-outline-dark">Other Details</button>
                   </div>
 
-                  <p class="spacer-top-bottom"><strong>Date Enrolled:</strong> {{client.created_at | moment("dddd, MMMM Do YYYY")}}</p>
-                                   <hr>
+                  <p class="spacer-top-bottom">
+                    <strong>Date Enrolled:</strong>
+                    {{ client.user.created_at | moment("dddd, MMMM Do YYYY") }}
+                  </p>
+                  <hr />
                   <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
                     <p class="spacer-top-bottom">
                       <strong>Dependent Name {{ index + 1 }} :</strong>
@@ -275,65 +354,62 @@
                   </div>
 
                   <p class="spacer-top-bottom">
-                    <strong>Enrolled By:</strong> {{ enrolled_by.firstname }}
-                    {{ enrolled_by.lastname }}
+                    <strong>Enrolled By:</strong> {{ client.enrolled_by.firstname }}
+                    {{ client.enrolled_by.lastname }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>NIMC Number:</strong> {{ client.nimc_number }}
+                    <strong>NIMC Number:</strong> {{ client.user.nimc_number }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>Gender:</strong> {{ client.gender }}
+                    <strong>Gender:</strong> {{ client.user.gender }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>Phone Number:</strong> {{ client.phone_number }}
+                    <strong>Phone Number:</strong> {{ client.user.phone_number }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>LGA/Ward:</strong> {{ singlelga.local_name }}/{{
-                      client.ward_name
+                    <strong>LGA/Ward:</strong> {{ client.local_government.local_name }}/{{
+                      client.ward.ward_name
                     }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
                     <strong>Date of Birth:</strong>
-                    {{ client.dob | moment("D/M/YYYY") }}
+                    {{ client.user.dob | moment("D/M/YYYY") }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>Email:</strong> {{ client.email }}
+                    <strong>Email:</strong> {{ client.user.email }}
                   </p>
                   <hr />
-                  <!-- <p class="spacer-top-bottom"><strong>Enrolment Date:</strong> {{client.created_at}}</p>
+                  <!-- <p class="spacer-top-bottom"><strong>Enrolment Date:</strong> {{client.user.created_at}}</p>
                                    <hr> -->
                   <p class="spacer-top-bottom">
-                    <strong>Expiry Date:</strong> {{ client.expiry_date }}
+                    <strong>Expiry Date:</strong> {{ client.user.expiry_date }}
                   </p>
                   <hr />
 
                   <p class="spacer-top-bottom">
-                    <strong>Marital Status:</strong> {{ client.marital_status }}
+                    <strong>Marital Status:</strong> {{ client.user.marital_status }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>MDA:</strong> {{ client.place_of_work }}
+                    <strong>MDA:</strong> {{ client.user.place_of_work }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>Staff ID:</strong> {{ client.salary_number }}
+                    <strong>Staff ID:</strong> {{ client.user.salary_number }}
                   </p>
                   <hr />
                   <p
                     class="spacer-top-bottom"
-                    v-if="
-                      client.type == 'client' &&
-                      client.category_of_vulnerable_group != null
-                    "
+                   
                   >
                     <strong>Category of Vulnerable Group:</strong>
-                    {{ client.category_of_vulnerable_group }}
+                    {{ client.user.category_of_vulnerable_group }}
                   </p>
                   <hr />
                 </div>
@@ -341,21 +417,34 @@
             </div>
           </div>
 
-          <!-- <div class="row">
-                   <div class="col-lg-8 col-md-8">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-                             <p><strong>CAC Document:</strong></p>
-                           </div>
-
-                           <div class="card-body">
-
-
-                           </div>
-                       </div>
-                   </div>
-
-               </div> -->
+          <div class="col-md-12">
+            <h5>
+              <i class="fe fe-credit-card"></i
+              > <strong>{{client.transactions.length }} Transactions </strong>
+            </h5>
+            <div class="table-responsive">
+              <table class="table align-td-middle table-card">
+                <thead>
+                  <tr>
+                    <th>S/N</th>
+                    <th>Transaction Type</th>
+                    <th>Transaction Amount</th>
+                    <th>Description </th>
+                    <th>Date Created </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(trx, index) in client.transactions" v-bind:key="trx.id" >
+                    <td> {{index+1}} </td>
+                     <td>{{trx.type}} </td>
+                    <td> &#8358;{{trx.amount | numeral(0,0) }}  </td>
+                      <td>{{trx.description}} </td>
+                    <td> {{trx.created_at | moment("dddd, MMMM Do YYYY") }}  </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
           <!-- Modal for Prescription/Notes -->
           <div
@@ -464,6 +553,11 @@ export default {
       output: "",
       singletpa: "",
       pictureShower: true,
+      userPayment: {
+        description: "",
+        amount: "",
+      },
+      transaction_ref_length: 50,
       video_settings: {
         video: {
           width: {
@@ -491,7 +585,7 @@ export default {
       // navigator.mediaDevices.getUserMedia({ video: true}).then(function(stream) {
       navigator.mediaDevices
         .getUserMedia(this.video_settings)
-        .then(function (stream) {
+        .then(function(stream) {
           //video.src = window.URL.createObjectURL(stream);
           video.srcObject = stream;
           video.play();
@@ -503,7 +597,7 @@ export default {
     // var video = document.getElementById('video');
 
     // Trigger photo take
-    document.getElementById("snap").addEventListener("click", function () {
+    document.getElementById("snap").addEventListener("click", function() {
       context.drawImage(video, 0, 0, 500, 350);
 
       // get image
@@ -519,7 +613,7 @@ export default {
     this.axios
       .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
       .then((response) => {
-        this.client = response.data.user;
+        this.client = response.data;
         console.log(response);
       })
       .catch((error) => {
@@ -527,7 +621,55 @@ export default {
       });
   },
 
+  computed: {
+    randomTransId() {
+      var result = "";
+      var characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var charactersLength = characters.length;
+      for (var i = 0; i < this.transaction_ref_length; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      console.log({ result });
+      return result;
+    },
+  },
+
   methods: {
+    addPayment() {
+        if (confirm('Are you sure you want to Submit?') ) {
+           this.isLoading = true;
+      this.axios
+        .post(`/api/v1/make/transaction`, {
+          user_id: this.$route.params.id,
+          agency_id: 95930,
+          description: this.userPayment.description,
+          amount: this.userPayment.amount,
+          type: "offline",
+          status: "approved",
+          transaction_ref: this.randomTransId,
+        })
+        .then((response) => {
+          console.log(response);
+          this.isLoading = false;
+          this.$toasted.success("Payment Added Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          // this.fetchUser()
+        })
+        .catch((error) => {
+          console.error(error);
+          this.isLoading = false;
+        });
+      console.log("Helloooooooooooooos");
+      this.userPayment.description = "";
+      this.userPayment.amount = "";
+        }
+    },
+
     changeNumber() {
       this.isLoading = true;
       this.axios
@@ -581,9 +723,7 @@ export default {
 
     async print() {
       const el = this.$refs.printNow;
-      // add option type to get the image version
-      // if not provided the promise will return
-      // the canvas.
+     
       const options = {
         type: "dataURL",
       };
@@ -598,7 +738,7 @@ export default {
         // Not adding `{ audio: true }` since we only want video now
         navigator.mediaDevices
           .getUserMedia(this.video_settings)
-          .then(function (stream) {
+          .then(function(stream) {
             //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
             video.play();
@@ -689,71 +829,10 @@ export default {
       this.axios
         .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
         .then((response) => {
-          this.client = response.data.user;
+          this.client = response.data;
           this.dependents = response.data.dependents;
-          this.healthFacility = response.data.provider
-          console.log(response);
-
-          // get facility
-          // this.axios
-          //   .get(`/api/v1/auth/user/${this.client.provider_id}`)
-          //   .then((response) => {
-          //     this.healthFacility = response.data.user;
-          //     console.log(response);
-          //   })
-          //   .catch((error) => {
-          //     console.error(error);
-          //   });
-          //end of facility
-
-          // get enrolled by
-          this.axios
-            .get(`/api/v1/auth/user/${this.client.enrolled_by}`)
-            .then((response) => {
-              this.enrolled_by = response.data.user;
-              console.log(response);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //end of enrolled by
-
-          //get tpa
-          this.axios
-            .get(`/api/v1/auth/orgenrollment/${this.client.org_id}`)
-            .then((response) => {
-              this.singletpa = response.data;
-              console.log(response);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //end of get tpa
-
-          //get ward
-          this.axios
-            .get(`/api/v1/auth/wards/${this.client.ward}`)
-            .then((response) => {
-              this.singleward = response.data[0];
-              console.log(response);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //end of get ward
-
-          //get lga
-          this.axios
-            .get(`/api/v1/auth/lgas/${this.client.localgovt}`)
-            .then((response) => {
-              this.singlelga = response.data[0];
-              console.log(response);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //end of get
-
+        
+         
           //get dependents
           this.axios
             .post(`/api/v1/auth/allDependantsUser`, {
@@ -824,7 +903,7 @@ export default {
   },
 };
 </script>
-<style >
+<style>
 .spacer {
   margin-left: 1px;
   margin-top: 5px;

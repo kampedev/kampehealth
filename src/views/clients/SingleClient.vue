@@ -42,50 +42,49 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
-                .then(response => {
-                    this.client = response.data.user
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+    // this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
+    //             .then(response => {
+    //                 this.client = response.data.user
+    //                 console.log(response)
+    //             })
+    //             .catch(error => {
+    //                 console.error(error);
+    //             })
 
   },
 
   methods:{
 
-    fetchUser(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
-        .then(response => {
-            this.client = response.data.user
-            console.log(response)
+    // fetchUser(){
+    //   this.user = JSON.parse(localStorage.getItem('user'))
+    //   this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+    //     .then(response => {
+    //         this.client = response.data.user
+    //         console.log(response)
 
-            // get facility
-            this.axios.get(`/api/v1/auth/user/${this.client.provider_id}`)
-                        .then(response => {
-                            this.healthFacility = response.data.user
-                            console.log(response)
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        })
-            //end of facility
+    //         // get facility
+    //         this.axios.get(`/api/v1/auth/user/${this.client.provider_id}`)
+    //                     .then(response => {
+    //                         this.healthFacility = response.data.user
+    //                         console.log(response)
+    //                     })
+    //                     .catch(error => {
+    //                         console.error(error);
+    //                     })
+    //         //end of facility
 
-        })
-        .catch(error => {
-            console.error(error);
-        })
-    },
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     })
+    // },
 
 
 
 
   },
   created(){
-    this.fetchUser()
-    this.authUser()
+  //
   }
 
 }

@@ -111,7 +111,7 @@
                             <tr>
                               <th>Name</th>
                               <th>Phone Number</th>
-                              <th>Type</th>
+                              <th>Created</th>
                               <th>ID card</th>
                             </tr>
                           </thead>
@@ -132,7 +132,7 @@
                                 </router-link>
                               </td>
                               <td>{{ client.phone_number }}</td>
-                              <td>{{ client.type }}</td>
+                              <td>{{ client.created_at }}</td>
                               <td>
                                 {{ client.id_card_number }}
                               </td>
@@ -226,7 +226,7 @@ export default {
             this.changeNumberauto();
              
           }.bind(this),
-          7000
+          4000
         );
       }
     },

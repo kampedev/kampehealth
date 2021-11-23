@@ -69,7 +69,7 @@
                              <hr>
                              <p class="spacer-top-bottom"><strong>OHIS Number:</strong> {{dependent.id_card_number}}</p>
                              <hr>
-                              <p class="spacer-top-bottom" v-if="dependent.user != null" ><strong>Principal:</strong> {{dependent.user.firstname}} {{dependent.user.lastname}}</p>
+                              <p class="spacer-top-bottom" v-if="dependent.user.id != 95930" ><strong>Principal:</strong> {{dependent.user.firstname}} {{dependent.user.lastname}}</p>
                              <hr>
                              <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{dependent.phone_number}}</p>
                              <hr>

@@ -168,10 +168,12 @@
                   placeholder="Phone Number"
                 />
                 <p
-                 class="text-danger"
+                  class="text-danger"
                   v-if="client_number.length != 11 && client_number != 0"
                 >
-                  phone number must be 11 characters ({{ client_number.length }})
+                  phone number must be 11 characters ({{
+                    client_number.length
+                  }})
                 </p>
               </div>
               <div class="form-group col-md-6">
@@ -180,10 +182,19 @@
                     >Date of Birth <span class="text-danger">*</span></label
                   >
                 </p>
-                <date-picker
+                <!-- <date-picker :maximum-view = "currentDate"
                   v-model="newStudent.dob"
                   valueType="format"
-                ></date-picker>
+                ></date-picker> -->
+                <input
+                  type="date"
+                  :max="currentDate"
+                  class="form-control"
+                  v-model="newStudent.dob"
+                />
+                <!-- <p  class="text-danger">
+                  Past date not allowed for Date of Birth
+                </p> -->
               </div>
               <div class="form-group col-md-6">
                 <p>
@@ -191,15 +202,22 @@
                     >Expiry Date <span class="text-danger">*</span></label
                   >
                 </p>
-                <date-picker
+                <!-- <date-picker
                   v-model="newStudent.expiry_date"
                   valueType="format"
-                ></date-picker>
+                ></date-picker> -->
+                <input
+                  type="date"
+                  :min="currentDate"
+                  v-model="newStudent.expiry_date"
+                  class="form-control"
+                />
               </div>
 
-              <div class="form-group col-md-6" >
-                <label for="inputEmail4"> Staff ID/ Phone Number/Bank Account Number <span class="text-danger">*</span>
-                
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">
+                  Staff ID/ Phone Number/Bank Account Number
+                  <span class="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -207,8 +225,12 @@
                   v-model="newStudent.salary_number"
                   placeholder="Computer Employment Number"
                 />
-                <p> <strong> Hint: the field is compulsory and needs a unique identifier from the principal.</strong> </p>
-
+                <p>
+                  <strong>
+                    Hint: the field is compulsory and needs a unique identifier
+                    from the principal.</strong
+                  >
+                </p>
               </div>
             </div>
 
@@ -239,9 +261,9 @@
                   @input="selected_provider"
                 ></v-select>
               </div> -->
-              <div class="form-group col-md-12" >
+              <div class="form-group col-md-12">
                 <label
-                  >Principal Facility for Accessing Health Care 
+                  >Principal Facility for Accessing Health Care
                   <span class="text-danger">*</span></label
                 >
                 <v-select
@@ -295,10 +317,7 @@
                 </select>
               </div>
 
-             
-
               <div class="form-group col-md-12">
-
                 <label for="inputAddress">TPA</label>
                 <input
                   type="text"
@@ -307,7 +326,6 @@
                   v-if="newStudent.localgovt != null"
                   disabled
                 />
-                
 
                 <!-- <label
                   >TPA: {{newStudent.org_id}} {{getTPA.tpa_name}}
@@ -323,7 +341,7 @@
                   </option>
                 </select> -->
               </div>
-               <div class="col-md-6">
+              <div class="col-md-6">
                 <label for="inputCity"
                   >Gender <span class="text-danger">*</span></label
                 >
@@ -476,7 +494,6 @@
                 </div>
               </div>
             </div>
-            
           </div>
 
           <!-- <div class="card-body" v-for="student in students" v-bind:key="student.id">
@@ -501,7 +518,7 @@
 </template>
 <script>
 import { StudentService } from "../../../service/student_service";
-import DatePicker from "vue2-datepicker";
+// import DatePicker from "vue2-datepicker";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -515,7 +532,7 @@ import tpaLGAJson from "./../../../../public/offline/lga_tpa.json";
 export default {
   components: {
     Loading,
-    DatePicker,
+    // DatePicker,
   },
   name: "Student",
   props: {
@@ -524,13 +541,14 @@ export default {
       type: Array,
     },
   },
-  data: function () {
+  data: function() {
     return {
+      selectedDate: "",
       disabled: false,
       modalShow: false,
       gotoDependent: false,
       newStudent: null,
-      
+
       showinput: true,
       showcanvas: true,
       dependents_counter: 0,
@@ -584,7 +602,7 @@ export default {
     };
   },
 
-  beforeMount: function () {
+  beforeMount: function() {
     this.clear();
     this.user = JSON.parse(localStorage.getItem("user"));
     this.wards_sync = JSON.parse(localStorage.getItem("wards_data"));
@@ -592,28 +610,36 @@ export default {
     this.selected_lga_sync = JSON.parse(localStorage.getItem("selected_lga"));
   },
   computed: {
-    getTPA(){
-       // let newarr = [1,2, 3].filter(x=> x<2)
+    getTPA() {
+      // let newarr = [1,2, 3].filter(x=> x<2)
       let osunlgaarray = this.tpa_Lga.lgas;
       let formatter = osunlgaarray.filter(
         (x) => x.id == this.newStudent.localgovt
       );
       // this.wards_lga = formatter[0];
       console.log(formatter);
-      return formatter[0]
+      return formatter[0];
     },
-    getplaceofWork(){
-      if (this.newStudent.place_of_work ==  null) {
-          return null
+    getplaceofWork() {
+      if (this.newStudent.place_of_work == null) {
+        return null;
       } else {
-        return this.newStudent.place_of_work.name
-        
+        return this.newStudent.place_of_work.name;
       }
     },
-    getsalaryNumber(){
-        return this.newStudent.salary_number
-        
-    }
+    getsalaryNumber() {
+      return this.newStudent.salary_number;
+    },
+
+    currentDate() {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, "0");
+      var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+      var yyyy = today.getFullYear();
+
+      today = yyyy + "-" + mm + "-" + dd;
+      return today;
+    },
   },
 
   methods: {
@@ -667,7 +693,7 @@ export default {
         // Not adding `{ audio: true }` since we only want video now
         navigator.mediaDevices
           .getUserMedia(this.video_settings)
-          .then(function (stream) {
+          .then(function(stream) {
             //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
             video.play();
@@ -730,8 +756,8 @@ export default {
           salary_number: this.getsalaryNumber,
           // place_of_work: this.newStudent.place_of_work.name,
           place_of_work: this.getplaceofWork,
-          category_of_vulnerable_group:
-            this.newStudent.category_of_vulnerable_group,
+          category_of_vulnerable_group: this.newStudent
+            .category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
           address1: this.newStudent.address,
           agency_id: this.user.id,
@@ -739,22 +765,20 @@ export default {
           org_id: parseInt(this.getTPA.tpa_id),
         });
         this.$emit("add-item", studentsAdded[0]);
-        
+
         localStorage.removeItem("snap");
         this.imagefile = "";
-        if (this.newStudent.plan_type != 'Family') {
-         this.clear() 
-         this.showInput() 
-         this.$toasted.info("Client Added Successfully", {
-          position: "top-center",
-          duration: 3000,
-        });
-        }
-        else{
+        if (this.newStudent.plan_type != "Family") {
+          this.clear();
+          this.showInput();
+          this.$toasted.info("Client Added Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+        } else {
           this.modalShow = true;
-        this.gotoDependent = true;
+          this.gotoDependent = true;
         }
-        
       } catch (ex) {
         alert(ex.message);
       }
@@ -785,8 +809,8 @@ export default {
           salary_number: this.getsalaryNumber,
           // place_of_work: this.newStudent.place_of_work.name,
           place_of_work: this.getplaceofWork,
-          category_of_vulnerable_group:
-            this.newStudent.category_of_vulnerable_group,
+          category_of_vulnerable_group: this.newStudent
+            .category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
           address: this.newStudent.address,
           agency_id: this.user.institutional_id,
@@ -797,23 +821,22 @@ export default {
 
         localStorage.removeItem("snap");
         this.imagefile = "";
-        if (this.newStudent.plan_type != 'Family') {
-         this.clear() 
-         this.showInput() 
-         this.$toasted.info("Client Added Successfully", {
-          position: "top-center",
-          duration: 3000,
-        });
-        }
-        else{
+        if (this.newStudent.plan_type != "Family") {
+          this.clear();
+          this.showInput();
+          this.$toasted.info("Client Added Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+        } else {
           this.modalShow = true;
-        this.gotoDependent = true;
+          this.gotoDependent = true;
         }
       } catch (ex) {
         alert(ex.message);
       }
     },
-   
+
     closeDep() {
       this.clear();
       this.modalShow = true;

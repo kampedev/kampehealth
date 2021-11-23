@@ -127,7 +127,7 @@
                         class="form-group col-md-6"
                         v-if="
                           register.sector ==
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
+                            'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <label for="inputEmail4">Institution Name</label>
@@ -193,7 +193,7 @@
                           type="text"
                           class="form-control"
                           v-model="register.middlename"
-                          placeholder="Last Name"
+                          placeholder="Middle Name"
                         />
                       </div>
                     </div>
@@ -203,16 +203,19 @@
                         <p>
                           <label for="inputPassword4">Date of Birth: </label>
                         </p>
-                        <input type="date" required class="form-control"
+                        <input
+                          type="date"
+                          required
+                          class="form-control"
                           v-model="register.dob"
-                        > 
+                        />
                       </div>
 
                       <div
                         class="form-group col-md-4"
                         v-if="
                           register.sector !=
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
+                            'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <p>
@@ -220,16 +223,19 @@
                             >Date of First Appointment:
                           </label>
                         </p>
-                        <input type="date" required class="form-control"
+                        <input
+                          type="date"
+                          required
+                          class="form-control"
                           v-model="register.date_of_entry"
-                        > 
+                        />
                       </div>
 
                       <div
                         class="form-group col-md-4"
                         v-if="
                           register.sector ==
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
+                            'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <p>
@@ -237,28 +243,34 @@
                             >Year of Admission:
                           </label>
                         </p>
-                        <input type="date" required class="form-control"
+                        <input
+                          type="date"
+                          required
+                          class="form-control"
                           v-model="register.date_of_entry"
-                        >
+                        />
                       </div>
 
                       <div
                         class="form-group col-md-4"
                         v-if="
                           register.sector !=
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
+                            'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <p><label for="inputPassword4">Expiry Date: </label></p>
-                        <input type="date" required class="form-control"
+                        <input
+                          type="date"
+                          required
+                          class="form-control"
                           v-model="register.expiry_date"
-                        >
+                        />
                       </div>
                       <div
                         class="form-group col-md-4"
                         v-if="
                           register.sector ==
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
+                            'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <p>
@@ -266,9 +278,12 @@
                             >Year of Graduation:
                           </label>
                         </p>
-                        <input type="date" required class="form-control"
+                        <input
+                          type="date"
+                          required
+                          class="form-control"
                           v-model="register.expiry_date"
-                        > 
+                        />
                       </div>
 
                       <div class="form-group col-md-6">
@@ -311,7 +326,7 @@
                         class="form-group col-md-6"
                         v-if="
                           register.sector !=
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
+                            'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <label for="inputEmail4">Salary Number/Staff ID</label>
@@ -327,7 +342,7 @@
                         class="form-group col-md-6"
                         v-if="
                           register.sector ==
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
+                            'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <label for="inputEmail4">Matriculation Number</label>
@@ -344,7 +359,7 @@
                         class="form-group col-md-6"
                         v-if="
                           register.sector !=
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
+                            'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <label for="inputEmail4">Grade Level/Step</label>
@@ -361,7 +376,7 @@
                         class="form-group col-md-6"
                         v-if="
                           register.sector ==
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
+                            'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <label for="inputEmail4">Class Year</label>
@@ -465,7 +480,7 @@
                           class="form-group col-md-6"
                           v-if="
                             register.sector !=
-                            'Tertiary Student Health Insurance Plan (T-SHIP)'
+                              'Tertiary Student Health Insurance Plan (T-SHIP)'
                           "
                         >
                           <label>
@@ -542,8 +557,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   components: {
     Navbar,
-    Loading
-      },
+    Loading,
+  },
   data() {
     return {
       isLoading: false,
@@ -706,8 +721,8 @@ export default {
           grade_level: this.register.grade_level,
           date_of_entry: this.register.date_of_entry,
           marital_status: this.register.marital_status,
-          category_of_vulnerable_group:
-            this.register.category_of_vulnerable_group,
+          category_of_vulnerable_group: this.register
+            .category_of_vulnerable_group,
           enrolled_by: this.user.id,
         })
         .then((response) => {

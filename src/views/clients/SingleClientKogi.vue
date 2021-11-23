@@ -129,6 +129,80 @@
                         Edit <i class="fe fe-edit"></i>
                       </button>
                     </router-link>
+                    <!-- <router-link
+                      :to="{
+                        path: '/edit-user/' + $route.params.id,
+                        params: {},
+                      }"
+                    > -->
+                    <span>
+                      <!-- Button trigger modal -->
+                      <button
+                        type="button"
+                        class="btn btn-outline-dark spacer"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                      >
+                        Add Payment
+                      </button>
+
+                      <!-- Modal -->
+                      <div
+                        class="modal fade"
+                        id="exampleModal"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">
+                                Add Payment
+                              </h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <input
+                                type="text"
+                                placeholder="Enter Payment Description"
+                                class="form-control mb-4"
+                                v-model="userPayment.description"
+                              />
+                              <input
+                                type="text"
+                                placeholder="Enter Amount"
+                                class="form-control"
+                                v-model="userPayment.amount"
+                              />
+                            </div>
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-dismiss="modal"
+                                @click="addPayment"
+                              >
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                    <!-- </router-link> -->
 
                     <span v-if="client.status == 'active'">
                       <button
@@ -209,8 +283,8 @@
                   <div class="col-md-8">
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">NAME :</strong>
-                      <strong>{{ client.firstname }}</strong
-                      >, {{ client.lastname }} {{ client.middlename }}
+                      <strong>{{ client.lastname }}</strong
+                      >{{ client.firstname }}, {{ client.middlename }}
                     </p>
                     <hr />
                     <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p> -->
@@ -218,14 +292,16 @@
                       <strong class="text-primary">ID NUMBER:</strong>
                       <strong>{{ client.id_card_number }}</strong>
                     </p>
-                    <hr /> 
+                    <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">EXPIRY DATE:</strong>
+
                       <!-- <strong>{{ client.expiry_date | moment("D/M/YYYY")  }}</strong> -->
-                      <strong>{{ client.expiry_date | moment("dddd, MMMM Do YYYY")  }}</strong>
-                       
-                     
+                      <strong>{{
+                        client.expiry_date | moment("dddd, MMMM Do YYYY")
+                      }}</strong>
                     </p>
+
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">
@@ -273,8 +349,11 @@
                     <button class="btn btn-outline-dark">Other Details</button>
                   </div>
 
-                  <p class="spacer-top-bottom"><strong>Date Enrolled:</strong> {{client.created_at | moment("dddd, MMMM Do YYYY")}}</p>
-                                   <hr>
+                  <p class="spacer-top-bottom">
+                    <strong>Date Enrolled:</strong>
+                    {{ client.created_at | moment("dddd, MMMM Do YYYY") }}
+                  </p>
+                  <hr />
                   <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
                     <p class="spacer-top-bottom">
                       <strong>Dependent Name {{ index + 1 }} :</strong>
@@ -350,21 +429,30 @@
             </div>
           </div>
 
-          <!-- <div class="row">
-                   <div class="col-lg-8 col-md-8">
-                       <div class="card m-b-30">
-                           <div class="card-header">
-                             <p><strong>CAC Document:</strong></p>
-                           </div>
-
-                           <div class="card-body">
-
-
-                           </div>
-                       </div>
-                   </div>
-
-               </div> -->
+          <div class="col-md-12">
+            <h5>
+              <i class="fe fe-activity"></i
+              >{{ transactions.length }} Transactions
+            </h5>
+            <div class="table-responsive">
+              <table class="table align-td-middle table-card">
+                <thead>
+                  <tr>
+                    <th>S/N</th>
+                    <th>Transaction Description</th>
+                    <th>Transaction Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>sadad <b>/</b> adad</td>
+                    <td>5000 <b>/</b> adad</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
           <!-- Modal for Prescription/Notes -->
           <div
@@ -473,6 +561,12 @@ export default {
       output: "",
       singletpa: "",
       pictureShower: true,
+      transactions: "",
+      userPayment: {
+        description: "",
+        amount: "",
+      },
+      transaction_ref_length: 50,
       video_settings: {
         video: {
           width: {
@@ -529,6 +623,7 @@ export default {
       .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
       .then((response) => {
         this.client = response.data.user;
+        // this.transactions = response.data.transactions;
         console.log(response);
       })
       .catch((error) => {
@@ -536,7 +631,52 @@ export default {
       });
   },
 
+  computed: {
+    randomTransId() {
+      var result = "";
+      var characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var charactersLength = characters.length;
+      for (var i = 0; i < this.transaction_ref_length; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      console.log({ result });
+      return result;
+    },
+  },
+
   methods: {
+    addPayment() {
+      this.isLoading = true;
+      this.axios
+        .post(`/api/v1/make/transaction`, {
+          user_id: this.$route.params.id,
+          agency_id: 95930,
+          description: this.userPayment.description,
+          amount: this.userPayment.amount,
+          type: "offline",
+          status: "approved",
+          transaction_ref: this.randomTransId,
+        })
+        .then((response) => {
+          console.log(response);
+
+          this.$toasted.success("Payment Added Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          this.isLoading = false;
+        });
+      console.log("Helloooooooooooooos");
+      this.userPayment.description = "";
+      this.userPayment.amount = "";
+    },
+
     changeNumber() {
       this.isLoading = true;
       this.axios
@@ -701,7 +841,9 @@ export default {
           this.client = response.data.user;
           this.dependents = response.data.dependents;
           this.healthFacility = response.data.provider;
-          console.log(response);
+          this.transactions = response.data.transactions;
+
+          console.log({ transactions: this.transactions });
 
           // get facility
           // this.axios

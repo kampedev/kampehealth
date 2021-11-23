@@ -1,6 +1,5 @@
 <template>
   <section class="admin-content" id="contact-search">
-    <Navbar />
 
     <div class="bg-dark m-b-30">
       <div class="container">
@@ -16,11 +15,12 @@
         </div>
       </div>
     </div>
-      
-    <div class="col-md-6 offset-md-3" v-if="showdependent == true"> 
-      <div class="spacer-top-bot">
-       <button class="btn btn-dark btn-block btn-lg " @click="showPayPart">Proceed to Payment</button>
 
+    <div class="col-md-6 offset-md-3" v-if="showdependent == true">
+      <div class="spacer-top-bot">
+        <button class="btn btn-dark btn-block btn-lg " @click="showPayPart">
+          Proceed to Payment
+        </button>
       </div>
     </div>
 
@@ -36,53 +36,46 @@
               </div>
 
               <div class="card-body">
-                <div class="form-row col-lg-8 offset-lg-2" >
-                 
-                 
-                    <button
-                      class="btn btn-outline-success spacer"
-                      @click="streamPic"
-                      data-toggle="modal"
-                      data-target="#example_01"
+                <div class="form-row col-lg-8 offset-lg-2">
+                  <button
+                    class="btn btn-outline-success spacer"
+                    @click="streamPic"
+                    data-toggle="modal"
+                    data-target="#example_01"
+                  >
+                    Take Photo <i class="fe fe-camera"></i>
+                  </button>
+                  <div
+                    class="fileinput fileinput-new"
+                    data-provides="fileinput"
+                  >
+                    <span class="btn btn-file">
+                      <span class="fileinput-new"
+                        >Upload Picture <i class="fe fe-upload"></i
+                      ></span>
+                      <span class="fileinput-exists">Change</span>
+                      <input
+                        type="file"
+                        name="..."
+                        multiple
+                        v-on:change="attachPic"
+                      />
+                    </span>
+                    <span class="fileinput-filename"></span>
+                    <a
+                      href="#"
+                      class="close fileinput-exists"
+                      data-dismiss="fileinput"
+                      style="float: none"
+                      >&times;</a
                     >
-                      Take Photo <i class="fe fe-camera"></i>
-                    </button>
-                    <div
-                      class="fileinput fileinput-new"
-                      data-provides="fileinput"
-                    >
-                      <span class="btn btn-file">
-                        <span class="fileinput-new"
-                          >Upload Picture <i class="fe fe-upload"></i
-                        ></span>
-                        <span class="fileinput-exists">Change</span>
-                        <input
-                          type="file"
-                          name="..."
-                          multiple
-                          v-on:change="attachPic"
-                        />
-                      </span>
-                      <span class="fileinput-filename"></span>
-                      <a
-                        href="#"
-                        class="close fileinput-exists"
-                        data-dismiss="fileinput"
-                        style="float: none"
-                        >&times;</a
-                      >
-                    </div>
-
-
+                  </div>
                 </div>
-
-                
-
               </div>
             </div>
           </div>
 
-            <!-- Modal for Snap Picture -->
+          <!-- Modal for Snap Picture -->
           <div
             class="modal fade"
             id="example_01"
@@ -114,23 +107,21 @@
                         autoplay
                       ></video>
                       <p>
-                      
                         <button @click="takePic" class="bg-navy btn btn-flat">
                           Snap Photo
                         </button>
                         <button
-                        v-if="imagefile != ''"
+                          v-if="imagefile != ''"
                           type="button"
                           class="btn btn-info"
-                           data-dismiss="modal"
-                         aria-label="Close"
+                          data-dismiss="modal"
+                          aria-label="Close"
                           name="button"
                           @click="savePic"
                         >
                           Save Photo
                         </button>
                       </p>
-                     
 
                       <canvas id="canvas" width="600px" height="450px"></canvas>
                     </div>
@@ -140,8 +131,6 @@
             </div>
           </div>
           <!-- Modal Ends -->
-
-         
 
           <div class="vld-parent">
             <loading
@@ -155,10 +144,10 @@
       </div>
     </section>
     <section class="" v-show="showdependent">
-      <AddDependentVoluntary/>
+      <AddDependentVoluntary />
     </section>
 
-     <section class="" v-show="showpay">
+    <section class="" v-show="showpay">
       <div class="container">
         <div class="row list">
           <div class="col-lg-8 offset-lg-2">
@@ -168,16 +157,19 @@
                   {{ auth_user.firstname }} {{ auth_user.lastname }}
                 </p>
 
-                 <div class="avatar  mx-auto d-block">
-                             <label class="avatar-input">
-                          <span class="avatar avatar-lg">
-                              <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
-                              onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
-                                   class="avatar-img rounded-circle "  >
-                          </span>
-
-                             </label>
-                  </div>
+                <div class="avatar  mx-auto d-block">
+                  <label class="avatar-input">
+                    <span class="avatar avatar-lg">
+                      <img
+                        :src="
+                          `https://api.hayokinsurance.com/image/${auth_user.user_image}`
+                        "
+                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                        class="avatar-img rounded-circle "
+                      />
+                    </span>
+                  </label>
+                </div>
               </div>
 
               <div class="card-body">
@@ -202,9 +194,16 @@
                         {{ plan.plan_cost | numeral(0, 0) }} )
                       </option>
                     </select>
-                    <p class="h6 spacer-top-bot" >Fee: &#8358; {{getPlan.fee}}  </p>
-                    <hr>
-                    <p class="h5 spacer-top-bot"><b>Total: &#8358; {{getPlan.plan_cost + getPlan.fee| numeral(0,0) }} </b> </p>
+                    <p class="h6 spacer-top-bot">
+                      Fee: &#8358; {{ getPlan.fee }}
+                    </p>
+                    <hr />
+                    <p class="h5 spacer-top-bot">
+                      <b
+                        >Total: &#8358;
+                        {{ (getPlan.plan_cost + getPlan.fee) | numeral(0, 0) }}
+                      </b>
+                    </p>
 
                     <div
                       class="col-lg-12"
@@ -229,6 +228,19 @@
                           <div class="text-center">
                             <p class="h6">
                               {{ getPlan.description }}
+                            </p>
+                            <p>
+                              <!-- Thank you for enrolling under the Osun Health
+                              Insurance Scheme. The plan you selected covers
+                              ONLY ONE PERSON for a period of 12 months at the
+                              cost of #12,066.  -->
+                              Upon payment, you will be able to access robust,
+                              qualitative healthcare services as contained in
+                              our benefit package. Please note that this
+                              registration will be void if you do not proceed to
+                              make payment. Should you have any difficulty in
+                              making your payment, please call: 0700022556447 or
+                              send us a mail at info@oshia.ng Thank you.
                             </p>
                           </div>
                         </div>
@@ -256,7 +268,6 @@
             </div>
           </div>
 
-         
           <div class="vld-parent">
             <loading
               :active.sync="isLoading"
@@ -268,28 +279,23 @@
         </div>
       </div>
     </section>
-
   </section>
 </template>
 
 <script>
-import Navbar from "@/views/Navbar.vue";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
 import paystack from "vue-paystack";
-  import AddDependentVoluntary from '@/views/clients/AddDependentVoluntary.vue'
-
+import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
 
 export default {
   components: {
-    Navbar,
     Loading,
     paystack,
     AddDependentVoluntary,
-    
   },
   data() {
     return {
@@ -301,7 +307,7 @@ export default {
       showpay: false,
       showpic: true,
       showdependent: false,
-       video_settings: {
+      video_settings: {
         video: {
           width: {
             min: 1280,
@@ -324,7 +330,6 @@ export default {
             "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to cheap and qualititative healthcare coverage. It allows no depandent(s).",
           plan_cost: 12066,
           fee: 280.99,
-
         },
         {
           id: 2,
@@ -332,7 +337,7 @@ export default {
           description:
             " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to cheap and qualititative healthcare coverage. It allows a Maximum of 5-depandent(s).",
           plan_cost: 57600,
-          fee: 964.00,
+          fee: 964.0,
         },
       ],
       plan_id: null,
@@ -343,6 +348,7 @@ export default {
       image: "",
       imagefile: "",
       myplan: "",
+      sms_message: "Thank you for choosing OHIS. You can come to our office to collect your ID Card in 3 weeks.",
       user: null,
       isLoading: false,
       fullPage: true,
@@ -362,7 +368,6 @@ export default {
   },
   computed: {
     getPlan() {
-      
       let formatter = this.selected_plan.filter(
         (x) => x.plan_name == this.auth_user.plan_type
       );
@@ -370,9 +375,7 @@ export default {
       return formatter[0];
     },
 
-totalCost() {
-      
-      
+    totalCost() {
       return this.getPlan.plan_cost + this.getPlan.fee;
     },
 
@@ -385,24 +388,23 @@ totalCost() {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
       return text;
-    }
-   
+    },
   },
   methods: {
-
-    showPayPart(){
-      this.showpay = true
-      this.showpic = false
-      this.showdependent = false
+    showPayPart() {
+      this.showpay = true;
+      this.showpic = false;
+      this.showdependent = false;
     },
-    callback: function (response) {
+    callback: function(response) {
+      this.sendSMS()
       this.makeSubscribe();
       console.log(response);
     },
-    close: function () {
+    close: function() {
       console.log("Payment closed");
     },
-       attachPic(event) {
+    attachPic(event) {
       this.user = JSON.parse(localStorage.getItem("user"));
       console.log(event);
       this.image = event.target.files[0];
@@ -422,13 +424,13 @@ totalCost() {
         })
         .then((response) => {
           console.log(response);
-           if (this.auth_user.plan_type == 'Individual' ) {
+          if (this.auth_user.plan_type == "Individual") {
             this.showpay = true;
             this.showpic = false;
           } else {
-              this.showpay = false;
-              this.showdependent = true;
-               this.showpic = false;
+            this.showpay = false;
+            this.showdependent = true;
+            this.showpic = false;
           }
           this.isLoading = false;
           this.$toasted.info("Image added Successfully!", {
@@ -457,15 +459,16 @@ totalCost() {
             { position: "top-center", duration: 8000 }
           );
           this.isLoading = false;
-          // this.$router.push(`https://oshia.ng`)
-          window.location = "https://www.oshia.ng";
+          // window.location = "https://www.oshia.ng";
+           this.$router.push(`/subscribe-success/${this.$route.params.id}`);
+
         })
         .catch((error) => {
           console.log(error.response);
         });
     },
 
-       streamPic() {
+    streamPic() {
       console.log("hello pic");
 
       var video = document.getElementById("video");
@@ -474,7 +477,7 @@ totalCost() {
         // Not adding `{ audio: true }` since we only want video now
         navigator.mediaDevices
           .getUserMedia(this.video_settings)
-          .then(function (stream) {
+          .then(function(stream) {
             //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
             video.play();
@@ -482,7 +485,6 @@ totalCost() {
       }
     },
 
-    
     takePic() {
       var video = document.getElementById("video");
       var canvas = document.getElementById("canvas");
@@ -511,13 +513,13 @@ totalCost() {
             position: "top-center",
             duration: 3000,
           });
-          if (this.auth_user.plan_type == 'Individual' ) {
+          if (this.auth_user.plan_type == "Individual") {
             this.showpay = true;
             this.showpic = false;
           } else {
-              this.showpay = false;
-              this.showdependent = true;
-               this.showpic = false;
+            this.showpay = false;
+            this.showdependent = true;
+            this.showpic = false;
           }
           this.isLoading = false;
         })
@@ -526,6 +528,27 @@ totalCost() {
           this.isLoading = false;
         });
     },
+     sendSMS() {
+      this.isLoading = true;
+      this.axios
+        .post(`https://app.multitexter.com/v2/app/sms`, {
+          email: 'wearegrumie@gmail.com',
+          password: 'AGYkh.EUddNx4j@',
+          message: this.sms_message,
+          sender_name: 'OHIS',
+          recipients: this.auth_user.phone_number,
+        })
+        .then((response) => {
+          console.log(response);
+        
+        
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.isLoading = false;
+        });
+    }
   },
 
   created() {
@@ -534,8 +557,8 @@ totalCost() {
 };
 </script>
 <style scoped>
-.spacer-top-bot{
-  margin-top:10px;
+.spacer-top-bot {
+  margin-top: 10px;
   margin-bottom: 15px;
 }
 </style>

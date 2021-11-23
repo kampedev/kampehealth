@@ -16,6 +16,7 @@ import OnboardClient from '../views/onboarding/OnboardClient.vue'
 import AllDashboard from '../views/Dashboard.vue'
 import Dashboard from '../views/clients/Dashboard.vue'
 import Subscribe from '../views/clients/Subscribe.vue'
+import SubscribeSuccess from '../views/clients/SubscribeSuccess.vue'
 import AddClientAgency from '../views/clients/AddClientAgency.vue'
 import AddClientAgencyOffline from '../views/clients/offline/AddClientAgencyOffline.vue'
 import AddClientEmployeeOffline from '../views/clients/offline/AddClientEmployeeOffline.vue'
@@ -207,9 +208,12 @@ const routes = [
   {
     path: '/subscribe/:id',
     component: Subscribe,
-    // meta: {
-    //     requiresAuth: true,
-    //   },
+    
+  },
+  {
+    path: '/subscribe-success/:id',
+    component: SubscribeSuccess,
+    
   },
   {
     path: '/add-client-agency',

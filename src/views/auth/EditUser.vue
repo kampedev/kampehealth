@@ -84,6 +84,10 @@
                                          </select>
                                       </div>
 
+                                      <div class="form-group col-md-12" v-if="user.type == 'shis' || user.user_role== 1">
+                                          <label for="inputEmail6">OHIS Number</label>
+                                          <input type="text" v-model="auth_user.id_card_number" class="form-control"  placeholder="OHIS Number">
+                                      </div>
                                       <div class="form-group col-md-6">
                                           <label for="inputEmail6">Surname</label>
                                           <input type="text" v-model="auth_user.lastname" class="form-control"  placeholder="Last Name">
@@ -269,6 +273,7 @@ export default {
    }
  },
  beforeMount(){
+     this.user = JSON.parse(localStorage.getItem('user'))
    this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
                .then(response => {
                    this.auth_user = response.data.user

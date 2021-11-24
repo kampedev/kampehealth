@@ -422,6 +422,7 @@ export default {
       image: "",
       imagefile: null,
       lga_states: "",
+      response: "",
       tpa_Lga: tpaLGAJson,
       register: {
         firstname: "",
@@ -620,6 +621,7 @@ export default {
               duration: 3000,
             });
           }
+         
         });
     },
 

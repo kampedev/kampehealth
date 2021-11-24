@@ -3,7 +3,7 @@
     <div class="col-lg-12 col-md-12">
       <div class="card m-b-30">
         <div class="card card-header">
-          <p class="h5">Total to be Uploaded JSON: {{idcard_offline.length}} </p>
+          <p class="h5">Total to be Uploaded JSON File: {{idcard_offline.length}} </p>
           <p class="h5"> {{this.json_index}} Index Uploaded </p>
          
 

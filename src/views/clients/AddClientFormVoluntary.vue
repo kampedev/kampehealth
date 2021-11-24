@@ -621,7 +621,7 @@ export default {
             });
           }
           else{
-             this.$toasted.error('error on submitting', {
+             this.$toasted.error('Duplicate email', {
               position: "top-center",
               duration: 3000,
             });

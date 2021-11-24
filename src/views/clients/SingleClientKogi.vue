@@ -276,7 +276,7 @@
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">NAME :</strong>
                       <strong>{{ client.user.lastname }}</strong
-                      >{{ client.user.firstname }}, {{ client.user.middlename }}
+                      > {{ client.user.firstname }}, {{ client.user.middlename }}
                     </p>
                     <hr />
                     <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.user.id_card_number}}</strong></p> -->
@@ -371,9 +371,10 @@
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>LGA/Ward:</strong> {{ client.local_government.local_name }}/{{
-                      client.ward.ward_name
-                    }}
+                    <strong>LGA/Ward:</strong> <span v-if="client.local_government != null ">{{ client.local_government.local_name }}</span> /
+                   
+                      
+                     <span  v-if="client.ward != null "> {{ client.ward.ward_name}} </span>
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">

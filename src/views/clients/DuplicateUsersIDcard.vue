@@ -235,8 +235,8 @@ export default {
       this.isLoading = true;
       this.axios
         .post(`/api/v1/auth/attach/dependent`,{
-          id_card_number: this.clients.data[0].id_card_number,
-          dep_id: this.clients.data[0].id,
+          id_card_number: this.clients.data[1].id_card_number,
+          dep_id: this.clients.data[1].id,
         })
         .then((response) => {
           console.log(response);

@@ -103,7 +103,11 @@
                   <div class="card m-b-30">
                     <div class="card-body">
                       <h5>Total Page: {{ clients.total }}</h5>
-                      <button type="button" class="btn btn-primary" @click="autoUpdate">update All</button>
+                      <div class="col-md-12">
+                        <input type="text" class="form-control" v-model="listIndex" >
+                      </div>
+
+                      <button type="button" class="btn btn-primary btn-block" @click="autoUpdate">update All</button>
 
                       <div class="table-responsive">
                         <table class="table align-td-middle table-card">
@@ -154,7 +158,7 @@
                       <loading
                         :active.sync="isLoading"
                         loader="dots"
-                        :can-cancel="false"
+                        :can-cancel="true"
                         :is-full-page="fullPage"
                       ></loading>
                     </div>
@@ -195,6 +199,7 @@ export default {
       isLoading: false,
       selected: [],
       fullPage: true,
+      listIndex: 0,
       states: "",
       clients: "",
       smallestcards: "",
@@ -235,17 +240,18 @@ export default {
       this.isLoading = true;
       this.axios
         .post(`/api/v1/auth/attach/dependent`,{
-          id_card_number: this.clients.data[1].id_card_number,
-          dep_id: this.clients.data[1].id,
+          id_card_number: this.clients.data[this.listIndex].id_card_number,
+          dep_id: this.clients.data[this.listIndex].id,
         })
         .then((response) => {
           console.log(response);
-          this.getClients();
+          // this.getClients();
           this.$toasted.success("Found Successfully", {
             position: "top-center",
             duration: 3000,
           });
           this.isLoading = false;
+          this.listIndex ++
         })
         .catch((error) => {
           console.error(error);
@@ -254,7 +260,8 @@ export default {
             duration: 3000,
           });
           this.isLoading = false;
-           this.getClients();
+          this.listIndex ++
+          //  this.getClients();
         });
     },
 

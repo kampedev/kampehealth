@@ -105,7 +105,7 @@
                     >
                       <button
                         class="btn btn-outline-info spacer"
-                        v-if="client.user.type == 'client.user'"
+                        
                         @click="findDependents"
                       >
                         Dependents <i class="fe fe-users"></i>

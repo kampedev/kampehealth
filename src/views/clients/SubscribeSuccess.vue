@@ -59,10 +59,10 @@
                                 </div>
                                 
                              <div class="col-md-5" >
-                               <img :src="`http://localhost:8000/image/${auth_user.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="350" height="236">
+                               <!-- <img :src="`http://localhost:8000/image/${auth_user.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="350" height="236"> -->
                               
-                               <!-- <img :src="`https://api.hayokinsurance.com/image/${auth_user.client_image}`" class="img-thumbnail" alt="Cinque Terre"
-                                width="304" height="236"  onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"> -->
+                               <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`" class="img-thumbnail" alt="Cinque Terre"
+                                width="304" height="236"  onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'">
                              
                              </div>
 
@@ -102,6 +102,7 @@
                 <thead>
                   <tr>
                     <th>S/N</th>
+                    <th>Picture</th>
                     <th>Full Name</th>
                     <th>Relationship</th>
                     <th>Gender </th>
@@ -112,6 +113,14 @@
                 <tbody>
                   <tr v-for="(dep, index) in auth_user.dependents" v-bind:key="dep.id" >
                     <td> {{index+1}} </td>
+                    <td>
+                        <div class="avatar avatar-md ">
+                                     <img :src="`https://api.hayokinsurance.com/image/${dep.image}`"
+                                           class="avatar-img avatar-lg rounded"
+                                           onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                                           alt="">
+                         </div>
+                    </td>
                      <td>{{dep.full_name}}  </td>
                     <td>{{dep.relationShipType  }}  </td>
                       <td>{{dep.gender}} </td>

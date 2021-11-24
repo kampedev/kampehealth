@@ -620,6 +620,12 @@ export default {
               duration: 3000,
             });
           }
+          else{
+             this.$toasted.error('error on submitting', {
+              position: "top-center",
+              duration: 3000,
+            });
+          }
         });
     },
 

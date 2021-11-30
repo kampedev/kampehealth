@@ -107,7 +107,7 @@
                                           <td> <span v-if="client.account_type == 'Principal'">{{client.plan_type}}</span>
                                                <span v-if="client.account_type != 'Principal'">{{client.user.plan_type}}</span>
                                           </td>
-                                                                                    <td>{{client.account_type}} </td>
+                                             <td>{{client.account_type}} </td>
 
                                          <td >
                                            <router-link

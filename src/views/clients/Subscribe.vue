@@ -256,6 +256,9 @@
                     :paystackkey="paystackkey"
                     :reference="reference"
                     :callback="callback"
+                    :first_name="auth_user.firstname"
+                    :last_name="auth_user.lastname"
+                    :phone="auth_user.phone_number"
                     :close="close"
                     :embed="false"
                   >
@@ -353,9 +356,11 @@ export default {
       user: null,
       isLoading: false,
       fullPage: true,
+      windowwith:"",
     };
   },
   beforeMount() {
+        this.windowwith =  window.innerWidth * 0.75;
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
       .get(`/api/v1/user-no-auth/${this.$route.params.id}`)

@@ -59,11 +59,16 @@
                                 </div>
                                 
                              <div class="col-md-5" >
-                               <img :src="`http://localhost:8000/image/${auth_user.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="350" height="236">
-                              
-                               <!-- <img :src="`https://api.hayokinsurance.com/image/${auth_user.client_image}`" class="img-thumbnail" alt="Cinque Terre"
-                                width="304" height="236"  onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"> -->
-                             
+                               <!-- <img :src="`http://localhost:8000/image/${auth_user.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="350" height="236"> -->
+                               <img
+                                      :src="
+                                        `https://api.hayokinsurance.com/image/${auth_user.user_image}`
+                                      "
+                                      class="img spacer-top"
+                                      alt="User Photo"
+                                     
+                                      onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                                    />
                              </div>
 
                              <div class="col-md-7">

@@ -341,7 +341,8 @@ export default {
         },
       ],
       plan_id: null,
-      paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
+      // paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
+      paystackkey: "pk_live_1ec7b33187b214721539e421c5c89cd395502361", //paystack public key
       providers: "",
       singleplan: "",
       plans: "",

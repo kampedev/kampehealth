@@ -49,7 +49,7 @@
                                      <thead>
                                      <tr>
                                          <th>NO.</th>
-                                         <th>Plan Type</th>
+                                         <!-- <th>Plan Type</th> -->
                                          <th>Name (OHIS Number)</th>
                                          <th>Phone Number</th>
                                          <th>Facility</th>
@@ -61,9 +61,9 @@
                                      <tbody>
                                      <tr v-for="(client,index) in json_data" v-bind:key="client.id">
                                           <td> {{index+1 }} </td>
-                                          <td> <span v-if="client.account_type == 'Principal'">{{client.plan_type}}</span>
+                                          <!-- <td> <span v-if="client.account_type == 'Principal'">{{client.plan_type}}</span>
                                                <span v-if="client.account_type != 'Principal'">{{client.user.plan_type}}</span>
-                                          </td>
+                                          </td> -->
                                          <td >
                                            <router-link
                                                 :to="{ path: '/client/' + client.id, params: {} }"
@@ -126,7 +126,7 @@ export default {
     return{
       loader:true,
       isLoading: false,
-      fullPage: true,
+      fullPage: false,
       showdownload:false,
       inspect:false,
       user:null,

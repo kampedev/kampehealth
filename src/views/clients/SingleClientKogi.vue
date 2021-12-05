@@ -251,12 +251,7 @@
 
                 <div class="card-body row">
                   <div class="col-md-4">
-                    <vue-initials-img
-                      :name="client.user.firstname + ' ' + client.user.lastname"
-                      class="img-thumbnail"
-                      size="300"
-                      v-if="client.user.user_image == null"
-                    />
+                   
                     <img
                       :src="
                         `https://api.hayokinsurance.com/image/${client.user.user_image}`
@@ -353,7 +348,7 @@
                     <hr />
                   </div>
 
-                  <p class="spacer-top-bottom">
+                  <p class="spacer-top-bottom" v-if="client.enrolled_by != null">
                     <strong>Enrolled By:</strong> {{ client.enrolled_by.firstname }}
                     {{ client.enrolled_by.lastname }}
                   </p>

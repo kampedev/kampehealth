@@ -82,6 +82,8 @@
                              <hr>
                              <p class="spacer-top-bottom"><strong>Email:</strong> {{auth_user.email}}</p>
                              <hr>
+                             <p class="spacer-top-bottom"><strong>Virtual Account Number:</strong> {{auth_user.virtual_account}}</p>
+                             <hr>
                              
                              <p class="spacer-top-bottom"><strong>TPA/HMO:</strong> {{auth_user.usertpa.organization_name}}</p>
                              <hr>

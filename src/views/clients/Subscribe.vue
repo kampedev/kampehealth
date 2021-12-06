@@ -310,6 +310,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
+                  <p>Virual Account Number: {{auth_user.virtual_account}} </p>
                   <p>*BankCode*SchemeCode*BillerId+UserIdentifier+Amount#</p>
                   <p>*894*000*0123+{{auth_user.virtual_account}}+ {{getPlan.plan_cost}} </p>
                 </div>

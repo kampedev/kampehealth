@@ -357,6 +357,10 @@
                     <strong>NIMC Number:</strong> {{ client.user.nimc_number }}
                   </p>
                   <hr />
+                   <p class="spacer-top-bottom">
+                    <strong>Virtual Account Number:</strong> {{ client.user.virtual_account }}
+                  </p>
+                  <hr />
                   <p class="spacer-top-bottom">
                     <strong>Gender:</strong> {{ client.user.gender }}
                   </p>

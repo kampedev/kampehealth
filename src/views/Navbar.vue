@@ -126,10 +126,9 @@
               </span>
             </a>
           </li>
-
-          <li
+           <li
             class="menu-item"
-            v-if="user.type == 'employee' || user.type == 'shis'"
+           v-if="user.type == 'employee'"
           >
             <a href="/add-client-formal" class=" menu-link">
               <span class="menu-label">
@@ -140,6 +139,22 @@
               </span>
             </a>
           </li>
+
+           <li
+            class="menu-item"
+           v-if="user.type == 'employee'"
+          >
+            <a href="/voluntary-registration-form" class=" menu-link">
+              <span class="menu-label">
+                <span class="menu-name">Voluntary Enrollment</span>
+              </span>
+              <span class="menu-icon">
+                <i class="icon-placeholder fe fe-user-plus "></i>
+              </span>
+            </a>
+          </li>
+
+         
 
           <li class="menu-item" v-if="user.type == 'employee'">
             <a href="/add-client/employee-offline" class=" menu-link">
@@ -368,7 +383,7 @@
               <li class="menu-item">
                 <a href="/add-client-agency" class=" menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Add Client </span>
+                    <span class="menu-name">Add Enrollee (Informal) </span>
                   </span>
                   <span class="menu-icon">
                     <i
@@ -377,17 +392,45 @@
                   </span>
                 </a>
               </li>
+           <li
+            class="menu-item"
+            v-if="user.type == 'employee' || user.type == 'shis'"
+          >
+            <a href="/add-client-formal" class=" menu-link">
+              <span class="menu-label">
+                <span class="menu-name">Add Enrollee (Formal) </span>
+              </span>
+              <span class="menu-icon">
+                <i class="icon-placeholder fe fe-user-plus "></i>
+              </span>
+            </a>
+          </li>
+
+           <li
+            class="menu-item"
+            v-if="user.type == 'employee' || user.type == 'shis'"
+          >
+            <a href="/voluntary-registration-form" class=" menu-link">
+              <span class="menu-label">
+                <span class="menu-name">Voluntary Enrollment</span>
+              </span>
+              <span class="menu-icon">
+                <i class="icon-placeholder fe fe-user-plus "></i>
+              </span>
+            </a>
+          </li>
 
               <li class="menu-item">
                 <router-link to="/add-client-offline" class=" menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Enrollees(Offline) </span>
+                    <span class="menu-name">Add Enrollees(Offline) </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-cloud-off"></i>
                   </span>
                 </router-link>
               </li>
+             
 
               <li class="menu-item">
                 <a href="/view-clients-agency" class=" menu-link">

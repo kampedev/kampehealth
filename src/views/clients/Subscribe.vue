@@ -1,6 +1,5 @@
 <template>
   <section class="admin-content" id="contact-search">
-
     <div class="bg-dark m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
@@ -176,25 +175,15 @@
                 <div class="form-row">
                   <div class="form-group col-md-12">
                     <label for="inputPassword4"
-                      ><strong
-                        >Select Payment Method:
-                      </strong></label
+                      ><strong>Select Payment Method: </strong></label
                     >
-                    <select
-                      class="form-control"
-                      v-model="payment_type"
-                      
-                    >
-                      <option
-                        value="online"
-                      >
-                        Pay Online 
+                    <select class="form-control" v-model="payment_type">
+                      <option value="online">
+                        Pay Online
                       </option>
 
-                       <option
-                        value="offline"
-                      >
-                        Pay Offline 
+                      <option value="offline">
+                        Pay Offline
                       </option>
                     </select>
                     <label for="inputPassword4"
@@ -290,39 +279,66 @@
                     </button>
                   </paystack>
 
-                   <button class="btn btn-dark btn-block btn-lg" v-if="payment_type == 'offline'"
-                   data-toggle="modal" data-target="#eofflineModal">
-                      Pay Offline (USSD)
-                    </button>
+                  <button
+                    class="btn btn-dark btn-block btn-lg"
+                    v-if="payment_type == 'offline'"
+                    data-toggle="modal"
+                    data-target="#eofflineModal"
+                  >
+                    Pay Offline (USSD)
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Modal -->
-          <div class="modal fade" id="eofflineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div
+            class="modal fade"
+            id="eofflineModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
             <div class="modal-dialog  modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Enter the USSD Code below into your mobile device</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Enter the USSD Code below into your mobile device
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>Virual Account Number: {{auth_user.virtual_account}} </p>
+                  <p>Virual Account Number: {{ auth_user.virtual_account }}</p>
                   <p>*BankCode*SchemeCode*BillerId+UserIdentifier+Amount#</p>
-                  <p>*894*000*0123+{{auth_user.virtual_account}}+ {{getPlan.plan_cost}} </p>
+                  <p>
+                    *894*000*506+{{ auth_user.virtual_account }}+
+                    {{ getPlan.plan_cost }}
+                  </p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" class="btn btn-primary">
+                    Save changes
+                  </button>
                 </div>
               </div>
             </div>
           </div>
           <!--End of  Modal -->
-
 
           <div class="vld-parent">
             <loading
@@ -406,15 +422,16 @@ export default {
       image: "",
       imagefile: "",
       myplan: "",
-      sms_message: "Thank you for choosing OHIS. You can come to our office to collect your ID Card in 3 weeks.",
+      sms_message:
+        "Thank you for choosing OHIS. You can come to our office to collect your ID Card in 3 weeks.",
       user: null,
       isLoading: false,
       fullPage: true,
-      windowwith:"",
+      windowwith: "",
     };
   },
   beforeMount() {
-        this.windowwith =  window.innerWidth * 0.75;
+    this.windowwith = window.innerWidth * 0.75;
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
       .get(`/api/v1/user-no-auth/${this.$route.params.id}`)
@@ -457,7 +474,7 @@ export default {
       this.showdependent = false;
     },
     callback: function(response) {
-      this.sendSMS()
+      this.sendSMS();
       this.makeSubscribe();
       console.log(response);
     },
@@ -520,8 +537,7 @@ export default {
           );
           this.isLoading = false;
           // window.location = "https://www.oshia.ng";
-           this.$router.push(`/subscribe-success/${this.$route.params.id}`);
-
+          this.$router.push(`/subscribe-success/${this.$route.params.id}`);
         })
         .catch((error) => {
           console.log(error.response);
@@ -588,27 +604,26 @@ export default {
           this.isLoading = false;
         });
     },
-     sendSMS() {
+    sendSMS() {
       this.isLoading = true;
       this.axios
         .post(`https://app.multitexter.com/v2/app/sms`, {
-          email: 'wearegrumie@gmail.com',
-          password: 'AGYkh.EUddNx4j@',
+          email: "wearegrumie@gmail.com",
+          password: "AGYkh.EUddNx4j@",
           message: this.sms_message,
-          sender_name: 'OHIS',
+          sender_name: "OHIS",
           recipients: this.auth_user.phone_number,
         })
         .then((response) => {
           console.log(response);
-        
-        
+
           this.isLoading = false;
         })
         .catch((error) => {
           console.error(error);
           this.isLoading = false;
         });
-    }
+    },
   },
 
   created() {

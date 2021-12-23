@@ -24,6 +24,8 @@ import "vue-select/dist/vue-select.css";
 import Highcharts from "highcharts";
 import VueHighcharts from "vue-highcharts";
 import { BootstrapVue } from "bootstrap-vue";
+import "@fortawesome/fontawesome-free/css/all.css";
+import "@fortawesome/fontawesome-free/js/all.js";
 import VueFullscreen from "vue-fullscreen";
 
 import HighchartsVue from "highcharts-vue";
@@ -72,7 +74,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueFullscreen);
 
 window.axios = axios;
-axios.defaults.baseURL = 'https://api.hayokinsurance.com';
+axios.defaults.baseURL = "https://api.hayokinsurance.com";
 // axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.headers.common["Content-Type"] = "application/json";
 axios.defaults.headers.common["Authorization"] =

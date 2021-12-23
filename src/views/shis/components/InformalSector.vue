@@ -64,8 +64,27 @@
                         </div>
                     </div>
                 </div>
+                 <div class="col-lg-3 col-md-3">
+                    <div class="card m-b-30 bg-secondary">
+                        <div class="card-body text-dark">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/plans'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="fe fe-users"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="h4">Voluntary Contributor</p>
+                                <h1 class="fw-400">{{informaldata.voluntary}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-3 col-md-3">
                     <div class="card m-b-30 bg-light bg-gradient">
                         <div class="card-body text-black">
                             <div class="pb-2">
@@ -85,7 +104,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-3 col-md-3">
                     <div class="card m-b-30 bg-success">
                         <div class="card-body text-dark">
                             <div class="pb-2">
@@ -106,7 +125,8 @@
                 </div>
 
 
-                <div class="col-lg-4 col-md-4">
+               
+                 <div class="col-lg-3 col-md-3">
                     <div class="card m-b-30 bg-warning">
                         <div class="card-body text-dark">
                             <div class="pb-2">

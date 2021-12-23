@@ -15,11 +15,12 @@
                 spacer-image
               "
             >
-              <div class="m-b-10">
-               
-              </div>
+              <div class="m-b-10"></div>
               <button v-clipboard="client.user.firstname">
-                <strong>{{ client.user.firstname }} {{ client.user.lastname }}</strong>
+                <strong
+                  >{{ client.user.firstname }}
+                  {{ client.user.lastname }}</strong
+                >
               </button>
             </div>
           </div>
@@ -105,7 +106,6 @@
                     >
                       <button
                         class="btn btn-outline-info spacer"
-                        
                         @click="findDependents"
                       >
                         Dependents <i class="fe fe-users"></i>
@@ -251,7 +251,6 @@
 
                 <div class="card-body row">
                   <div class="col-md-4">
-                   
                     <img
                       :src="
                         `https://api.hayokinsurance.com/image/${client.user.user_image}`
@@ -270,8 +269,8 @@
                   <div class="col-md-8">
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">NAME :</strong>
-                      <strong>{{ client.user.lastname }}</strong
-                      > {{ client.user.firstname }}, {{ client.user.middlename }}
+                      <strong>{{ client.user.lastname }}</strong>
+                      {{ client.user.firstname }}, {{ client.user.middlename }}
                     </p>
                     <hr />
                     <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.user.id_card_number}}</strong></p> -->
@@ -296,7 +295,7 @@
                       >
                       <strong>{{ client.provider.agency_name }}</strong>
                     </p>
-                    
+
                     <hr />
                     <p
                       class="h3 spacer-top-bottom"
@@ -348,8 +347,12 @@
                     <hr />
                   </div>
 
-                  <p class="spacer-top-bottom" v-if="client.enrolled_by != null">
-                    <strong>Enrolled By:</strong> {{ client.enrolled_by.firstname }}
+                  <p
+                    class="spacer-top-bottom"
+                    v-if="client.enrolled_by != null"
+                  >
+                    <strong>Enrolled By:</strong>
+                    {{ client.enrolled_by.firstname }}
                     {{ client.enrolled_by.lastname }}
                   </p>
                   <hr />
@@ -357,8 +360,9 @@
                     <strong>NIMC Number:</strong> {{ client.user.nimc_number }}
                   </p>
                   <hr />
-                   <p class="spacer-top-bottom">
-                    <strong>Virtual Account Number:</strong> {{ client.user.virtual_account }}
+                  <p class="spacer-top-bottom">
+                    <strong>Virtual Account Number:</strong>
+                    {{ client.user.virtual_account }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
@@ -366,14 +370,20 @@
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>Phone Number:</strong> {{ client.user.phone_number }}
+                    <strong>Phone Number:</strong>
+                    {{ client.user.phone_number }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>LGA/Ward:</strong> <span v-if="client.local_government != null ">{{ client.local_government.local_name }}</span> /
-                   
-                      
-                     <span  v-if="client.ward != null "> {{ client.ward.ward_name}} </span>
+                    <strong>LGA/Ward:</strong>
+                    <span v-if="client.local_government != null">{{
+                      client.localgovt.local_name
+                    }}</span>
+                    /
+
+                    <span v-if="client.ward != null">
+                      {{ client.ward.ward_name }}
+                    </span>
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
@@ -393,7 +403,8 @@
                   <hr />
 
                   <p class="spacer-top-bottom">
-                    <strong>Marital Status:</strong> {{ client.user.marital_status }}
+                    <strong>Marital Status:</strong>
+                    {{ client.user.marital_status }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
@@ -404,10 +415,7 @@
                     <strong>Staff ID:</strong> {{ client.user.salary_number }}
                   </p>
                   <hr />
-                  <p
-                    class="spacer-top-bottom"
-                   
-                  >
+                  <p class="spacer-top-bottom">
                     <strong>Category of Vulnerable Group:</strong>
                     {{ client.user.category_of_vulnerable_group }}
                   </p>
@@ -419,8 +427,8 @@
 
           <div class="col-md-12">
             <h5>
-              <i class="fe fe-credit-card"></i
-              > <strong>{{client.transactions.length }} Transactions </strong>
+              <i class="fe fe-credit-card"></i>
+              <strong>{{ client.transactions.length }} Transactions </strong>
             </h5>
             <div class="table-responsive">
               <table class="table align-td-middle table-card">
@@ -429,17 +437,20 @@
                     <th>S/N</th>
                     <th>Transaction Type</th>
                     <th>Transaction Amount</th>
-                    <th>Description </th>
-                    <th>Date Created </th>
+                    <th>Description</th>
+                    <th>Date Created</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(trx, index) in client.transactions" v-bind:key="trx.id" >
-                    <td> {{index+1}} </td>
-                     <td>{{trx.type}} </td>
-                    <td> &#8358;{{trx.amount | numeral(0,0) }}  </td>
-                      <td>{{trx.description}} </td>
-                    <td> {{trx.created_at | moment("dddd, MMMM Do YYYY") }}  </td>
+                  <tr
+                    v-for="(trx, index) in client.transactions"
+                    v-bind:key="trx.id"
+                  >
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ trx.type }}</td>
+                    <td>&#8358;{{ trx.amount | numeral(0, 0) }}</td>
+                    <td>{{ trx.description }}</td>
+                    <td>{{ trx.created_at | moment("dddd, MMMM Do YYYY") }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -639,35 +650,35 @@ export default {
 
   methods: {
     addPayment() {
-        if (confirm('Are you sure you want to Submit?') ) {
-           this.isLoading = true;
-      this.axios
-        .post(`/api/v1/make/transaction`, {
-          user_id: this.$route.params.id,
-          agency_id: 95930,
-          description: this.userPayment.description,
-          amount: this.userPayment.amount,
-          type: "offline",
-          status: "approved",
-          transaction_ref: this.randomTransId,
-        })
-        .then((response) => {
-          console.log(response);
-          this.isLoading = false;
-          this.$toasted.success("Payment Added Successfully", {
-            position: "top-center",
-            duration: 3000,
+      if (confirm("Are you sure you want to Submit?")) {
+        this.isLoading = true;
+        this.axios
+          .post(`/api/v1/make/transaction`, {
+            user_id: this.$route.params.id,
+            agency_id: 95930,
+            description: this.userPayment.description,
+            amount: this.userPayment.amount,
+            type: "offline",
+            status: "approved",
+            transaction_ref: this.randomTransId,
+          })
+          .then((response) => {
+            console.log(response);
+            this.isLoading = false;
+            this.$toasted.success("Payment Added Successfully", {
+              position: "top-center",
+              duration: 3000,
+            });
+            // this.fetchUser()
+          })
+          .catch((error) => {
+            console.error(error);
+            this.isLoading = false;
           });
-          // this.fetchUser()
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading = false;
-        });
-      console.log("Helloooooooooooooos");
-      this.userPayment.description = "";
-      this.userPayment.amount = "";
-        }
+        console.log("Helloooooooooooooos");
+        this.userPayment.description = "";
+        this.userPayment.amount = "";
+      }
     },
 
     changeNumber() {
@@ -723,7 +734,7 @@ export default {
 
     async print() {
       const el = this.$refs.printNow;
-     
+
       const options = {
         type: "dataURL",
       };
@@ -831,8 +842,7 @@ export default {
         .then((response) => {
           this.client = response.data;
           this.dependents = response.data.dependents;
-        
-         
+
           //get dependents
           this.axios
             .post(`/api/v1/auth/allDependantsUser`, {

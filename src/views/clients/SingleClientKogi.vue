@@ -374,10 +374,11 @@
                     {{ client.user.phone_number }}
                   </p>
                   <hr />
+                  
                   <p class="spacer-top-bottom">
                     <strong>LGA/Ward:</strong>
                     <span v-if="client.local_government != null">{{
-                      client.localgovt.local_name
+                      client.local_government.local_name
                     }}</span>
                     /
 
@@ -385,6 +386,7 @@
                       {{ client.ward.ward_name }}
                     </span>
                   </p>
+
                   <hr />
                   <p class="spacer-top-bottom">
                     <strong>Date of Birth:</strong>

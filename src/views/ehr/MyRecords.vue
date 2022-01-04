@@ -44,23 +44,19 @@
                                  <table class="table align-td-middle table-card">
                                      <thead>
                                      <tr>
-                                         <!-- <th>Avatar</th> -->
-                                         <!-- <th>Name</th> -->
-                                         <th>Dr. Visited</th>
+                                       
+                                         <th>Patient</th>
                                          <th>Reason for Visit</th>
+                                         <th>Medical Diagnosis</th>
                                          <th>Date</th>
                                      </tr>
                                      </thead>
                                      <tbody>
                                      <tr v-for="record in records" v-bind:key="record.id">
-                                         <!-- <td>
-                                             <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                                 class="avatar-img avatar-sm rounded-circle"
-                                                                                 alt=""></div>
-                                         </td> -->
-                                         <!-- <td >{{client.firstname}} {{client.lastname}}</td> -->
-                                         <td>{{record.drVisited}}</td>
+                                        
+                                         <td>{{record.patient.full_name}}</td>
                                          <td>{{record.reasonVisit}}</td>
+                                         <td>{{record.service.diagnosis.name}}</td>
                                          <td>{{record.created_at}}</td>
 
                                      </tr>
@@ -110,39 +106,19 @@ export default {
     return{
       isLoading: false,
       fullPage: true,
-      states:"",
+      user: null,
       records:"",
-      state:"",
-      lga_states:"",
-      register:{
-                firstname:"",
-                lastname:"",
-                email:"",
-                phone_number:"",
-                type:"client",
-                username:"",
-                state:"",
-                lga:"",
-                ward:"",
-                address:"",
-            }
+     
     }
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/gethealthRecord`)
-                .then(response => {
-                    this.records = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+  
   },
   methods:{
     getRecords(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/gethealthRecord`)
+      this.axios.get(`/api/v1/auth/professionalGetHealthRecord/${this.user.id}`)
                   .then(response => {
                       this.records = response.data.data
                       console.log(response)
@@ -150,36 +126,8 @@ export default {
                   .catch(error => {
                       console.error(error);
                   })
-    },
-
-    registerUser(){
-        this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
-          firstname: this.register.firstname,
-          lastname: this.register.lastname,
-          email: this.register.email,
-          phone_number: this.register.phone_number,
-          type: this.register.type,
-          username: this.register.username,
-          state: this.state,
-          role: 0,
-          lga: this.register.lga,
-          ward: this.register.ward,
-        })
-        .then(response=>{
-
-            console.log(response);
-            this.isLoading = false;
-            this.$breadstick.notify("Client added successfully", {position: "top-right"});
-
-        })
-        .catch(error=>{
-            console.log(error.response)
-            this.isLoading = false;
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
-
-        })
     }
+
 
   },
   created(){

@@ -55,7 +55,7 @@ export default {
         }
 
         if (type == "provider_employee") {
-          this.$router.push("/provider-employee");
+          this.$router.push("/personnel");
         }
 
         this.$router.go();

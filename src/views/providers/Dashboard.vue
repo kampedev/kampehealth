@@ -14,7 +14,7 @@
 
                 </div>
 
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-3 col-md-3">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -27,14 +27,34 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Clients</p>
+                                <p class="text-muted text-overline m-0">Enrollees</p>
                                 <h1 class="fw-400">{{clients.length | numeral('0,0')}}</h1>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-3 col-md-3">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/view-clients-provider'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="fe fe-thermometer"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">Encounters  </p>
+                                <h1 class="fw-400">{{allrecords.meta.total | numeral('0,0')}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -54,7 +74,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-3 col-md-3">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
@@ -182,10 +202,12 @@ export default {
       claims:"",
       clients:"",
       employees:"",
+      allrecords:"",
 
     }
   },
   beforeMount(){
+       this.user = JSON.parse(localStorage.getItem('user'))
     this.axios.get(`/api/v1/auth/user`)
                 .then(response => {
                     this.auth_user = response.data
@@ -229,6 +251,17 @@ export default {
                   .catch(error => {
                       console.error(error);
                   })
+    },
+     getRecords(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.post(`/api/v1/auth/gethealthRecord`,{ provider: this.user.id })
+                  .then(response => {
+                      this.allrecords = response.data
+                      console.log(response)
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  })
     }
 
   },
@@ -236,6 +269,7 @@ export default {
     this.getClaims()
     this.getClients()
     this.getEmployees()
+    this.getRecords()
 
   }
 }

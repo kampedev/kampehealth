@@ -106,7 +106,7 @@
           </li>
 
           <li class="menu-item active " v-if="user.type == 'provider_employee'">
-            <a href="/provider-employee-dashboard" class=" menu-link">
+            <a href="/personnel" class=" menu-link">
               <span class="menu-label">
                 <span class="menu-name">Dashboard </span>
               </span>
@@ -1015,7 +1015,7 @@
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
                 <span class="menu-name"
-                  >EHR
+                  >EMR
                   <span class="menu-arrow"></span>
                 </span>
               </span>

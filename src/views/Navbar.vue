@@ -691,7 +691,7 @@
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
                 <span class="menu-name"
-                  >Drugs and Consultancy Manager
+                  >Services and Consultancy Manager
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -701,13 +701,24 @@
             </a>
             <!--submenu-->
             <ul class="sub-menu">
+             
               <li class="menu-item">
+                <router-link to="/list-records" class=" menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Encounters Management</span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder mdi mdi-medical-bag"></i>
+                  </span>
+                </router-link>
+              </li>
+               <li class="menu-item">
                 <router-link to="/manage-drugs" class=" menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Drugs manager </span>
                   </span>
                   <span class="menu-icon">
-                    <i class="icon-placeholder fe fe-edit "></i>
+                    <i class="icon-placeholder fe fe-thermometer"></i>
                   </span>
                 </router-link>
               </li>
@@ -1025,7 +1036,7 @@
             </a>
             <!--submenu-->
             <ul class="sub-menu">
-              <li class="menu-item">
+              <li class="menu-item"  v-if=" user.type == 'provider_employee'">
                 <router-link to="/add-record" class=" menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Add Record </span>
@@ -1037,9 +1048,9 @@
               </li>
 
               <li class="menu-item">
-                <router-link to="/my-records" class=" menu-link">
+                <router-link to="/list-records" class=" menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Client's Records </span>
+                    <span class="menu-name">Patient Records </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder mdi mdi-medical-bag"></i>

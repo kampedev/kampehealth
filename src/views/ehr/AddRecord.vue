@@ -238,6 +238,7 @@ export default {
             patient_id: this.enrollee_details.user.id,
             reasonVisit: this.record.reasonVisit,
             testResult: this.record.testResult,
+            agency_id: 95930,
             drVisited: this.user.id,
             professional_id: this.user.id,
             notes: this.record.medications,

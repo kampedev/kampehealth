@@ -723,7 +723,7 @@ const routes = [
     },
   },
   {
-    path: "/my-records",
+    path: "/list-records",
     component: MyRecords,
     meta: {
       requiresAuth: true,

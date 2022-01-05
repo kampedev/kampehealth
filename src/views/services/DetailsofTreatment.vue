@@ -11,7 +11,7 @@
                         <div class="avatar ">
                         </div>
                     </div>
-                      <h3 class="h3">Drugs/Services Prescription Page </h3>
+                      <h3 class="h3">Drugs/Services Treatment Page </h3>
 
                   </div>
 

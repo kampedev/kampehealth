@@ -10,7 +10,7 @@
 
             <div class="row">
                 <div class="col-12 m-b-20">
-                    <p class="h4 spacer-top">{{auth_user.agency_name}}</p>
+                    <p class="h4 spacer-top">{{auth_user.agency_name}}  </p>
 
                 </div>
 
@@ -27,8 +27,48 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">Enrollees</p>
-                                <h1 class="fw-400">{{clients.length | numeral('0,0')}}</h1>
+                                <p class="text-muted text-overline m-0">Total Enrollees</p>
+                                <h1 class="fw-400">{{dashboarddata.enrollees | numeral('0,0')}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-lg-3 col-md-3">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/view-clients-provider'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="mdi mdi-account-multiple"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">Principal</p>
+                                <h1 class="fw-400">{{dashboarddata.principal | numeral('0,0')}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-lg-3 col-md-3">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/view-clients-provider'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="mdi mdi-account-heart"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">Dependents</p>
+                                <h1 class="fw-400">{{dashboarddata.dependants | numeral('0,0')}}</h1>
                             </div>
                         </div>
                     </div>
@@ -48,7 +88,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Encounters  </p>
-                                <h1 class="fw-400">{{allrecords.meta.total | numeral('0,0')}}</h1>
+                                <h1 class="fw-400">{{dashboarddata.encounters | numeral('0,0')}}</h1>
                             </div>
                         </div>
                     </div>
@@ -68,7 +108,47 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Claims</p>
-                                <h1 class="fw-400">{{claims.length}}</h1>
+                                <h1 class="fw-400">{{dashboarddata.claims}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-lg-3 col-md-3">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/view-clients-provider'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="mdi mdi-bank-transfer-out"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">Out-going Referrals</p>
+                                <h1 class="fw-400">{{dashboarddata.outgoing_referrals | numeral('0,0')}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-lg-3 col-md-3">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/view-clients-provider'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="mdi mdi-bank-transfer-in"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="text-muted text-overline m-0">In-coming Referrals</p>
+                                <h1 class="fw-400">{{dashboarddata.incoming_referrals | numeral('0,0')}}</h1>
                             </div>
                         </div>
                     </div>
@@ -81,14 +161,14 @@
                               <router-link :to="{ path: '/all-claims'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="mdi mdi-account-multiple"></i>
+                                        <i class="mdi mdi-account-tie"></i>
                                     </div>
                                 </div>
                               </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Employees</p>
-                                <h1 class="fw-400">{{employees.length}}</h1>
+                                <h1 class="fw-400">{{dashboarddata.employees}}</h1>
                             </div>
                         </div>
                     </div>
@@ -204,7 +284,7 @@ export default {
       claims:"",
       clients:"",
       employees:"",
-      allrecords:"",
+      dashboarddata:"",
 
     }
   },
@@ -220,11 +300,11 @@ export default {
                 })
   },
   methods:{
-    getEmployees(){
+    getData(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getEmployee/${this.user.id}`)
+      this.axios.get(`/api/v1/auth/provider-dashboard-data/${this.user.id}`)
                   .then(response => {
-                      this.employees = response.data.data
+                      this.dashboarddata = response.data
                       console.log(response)
                   })
                   .catch(error => {
@@ -254,24 +334,13 @@ export default {
                       console.error(error);
                   })
     },
-     getRecords(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.post(`/api/v1/auth/gethealthRecord`,{ provider: this.user.id })
-                  .then(response => {
-                      this.allrecords = response.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
-    }
+    
 
   },
   created(){
+       this.getData()
     this.getClaims()
     this.getClients()
-    this.getEmployees()
-    this.getRecords()
 
   }
 }

@@ -41,7 +41,7 @@
                               <router-link :to="{ path: '/view-clients-provider'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-thermometer"></i>
+                                        <i class="mdi mdi-medical-bag"></i>
                                     </div>
                                 </div>
                               </router-link>
@@ -107,7 +107,8 @@
                     <div class="card m-b-30">
                       <div class="card-body">
 
-                        <!-- <zingchart :data="chartData" ></zingchart> -->
+                          <ProviderEncountersbyDate/>
+                       
 
                       </div>
                     </div>
@@ -189,10 +190,11 @@
 
 <script>
 import Navbar from '@/views/Navbar.vue'
+import ProviderEncountersbyDate from '@/views/providers/ProviderEncountersbyDate.vue'
 
 export default {
   components: {
-     Navbar
+     Navbar, ProviderEncountersbyDate
   },
   data(){
     return{

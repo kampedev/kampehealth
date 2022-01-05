@@ -121,7 +121,7 @@
                             </div>
                             <div>
                                 <p class="h4">Encounters</p>
-                                <h1 class="fw-400">0</h1>
+                                <h1 class="fw-400">{{formaldata.encounters}} </h1>
                             </div>
                         </div>
                     </div>

@@ -27,6 +27,7 @@ export default {
     data(){
         return{
             title: '',
+            user: null,
             points: [10, 0, 8, 2, 6, 4, 5, 5],
             chartType: '',
             seriesColor: '#6fcd98',
@@ -38,14 +39,18 @@ export default {
 
         }
     },
+     beforeMount(){
+    this.user = JSON.parse(localStorage.getItem('user'))
+  
+  },
     mounted(){
         this.getDashboardLGA();
 
     },
     methods:{
         getDashboardLGA(){
-            // console.log("current page " + currentPage);
-      this.axios.get('/api/v1/auth/encountersdate/95930?date=' + this.currentPage)
+         this.user = JSON.parse(localStorage.getItem('user'))
+      this.axios.get(`/api/v1/auth/provider-encountersdate/${this.user.id}?date=` + this.currentPage)
       .then(response => {
         console.log(response)
         // var data = response.data.chartData;

@@ -38,13 +38,11 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/view-clients-provider'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="mdi mdi-account-multiple"></i>
                                     </div>
                                 </div>
-                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Principal</p>
@@ -58,13 +56,11 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/view-clients-provider'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="mdi mdi-account-heart"></i>
                                     </div>
                                 </div>
-                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Dependents</p>
@@ -78,13 +74,11 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/view-clients-provider'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="mdi mdi-medical-bag"></i>
                                     </div>
                                 </div>
-                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Encounters  </p>
@@ -108,7 +102,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Claims</p>
-                                <h1 class="fw-400">{{dashboarddata.claims}}</h1>
+                                <h1 class="fw-400">{{dashboarddata.claims | numeral('0,0')}}</h1>
                             </div>
                         </div>
                     </div>
@@ -118,13 +112,11 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/view-clients-provider'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="mdi mdi-bank-transfer-out"></i>
                                     </div>
                                 </div>
-                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Out-going Referrals</p>
@@ -138,13 +130,11 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/view-clients-provider'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="mdi mdi-bank-transfer-in"></i>
                                     </div>
                                 </div>
-                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">In-coming Referrals</p>
@@ -158,17 +148,15 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/all-claims'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="mdi mdi-account-tie"></i>
                                     </div>
                                 </div>
-                              </router-link>
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">Employees</p>
-                                <h1 class="fw-400">{{dashboarddata.employees}}</h1>
+                                <h1 class="fw-400">{{dashboarddata.employees | numeral('0,0')}}</h1>
                             </div>
                         </div>
                     </div>
@@ -186,9 +174,7 @@
                 <div class="col-md-12">
                     <div class="card m-b-30">
                       <div class="card-body">
-
                           <ProviderEncountersbyDate/>
-                       
 
                       </div>
                     </div>

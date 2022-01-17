@@ -21,13 +21,13 @@
           <!-- <div> -->
           <b-card no-body>
             <b-tabs pills card align="center">
-              <!-- <b-tab title="Duplicate ID Card Number">
+              <b-tab title="Duplicate ID Card Number">
                 <b-card-text>
                   <div class="row list">
                     <div class="col-lg-12 col-md-12">
                       <div class="card m-b-30">
                         <div class="card-body">
-                          {{ clients.total }} Duplicate ID Cards
+                          {{ clients_dup.total }} Duplicate ID Cards
                           <div class="table-responsive">
                             <table class="table align-td-middle table-card">
                               <thead>
@@ -35,12 +35,13 @@
                                   <th>Name</th>
                                   <th>Phone Number</th>
                                   <th>Type</th>
+                                  <th>Sector</th>
                                   <th>ID card</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr
-                                  v-for="client in clients.data"
+                                  v-for="client in clients_dup.data"
                                   v-bind:key="client.id"
                                 >
                                   <td>
@@ -56,13 +57,14 @@
                                   </td>
                                   <td>{{ client.phone_number }}</td>
                                   <td>{{ client.type }}</td>
+                                  <td>{{ client.sector }}</td>
                                   <td>
                                     {{ client.id_card_number }}
                                   </td>
                                   <td>
                                     <button
                                       type="button"
-                                      @click="changeNumber(client)"
+                                      @click="changeNumberID(client)"
                                       class="btn btn-primary"
                                       style="
                                         margin-left: 10px;
@@ -90,7 +92,7 @@
                     </div>
                   </div>
                 </b-card-text>
-              </b-tab> -->
+              </b-tab>
 
               <b-tab title="Special  Filter" active>
                 <b-card-text>
@@ -202,6 +204,7 @@ export default {
       listIndex: 0,
       states: "",
       clients: "",
+      clients_dup: "",
       smallestcards: "",
       state: "",
       lga_states: "",
@@ -216,6 +219,19 @@ export default {
         .post(`/api/v1/auth/find/principal`)
         .then((response) => {
           this.clients = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    getClientsDuplicateID() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .get(`/api/v1/auth/duplicate_id_card_number/95930`)
+        .then((response) => {
+          this.clients_dup = response.data;
           console.log(response);
         })
         .catch((error) => {
@@ -291,10 +307,32 @@ export default {
            this.getClients();
         });
     },
+     changeNumberID(client) {
+      this.isLoading = true;
+      this.axios
+        .patch(`/api/v1/auth/id-card-number/change/${client.id}`)
+        .then((response) => {
+          console.log(response);
+          this.getClientsDuplicateID();
+          this.$toasted.success("Changed Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.$toasted.error("Not Found!", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.isLoading = false;
+        });
+    },
   },
   created() {
-    this.getClients();
-    // this.getSmallCads();
+    this.getClients()
+    this.getClientsDuplicateID()
   },
 };
 </script>

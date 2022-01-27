@@ -55,7 +55,7 @@
 
                           <div class="row col-md-12">
                               <div class="form-group col-md-6">
-                                <label for="inputCity">State {{register.state}} </label>
+                                <label for="inputCity">State {{state}} </label>
 
                                     <select class="form-control"  v-model="state" @change="fetchLga(state)">
                                      <option v-for="state in states" v-bind:key="state" :value="state">{{state.name}}</option>

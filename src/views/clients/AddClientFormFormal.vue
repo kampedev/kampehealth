@@ -463,12 +463,12 @@
                         </select>
                       </div>
 
-                      <div class="col-md-12 row">
-                        <div class="form-group col-md-6">
+                      <div class="form-group col-md-6">
                           <label
                             >Principal Facility for Accessing Health Care
                           </label>
                           <v-select
+                            
                             v-model="register.provider_id"
                             :options="providers"
                             label="agency_name"
@@ -476,6 +476,9 @@
                             @input="selected"
                           ></v-select>
                         </div>
+
+                      <!-- <div class="col-md-12">
+                        
                         <div
                           class="form-group col-md-6"
                           v-if="
@@ -494,7 +497,7 @@
                             @input="selectedPointocare"
                           ></v-select>
                         </div>
-                      </div>
+                      </div> -->
 
                       <div class="form-group col-md-6">
                         <label for="inputCity">Blood Group</label>
@@ -626,11 +629,28 @@ export default {
     },
     submitForm() {
       if (this.user.type == "employee") {
-        this.registerUserEmployee();
+
+          if (this.register.provider_id != '') {
+            this.registerUserEmployee();
+          }
+          else{
+                 this.$toasted.error(`Facility cannot be null`, {
+              position: "top-center",
+              duration: 3000,
+            });
+          }
       }
 
       if (this.user.type == "shis") {
-        this.registerUserAdmin();
+         if (this.register.provider_id != '') {
+            this.registerUserAdmin();
+          }
+          else{
+                 this.$toasted.error(`Facility cannot be null`, {
+              position: "top-center",
+              duration: 3000,
+            });
+          }
       }
     },
     fetchWards() {
@@ -715,7 +735,7 @@ export default {
           gender: this.register.gender,
           sector: this.register.sector,
           place_of_work: this.register.place_of_work,
-          point_of_care: this.selected_provider_dependents,
+          point_of_care: this.register.provider_id.id,
           finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
           grade_level: this.register.grade_level,
@@ -792,7 +812,7 @@ export default {
           gender: this.register.gender,
           sector: this.register.sector,
           place_of_work: this.register.place_of_work,
-          point_of_care: this.selected_provider_dependents,
+          point_of_care: this.register.provider_id.id,
           // finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
           grade_level: this.register.grade_level,

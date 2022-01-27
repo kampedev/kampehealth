@@ -396,12 +396,7 @@
                         </div>
                       </div>
 
-                      <!-- <div class="form-group col-md-6" v-if="sector == 'informal'">
-                                                                  <label>Principal Facility for Accessing Health Care <span class="text-danger">*</span></label>
-                                                                  <select class="form-control" required  v-model="register.provider_id">
-                                                                      <option v-for="provider in providers_wards" v-bind:key="provider.id" :value="provider.id">{{provider.agency_name}}</option>
-                                                                   </select>
-                                                                </div> -->
+                  
 
                       <div class="form-group col-md-6">
                         <label for="inputCity">Blood Group</label>
@@ -533,11 +528,27 @@ export default {
     },
     submitForm() {
       if (this.user.type == "employee") {
-        this.registerUserEmployee();
+             if (this.register.provider_id != '') {
+            this.registerUserEmployee();
+          }
+          else{
+                 this.$toasted.error(`Facility cannot be null`, {
+              position: "top-center",
+              duration: 3000,
+            });
+          }
       }
 
       if (this.user.type == "shis") {
-        this.registerUserAdmin();
+         if (this.register.provider_id != '') {
+            this.registerUserAdmin();
+          }
+          else{
+                 this.$toasted.error(`Facility cannot be null`, {
+              position: "top-center",
+              duration: 3000,
+            });
+          }
       }
     },
     fetchWards() {

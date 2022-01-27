@@ -151,7 +151,7 @@
                     <div class="card m-b-30 bg-warning">
                         <div class="card-body text-dark">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/plans'}">
+                              <router-link :to="{ path: '/all-claims'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-credit-card"></i>
@@ -171,7 +171,7 @@
                     <div class="card m-b-30 bg-success">
                         <div class="card-body text-dark">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/plans'}">
+                              <router-link :to="{ path: '/my-encounters'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-credit-card"></i>
@@ -181,7 +181,7 @@
                             </div>
                             <div>
                                 <p class="h4">Encounters</p>
-                                <h1 class="fw-400">0</h1>
+                                <h1 class="fw-400"> {{informaldata.encounters}} </h1>
                             </div>
                         </div>
                     </div>

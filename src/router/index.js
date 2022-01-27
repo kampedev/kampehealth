@@ -44,6 +44,7 @@ import AddEmployee from "../views/employees/AddEmployee.vue";
 import Employee from "../views/employees/Employee.vue";
 import AddEmployeeState from "../views/employees/AddEmployeeState.vue";
 import ViewEmployees from "../views/employees/ViewEmployees.vue";
+import ViewEncounters from "../views/shis/ViewEncounters.vue";
 import AddDependents from "../views/dependents/AddDependents.vue";
 import MyDependents from "../views/dependents/MyDependents.vue";
 import SingleDependent from "../views/dependents/SingleDependent.vue";
@@ -451,6 +452,13 @@ const routes = [
   {
     path: "/my-dependents",
     component: MyDependents,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/my-encounters",
+    component: ViewEncounters,
     meta: {
       requiresAuth: true,
     },

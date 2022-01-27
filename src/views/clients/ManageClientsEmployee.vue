@@ -23,7 +23,7 @@
               class="btn btn-primary text-right"
               @click="show = true"
             >
-              Add Enrollee
+              Add Enrollee (Informal)
               <i class="fe fe-plus"></i>
             </button>
           </div>

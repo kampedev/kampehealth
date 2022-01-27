@@ -92,7 +92,7 @@
                     <div class="card m-b-30 bg-success">
                         <div class="card-body text-dark">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/#'}">
+                              <router-link :to="{ path: '/all-claims'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-clipboard"></i>
@@ -111,7 +111,7 @@
                     <div class="card m-b-30 bg-info">
                         <div class="card-body text-dark">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/#'}">
+                              <router-link :to="{ path: '/my-encounters'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-file-plus"></i>

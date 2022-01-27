@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                 <div class="col-lg-3 col-md-3">
+                 <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-secondary">
                         <div class="card-body text-dark">
                             <div class="pb-2">
@@ -78,13 +78,34 @@
                             </div>
                             <div>
                                 <p class="h4">Voluntary Contributor</p>
-                                <h1 class="fw-400">{{informaldata.voluntary}}</h1>
+                                <h1 class="fw-400">{{informaldata.voluntary | numeral(0,0)}}</h1>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3">
+
+                 <div class="col-lg-4 col-md-4">
+                    <div class="card m-b-30 bg-primary">
+                        <div class="card-body text-dark">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/plans'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="fe fe-users"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="h4 text-white">Dependents</p>
+                                <h1 class="fw-400 text-white">{{informaldata.dependants | numeral(0,0)}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-light bg-gradient">
                         <div class="card-body text-black">
                             <div class="pb-2">
@@ -104,7 +125,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-success">
                         <div class="card-body text-dark">
                             <div class="pb-2">
@@ -126,11 +147,11 @@
 
 
                
-                 <div class="col-lg-3 col-md-3">
+                 <div class="col-lg-4 col-md-4">
                     <div class="card m-b-30 bg-warning">
                         <div class="card-body text-dark">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/plans'}">
+                              <router-link :to="{ path: '/all-claims'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-credit-card"></i>
@@ -141,6 +162,26 @@
                             <div>
                                 <p class="h4">Claims</p>
                                 <h1 class="fw-400">{{claims.meta.total}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <div class="card m-b-30 bg-success">
+                        <div class="card-body text-dark">
+                            <div class="pb-2">
+                              <router-link :to="{ path: '/my-encounters'}">
+                                <div class="avatar avatar-lg">
+                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                        <i class="fe fe-credit-card"></i>
+                                    </div>
+                                </div>
+                              </router-link>
+                            </div>
+                            <div>
+                                <p class="h4">Encounters</p>
+                                <h1 class="fw-400"> {{informaldata.encounters}} </h1>
                             </div>
                         </div>
                     </div>

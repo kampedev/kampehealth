@@ -1012,6 +1012,7 @@ export default {
     this.fetchUser();
     this.streamPic();
     this.findDependents();
+    
   },
 };
 </script>

@@ -1,24 +1,20 @@
 <template>
   <div class="container">
     <div class="jumbotron">
-      <h1 class="heading">Plan Renewal</h1>
+      <h1 class="heading">Patient Details</h1>
     </div>
-    <div class="client__details">
-      <h3 class="CTA__prompt">Enter Your Detail Below</h3>
-      <input
-        type="text"
-        placeholder="OHIS Number, Email or Virtual Account Number"
-        v-model="userIdentifier"
-      />
-      <button class="btn btn-success" @click="getUserDetails">
-        Submit
-      </button>
-    </div>
-    <div class="user__details--container" v-if="user">
+
+    <div class="user__details--container">
       <div class="user__details--container-main">
-        <h1 class="name">{{ user.full_name }}</h1>
+        <h1 class="name">
+          {{ encounterDetails.patient.lastname }}
+          {{ encounterDetails.patient.firstname }}
+        </h1>
+
         <img
-          :src="`https://api.hayokinsurance.com/image/${user.user_image}`"
+          :src="
+            `https://api.hayokinsurance.com/image/${encounterDetails.patient.user_image}`
+          "
           alt="Enrollee Image"
           class="enrollee__img"
           onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -26,212 +22,97 @@
         <div class="primary__detail">
           <i class="fas fa-id-card fa-2x icon"></i>
           <p class="id__number primary__detail--text">
-            {{ user.id_card_number }}
+            {{ encounterDetails.patient.id_card_number }}
           </p>
         </div>
         <div class="primary__detail">
-          <i class="fas fa-calendar-times fa-2x icon"></i>
+          <i class="fas fa-phone fa-2x icon"></i>
           <p class="exp__date primary__detail--text">
-            {{ user.expiry_date }}
+            {{ encounterDetails.patient.phone_number }}
           </p>
         </div>
         <div class="primary__detail">
-          <i class="fas fa-clinic-medical fa-2x icon"></i>
+          <i class="far fa-calendar-alt fa-2x icon"></i>
           <p class="facility primary__detail--text">
-            {{ user.userprovider.agency_name }}
+            {{ encounterDetails.patient.dob }}
           </p>
         </div>
         <div class="primary__detail">
-          <i class="fas fa-briefcase fa-2x icon"></i>
-          <p class="mda primary__detail--text">{{ user.place_of_work }}</p>
-        </div>
-        <div class="primary__detail">
-          <i class="fas fa-building fa-2x icon"></i>
-          <p class="hmo primary__detail--text">
-            {{ user.usertpa.organization_name }}
+          <i class="fas fa-venus-mars fa-2x icon"></i>
+          <p class="facility primary__detail--text">
+            {{ encounterDetails.patient.gender }}
           </p>
         </div>
         <div class="primary__detail">
-          <i class="fas fa-cart-plus fa-2x icon"></i>
-          <p class="id__number primary__detail--text">{{ user.plan_type }}</p>
-        </div>
-        <div class="primary__detail">
-          <i class="fas fa-id-card fa-2x icon"></i>
-          <p class="id__number primary__detail--text">{{ user.sector }}</p>
+          <i class="fas fa-hospital fa-2x icon"></i>
+          <p class="mda primary__detail--text">
+            {{ encounterDetails.provider.agency_name }}
+          </p>
         </div>
       </div>
       <div class="user__-details--container-other">
         <div class="user__details-header-and-renewal__CTA">
           <h1 class="other__details--heading">
-            Other Details
+            Services
           </h1>
-          <!-- <router-link :to="`/subscribe/${user.id}`">
-            <button class="btn btn-success renewal__CTA">
-              Renew Plan <i class="fas fa-sync"></i>
-            </button>
-          </router-link> -->
-
-          <!-- Button trigger modal -->
-          <button
-            type="button"
-            class="btn btn-outline-success spacer"
-            data-toggle="modal"
-            data-target="#exampleModal"
-          >
-            Renew Plan <i class="fas fa-sync"></i>
-          </button>
-
-          <!-- Modal -->
-          <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <!-- <h5 class="modal-title" id="exampleModalLabel">
-                    {{ selectedPaymentOption }}
-                  </h5> -->
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <select
-                    name="payment__options"
-                    id=""
-                    required
-                    v-model="selectedPaymentOption"
-                  >
-                    <option value="" disabled selected hidden
-                      >Select Payment Option</option
-                    >
-                    <option value="online"
-                      >Pay Online (With Credit Card)</option
-                    >
-                    <option value="offline">Pay With USSD</option>
-                  </select>
-                </div>
-                <div v-if="selectedPaymentOption === paymentOptions.offline">
-                  <p class="ussd">
-                    <strong
-                      ><p>Dial The Code Below On Your Mobile Phone:</p> </strong
-                    ><br />
-                    *BankCode*SchemeCode*BillerId+UserIdentifier+Amount#<br />
-                    *894*000*506+{{ user.virtual_account }}+
-                    {{ getPlan.plan_cost }}#
-                  </p>
-                  <!-- <p>
-                  </p> -->
-                </div>
-
-                <div
-                  class="col-lg-12"
-                  v-if="selectedPaymentOption === paymentOptions.online"
-                >
-                  <paystack
-                    :amount="totalCost * 100"
-                    :email="user.email"
-                    :paystackkey="paystackkey"
-                    :reference="reference"
-                    :callback="callback"
-                    :first_name="user.firstname"
-                    :last_name="user.lastname"
-                    :phone="user.phone_number"
-                    :close="close"
-                    :embed="false"
-                    v-if="payment_type == 'online'"
-                  >
-                    <button class="btn btn-success btn-block">
-                      Proceed to Pay (Online)
-                    </button>
-                  </paystack>
-
-                  <button
-                    class="btn btn-dark btn-block btn-lg"
-                    v-if="payment_type == 'offline'"
-                    data-toggle="modal"
-                    data-target="#eofflineModal"
-                  >
-                    Pay Offline (USSD)
-                  </button>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    data-dismiss="modal"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <div class="other__details--list">
-          <p class="other__detail">
-            <strong>Date Enrolled: </strong> {{ user.created_at }}
-          </p>
-          <div v-if="user.dependants.length > 0">
-            <p
-              class="other__detail"
-              v-for="(dependant, index) in user.dependants"
-              :key="index"
-            >
-              <strong>Dependent {{ dependentChar(index) }}: </strong>
-              {{ dependant.firstname }}
-              {{ dependant.lastname }}
+        <div v-if="encounterDetails.services">
+          <div
+            class="other__details--list"
+            v-for="service in encounterDetails.services"
+            :key="service.id"
+          >
+            <div v-if="service.drug">
+              <p class="other__detail">
+                <strong>Drug: </strong>
+                {{ service.drug.drug_name }}
+              </p>
+              <p class="other__detail">
+                <strong>Price: </strong>
+                {{ service.drug.price }}
+              </p>
+            </div>
+            <div v-else>
+              <p class="other__detail">
+                <strong>Service: </strong>
+                Chemotherapy
+              </p>
+              <p class="other__detail">
+                <strong>Price: </strong>
+                200000
+              </p>
+            </div>
+            <p class="other__detail">
+              <strong>Reason for visit: </strong>
+              {{ encounterDetails.healthrecord.reasonVisit }}
+            </p>
+            <p class="other__detail">
+              <strong>Test Result: </strong>
+              {{ encounterDetails.healthrecord.testResult }}
+            </p>
+            <p class="other__detail">
+              <strong>Note: </strong>
+              {{ encounterDetails.healthrecord.notes }}
+            </p>
+            <p class="other__detail">
+              <strong>Date & time of visit: </strong>
+              {{ encounterDetails.healthrecord.created_at }}
+            </p>
+            <p class="other__detail">
+              <strong>Desk Officer: </strong>
+              {{ encounterDetails.healthrecord.professional.lastname }}
+              {{ encounterDetails.healthrecord.professional.firstname }}
+            </p>
+            <p class="other__detail">
+              <strong>Desk Officer's Phone Number: </strong>
+              {{ encounterDetails.healthrecord.professional.phone_number }}
             </p>
           </div>
-          <p class="other__detail">
-            <strong>Enrolled By: </strong>
-          </p>
-          <p class="other__detail">
-            <strong>NIMC Number: </strong> {{ user.nimc_number }}
-          </p>
-          <p class="other__detail">
-            <strong>Virtual Account Number: </strong>{{ user.virtual_account }}
-          </p>
-          <p class="other__detail">
-            <strong>Gender: </strong> {{ user.gender }}
-          </p>
-          <p class="other__detail">
-            <strong>Phone Number: </strong> {{ user.phone_number }}
-          </p>
-          <p class="other__detail">
-            <strong>LGA/Ward: </strong>
-            <span v-if="user.local_government != null">{{
-              user.local_government.local_name
-            }}</span>
-            /
-
-            <span v-if="user.ward != null">
-              {{ user.ward.ward_name }}
-            </span>
-          </p>
-          <p class="other__detail">
-            <strong>Date of Birth: </strong> {{ user.dob }}
-          </p>
-          <p class="other__detail">
-            <strong>Expiry Date: </strong> {{ user.expiry_date }}
-          </p>
-          <p class="other__detail">
-            <strong>Marital Status: </strong> {{ user.marital_status }}
-          </p>
-          <p class="other__detail">
-            <strong>MDA:</strong> {{ user.place_of_work }}
-          </p>
-          <p class="other__detail">
-            <strong>Staff ID: </strong> {{ user.salary_number }}
-          </p>
+        </div>
+        <div v-else>
+          <div class="other__details--list">
+            <h2>No Encounter Records</h2>
+          </div>
         </div>
       </div>
     </div>
@@ -251,20 +132,19 @@
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
-import paystack from "vue-paystack";
 
 export default {
   components: {
     Loading,
-    paystack,
   },
   data() {
     return {
-      userIdentifier: "",
-      user: "",
+      encounterDetails: "",
+      patient: "",
       paystackkey: "pk_live_1ec7b33187b214721539e421c5c89cd395502361", //paystack public key
       dependants: [],
       isLoading: false,
+      encounterId: "",
       fullPage: true,
       payment_type: "online",
       selectedPaymentOption: "",
@@ -291,16 +171,15 @@ export default {
   },
 
   methods: {
-    getUserDetails() {
-      console.log(this.userIdentifier);
+    getUserEncounterDetails() {
       this.isLoading = true;
       this.axios
-        .post(`https://api.hayokinsurance.com/api/v1/get-userbyEnrollee`, {
-          identifier: this.userIdentifier,
-        })
+        .get(
+          `https://api.hayokinsurance.com/api/v1/auth/service_summary/${this.$route.params.id}`
+        )
         .then((response) => {
-          this.user = response.data;
-          console.log(this.user);
+          this.encounterDetails = response.data;
+          console.log(this.encounterDetails);
         })
         .catch((error) => {
           console.error(error);
@@ -331,7 +210,7 @@ export default {
             { position: "top-center", duration: 8000 }
           );
           this.isLoading = false;
-          // window.location = "https://www.oshia.ng";
+
           this.$router.push(`/subscribe-success/${this.user.id}`);
         })
         .catch((error) => {
@@ -395,32 +274,20 @@ export default {
       return text;
     },
   },
+
+  created() {
+    this.getUserEncounterDetails();
+  },
 };
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap");
-
-/* * {
-  margin: 0;
-  padding: 0;
-}
-
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-} */
 
 html {
   box-sizing: border-box;
   font-size: 62.5%;
   font-family: "Nunito";
 }
-
-/* .container {
-} */
 
 .heading {
   font-size: 1.3rem;
@@ -468,7 +335,7 @@ select {
 
 .user__details--container {
   height: fit-content;
-  /* background: palegreen; */
+
   display: flex;
 }
 
@@ -481,7 +348,7 @@ select {
 .user__details--container-main {
   display: flex;
   flex-direction: column;
-  /* background: blueviolet; */
+
   padding: 2rem;
   height: fit-content;
   flex: 1;
@@ -502,7 +369,7 @@ select {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border-bottom: 1px solid black; */
+
   border: 1px solid rgba(60, 66, 87, 0.12);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08), 0px 1px 1px rgba(0, 0, 0, 0.04);
   margin-bottom: 1rem;
@@ -540,7 +407,7 @@ select {
 .user__-details--container-other {
   height: fit-content;
   flex: 2;
-  /* background: orangered; */
+
   padding: 2rem;
   box-shadow: 0px 15px 30px rgb(0 0 0 / 8%);
 }
@@ -554,7 +421,11 @@ select {
 .other__detail {
   border-bottom: 1px solid rgba(60, 66, 87, 0.12);
   margin-top: 1rem;
-  /* color: #697386; */
+}
+
+.image__container {
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (max-width: 64rem) /* 1024/16 = 64 rem */ {

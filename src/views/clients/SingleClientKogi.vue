@@ -172,6 +172,31 @@
                                 class="form-control"
                                 v-model="userPayment.amount"
                               />
+                              <div
+                                class="fileinput fileinput-new"
+                                data-provides="fileinput"
+                              >
+                                <span class="btn btn-file">
+                                  <span class="fileinput-new"
+                                    >Upload Picture <i class="fe fe-upload"></i
+                                  ></span>
+                                  <span class="fileinput-exists">Change</span>
+                                  <input
+                                    type="file"
+                                    name="..."
+                                    multiple
+                                    v-on:change="attachPaymentProof"
+                                  />
+                                </span>
+                                <span class="fileinput-filename"></span>
+                                <a
+                                  href="#"
+                                  class="close fileinput-exists"
+                                  data-dismiss="fileinput"
+                                  style="float: none"
+                                  >&times;</a
+                                >
+                              </div>
                             </div>
                             <div class="modal-footer">
                               <button
@@ -374,7 +399,7 @@
                     {{ client.user.phone_number }}
                   </p>
                   <hr />
-                  
+
                   <p class="spacer-top-bottom">
                     <strong>LGA/Ward:</strong>
                     <span v-if="client.local_government != null">{{
@@ -439,6 +464,7 @@
                     <th>S/N</th>
                     <th>Transaction Type</th>
                     <th>Transaction Amount</th>
+                    <th>Transaction Proof</th>
                     <th>Description</th>
                     <th>Date Created</th>
                   </tr>
@@ -451,6 +477,17 @@
                     <td>{{ index + 1 }}</td>
                     <td>{{ trx.type }}</td>
                     <td>&#8358;{{ trx.amount | numeral(0, 0) }}</td>
+                    <td>
+                      <img
+                        :src="
+                          `https://api.hayokinsurance.com/documents/${paymentProofImage}`
+                        "
+                        class="spacer-top-bottom payment__proof"
+                        alt="User Photo"
+                        v-if="paymentProofImage != null"
+                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                      />
+                    </td>
                     <td>{{ trx.description }}</td>
                     <td>{{ trx.created_at | moment("dddd, MMMM Do YYYY") }}</td>
                   </tr>
@@ -560,9 +597,12 @@ export default {
       edit: false,
       isLoading: false,
       fullPage: true,
+      transactionID: "",
       agency_id: "",
       imagefile: "",
       image: "",
+      paymentProofFile: "",
+      paymentProofImage: "",
       output: "",
       singletpa: "",
       pictureShower: true,
@@ -665,22 +705,30 @@ export default {
             transaction_ref: this.randomTransId,
           })
           .then((response) => {
-            console.log(response);
-            this.isLoading = false;
-            this.$toasted.success("Payment Added Successfully", {
-              position: "top-center",
-              duration: 3000,
-            });
+            this.transactionID = response.data.id;
+
+            // this.isLoading = false;
+            // this.$toasted.success("Payment Added Successfully", {
+            //   position: "top-center",
+            //   duration: 3000,
+            // });
             // this.fetchUser()
           })
           .catch((error) => {
             console.error(error);
             this.isLoading = false;
           });
-        console.log("Helloooooooooooooos");
+
         this.userPayment.description = "";
         this.userPayment.amount = "";
       }
+
+      // if (this.transactionID !== "") {
+      //   }
+
+      setTimeout(() => {
+        this.uploadPaymentProof();
+      }, 3000);
     },
 
     changeNumber() {
@@ -727,6 +775,37 @@ export default {
           console.log(response);
           this.isLoading = false;
           this.$toasted.info("Image added Successfully!", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.fetchUser();
+        });
+      console.log(this.client);
+    },
+
+    attachPaymentProof(event) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      console.log(event);
+      this.paymentProofFile = event.target.files[0];
+      console.log(this.paymentProofFile);
+    },
+
+    uploadPaymentProof() {
+      this.isLoading = true;
+      this.user = JSON.parse(localStorage.getItem("user"));
+
+      var formData = new FormData();
+      formData.append("transaction_id", this.transactionID);
+      formData.append("user_id", this.$route.params.id);
+      formData.append("document", this.paymentProofFile);
+
+      this.axios
+        .post("/api/v1/auth/uploadTransactionDocument", formData)
+        .then((response) => {
+          this.paymentProofImage = response.data.document;
+          console.log(response.data.document);
+          this.isLoading = false;
+          this.$toasted.success("Payment Added Successfully", {
             position: "top-center",
             duration: 3000,
           });
@@ -907,6 +986,27 @@ export default {
           // this.getUser()
         });
     },
+    // uploadPaymentProof() {
+    //   this.isLoading = true;
+    //   let snap = localStorage.getItem("snap");
+
+    //   var formData = new FormData();
+    //   formData.append("user_image", snap);
+    //   this.axios
+    //     .post("/api/v1/auth/uploadUserImage", formData, {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     })
+    //     .then((response) => {
+    //       console.log(response);
+    //       this.isLoading = false;
+    //       this.$breadstick.notify("Profile Image changed Successfully!", {
+    //         position: "top-right",
+    //       });
+    //       // this.getUser()
+    //     });
+    // },
   },
   created() {
     this.fetchUser();
@@ -916,7 +1016,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .spacer {
   margin-left: 1px;
   margin-top: 5px;
@@ -942,5 +1042,28 @@ export default {
   width: 500px;
   height: 375px;
   background-color: #666;
+}
+th {
+  text-align: center;
+}
+
+td {
+  width: fit-content;
+  text-align: center;
+}
+
+.payment__proof {
+  width: 20%;
+}
+
+.payment__proof,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: inline-block;
 }
 </style>

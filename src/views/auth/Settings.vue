@@ -140,7 +140,7 @@ export default {
  },
  beforeMount(){
    this.user = JSON.parse(localStorage.getItem('user'))
-   this.axios.get(`/api/v1/auth/user/${this.user.id}`)
+   this.axios.get(`/api/v1/auth/user/zam/${this.user.id}`)
                .then(response => {
                    this.auth_user = response.data.user
                    console.log(response)
@@ -152,7 +152,7 @@ export default {
  methods:{
    getUser(){
      this.user = JSON.parse(localStorage.getItem('user'))
-     this.axios.get(`/api/v1/auth/user/${this.user.id}`)
+     this.axios.get(`/api/v1/auth/user/zam/${this.user.id}`)
                  .then(response => {
                      this.auth_user = response.data.user
                      console.log(response)

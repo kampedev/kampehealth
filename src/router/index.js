@@ -110,6 +110,7 @@ import DuplicateDependents from "../views/clients/DuplicateDependents.vue";
 import DuplicateUsersIDcard from "../views/clients/DuplicateUsersIDcard.vue";
 import DBQuery from "../views/shis/DBQuery.vue";
 import SubscriptionRenewal from "../views/clients/SubscriptionRenewal.vue";
+import EcounterPatientPage from "../views/shis/components/EncounterPatientPage.vue";
 
 Vue.use(VueRouter);
 
@@ -852,6 +853,13 @@ const routes = [
   {
     path: "/plan-renewal",
     component: SubscriptionRenewal,
+    // meta: {
+    //   requiresAuth: true,
+    // },
+  },
+  {
+    path: "/encounter/:id",
+    component: EcounterPatientPage,
     // meta: {
     //   requiresAuth: true,
     // },

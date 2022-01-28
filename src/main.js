@@ -81,8 +81,6 @@ axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("jwt");
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = ''
 
-
-
 Vue.config.productionTip = false;
 
 new Vue({

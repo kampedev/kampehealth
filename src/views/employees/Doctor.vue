@@ -29,7 +29,7 @@
                             </div>
                             <div>
                                 <p class="text-muted text-overline m-0">My Records</p>
-                                <h1 class="fw-400">{{records.meta.total}}</h1>
+                                <!-- <h1 class="fw-400">{{records.meta.total}}</h1> -->
                             </div>
                         </div>
                     </div>

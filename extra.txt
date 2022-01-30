@@ -1,5 +1,7 @@
 
-droplet: hayok4141@Medicare
+hip droplet: hayok4141@Medicare
+
+Ohis droplet: Hayok@123Ohis
 
 email: info@zamchema.gov.ng
 zamfara: Zam41chema#

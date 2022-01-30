@@ -61,8 +61,6 @@
                                            <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
                                          </router-link>
                                          <button type="button" @click="deleteUser(encounter)" class="btn btn-danger"> <i class="fe fe-delete"></i></button>
-
-
                                          </td>
 
                                      </tr>

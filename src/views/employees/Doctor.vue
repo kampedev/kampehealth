@@ -66,11 +66,11 @@
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
-                                <th>Date</th>
+                                <th>Date of Visit</th>
                                 <th>Patient Name</th>
                                 <th>Patient OHIS Number</th>
-                                <!-- <th>Status</th>
-                                <th>Action</th> -->
+                                <!-- <th>Status</th> -->
+                                <th>Action</th> 
 
                             </tr>
                             </thead>
@@ -80,11 +80,12 @@
                                 <td>{{record.patient.firstname}} {{record.patient.lastname}}</td>
                                 <td>{{record.patient.id_card_number}}</td>
 
-                                <!-- <td>
-                                  <router-link :to="{ path: '/appointment/'+ appoint.id}">
-                                  <button type="button" class="btn btn-info" name="button">view</button>
-                                  </router-link>
-                                </td> -->
+                                <td >
+                                           <router-link :to="{ path: '/encounter/'+ record.service.id}">
+                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                         </router-link>
+                                         <!-- <button type="button" @click="deleteUser(encounter)" class="btn btn-danger"> <i class="fe fe-delete"></i></button> -->
+                               </td>
                             </tr>
 
                             </tbody>

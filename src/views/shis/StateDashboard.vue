@@ -41,6 +41,12 @@
             <div class="col-md-12">
               <ClaimsDate />
             </div>
+
+             <div class="col-md-12">
+              <EncounterbyLGA />
+            </div>
+
+
             <div class="col-md-12">
               <EncountersbyDate />
             </div>
@@ -136,6 +142,7 @@ import Footer from "@/views/Footer.vue";
 import InformalSector from "@/views/shis/components/InformalSector.vue";
 import FormalSector from "@/views/shis/components/FormalSector.vue";
 import ClaimsDate from "@/views/shis/components/ClaimsbyDate";
+import EncounterbyLGA from "@/views/shis/components/EncounterbyLGA";
 import EncountersbyDate from "@/views/shis/components/EncountersbyDate";
 import ClaimsCategory from "@/views/shis/components/ClaimStatusChart";
 import ReferralCategory from "@/views/shis/components/ReferralStatusChart";
@@ -152,6 +159,7 @@ export default {
     ReferralCategory,
     ChangeProviderCategory,
     EncountersbyDate,
+    EncounterbyLGA,
   },
 
   data() {

@@ -155,7 +155,7 @@
 
                     <div
                       class="form-group col-md-12"
-                      v-if="record.reasonVisit == 'Laboratory Test'"
+                     
                     >
                       <label for="inputCity">Test Record</label>
                       <!-- <ckeditor :editor="editor" v-model="complaint.description" :config="editorConfig"></ckeditor> -->
@@ -238,7 +238,7 @@ export default {
         reasonVisit: "",
         date_of_visit: "",
         drVisited: "",
-        testResult: "no test conducted",
+        testResult: "No test conducted",
         documents: "no document uploaded",
         medications: "",
         patient_type: "",

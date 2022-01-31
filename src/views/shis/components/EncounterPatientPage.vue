@@ -106,6 +106,7 @@
                                      <thead>
                                      <tr>
                                        <th>Number</th>
+                                       <th>Type</th>
                                        <th>Name</th>
                                        <th>Cost</th>
                                      </tr>
@@ -114,6 +115,10 @@
                                        <tr v-for="(service, index) in encounterDetails.services" v-bind:key="service.id">
 
                                           <td>{{index+1}}</td>
+                                          <td>
+                                            <span v-if="service.service != null ">Service</span>
+                                            <span v-if="service.drug_id != null ">Drug</span>
+                                          </td>
                                            <td>
                                              <span v-if="service.service != null ">{{service.service.description}}</span>
                                               <span v-if="service.drug_id != null ">{{service.drug.drug_name}}</span>
@@ -127,8 +132,13 @@
                                        </tr>
 
                                      <tr>
-                                       <td> <strong>Total Cost of Service</strong></td>
-                                       <!-- <td> <strong>&#8358;{{singleclaim.sum | numeral(0,0)}}</strong></td> -->
+                                      <td> <strong>10% Charged to Customer </strong> </td>
+                                       <td> <strong> &#8358;{{tenPercent | numeral(0,0)}}</strong></td>
+                                     </tr>
+
+                                      <tr>
+                                       <td> <strong>Total Cost of Encounter</strong></td>
+                                       <td> <strong>Total  = &#8358;{{totalServiceCharge | numeral(0,0)}}</strong></td>
                                      </tr>
 
                                      </tbody>
@@ -174,6 +184,19 @@ export default {
     
     };
   },
+  computed:{
+     
+
+       totalServiceCharge(){
+        let total =  this.encounterDetails.total_drug_price + this.encounterDetails.total_service_price
+          return total
+      },
+       tenPercent(){
+         let total = this.encounterDetails.total_drug_price + this.encounterDetails.total_service_price
+          let calc  =  total * 0.1
+          return calc 
+      },
+  },
 
   methods: {
     getUserEncounterDetails() {
@@ -199,9 +222,6 @@ export default {
   
   },
 
-  computed: {
-    //
-  },
 
   created() {
     this.getUserEncounterDetails();

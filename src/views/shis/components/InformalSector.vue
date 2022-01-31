@@ -174,7 +174,7 @@
                               <router-link :to="{ path: '/my-encounters'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
-                                        <i class="fe fe-credit-card"></i>
+                                        <i class="fe fe-file-plus"></i>
                                     </div>
                                 </div>
                               </router-link>

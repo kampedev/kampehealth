@@ -111,7 +111,12 @@
 
 
 
-                    <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
+                    <p class="spacer-top-bottom" >
+                      <span v-if="singletpa != ''">
+                            <strong>HMO:</strong> {{singletpa.organization_name}}
+                      </span>
+                      
+                      </p>
                     <hr>
 
                     <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
@@ -167,7 +172,11 @@
                                   <span >{{record.healthrecord.reasonVisit}}</span>
                                  </td>
                                  <td>{{record.provider.agency_name}}</td>
-                                 <td>{{record.healthrecord.professional.firstname}}</td>
+                                 <td>
+                                   <span v-if="record.professional != null  ">
+                                     {{record.healthrecord.professional.firstname}}
+                                   </span>
+                                </td>
                                  <td>{{record.diagnosis.name}}</td>
                                  <td>
                                      <router-link :to="{ path: '/encounter/'+ record.id}">

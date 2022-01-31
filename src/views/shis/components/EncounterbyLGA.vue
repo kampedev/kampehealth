@@ -24,7 +24,7 @@ export default {
     },
     methods:{
         getDashboardLGA(){
-      this.axios.get('/api/v1/auth/dashboardlgainformal/2676')
+      this.axios.get('/api/v1/auth/encountersbylga/2676')
       .then(response => {
         // console.log(response.data);
         var data = response.data;
@@ -36,10 +36,10 @@ export default {
                             type: 'column'
                         },
                         title: {
-                            text: 'Basic Healthcare Provision Fund'
+                            text: 'Encounter Distribution Chart'
                         },
                         subtitle: {
-                            text: 'Click the columns to view wards.'
+                            text: 'Click the columns to view the breakdown in the local government based on facility.'
                         },
                         accessibility: {
                             announceNewData: {
@@ -51,12 +51,9 @@ export default {
                         },
                         yAxis: {
                             title: {
-                                text: 'NUMBERS OF VULNERABLE ENROLLED'
+                                text: 'NUMBERS OF ENCOUNTER VISIT'
                             }
 
-            // STATE CIVIL HEALTH CARE PLAN
-            // NUMBER OF STATE CIVIL SERVANT ENROLLED
-            // FACILTY DISTRIBUTION
                         },
                         legend: {
                             enabled: false

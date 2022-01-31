@@ -68,13 +68,10 @@
                   <div class="card-body row">
 
                     <div class="col-md-4">
-                      <vue-initials-img :name="client.firstname+' '+client.lastname" class="img-thumbnail" size="300" v-if="client.user_image == null " />
-                      <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo" v-if="client.user_image != null ">
-                      <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null "> -->
-                      <!-- <p class="btn btn-default spacer-top-bottom">
-                                   <button type="button"  name="button"> Enrollment Card </button>
-                                 </p> -->
-
+                      <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo"
+                      onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                      >
+                     
                     </div>
 
                     <div class="col-md-8">
@@ -158,6 +155,7 @@
                                 <th>Healthcare Provider</th>
                                 <th>Attending Professional</th>
                                 <th>Diagnosis</th>
+                                <th>Action</th>
 
                             </tr>
                             </thead>
@@ -171,6 +169,11 @@
                                  <td>{{record.provider.agency_name}}</td>
                                  <td>{{record.healthrecord.professional.firstname}}</td>
                                  <td>{{record.diagnosis.name}}</td>
+                                 <td>
+                                     <router-link :to="{ path: '/encounter/'+ record.id}">
+                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                         </router-link>
+                                 </td>
                                 <!-- <td>
                                   <button class="btn btn-danger" name="button" @click="deleteService(service)"><i class="fe fe-delete"></i> </button>
                                 </td> -->
@@ -245,7 +248,7 @@
 
     beforeMount() {
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+      this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
         .then(response => {
           this.client = response.data.user
           console.log(response)
@@ -268,7 +271,7 @@
 
       fetchUser() {
         this.user = JSON.parse(localStorage.getItem('user'))
-        this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+        this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
           .then(response => {
             this.client = response.data.user
             console.log(response)

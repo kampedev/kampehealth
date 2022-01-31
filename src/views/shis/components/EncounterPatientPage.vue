@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+<section class="admin-content " id="contact-search">
+    <Navbar/>
+  <main class="admin-main">
     <div class="jumbotron">
       <h1 class="heading">Patient Details</h1>
     </div>
@@ -53,35 +55,17 @@
       <div class="user__-details--container-other">
         <div class="user__details-header-and-renewal__CTA">
           <h1 class="other__details--heading">
-            Services
+            Encounter Details
           </h1>
         </div>
+
         <div v-if="encounterDetails.services">
           <div
             class="other__details--list"
-            v-for="service in encounterDetails.services"
-            :key="service.id"
+           
           >
-            <div v-if="service.drug">
-              <p class="other__detail">
-                <strong>Drug: </strong>
-                {{ service.drug.drug_name }}
-              </p>
-              <p class="other__detail">
-                <strong>Price: </strong>
-                {{ service.drug.price }}
-              </p>
-            </div>
-            <div v-else>
-              <p class="other__detail">
-                <strong>Service: </strong>
-                Chemotherapy
-              </p>
-              <p class="other__detail">
-                <strong>Price: </strong>
-                200000
-              </p>
-            </div>
+           
+           
             <p class="other__detail">
               <strong>Reason for visit: </strong>
               {{ encounterDetails.healthrecord.reasonVisit }}
@@ -96,7 +80,7 @@
             </p>
             <p class="other__detail">
               <strong>Date & time of visit: </strong>
-              {{ encounterDetails.healthrecord.created_at }}
+              {{ encounterDetails.healthrecord.date_of_visit }}
             </p>
             <p class="other__detail">
               <strong>Desk Officer: </strong>
@@ -114,6 +98,44 @@
             <h2>No Encounter Records</h2>
           </div>
         </div>
+
+
+         <div class="card table-responsive">
+           <strong class="h4 text-center card-header"> Service/Drugs Administered During Encounter</strong>
+                                 <table class="table align-td-middle table-card">
+                                     <thead>
+                                     <tr>
+                                       <th>Number</th>
+                                       <th>Name</th>
+                                       <th>Cost</th>
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                       <tr v-for="(service, index) in encounterDetails.services" v-bind:key="service.id">
+
+                                          <td>{{index+1}}</td>
+                                           <td>
+                                             <span v-if="service.service != null ">{{service.service.description}}</span>
+                                              <span v-if="service.drug_id != null ">{{service.drug.drug_name}}</span>
+                                            </td>
+                                           <td>
+                                            <span v-if="service.service != null "> &#8358;{{service.service.price | numeral(0,0)}}</span>
+                                            <span  v-if="service.drug_id != null "> &#8358;{{service.drug.price | numeral(0,0)}}</span>
+                                             
+                                             </td>
+
+                                       </tr>
+
+                                     <tr>
+                                       <td> <strong>Total Cost of Service</strong></td>
+                                       <!-- <td> <strong>&#8358;{{singleclaim.sum | numeral(0,0)}}</strong></td> -->
+                                     </tr>
+
+                                     </tbody>
+                                 </table>
+
+                             </div>
+
       </div>
     </div>
     <div class="vld-parent">
@@ -124,24 +146,24 @@
         :is-full-page="fullPage"
       ></loading>
     </div>
-  </div>
+  </main>
+  </section>
 </template>
 
 <script>
-// import Loading from "vue-loading-overlay/dist/vue-loading.css";
+  import Navbar from '@/views/Navbar.vue'
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   components: {
-    Loading,
+    Loading, Navbar
   },
   data() {
     return {
       encounterDetails: "",
       patient: "",
-      paystackkey: "pk_live_1ec7b33187b214721539e421c5c89cd395502361", //paystack public key
       dependants: [],
       isLoading: false,
       encounterId: "",
@@ -149,24 +171,7 @@ export default {
       payment_type: "online",
       selectedPaymentOption: "",
       paymentOptions: { online: "online", offline: "offline" },
-      selected_plan: [
-        {
-          id: 1,
-          plan_name: "Individual",
-          description:
-            "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to cheap and qualititative healthcare coverage. It allows no depandent(s).",
-          plan_cost: 12066,
-          fee: 280.99,
-        },
-        {
-          id: 2,
-          plan_name: "Family",
-          description:
-            " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to cheap and qualititative healthcare coverage. It allows a Maximum of 5-depandent(s).",
-          plan_cost: 57600,
-          fee: 964.0,
-        },
-      ],
+    
     };
   },
 
@@ -175,7 +180,7 @@ export default {
       this.isLoading = true;
       this.axios
         .get(
-          `https://api.hayokinsurance.com/api/v1/auth/service_summary/${this.$route.params.id}`
+          `/api/v1/auth/service_summary/${this.$route.params.id}`
         )
         .then((response) => {
           this.encounterDetails = response.data;
@@ -191,88 +196,11 @@ export default {
       return String.fromCharCode("A".charCodeAt(0) + index);
     },
 
-    makeSubscribe() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.isLoading = true;
-      this.axios
-        .post("/api/v1/make/transaction", {
-          agency_id: 95930,
-          amount: this.getPlan.plan_cost,
-          description: "OHIS Plan Payment",
-          type: "plan_payment",
-          transaction_ref: this.reference,
-          user_id: this.user.id,
-        })
-        .then((response) => {
-          console.log(response);
-          this.$toasted.info(
-            "Congratulations you have successfully enrolled to O'HIS",
-            { position: "top-center", duration: 8000 }
-          );
-          this.isLoading = false;
-
-          this.$router.push(`/subscribe-success/${this.user.id}`);
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
-    },
-
-    sendSMS() {
-      this.isLoading = true;
-      this.axios
-        .post(`https://app.multitexter.com/v2/app/sms`, {
-          email: "wearegrumie@gmail.com",
-          password: "AGYkh.EUddNx4j@",
-          message: this.sms_message,
-          sender_name: "OHIS",
-          recipients: this.user.phone_number,
-        })
-        .then((response) => {
-          console.log(response);
-
-          this.isLoading = false;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading = false;
-        });
-    },
-
-    close: function() {
-      console.log("Payment closed");
-    },
-
-    callback: function(response) {
-      this.sendSMS();
-      this.makeSubscribe();
-      console.log(response);
-    },
+  
   },
 
   computed: {
-    getPlan() {
-      let formatter = this.selected_plan.filter(
-        (x) => x.plan_name == this.user.plan_type
-      );
-      console.log(formatter);
-      return formatter[0];
-    },
-
-    totalCost() {
-      return this.getPlan.plan_cost + this.getPlan.fee;
-    },
-
-    reference() {
-      let text = "";
-      let possible =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-      for (let i = 0; i < 100; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-      return text;
-    },
+    //
   },
 
   created() {

@@ -765,10 +765,10 @@
             </a>
             <!--submenu-->
             <ul class="sub-menu">
-              <!-- <li class="menu-item">
-                                    <router-link to="/quality-assurance" class=" menu-link">
+              <li class="menu-item">
+                                    <router-link to="/manage-diagnosis" class=" menu-link">
                                                     <span class="menu-label">
-                                                            <span class="menu-name">Quality Assurance
+                                                            <span class="menu-name">Disease List
                                                             </span>
                                                         </span>
                                         <span class="menu-icon">
@@ -776,7 +776,7 @@
                                                                 <i class="icon-placeholder  fe fe-check-circle"></i>
                                                         </span>
                                     </router-link>
-                                </li> -->
+                                </li>
               <li class="menu-item">
                 <router-link to="/transfer-of-hcp" class=" menu-link">
                   <span class="menu-label">

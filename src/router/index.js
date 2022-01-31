@@ -111,6 +111,7 @@ import DuplicateUsersIDcard from "../views/clients/DuplicateUsersIDcard.vue";
 import DBQuery from "../views/shis/DBQuery.vue";
 import SubscriptionRenewal from "../views/clients/SubscriptionRenewal.vue";
 import EcounterPatientPage from "../views/shis/components/EncounterPatientPage.vue";
+import ManageDiagnosis from "../views/shis/ManageDiagnosis.vue";
 
 Vue.use(VueRouter);
 
@@ -860,9 +861,16 @@ const routes = [
   {
     path: "/encounter/:id",
     component: EcounterPatientPage,
-    // meta: {
-    //   requiresAuth: true,
-    // },
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/manage-diagnosis",
+    component: ManageDiagnosis,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/duplicate-id-card",

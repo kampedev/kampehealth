@@ -155,6 +155,7 @@
                                 <th>Healthcare Provider</th>
                                 <th>Attending Professional</th>
                                 <th>Diagnosis</th>
+                                <th>Action</th>
 
                             </tr>
                             </thead>
@@ -168,6 +169,11 @@
                                  <td>{{record.provider.agency_name}}</td>
                                  <td>{{record.healthrecord.professional.firstname}}</td>
                                  <td>{{record.diagnosis.name}}</td>
+                                 <td>
+                                     <router-link :to="{ path: '/encounter/'+ record.id}">
+                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                         </router-link>
+                                 </td>
                                 <!-- <td>
                                   <button class="btn btn-danger" name="button" @click="deleteService(service)"><i class="fe fe-delete"></i> </button>
                                 </td> -->

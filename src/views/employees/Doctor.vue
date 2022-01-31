@@ -66,6 +66,7 @@
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
+                                <th>Encounter ID</th>
                                 <th>Date of Visit</th>
                                 <th>Patient Name</th>
                                 <th>Patient OHIS Number</th>
@@ -76,7 +77,10 @@
                             </thead>
                             <tbody>
                             <tr v-for="record in records.data" v-bind:key="record.id">
-                                <td>{{record.created_at | moment("dddd, MMMM Do YYYY")}}</td>
+                              <td>
+                                {{record.encounter_id}}
+                              </td>
+                                <td>{{record.date_of_visit | moment("dddd, MMMM Do YYYY")}}</td>
                                 <td>{{record.patient.firstname}} {{record.patient.lastname}}</td>
                                 <td>{{record.patient.id_card_number}}</td>
 

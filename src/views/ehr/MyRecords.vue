@@ -45,19 +45,25 @@
                                      <thead>
                                      <tr>
                                        
+                                         <th>Encounter ID</th>
                                          <th>Patient</th>
                                          <th>Reason for Visit</th>
                                          <th>Medical Diagnosis</th>
-                                         <th>Date</th>
+                                         <th>Date of Visit</th>
+                                         <th>Action</th>
                                      </tr>
                                      </thead>
                                      <tbody>
                                      <tr v-for="record in records" v-bind:key="record.id">
                                         
+                                         <td > {{record.encounter_id}}</td>
                                          <td> {{record.patient.full_name}}</td>
                                          <td>{{record.reasonVisit}}</td>
                                          <td>{{record.service.diagnosis.name}}</td>
-                                         <td>{{record.created_at}}</td>
+                                         <td>{{record.date_of_visit}}</td>
+                                           <router-link :to="{ path: '/encounter/'+ record.service.id}">
+                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                         </router-link>
 
                                      </tr>
 
@@ -95,21 +101,27 @@
                                      <thead>
                                      <tr>
                                        
+                                         <th>Encounter ID</th>
                                          <th>Patient</th>
                                          <th>Facility</th>
                                          <th>Reason for Visit</th>
                                          <th>Medical Diagnosis</th>
                                          <th>Date</th>
+                                         <th>Action</th>
                                      </tr>
                                      </thead>
                                      <tbody>
                                      <tr v-for="record in records" v-bind:key="record.id">
                                         
+                                         <td > {{record.encounter_id}}</td>
                                          <td > {{record.patient.full_name}}</td>
                                          <td > {{record.provider.agency_name}}</td>
                                          <td >{{record.healthrecord.reasonVisit}}</td>
                                          <td>{{record.diagnosis.name}}</td>
-                                         <td>{{record.created_at}}</td>
+                                         <td>{{record.date_of_visit}}</td>
+                                           <router-link :to="{ path: '/encounter/'+ record.service.id}">
+                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                         </router-link>
 
                                      </tr>
 

@@ -117,7 +117,7 @@
                                            <b> ({{client.id_card_number}}) </b> </td>
                                          <td>{{client.phone_number}}</td>
                                          <td>
-                                            {{client.userprovider.agency_name}}
+                                           <span v-if="client.userprovider != null">  {{client.userprovider.agency_name}}</span>
                                          </td>
                                          <td>
                                            {{client.created_at}} 

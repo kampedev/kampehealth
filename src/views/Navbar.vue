@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-pinned ">
+  <div class="sidebar-pinned" >
     <aside class="admin-sidebar">
       <div class="admin-sidebar-brand">
         <!-- begin sidebar branding-->

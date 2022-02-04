@@ -691,7 +691,7 @@
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
                 <span class="menu-name"
-                  >Services and Consultancy Manager
+                  >Services Manager
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -703,7 +703,7 @@
             <ul class="sub-menu">
              
               <li class="menu-item">
-                <router-link to="/list-records" class=" menu-link">
+                <router-link to="/my-encounters" class=" menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Encounters Management</span>
                   </span>
@@ -735,7 +735,7 @@
                 </router-link>
               </li>
 
-              <li class="menu-item">
+              <!-- <li class="menu-item">
                 <router-link to="/service-summary-form" class=" menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Encounter Attendance Form </span>
@@ -744,7 +744,8 @@
                     <i class="icon-placeholder mdi mdi-view-day "></i>
                   </span>
                 </router-link>
-              </li>
+              </li> -->
+
             </ul>
           </li>
 

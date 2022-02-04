@@ -12,7 +12,8 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <strong class="h4">{{encounters.meta.total}} Encounters</strong>
+                       <!-- <strong class="h4">{{encounters.meta.total}} Encounters</strong> -->
+                       <strong class="h4">Manage Encounters</strong>
 
                    </div>
 

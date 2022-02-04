@@ -13,6 +13,12 @@
                     <h5 class="spacer-top">Hello, <span v-if="auth_user.job_title == 'Doctor'">Dr.</span> {{auth_user.firstname}} {{auth_user.lastname}}</h5>
                 </div>
 
+                <div class="col-md-12">
+                  <button class="btn btn-primary" @click="addRecordOffline" >add</button>
+                  {{hospital_records[0].diseases }}
+                  <!-- <p v-for="record in records" v-bind:key="record.id">{{record.clients[0]}} </p> -->
+                </div>
+                
                 <div class="col-lg-6 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
@@ -119,6 +125,8 @@ export default {
   data(){
     return{
       auth_user:"",
+      hospital_records:"",
+      diseases:"",
       records:"",
       clients:"",
       wallet:"",
@@ -154,8 +162,17 @@ export default {
                       console.error(error);
                   })
     },
-
-
+    getDiagnosis(){
+       this.axios
+      .get(`/api/v1/auth/diagnosis-agency/95930`)
+      .then((response) => {
+        this.diseases = response.data;
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    },
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
@@ -167,10 +184,102 @@ export default {
                       console.error(error);
                   })
     },
+     async SetDB() {
+	this.db = await this.getDb();
+	this.hospital_records = await this.getDataFromDb();
+	this.ready = true;
+},
+
+  async getDb() {
+
+    const DB_NAME = 'hospital_data';
+    const DB_VERSION = 1;
+// let DB;
+
+	return new Promise((resolve, reject) => {
+
+	let request = window.indexedDB.open(DB_NAME, DB_VERSION);
+	
+	request.onerror = e => {
+		console.log('Error opening db', e);
+		reject('Error');
+	};
+
+	request.onsuccess = e => {
+		resolve(e.target.result);
+	};
+	
+	request.onupgradeneeded = e => {
+		console.log('onupgradeneeded');
+		let db = e.target.result;
+		let objectStore = db.createObjectStore("hospital_records", { autoIncrement: true, keyPath:'id' });
+    objectStore
+	};
+	});
+},
+ 
+    async getDataFromDb() {
+	return new Promise((resolve, reject) => {
+    reject
+		let trans = this.db.transaction(['hospital_records'],'readonly');
+		trans.oncomplete = e => {
+			resolve(hospital_records);
+      e
+		};
+		
+		let store = trans.objectStore('hospital_records');
+		let hospital_records = [];
+		
+		store.openCursor().onsuccess = e => {
+			let cursor = e.target.result;
+			if (cursor) {
+				hospital_records.push(cursor.value)
+				cursor.continue();
+			}
+		};
+
+	});
+},
+
+      async addRecordOffline() {
+	// this.addDisabled = true;
+	
+  let clients = this.clients
+  let diseases = this.diseases
+ 
+  let hospital_records = {
+    clients: clients,
+    diseases: diseases,
+   
+  }
+	console.log('about to add '+JSON.stringify(hospital_records));
+	await this.addCatToDb(hospital_records);
+	this.hospital_records = await this.getDataFromDb();
+	// this.addDisabled = false;      
+   this.isLoading= false
+            
+},
+        async addCatToDb(hospital_records) {
+      return new Promise((resolve, reject) => {
+        reject
+      let trans = this.db.transaction(['hospital_records'],'readwrite');
+      trans.oncomplete = e => {
+        resolve();
+        e
+      };
+
+      let store = trans.objectStore('hospital_records');
+      store.add(hospital_records);
+
+      });
+    },
   },
   created(){
     this.getRecords()
     this.getClients()
+    this.getDiagnosis()
+    this.SetDB()
+    this.getDataFromDb()
 
   }
 }

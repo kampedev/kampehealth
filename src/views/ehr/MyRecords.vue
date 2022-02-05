@@ -7,24 +7,9 @@
                <div class="row p-b-60 p-t-60">
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
-                       <div class="m-b-10">
-                           <div class="avatar ">
-                               <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-                           </div>
-                       </div>
+                      
                        <h3>My Records</h3>
-                       <!-- <div class="form-dark">
-                           <div class="input-group input-group-flush mb-3">
-                               <input placeholder="Filter Clients" type="search"
-                                      class="form-control form-control-lg search form-control-prepended">
-                               <div class="input-group-prepend">
-                                   <div class="input-group-text">
-                                       <i class="mdi mdi-magnify"></i>
-                                   </div>
-                               </div>
-                           </div>
-                       </div> -->
-
+                      
                    </div>
 
 
@@ -34,128 +19,53 @@
        <section class="">
            <div class="container">
 
-               <div class="row list" v-if=" user.type == 'provider'  ||  user.type == 'provider_employee' ">
-                   <div class="col-lg-12 col-md-8">
-                       <div class="card m-b-30">
+        <div class="col-md-12 form-group" v-if="user.type == 'provider_employee'">
+            <button
+              type="button"
+              :class="buttoncolor.online"
+              @click="showOnline"
+            >
+              Online <i class="fe fe-wifi"></i>
+            </button>
+            <button
+              type="button"
+              :class="buttoncolor.offline"
+              @click="showOffline"
+            >
+              Offline <i class="fe fe-wifi-off"></i>
+            </button>
+          </div>
 
-                           <div class="card-body">
+          <div class="col-md-12" v-show="online_S">
+                <MyRecordsOnline/>
+          </div>
 
-                             <div class="table-responsive">
-                                 <table class="table align-td-middle table-card">
-                                     <thead>
-                                     <tr>
-                                       
-                                         <th>Encounter ID</th>
-                                         <th>Patient</th>
-                                         <th>Reason for Visit</th>
-                                         <th>Medical Diagnosis</th>
-                                         <th>Date of Visit</th>
-                                         <th>Action</th>
-                                     </tr>
-                                     </thead>
-                                     <tbody>
-                                     <tr v-for="record in records" v-bind:key="record.id">
-                                        
-                                         <td > {{record.encounter_id}}</td>
-                                         <td> {{record.patient.full_name}}</td>
-                                         <td>{{record.reasonVisit}}</td>
-                                         <td>{{record.service.diagnosis.name}}</td>
-                                         <td>{{record.date_of_visit}}</td>
-                                           <router-link :to="{ path: '/encounter/'+ record.service.id}">
-                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
-                                         </router-link>
-
-                                     </tr>
+          <div class="col-md-12" v-show="offline_S">
+                <MyRecordsOffline/>
+          </div>
 
 
-                                     </tbody>
-                                 </table>
+             
 
-                             </div>
-
-
-                           </div>
-                       </div>
-                   </div>
-
-
-
-                   <div class="vld-parent">
-                        <loading :active.sync="isLoading"
-                        loader="dots"
-                        :can-cancel="true"
-                        :is-full-page="fullPage"></loading>
-                    </div>
-
-
-               </div>
-
-               <div class="row list" v-if=" user.type == 'shis'  ||  user.type == 'employee' ">
-                   <div class="col-lg-12 col-md-8">
-                       <div class="card m-b-30">
-
-                           <div class="card-body">
-
-                             <div class="table-responsive">
-                                 <table class="table align-td-middle table-card">
-                                     <thead>
-                                     <tr>
-                                       
-                                         <th>Encounter ID</th>
-                                         <th>Patient</th>
-                                         <th>Facility</th>
-                                         <th>Reason for Visit</th>
-                                         <th>Medical Diagnosis</th>
-                                         <th>Date</th>
-                                         <th>Action</th>
-                                     </tr>
-                                     </thead>
-                                     <tbody>
-                                     <tr v-for="record in records" v-bind:key="record.id">
-                                        
-                                         <td > {{record.encounter_id}}</td>
-                                         <td > {{record.patient.full_name}}</td>
-                                         <td > {{record.provider.agency_name}}</td>
-                                         <td >{{record.healthrecord.reasonVisit}}</td>
-                                         <td>{{record.diagnosis.name}}</td>
-                                         <td>{{record.date_of_visit}}</td>
-                                           <router-link :to="{ path: '/encounter/'+ record.service.id}">
-                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
-                                         </router-link>
-
-                                     </tr>
-
-
-                                     </tbody>
-                                 </table>
-
-                             </div>
-
-
-                           </div>
-                       </div>
-                   </div>
-
-
-
-                   <div class="vld-parent">
-                        <loading :active.sync="isLoading"
-                        loader="dots"
-                        :can-cancel="true"
-                        :is-full-page="fullPage"></loading>
-                    </div>
-
-
-               </div>
+              
            </div>
 
        </section>
        </main>
+        <div class="vld-parent">
+                        <loading :active.sync="isLoading"
+                        loader="dots"
+                        :can-cancel="true"
+                        :is-full-page="fullPage"></loading>
+                    </div>
+
    </section>
 </template>
 
 <script>
   import Navbar from '@/views/Navbar.vue'
+  import MyRecordsOnline from './MyRecordsOnline.vue'
+  import MyRecordsOffline from './MyRecordsOffline.vue'
   // Import component
      import Loading from 'vue-loading-overlay';
      // Import stylesheet
@@ -164,14 +74,20 @@
 
 export default {
   components: {
-     Navbar, Loading
+     Navbar, Loading, MyRecordsOffline, MyRecordsOnline
   },
   data(){
     return{
       isLoading: false,
       fullPage: true,
+      online_S: true,
+      offline_S: false,
       user: null,
       records:"",
+       buttoncolor: {
+        offline: "btn btn-default",
+        online: "btn btn-info",
+      },
      
     }
   },
@@ -180,6 +96,19 @@ export default {
   
   },
   methods:{
+
+      showOnline() {
+      this.online_S = true;
+      this.offline_S = false;
+      this.buttoncolor.online = "btn btn-info";
+      this.buttoncolor.offline = "btn btn-default";
+    },
+    showOffline() {
+      this.online_S = false;
+      this.offline_S = true;
+      this.buttoncolor.online = "btn btn-default";
+      this.buttoncolor.offline = "btn btn-info";
+    },
     getRecords(){
     this.user = JSON.parse(localStorage.getItem('user'))
 

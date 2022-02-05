@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar-pinned ">
+      
 
 <header class="admin-header">
 
@@ -13,6 +14,7 @@
                     <i class=" mdi mdi-magnify mdi-24px align-middle"></i>
                 </a>
             </li> -->
+            
             <li class="nav-item">
               <SearchUser/>
             </li>
@@ -58,6 +60,7 @@
                     </div> -->
                 <!-- </div>
             </li> -->
+            
               <li class="nav-item">
                 <button type="button" @click="toggleFull"  class="btn btn-default"><i class="fe fe-maximize"></i></button>
               </li>

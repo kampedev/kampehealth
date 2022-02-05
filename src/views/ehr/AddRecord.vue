@@ -13,7 +13,7 @@
               </div>
               <!-- <h3>Add Record</h3> -->
 
-              <strong class="h4">Add Employee</strong>
+              <strong class="h4">Add Record</strong>
             </div>
           </div>
         </div>

@@ -5,7 +5,10 @@
         <div class="container">
          
             <div class="col-md-12 form-group" >  
-                <button class="btn m-b-15 ml-2 mr-2 btn-outline-info">
+                <button 
+                data-toggle="modal"
+                 data-target="#slideRightModalAll"
+                class="btn m-b-15 ml-2 mr-2 btn-outline-info">
                 View All Codes <i class="fe fe-mail"> </i>
                 </button>
             </div>
@@ -77,6 +80,7 @@
 
 
           <div class="row list">
+
            
 
             <!-- Modal -->
@@ -206,9 +210,74 @@
                     >
                       Close
                     </button>
-                    <button type="button" class="btn btn-primary">
-                      Save changes
+                    <button type="button" 
+                    @click="copyText"
+                    class="btn btn-outline-primary spacer">
+                      Copy Code <i class="fe fe-copy"> </i>
                     </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--End of Modal -->
+
+            
+            <!-- Modal -->
+            <div
+              class="modal fade modal-slide-right"
+              id="slideRightModalAll"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="slideRightModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content" id="printDiv" ref="printNow">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="slideRightModalLabel">
+                      All Encounter Short Codes
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+
+                    <div class="form-group h5" v-for="(record, index) in hospital_records"  v-bind:key="record.id">
+                   ({{index+1}}) EC{{user.institutional_id}}/{{record.patient_id.id}}-{{record.diagnosis.id}}/{{record.date_of_visit  | moment("YYYYMMDD")}}-{{record.date_of_admission| moment("YYYYMMDD")}}-{{record.date_of_discharge| moment("YYYYMMDD")}}/
+                    <a v-for="drug in record.drug_id" v-bind:key="drug">{{drug}},0</a>/<a v-for="service in record.services_id" v-bind:key="service">{{service}},0</a>/{{record.reasonVisit.charAt(0)}}{{user.id}}
+                   
+                   <br/>
+                   <hr/>
+
+                   
+                    </div>
+
+                  </div>
+
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      class="btn btn-outline-primary spacer"
+                      @click="printMe"
+                    >
+                      Print <i class="fe fe-printer"></i>
+                    </button>
+
+                   
                   </div>
                 </div>
               </div>
@@ -413,6 +482,13 @@ export default {
           }
         };
       });
+    },
+    printMe() {
+      var printContents = document.getElementById("printDiv").innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
     },
   },
   created() {

@@ -85,7 +85,7 @@
                       </div>
                       <div class="row col-md-12" v-if="record.patient_id != ''">
                         <div class="form-group col-md-6">
-                          <label for="inputCity">Client Surname</label>
+                          <label for="inputCity">Client Full Name</label>
                           <input
                             type="text"
                             class="form-control"

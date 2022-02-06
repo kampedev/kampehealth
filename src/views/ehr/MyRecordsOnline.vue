@@ -9,7 +9,7 @@
                <h3>My Records</h3>
 
                <div class="row list" v-if=" user.type == 'provider'  ||  user.type == 'provider_employee' ">
-                   <div class="col-lg-12 col-md-8">
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
 
                            <div class="card-body">
@@ -65,7 +65,8 @@
                </div>
 
                <div class="row list" v-if=" user.type == 'shis'  ||  user.type == 'employee' ">
-                   <div class="col-lg-12 col-md-8">
+                   
+                   <div class="col-lg-12 col-md-12">
                        <div class="card m-b-30">
 
                            <div class="card-body">

@@ -121,11 +121,11 @@
                                           </td>
                                            <td>
                                              <span v-if="service.service != null ">{{service.service.description}}</span>
-                                              <span v-if="service.drug_id != null ">{{service.drug.drug_name}}</span>
+                                              <span v-if="service.drug != null ">{{service.drug.drug_name}}</span>
                                             </td>
                                            <td>
                                             <span v-if="service.service != null "> &#8358;{{service.service.price | numeral(0,0)}}</span>
-                                            <span  v-if="service.drug_id != null "> &#8358;{{service.drug.price | numeral(0,0)}}</span>
+                                            <span  v-if="service.drug != null "> &#8358;{{service.drug.price | numeral(0,0)}}</span>
                                              
                                              </td>
 

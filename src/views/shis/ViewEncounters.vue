@@ -189,7 +189,9 @@ export default {
           })
           .then((response) => {
             console.log(response);
-            this.getEncounters();
+             this.getEncounters();
+            // let encounter_id = response.data.service_summary.id
+            //  this.$router.push(`/encounter/${encounter_id}`);
             this.string_data = "";
             this.isLoading = false
             this.$toasted.info("Encounted submitted Successfully!", {

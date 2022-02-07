@@ -5,6 +5,7 @@ import Zarota from "../views/Zarota.vue";
 import GetAccount from "../views/auth/GetAccount.vue";
 import Privacy from "../views/auth/Privacy.vue";
 import Login from "../views/auth/Login.vue";
+import OfflineHome from "../views/auth/OfflineHome.vue";
 import Pusher from "../views/auth/Pusher.vue";
 import SelectType from "../views/auth/SelectType.vue";
 import SignupClient from "../views/auth/SignupClient.vue";
@@ -125,6 +126,11 @@ const routes = [
   {
     path: "/zarota",
     component: Zarota,
+  },
+
+  {
+    path: "/offline",
+    component: OfflineHome,
   },
   {
     path: "/activate-account",

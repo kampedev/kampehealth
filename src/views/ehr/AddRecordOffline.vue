@@ -250,6 +250,13 @@
                         <button class="btn btn-primary btn-block btn-lg">
                           Submit
                         </button>
+
+                       <div class="col-md-12">
+                           <a href="/offline"
+                           style="margin-top:10px;"
+                        class="btn btn-outline-info btn-block btn-lg"
+                        >View Records </a>
+                       </div>
                       </div>
                     </div>
                   </div>

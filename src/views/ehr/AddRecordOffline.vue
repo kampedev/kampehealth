@@ -114,13 +114,13 @@
                           />
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputCity">Phone Number</label>
+                          <label for="inputCity">Enrollee TPA</label>
                           <input
                             disabled
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            v-model="record.patient_id.phone_number"
+                            v-model="record.patient_id.usertpa.organization_name"
                           />
                         </div>
                       </div>
@@ -250,6 +250,13 @@
                         <button class="btn btn-primary btn-block btn-lg">
                           Submit
                         </button>
+
+                       <div class="col-md-12">
+                           <a href="/offline"
+                           style="margin-top:10px;"
+                        class="btn btn-outline-info btn-block btn-lg"
+                        >View Records </a>
+                       </div>
                       </div>
                     </div>
                   </div>
@@ -335,25 +342,7 @@ export default {
     
   },
   computed:{
-
-    // getSelectedDrugs(){
-     
-    //  if (this.record.drug_id != '') {
-       
-    //     var array1 =  this.drugs
-    //    var array2 =   this.record.drug_id
-
-    //   array1 = array1.filter(function(item) {
-    //     return array2.includes(item); 
-    //   })
-    //       console.log(array1)
-    //       return array1
-    //  }
-    //  else{
-    //    return ''
-    //  }
-
-    // }
+//
 
   },
   methods: {
@@ -449,6 +438,10 @@ export default {
       this.hospital_records = await this.getDataFromDb();
       this.isLoading = false;
       this.clearIt();
+      this.$toasted.info("Record Added Successfully!", {
+              position: "top-center",
+              duration: 3000,
+            });
     },
     async addCatToDb(hospital_records) {
       return new Promise((resolve, reject) => {
@@ -468,11 +461,14 @@ export default {
       this.record.patient_id = "";
       this.record.drVisited = "";
       this.record.medications = "";
+      this.record.patient_type = "";
+      this.record.diagnosis = "";
       this.record.reasonVisit = "";
       this.record.testResult = "";
       this.record.patient_id = "";
       this.record.drug_id = "";
       this.record.services_id = "";
+      this.record.date_of_visit = "";
       this.record.date_of_admission = "0";
       this.record.date_of_discharge = "0";
     },

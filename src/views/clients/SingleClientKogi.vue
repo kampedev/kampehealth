@@ -1002,14 +1002,15 @@ export default {
       this.axios
         .post(`/api/v1/auth/allDependantsUser`, {
           agency_id: 95930,
-          id_card_number: this.client.id_card_number,
+          id_card_number: this.client.user.id_card_number,
           user_id: this.$route.params.id,
         })
         .then((response) => {
           let answers = response.data;
           answers;
           this.fetchUser();
-          console.log(response);
+          console.log({response});
+
         })
         .catch((error) => {
           console.error(error);
@@ -1062,8 +1063,8 @@ export default {
   },
   created() {
     this.fetchUser();
-    this.streamPic();
     this.findDependents();
+    this.streamPic();
     
   },
 };

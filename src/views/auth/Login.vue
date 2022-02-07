@@ -63,7 +63,7 @@
                   </button>
                   <p class="text-right p-t-10" v-if="user != null">
                     <a
-                      href="/offline"
+                      href="/offline-home"
                       class="text-underline"
                       >Offline Access</a
                     >

@@ -129,7 +129,7 @@ const routes = [
   },
 
   {
-    path: "/offline",
+    path: "/offline-home",
     component: OfflineHome,
   },
   {

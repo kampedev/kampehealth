@@ -252,7 +252,7 @@
                         </button>
 
                        <div class="col-md-12">
-                           <a href="/offline"
+                           <a href="/offline-home"
                            style="margin-top:10px;"
                         class="btn btn-outline-info btn-block btn-lg"
                         >View Records </a>

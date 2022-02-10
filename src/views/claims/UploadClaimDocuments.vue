@@ -73,8 +73,8 @@
                                </div>
 
 
-                               <div class="fileinput fileinput-new" data-provides="fileinput" >
-                                 <span class="btn btn-secondary  btn-lg btn-file">
+                               <div class="fileinput fileinput-new" data-provides="fileinput" v-if="doc_name != ''" >
+                                 <span class="btn btn-info  btn-block btn-file">
                                    <span class="fileinput-new"><i class="fe fe-upload"></i> Upload Document</span>
                                    <span class="fileinput-exists">Change</span>
                                    <input type="file" name="..." multiple   v-on:change="attachPic">
@@ -82,10 +82,13 @@
                                  <span class="fileinput-filename"></span>
                                  <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                               </div>
-
-                              <button class="btn btn-primary " style="margin-left:25px;">Proceed to Claim</button>
                              </div>
                            </form>
+
+                            <div class="col-md-12">
+                              <button class="btn btn-primary btn-block" @click="gotoSingleClaim">Proceed to Claim</button>
+
+                            </div>
 
 
                            </div>
@@ -218,6 +221,11 @@ export default {
 
          })
      },
+     gotoSingleClaim(){
+       if (confirm('Are you done uploading required documents?')) {
+         this.singleClaim()
+       }
+     }
 
 
 

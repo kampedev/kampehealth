@@ -18,7 +18,7 @@
        <section class="">
            <div class="container">
 
-             <div class="col-md-12" style="margin-top:15px;" v-if="user.type == 'provider'">
+             <div class="col-md-12" style="margin-top:15px;" v-if="user.type == 'provider' || user.type == 'provider_employee' ">
                <button type="button" :class="buttoncolor.formal" @click="showPrimary">Primary (Referring) <i class="fe fe-list"></i> </button>
                <button type="button" :class="buttoncolor.informal" @click="showSecondary">Secondary (Recipient) <i class="fe fe-grid"></i> </button>
              </div>
@@ -186,6 +186,17 @@ export default {
       }
       if (this.user.type == 'provider') {
         this.axios.get(`/api/v1/auth/referrals-${this.provider_referral_category}/${this.user.id}`)
+                    .then(response => {
+                        this.referrals = response.data
+                        console.log(response)
+                        this.isLoading = false
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
+       if (this.user.type == 'provider_employee') {
+        this.axios.get(`/api/v1/auth/referrals-${this.provider_referral_category}/${this.user.institutional_id}`)
                     .then(response => {
                         this.referrals = response.data
                         console.log(response)

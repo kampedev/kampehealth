@@ -61,8 +61,6 @@
                             </div>
 
 
-
-
                            </div>
                        </div>
                    </div>
@@ -148,7 +146,7 @@
                </div>
 
                <div class="row">
-                   <div class="col-lg-8 col-md-8">
+                   <div class="col-md-8 offset-md-2">
                        <div class="card m-b-30">
                            <div class="card-header">
                              <p class="h4"><strong>Clinical Findings/ Investigations<i class="fe fe-file"></i></strong></p>
@@ -163,7 +161,7 @@
                </div>
 
                <div class="row">
-                   <div class="col-lg-8 col-md-8">
+                   <div class="col-md-8 offset-md-2">
                        <div class="card m-b-30">
                            <div class="card-header">
                              <p><strong>Referral Note/ Reason for Referral<i class="fe fe-file"></i></strong></p>
@@ -178,7 +176,7 @@
                </div>
 
                <div class="row">
-                   <div class="col-lg-8 col-md-8">
+                   <div class="col-md-8 offset-md-2">
                        <div class="card m-b-30">
                            <div class="card-header">
                              <p><strong>Treatment Given<i class="fe fe-file"></i></strong></p>

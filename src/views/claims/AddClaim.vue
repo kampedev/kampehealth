@@ -271,12 +271,12 @@ searchIDCard(){
 },
   makeClaim(){
         this.user = JSON.parse(localStorage.getItem('user'))
-        if (this.user.type == 'shis') {
+        if (this.user.type == 'provider_employee') {
         // Add claim
         this.isLoading = true;
         this.axios.post('/api/v1/auth/claims',{
 
-          provider_id: this.claim.provider_id,
+          provider_id: this.user.institutional_id,
           user_id: this.user.id,
           agency_id: 95930,
           client_name: this.enrollee_details.user.id,
@@ -291,7 +291,6 @@ searchIDCard(){
             console.log(response);
             let id = response.data.id
             this.isLoading = false;
-            // this.$breadstick.notify("Claim added Successfuly!", {position: "top-right"});
             this.$router.push(`/service-processing-form/${id}`)
 
         })

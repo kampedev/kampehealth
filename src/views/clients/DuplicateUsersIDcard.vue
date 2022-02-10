@@ -104,7 +104,7 @@
                 <b-card-text>
                   <div class="card m-b-30">
                     <div class="card-body">
-                      <h5>Total Page: {{ clients.total }}</h5>
+                      <h5>Total Page: {{ clients.length }}</h5>
                       <div class="col-md-12">
                         <input type="text" class="form-control" v-model="listIndex" >
                       </div>
@@ -123,7 +123,7 @@
                           </thead>
                           <tbody>
                             <tr
-                              v-for="client in clients.data"
+                              v-for="client in clients"
                               v-bind:key="client.id"
                             >
                               <td>
@@ -256,8 +256,8 @@ export default {
       this.isLoading = true;
       this.axios
         .post(`/api/v1/auth/attach/dependent`,{
-          id_card_number: this.clients.data[this.listIndex].id_card_number,
-          dep_id: this.clients.data[this.listIndex].id,
+          id_card_number: this.clients[this.listIndex].id_card_number,
+          dep_id: this.clients[this.listIndex].id,
         })
         .then((response) => {
           console.log(response);

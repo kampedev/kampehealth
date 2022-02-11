@@ -6,6 +6,15 @@
         <h1 class="heading">Patient Details</h1>
       </div>
 
+       <div class="vld-parent">
+        <loading
+          :active.sync="isLoading"
+          loader="dots"
+          :can-cancel="true"
+          :is-full-page="fullPage"
+        ></loading>
+      </div>
+
       <div class="user__details--container">
         <div class="user__details--container-main">
           <h1 class="name">
@@ -90,9 +99,22 @@
             </div>
           </div>
           <br />
-          <button class="btn btn-primary" @click="createClaim">
-            Generate Claim for this Encounter
+          <button
+            class="btn btn-outline-primary"
+            @click="createClaim"
+            v-if="encounterDetails.claim_id == null"
+          >
+            Generate Claim for this Encounter <i class="fe fe-send"></i>
           </button>
+           
+           <router-link :to="`/claim/${encounterDetails.claim_id}`">
+           <button
+            class="btn btn-outline-primary"
+            v-if="encounterDetails.claim_id != null"
+          >
+            View Claim <i class="mdi mdi-file-document-outline"></i>
+          </button>
+           </router-link>
 
           <div class="card table-responsive">
             <strong class="h4 text-center card-header">
@@ -157,14 +179,7 @@
           </div>
         </div>
       </div>
-      <div class="vld-parent">
-        <loading
-          :active.sync="isLoading"
-          loader="dots"
-          :can-cancel="true"
-          :is-full-page="fullPage"
-        ></loading>
-      </div>
+     
     </main>
   </section>
 </template>
@@ -229,21 +244,28 @@ export default {
     },
 
     createClaim() {
-      if (confirm('Are you Sure you want to create Claim?') ) {
+      if (confirm("Are you Sure you want to create Claim?")) {
         this.isLoading = true;
-      this.axios
-        .post(`/api/v1/auth/createClaimfromEncounter`, {
-          encounter_id: this.$route.params.id,
-        })
-        .then((response) => {
-          console.log(response);
-          this.$toasted.info('Created Successfully!', {position: 'top-center', duration:3000 })
-
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-      this.isLoading = false;
+        this.axios
+          .post(`/api/v1/auth/createClaimfromEncounter`, {
+            encounter_id: this.$route.params.id,
+          })
+          .then((response) => {
+            console.log(response);
+            this.$toasted.info("Created Successfully!", {
+              position: "top-center",
+              duration: 3000,
+            });
+            this.getUserEncounterDetails();
+          })
+          .catch((error) => {
+            console.error(error);
+            this.$toasted.error("Error!", {
+              position: "top-center",
+              duration: 3000,
+            });
+          });
+        this.isLoading = false;
       }
     },
   },

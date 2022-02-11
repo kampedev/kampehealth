@@ -59,7 +59,7 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/add-officers'}">
+                              <router-link :to="{ path: '/all-claims'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="mdi mdi-view-day"></i>

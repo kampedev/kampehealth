@@ -183,7 +183,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 m-b-30">
+                <!-- <div class="col-md-6 m-b-30">
                     <h5> <i class="fe fe-users"></i> Clients</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
@@ -209,8 +209,9 @@
                         </table>
 
                     </div>
-                </div>
-                <div class="col-md-6 m-b-30">
+                </div> -->
+
+                <div class="col-md-12 m-b-30">
                     <h5> <i class="fe fe-alert-circle"></i> Claims</h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
@@ -220,6 +221,7 @@
                                 <th>Diagnosis</th>
                                 <th>Seen date</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -235,6 +237,13 @@
                                    <span v-if="claim.status != 1">
                                    <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning">pending</button>
                                 </span>
+                                </td>
+                                <td>
+                                    <router-link :to="`/claim/${claim.id}`">
+                                    <button class="btn btn-outline-primary">
+                                        <i class="fe fe-eye"></i>
+                                    </button>
+                                    </router-link>
                                 </td>
                             </tr>
 

@@ -1,6 +1,6 @@
 <template>
   <section class="admin-content " id="contact-search">
-    <Navbar />
+   
     <div class="bg-dark m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
@@ -386,7 +386,6 @@
 </template>
 
 <script>
-import Navbar from "@/views/Navbar.vue";
 
 // Import component
 import Loading from "vue-loading-overlay";
@@ -398,8 +397,7 @@ import tpaLGAJson from "@/views/clients/lga_tpa.json";
 
 export default {
   components: {
-    Navbar,
-    Loading,
+    Loading
   },
   data() {
     return {

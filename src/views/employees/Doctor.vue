@@ -13,6 +13,16 @@
                     <h5 class="spacer-top">Hello, <span v-if="auth_user.job_title == 'Doctor'">Dr.</span> {{auth_user.firstname}} {{auth_user.lastname}}</h5>
                 </div>
 
+                <div class="col-md-12 form-group">
+                  <button class="btn btn-outline-info" @click="addRecordOffline"><i class="fe fe-download"></i> Download Hospital Data</button>
+                  
+                  <router-link to="/add-record-offline">
+                  <button class="btn btn-outline-success"  @click="addRecordOffline" >
+                    <i class="fe fe-plus"></i> Add Encounter Offline
+                    </button>
+                  </router-link>
+                </div>
+                
                 <div class="col-lg-6 col-md-6">
                     <div class="card m-b-30">
                         <div class="card-body">
@@ -82,7 +92,7 @@
                               </td>
                                 <td>{{record.date_of_visit | moment("dddd, MMMM Do YYYY")}}</td>
                                 <td>{{record.patient.firstname}} {{record.patient.lastname}}</td>
-                                <td>{{record.patient.id_card_number}}</td>
+                                <td>{{record.patient.id_card_number}} <i class="fe fe-copy" @click="copyText(record)"></i> </td>
 
                                 <td >
                                            <router-link :to="{ path: '/encounter/'+ record.service.id}">
@@ -94,6 +104,15 @@
 
                             </tbody>
                         </table>
+
+                         <div class="vld-parent">
+                          <loading
+                            :active.sync="isLoading"
+                            loader="dots"
+                            :can-cancel="true"
+                            :is-full-page="fullPage"
+                          ></loading>
+                        </div>
 
                     </div>
                 </div>
@@ -110,15 +129,25 @@
 <script>
 import Navbar from '@/views/Navbar.vue'
 import Footer from '@/views/Footer.vue'
+// Import component
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   components: {
-     Navbar, Footer
+     Navbar, Footer, Loading,
 
   },
   data(){
     return{
       auth_user:"",
+      hospital_records:"",
+       isLoading: false,
+      fullPage: true,
+      diseases:"",
+      services:"",
+      drugs:"",
       records:"",
       clients:"",
       wallet:"",
@@ -154,8 +183,23 @@ export default {
                       console.error(error);
                   })
     },
+    copyText(record){
+      const copyToClipboard = (record) => navigator.clipboard.writeText(record.patient.id_card_number);
+      copyToClipboard(record);
+      this.$toasted.info('Copied to clipboard', {position: 'top-center', duration:3000 })
 
-
+    },
+    getDiagnosis(){
+       this.axios
+      .get(`/api/v1/auth/diagnosis-agency/95930`)
+      .then((response) => {
+        this.diseases = response.data;
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    },
     getClients(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.axios.get(`/api/v1/auth/getProviderToUser/${this.user.institutional_id}`)
@@ -167,10 +211,124 @@ export default {
                       console.error(error);
                   })
     },
+     async SetDB() {
+	this.db = await this.getDb();
+	this.hospital_records = await this.getDataFromDb();
+	this.ready = true;
+},
+
+  async getDb() {
+
+    const DB_NAME = 'hospital_data';
+    const DB_VERSION = 1;
+// let DB;
+
+	return new Promise((resolve, reject) => {
+
+	let request = window.indexedDB.open(DB_NAME, DB_VERSION);
+	
+	request.onerror = e => {
+		console.log('Error opening db', e);
+		reject('Error');
+	};
+
+	request.onsuccess = e => {
+		resolve(e.target.result);
+	};
+	
+	request.onupgradeneeded = e => {
+		console.log('onupgradeneeded');
+		let db = e.target.result;
+		let objectStore = db.createObjectStore("hospital_records", { autoIncrement: true, keyPath:'id' });
+    objectStore
+	};
+	});
+},
+ 
+    async getDataFromDb() {
+	return new Promise((resolve, reject) => {
+    reject
+		let trans = this.db.transaction(['hospital_records'],'readonly');
+		trans.oncomplete = e => {
+			resolve(hospital_records);
+      e
+		};
+		
+		let store = trans.objectStore('hospital_records');
+		let hospital_records = [];
+		
+		store.openCursor().onsuccess = e => {
+			let cursor = e.target.result;
+			if (cursor) {
+				hospital_records.push(cursor.value)
+				cursor.continue();
+			}
+		};
+
+	});
+},
+
+ async addRecordOffline() {
+	this.isLoading = true;
+ 
+  localStorage.setItem("clients", JSON.stringify(this.clients));
+   localStorage.setItem("diseases", JSON.stringify(this.diseases));  
+  localStorage.setItem("services", JSON.stringify( this.services));
+   localStorage.setItem("drugs", JSON.stringify(  this.drugs)); 
+  this.isLoading = false;
+
+    this.$toasted.info("Data Synced Successfully!", {
+              position: "top-center",
+              duration: 3000,
+            });
+            
+},
+        async addCatToDb(hospital_records) {
+      return new Promise((resolve, reject) => {
+        reject
+      let trans = this.db.transaction(['hospital_records'],'readwrite');
+      trans.oncomplete = e => {
+        resolve();
+        e
+      };
+
+      let store = trans.objectStore('hospital_records');
+      store.add(hospital_records);
+
+      });
+    },
+     getDrugs() {
+      this.axios
+        .get(`/api/v1/auth/drug-agency/95930`)
+        .then((response) => {
+          this.drugs = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getServices(){
+      this.axios
+      .get(`/api/v1/auth/service-agency/95930`)
+      .then((response) => {
+        this.services = response.data;
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+
   },
   created(){
     this.getRecords()
     this.getClients()
+    this.getDiagnosis()
+    this.SetDB()
+    this.getDataFromDb()
+    this.getServices()
+    this.getDrugs()
 
   }
 }

@@ -78,7 +78,7 @@
                           class="btn btn-info"
                           style="margin-bottom: 30px"
                         >
-                          Add
+                        <i class="fe fe-send"></i>  Add 
                         </button>
                       </div>
                     </div>
@@ -86,10 +86,10 @@
 
                   <div class="form-group">
                     <button
-                      class="btn btn-primary btn-block btn-lg"
+                      class="btn btn-outline-primary btn-block"
                       @click="singlePatient"
                     >
-                      Proceed to Patient Page
+                      Proceed to Patient Page <i class="fe fe-chevron-right"></i>
                     </button>
                   </div>
                 </div>
@@ -228,7 +228,7 @@ export default {
       }
     },
     singlePatient() {
-      this.$router.push(`/patient/${this.summary.client_id}`);
+      this.$router.push(`/encounter/${this.$route.params.id}`);
     },
     getDrugs() {
       this.axios

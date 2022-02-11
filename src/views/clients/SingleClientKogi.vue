@@ -183,6 +183,7 @@
                                   <span class="fileinput-exists">Change</span>
                                   <input
                                     type="file"
+                                    accept="image/png, image/gif, image/jpeg"
                                     name="..."
                                     multiple
                                     v-on:change="attachPaymentProof"
@@ -422,8 +423,7 @@
                     <strong>Email:</strong> {{ client.user.email }}
                   </p>
                   <hr />
-                  <!-- <p class="spacer-top-bottom"><strong>Enrolment Date:</strong> {{client.user.created_at}}</p>
-                                   <hr> -->
+                  
                   <p class="spacer-top-bottom">
                     <strong>Expiry Date:</strong> {{ client.user.expiry_date }}
                   </p>
@@ -452,7 +452,8 @@
             </div>
           </div>
 
-          <div class="col-md-12">
+         <div class="row">
+            <div :class="trxtableclass">
             <h5>
               <i class="fe fe-credit-card"></i>
               <strong>{{ client.transactions.length }} Transactions </strong>
@@ -467,6 +468,7 @@
                     <th>Transaction Proof</th>
                     <th>Description</th>
                     <th>Date Created</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -478,23 +480,30 @@
                     <td>{{ trx.type }}</td>
                     <td>&#8358;{{ trx.amount | numeral(0, 0) }}</td>
                     <td>
-                      <img
-                        :src="
-                          `https://api.hayokinsurance.com/documents/${paymentProofImage}`
-                        "
-                        class="spacer-top-bottom payment__proof"
-                        alt="User Photo"
-                        v-if="paymentProofImage != null"
-                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
-                      />
+                      <button class="btn btn-info"
+                      v-if="trx.type == 'offline'"
+                       @click="gotoTrxImage(trx)" >
+                        view proof </button>
                     </td>
                     <td>{{ trx.description }}</td>
                     <td>{{ trx.created_at | moment("dddd, MMMM Do YYYY") }}</td>
+                    <td>
+                      <button class="btn btn-danger"
+                              name="button" @click="deleteTrx(trx)"><i class="fe fe-delete"></i>
+                            </button>
+                    </td>
+                   
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
+          <div :class="trxdocclass" v-show="trx_image">
+                 <img :src="`http://localhost:8000/documents/${trx_doc.document}`"
+                       class="img-responsive" v-if="trx_doc != null">
+          </div>
+
+         </div>
 
           <!-- Modal for Prescription/Notes -->
           <div
@@ -584,8 +593,10 @@ export default {
   data() {
     return {
       user: null,
+      trx_image: false,
       auth_user: "",
       client: "",
+      trx_doc: null,
       notes: "",
       dependents: "",
       medications: "",
@@ -605,6 +616,8 @@ export default {
       paymentProofImage: "",
       output: "",
       singletpa: "",
+      trxdocclass: "col-md-4",
+      trxtableclass: "col-md-12",
       pictureShower: true,
       userPayment: {
         description: "",
@@ -906,14 +919,53 @@ export default {
           .then((response) => {
             console.log(response);
             // this.getClients()
-            this.$breadstick.notify("Deleted Successfully!", {
-              position: "top-right",
-            });
+           this.$toasted.success("Deleted Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
           })
           .catch((error) => {
             console.error(error);
           });
       }
+    },
+
+    deleteTrx(trx) {
+      if (confirm("Are you Sure you want to delete?")) {
+        this.axios
+          .delete(`/api/v1/auth/delete/transaction/${trx.id}`)
+          .then((response) => {
+            console.log(response);
+            this.fetchUser()
+            this.$toasted.success("Deleted Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
+    gotoTrxImage(trx){
+
+      this.axios
+          .get(`/api/v1/auth/get/transaction-document/${trx.id}`)
+          .then((response) => {
+            console.log(response);
+            this.$toasted.success("Gotten Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.trx_doc = response.data.data
+          this.trx_image = true
+          this.trxtableclass = 'col-md-8'
+
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
     },
 
     fetchUser() {
@@ -950,14 +1002,15 @@ export default {
       this.axios
         .post(`/api/v1/auth/allDependantsUser`, {
           agency_id: 95930,
-          id_card_number: this.client.id_card_number,
+          id_card_number: this.client.user.id_card_number,
           user_id: this.$route.params.id,
         })
         .then((response) => {
           let answers = response.data;
           answers;
           this.fetchUser();
-          console.log(response);
+          console.log({response});
+
         })
         .catch((error) => {
           console.error(error);
@@ -1010,8 +1063,8 @@ export default {
   },
   created() {
     this.fetchUser();
-    this.streamPic();
     this.findDependents();
+    this.streamPic();
     
   },
 };

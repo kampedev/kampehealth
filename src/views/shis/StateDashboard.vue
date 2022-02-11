@@ -37,14 +37,16 @@
             <InformalSector />
           </div>
 
+
+           <div class="col-md-12"  style="margin-top:20px;">
+              <EncounterbyLGA />
+            </div>
+
           <div class="row" style="margin-top:20px;">
             <div class="col-md-12">
               <ClaimsDate />
             </div>
 
-             <div class="col-md-12">
-              <EncounterbyLGA />
-            </div>
 
 
             <div class="col-md-12">

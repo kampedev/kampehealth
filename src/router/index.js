@@ -5,6 +5,7 @@ import Zarota from "../views/Zarota.vue";
 import GetAccount from "../views/auth/GetAccount.vue";
 import Privacy from "../views/auth/Privacy.vue";
 import Login from "../views/auth/Login.vue";
+import OfflineHome from "../views/auth/OfflineHome.vue";
 import Pusher from "../views/auth/Pusher.vue";
 import SelectType from "../views/auth/SelectType.vue";
 import SignupClient from "../views/auth/SignupClient.vue";
@@ -76,6 +77,7 @@ import ManageService from "../views/drugs/ManageService.vue";
 import AddComplaint from "../views/complaints/AddComplaint.vue";
 import MyComplaints from "../views/complaints/MyComplaints.vue";
 import AddRecord from "../views/ehr/AddRecord.vue";
+import AddRecordOffline from "../views/ehr/AddRecordOffline.vue";
 import MyRecords from "../views/ehr/MyRecords.vue";
 import AddInventory from "../views/inventories/AddInventory.vue";
 import MyInventories from "../views/inventories/MyInventories.vue";
@@ -124,6 +126,11 @@ const routes = [
   {
     path: "/zarota",
     component: Zarota,
+  },
+
+  {
+    path: "/offline-home",
+    component: OfflineHome,
   },
   {
     path: "/activate-account",
@@ -728,6 +735,13 @@ const routes = [
   {
     path: "/add-record",
     component: AddRecord,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/add-record-offline",
+    component: AddRecordOffline,
     meta: {
       requiresAuth: true,
     },

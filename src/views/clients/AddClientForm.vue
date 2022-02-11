@@ -372,7 +372,7 @@
                       <div class="col-md-12 row">
                         <div class="form-group col-md-6">
                           <label
-                            >Principal Facility for Accessing Health Care
+                            >Principal Facility for Accessing Health Care 
                           </label>
                           <v-select
                             v-model="register.provider_id"

@@ -65,15 +65,13 @@
                     >
                       reject <i class="fe fe-x"></i>
                     </button>
-                     <details v-if="singlereferral.status == 'approved'">
-                      <summary>
-                        <span class="btn btn-outline-info">
-                          Authorization Code: <i class="mdi mdi-eye-check"></i>
-                        </span>
-                      </summary>
-                      <p>{{ singlereferral.authorization_code }}</p>
-                    </details>
+
+                    <button class="btn btn-outline-info" @click="copyCode">
+                      Copy Authorization Code <i class="fe fe-copy"></i>
+                    </button>
                     
+                  
+
                   </div>
                 </div>
 
@@ -223,6 +221,15 @@
                         <span class="text-primary">Address:</span>
                         {{ singlereferral.client.address }}
                       </p>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                      <button class="btn btn-outline-primary"  @click="copyCode">
+                          {{ singlereferral.authorization_code }}
+                      </button>
+                      <!-- <p>
+                        <span class="text-primary">  </span>
+                      </p> -->
                     </div>
                   </div>
                 </div>
@@ -486,6 +493,15 @@ export default {
             });
           });
       }
+    },
+
+     copyCode() {
+      const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+      copyToClipboard(this.singlereferral.authorization_code);
+      this.$toasted.info("Copied to clipboard", {
+        position: "top-center",
+        duration: 3000,
+      });
     },
   },
   created() {

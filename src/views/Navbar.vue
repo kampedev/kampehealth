@@ -611,6 +611,7 @@
             v-if="
               user.type == 'shis' ||
                 user.type == 'provider' ||
+                user.type == 'provider_employee' ||
                 user.job_title == 'Claims'
             "
           >

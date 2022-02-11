@@ -161,6 +161,17 @@ export default {
                         console.error(error);
                     })
       }
+      if (this.user.type == 'provider_employee') {
+        this.axios.get(`/api/v1/auth/claminByProvider${this.user.institutional_id}`)
+                    .then(response => {
+                        this.claims = response.data
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+      }
+
       if (this.user.type == 'tpa' || this.user.type =='tpa_employee') {
         this.axios.post(`/api/v1/auth/claim-org`,{
           user_id: this.user.id

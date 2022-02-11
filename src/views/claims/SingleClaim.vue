@@ -34,6 +34,10 @@
                                  v-if="claimdetails.status != 1 && user.type == 'shis' || user.institutional_id == 95930">
                                  Approve <i class="fe fe-check"></i></button>
 
+                                  <button class="btn btn-outline-info spacer" @click="show = !show">
+                                 Add Note <i class="fe fe-plus"></i></button>
+
+
                                  <button class="btn btn-info spacer" @click="verifyClaim"
                                  v-if="claimdetails.status != 1 && claimdetails.verified_by_id == null && user.type == 'tpa' || user.type == 'tpa_employee'">
                                  Vet and verify <i class="fe fe-check"></i></button>
@@ -43,18 +47,18 @@
                                    Update Claim Application</button>
                                </router-link>
 
-                               <button class="btn btn-default spacer"  @click="shownotes = !shownotes">
+                               <button class="btn  btn-outline-primary spacer"  @click="shownotes = !shownotes">
                                  Notes <i class="fe fe-clipboard"></i>
                                </button>
 
                                <router-link :to="{ path: '/upload-claims-docs/' + claimdetails.id}">
-                                   <button class="btn btn-pink spacer" v-if="claimdetails.status != 1" >
+                                   <button class="btn btn-outline-primary spacer" v-if="claimdetails.status != 1" >
                                       Documents <i class="fe fe-file-plus"></i>
                                    </button>
                                </router-link>
 
                                <router-link :to="{ path: '/service-processing-form/' + claimdetails.id}">
-                                   <button class="btn btn-pink spacer" v-if="claimdetails.status != 1 " >
+                                   <button class="btn btn-outline-primary spacer" v-if="claimdetails.status != 1 " >
                                       Services <i class="fe fe-thermometer"></i>
                                    </button>
                                </router-link>
@@ -65,9 +69,13 @@
                                 user.type == 'shis' || user.type == 'tpa' || user.type == 'tpa_employee'">Reject</button>
 
                                <div class="form-group col-md-12" v-show="show">
-                                  <label for="inputAddress">Please add a Rejection Comment</label>
+                                  <label for="inputAddress">Please add a Comment</label>
                                   <textarea name="name" rows="5" cols="80" class="form-control" v-model="body"></textarea>
-                                  <button type="button" class="btn btn-primary" @click="addComment">submit</button>
+                                  <br>
+
+                                  <div class="form-group">
+                                    <button type="button" class="btn btn-primary" @click="addComment">submit</button>
+                                  </div>
                               </div>
 
                              </div>
@@ -94,6 +102,9 @@
                                 </p>
                                 <p class="text-info">By: {{comment.user.firstname}} {{comment.user.lastname}} -
                                   <span >{{comment.user.type}}</span> </p>
+                                  <p class="text-xs">
+                                    {{comment.created_at | moment("dddd, MMMM Do YYYY,  h:mm:ss a" )}}
+                                  </p>
                               </div>
                            </div>
 
@@ -241,7 +252,7 @@
                                          <td>{{doc.created_at}}</td>
                                          <td>
                                            <a :href="'https://api.hayokinsurance.com/documents/'+ doc.document"  target="_blank">
-                                             <button class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                             <button class="btn btn-outline-primary" name="button"><i class="fe fe-eye"></i> </button>
                                            </a>
                                          </td>
 
@@ -326,7 +337,7 @@ export default {
                       //end of single client
 
                       // Prepared by
-                      this.axios.get(`/api/v1/auth/user/${response.data.singleclaim[0].user_id}`)
+                      this.axios.get(`/api/v1/auth/user/zam/${response.data.singleclaim[0].user_id}`)
                                   .then(response => {
                                       this.prepared_by = response.data.user
                                       console.log(response)})

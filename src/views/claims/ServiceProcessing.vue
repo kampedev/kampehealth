@@ -261,17 +261,6 @@ export default {
                   })
     },
 
-getClaims(){
-  this.axios.get(`/api/v1/auth/claminByProvider${this.user.id}`)
-              .then(response => {
-                  this.claims = response.data.data
-                  console.log(response)
-              })
-              .catch(error => {
-                  console.error(error);
-              })
-},
-
   getService(){
     this.axios.get(`/api/v1/auth/services/${this.addservice.services_id}`)
                 .then(response => {
@@ -294,9 +283,7 @@ getClaims(){
   },
 
   addServiceRendered(){
-
         this.user = JSON.parse(localStorage.getItem('user'))
-
         // Add claim_service
         this.isLoading = true;
         this.axios.post('/api/v1/auth/claim_service',{

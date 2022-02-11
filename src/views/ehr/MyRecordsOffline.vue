@@ -2,87 +2,89 @@
   <section class="admin-content" id="contact-search">
     <main class="admin-main">
       <section class="">
-        <div class="container">
-         
-            <div class="col-md-12 form-group" >  
-                <button 
-                data-toggle="modal"
-                 data-target="#slideRightModalAll"
-                class="btn m-b-15 ml-2 mr-2 btn-outline-info">
-                View All Codes <i class="fe fe-mail"> </i>
-                </button>
-            </div>
-
-           <div class="row list">
-           <div class="col-lg-6 col-md-6"  v-for="record in hospital_records"
-                          v-bind:key="record.id" >
-                        <div class="card m-b-30">
-                            <div class="card-header">
-
-                                <div class="card-controls">
-                                    <a class="badge badge-soft-info" href="#">{{record.reasonVisit}} </a>
-                                   
-
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <div>
-                                        <div class="avatar avatar-xl avatar-dnd">
-                                            <img class="avatar-img rounded-circle" src="/assets/img/ohis_logo.png"
-                                                 alt="name">
-                                        </div>
-                                    </div>
-                                    <h3 class="p-t-10 searchBy-name">{{ record.patient_id.full_name }} </h3>
-                                </div>
-                                <div class="text-muted text-center m-b-10">
-                                    <a class="btn btn-sm btn-white"> {{record.patient_id.id_card_number}} </a>
-
-                                </div>
-
-
-                                <p class="text-muted text-center">
-                                    {{record.diagnosis.name}}
-                                </p>
-                                <div class="row text-center p-b-10">
-                                    <div class="col">
-                                        <a href="#">
-                                            <h3 class="fe fe-thermometer"></h3>
-                                            <div class="text-overline">{{record.services_id.length}} Services</div>
-
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#">
-                                            <h3 class="mdi mdi-pill"></h3>
-                                            <div class="text-overline">{{record.drug_id.length}}  Drugs</div>
-
-                                        </a>
-
-                                    </div>
-                                    <div class="col">
-                                        <button
-                                        data-toggle="modal"
-                                         data-target="#slideRightModal"
-                                          @click="getSingleEncounter(record)"
-                                         >
-                                            <h3 class="fe fe-eye"></h3>
-                                            <div class="text-overline"> View</div>
-
-                                        </button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-
+        <div class="">
+          <div class="col-md-12 form-group">
+            <button
+              data-toggle="modal"
+              data-target="#slideRightModalAll"
+              class="btn m-b-15 ml-2 mr-2 btn-outline-info"
+            >
+              View All Codes <i class="fe fe-mail"> </i>
+            </button>
+          </div>
 
           <div class="row list">
+            <div
+              class="col-lg-6 col-md-6"
+              v-for="record in hospital_records"
+              v-bind:key="record.id"
+            >
+              <div class="card m-b-30">
+                <div class="card-header">
+                  <div class="card-controls">
+                    <a class="badge badge-soft-info" href="#"
+                      >{{ record.reasonVisit }}
+                    </a>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                    <div>
+                      <div class="avatar avatar-xl avatar-dnd">
+                        <img
+                          class="avatar-img rounded-circle"
+                          src="/assets/img/ohis_logo.png"
+                          alt="name"
+                        />
+                      </div>
+                    </div>
+                    <h3 class="p-t-10 searchBy-name">
+                      {{ record.patient_id.full_name }}
+                    </h3>
+                  </div>
+                  <div class="text-muted text-center m-b-10">
+                    <a class="btn btn-sm btn-white">
+                      {{ record.patient_id.id_card_number }}
+                    </a>
+                  </div>
 
-           
+                  <p class="text-muted text-center">
+                    {{ record.diagnosis.name }}
+                  </p>
+                  <div class="row text-center p-b-10">
+                    <div class="col">
+                      <a href="#">
+                        <h3 class="fe fe-thermometer"></h3>
+                        <div class="text-overline">
+                          {{ record.services_id.length }} Services
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col">
+                      <a href="#">
+                        <h3 class="mdi mdi-pill"></h3>
+                        <div class="text-overline">
+                          {{ record.drug_id.length }} Drugs
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col">
+                      <button
+                        data-toggle="modal"
+                        data-target="#slideRightModal"
+                        @click="getSingleEncounter(record)"
+                      >
+                        <h3 class="fe fe-eye"></h3>
+                        <div class="text-overline">View</div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="row list">
             <!-- Modal -->
             <div
               class="modal fade modal-slide-right"
@@ -130,17 +132,19 @@
                     </p>
 
                     <p class="form-group">
-                      <i class="fe fe-calendar"></i> : {{ record.date_of_visit }}
+                      <i class="fe fe-calendar"></i> :
+                      {{ record.date_of_visit }}
                     </p>
 
-                     <div class="form-group">
-                      <button  @click="copyText" class="btn btn-default">Copy SMS Code <i class="fe fe-copy"></i> </button>  
+                    <div class="form-group">
+                      <button @click="copyText" class="btn btn-default">
+                        Copy SMS Code <i class="fe fe-copy"></i>
+                      </button>
                     </div>
 
-    
                     <div class="col-md-12 m-b-30 form-group">
                       <p class="h5">
-                       {{ services_obj.length }} Services
+                        {{ services_obj.length }} Services
                         <i class="fe fe-thermometer"></i>
                       </p>
                       <div class="table-responsive">
@@ -170,7 +174,7 @@
                       </div>
                     </div>
 
-                     <div class="col-md-12 m-b-30 form-group">
+                    <div class="col-md-12 m-b-30 form-group">
                       <p class="h5">
                         {{ drugs_obj.length }} Drugs
                         <i class="mdi mdi-pill"></i>
@@ -210,9 +214,11 @@
                     >
                       Close
                     </button>
-                    <button type="button" 
-                    @click="copyText"
-                    class="btn btn-outline-primary spacer">
+                    <button
+                      type="button"
+                      @click="copyText"
+                      class="btn btn-outline-primary spacer"
+                    >
                       Copy Code <i class="fe fe-copy"> </i>
                     </button>
                   </div>
@@ -222,7 +228,6 @@
 
             <!--End of Modal -->
 
-            
             <!-- Modal -->
             <div
               class="modal fade modal-slide-right"
@@ -249,17 +254,29 @@
                   </div>
 
                   <div class="modal-body">
+                    <div
+                      class="form-group h5"
+                      v-for="(record, index) in hospital_records"
+                      v-bind:key="record.id"
+                    >
+                      ({{ index + 1 }}) EC{{ user.institutional_id }}/{{
+                        record.patient_id.id
+                      }}-{{ record.diagnosis.id }}/{{
+                        record.date_of_visit | moment("YYYYMMDD")
+                      }}-{{ record.date_of_admission | moment("YYYYMMDD") }}-{{
+                        record.date_of_discharge | moment("YYYYMMDD")
+                      }}/
+                      <a v-for="drug in record.drug_id" v-bind:key="drug"
+                        >{{ drug }},0</a
+                      >/<a
+                        v-for="service in record.services_id"
+                        v-bind:key="service"
+                        >{{ service }},0</a
+                      >/{{ record.reasonVisit.charAt(0) }}{{ user.id }}
 
-                    <div class="form-group h5" v-for="(record, index) in hospital_records"  v-bind:key="record.id">
-                   ({{index+1}}) EC{{user.institutional_id}}/{{record.patient_id.id}}-{{record.diagnosis.id}}/{{record.date_of_visit  | moment("YYYYMMDD")}}-{{record.date_of_admission| moment("YYYYMMDD")}}-{{record.date_of_discharge| moment("YYYYMMDD")}}/
-                    <a v-for="drug in record.drug_id" v-bind:key="drug">{{drug}},0</a>/<a v-for="service in record.services_id" v-bind:key="service">{{service}},0</a>/{{record.reasonVisit.charAt(0)}}{{user.id}}
-                   
-                   <br/>
-                   <hr/>
-
-                   
+                      <br />
+                      <hr />
                     </div>
-
                   </div>
 
                   <div class="modal-footer">
@@ -276,8 +293,6 @@
                     >
                       Print <i class="fe fe-printer"></i>
                     </button>
-
-                   
                   </div>
                 </div>
               </div>
@@ -303,7 +318,7 @@
 <script>
 // Import component
 import Loading from "vue-loading-overlay";
-import moment from 'moment';
+import moment from "moment";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
@@ -331,100 +346,104 @@ export default {
     this.services = JSON.parse(localStorage.getItem("services"));
     this.drugs = JSON.parse(localStorage.getItem("drugs"));
   },
-  computed:{
-
-    changeDateofVisit(){
-        let text = this.record.date_of_visit;
-        return  moment(String(text)).format('YYYYMMDD')
+  computed: {
+    changeDateofVisit() {
+      let text = this.record.date_of_visit;
+      return moment(String(text)).format("YYYYMMDD");
     },
 
-     changeDateofAdmission(){
-        let text = this.record.date_of_admission;
-        if (text == "0") {
-          return "0";
-        }
-        else{
-          return  moment(String(text)).format('YYYYMMDD')
-        }
+    changeDateofAdmission() {
+      let text = this.record.date_of_admission;
+      if (text == "0") {
+        return "0";
+      } else {
+        return moment(String(text)).format("YYYYMMDD");
+      }
     },
 
-    changeDateofDischarge(){
-        let text = this.record.date_of_discharge;
-        if (text == "0") {
-          return "0";
-        }
-        else{
-          return  moment(String(text)).format('YYYYMMDD')
-        }
+    changeDateofDischarge() {
+      let text = this.record.date_of_discharge;
+      if (text == "0") {
+        return "0";
+      } else {
+        return moment(String(text)).format("YYYYMMDD");
+      }
     },
 
-    reduceDrugsarray(){
-     let newarray =  this.record.drug_id.reduce(function(accumulator, currentValue) {
-         return   currentValue.id;
-        }, 0);
+    reduceDrugsarray() {
+      let newarray = this.record.drug_id.reduce(function (
+        accumulator,
+        currentValue
+      ) {
+        return currentValue.id;
+      },
+      0);
 
-        return newarray;
-
+      return newarray;
     },
-      getSMSCode(){
-        
-         // ENC_{provider_id}
-        // /{client_id}-{diagnosis_id}-{is_outpatient}
-        // /{date_of_encounter}-{date_of_admission}-{date_of_discharge}
-        // /[drug1-drug2-drug3]
-        // /[service1-service2-service3]
-        // /{reasonforvisit}{proffessional_id}
+    getSMSCode() {
+      // ENC_{provider_id}
+      // /{client_id}-{diagnosis_id}-{is_outpatient}
+      // /{date_of_encounter}-{date_of_admission}-{date_of_discharge}
+      // /[drug1-drug2-drug3]
+      // /[service1-service2-service3]
+      // /{reasonforvisit}{proffessional_id}
 
-       let provider = 'EC' + this.user.institutional_id + '/';
-       let patient = this.record.patient_id.id + '-' + this.record.diagnosis.id + '/';
-       let dates = this.changeDateofVisit + '-' + this.changeDateofAdmission + '-' +  this.changeDateofDischarge + '/';
-       let drugs = this.record.drug_id + '/' ;
-       let services = this.record.services_id + '/' ;
-       let others = this.record.reasonVisit.charAt(0) + this.user.id ;
-       return provider + patient + dates + drugs + services + others;
-     }
+      let provider = "EC" + this.user.institutional_id + "/";
+      let patient =
+        this.record.patient_id.id + "-" + this.record.diagnosis.id + "/";
+      let dates =
+        this.changeDateofVisit +
+        "-" +
+        this.changeDateofAdmission +
+        "-" +
+        this.changeDateofDischarge +
+        "/";
+      let drugs = this.record.drug_id + "/";
+      let services = this.record.services_id + "/";
+      let others = this.record.reasonVisit.charAt(0) + this.user.id;
+      return provider + patient + dates + drugs + services + others;
+    },
   },
   methods: {
+    drugsObject(record) {
+      var array1 = this.drugs.data;
+      var array2 = record.drug_id;
 
-    drugsObject(record){
-        var array1 =  this.drugs.data;
-       var array2 =   record.drug_id ;
+      array1 = array1.filter(function (item) {
+        return array2.includes(item.id);
+      });
 
-      array1 = array1.filter(function(item) {
-        return array2.includes(item.id); 
-      })
-     
-         this.drugs_obj = array1
-
+      this.drugs_obj = array1;
     },
-    ServicesObject(record){
-        var array1 =  this.services.data;
-       var array2 =   record.drug_id ;
+    ServicesObject(record) {
+      var array1 = this.services.data;
+      var array2 = record.drug_id;
 
-      array1 = array1.filter(function(item) {
-        return array2.includes(item.id); 
-      })
-     
-         this.services_obj = array1
-         console.log(this.services_obj)
+      array1 = array1.filter(function (item) {
+        return array2.includes(item.id);
+      });
 
+      this.services_obj = array1;
+      console.log(this.services_obj);
     },
     getSingleEncounter(record) {
-        this.isLoading = true
+      this.isLoading = true;
       let osunlgaarray = this.hospital_records;
       let formatter = osunlgaarray.filter((x) => x.id == record.id);
       this.record = formatter[0];
-      this.isLoading = false
-      this.drugsObject(record)
-      this.ServicesObject(record)
-      
+      this.isLoading = false;
+      this.drugsObject(record);
+      this.ServicesObject(record);
     },
 
-    copyText(){
+    copyText() {
       const copyToClipboard = (text) => navigator.clipboard.writeText(text);
       copyToClipboard(this.getSMSCode);
-      this.$toasted.info('Copied to clipboard', {position: 'top-center', duration:3000 })
-
+      this.$toasted.info("Copied to clipboard", {
+        position: "top-center",
+        duration: 3000,
+      });
     },
 
     async SetDB() {

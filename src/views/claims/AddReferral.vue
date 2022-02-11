@@ -123,7 +123,7 @@
 
                 <div class="form-row">
                   
-                  <div class="form-group col-md-10">
+                  <div class="form-group col-md-12">
                     <label for="inputCity"
                       >Clinical Findings/Treatment Given</label
                     >
@@ -135,7 +135,7 @@
                       v-model="referral.treatment_given"
                     ></textarea>
                   </div>
-                  <div class="form-group col-md-10">
+                  <div class="form-group col-md-12">
                     <label for="inputCity">Reason for Referral</label>
                     <textarea
                       name="name"
@@ -148,8 +148,8 @@
                 </div>
 
                 <div class="form-group">
-                  <button class="btn btn-primary" @click="AddReferral">
-                    Submit
+                  <button class="btn btn-primary btn-block" @click="AddReferral">
+                    Submit <i class="fe fe-send"></i>
                   </button>
                 </div>
               </div>

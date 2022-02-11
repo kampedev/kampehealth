@@ -86,7 +86,9 @@
                            </form>
 
                             <div class="col-md-12">
-                              <button class="btn btn-primary btn-block" @click="gotoSingleClaim">Proceed to Claim</button>
+                              <button class="btn btn-outline-primary btn-block" @click="gotoSingleClaim">Proceed to Claim 
+                                <i class="fe fe-chevron-right"></i>
+                              </button>
 
                             </div>
 

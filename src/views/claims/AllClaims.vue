@@ -38,7 +38,7 @@
 
                                    <td>
                                      <router-link :to="{ path: '/claim/' + claim.id }">
-                                     {{claim.seen_date}}
+                                     {{claim.seen_date | moment("dddd, MMMM Do YYYY")}}
                                    </router-link>
 
                                    </td>

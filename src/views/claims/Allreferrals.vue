@@ -44,7 +44,7 @@
 
                                    <td>
                                      <router-link :to="{ path: '/referral/' + ref.id }">
-                                     {{ref.date}}
+                                     {{ref.date | moment("dddd, MMMM Do YYYY")}}
                                    </router-link>
 
                                    </td>

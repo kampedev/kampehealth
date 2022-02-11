@@ -26,7 +26,7 @@
     <button @click="submitForm" class="btn btn-primary btn-block btn-lg">Submit</button>
 
     <div class="col-md-12 m-b-30">
-        <h5 class="h4"> <i class="fe fe-activity"></i>{{services.meta.total}} Services</h5>
+        <h5 class="h4"> <i class="fe fe-activity"></i>{{services.length}} Services</h5>
         <div class="table-responsive">
            <table class="table align-td-middle table-card">
                <thead>

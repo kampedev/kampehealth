@@ -21,14 +21,6 @@
               <div class="card m-b-30">
                 <div class="card-header">
                   <div class="form-group">
-                    <details v-if="singlereferral.status == 'approved'">
-                      <summary>
-                        <span class="btn btn-outline-info">
-                          Authorization Code: <i class="mdi mdi-eye-check"></i>
-                        </span>
-                      </summary>
-                      <p>{{ singlereferral.authorization_code }}</p>
-                    </details>
 
                     <button
                       class="btn btn-outline-info spacer"
@@ -41,7 +33,7 @@
                     <button
                       type="button"
                        v-if="encounter != null"
-                      class="btn btn-outline-dark"
+                      class="btn btn-outline-dark spacer"
                       data-toggle="modal"
                       data-target="#slideRightModal"
                     >
@@ -49,7 +41,7 @@
                     </button>
 
                     <button
-                      class="btn btn-info spacer"
+                      class="btn btn-outline-info spacer"
                       @click="verifyRef"
                       v-if="
                         (singlereferral.status != 'rejected' &&
@@ -73,6 +65,15 @@
                     >
                       reject <i class="fe fe-x"></i>
                     </button>
+                     <details v-if="singlereferral.status == 'approved'">
+                      <summary>
+                        <span class="btn btn-outline-info">
+                          Authorization Code: <i class="mdi mdi-eye-check"></i>
+                        </span>
+                      </summary>
+                      <p>{{ singlereferral.authorization_code }}</p>
+                    </details>
+                    
                   </div>
                 </div>
 

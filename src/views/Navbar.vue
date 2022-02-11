@@ -126,10 +126,7 @@
               </span>
             </a>
           </li>
-           <li
-            class="menu-item"
-           v-if="user.type == 'employee'"
-          >
+          <li class="menu-item" v-if="user.type == 'employee'">
             <a href="/add-client-formal" class=" menu-link">
               <span class="menu-label">
                 <span class="menu-name">Add Enrollee (Formal) </span>
@@ -140,10 +137,7 @@
             </a>
           </li>
 
-           <li
-            class="menu-item"
-           v-if="user.type == 'employee'"
-          >
+          <li class="menu-item" v-if="user.type == 'employee'">
             <a href="/voluntary-registration-form" class=" menu-link">
               <span class="menu-label">
                 <span class="menu-name">Voluntary Enrollment</span>
@@ -153,8 +147,6 @@
               </span>
             </a>
           </li>
-
-         
 
           <li class="menu-item" v-if="user.type == 'employee'">
             <a href="/add-client/employee-offline" class=" menu-link">
@@ -392,33 +384,33 @@
                   </span>
                 </a>
               </li>
-           <li
-            class="menu-item"
-            v-if="user.type == 'employee' || user.type == 'shis'"
-          >
-            <a href="/add-client-formal" class=" menu-link">
-              <span class="menu-label">
-                <span class="menu-name">Add Enrollee (Formal) </span>
-              </span>
-              <span class="menu-icon">
-                <i class="icon-placeholder fe fe-user-plus "></i>
-              </span>
-            </a>
-          </li>
+              <li
+                class="menu-item"
+                v-if="user.type == 'employee' || user.type == 'shis'"
+              >
+                <a href="/add-client-formal" class=" menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Add Enrollee (Formal) </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-user-plus "></i>
+                  </span>
+                </a>
+              </li>
 
-           <li
-            class="menu-item"
-            v-if="user.type == 'employee' || user.type == 'shis'"
-          >
-            <a href="/voluntary-registration-form" class=" menu-link">
-              <span class="menu-label">
-                <span class="menu-name">Voluntary Enrollment</span>
-              </span>
-              <span class="menu-icon">
-                <i class="icon-placeholder fe fe-user-plus "></i>
-              </span>
-            </a>
-          </li>
+              <li
+                class="menu-item"
+                v-if="user.type == 'employee' || user.type == 'shis'"
+              >
+                <a href="/voluntary-registration-form" class=" menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Voluntary Enrollment</span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-user-plus "></i>
+                  </span>
+                </a>
+              </li>
 
               <li class="menu-item">
                 <router-link to="/add-client-offline" class=" menu-link">
@@ -430,7 +422,6 @@
                   </span>
                 </router-link>
               </li>
-             
 
               <li class="menu-item">
                 <a href="/view-clients-agency" class=" menu-link">
@@ -701,7 +692,6 @@
             </a>
             <!--submenu-->
             <ul class="sub-menu">
-             
               <li class="menu-item">
                 <router-link to="/list-records" class=" menu-link">
                   <span class="menu-label">
@@ -712,7 +702,7 @@
                   </span>
                 </router-link>
               </li>
-               <li class="menu-item">
+              <li class="menu-item">
                 <router-link to="/manage-drugs" class=" menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Drugs manager </span>
@@ -766,17 +756,15 @@
             <!--submenu-->
             <ul class="sub-menu">
               <li class="menu-item">
-                                    <router-link to="/manage-diagnosis" class=" menu-link">
-                                                    <span class="menu-label">
-                                                            <span class="menu-name">Disease List
-                                                            </span>
-                                                        </span>
-                                        <span class="menu-icon">
-
-                                                                <i class="icon-placeholder  fe fe-check-circle"></i>
-                                                        </span>
-                                    </router-link>
-                                </li>
+                <router-link to="/manage-diagnosis" class=" menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Disease List </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder  fe fe-check-circle"></i>
+                  </span>
+                </router-link>
+              </li>
               <li class="menu-item">
                 <router-link to="/transfer-of-hcp" class=" menu-link">
                   <span class="menu-label">
@@ -1036,7 +1024,7 @@
             </a>
             <!--submenu-->
             <ul class="sub-menu">
-              <li class="menu-item"  v-if=" user.type == 'provider_employee'">
+              <li class="menu-item" v-if="user.type == 'provider_employee'">
                 <router-link to="/add-record" class=" menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Add Record </span>
@@ -1086,3 +1074,17 @@ export default {
   created() {},
 };
 </script>
+
+<style scoped>
+.sidebar-pinned {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+}
+
+.admin-sidebar .admin-sidebar-wrapper {
+  overflow-y: scroll;
+}
+</style>

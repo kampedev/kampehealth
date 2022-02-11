@@ -11,8 +11,8 @@
                   <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                 </div>
               </div>
-              <!-- <h3>Add Record</h3> -->
 
+    
               <strong class="h4">Add Record</strong>
             </div>
           </div>
@@ -178,8 +178,8 @@
                   </div>
 
                   <div class="form-group">
-                    <button class="btn btn-primary" @click="AddRecord">
-                      Submit
+                    <button class="btn btn-primary btn-block" @click="AddRecord">
+                      Submit <i class="fe fe-send"></i>
                     </button>
                   </div>
                 </div>

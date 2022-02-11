@@ -79,7 +79,10 @@
                                         </div>
 
                                          <div class="form-group">
-                                             <button class="btn btn-primary btn-block btn-lg" @click="makeClaim">Proceed to Drugs/Service Processing</button>
+                                             <button class="btn btn-outline-primary btn-block" @click="makeClaim">
+                                               Proceed to Drugs/Service Processing
+                                               <i class="fe fe-chevron-right"></i>
+                                               </button>
                                          </div>
 
                                    </div>

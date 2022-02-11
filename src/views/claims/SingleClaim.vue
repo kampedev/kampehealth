@@ -45,10 +45,10 @@
                       class="btn btn-info spacer"
                       @click="verifyClaim"
                       v-if="
-                        (claimdetails.status != 1 &&
-                          claimdetails.verified_by_id == null &&
-                          user.type == 'tpa') ||
-                        user.type == 'tpa_employee'
+                        claimdetails.status == null &&
+                          
+                         ( user.type == 'tpa' ||
+                        user.type == 'tpa_employee')
                       "
                     >
                       Vet and verify <i class="fe fe-check"></i>
@@ -103,11 +103,11 @@
                       style="margin-left: 10px"
                       @click="rejectClaim"
                       v-if="
-                        (claimdetails.status != 1 &&
-                          claimdetails.verified_by_id != null &&
-                          user.type == 'shis') ||
+                        claimdetails.status != 0 &&
+                        
+                          (user.type == 'shis' ||
                         user.type == 'tpa' ||
-                        user.type == 'tpa_employee'
+                        user.type == 'tpa_employee')
                       "
                     >
                       <i class="fe fe-x"></i> Reject
@@ -277,7 +277,7 @@
                                  </div> -->
 
                   <p>
-                    <strong>Health Facility:</strong> {{ facility.agency_name }}
+                    <strong>Health Facility:</strong> {{ claimdetails.provider.agency_name }}
                   </p>
                   <br />
                   <p>
@@ -287,12 +287,12 @@
                   <br />
                   <p>
                     <strong>Enrollee/ Patient Name:</strong>
-                    {{ clientdetail.firstname }} {{ clientdetail.lastname }}
+                    {{ claimdetails.patient.firstname }} {{ claimdetails.patient.lastname }}
                   </p>
                   <br />
                   <p>
                     <strong>Enrollee/ Patient O'HIS Number:</strong>
-                    {{ clientdetail.id_card_number }}
+                    {{ claimdetails.patient.id_card_number }}
                   </p>
                   <br />
                   <p>
@@ -442,16 +442,6 @@ export default {
           this.singleclaim = response.data;
           this.comments = response.data.comments;
           this.claimdetails = response.data.singleclaim[0];
-          //single client
-          this.axios
-            .get(
-              `/api/v1/auth/user/${response.data.singleclaim[0].client_name}`
-            )
-            .then((response) => {
-              this.clientdetail = response.data.user;
-              console.log(response);
-            });
-          //end of single client
 
           // Prepared by
           this.axios
@@ -463,16 +453,7 @@ export default {
               console.log(response);
             });
           //end of Prepared by
-          //get facility
-          this.axios
-            .get(
-              `/api/v1/auth/detailedProviderHmo/${response.data.singleclaim[0].provider_id}`
-            )
-            .then((response) => {
-              this.facility = response.data.data[0];
-              console.log(response);
-            });
-          //end of get facility
+         
           console.log(response);
           this.isLoading = false;
         })

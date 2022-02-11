@@ -39,7 +39,7 @@
                </thead>
                <tbody>
                <tr v-for="service in services.data" v-bind:key="service.id">
-                   <td >{{service.service_category_id}}</td>
+                   <td >{{service.category.category_name}}</td>
                    <td>{{service.description}}</td>
                    <td>  <i class="mdi mdi-currency-ngn"></i>{{service.price | numeral('0,0.00')}}</td>
                    <td>

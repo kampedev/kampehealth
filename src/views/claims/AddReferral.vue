@@ -23,10 +23,7 @@
             <div class="card m-b-30">
               <div class="card-body">
                 <div class="form-row">
-                  <!-- <div class="form-group col-md-12">
-                                                            <p>  <label for="inputPassword4">Date</label></p>
-                                                               <date-picker v-model="claim.seen_date" valueType="format"></date-picker>
-                                                          </div> -->
+                 
 
                   <div class="form-group col-md-6">
                     <label for="inputCity">Enrollee OHIS Number</label>
@@ -37,12 +34,6 @@
                       @change="searchIDCard"
                     />
                   </div>
-                  <!-- <div class="form-group col-md-6">
-                                                              <label for="inputPassword4">Referring Facility</label>
-                                                              <select class="form-control"  v-model="claim.agency_id">
-                                                               <option v-for="agency in agencies" v-bind:key="agency.id" :value="agency.agency_id">{{agency.agency_name}}</option>
-                                                           </select>
-                                                          </div> -->
 
                   <div class="form-group col-md-6">
                     <label>Provisional Diagnosis</label>
@@ -66,7 +57,7 @@
                       type="text"
                       class="form-control"
                       id="inputEmail4"
-                      placeholder="Summary of investigations carried out"
+                      placeholder="Link refferal to an encounter record of the patient"
                       v-model="referral.investigations"
                     />
                   </div>
@@ -131,10 +122,7 @@
                 </div>
 
                 <div class="form-row">
-                  <!-- <div class="form-group col-md-12">
-                                                             <label for="inputCity">Authorization Code </label>
-                                                             <input type="text" class="form-control" id="inputEmail4" :value="randomNumber" disabled>
-                                                           </div> -->
+                  
                   <div class="form-group col-md-10">
                     <label for="inputCity"
                       >Clinical Findings/Treatment Given</label

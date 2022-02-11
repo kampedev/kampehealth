@@ -1,174 +1,184 @@
 <template>
-<section class="admin-content " id="contact-search">
-    <Navbar/>
-  <main class="admin-main">
-    <div class="jumbotron">
-      <h1 class="heading">Patient Details</h1>
-    </div>
-
-    <div class="user__details--container">
-      <div class="user__details--container-main">
-        <h1 class="name">
-          {{ encounterDetails.patient.lastname }}
-          {{ encounterDetails.patient.firstname }}
-        </h1>
-
-        <img
-          :src="
-            `https://api.hayokinsurance.com/image/${encounterDetails.patient.user_image}`
-          "
-          alt="Enrollee Image"
-          class="enrollee__img"
-          onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
-        />
-        <div class="primary__detail">
-          <i class="fas fa-id-card fa-2x icon"></i>
-          <p class="id__number primary__detail--text">
-            {{ encounterDetails.patient.id_card_number }}
-          </p>
-        </div>
-        <div class="primary__detail">
-          <i class="fas fa-phone fa-2x icon"></i>
-          <p class="exp__date primary__detail--text">
-            {{ encounterDetails.patient.phone_number }}
-          </p>
-        </div>
-        <div class="primary__detail">
-          <i class="far fa-calendar-alt fa-2x icon"></i>
-          <p class="facility primary__detail--text">
-            {{ encounterDetails.patient.dob }}
-          </p>
-        </div>
-        <div class="primary__detail">
-          <i class="fas fa-venus-mars fa-2x icon"></i>
-          <p class="facility primary__detail--text">
-            {{ encounterDetails.patient.gender }}
-          </p>
-        </div>
-        <div class="primary__detail">
-          <i class="fas fa-hospital fa-2x icon"></i>
-          <p class="mda primary__detail--text">
-            {{ encounterDetails.provider.agency_name }}
-          </p>
-        </div>
+  <section class="admin-content" id="contact-search">
+    <Navbar />
+    <main class="admin-main">
+      <div class="jumbotron">
+        <h1 class="heading">Patient Details</h1>
       </div>
-      <div class="user__-details--container-other">
-        <div class="user__details-header-and-renewal__CTA">
-          <h1 class="other__details--heading">
-            Encounter Details
+
+      <div class="user__details--container">
+        <div class="user__details--container-main">
+          <h1 class="name">
+            {{ encounterDetails.patient.lastname }}
+            {{ encounterDetails.patient.firstname }}
           </h1>
-        </div>
 
-        <div v-if="encounterDetails.services">
-          <div
-            class="other__details--list"
-           
-          >
-           
-           
-            <p class="other__detail">
-              <strong>Reason for visit: </strong>
-              {{ encounterDetails.healthrecord.reasonVisit }}
+          <img
+            :src="`https://api.hayokinsurance.com/image/${encounterDetails.patient.user_image}`"
+            alt="Enrollee Image"
+            class="enrollee__img"
+            onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+          />
+          <div class="primary__detail">
+            <i class="fas fa-id-card fa-2x icon"></i>
+            <p class="id__number primary__detail--text">
+              {{ encounterDetails.patient.id_card_number }}
             </p>
-            <p class="other__detail">
-              <strong>Test Result: </strong>
-              {{ encounterDetails.healthrecord.testResult }}
+          </div>
+          <div class="primary__detail">
+            <i class="fas fa-phone fa-2x icon"></i>
+            <p class="exp__date primary__detail--text">
+              {{ encounterDetails.patient.phone_number }}
             </p>
-            <p class="other__detail">
-              <strong>Note: </strong>
-              {{ encounterDetails.healthrecord.notes }}
+          </div>
+          <div class="primary__detail">
+            <i class="far fa-calendar-alt fa-2x icon"></i>
+            <p class="facility primary__detail--text">
+              {{ encounterDetails.patient.dob }}
             </p>
-            <p class="other__detail">
-              <strong>Date & time of visit: </strong>
-              {{ encounterDetails.healthrecord.date_of_visit }}
+          </div>
+          <div class="primary__detail">
+            <i class="fas fa-venus-mars fa-2x icon"></i>
+            <p class="facility primary__detail--text">
+              {{ encounterDetails.patient.gender }}
             </p>
-            <p class="other__detail">
-              <strong>Desk Officer: </strong>
-              {{ encounterDetails.healthrecord.professional.lastname }}
-              {{ encounterDetails.healthrecord.professional.firstname }}
-            </p>
-            <p class="other__detail">
-              <strong>Desk Officer's Phone Number: </strong>
-              {{ encounterDetails.healthrecord.professional.phone_number }}
+          </div>
+          <div class="primary__detail">
+            <i class="fas fa-hospital fa-2x icon"></i>
+            <p class="mda primary__detail--text">
+              {{ encounterDetails.provider.agency_name }}
             </p>
           </div>
         </div>
-        <div v-else>
-          <div class="other__details--list">
-            <h2>No Encounter Records</h2>
+        <div class="user__-details--container-other">
+          <div class="user__details-header-and-renewal__CTA">
+            <h1 class="other__details--heading">Encounter Details</h1>
+          </div>
+
+          <div v-if="encounterDetails.services">
+            <div class="other__details--list">
+              <p class="other__detail">
+                <strong>Reason for visit: </strong>
+                {{ encounterDetails.healthrecord.reasonVisit }}
+              </p>
+              <p class="other__detail">
+                <strong>Test Result: </strong>
+                {{ encounterDetails.healthrecord.testResult }}
+              </p>
+              <p class="other__detail">
+                <strong>Note: </strong>
+                {{ encounterDetails.healthrecord.notes }}
+              </p>
+              <p class="other__detail">
+                <strong>Date & time of visit: </strong>
+                {{ encounterDetails.healthrecord.date_of_visit }}
+              </p>
+              <p class="other__detail">
+                <strong>Desk Officer: </strong>
+                {{ encounterDetails.healthrecord.professional.lastname }}
+                {{ encounterDetails.healthrecord.professional.firstname }}
+              </p>
+              <p class="other__detail">
+                <strong>Desk Officer's Phone Number: </strong>
+                {{ encounterDetails.healthrecord.professional.phone_number }}
+              </p>
+            </div>
+          </div>
+          <div v-else>
+            <div class="other__details--list">
+              <h2>No Encounter Records</h2>
+            </div>
+          </div>
+          <br />
+          <button class="btn btn-primary" @click="createClaim">
+            Generate Claim for this Encounter
+          </button>
+
+          <div class="card table-responsive">
+            <strong class="h4 text-center card-header">
+              Service/Drugs Administered During Encounter</strong
+            >
+            <table class="table align-td-middle table-card">
+              <thead>
+                <tr>
+                  <th>Number</th>
+                  <th>Type</th>
+                  <th>Name</th>
+                  <th>Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(service, index) in encounterDetails.services"
+                  v-bind:key="service.id"
+                >
+                  <td>{{ index + 1 }}</td>
+                  <td>
+                    <span v-if="service.service != null">Service</span>
+                    <span v-if="service.drug_id != null">Drug</span>
+                  </td>
+                  <td>
+                    <span v-if="service.service != null">{{
+                      service.service.description
+                    }}</span>
+                    <span v-if="service.drug != null">{{
+                      service.drug.drug_name
+                    }}</span>
+                  </td>
+                  <td>
+                    <span v-if="service.service != null">
+                      &#8358;{{ service.service.price | numeral(0, 0) }}</span
+                    >
+                    <span v-if="service.drug != null">
+                      &#8358;{{ service.drug.price | numeral(0, 0) }}</span
+                    >
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>10% Charged to Customer </strong></td>
+                  <td>
+                    <strong> &#8358;{{ tenPercent | numeral(0, 0) }}</strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>Total Cost of Encounter</strong></td>
+                  <td>
+                    <strong
+                      >Total = &#8358;{{
+                        totalServiceCharge | numeral(0, 0)
+                      }}</strong
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-
-
-         <div class="card table-responsive">
-           <strong class="h4 text-center card-header"> Service/Drugs Administered During Encounter</strong>
-                                 <table class="table align-td-middle table-card">
-                                     <thead>
-                                     <tr>
-                                       <th>Number</th>
-                                       <th>Type</th>
-                                       <th>Name</th>
-                                       <th>Cost</th>
-                                     </tr>
-                                     </thead>
-                                     <tbody>
-                                       <tr v-for="(service, index) in encounterDetails.services" v-bind:key="service.id">
-
-                                          <td>{{index+1}}</td>
-                                          <td>
-                                            <span v-if="service.service != null ">Service</span>
-                                            <span v-if="service.drug_id != null ">Drug</span>
-                                          </td>
-                                           <td>
-                                             <span v-if="service.service != null ">{{service.service.description}}</span>
-                                              <span v-if="service.drug != null ">{{service.drug.drug_name}}</span>
-                                            </td>
-                                           <td>
-                                            <span v-if="service.service != null "> &#8358;{{service.service.price | numeral(0,0)}}</span>
-                                            <span  v-if="service.drug != null "> &#8358;{{service.drug.price | numeral(0,0)}}</span>
-                                             
-                                             </td>
-
-                                       </tr>
-
-                                     <tr>
-                                      <td> <strong>10% Charged to Customer </strong> </td>
-                                       <td> <strong> &#8358;{{tenPercent | numeral(0,0)}}</strong></td>
-                                     </tr>
-
-                                      <tr>
-                                       <td> <strong>Total Cost of Encounter</strong></td>
-                                       <td> <strong>Total  = &#8358;{{totalServiceCharge | numeral(0,0)}}</strong></td>
-                                     </tr>
-
-                                     </tbody>
-                                 </table>
-
-                             </div>
-
       </div>
-    </div>
-    <div class="vld-parent">
-      <loading
-        :active.sync="isLoading"
-        loader="dots"
-        :can-cancel="true"
-        :is-full-page="fullPage"
-      ></loading>
-    </div>
-  </main>
+      <div class="vld-parent">
+        <loading
+          :active.sync="isLoading"
+          loader="dots"
+          :can-cancel="true"
+          :is-full-page="fullPage"
+        ></loading>
+      </div>
+    </main>
   </section>
 </template>
 
 <script>
-  import Navbar from '@/views/Navbar.vue'
+import Navbar from "@/views/Navbar.vue";
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   components: {
-    Loading, Navbar
+    Loading,
+    Navbar,
   },
   data() {
     return {
@@ -181,30 +191,29 @@ export default {
       payment_type: "online",
       selectedPaymentOption: "",
       paymentOptions: { online: "online", offline: "offline" },
-    
     };
   },
-  computed:{
-     
-
-       totalServiceCharge(){
-        let total =  this.encounterDetails.total_drug_price + this.encounterDetails.total_service_price
-          return total
-      },
-       tenPercent(){
-         let total = this.encounterDetails.total_drug_price + this.encounterDetails.total_service_price
-          let calc  =  total * 0.1
-          return calc 
-      },
+  computed: {
+    totalServiceCharge() {
+      let total =
+        this.encounterDetails.total_drug_price +
+        this.encounterDetails.total_service_price;
+      return total;
+    },
+    tenPercent() {
+      let total =
+        this.encounterDetails.total_drug_price +
+        this.encounterDetails.total_service_price;
+      let calc = total * 0.1;
+      return calc;
+    },
   },
 
   methods: {
     getUserEncounterDetails() {
       this.isLoading = true;
       this.axios
-        .get(
-          `/api/v1/auth/service_summary/${this.$route.params.id}`
-        )
+        .get(`/api/v1/auth/service_summary/${this.$route.params.id}`)
         .then((response) => {
           this.encounterDetails = response.data;
           console.log(this.encounterDetails);
@@ -219,9 +228,25 @@ export default {
       return String.fromCharCode("A".charCodeAt(0) + index);
     },
 
-  
-  },
+    createClaim() {
+      if (confirm('Are you Sure you want to create Claim?') ) {
+        this.isLoading = true;
+      this.axios
+        .post(`/api/v1/auth/createClaimfromEncounter`, {
+          encounter_id: this.$route.params.id,
+        })
+        .then((response) => {
+          console.log(response);
+          this.$toasted.info('Created Successfully!', {position: 'top-center', duration:3000 })
 
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      this.isLoading = false;
+      }
+    },
+  },
 
   created() {
     this.getUserEncounterDetails();

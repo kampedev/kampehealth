@@ -149,7 +149,7 @@
                   </td>
                   <td>
                     <span v-if="service.service != null">
-                      &#8358;{{ service.service.price | numeral(0, 0) }}</span
+                      </span
                     >
                     <span v-if="service.drug != null">
                       &#8358;{{ service.drug.price | numeral(0, 0) }}</span
@@ -158,7 +158,7 @@
                 </tr>
 
                 <tr>
-                  <td><strong>10% Charged to Customer </strong></td>
+                  <td><strong>10% of Drug Charged to Customer </strong></td>
                   <td>
                     <strong> &#8358;{{ tenPercent | numeral(0, 0) }}</strong>
                   </td>
@@ -211,14 +211,13 @@ export default {
   computed: {
     totalServiceCharge() {
       let total =
-        this.encounterDetails.total_drug_price +
-        this.encounterDetails.total_service_price;
+        this.encounterDetails.total_drug_price 
+        // this.encounterDetails.total_service_price;
       return total;
     },
     tenPercent() {
       let total =
-        this.encounterDetails.total_drug_price +
-        this.encounterDetails.total_service_price;
+        this.encounterDetails.total_drug_price 
       let calc = total * 0.1;
       return calc;
     },

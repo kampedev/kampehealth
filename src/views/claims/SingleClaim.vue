@@ -51,7 +51,7 @@
                         user.type == 'tpa_employee')
                       "
                     >
-                      Vet and verify <i class="fe fe-check"></i>
+                      mark as vetted <i class="fe fe-check"></i>
                     </button>
 
                     <router-link
@@ -71,7 +71,7 @@
                       class="btn btn-outline-primary spacer"
                       @click="shownotes = !shownotes"
                     >
-                      Notes <i class="fe fe-clipboard"></i>
+                      Notes {{comments.length}} <i class="fe fe-clipboard"></i>
                     </button>
 
                     <router-link
@@ -130,7 +130,7 @@
                           class="btn btn-primary"
                           @click="addComment"
                         >
-                          submit
+                          submit <i class="fe fe-send"></i>
                         </button>
                       </div>
                     </div>
@@ -263,7 +263,7 @@
                       <button
                         class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
                       >
-                        verified
+                        vetted
                       </button>
                     </span>
                   </p>
@@ -486,6 +486,7 @@ export default {
           .post(`/api/v1/auth/acceptClaim/${this.$route.params.id}`)
           .then((response) => {
             console.log(response);
+             this.$router.push(`/all-claims`)
             this.getClaim();
             this.$toasted.info("updated Successfully!", {
               position: "top-center",
@@ -500,6 +501,7 @@ export default {
           .post(`/api/v1/auth/verify-claims/${this.$route.params.id}`)
           .then((response) => {
             console.log(response);
+             this.$router.push(`/all-claims`)
             this.getClaim();
             this.$toasted.info("vetted Successfully!", {
               position: "top-center",
@@ -512,6 +514,7 @@ export default {
       if (confirm("Are you sure you want to reject?")) {
         this.axios
           .post(`/api/v1/auth/rejectClaim/${this.$route.params.id}`)
+           this.$router.push(`/all-claims`)
           .then((response) => {
             console.log(response);
             // this.getClaim()

@@ -203,9 +203,9 @@ export default {
         client_id: "",
         recipient_facility: "",
         provisional_diagnosis: "",
-        treatment_given: "",
+        treatment_given: "null",
         investigations: "",
-        reason: "",
+        reason: "null",
         name_of_reffering_personnel: "",
       },
     };

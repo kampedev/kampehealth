@@ -78,7 +78,7 @@
                           class="btn btn-info"
                           style="margin-bottom: 30px"
                         >
-                        <i class="fe fe-send"></i>  Add 
+                        Add <i class="fe fe-send"></i> 
                         </button>
                       </div>
                     </div>

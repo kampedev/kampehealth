@@ -6,25 +6,18 @@
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
-              <div class="m-b-10">
-                <div class="avatar">
-                  <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-                </div>
-              </div>
-              <!-- <h3>Add Record</h3> -->
-
-        
-
+              
               <strong class="h4">Add Record</strong>
             </div>
           </div>
         </div>
       </div>
+
       <section class="pull-up">
         <div class="container">
           <div class="row list">
             <form @submit.prevent="addRecordOffline">
-              <div class="col-lg-12 col-md-12">
+              <div class="col-md-12 offset-md-2">
                 <div class="card m-b-30">
                   <div class="card-header">
                     <!-- <strong class="h3">Add Employee</strong> -->
@@ -247,15 +240,16 @@
                       </div>
 
                       <div class="form-group col-md-12">
-                        <button class="btn btn-primary btn-block btn-lg">
-                          Submit
+                        <button class="btn btn-primary btn-block">
+                          Submit <i class="fe fe-send"></i>
                         </button>
 
                        <div class="col-md-12">
                            <a href="/offline-home"
                            style="margin-top:10px;"
-                        class="btn btn-outline-info btn-block btn-lg"
-                        >View Records </a>
+                        class="btn btn-outline-info btn-block "
+                        >View Offline Records  <i class="fe fe-chevron-right"></i>
+                        </a>
                        </div>
                       </div>
                     </div>

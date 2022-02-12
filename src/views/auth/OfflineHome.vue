@@ -1,6 +1,9 @@
 <template>
-  <body class="admin-content">
-    <main class="admin-main">
+  <section class="admin-content">
+
+    <Navbar/>
+
+    <main class="admin-main" style="margin-top:20px;" >
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12 ">
@@ -31,6 +34,7 @@
                 </div>
               </div>
             </div>
+           
 
             <div class="col-md-6" v-if="user.type == 'employee'" >
               <div class="card m-b-30">
@@ -102,12 +106,13 @@
         :is-full-page="fullPage"
       ></loading>
     </div>
-  </body>
+  </section>
 </template>
 
 <script>
 // Import component
 import Loading from "vue-loading-overlay";
+import Navbar from "@/views/Navbar.vue";
   import MyRecordsOffline from '@/views/ehr/MyRecordsOffline.vue'
 
 // Import stylesheet
@@ -116,7 +121,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   components: {
-    Loading, MyRecordsOffline
+    Loading, MyRecordsOffline, Navbar
   },
   data() {
     return {

@@ -10,6 +10,7 @@
       >
         <i class="mdi mdi-24px mdi-bell-outline"></i>
         <span class="notification-counter" v-if="result.total != 0"></span>
+        <span class="text-danger">{{result.total}}</span>
       </a>
 
       <div class="dropdown-menu notification-container dropdown-menu-right">
@@ -34,7 +35,7 @@
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-circle text-warning"></i
-                  >{{ result.pending_claims }} Claims are still pending 
+                  >{{ result.pending_claims }} Claims still pending 
                 </div>
               </div>
             </a>
@@ -60,12 +61,12 @@
             </a>
 
             <a href="/all-claims" class="d-block m-b-10" 
-            v-if="user == 'provider_employee' || user.type == 'provider' || user.type == 'tpa'
+            v-if="user.type == 'provider_employee' || user.type == 'provider' || user.type == 'tpa'
             || user == 'tpa_employee'  "> 
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-circle text-danger"></i> 
-                 {{result.rejected_claims}} Claims have been rejected by O'HIS.
+                 {{result.rejected_claims}} Claims have been rejected.
                  
                 </div>
               </div>

@@ -27,7 +27,9 @@
                       </thead>
                       <tbody>
                         <tr v-for="record in records" v-bind:key="record.id">
-                          <td>{{ record.encounter_id }}</td>
+                          <td>{{ record.encounter_id }}
+                              <i class="fe fe-copy text-primary" @click="copyText(record)"></i>
+                          </td>
                           <td>{{ record.patient.full_name }}</td>
                           <td>{{ record.reasonVisit }}</td>
                           <td>{{ record.service.diagnosis.name }}</td>
@@ -189,6 +191,14 @@ export default {
             console.error(error);
           });
       }
+    },
+    copyText(record) {
+      const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+      copyToClipboard(record.encounter_id);
+      this.$toasted.info("Copied to clipboard", {
+        position: "top-center",
+        duration: 3000,
+      });
     },
   },
   created() {

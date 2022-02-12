@@ -147,8 +147,10 @@ export default {
             console.log(response);
             // this.$toasted.info('Welcome back!', {position: 'top-center', duration:3000 })
             let token = response.data.token;
+            let user = response.data.user;
             if (token) {
               localStorage.setItem("jwt", token);
+             localStorage.setItem("user", JSON.stringify(user));
 
               if (localStorage.getItem("jwt") != null) {
                 this.$router.push("/pusher");

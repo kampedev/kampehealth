@@ -39,13 +39,14 @@
             <div class="col-md-12">
 
                <button
-                style="margin-right: 4px"
+                style="margin-top: 10px"
                 class="btn btn-outline-primary float-left"
               >
                 {{referrals.total}} Referrals
               </button>
 
                  <button
+                  style="margin-top: 10px"
                 class="btn btn-outline-primary float-right"
               >
                 <download-excel

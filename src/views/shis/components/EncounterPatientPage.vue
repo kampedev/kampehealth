@@ -27,7 +27,7 @@
             @click="createClaim"
             v-if="encounterDetails.claim_id == null"
           >
-            Generate Claim for this Encounter <i class="fe fe-send"></i>
+            Generate Claim <i class="fe fe-send"></i>
           </button>
 
           <router-link :to="`/claim/${encounterDetails.claim_id}`">
@@ -92,6 +92,10 @@
 
           <div v-if="encounterDetails.services">
             <div class="other__details--list">
+              <p class="other__detail">
+                <strong>Encounter ID: </strong>
+                {{encounterDetails.healthrecord.encounter_id}}
+              </p>
               <p class="other__detail">
                 <strong>Reason for visit: </strong>
                 {{ encounterDetails.healthrecord.reasonVisit }}

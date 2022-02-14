@@ -37,39 +37,32 @@
                       </select>
                     </div>
 
+
                     <div class="form-group col-md-6" v-if="type == 'Service'">
-                      <label >Select Service</label>
-                      <select
-                        class="form-control" required
-                        v-model="addservice.services_id"
-                        @change="getService()"
-                      >
-                        <option
-                          v-for="service in services.data"
-                          v-bind:key="service.id"
-                          :value="service.id"
-                        >
-                          {{ service.description }}
-                        </option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-6" v-if="type == 'Drug'">
-                      <label for="inputPassword4">Select Drug</label>
-                      <select
-                        class="form-control"
-                        v-model="addservice.drugs_id"
-                        required
-                        @change="getDrug()"
-                      >
-                        <option
-                          v-for="drug in drugs.data"
-                          v-bind:key="drug.id"
-                          :value="drug.id"
-                        >
-                          {{ drug.drug_name }}
-                        </option>
-                      </select>
-                    </div>
+                          <label >Select Service  </label>
+                          <v-select
+                            v-model="addservice.services_id"
+                            @change="getService()"
+                            label="description"
+                            :required="!addservice.services_id"
+                            :options="services.data"
+                          />
+                      </div>                 
+
+                     <div class="form-group col-md-6" v-if="type == 'Drug'">
+                          <label for="inputPassword4">Select Drug  </label>
+                          <v-select
+                            
+                            v-model="addservice.drugs_id"
+                            
+                            label="drug_name"
+                            :required="!addservice.drugs_id"
+                            :options="drugs.data"
+                          />
+                          <p class="spacer-top" v-if="addservice.drugs_id != ''">
+                            <b-alert variant="success" show> {{addservice.drugs_id.strengths}} </b-alert>
+                          </p>
+                      </div>
 
                     <div class="form-group col-md-6" v-if="type == 'Drug'">
                       <label for="inputCity">Quantity</label>
@@ -230,9 +223,9 @@ export default {
   computed: {
     calcCost() {
       if (this.type == "Service") {
-        return this.quantity * this.singleservice.price;
+        return this.quantity * this.addservice.services_id.price;
       } else {
-        return this.quantity * this.singledrug.price;
+        return this.quantity * this.addservice.drugs_id.price;
       }
     },
   },
@@ -294,7 +287,7 @@ export default {
 
     getService() {
       this.axios
-        .get(`/api/v1/auth/services/${this.addservice.services_id}`)
+        .get(`/api/v1/auth/services/${this.addservice.services_id.id}`)
         .then((response) => {
           this.singleservice = response.data;
           console.log(response);
@@ -321,8 +314,8 @@ export default {
       this.isLoading = true;
       this.axios
         .post("/api/v1/auth/claim_service", {
-          services_id: this.addservice.services_id,
-          drugs_id: this.addservice.drugs_id,
+          services_id: this.addservice.services_id.id,
+          drugs_id: this.addservice.drugs_id.id,
           claims_id: this.$route.params.id,
           cost: this.calcCost,
         })
@@ -347,3 +340,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.spacer-top{
+  margin-top:4px;
+}
+</style>

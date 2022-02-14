@@ -44,7 +44,7 @@
         </div>
   </div>
 
-    <button @click="submitForm" class="btn btn-primary btn-block btn-lg">Add Drug</button>
+    <button @click="submitForm" class="btn btn-success btn-block">Submit Drug <i class="fe fe-send"></i> </button>
 
     <div class="col-md-12 m-b-30">
         <h5 class="h4"> <i class="fe fe-droplet"></i>{{drugs.meta.total}} Drugs</h5>
@@ -62,14 +62,14 @@
                </thead>
                <tbody>
                <tr v-for="drug in drugs.data" v-bind:key="drug.id">
-                   <td >{{drug.drug_name}}</td>
+                   <td >{{drug.drug_name}} </td>
                    <td >{{drug.dosage}}</td>
                    <td >{{drug.strengths}}</td>
                    <td>{{drug.presentation}}</td>
                    <td>  <i class="mdi mdi-currency-ngn"></i>{{drug.price | numeral('0,0.00')}}</td>
                    <td>
-                     <button class="btn btn-info" @click="editDrug(drug)"><i class="fe fe-edit"></i> </button>
-                     <button class="btn btn-danger" style="margin-left:10px;" @click="deleteDrug(drug)"><i class="fe fe-delete"></i> </button>
+                     <button class="btn btn-outline-info" style="margin-left:10px;" @click="editDrug(drug)"><i class="fe fe-edit"></i> </button>
+                     <button class="btn btn-outline-danger" style="margin-left:10px;" @click="deleteDrug(drug)"><i class="fe fe-delete"></i> </button>
                    </td>
                </tr>
                </tbody>
@@ -154,6 +154,7 @@ export default {
     },
     editDrug(drug){
       this.register.category_id = drug.category_id
+      this.register.subcategory_id = drug.sub_category_id
       this.register.drug_name = drug.drug_name
       this.register.dosage = drug.dosage
       this.register.strengths = drug.strengths
@@ -220,10 +221,11 @@ export default {
 
         })
     },
-    updateDrug(drug){
+    updateDrug(){
+       console.log(this.drug_id)
         this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-        this.axios.put(`/api/v1/auth/drugs/${drug.id}`,{
+        this.axios.put(`/api/v1/auth/drugs/${this.drug_id}`,{
           agency_id : 95930,
           category_id : this.register.category_id,
           sub_category_id : this.register.subcategory_id,

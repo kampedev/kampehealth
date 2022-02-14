@@ -6,11 +6,6 @@
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
-            <div class="m-b-10">
-              <div class="avatar">
-                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-              </div>
-            </div>
             <h3 class="h3">Add Referral</h3>
           </div>
         </div>
@@ -23,8 +18,6 @@
             <div class="card m-b-30">
               <div class="card-body">
                 <div class="form-row">
-                 
-
                   <div class="form-group col-md-6">
                     <label for="inputCity">Enrollee OHIS Number</label>
                     <input
@@ -36,19 +29,13 @@
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label>Provisional Diagnosis</label>
-                    <select
-                      class="form-control"
+                    <label for="inputPassword4">Provisional Diagnosis </label>
+                    <v-select
                       v-model="referral.provisional_diagnosis"
-                    >
-                      <option
-                        v-for="dis in diseases"
-                        v-bind:key="dis.id"
-                        :value="dis.id"
-                      >
-                        {{ dis.name }}
-                      </option>
-                    </select>
+                      label="name"
+                      :required="!referral.provisional_diagnosis"
+                      :options="diseases"
+                    />
                   </div>
 
                   <div class="form-group col-md-6">
@@ -62,20 +49,15 @@
                     />
                   </div>
 
+
                   <div class="form-group col-md-6">
-                    <label>Recipient Facility</label>
-                    <select
-                      class="form-control"
+                    <label >Recipient Facility </label>
+                    <v-select
                       v-model="referral.recipient_facility"
-                    >
-                      <option
-                        v-for="agency in providers"
-                        v-bind:key="agency.id"
-                        :value="agency.id"
-                      >
-                        {{ agency.agency_name }}
-                      </option>
-                    </select>
+                      label="agency_name"
+                      :required="!referral.recipient_facility"
+                      :options="providers"
+                    />
                   </div>
 
                   <div class="row col-md-12" v-if="enrollee_details != ''">
@@ -122,7 +104,6 @@
                 </div>
 
                 <div class="form-row">
-                  
                   <div class="form-group col-md-12">
                     <label for="inputCity"
                       >Clinical Findings/Treatment Given</label
@@ -148,7 +129,10 @@
                 </div>
 
                 <div class="form-group">
-                  <button class="btn btn-primary btn-block" @click="AddReferral">
+                  <button
+                    class="btn btn-primary btn-block"
+                    @click="AddReferral"
+                  >
                     Submit <i class="fe fe-send"></i>
                   </button>
                 </div>
@@ -297,8 +281,8 @@ export default {
           client_id: this.enrollee_details.user.id,
           agency_id: 95930,
           referring_facility: this.enrollee_details.user.provider_id,
-          recipient_facility: this.referral.recipient_facility,
-          provisional_diagnosis: this.referral.provisional_diagnosis,
+          recipient_facility: this.referral.recipient_facility.id,
+          provisional_diagnosis: this.referral.provisional_diagnosis.id,
           treatment_given: this.referral.treatment_given,
           investigations: this.referral.investigations,
           reason: this.referral.reason,

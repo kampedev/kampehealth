@@ -38,39 +38,33 @@
                         </select>
                       </div>
 
+
                       <div class="form-group col-md-6" v-if="type == 'Service'">
-                        <label for="inputPassword4">Select Service</label>
-                        <select
-                          class="form-control"
-                          v-model="addservice.services_id"
-                          @change="getService()"
-                          required
-                        >
-                          <option
-                            v-for="service in services.data"
-                            v-bind:key="service.id"
-                            :value="service.id"
-                          >
-                            {{ service.description }}
-                          </option>
-                        </select>
+                          <label for="inputPassword4">Select Service  </label>
+                          <v-select
+                            
+                            v-model="addservice.services_id"
+                            
+                            label="description"
+                            :required="!addservice.services_id"
+                            :options="services.data"
+                          />
                       </div>
-                      <div class="form-group col-md-6" v-if="type == 'Drug'">
-                        <label for="inputPassword4">Select Drug</label>
-                        <select
-                          class="form-control"
-                          v-model="addservice.drugs_id"
-                          @change="getDrug()"
-                          required
-                        >
-                          <option
-                            v-for="drug in drugs.data"
-                            v-bind:key="drug.id"
-                            :value="drug.id"
-                          >
-                            {{ drug.drug_name }}
-                          </option>
-                        </select>
+                     
+
+                       <div class="form-group col-md-6" v-if="type == 'Drug'">
+                          <label for="inputPassword4">Select Drug  </label>
+                          <v-select
+                            
+                            v-model="addservice.drugs_id"
+                            
+                            label="drug_name"
+                            :required="!addservice.drugs_id"
+                            :options="drugs.data"
+                          />
+                          <p class="spacer-top" v-if="addservice.drugs_id != ''">
+                            <b-alert variant="success" show> {{addservice.drugs_id.strengths}} </b-alert>
+                          </p>
                       </div>
 
                       <div class="col-md-12" >
@@ -288,8 +282,8 @@ export default {
       this.isLoading = true;
       this.axios
         .post("/api/v1/auth/services_rendered", {
-          service_id: this.addservice.services_id,
-          drug_id: this.addservice.drugs_id,
+          service_id: this.addservice.services_id.id,
+          drug_id: this.addservice.drugs_id.id,
           service_summary_id: this.$route.params.id,
         })
 
@@ -316,3 +310,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+.spacer-top{
+  margin-top:4px;
+}
+</style>

@@ -104,25 +104,19 @@
                         </div>
                       </div>
 
-                      <div
-                        class="form-group col-md-6"
-                        v-if="register.sector == 'Civil Servant'"
-                      >
-                        <label for="inputCity">Select MDA</label>
-                        <select
-                          class="form-control"
-                          v-model="register.place_of_work"
-                          required
-                        >
-                          <option
-                            :value="mda.name"
-                            v-for="mda in mdas"
-                            v-bind:key="mda.id"
-                          >
-                            {{ mda.name }}
-                          </option>
-                        </select>
-                      </div>
+                       <div class="form-group col-md-6"
+                       v-if="register.sector == 'Civil Servant'"
+                       >
+                          <label
+                            >Select MDA
+                          </label>
+                          <v-select
+                            v-model="register.place_of_work"
+                            :options="mdas"
+                            label="name"
+                          ></v-select>
+                        </div>
+
                       <div
                         class="form-group col-md-6"
                         v-if="
@@ -162,7 +156,7 @@
                           placeholder="NIN Number"
                         />
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="inputPassword4"
                           >Surname <span class="text-danger">*</span></label
                         >
@@ -174,7 +168,7 @@
                           placeholder="Last Name"
                         />
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="inputEmail4"
                           >First Name <span class="text-danger">*</span></label
                         >
@@ -187,7 +181,7 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="inputPassword4">Middle Name</label>
                         <input
                           type="text"
@@ -477,27 +471,7 @@
                           ></v-select>
                         </div>
 
-                      <!-- <div class="col-md-12">
-                        
-                        <div
-                          class="form-group col-md-6"
-                          v-if="
-                            register.sector !=
-                              'Tertiary Student Health Insurance Plan (T-SHIP)'
-                          "
-                        >
-                          <label>
-                            Dependents Facility for Accessing Health Care
-                          </label>
-                          <v-select
-                            v-model="register.point_of_care"
-                            :options="providers"
-                            label="agency_name"
-                            :value="register.point_of_care"
-                            @input="selectedPointocare"
-                          ></v-select>
-                        </div>
-                      </div> -->
+                     
 
                       <div class="form-group col-md-6">
                         <label for="inputCity">Blood Group</label>
@@ -526,7 +500,7 @@
 
                     <div class="form-group">
                       <button class="btn btn-primary btn-block btn-lg">
-                        Submit
+                        Submit <i class="fe fe-send"></i>
                       </button>
                     </div>
                   </form>
@@ -734,7 +708,7 @@ export default {
           weight: this.register.weight,
           gender: this.register.gender,
           sector: this.register.sector,
-          place_of_work: this.register.place_of_work,
+          place_of_work: this.register.place_of_work.name,
           point_of_care: this.register.provider_id.id,
           finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
@@ -811,7 +785,7 @@ export default {
           date_of_entry: this.register.date_of_entry,
           gender: this.register.gender,
           sector: this.register.sector,
-          place_of_work: this.register.place_of_work,
+          place_of_work: this.register.place_of_work.name,
           point_of_care: this.register.provider_id.id,
           // finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,

@@ -79,7 +79,7 @@
 
                                   <div class="form-group col-md-6">
                                    <label for="inputCity">Date of Expiry:   <b>{{getExpiry}}</b> </label>
-                                      <input type="date" class="form-control" disabled placeholder="YYYY/MM/DD" v-model="getExpiry" >
+                                      <input type="date" class="form-control"  placeholder="YYYY/MM/DD" v-model="getExpiry" >
                                       <p class="text-success">Principal Expiry: {{client.expiry_date}} </p>
                                  </div>
 

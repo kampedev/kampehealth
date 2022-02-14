@@ -369,7 +369,6 @@
                         </select>
                       </div>
 
-                      <div class="col-md-12 row">
                         <div class="form-group col-md-6">
                           <label
                             >Principal Facility for Accessing Health Care 
@@ -379,24 +378,9 @@
                             :options="providers"
                             label="agency_name"
                             :value="register.provider_id"
-                            @input="selected"
                           ></v-select>
                         </div>
-                        <div class="form-group col-md-6">
-                          <label>
-                            Dependents Facility for Accessing Health Care</label
-                          >
-                          <v-select
-                            v-model="register.point_of_care"
-                            :options="providers"
-                            label="agency_name"
-                            :value="register.point_of_care"
-                            @input="selectedPointocare"
-                          ></v-select>
-                        </div>
-                      </div>
-
-                  
+                                         
 
                       <div class="form-group col-md-6">
                         <label for="inputCity">Blood Group</label>
@@ -520,12 +504,7 @@ export default {
   },
 
   methods: {
-    selected(value) {
-      this.selected_provider = value.id;
-    },
-    selectedPointocare(value) {
-      this.selected_provider_dependents = value.agency_name;
-    },
+   
     submitForm() {
       if (this.user.type == "employee") {
              if (this.register.provider_id != '') {
@@ -615,9 +594,7 @@ export default {
           type: this.register.type,
           sectorType: this.sector,
           agency_id: 95930,
-          provider_id: this.selected_provider
-            ? this.selected_provider
-            : this.register.provider_id,
+          provider_id: this.register.provider_id.id,
           state: "2676",
           role: 0,
           password: "euhler",
@@ -633,7 +610,7 @@ export default {
           gender: this.register.gender,
           sector: this.register.sector,
           place_of_work: this.register.place_of_work,
-          point_of_care: this.selected_provider_dependents,
+          point_of_care: this.register.provider_id.id,
           finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
           grade_level: this.register.grade_level,
@@ -695,7 +672,6 @@ export default {
           type: this.register.type,
           sectorType: this.sector,
           provider_id: this.register.provider_id.id,
-          // provider_id: this.selected_provider ? this.selected_provider : this.register.provider_id,
           state: "2676",
           role: 0,
           password: "euhler",
@@ -710,7 +686,7 @@ export default {
           gender: this.register.gender,
           sector: this.register.sector,
           place_of_work: this.register.place_of_work,
-          point_of_care: this.selected_provider_dependents,
+          point_of_care: this.register.provider_id.id,
           finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
           grade_level: this.register.grade_level,

@@ -12,7 +12,6 @@
                 </div>
               </div>
 
-    
               <strong class="h4">Add Record</strong>
             </div>
           </div>
@@ -101,7 +100,6 @@
                           class="form-control"
                           id="inputEmail4"
                           v-model="enrollee_details.user.phone_number"
-                          
                         />
                       </div>
                     </div>
@@ -109,16 +107,13 @@
 
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label> Diagnosis</label>
-                      <select class="form-control" v-model="record.diagnosis">
-                        <option
-                          v-for="dis in diseases"
-                          v-bind:key="dis.id"
-                          :value="dis.id"
-                        >
-                          {{ dis.name }}
-                        </option>
-                      </select>
+                      <label for="inputPassword4">Diagnosis </label>
+                      <v-select
+                        v-model="record.diagnosis"
+                        label="name"
+                        :required="!record.diagnosis"
+                        :options="diseases"
+                      />
                     </div>
 
                     <div class="form-group col-md-6">
@@ -153,12 +148,8 @@
                       </div>
                     </div>
 
-                    <div
-                      class="form-group col-md-12"
-                     
-                    >
+                    <div class="form-group col-md-12">
                       <label for="inputCity">Test Record</label>
-                      <!-- <ckeditor :editor="editor" v-model="complaint.description" :config="editorConfig"></ckeditor> -->
                       <textarea
                         class="form-control"
                         rows="6"
@@ -168,7 +159,6 @@
 
                     <div class="form-group col-md-12">
                       <label for="inputCity">Consultation Notes</label>
-                      <!-- <ckeditor :editor="editor" v-model="complaint.description" :config="editorConfig"></ckeditor> -->
                       <textarea
                         class="form-control"
                         rows="6"
@@ -178,7 +168,10 @@
                   </div>
 
                   <div class="form-group">
-                    <button class="btn btn-primary btn-block" @click="AddRecord">
+                    <button
+                      class="btn btn-primary btn-block"
+                      @click="AddRecord"
+                    >
                       Submit <i class="fe fe-send"></i>
                     </button>
                   </div>
@@ -314,7 +307,7 @@ export default {
             drVisited: this.user.id,
             professional_id: this.user.id,
             notes: this.record.medications,
-            diagnosis: this.record.diagnosis,
+            diagnosis: this.record.diagnosis.id,
             phone_number: this.enrollee_details.user.phone_number,
             patient_type: this.record.patient_type,
             medications: "view service rendered page for more details",
@@ -337,7 +330,7 @@ export default {
           })
           .catch((error) => {
             console.log(error.response);
-             this.isLoading = false;
+            this.isLoading = false;
             this.$toasted.error("Error! Fill up on fields", {
               position: "top-center",
               duration: 3000,

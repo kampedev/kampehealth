@@ -81,7 +81,7 @@
                         class="btn btn-outline-primary spacer"
                         v-if="claimdetails.status != 1"
                       >
-                        Documents <i class="fe fe-file-plus"></i>
+                        Documents  {{singleclaim.docs.length}} <i class="fe fe-file-plus"></i>
                       </button>
                     </router-link>
 

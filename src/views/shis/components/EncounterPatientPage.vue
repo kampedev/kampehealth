@@ -6,7 +6,7 @@
         <h1 class="heading">Patient Details</h1>
       </div>
 
-       <div class="vld-parent">
+      <div class="vld-parent">
         <loading
           :active.sync="isLoading"
           loader="dots"
@@ -14,8 +14,34 @@
           :is-full-page="fullPage"
         ></loading>
       </div>
+      <div class="container card col-md-12">
+        <div class="card-header"></div>
 
-      <div class="user__details--container">
+        <div class="card-body">
+          <button class="btn btn-outline-primary spacer" @click="printMe">
+            Print <i class="fe fe-printer"></i>
+          </button>
+
+          <button
+            class="btn btn-outline-primary spacer"
+            @click="createClaim"
+            v-if="encounterDetails.claim_id == null"
+          >
+            Generate Claim for this Encounter <i class="fe fe-send"></i>
+          </button>
+
+          <router-link :to="`/claim/${encounterDetails.claim_id}`">
+            <button
+              class="btn btn-outline-primary spacer"
+              v-if="encounterDetails.claim_id != null"
+            >
+              View Claim <i class="mdi mdi-file-document-outline"></i>
+            </button>
+          </router-link>
+        </div>
+      </div>
+
+      <div class="user__details--container"  id="printDiv" ref="printNow">
         <div class="user__details--container-main">
           <h1 class="name">
             {{ encounterDetails.patient.lastname }}
@@ -99,22 +125,6 @@
             </div>
           </div>
           <br />
-          <button
-            class="btn btn-outline-primary"
-            @click="createClaim"
-            v-if="encounterDetails.claim_id == null"
-          >
-            Generate Claim for this Encounter <i class="fe fe-send"></i>
-          </button>
-           
-           <router-link :to="`/claim/${encounterDetails.claim_id}`">
-           <button
-            class="btn btn-outline-primary"
-            v-if="encounterDetails.claim_id != null"
-          >
-            View Claim <i class="mdi mdi-file-document-outline"></i>
-          </button>
-           </router-link>
 
           <div class="card table-responsive">
             <strong class="h4 text-center card-header">
@@ -148,9 +158,7 @@
                     }}</span>
                   </td>
                   <td>
-                    <span v-if="service.service != null">
-                      </span
-                    >
+                    <span v-if="service.service != null"> </span>
                     <span v-if="service.drug != null">
                       &#8358;{{ service.drug.price | numeral(0, 0) }}</span
                     >
@@ -179,7 +187,6 @@
           </div>
         </div>
       </div>
-     
     </main>
   </section>
 </template>
@@ -210,14 +217,12 @@ export default {
   },
   computed: {
     totalServiceCharge() {
-      let total =
-        this.encounterDetails.total_drug_price 
-        // this.encounterDetails.total_service_price;
+      let total = this.encounterDetails.total_drug_price;
+      // this.encounterDetails.total_service_price;
       return total;
     },
     tenPercent() {
-      let total =
-        this.encounterDetails.total_drug_price 
+      let total = this.encounterDetails.total_drug_price;
       let calc = total * 0.1;
       return calc;
     },
@@ -267,6 +272,13 @@ export default {
         this.isLoading = false;
       }
     },
+    printMe() {
+      var printContents = document.getElementById("printDiv").innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+    },
   },
 
   created() {
@@ -281,6 +293,11 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
   font-family: "Nunito";
+}
+
+.spacer {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .heading {

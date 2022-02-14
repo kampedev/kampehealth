@@ -23,6 +23,14 @@
                   <div class="form-group">
 
                     <button
+                      class="btn btn-outline-primary spacer"
+                      @click="printMe"
+                    >
+                      Print <i class="fe fe-printer"></i>
+                    </button>
+
+
+                    <button
                       class="btn btn-outline-info spacer"
                       @click="shownotes = !shownotes"
                     >
@@ -66,7 +74,7 @@
                       reject <i class="fe fe-x"></i>
                     </button>
 
-                    <button class="btn btn-outline-info" @click="copyCode">
+                    <button class="btn btn-outline-info spacer" @click="copyCode">
                       Copy Authorization Code <i class="fe fe-copy"></i>
                     </button>
                     
@@ -100,36 +108,9 @@
             </div>
           </div>
 
-          <div class="col-md-12">
-            <span v-if="singlereferral.status == 'approved'">
-              <button
-                type="button"
-                class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
-              >
-                approved
-              </button>
-            </span>
+        
 
-            <span v-if="singlereferral.status == 'rejected'">
-              <button
-                type="button"
-                class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger"
-              >
-                rejected
-              </button>
-            </span>
-
-            <span v-if="singlereferral.status == 'pending'">
-              <button
-                type="button"
-                class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
-              >
-                pending
-              </button>
-            </span>
-          </div>
-
-          <div class="row">
+          <div class="row" id="printDiv" ref="printNow">
             <div class="col-lg-8 col-md-8" v-show="shownotes">
               <div class="card m-b-30">
                 <div class="card-body">
@@ -223,22 +204,50 @@
                       </p>
                     </div>
                     <hr>
+
+                      <div class="col-md-12">
+            <span v-if="singlereferral.status == 'approved'">
+              <button
+                type="button"
+                class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+              >
+                approved
+              </button>
+            </span>
+
+            <span v-if="singlereferral.status == 'rejected'">
+              <button
+                type="button"
+                class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger"
+              >
+                rejected
+              </button>
+            </span>
+
+            <span v-if="singlereferral.status == 'pending'">
+              <button
+                type="button"
+                class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+              >
+                pending
+              </button>
+            </span>
+          </div>
+          
+                    <hr>
                     <div class="col-md-12">
                       <button class="btn btn-outline-primary"  @click="copyCode">
                           {{ singlereferral.authorization_code }}
                       </button>
-                      <!-- <p>
-                        <span class="text-primary">  </span>
-                      </p> -->
+                      
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          
 
-          <div class="row">
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-header">
                   <p>
@@ -255,10 +264,8 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="row">
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-header">
                   <p>
@@ -271,9 +278,9 @@
                 </div>
               </div>
             </div>
-          </div>
         </div>
-
+        </div>
+        
         <!-- Encounter Modal -->
         <!-- Modal -->
         <div
@@ -502,6 +509,13 @@ export default {
         position: "top-center",
         duration: 3000,
       });
+    },
+    printMe() {
+      var printContents = document.getElementById("printDiv").innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
     },
   },
   created() {

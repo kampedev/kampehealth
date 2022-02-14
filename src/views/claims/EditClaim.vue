@@ -94,10 +94,10 @@
 
                 <div class="form-group">
                   <button
-                    class="btn btn-primary btn-block btn-lg"
+                    class="btn btn-outline-primary btn-block"
                     @click="updateClaim"
                   >
-                    Update Claim
+                    Update Claim <i class="fe fe-chevron-right"></i>
                   </button>
                 </div>
               </div>

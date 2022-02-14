@@ -1,6 +1,6 @@
 {
-  "appId": "com.ohis.app",
-  "appName": "OHIS",
+  "appId": "com.oshia.app",
+  "appName": "OSHIA",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
   "webDir": "dist",

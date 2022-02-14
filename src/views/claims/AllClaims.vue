@@ -20,9 +20,16 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="form-group col-md-6" v-if=" user.type == 'shis' ||  user.type == 'employee'">
+                  <div
+                    class="form-group col-md-6"
+                    v-if="user.type == 'shis' || user.type == 'employee'"
+                  >
                     <label> Select Facility </label>
-                    <select class="form-control" @change="getClaims" v-model="provider_id">
+                    <select
+                      class="form-control"
+                      @change="getClaims"
+                      v-model="provider_id"
+                    >
                       <option
                         v-for="provider in providers"
                         v-bind:key="provider.id"
@@ -32,10 +39,16 @@
                       </option>
                     </select>
                   </div>
-                  <div class="form-group col-md-6" 
-                  v-if=" user.type == 'shis' ||  user.type == 'employee'">
+                  <div
+                    class="form-group col-md-6"
+                    v-if="user.type == 'shis' || user.type == 'employee'"
+                  >
                     <label> Select TPA/HMO </label>
-                    <select class="form-control" @change="getClaims" v-model="org_id">
+                    <select
+                      class="form-control"
+                      @change="getClaims"
+                      v-model="org_id"
+                    >
                       <option
                         v-for="tpa in tpas"
                         v-bind:key="tpa.id"
@@ -69,16 +82,16 @@
                     />
                   </div>
                   <div class="col-md-12">
-                      <button class="btn btn-outline-primary btn-block">
-                       
-                        <download-excel 
-                        :data="claims.data" 
-                        :fields="json_fields" type="csv"
-                         :escapeCsv=false :name="'claim data' +'.csv'" >
-                        
-                            </download-excel>
-                        
-                        </button>
+                    <button class="btn btn-outline-primary btn-block">
+                      <download-excel
+                        :data="claims.data"
+                        :fields="json_fields"
+                        type="csv"
+                        :escapeCsv="false"
+                        :name="'claim data' + '.csv'"
+                      >
+                      </download-excel>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -87,18 +100,31 @@
           <br />
 
           <div class="card row list">
-
             <div class="card-header">
-              <button class="btn btn-outline-dark
-               float-left" >
-                  {{claims.meta.total}} Claims
+              <button class="btn btn-outline-dark float-left">
+                {{ claims.meta.total }} Claims
               </button>
 
-              <button class="btn btn-outline-dark
-               float-right" @click="filterparams = !filterparams">
-                  filters
+              <button
+                class="btn btn-outline-dark float-right"
+                @click="filterparams = !filterparams"
+              >
+                filters
               </button>
-              
+
+              <button
+                style="margin-right: 4px"
+                class="btn btn-outline-primary float-right"
+              >
+                <download-excel
+                  :data="claims.data"
+                  :fields="json_fields"
+                  type="csv"
+                  :escapeCsv="false"
+                  :name="'claim data' + '.csv'"
+                >
+                </download-excel>
+              </button>
             </div>
             <div class="card-body m-b-30">
               <div class="table-responsive">
@@ -236,9 +262,8 @@ export default {
         "Facility Name": "provider.agency_name",
         "Enrollee Full Name": "patient.full_name",
         "Enrollee OHIS Number": "patient.id_card_number",
-        "Diagnosis": "diagnosis.name",
-        "HMO": "tpa.organization_name",
-       
+        Diagnosis: "diagnosis.name",
+        HMO: "tpa.organization_name",
       },
       json_meta: [
         [
@@ -263,7 +288,7 @@ export default {
   methods: {
     pushDate() {
       this.date = "date";
-      this.getClaims()
+      this.getClaims();
     },
     getClaims() {
       this.user = JSON.parse(localStorage.getItem("user"));

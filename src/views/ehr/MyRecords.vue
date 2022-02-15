@@ -2,13 +2,13 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
     <main class="admin-main">
-       <div class="bg-dark m-b-30">
+       <div class="bg-success m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
                    <div class="col-md-6 text-center mx-auto text-white p-b-30">
                       
-                       <h3>My Records</h3>
+                       <p class="h3 text-dark">My Records</p>
                       
                       
                    </div>
@@ -87,7 +87,7 @@ export default {
       records:"",
        buttoncolor: {
         offline: "btn btn-default",
-        online: "btn btn-info",
+        online: "btn btn-success",
       },
      
     }
@@ -101,14 +101,14 @@ export default {
       showOnline() {
       this.online_S = true;
       this.offline_S = false;
-      this.buttoncolor.online = "btn btn-info";
+      this.buttoncolor.online = "btn btn-success";
       this.buttoncolor.offline = "btn btn-default";
     },
     showOffline() {
       this.online_S = false;
       this.offline_S = true;
       this.buttoncolor.online = "btn btn-default";
-      this.buttoncolor.offline = "btn btn-info";
+      this.buttoncolor.offline = "btn btn-success";
     },
     getRecords(){
     this.user = JSON.parse(localStorage.getItem('user'))

@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
     <main class="admin-main">
-       <div class="bg-dark m-b-30">
+       <div class="bg-success m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3>{{clients.length}} Clients</h3>
+                       <p class="h3 text-dark">{{clients.length}} Clients</p>
                        <!-- <div class="form-dark">
                            <div class="input-group input-group-flush mb-3">
                                <input placeholder="Filter Clients" type="search"
@@ -61,7 +61,7 @@
                                          <td>
 
                                            <router-link :to="{ path: '/patient/'+ client.id}">
-                                             <button type="button" name="button" class="btn btn-info"><i class="fe fe-eye"></i></button>
+                                             <button type="button" name="button" class="btn btn-outline-success"><i class="fe fe-eye"></i></button>
                                             </router-link>
 
                                          </td>

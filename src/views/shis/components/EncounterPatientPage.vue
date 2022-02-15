@@ -3,7 +3,7 @@
     <Navbar />
     <main class="admin-main">
       <div class="jumbotron">
-        <h1 class="heading">Patient Details</h1>
+        <h1 class="h3 text-dark">Patient Details</h1>
       </div>
 
       <div class="vld-parent">
@@ -18,12 +18,12 @@
         <div class="card-header"></div>
 
         <div class="card-body">
-          <button class="btn btn-outline-primary spacer" @click="printMe">
+          <button class="btn btn-outline-success spacer" @click="printMe">
             Print <i class="fe fe-printer"></i>
           </button>
 
           <button
-            class="btn btn-outline-primary spacer"
+            class="btn btn-outline-success spacer"
             @click="createClaim"
             v-if="encounterDetails.claim_id == null"
           >
@@ -32,7 +32,7 @@
 
           <router-link :to="`/claim/${encounterDetails.claim_id}`">
             <button
-              class="btn btn-outline-primary spacer"
+              class="btn btn-outline-success spacer"
               v-if="encounterDetails.claim_id != null"
             >
               View Claim <i class="mdi mdi-file-document-outline"></i>
@@ -309,7 +309,7 @@ html {
 }
 
 .jumbotron {
-  background: rgb(10, 10, 102);
+  background: rgb(72, 179, 120);
   text-align: center;
   color: #fff;
 }

@@ -66,6 +66,7 @@
                    <td >{{drug.dosage}}</td>
                    <td >{{drug.strengths}}</td>
                    <td>{{drug.presentation}}</td>
+                   <td>{{drug.agency_id}} </td>
                    <td>  <i class="mdi mdi-currency-ngn"></i>{{drug.price | numeral('0,0.00')}}</td>
                    <td>
                      <button class="btn btn-outline-info" style="margin-left:10px;" @click="editDrug(drug)"><i class="fe fe-edit"></i> </button>
@@ -142,7 +143,7 @@ export default {
         this.axios.delete(`/api/v1/auth/drugs/${drug.id}`)
                     .then(response => {
                         console.log(response)
-                        this.getDrugs()
+                        // this.getDrugs()
                         this.$toasted.success('Deleted Successfully!', {position: 'top-left', duration:5000 })
 
                     })
@@ -254,7 +255,7 @@ export default {
     },
     getDrugs(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/drug-agency/95930`)
+      this.axios.get(`/api/v1/auth/drug-agency/95930?page=${this.current_page}`)
                   .then(response => {
                       this.drugs = response.data
                       console.log(response)

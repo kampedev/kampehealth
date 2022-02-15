@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
 
-       <div class="bg-dark m-b-30">
+       <div class="bg-success m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
@@ -86,7 +86,7 @@
                            </form>
 
                             <div class="col-md-12">
-                              <button class="btn btn-outline-primary btn-block" @click="gotoSingleClaim">Proceed to Claim 
+                              <button class="btn btn-outline-success btn-block" @click="gotoSingleClaim">Proceed to Claim 
                                 <i class="fe fe-chevron-right"></i>
                               </button>
 

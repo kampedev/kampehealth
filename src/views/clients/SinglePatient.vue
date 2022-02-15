@@ -3,17 +3,14 @@
     <Navbar />
     <main class="admin-main">
       <div>
-        <div class="bg-dark m-b-30">
+        <div class="bg-success m-b-30">
           <div class="container">
             <div class="row p-b-60 p-t-60">
 
               <div class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image">
-                <p class="h1 text-primary">O'HIS PATIENT RECORD MANAGEMENT </p>
+                <p class="h1 text-dark">O'HIS PATIENT RECORD MANAGEMENT </p>
 
-                <!-- <button v-clipboard="client.firstname">
-
-                  <strong> <span class="h3">{{client.firstname}} {{client.lastname}}</span> </strong>
-                </button> -->
+          
 
               </div>
 
@@ -34,10 +31,10 @@
                   <div class="card-body">
                     <div class="form-group">
 
-                      <button class="btn btn-default spacer">{{records.meta.total}}  Health Records<i class="fe fe-clipboard"></i> </button>
-                      <button class="btn btn-default spacer">{{referrals.meta.total}}  Referrals<i class="mdi mdi-bank-transfer"></i> </button>
+                      <button class="btn btn-dark spacer">{{records.meta.total}}  Health Records<i class="fe fe-clipboard"></i> </button>
+                      <button class="btn btn-dark spacer">{{referrals.meta.total}}  Referrals<i class="mdi mdi-bank-transfer"></i> </button>
 
-                      <button class="btn btn-primary spacer" @click="printMe"><i class="fe fe-printer"></i></button>
+                      <button class="btn btn-success spacer" @click="printMe">print <i class="fe fe-printer"></i></button>
 
                     </div>
 

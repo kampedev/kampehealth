@@ -2,11 +2,11 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
-              <h3 class="h4">Claims</h3>
+              <h3 class="h4 text-dark">Claims</h3>
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@
                     />
                   </div>
                   <div class="col-md-12">
-                    <button class="btn btn-outline-primary btn-block">
+                    <button class="btn btn-outline-success btn-block">
                       <download-excel
                         :data="claims.data"
                         :fields="json_fields"
@@ -199,7 +199,7 @@
                           <button
                             type="button"
                             name="button"
-                            class="btn btn-outline-info"
+                            class="btn btn-outline-success"
                           >
                             <i class="fe fe-eye"></i>
                           </button>

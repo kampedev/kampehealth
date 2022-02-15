@@ -1,16 +1,15 @@
 <template>
-  <body class="jumbo-page">
-    <main class="admin-main">
+  <body class="jumbo-page" style="background-image: url('background/4.jpg');">
+    <main class="admin-main" >
       <div class="container-fluid">
-        <div class="row">
+        <div class="row"  >
           <div class="container spacer-top">
-            <div class="card col-lg-6 offset-lg-3 ">
+            <div class="card col-lg-6 offset-lg-3 notscroll">
               <div class="row align-items-center m-h-70">
                 <div class="mx-auto col-md-8">
+                  
                   <div class="text-center">
-                    <div class="col-md-4 offset-md-4">
-                      <img src="assets/img/ohis_logo.png" width="80" alt="" />
-                    </div>
+                      <img src="assets/img/ohis_logo.png" width="80" alt="" class="rounded mx-auto d-block" />
 
                     <p class="admin-brand-content">
                       Osun Health Insurance Agency
@@ -41,7 +40,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <div class="form-check">
                       <input
                         class="form-check-input"
@@ -52,14 +51,14 @@
                         Remember Me
                       </label>
                     </div>
-                  </div>
+                  </div> -->
 
                   <button
                     type="submit"
-                    class="btn btn-primary btn-block btn-lg"
+                    class="btn btn-success btn-block btn-lg"
                     @click="logIn"
                   >
-                    Login
+                    Login <i class="fe fe-send"></i>
                   </button>
                   <p class="text-right p-t-10" v-if="user != null">
                     <a
@@ -203,7 +202,10 @@ export default {
 </script>
 <style scoped>
 .spacer-top {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 80px;
+  margin-bottom: 180px;
+}
+.notscroll{
+  overflow: hidden;
 }
 </style>

@@ -2,11 +2,11 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
-              <h3 class="h4">Referrals</h3>
+              <h3 class="h4 text-dark">Referrals</h3>
             </div>
           </div>
         </div>
@@ -135,7 +135,7 @@
                           <button
                             type="button"
                             name="button"
-                            class="btn btn-info"
+                            class="btn btn-outline-success"
                           >
                             <i class="fe fe-eye"></i>
                           </button>
@@ -190,7 +190,7 @@ export default {
       current_page: 1,
       buttoncolor: {
         informal: "btn btn-default",
-        formal: "btn btn-info",
+        formal: "btn btn-success",
       },
       json_fields: {
         "Patient Name": "client.full_name",
@@ -217,13 +217,13 @@ export default {
   methods: {
     showPrimary() {
       this.provider_referral_category = "primary";
-      this.buttoncolor.formal = "btn btn-info";
+      this.buttoncolor.formal = "btn btn-success";
       this.buttoncolor.informal = "btn btn-default";
       this.getReferrals();
     },
     showSecondary() {
       this.provider_referral_category = "secondary";
-      this.buttoncolor.informal = "btn btn-info";
+      this.buttoncolor.informal = "btn btn-success";
       this.buttoncolor.formal = "btn btn-default";
       this.getReferrals();
     },

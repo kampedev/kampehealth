@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
 
-    <div class="bg-dark m-b-30">
+    <div class="bg-success m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -91,7 +91,7 @@
                     </div>
                      <div class="col-md-6">
                       <button
-                        class="btn btn-info btn-block"
+                        class="btn btn-success btn-block"
                         style="margin-bottom: 30px"
                       >
                         <i class="fe fe-send"></i> Add
@@ -102,7 +102,7 @@
 
                 <div class="form-group">
                   <button
-                    class="btn btn-outline-primary btn-block"
+                    class="btn btn-outline-success btn-block"
                     @click="singleClaim()"
                   >
                     Proceed to Document Upload <i class="fe fe-chevron-right"></i>

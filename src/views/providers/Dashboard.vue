@@ -20,7 +20,7 @@
                             <div class="pb-2">
                               <router-link :to="{ path: '/view-clients-provider'}">
                                 <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                    <div class="avatar-title bg-soft-success rounded-circle">
                                         <i class="mdi mdi-account-group"></i>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                         <div class="card-body">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                    <div class="avatar-title bg-soft-success rounded-circle">
                                         <i class="mdi mdi-account-multiple"></i>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                         <div class="card-body">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                    <div class="avatar-title bg-soft-success rounded-circle">
                                         <i class="mdi mdi-account-heart"></i>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                         <div class="card-body">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                    <div class="avatar-title bg-soft-success rounded-circle">
                                         <i class="mdi mdi-medical-bag"></i>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                             <div class="pb-2">
                               <router-link :to="{ path: '/all-claims'}">
                                 <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                    <div class="avatar-title bg-soft-success rounded-circle">
                                         <i class="fe fe-credit-card"></i>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
                         <div class="card-body">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                    <div class="avatar-title bg-soft-success rounded-circle">
                                         <i class="mdi mdi-bank-transfer-out"></i>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                         <div class="card-body">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                    <div class="avatar-title bg-soft-success rounded-circle">
                                         <i class="mdi mdi-bank-transfer-in"></i>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@
                         <div class="card-body">
                             <div class="pb-2">
                                 <div class="avatar avatar-lg">
-                                    <div class="avatar-title bg-soft-primary rounded-circle">
+                                    <div class="avatar-title bg-soft-success rounded-circle">
                                         <i class="mdi mdi-account-tie"></i>
                                     </div>
                                 </div>
@@ -240,7 +240,7 @@
                                 </td>
                                 <td>
                                     <router-link :to="`/claim/${claim.id}`">
-                                    <button class="btn btn-outline-primary">
+                                    <button class="btn btn-outline-success">
                                         <i class="fe fe-eye"></i>
                                     </button>
                                     </router-link>

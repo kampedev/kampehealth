@@ -9,7 +9,7 @@
                    <div class="col-md-12  mx-auto text-white p-b-30">
 
                      <div class="text-center">
-                       <h3 class="h3">Drugs Manager</h3>
+                       <h3 class="h3 text-dark">Drugs Manager</h3>
                      </div>
 
                    </div>

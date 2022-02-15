@@ -47,7 +47,7 @@
     <button @click="submitForm" class="btn btn-success btn-block">Submit Drug <i class="fe fe-send"></i> </button>
 
     <div class="col-md-12 m-b-30">
-        <h5 class="h4"> <i class="fe fe-droplet"></i>{{drugs.meta.total}} Drugs</h5>
+        <h5 class="h4"> <i class="fe fe-droplet"></i>{{drugs.length}} Drugs</h5>
         <div class="table-responsive">
            <table class="table align-td-middle table-card">
                <thead>
@@ -255,7 +255,8 @@ export default {
     },
     getDrugs(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/drug-agency/95930?page=${this.current_page}`)
+      // this.axios.get(`/api/v1/auth/drug-agency/95930?page=${this.current_page}`)
+      this.axios.get(`/api/v1/auth/drug-agency/95930`)
                   .then(response => {
                       this.drugs = response.data
                       console.log(response)

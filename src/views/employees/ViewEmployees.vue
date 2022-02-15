@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
     <main class="admin-main">
-       <div class="bg-dark m-b-30">
+       <div class="bg-success m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <strong class="h4">{{employees.length}} Employees</strong>
+                       <strong class="h4 text-dark">{{employees.length}} Employees</strong>
 
 
                    </div>
@@ -65,7 +65,7 @@
                                          <!-- <td> <strong>{{employee.enrolled_count | numeral(0,0) }}</strong> Enrolled</td> -->
                                          <td >
                                            <router-link :to="{ path: '/employee/'+ employee.id}">
-                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                           <button type="button" class="btn btn-success" name="button"><i class="fe fe-eye"></i> </button>
                                          </router-link>
                                          <button type="button" @click="deleteUser(employee)" class="btn btn-danger"> <i class="fe fe-delete"></i></button>
 

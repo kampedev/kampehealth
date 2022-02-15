@@ -1,7 +1,7 @@
 <template>
   <section class="admin-content " id="contact-search">
    
-    <div class="bg-dark m-b-30">
+    <div class="bg-success m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -361,8 +361,8 @@
                     </div>
 
                     <div class="form-group">
-                      <button class="btn btn-primary btn-block btn-lg">
-                        Submit
+                      <button class="btn btn-success btn-block btn-lg">
+                        Submit <i class="fe fe-send"></i>
                       </button>
                     </div>
                   </form>

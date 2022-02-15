@@ -2,10 +2,10 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
-            <div class="col-md-6 text-center mx-auto text-white p-b-30">
+            <div class="col-md-6 text-center mx-auto text-dark p-b-30">
               <h3 class="h3">Add Claim</h3>
             </div>
           </div>
@@ -112,7 +112,7 @@
 
                   <div class="form-group">
                     <button
-                      class="btn btn-outline-primary btn-block"
+                      class="btn btn-outline-success btn-block"
                       @click="makeClaim"
                     >
                       Proceed to Drugs/Service Processing

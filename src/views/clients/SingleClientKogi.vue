@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <div>
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div
@@ -266,7 +266,7 @@
                     </div>
                     <div class="col-md-10">
                       <strong
-                        ><h2 class="h1 text-primary">
+                        ><h2 class="h1 text-success">
                           OSUN HEALTH INSURANCE SCHEME
                         </h2>
                       </strong>

@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <div>
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -24,7 +24,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <button
-                      class="btn btn-info spacer"
+                      class="btn btn-success spacer"
                       @click="approveClaim"
                       v-if="
                         (claimdetails.status != 1 && user.type == 'shis') ||
@@ -35,14 +35,14 @@
                     </button>
 
                     <button
-                      class="btn btn-outline-info spacer"
+                      class="btn btn-outline-success spacer"
                       @click="show = !show"
                     >
                       Add Note <i class="fe fe-plus"></i>
                     </button>
 
                     <button
-                      class="btn btn-info spacer"
+                      class="btn btn-success spacer"
                       @click="verifyClaim"
                       v-if="
                         claimdetails.status == null &&
@@ -68,7 +68,7 @@
                     </router-link>
 
                     <button
-                      class="btn btn-outline-primary spacer"
+                      class="btn btn-outline-success spacer"
                       @click="shownotes = !shownotes"
                     >
                       Notes {{comments.length}} <i class="fe fe-clipboard"></i>
@@ -78,7 +78,7 @@
                       :to="{ path: '/upload-claims-docs/' + claimdetails.id }"
                     >
                       <button
-                        class="btn btn-outline-primary spacer"
+                        class="btn btn-outline-success spacer"
                         v-if="claimdetails.status != 1"
                       >
                         Documents  {{singleclaim.docs.length}} <i class="fe fe-file-plus"></i>
@@ -91,7 +91,7 @@
                       }"
                     >
                       <button
-                        class="btn btn-outline-primary spacer"
+                        class="btn btn-outline-success spacer"
                         v-if="claimdetails.status != 1"
                       >
                         Services <i class="fe fe-thermometer"></i>
@@ -127,7 +127,7 @@
                       <div class="form-group">
                         <button
                           type="button"
-                          class="btn btn-primary"
+                          class="btn btn-success"
                           @click="addComment"
                         >
                           submit <i class="fe fe-send"></i>
@@ -154,7 +154,7 @@
                       <p class="">
                         {{ comment.body }}
                       </p>
-                      <p class="text-info">
+                      <p class="text-success">
                         By: {{ comment.user.firstname }}
                         {{ comment.user.lastname }} -
                         <span>{{ comment.user.type }}</span>
@@ -369,7 +369,7 @@
                               target="_blank"
                             >
                               <button
-                                class="btn btn-outline-primary"
+                                class="btn btn-outline-success"
                                 name="button"
                               >
                                 <i class="fe fe-eye"></i>

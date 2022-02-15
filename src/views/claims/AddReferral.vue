@@ -2,11 +2,11 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
 
-    <div class="bg-dark m-b-30">
+    <div class="bg-success m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
-          <div class="col-md-6 text-center mx-auto text-white p-b-30">
-            <h3 class="h3">Add Referral</h3>
+          <div class="col-md-6 text-center mx-auto text-dark p-b-30">
+            <h3 class="h3 spacer-top">Add Referral</h3>
           </div>
         </div>
       </div>
@@ -130,7 +130,7 @@
 
                 <div class="form-group">
                   <button
-                    class="btn btn-primary btn-block"
+                    class="btn btn-success btn-block"
                     @click="AddReferral"
                   >
                     Submit <i class="fe fe-send"></i>

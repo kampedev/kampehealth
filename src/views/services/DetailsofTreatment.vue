@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -69,7 +69,7 @@
 
                       <div class="col-md-12" >
                         <button
-                          class="btn btn-info"
+                          class="btn btn-success"
                           style="margin-bottom: 30px"
                         >
                         Add <i class="fe fe-send"></i> 
@@ -80,7 +80,7 @@
 
                   <div class="form-group">
                     <button
-                      class="btn btn-outline-primary btn-block"
+                      class="btn btn-outline-success btn-block"
                       @click="singlePatient"
                     >
                       Proceed to Patient Page <i class="fe fe-chevron-right"></i>
@@ -120,7 +120,7 @@
                         }}</span>
                       </td>
                       <td>
-                           <button class="btn btn-danger"
+                           <button class="btn btn-outline-danger"
                               name="button" @click="deleteService(service)"><i class="fe fe-delete"></i>
                             </button>
                        </td>

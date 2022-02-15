@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -12,7 +12,7 @@
                 </div>
               </div>
 
-              <strong class="h4">Add Record</strong>
+              <strong class="h4 text-dark">Add Record</strong>
             </div>
           </div>
         </div>
@@ -169,7 +169,7 @@
 
                   <div class="form-group">
                     <button
-                      class="btn btn-primary btn-block"
+                      class="btn btn-success btn-block"
                       @click="AddRecord"
                     >
                       Submit <i class="fe fe-send"></i>

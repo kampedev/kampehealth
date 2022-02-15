@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
 
-       <div class="bg-dark m-b-30">
+       <div class="bg-success m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
@@ -10,7 +10,7 @@
                        <div class="m-b-10">
 
                        </div>
-                       <strong class="h4" style="margin-top:10px">Manage Dependents </strong>
+                       <strong class="h4 spacer-top" >Manage Dependents </strong>
                        
 
                    </div>
@@ -106,7 +106,7 @@
                                </div>
 
                                  <div class="form-group">
-                                     <button class="btn btn-primary btn-block btn-lg" @click="submitForm">Submit</button>
+                                     <button class="btn btn-success btn-block btn-lg" @click="submitForm">Submit <i class="fe fe-send"></i> </button>
                                  </div>
 
                            </div>
@@ -158,8 +158,8 @@
                                    <button class="btn btn-default" name="button" ><i class="fe fe-eye"></i> </button>
                                </router-link>
 
-                                 <button class="btn btn-info" name="button" @click="editDep(dependent)"><i class="fe fe-edit"></i> </button>
-                                 <button class="btn btn-danger" name="button" @click="deleteDep(dependent)"><i class="fe fe-delete"></i> </button>
+                                 <button class="btn btn-outline-info" name="button" @click="editDep(dependent)"><i class="fe fe-edit"></i> </button>
+                                 <button class="btn btn-outline-danger" name="button" @click="deleteDep(dependent)"><i class="fe fe-delete"></i> </button>
                                </td>
 
                            </tr>

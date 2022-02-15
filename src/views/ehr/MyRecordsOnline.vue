@@ -28,7 +28,7 @@
                       <tbody>
                         <tr v-for="record in records" v-bind:key="record.id">
                           <td>{{ record.encounter_id }}
-                              <i class="fe fe-copy text-primary" @click="copyText(record)"></i>
+                              <i class="fe fe-copy text-success" @click="copyText(record)"></i>
                           </td>
                           <td>{{ record.patient.full_name }}</td>
                           <td>{{ record.reasonVisit }}</td>
@@ -40,7 +40,7 @@
                           >
                             <button
                               type="button"
-                              class="btn btn-outline-info"
+                              class="btn btn-outline-success"
                               name="button"
                             >
                               <i class="fe fe-eye"></i>

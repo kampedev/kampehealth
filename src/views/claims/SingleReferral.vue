@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <div>
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -23,7 +23,7 @@
                   <div class="form-group">
 
                     <button
-                      class="btn btn-outline-primary spacer"
+                      class="btn btn-outline-success spacer"
                       @click="printMe"
                     >
                       Print <i class="fe fe-printer"></i>
@@ -31,7 +31,7 @@
 
 
                     <button
-                      class="btn btn-outline-info spacer"
+                      class="btn btn-outline-success spacer"
                       @click="shownotes = !shownotes"
                     >
                       {{ singlereferral.comments.length }} Notes
@@ -41,7 +41,7 @@
                     <button
                       type="button"
                        v-if="encounter != null"
-                      class="btn btn-outline-dark spacer"
+                      class="btn btn-outline-success spacer"
                       data-toggle="modal"
                       data-target="#slideRightModal"
                     >
@@ -49,7 +49,7 @@
                     </button>
 
                     <button
-                      class="btn btn-outline-info spacer"
+                      class="btn btn-outline-success spacer"
                       @click="verifyRef"
                       v-if="
                         (singlereferral.status != 'rejected' &&
@@ -74,7 +74,7 @@
                       reject <i class="fe fe-x"></i>
                     </button>
 
-                    <button class="btn btn-outline-info spacer" @click="copyCode">
+                    <button class="btn btn-outline-success spacer" @click="copyCode">
                       Copy Authorization Code <i class="fe fe-copy"></i>
                     </button>
                     
@@ -97,7 +97,7 @@
                     ></textarea>
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      class="btn btn-success"
                       @click="addComment"
                     >
                       submit
@@ -233,10 +233,10 @@
               </button>
             </span>
           </div>
-          
+
                     <hr>
                     <div class="col-md-12">
-                      <button class="btn btn-outline-primary"  @click="copyCode">
+                      <button class="btn btn-outline-success"  @click="copyCode">
                           {{ singlereferral.authorization_code }}
                       </button>
                       

@@ -109,7 +109,7 @@
                           <button
                             type="button"
                             name="button"
-                            class="btn btn-info"
+                            class="btn btn-outline-success"
                             style="margin-left:10px; margin-top:10px;"
                           >
                             <i class="fe fe-eye"></i>
@@ -118,7 +118,7 @@
                         <button
                           type="button"
                           @click="deleteUser(client)"
-                          class="btn btn-danger"
+                          class="btn btn-outline-danger"
                           style="margin-left:10px; margin-top:10px;"
                         >
                           <i class="fe fe-delete"></i>
@@ -180,7 +180,7 @@ export default {
       plans: "",
       tpas: "",
       buttoncolor: {
-        informal: "btn btn-info",
+        informal: "btn btn-success",
         formal: "btn btn-default",
       },
     };
@@ -204,13 +204,13 @@ export default {
     showFormal() {
       this.formal_S = true;
       this.informal_S = false;
-      this.buttoncolor.formal = "btn btn-info";
+      this.buttoncolor.formal = "btn btn-success";
       this.buttoncolor.informal = "btn btn-default";
     },
     showInformal() {
       this.formal_S = false;
       this.informal_S = true;
-      this.buttoncolor.informal = "btn btn-info";
+      this.buttoncolor.informal = "btn btn-success";
       this.buttoncolor.formal = "btn btn-default";
     },
 

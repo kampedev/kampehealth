@@ -7,7 +7,7 @@
             <button
               data-toggle="modal"
               data-target="#slideRightModalAll"
-              class="btn m-b-15 ml-2 mr-2 btn-outline-info"
+              class="btn m-b-15 ml-2 mr-2 btn-outline-success"
             >
               View All Codes <i class="fe fe-mail"> </i>
             </button>
@@ -22,7 +22,7 @@
               <div class="card m-b-30">
                 <div class="card-header">
                   <div class="card-controls">
-                    <a class="badge badge-soft-info" href="#"
+                    <a class="badge badge-soft-success" href="#"
                       >{{ record.reasonVisit }}
                     </a>
                   </div>
@@ -217,7 +217,7 @@
                     <button
                       type="button"
                       @click="copyText"
-                      class="btn btn-outline-primary spacer"
+                      class="btn btn-outline-success spacer"
                     >
                       Copy Code <i class="fe fe-copy"> </i>
                     </button>
@@ -288,7 +288,7 @@
                       Close
                     </button>
                     <button
-                      class="btn btn-outline-primary spacer"
+                      class="btn btn-outline-success spacer"
                       @click="printMe"
                     >
                       Print <i class="fe fe-printer"></i>

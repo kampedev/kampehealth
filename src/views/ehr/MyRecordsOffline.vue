@@ -31,7 +31,7 @@
                 <div class="card-header">
                   <div class="card-controls">
                     <a class="badge badge-soft-success" href="#"
-                      >{{ record.reasonVisit }}  / {{record.patient_id.provider_id}}
+                      >{{ record.reasonVisit }}  / {{record.phone_number}}
                     </a>
                   </div>
                 </div>

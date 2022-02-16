@@ -50,12 +50,12 @@
                       </p>
                     </div>
                     <div class="my-auto text-md-right col-md-5">
-                      <a
-                        href="/add-client-offline"
+                      <router-link
+                        to="/add-client-offline"
                         class="btn btn-rounded-circle btn-lg btn-success"
                       >
                         <i class="mdi mdi-account-plus"></i>
-                      </a>
+                      </router-link>
                     </div>
                   </div>
                 </div>

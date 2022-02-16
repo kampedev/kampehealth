@@ -93,13 +93,12 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                          <label for="inputCity">Sex</label>
+                          <label for="inputCity">Phone Number</label>
                           <input
                             type="text"
                             class="form-control"
-                            id="inputEmail4"
-                            :value="record.patient_id.gender"
-                            disabled
+                            v-model="record.patient_id.phone_number"
+                            
                           />
                         </div>
                         <div class="form-group col-md-6">
@@ -416,6 +415,7 @@ export default {
       let testResult = this.record.testResult;
       let medications = this.record.medications;
       let claim = this.record.claim;
+      let phone_number = this.record.patient_id.phone_number;
 
       let hospital_records = {
         record_type: "encounter",
@@ -434,6 +434,7 @@ export default {
         testResult: testResult,
         medications: medications,
         claim: claim,
+        phone_number: phone_number,
       };
       console.log("about to add " + JSON.stringify(hospital_records));
       await this.addCatToDb(hospital_records);

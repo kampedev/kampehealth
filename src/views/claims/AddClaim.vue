@@ -30,7 +30,6 @@
                           v-model="claim.seen_date"
                         />
                     </div>
-                      
 
                       <div class="form-group col-md-6">
                         <label for="inputCity">Enrollee OHIS Number</label>
@@ -96,6 +95,22 @@
                           :options="diseases"
                         />
                       </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">Enter Encounter ID</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model="encounter_id"
+                          @change="verifyEncounter"
+                        />
+                        <p class="text-primary" v-if="encounter_details != '' "> 
+                          Encounter obtained for enrollee <i class="fe fe-check-circle"></i>
+                          </p>
+                          <p class="text-danger" v-else>
+                            Encounter not Found for enrollee
+                          </p>
+                      </div>
                     </div>
 
                     <div class="form-group col-md-12">
@@ -140,8 +155,6 @@
 
 <script>
 import Navbar from "@/views/Navbar.vue";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -155,12 +168,11 @@ export default {
   },
   data() {
     return {
-      editor: ClassicEditor,
       user: null,
-      agencies: "",
-      employees: "",
       clients: "",
       client: "",
+      encounter_id: "",
+      encounter_details: "",
       claims: "",
       diseases: "",
       searchkey: "",
@@ -215,19 +227,6 @@ export default {
           });
       }
     },
-    getEmployees() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-
-      this.axios
-        .get(`/api/v1/auth/getEmployee/${this.user.id}`)
-        .then((response) => {
-          this.employees = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
 
     getClaims() {
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -254,18 +253,22 @@ export default {
         });
     },
 
-    getProviders() {
-      this.user = JSON.parse(localStorage.getItem("user"));
+    verifyEncounter() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/${this.user.id}`)
+        .post(`/api/v1/auth/verifyrecordbyencounterID`,{
+          encounter_id : this.encounter_id,
+          patient_id : this.enrollee_details.user.id,
+        })
         .then((response) => {
-          this.providers = response.data.data;
           console.log(response);
+          this.encounter_details = response.data
         })
         .catch((error) => {
           console.error(error);
+          this.encounter_details = "";
         });
     },
+
     getDiseases() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
@@ -316,7 +319,8 @@ export default {
         });
     },
     makeClaim() {
-      this.user = JSON.parse(localStorage.getItem("user"));
+        if (this. encounter_details != '' ) {
+              this.user = JSON.parse(localStorage.getItem("user"));
       if (this.user.type == "provider_employee") {
         // Add claim
         this.isLoading = true;
@@ -367,11 +371,15 @@ export default {
             console.log(error.response);
           });
       }
+        } else {
+           this.$toasted.error("Encounter not Found", {
+        position: "top-center",
+        duration: 3000,
+      });
+        }
     },
   },
   created() {
-    this.getProviders();
-    this.getEmployees();
     this.getDiseases();
     this.getEnrollees();
   },

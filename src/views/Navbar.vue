@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-pinned" >
+  <div class="sidebar-pinned">
     <aside class="admin-sidebar">
       <div class="admin-sidebar-brand">
         <!-- begin sidebar branding-->
@@ -1049,6 +1049,17 @@
                 </router-link>
               </li>
 
+              <li class="menu-item"  v-if=" user.type == 'provider_employee'">
+                <router-link to="/add-record-offline" class=" menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Add Record Offline </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-cloud-off"></i>
+                  </span>
+                </router-link>
+              </li>
+
               <li class="menu-item">
                 <router-link to="/list-records" class=" menu-link">
                   <span class="menu-label">
@@ -1059,6 +1070,19 @@
                   </span>
                 </router-link>
               </li>
+
+               <li class="menu-item" v-if=" user.type == 'provider_employee'">
+                <router-link to="/offline-home" class=" menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Offline Records </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder mdi mdi-cloud-sync"></i>
+                  </span>
+                </router-link>
+              </li>
+
+
             </ul>
           </li>
         </ul>

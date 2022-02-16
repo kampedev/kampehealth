@@ -16,18 +16,10 @@
             </div>
 
             <div class="col-md-12 form-group">
-              <button class="btn btn-outline-info" @click="addRecordOffline">
+              <button class="btn btn-outline-dark" @click="addRecordOffline">
                 <i class="fe fe-download"></i> Download Hospital Data
               </button>
-
-              <router-link to="/add-record-offline">
-                <button
-                  class="btn btn-outline-success"
-                  @click="addRecordOffline"
-                >
-                  <i class="fe fe-plus"></i> Add Encounter Offline
-                </button>
-              </router-link>
+            
             </div>
 
             <div class="col-lg-6 col-md-6">

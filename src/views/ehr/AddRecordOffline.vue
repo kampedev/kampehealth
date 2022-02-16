@@ -2,12 +2,12 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
               
-              <strong class="h4">Add Record</strong>
+              <strong class="h4 text-dark">Add Record</strong>
             </div>
           </div>
         </div>
@@ -17,16 +17,12 @@
         <div class="container">
           <div class="row list">
             <form @submit.prevent="addRecordOffline">
-              <div class="col-md-12 offset-md-2">
+              <div class="col-md-12">
                 <div class="card m-b-30">
-                  <div class="card-header">
-                    <!-- <strong class="h3">Add Employee</strong> -->
-                  </div>
+                 
 
                   <div class="card-body">
-                    <div class="text-center">
-                      <!-- <h3 class="p-t-10 searchBy-name">Add Record</h3> -->
-                    </div>
+                    
 
                     <div class="form-row">
                       <div class="col-md-2">
@@ -78,7 +74,7 @@
                       </div>
                       <div class="row col-md-12" v-if="record.patient_id != ''">
                         <div class="form-group col-md-6">
-                          <label for="inputCity">Client Full Name</label>
+                          <label for="inputCity">Client Full Name </label>
                           <input
                             type="text"
                             class="form-control"
@@ -181,7 +177,7 @@
                         </div>
                       </div>
 
-                      <!-- <div
+                      <div
                       class="form-group col-md-12"
                      
                     >
@@ -192,18 +188,30 @@
                         rows="6"
                         v-model="record.testResult"
                       ></textarea>
-                    </div> -->
+                    </div>
 
-                      <!-- <div class="form-group col-md-12">
+                       <div class="form-group col-md-12">
                       <label for="inputCity">Consultation Notes</label>
                      
                       <textarea
-                        class="form-control"
+                        class="form-control" required
                         rows="6"
                         v-model="record.medications"
                       ></textarea>
                     </div>
-                  </div> -->
+
+                     <div class="form-group col-md-12">
+                        <label for="inputCity">Do you Want to Create Claim for this Encounter?</label>
+                        <select
+                          class="form-control"
+                          required
+                          v-model="record.claim"
+                        >
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                  
                       <h3 class="h3">Drugs/Services Treatment</h3>
 
                       <div class="row col-md-12">
@@ -240,17 +248,9 @@
                       </div>
 
                       <div class="form-group col-md-12">
-                        <button class="btn btn-primary btn-block">
+                        <button class="btn btn-success btn-block">
                           Submit <i class="fe fe-send"></i>
-                        </button>
-
-                       <div class="col-md-12">
-                           <a href="/offline-home"
-                           style="margin-top:10px;"
-                        class="btn btn-outline-info btn-block "
-                        >View Offline Records  <i class="fe fe-chevron-right"></i>
-                        </a>
-                       </div>
+                        </button>                      
                       </div>
                     </div>
                   </div>
@@ -315,9 +315,10 @@ export default {
         reasonVisit: "",
         date_of_visit: "",
         drVisited: "",
+        claim: "No",
         testResult: "No test conducted",
         documents: "no document uploaded",
-        medications: "",
+        medications: "No Note",
         patient_type: "",
         drug_id: "",
         services_id: "",
@@ -412,9 +413,13 @@ export default {
       let diagnosis = this.record.diagnosis;
       let date_of_admission = this.record.date_of_admission;
       let date_of_discharge = this.record.date_of_discharge;
+      let testResult = this.record.testResult;
+      let medications = this.record.medications;
+      let claim = this.record.claim;
 
       let hospital_records = {
         record_type: "encounter",
+        agency_id: 95930,
         patient_id: patient_id,
         provider_id: provider_id,
         reasonVisit: reasonVisit,
@@ -426,6 +431,9 @@ export default {
         services_id: services_id,
         date_of_admission: date_of_admission,
         date_of_discharge: date_of_discharge,
+        testResult: testResult,
+        medications: medications,
+        claim: claim,
       };
       console.log("about to add " + JSON.stringify(hospital_records));
       await this.addCatToDb(hospital_records);
@@ -454,17 +462,18 @@ export default {
     clearIt() {
       this.record.patient_id = "";
       this.record.drVisited = "";
-      this.record.medications = "";
+      this.record.medications = "No note";
       this.record.patient_type = "";
       this.record.diagnosis = "";
       this.record.reasonVisit = "";
-      this.record.testResult = "";
+      this.record.testResult = "No test conducted";
       this.record.patient_id = "";
       this.record.drug_id = "";
       this.record.services_id = "";
       this.record.date_of_visit = "";
       this.record.date_of_admission = "0";
       this.record.date_of_discharge = "0";
+      this.record.claim = "No";
     },
   },
   created() {

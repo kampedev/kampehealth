@@ -11,6 +11,14 @@
             >
               View All Codes <i class="fe fe-mail"> </i>
             </button>
+
+            <button
+              class="btn btn-outline-primary m-b-15 ml-2 mr-2"
+              @click="autoUpdate"
+            >
+              {{ hospital_records.length }} Upload Records
+              <i class="fe fe-upload-cloud"></i>
+            </button>
           </div>
 
           <div class="row list">
@@ -23,7 +31,7 @@
                 <div class="card-header">
                   <div class="card-controls">
                     <a class="badge badge-soft-success" href="#"
-                      >{{ record.reasonVisit }}
+                      >{{ record.reasonVisit }}  / {{record.patient_id.provider_id}}
                     </a>
                   </div>
                 </div>
@@ -46,6 +54,15 @@
                     <a class="btn btn-sm btn-white">
                       {{ record.patient_id.id_card_number }}
                     </a>
+                  </div>
+
+                  <div class="text-muted text-center m-b-10">
+                    <button
+                      class="btn btn-outline-primary"
+                      @click="syncRecord(record)"
+                    >
+                      Sync record
+                    </button>
                   </div>
 
                   <p class="text-muted text-center">
@@ -76,6 +93,15 @@
                       >
                         <h3 class="fe fe-eye"></h3>
                         <div class="text-overline">View</div>
+                      </button>
+                    </div>
+                    <div class="col">
+                      <button
+                       
+                        @click="deleteRecordSingle(record)"
+                      >
+                        <h3 class="fe fe-delete"></h3>
+                        <div class="text-overline">delete</div>
                       </button>
                     </div>
                   </div>
@@ -337,6 +363,7 @@ export default {
       drugs_obj: "",
       services_obj: "",
       hospital_records: "",
+      hospital_record_index: 0,
     };
   },
   beforeMount() {
@@ -502,6 +529,7 @@ export default {
         };
       });
     },
+
     printMe() {
       var printContents = document.getElementById("printDiv").innerHTML;
       var originalContents = document.body.innerHTML;
@@ -509,6 +537,91 @@ export default {
       window.print();
       document.body.innerHTML = originalContents;
     },
+    syncRecord(record) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .post(`/api/v1/auth/sync-healthrecord`, { request_body: record })
+        .then((response) => {
+          this.$toasted.success("Synced Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+           let id =  record.id
+          this.deleteRecord(id)
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+          this.$toasted.error("Error on Syncing ", {
+            position: "top-center",
+            duration: 3000,
+          });
+        });
+    },
+    autoUpdate() {
+      if (confirm("Are you sure you want Upload all Data?")) {
+         setInterval(
+            function () {
+              this.syncRecordAll();
+            }.bind(this),
+            5000
+          );
+      }
+    },
+    syncRecordAll() {
+      if (this.hospital_records.length == 0) {
+         this.$router.push("/personnel");
+      }
+      else{
+      this.axios
+        .post(`/api/v1/auth/sync-healthrecord`, {
+          request_body: this.hospital_records[this.hospital_record_index],
+        })
+        .then((response) => {
+         let id =  this.hospital_records[this.hospital_record_index].id
+          this.deleteRecord(id)
+          this.$toasted.success("Synced Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          console.log(response);
+          //  this.hospital_record_index++;
+         
+        })
+        .catch((error) => {
+          console.error(error);
+          this.$toasted.error("Error on Syncing ", {
+            position: "top-center",
+            duration: 3000,
+          });
+        });
+      }
+    },
+    async deleteRecord(id) {
+      await this.deleteRecordFromDb(id);
+      this.hospital_records = await this.getDataFromDb();
+    },
+
+    async deleteRecordFromDb(id) {
+      return new Promise((resolve, reject) => {
+        reject;
+        let trans = this.db.transaction(["hospital_records"], "readwrite");
+        trans.oncomplete = (e) => {
+          e;
+          resolve();
+        };
+
+        let store = trans.objectStore("hospital_records");
+        store.delete(id);
+      });
+    },
+    deleteRecordSingle(record){
+      if(confirm('Are you sure you want to delete') ){
+           let id =  record.id
+          this.deleteRecord(id)
+      }
+    }
+
   },
   created() {
     this.SetDB();

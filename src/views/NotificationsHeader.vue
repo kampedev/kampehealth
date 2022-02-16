@@ -35,7 +35,7 @@
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-circle text-warning"></i
-                  >{{ result.pending_claims }} Claims still pending 
+                  >{{ result.pending_claims }} Claim(s) still pending 
                 </div>
               </div>
             </a>
@@ -46,7 +46,7 @@
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-circle text-warning"></i
-                  > {{ result.verified_awaiting_approval }} vetted Claims awaiting approval
+                  > {{ result.verified_awaiting_approval }} vetted Claim(s) awaiting approval
                 </div>
               </div>
             </a>
@@ -55,7 +55,7 @@
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-circle text-warning"></i
-                  >{{ result.pending_referrals }} pending referrals
+                  >{{ result.pending_referrals }} pending referral(s)
                 </div>
               </div>
             </a>
@@ -66,7 +66,7 @@
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-circle text-danger"></i> 
-                 {{result.rejected_claims}} Claims have been rejected.
+                 {{result.rejected_claims}} Claim(s) have been rejected.
                  
                 </div>
               </div>
@@ -78,7 +78,7 @@
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-cancel text-warning"></i> 
-                  {{result.pending_referrals}} pending Referrals need your attention
+                  {{result.pending_referrals}} pending Referral(s) need your attention
                 </div>
               </div>
             </a>
@@ -88,7 +88,7 @@
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-cancel text-success"></i> 
-                 {{result.incoming_referrals_approved}} incoming Referrals have been approved
+                 {{result.incoming_referrals_approved}} incoming Referral(s) have been approved
                 </div>
               </div>
             </a>

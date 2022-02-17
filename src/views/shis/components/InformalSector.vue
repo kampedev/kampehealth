@@ -171,7 +171,7 @@
                     <div class="card m-b-30 bg-success">
                         <div class="card-body text-dark">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/my-encounters'}">
+                              <router-link :to="{ path: '/list-records'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-file-plus"></i>

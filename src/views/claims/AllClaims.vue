@@ -121,7 +121,7 @@
                   :fields="json_fields"
                   type="csv"
                   :escapeCsv="false"
-                  :name="'claim data' + '.csv'"
+                  :name="'claim_data' + '.csv'"
                 >
                 </download-excel>
               </button>

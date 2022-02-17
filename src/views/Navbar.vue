@@ -612,6 +612,7 @@
               user.type == 'shis' ||
                 user.type == 'provider' ||
                 user.type == 'provider_employee' ||
+                user.user_role == 1 ||
                 user.job_title == 'Claims'
             "
           >

@@ -287,12 +287,12 @@
                   <br />
                   <p>
                     <strong>Enrollee/ Patient Name:</strong>
-                    {{ claimdetails.patient.firstname }} {{ claimdetails.patient.lastname }}
+                    {{ claimdetails.enrollee.firstname }} {{ claimdetails.enrollee.lastname }}
                   </p>
                   <br />
                   <p>
                     <strong>Enrollee/ Patient O'HIS Number:</strong>
-                    {{ claimdetails.patient.id_card_number }}
+                    {{ claimdetails.enrollee.id_card_number }}
                   </p>
                   <br />
                   <p>

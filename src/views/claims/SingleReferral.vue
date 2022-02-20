@@ -148,21 +148,21 @@
                     <div class="col-md-6">
                       <p class="h5">
                         <span class="text-primary">Full Name: </span>
-                        {{ singlereferral.client.firstname }}
-                        {{ singlereferral.client.lastname }}
-                        {{ singlereferral.client.middlename }}
+                        {{ singlereferral.enrollee.firstname }}
+                        {{ singlereferral.enrollee.lastname }}
+                        {{ singlereferral.enrollee.middlename }}
                       </p>
                       <p class="h5">
                         <span class="text-primary">Phone Number:</span>
-                        {{ singlereferral.client.phone_number }}
+                        {{ singlereferral.enrollee.phone_number }}
                       </p>
                       <p class="h5">
                         <span class="text-primary">O'HIS Number:</span>
-                        {{ singlereferral.client.id_card_number }}
+                        {{ singlereferral.enrollee.id_card_number }}
                       </p>
                       <p class="h5">
                         <span class="text-primary">Gender:</span>
-                        {{ singlereferral.client.gender }}
+                        {{ singlereferral.enrollee.gender }}
                       </p>
                       <p class="h5">
                         <span class="text-primary">HMO:</span>
@@ -170,7 +170,7 @@
                       </p>
                       <p class="h5">
                         <span class="text-primary">Date of Birth:</span>
-                        {{ singlereferral.client.dob }}
+                        {{ singlereferral.enrollee.dob }}
                       </p>
 
                       <br />
@@ -200,7 +200,7 @@
                       </p>
                       <p class="h5">
                         <span class="text-primary">Address:</span>
-                        {{ singlereferral.client.address }}
+                        {{ singlereferral.enrollee.address }}
                       </p>
                     </div>
                     <hr>

@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="form-group col-md-5">
-                      <label for="inputCity">Patient OHIS Number</label>
+                      <label for="inputCity">Patient OHIS Number </label>
                       <input
                         type="text"
                         class="form-control"
@@ -63,13 +63,13 @@
                         @change="searchIDCard"
                       />
                     </div>
-                    <div class="row col-md-12" v-if="enrollee_details != ''">
+                    <div class="row col-md-12" v-if="search_result != ''">
                       <div class="form-group col-md-6">
                         <label for="inputCity">Client Surname</label>
                         <input
                           type="text"
                           class="form-control"
-                          :value="enrollee_details.user.firstname"
+                          :value="search_result.data.firstname"
                           disabled
                         />
                       </div>
@@ -78,7 +78,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          :value="enrollee_details.user.lastname"
+                          :value="search_result.data.lastname"
                           disabled
                         />
                       </div>
@@ -89,7 +89,7 @@
                           type="text"
                           class="form-control"
                           id="inputEmail4"
-                          :value="enrollee_details.user.gender"
+                          :value="search_result.data.gender"
                           disabled
                         />
                       </div>
@@ -99,7 +99,7 @@
                           type="text"
                           class="form-control"
                           id="inputEmail4"
-                          v-model="enrollee_details.user.phone_number"
+                          v-model="search_result.data.phone_number"
                         />
                       </div>
                     </div>
@@ -261,18 +261,8 @@ export default {
           id_card_number: this.searchkey,
         })
         .then((response) => {
-          this.search_result = response.data.data;
-          //Get Enrollee Details
-          this.axios
-            .get(`/api/v1/auth/user/zam/${this.search_result.id}`)
-            .then((response) => {
-              this.enrollee_details = response.data;
-              console.log(response);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //End of Enrollee Details
+          this.search_result = response.data;
+         
           console.log(response);
           // this.$router.push(`/client/${user.id}`)
           this.$toasted.info("Searched Successfully", {
@@ -300,7 +290,9 @@ export default {
         this.axios
           .post("/api/v1/auth/addHealthRecord", {
             provider_id: this.user.institutional_id,
-            patient_id: this.enrollee_details.user.id,
+            // patient_id: this.enrollee_details.user.id,
+            patient_id: this.search_result.type == 'client' ? this.search_result.data.id : 0,
+            dependent_id: this.search_result.type == 'dependent' ? this.search_result.data.id : null,
             reasonVisit: this.record.reasonVisit,
             testResult: this.record.testResult,
             agency_id: 95930,
@@ -308,7 +300,7 @@ export default {
             professional_id: this.user.id,
             notes: this.record.medications,
             diagnosis: this.record.diagnosis.id,
-            phone_number: this.enrollee_details.user.phone_number,
+            phone_number: this.search_result.data.phone_number,
             patient_type: this.record.patient_type,
             medications: "view service rendered page for more details",
             documents: this.record.documents,

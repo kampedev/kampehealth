@@ -32,7 +32,7 @@
                     </div>
 
                       <div class="form-group col-md-6">
-                        <label for="inputCity">Enrollee OHIS Number</label>
+                        <label for="inputCity">Enrollee OHIS Number </label>
                         <input
                           type="text"
                           class="form-control"
@@ -41,14 +41,14 @@
                         />
                       </div>
 
-                      <div class="row col-md-12" v-if="enrollee_details != ''">
+                      <div class="row col-md-12" v-if="search_result != ''">
                         <div class="form-group col-md-6">
                           <label for="inputCity">Enrollee Surname</label>
                           <input
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            :value="enrollee_details.user.firstname"
+                            :value="search_result.data.firstname"
                             disabled
                           />
                         </div>
@@ -59,7 +59,7 @@
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            :value="enrollee_details.user.lastname"
+                            :value="search_result.data.lastname"
                             disabled
                           />
                         </div>
@@ -69,7 +69,7 @@
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            :value="enrollee_details.user.id_card_number"
+                            :value="search_result.data.id_card_number"
                             disabled
                           />
                         </div>
@@ -80,7 +80,7 @@
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            :value="enrollee_details.user.phone_number"
+                            :value="search_result.data.phone_number"
                             disabled
                           />
                         </div>
@@ -257,7 +257,7 @@ export default {
       this.axios
         .post(`/api/v1/auth/verifyrecordbyencounterID`,{
           encounter_id : this.encounter_id,
-          patient_id : this.enrollee_details.user.id,
+          patient_id : this.search_result.data.id,
         })
         .then((response) => {
           console.log(response);
@@ -288,20 +288,9 @@ export default {
           id_card_number: this.searchkey,
         })
         .then((response) => {
-          this.search_result = response.data.data;
-          //Get Enrollee Details
-          this.axios
-            .get(`/api/v1/auth/user/zam/${this.search_result.id}`)
-            .then((response) => {
-              this.enrollee_details = response.data;
-              console.log(response);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //End of Enrollee Details
+          this.search_result = response.data;
+          
           console.log(response);
-          // this.$router.push(`/client/${user.id}`)
           this.$toasted.info("Searched Successfully", {
             position: "top-center",
             duration: 3000,
@@ -329,7 +318,8 @@ export default {
             provider_id: this.user.institutional_id,
             user_id: this.user.id,
             agency_id: 95930,
-            client_name: this.enrollee_details.user.id,
+            client_name: this.search_result.type == 'client' ? this.search_result.data.id : 0,
+            dependent_id: this.search_result.type == 'dependent' ? this.search_result.data.id : 0,
             seen_date: this.claim.seen_date,
             diagnosis: this.claim.diagnosis.id,
             treatment: this.claim.treatment,

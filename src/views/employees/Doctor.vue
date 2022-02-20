@@ -91,11 +91,11 @@
                         }}
                       </td>
                       <td>
-                        {{ record.patient.firstname }}
-                        {{ record.patient.lastname }}
+                        {{ record.enrollee.firstname }}
+                        {{ record.enrollee.lastname }}
                       </td>
                       <td>
-                        {{ record.patient.id_card_number }}
+                        {{ record.enrollee.id_card_number }}
                         <i class="fe fe-copy" @click="copyText(record)"></i>
                       </td>
 
@@ -194,7 +194,7 @@ export default {
     },
     copyText(record) {
       const copyToClipboard = (record) =>
-        navigator.clipboard.writeText(record.patient.id_card_number);
+        navigator.clipboard.writeText(record.enrollee.id_card_number);
       copyToClipboard(record);
       this.$toasted.info("Copied to clipboard", {
         position: "top-center",

@@ -60,13 +60,13 @@
                     />
                   </div>
 
-                  <div class="row col-md-12" v-if="enrollee_details != ''">
+                  <div class="row col-md-12" v-if="search_result != ''">
                     <div class="form-group col-md-6">
                       <label for="inputCity">Client Surname</label>
                       <input
                         type="text"
                         class="form-control"
-                        :value="enrollee_details.user.firstname"
+                        :value="search_result.data.firstname"
                         disabled
                       />
                     </div>
@@ -75,7 +75,7 @@
                       <input
                         type="text"
                         class="form-control"
-                        :value="enrollee_details.user.lastname"
+                        :value="search_result.data.lastname"
                         disabled
                       />
                     </div>
@@ -86,7 +86,7 @@
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="enrollee_details.user.gender"
+                        :value="search_result.data.gender"
                         disabled
                       />
                     </div>
@@ -96,7 +96,7 @@
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="enrollee_details.user.phone_number"
+                        :value="search_result.data.phone_number"
                         disabled
                       />
                     </div>
@@ -233,20 +233,8 @@ export default {
           id_card_number: this.searchkey,
         })
         .then((response) => {
-          this.search_result = response.data.data;
-          //Get Enrollee Details
-          this.axios
-            .get(`/api/v1/auth/user/zam/${this.search_result.id}`)
-            .then((response) => {
-              this.enrollee_details = response.data;
-              console.log(response);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //End of Enrollee Details
+          this.search_result = response.data;
           console.log(response);
-          // this.$router.push(`/client/${user.id}`)
           this.$toasted.info("Searched Successfully", {
             position: "top-center",
             duration: 3000,
@@ -278,9 +266,10 @@ export default {
       this.axios
         .post("/api/v1/auth/referrals", {
           name_of_reffering_personnel: this.user.id,
-          client_id: this.enrollee_details.user.id,
+          client_id: this.search_result.type == 'client' ? this.search_result.data.id : 0,
+          dependent_id: this.search_result.type == 'dependent' ? this.search_result.data.id : 0,
           agency_id: 95930,
-          referring_facility: this.enrollee_details.user.provider_id,
+          referring_facility: this.search_result.type == 'client' ?  this.search_result.data.provider_id : this.search_result.data.provider,
           recipient_facility: this.referral.recipient_facility.id,
           provisional_diagnosis: this.referral.provisional_diagnosis.id,
           treatment_given: this.referral.treatment_given,

@@ -99,7 +99,7 @@
                           <td>{{ record.encounter_id }}
                               <i class="fe fe-copy text-success" @click="copyText(record)"></i>
                           </td>
-                          <td>{{ record.patient.full_name }}</td>
+                          <td>{{ record.enrollee.full_name }}</td>
                           <td>{{ record.reasonVisit }}</td>
                           <td>{{ record.service.diagnosis.name }}</td>
                           <td>{{ record.date_of_visit }}</td>
@@ -176,7 +176,7 @@
                       <tbody>
                         <tr v-for="record in records.data" v-bind:key="record.id">
                           <td>{{ record.healthrecord.encounter_id }}</td>
-                          <td>{{ record.patient.full_name }}</td>
+                          <td>{{ record.enrollee.full_name }}</td>
                           <td>{{ record.provider.agency_name }}</td>
                           <td>{{ record.healthrecord.reasonVisit }}</td>
                           <td>{{ record.diagnosis.name }}</td>
@@ -242,8 +242,8 @@ export default {
        json_fields: {
          "Date of Visit" : "healthrecord.date_of_visit",
         "Facility Name": "provider.agency_name",
-        "Enrollee Full Name": "patient.full_name",
-        "Enrollee OHIS Number": "patient.id_card_number",
+        "Enrollee Full Name": "enrollee.full_name",
+        "Enrollee OHIS Number": "enrollee.id_card_number",
         "Diagnosis": "diagnosis.name",
         "Reason for Visit" : "healthrecord.reasonVisit",
         "Test Conducted" : "healthrecord.testResult",

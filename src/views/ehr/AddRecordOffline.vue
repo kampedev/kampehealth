@@ -102,13 +102,13 @@
                           />
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputCity">Enrollee TPA</label>
+                          <label for="inputCity">Gender</label>
                           <input
                             disabled
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            v-model="record.patient_id.usertpa.organization_name"
+                            v-model="record.patient_id.gender"
                           />
                         </div>
                       </div>
@@ -416,6 +416,7 @@ export default {
       let medications = this.record.medications;
       let claim = this.record.claim;
       let phone_number = this.record.patient_id.phone_number;
+      let account_type = this.record.patient_id.account_type;
 
       let hospital_records = {
         record_type: "encounter",
@@ -435,6 +436,7 @@ export default {
         medications: medications,
         claim: claim,
         phone_number: phone_number,
+        account_type: account_type,
       };
       console.log("about to add " + JSON.stringify(hospital_records));
       await this.addCatToDb(hospital_records);

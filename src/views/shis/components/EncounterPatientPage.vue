@@ -44,12 +44,12 @@
       <div class="user__details--container"  id="printDiv" ref="printNow">
         <div class="user__details--container-main">
           <h1 class="name">
-            {{ encounterDetails.patient.lastname }}
-            {{ encounterDetails.patient.firstname }}
+            {{ encounterDetails.enrollee.lastname }}
+            {{ encounterDetails.enrollee.firstname }}
           </h1>
 
           <img
-            :src="`https://api.hayokinsurance.com/image/${encounterDetails.patient.user_image}`"
+            :src="`https://api.hayokinsurance.com/image/${encounterDetails.enrollee.user_image}`"
             alt="Enrollee Image"
             class="enrollee__img"
             onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -57,25 +57,25 @@
           <div class="primary__detail">
             <i class="fas fa-id-card fa-2x icon"></i>
             <p class="id__number primary__detail--text">
-              {{ encounterDetails.patient.id_card_number }}
+              {{ encounterDetails.enrollee.id_card_number }}
             </p>
           </div>
           <div class="primary__detail">
             <i class="fas fa-phone fa-2x icon"></i>
             <p class="exp__date primary__detail--text">
-              {{ encounterDetails.patient.phone_number }}
+              {{ encounterDetails.enrollee.phone_number }}
             </p>
           </div>
           <div class="primary__detail">
             <i class="far fa-calendar-alt fa-2x icon"></i>
             <p class="facility primary__detail--text">
-              {{ encounterDetails.patient.dob }}
+              {{ encounterDetails.enrollee.dob }}
             </p>
           </div>
           <div class="primary__detail">
             <i class="fas fa-venus-mars fa-2x icon"></i>
             <p class="facility primary__detail--text">
-              {{ encounterDetails.patient.gender }}
+              {{ encounterDetails.enrollee.gender }}
             </p>
           </div>
           <div class="primary__detail">

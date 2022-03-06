@@ -140,6 +140,7 @@
                   <th>Number</th>
                   <th>Type</th>
                   <th>Name</th>
+                  <th>Qty</th>
                   <th>Cost</th>
                 </tr>
               </thead>
@@ -161,10 +162,23 @@
                       service.drug.drug_name
                     }}</span>
                   </td>
+
+                   <td >
+                     <span v-if="service.drug != null">
+                       {{service.dose}}
+                     </span>
+
+                     <span v-if="service.service != null">
+                       {{service.days}}
+                     </span>
+                      
+                    </td>
+
                   <td>
+                   
                     <span v-if="service.service != null"> </span>
                     <span v-if="service.drug != null">
-                      &#8358;{{ service.drug.price | numeral(0, 0) }}</span
+                      &#8358;{{ service.total_cost | numeral(0, 0) }}</span
                     >
                   </td>
                 </tr>
@@ -189,6 +203,10 @@
               </tbody>
             </table>
           </div>
+
+          
+
+
         </div>
       </div>
     </main>

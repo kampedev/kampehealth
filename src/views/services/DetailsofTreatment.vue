@@ -28,7 +28,8 @@
 
                       <div class="form-group col-md-6">
                         <label for="inputPassword4">Select Type</label>
-                        <select required
+                        <select
+                          required
                           class="form-control"
                           v-model="type"
                           @change="handleData"
@@ -38,41 +39,80 @@
                         </select>
                       </div>
 
-
                       <div class="form-group col-md-6" v-if="type == 'Service'">
-                          <label for="inputPassword4">Select Service  </label>
-                          <v-select
-                            
-                            v-model="addservice.services_id"
-                            
-                            label="description"
-                            :required="!addservice.services_id"
-                            :options="services.data"
-                          />
-                      </div>
-                     
-
-                       <div class="form-group col-md-6" v-if="type == 'Drug'">
-                          <label for="inputPassword4">Select Drug  </label>
-                          <v-select
-                            
-                            v-model="addservice.drugs_id"
-                            
-                            label="drug_name"
-                            :required="!addservice.drugs_id"
-                            :options="drugs.data"
-                          />
-                          <p class="spacer-top" v-if="addservice.drugs_id != ''">
-                            <b-alert variant="success" show> {{addservice.drugs_id.strengths}} </b-alert>
-                          </p>
+                        <label for="inputPassword4">Select Service </label>
+                        <v-select
+                          v-model="addservice.services_id"
+                          label="description"
+                          :required="!addservice.services_id"
+                          :options="services.data"
+                        />
                       </div>
 
-                      <div class="col-md-12" >
+                      <div class="form-group col-md-6" v-if="type == 'Drug'">
+                        <label for="inputPassword4">Select Drug </label>
+                        <v-select
+                          v-model="addservice.drugs_id"
+                          label="drug_name"
+                          :required="!addservice.drugs_id"
+                          :options="drugs.data"
+                        />
+                        <p class="spacer-top" v-if="addservice.drugs_id != ''">
+                          <b-alert variant="success" show>
+                            {{ addservice.drugs_id.strengths }}
+                          </b-alert>
+                        </p>
+                      </div>
+
+                       <div class="form-group col-md-4" v-if="type != ''">
+                        <label for="inputCity"
+                          >Days
+                        </label>
+                        <input
+                          type="number"
+                          min="1"
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="Qty"
+                          v-model="days"
+                        />
+                      </div>
+
+                      <div class="form-group col-md-4" v-if="type == 'Drug'">
+                        <label for="inputCity">Dosage</label>
+                        <input
+                          type="number"
+                          min="1"
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="Qty"
+                          v-model="dose"
+                        />
+                      </div>
+
+                      <div class="form-group col-md-4" v-if="type == 'Drug'">
+                        <label for="inputCity"
+                          >Frequency (Times per day)
+                        </label>
+                        <input
+                          type="number"
+                          min="1"
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="Qty"
+                          v-model="frequency"
+                        />
+                      </div>
+
+                      <div class="col-md-12">
                         <button
                           class="btn btn-success"
                           style="margin-bottom: 30px"
                         >
-                        Add <i class="fe fe-send"></i> 
+                          Add <i class="fe fe-send"></i>
                         </button>
                       </div>
                     </div>
@@ -83,7 +123,8 @@
                       class="btn btn-outline-success btn-block"
                       @click="singlePatient"
                     >
-                      Proceed to Patient Page <i class="fe fe-chevron-right"></i>
+                      Proceed to Patient Page
+                      <i class="fe fe-chevron-right"></i>
                     </button>
                   </div>
                 </div>
@@ -120,10 +161,14 @@
                         }}</span>
                       </td>
                       <td>
-                           <button class="btn btn-outline-danger"
-                              name="button" @click="deleteService(service)"><i class="fe fe-delete"></i>
-                            </button>
-                       </td>
+                        <button
+                          class="btn btn-outline-danger"
+                          name="button"
+                          @click="deleteService(service)"
+                        >
+                          <i class="fe fe-delete"></i>
+                        </button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -167,7 +212,9 @@ export default {
       services: "",
       summary: "",
       drugs: "",
-      quantity: 1,
+      frequency: 1,
+      dose: 1,
+      days: 1,
       cost: "",
       singleservice: "",
       singledrug: "",
@@ -275,8 +322,6 @@ export default {
         });
     },
 
-    
-
     addServiceRendered() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.isLoading = true;
@@ -285,12 +330,15 @@ export default {
           service_id: this.addservice.services_id.id,
           drug_id: this.addservice.drugs_id.id,
           service_summary_id: this.$route.params.id,
+          dose: this.dose,
+          frequency: this.frequency,
+          days: this.days,
         })
 
         .then((response) => {
           console.log(response);
           this.clearIt();
-          this.getSingleSummary()
+          this.getSingleSummary();
 
           this.isLoading = false;
           this.$breadstick.notify("Added Successfully!", {
@@ -299,8 +347,8 @@ export default {
         })
         .catch((error) => {
           console.log(error.response);
-           this.getSingleSummary()
-             this.isLoading = false;
+          this.getSingleSummary();
+          this.isLoading = false;
         });
     },
   },
@@ -311,8 +359,7 @@ export default {
 };
 </script>
 <style scoped>
-
-.spacer-top{
-  margin-top:4px;
+.spacer-top {
+  margin-top: 4px;
 }
 </style>

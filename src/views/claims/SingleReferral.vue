@@ -10,6 +10,7 @@
                 <div class="avatar"></div>
               </div>
               <h3 class="h5">Referral Details</h3>
+              
             </div>
           </div>
         </div>
@@ -148,21 +149,22 @@
                     <div class="col-md-6">
                       <p class="h5">
                         <span class="text-primary">Full Name: </span>
-                        {{ singlereferral.enrollee.firstname }}
-                        {{ singlereferral.enrollee.lastname }}
-                        {{ singlereferral.enrollee.middlename }}
+                        {{ singlereferral.client.firstname }}
+                        {{ singlereferral.client.lastname }}
+                        
+                       
                       </p>
                       <p class="h5">
                         <span class="text-primary">Phone Number:</span>
-                        {{ singlereferral.enrollee.phone_number }}
+                        {{ singlereferral.client.phone_number }}
                       </p>
                       <p class="h5">
                         <span class="text-primary">O'HIS Number:</span>
-                        {{ singlereferral.enrollee.id_card_number }}
+                        {{ singlereferral.client.id_card_number }}
                       </p>
                       <p class="h5">
                         <span class="text-primary">Gender:</span>
-                        {{ singlereferral.enrollee.gender }}
+                        {{ singlereferral.client.gender }}
                       </p>
                       <p class="h5">
                         <span class="text-primary">HMO:</span>
@@ -170,7 +172,7 @@
                       </p>
                       <p class="h5">
                         <span class="text-primary">Date of Birth:</span>
-                        {{ singlereferral.enrollee.dob }}
+                        {{ singlereferral.client.dob }}
                       </p>
 
                       <br />
@@ -200,7 +202,7 @@
                       </p>
                       <p class="h5">
                         <span class="text-primary">Address:</span>
-                        {{ singlereferral.enrollee.address }}
+                        {{ singlereferral.client.address }}
                       </p>
                     </div>
                     <hr>

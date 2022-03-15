@@ -105,7 +105,7 @@
                       v-if="
                         claimdetails.status != 0 &&
                         
-                          (user.type == 'shis' ||
+                          (user.type == 'employee' ||
                         user.type == 'tpa' ||
                         user.type == 'tpa_employee')
                       "

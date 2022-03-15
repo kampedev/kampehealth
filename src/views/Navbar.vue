@@ -737,7 +737,6 @@
                   </span>
                 </router-link>
               </li> -->
-
             </ul>
           </li>
 
@@ -1038,7 +1037,7 @@
                 </router-link>
               </li>
 
-              <li class="menu-item"  v-if=" user.type == 'provider_employee'">
+              <li class="menu-item" v-if="user.type == 'provider_employee'">
                 <router-link to="/add-record-offline" class=" menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Add Record Offline </span>
@@ -1060,7 +1059,7 @@
                 </router-link>
               </li>
 
-               <li class="menu-item" v-if=" user.type == 'provider_employee'">
+              <li class="menu-item" v-if="user.type == 'provider_employee'">
                 <router-link to="/offline-home" class=" menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Offline Records </span>
@@ -1070,8 +1069,6 @@
                   </span>
                 </router-link>
               </li>
-
-
             </ul>
           </li>
         </ul>

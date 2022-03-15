@@ -78,12 +78,16 @@
               {{ encounterDetails.enrollee.gender }}
             </p>
           </div>
+         
           <div class="primary__detail">
             <i class="fas fa-hospital fa-2x icon"></i>
             <p class="mda primary__detail--text">
               {{ encounterDetails.provider.agency_name }}
             </p>
           </div>
+
+         
+
         </div>
         <div class="user__-details--container-other">
           <div class="user__details-header-and-renewal__CTA">

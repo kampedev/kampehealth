@@ -114,6 +114,8 @@ import DBQuery from "../views/shis/DBQuery.vue";
 import SubscriptionRenewal from "../views/clients/SubscriptionRenewal.vue";
 import EcounterPatientPage from "../views/shis/components/EncounterPatientPage.vue";
 import ManageDiagnosis from "../views/shis/ManageDiagnosis.vue";
+import AuthorizationCode from "../views/claims/AuthorizationCode.vue";
+
 
 Vue.use(VueRouter);
 
@@ -882,6 +884,13 @@ const routes = [
   {
     path: "/manage-diagnosis",
     component: ManageDiagnosis,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/authorization-code",
+    component: AuthorizationCode,
     meta: {
       requiresAuth: true,
     },

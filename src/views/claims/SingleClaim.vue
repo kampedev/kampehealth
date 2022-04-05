@@ -45,7 +45,7 @@
                       class="btn btn-success spacer"
                       @click="verifyClaim"
                       v-if="
-                        claimdetails.status == null &&
+                        claimdetails.verified_by_id == null &&
                           
                          ( user.type == 'tpa' ||
                         user.type == 'tpa_employee')
@@ -102,6 +102,7 @@
                       :to="{
                         path: '/encounter/' + claimdetails.servicesummary.id,
                       }"
+                      v-if="claimdetails.servicesummary != null"
                     >
                      <button
                         class="btn btn-outline-success spacer"

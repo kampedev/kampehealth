@@ -49,7 +49,7 @@
                           />
                       </div>                 
 
-                     <div class="form-group col-md-6" v-if="type == 'Drug'">
+                     <div class="form-group col-md-4" v-if="type == 'Drug'">
                           <label for="inputPassword4">Select Drug  </label>
                           <v-select
                             
@@ -65,7 +65,7 @@
                       </div>
 
                    
-                    <div class="form-group col-md-6" v-if="type == 'Drug'">
+                    <!-- <div class="form-group col-md-6" v-if="type == 'Drug'">
                       <label for="inputCity">Quantity</label>
                       <input
                         type="text"
@@ -74,9 +74,9 @@
                         placeholder="1"
                         v-model="days"
                       />
-                    </div>
+                    </div> -->
 
-                  <div class="form-group col-md-6" v-if="type != ''">
+                  <div class="form-group col-md-4" v-if="type != ''">
                         <label for="inputCity"
                           >Days
                         </label>
@@ -92,7 +92,7 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-6" v-if="type == 'Drug'">
+                      <div class="form-group col-md-4" v-if="type == 'Drug'">
                         <label for="inputCity">Dosage</label>
                         <input
                           type="number"

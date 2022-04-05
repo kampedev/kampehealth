@@ -93,7 +93,7 @@
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="inputCity">KGSHIA Number</label>
+                      <label for="inputCity">O'HIS Number</label>
                       <input
                         type="text"
                         class="form-control"

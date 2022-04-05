@@ -64,18 +64,62 @@
                           </p>
                       </div>
 
+                   
                     <div class="form-group col-md-6" v-if="type == 'Drug'">
                       <label for="inputCity">Quantity</label>
                       <input
                         type="text"
                         class="form-control" required
                         id="inputEmail4"
-                        placeholder="Qty"
-                        v-model="quantity"
+                        placeholder="1"
+                        v-model="days"
                       />
                     </div>
 
-                    <div class="form-group col-md-6">
+                  <div class="form-group col-md-6" v-if="type != ''">
+                        <label for="inputCity"
+                          >Days
+                        </label>
+                        <input
+                          type="number"
+                          min="1"
+                          max="50"
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="Qty"
+                          v-model="days"
+                        />
+                      </div>
+
+                      <div class="form-group col-md-6" v-if="type == 'Drug'">
+                        <label for="inputCity">Dosage</label>
+                        <input
+                          type="number"
+                          min="1"
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="Qty"
+                          v-model="dose"
+                        />
+                      </div>
+
+                      <div class="form-group col-md-6" v-if="type == 'Drug'">
+                        <label for="inputCity"
+                          >Frequency (Times per day)
+                        </label>
+                        <input
+                          type="number"
+                          min="1"
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="Qty"
+                          v-model="frequency"
+                        />
+                      </div>
+                    <!-- <div class="form-group col-md-6">
                       <label for="inputCity">Cost</label>
                       <input
                         type="text"
@@ -86,7 +130,7 @@
                         disabled
                       />
                     </div>
-                   
+                    -->
 
                     </div>
                      <div class="col-md-6">
@@ -123,6 +167,9 @@
                   <tr>
                     <th>Number</th>
                     <th>Name</th>
+                    <th>Days</th>
+                    <th>Dose</th>
+                    <th>Freq.</th>
                     <th>Cost</th>
                   </tr>
                 </thead>
@@ -140,6 +187,9 @@
                         service.drug.drug_name
                       }}</span>
                     </td>
+                    <td> {{service.days}} </td>
+                    <td>  {{service.dose}} </td>
+                    <td>  {{service.frequency}}  </td>
                     <td>&#8358;{{ service.cost | numeral(0, 0) }}</td>
                     <td>
                       <button
@@ -192,7 +242,9 @@ export default {
       services: "",
       singleclaim: "",
       drugs: "",
-      quantity: 1,
+      days: 1,
+      dose: 1,
+      frequency: 1,
       cost: "",
       singleservice: "",
       singledrug: "",
@@ -317,7 +369,10 @@ export default {
           services_id: this.addservice.services_id.id,
           drugs_id: this.addservice.drugs_id.id,
           claims_id: this.$route.params.id,
-          cost: this.calcCost,
+          dose: this.dose,
+          frequency: this.frequency,
+          days: this.days,
+          // cost: this.calcCost,
         })
 
         .then((response) => {

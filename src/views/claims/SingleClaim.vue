@@ -45,7 +45,7 @@
                       class="btn btn-success spacer"
                       @click="verifyClaim"
                       v-if="
-                        claimdetails.status == null &&
+                        claimdetails.verified_by_id == null &&
                           
                          ( user.type == 'tpa' ||
                         user.type == 'tpa_employee')
@@ -95,6 +95,20 @@
                         v-if="claimdetails.status != 1"
                       >
                         Services <i class="fe fe-thermometer"></i>
+                      </button>
+                    </router-link>
+
+                     <router-link
+                      :to="{
+                        path: '/encounter/' + claimdetails.servicesummary.id,
+                      }"
+                      v-if="claimdetails.servicesummary != null"
+                    >
+                     <button
+                        class="btn btn-outline-success spacer"
+                        v-if="claimdetails.status != 1"
+                      >
+                        View Encounter <i class="fe fe-activity"></i>
                       </button>
                     </router-link>
 
@@ -171,7 +185,7 @@
               </div>
             </div>
 
-            <div class="col-lg-8 col-md-8">
+             <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
                 <div class="card-header">
                   <p>
@@ -182,15 +196,24 @@
                 </div>
 
                 <div class="card-body">
-                  <p class="h3">Claim Summary:</p>
+                  <p class="h3">Claim Service Breakdown:</p>
                   <p>{{ claimdetails.treatment }}</p>
                   <div class="table-responsive">
                     <table class="table align-td-middle table-card">
                       <thead>
                         <tr>
-                          <th>Number</th>
+                          <th>S/N.</th>
                           <th>Name</th>
                           <th>Cost</th>
+                          <th>Dose</th>
+                          <th>Quantity</th>
+                          <th>Days</th>
+                          <th>Comments</th>
+                          <th>Vetted Price</th>
+                          <th>Verified Price</th>
+                          <th>Verdict</th>
+
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -207,27 +230,177 @@
                               service.drug.drug_name
                             }}</span>
                           </td>
-                          <td>&#8358;{{ service.cost | numeral(0, 0) }}</td>
-                        </tr>
-
-                        <tr>
-                          <td><strong>Total Fee</strong></td>
+                          <td> &#8358;{{ service.cost | numeral(0, 0) }}</td>
+                          <td>{{ service.dose }}</td>
+                          <td>{{ service.frequency }}</td>
+                          <td>{{ service.days }}</td>
                           <td>
-                            <strong
-                              >&#8358;{{
-                                singleclaim.sum | numeral(0, 0)
-                              }}</strong
+                           
+                            <div
+                              v-for="comment in service.servicecomments"
+                              v-bind:key="comment.id"
+                              class="spacer"
                             >
+                              <b-card class="text-left">
+                                <div class="bg-white text-dark">
+                                  {{ comment.body }}
+                                  <p>
+                                    By: {{ comment.user.firstname }}
+                                    {{ comment.user.lastname }}
+                                  </p>
+                                </div>
+                              </b-card>
+                            </div>
+                          </td>
+                          <td>
+                             <span v-show="listprice" >
+                               &#8358;{{service.vetted_price | numeral(0,0) }}
+                            </span>
+                            <input
+                              type="text"
+                              class="form-control"
+                              v-show="updateprice_vet"
+                              id=""
+                              @change="updateServicePrice(service)"
+                              v-model="service.vetted_price"
+                            />
+                          </td>
+                          
+                          <td>
+                             <span v-show="listprice" >
+                               &#8358;{{service.verified_price | numeral(0,0) }}
+                            </span>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id=""
+                              v-show="updateprice_ver"
+                              @change="updateServicePrice(service)"
+                              v-model="service.verified_price"
+                            />
+                          </td>
+                          <td>
+                            <span v-if="service.remark != null">{{
+                              service.remark.name
+                            }}</span>
+                          </td>
+
+                          <td>
+                            <div class="col-md-12">
+                              <div
+                                class="form-group"
+                                v-if="service.id == selected_service"
+                              >
+                                <label for="inputCity">Select Verdict</label>
+                                <select
+                                  class="form-control"
+                                  v-model="remark_selected"
+                                  @change="updateService(service)"
+                                >
+                                  <option
+                                    :value="remark.id"
+                                    v-for="remark in remarks"
+                                    v-bind:key="remark.id"
+                                  >
+                                    {{ remark.name }}
+                                  </option>
+                                </select>
+                              </div>
+
+                              <div v-else>
+                                <div class="btn-group">
+                                  <button
+                                    type="button"
+                                    class="btn btn-outline-primary dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                  >
+                                    <i class="fe fe-edit"></i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a
+                                      class="dropdown-item"
+                                      href="#"
+                                      @click="remarkService(service)"
+                                    >
+                                      make verdict</a
+                                    >
+                                    <div class="dropdown-divider"></div>
+                                    <a
+                                      class="dropdown-item"
+                                      href="#"
+                                      @click="readycommentService(service)"
+                                      >add comment</a
+                                    >
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"
+                                    @click="updateprice_vet = true"
+                                    v-if="user.type == 'tpa' || user.type == 'tpa_employee'"
+                                      >update price</a
+                                    >
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"
+                                     v-if="user.type == 'shis' || user.type == 'employee'"
+                                    @click="updateprice_ver = true"
+                                      >update price</a
+                                    >
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"
+                                      >click as applicable</a
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </td>
                         </tr>
                       </tbody>
                     </table>
+
+                    <p class="spacer">
+                      <strong class="h5"
+                        >Requested Total Cost of Service
+                      </strong>
+                      <strong class="h5"
+                        >&#8358;{{ singleclaim.sum | numeral(0, 0) }}</strong
+                      >
+                    </p>
+                    <p class="spacer">
+                      <strong class="h5">Okayed Total Cost of Service </strong>
+                      <strong class="h5"
+                        >&#8358;{{
+                          singleclaim.revised_fee | numeral(0, 0)
+                        }}</strong
+                      >
+                    </p>
+                    <p class="spacer">
+                      <strong class="h5">Vetted Total Cost of Service </strong>
+                      <strong class="h5"
+                        >&#8358;{{
+                          singleclaim.vetted_sum | numeral(0, 0)
+                        }}</strong
+                      >
+                    </p>
+                    <p class="h5 spacer">
+                      Verified Total Cost of Service
+                      <span
+                        >&#8358;{{
+                          singleclaim.verified_sum | numeral(0, 0)
+                        }}</span
+                      >
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-4">
+           
+         
+          </div>
+
+          <div class="row">
+             <div class="col-lg-6 col-md-6">
               <div class="card m-b-30">
                 <div class="card-header">
                   <strong class="h4">Other Details</strong>
@@ -296,6 +469,15 @@
                   </p>
                   <br />
                   <p>
+                    <strong>Is Enrollee Out of Station:</strong>
+                   <span v-if="claimdetails.is_out_of_station == true">
+                     Yes
+                   </span>
+                    <span v-if="claimdetails.is_out_of_station == false">
+                     No
+                   </span>
+                  </p>
+                  <p>
                     <strong>HMO/TPA:</strong>
                     {{ claimdetails.tpa.organization_name }}
                   </p>
@@ -326,10 +508,8 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="row">
-            <div class="col-lg-8 col-md-8">
+            <div class="col-lg-6 col-md-6">
               <div class="card m-b-30">
                 <div class="card-header">
                   <p>
@@ -342,7 +522,7 @@
                     <table class="table align-td-middle table-card">
                       <thead>
                         <tr>
-                          <th>Number</th>
+                          <th>S/N.</th>
                           <th>Name</th>
                           <th>Uploaded By</th>
                           <th>Date Uploaded</th>
@@ -414,12 +594,18 @@ export default {
   },
   data() {
     return {
-      user: null,
+       user: null,
       singleclaim: "",
       comments: "",
+      remarks: "",
+      remark_selected: "",
       shownotes: false,
+      updateprice_vet: false,
+      updateprice_ver: false,
+      listprice: true,
       facility: "",
       clientdetail: "",
+      selected_service: "",
       body: "",
       claimdetails: "",
       prepared_by: "",
@@ -430,9 +616,20 @@ export default {
     };
   },
   beforeMount() {
-    //
+     this.axios.get(`/api/v1/auth/remarks/95930`).then((response) => {
+      this.remarks = response.data;
+      console.log(response);
+    });
   },
   methods: {
+     remarkService(service) {
+      this.selected_service = service.id;
+    },
+    readycommentService(service) {
+      this.selected_service = service.id;
+      this.show = true;
+      // this.addComment(service);
+    },
     getClaim() {
       this.isLoading = true;
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -463,12 +660,52 @@ export default {
         });
     },
 
-    addComment() {
+     addComment() {
+      if (this.selected_service != "") {
+        this.axios
+          .post(`/api/v1/auth/addComment`, {
+            user_id: this.user.id,
+            claim_service_id: this.selected_service,
+            body: this.body,
+          })
+          .then((response) => {
+            console.log(response);
+            this.getClaim();
+            this.show = false;
+             this.selected_service  = "";
+             this.body  = "";
+            this.$toasted.info("added Successfully!", {
+              position: "top-center",
+              duration: 3000,
+            });
+          });
+      } else {
+        this.axios
+          .post(`/api/v1/auth/addComment`, {
+            user_id: this.user.id,
+            claim_id: this.$route.params.id,
+            body: this.body,
+          })
+          .then((response) => {
+            console.log(response);
+            this.getClaim();
+            this.show = false;
+            this.$toasted.info("added Successfully!", {
+              position: "top-center",
+              duration: 3000,
+            });
+          });
+      }
+    },
+     updateService(service) {
       this.axios
-        .post(`/api/v1/auth/addComment`, {
+        .put(`/api/v1/auth/claim_service/${service.id}`, {
           user_id: this.user.id,
-          claim_id: this.$route.params.id,
-          body: this.body,
+          claims_id: this.$route.params.id,
+          services_id: service.services_id,
+          drugs_id: service.drugs_id,
+          cost: service.cost,
+          remark_id: this.remark_selected,
         })
         .then((response) => {
           console.log(response);
@@ -478,6 +715,25 @@ export default {
             position: "top-center",
             duration: 3000,
           });
+          this.selected_service = "";
+        });
+    },
+      updateServicePrice(service) {
+      this.axios
+        .post(`/api/v1/auth/claim_service/update-cost`, {
+          claims_service_id: service.id,
+          vetted_price: service.vetted_price,
+          verified_price: service.verified_price,
+        })
+        .then((response) => {
+          console.log(response);
+          this.getClaim();
+          this.show = false;
+          this.$toasted.info("Cost Updated Successfully!", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.selected_service = "";
         });
     },
     approveClaim() {

@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="user__details--container"  id="printDiv" ref="printNow">
+      <div class="user__details--container" id="printDiv" ref="printNow">
         <div class="user__details--container-main">
           <h1 class="name">
             {{ encounterDetails.enrollee.lastname }}
@@ -49,7 +49,9 @@
           </h1>
 
           <img
-            :src="`https://api.hayokinsurance.com/image/${encounterDetails.enrollee.user_image}`"
+            :src="
+              `https://api.hayokinsurance.com/image/${encounterDetails.enrollee.user_image}`
+            "
             alt="Enrollee Image"
             class="enrollee__img"
             onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -78,16 +80,13 @@
               {{ encounterDetails.enrollee.gender }}
             </p>
           </div>
-         
+
           <div class="primary__detail">
             <i class="fas fa-hospital fa-2x icon"></i>
             <p class="mda primary__detail--text">
               {{ encounterDetails.provider.agency_name }}
             </p>
           </div>
-
-         
-
         </div>
         <div class="user__-details--container-other">
           <div class="user__details-header-and-renewal__CTA">
@@ -98,7 +97,7 @@
             <div class="other__details--list">
               <p class="other__detail">
                 <strong>Encounter ID: </strong>
-                {{encounterDetails.healthrecord.encounter_id}}
+                {{ encounterDetails.healthrecord.encounter_id }}
               </p>
               <p class="other__detail">
                 <strong>Reason for visit: </strong>
@@ -144,7 +143,9 @@
                   <th>Number</th>
                   <th>Type</th>
                   <th>Name</th>
-                  <th>Qty</th>
+                  <th>Dose</th>
+                  <th>Frequency</th>
+                  <th>Days</th>
                   <th>Cost</th>
                 </tr>
               </thead>
@@ -167,19 +168,23 @@
                     }}</span>
                   </td>
 
-                   <td >
-                     <span v-if="service.drug != null">
-                       {{service.dose}}
-                     </span>
-
-                     <span v-if="service.service != null">
-                       {{service.days}}
-                     </span>
-                      
-                    </td>
+                  <td>
+                    <span v-if="service.drug != null">
+                      {{ service.dose }}
+                    </span>
+                  </td>
+                  <td>
+                    <span>
+                      {{ service.frequency }}
+                    </span>
+                  </td>
 
                   <td>
-                   
+                    <span>
+                      {{ service.days }}
+                    </span>
+                  </td>
+                  <td>
                     <span v-if="service.service != null"> </span>
                     <span v-if="service.drug != null">
                       &#8358;{{ service.total_cost | numeral(0, 0) }}</span
@@ -207,10 +212,6 @@
               </tbody>
             </table>
           </div>
-
-          
-
-
         </div>
       </div>
     </main>

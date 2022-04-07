@@ -63,7 +63,7 @@ import SingleReferral from "../views/claims/SingleReferral.vue";
 import EditClaim from "../views/claims/EditClaim.vue";
 import ServiceProcessing from "../views/claims/ServiceProcessing.vue";
 import AddReferral from "../views/claims/AddReferral.vue";
-import TransferofHCP from "../views/others/TransferofHCP.vue";
+// import TransferofHCP from "../views/others/TransferofHCP.vue";
 import SingleTransferofHCP from "../views/others/SingleTransferofHCP.vue";
 import QualityAssurance from "../views/others/QualityAssurance.vue";
 import QualityAssuranceItemsHR from "../views/others/QualityAssuranceItemsHR.vue";
@@ -114,6 +114,7 @@ import DBQuery from "../views/shis/DBQuery.vue";
 import SubscriptionRenewal from "../views/clients/SubscriptionRenewal.vue";
 import EcounterPatientPage from "../views/shis/components/EncounterPatientPage.vue";
 import ManageDiagnosis from "../views/shis/ManageDiagnosis.vue";
+import ChangeFacility from "../views/others/ChangeFacility.vue";
 
 Vue.use(VueRouter);
 
@@ -565,7 +566,7 @@ const routes = [
   },
   {
     path: "/transfer-of-hcp",
-    component: TransferofHCP,
+    component: ChangeFacility,
     meta: {
       requiresAuth: true,
     },

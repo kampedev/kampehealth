@@ -41,6 +41,7 @@
                       v-model="searchkey"
                       @change="searchIDCard"
                     />
+                    <button class="btn btn-success mt-3">Search</button>
                   </div>
 
                   <div

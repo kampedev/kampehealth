@@ -80,6 +80,22 @@
                       :value="enrollee_details.user.phone_number"
                     />
                   </div>
+                  <div
+                    class="form-group col-md-6"
+                    v-if="
+                      enrollee_details != '' &&
+                        enrollee_details.user.sectorType === `formal`
+                    "
+                  >
+                    <label for="inputCity">MDA</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      required
+                      disabled
+                      :value="enrollee_details.user.place_of_work"
+                    />
+                  </div>
                 </div>
 
                 <div class="form-row">

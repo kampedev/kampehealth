@@ -59,7 +59,7 @@
 
                   <div
                     class="form-group col-md-6"
-                    v-if="enrollee_details != ''"
+                    v-if="enrollee_details !== ''"
                   >
                     <label for="inputCity">Client First Name</label>
                     <input
@@ -71,7 +71,7 @@
                   </div>
                   <div
                     class="form-group col-md-6"
-                    v-if="enrollee_details != ''"
+                    v-if="enrollee_details !== ''"
                   >
                     <label for="inputCity">Client Phone Number</label>
                     <input
@@ -85,7 +85,7 @@
                     class="form-group col-md-6"
                     v-if="
                       enrollee_details != '' &&
-                        enrollee_details.user.sectorType === `formal`
+                        enrollee_details.user.place_of_work != null
                     "
                   >
                     <label for="inputCity">MDA</label>

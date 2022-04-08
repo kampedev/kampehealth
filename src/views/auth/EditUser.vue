@@ -192,7 +192,7 @@
 
                     <div
                       class="form-group col-md-6"
-                      v-if="auth_user.sectorType == 'formal'"
+                      v-if="auth_user.place_of_work !== null"
                     >
                       <label
                         >Place of Work: {{ auth_user.place_of_work }}

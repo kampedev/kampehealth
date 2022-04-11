@@ -1122,3 +1122,17 @@ export default {
   created() {},
 };
 </script>
+
+<style scoped>
+.sidebar-pinned {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+}
+
+.admin-sidebar .admin-sidebar-wrapper {
+  overflow-y: scroll;
+}
+</style>

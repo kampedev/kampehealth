@@ -189,12 +189,14 @@
                         v-model="auth_user.salary_number"
                       />
                     </div>
-                    
+
                     <div
                       class="form-group col-md-6"
-                      
+                      v-if="auth_user.sectorType == 'formal'"
                     >
-                      <label>Place of Work:  {{auth_user.place_of_work}} </label>
+                      <label
+                        >Place of Work: {{ auth_user.place_of_work }}
+                      </label>
                       <v-select
                         v-model="auth_user.place_of_work"
                         :options="mdas"
@@ -211,7 +213,9 @@
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="inputCity">Date of Expiry: {{auth_user.expiry_date}} </label>
+                      <label for="inputCity"
+                        >Date of Expiry: {{ auth_user.expiry_date }}
+                      </label>
                       <input
                         type="date"
                         class="form-control"
@@ -530,8 +534,8 @@ export default {
           password: this.auth_user.password,
           phone_number: this.auth_user.phone_number,
           sectorType: this.auth_user.sectorType,
-          category_of_vulnerable_group:
-            this.auth_user.category_of_vulnerable_group,
+          category_of_vulnerable_group: this.auth_user
+            .category_of_vulnerable_group,
           agency_name: this.auth_user.agency_name,
           address1: this.auth_user.address1,
           agencyAddress: this.auth_user.agencyAddress,

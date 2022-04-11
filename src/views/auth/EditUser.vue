@@ -326,28 +326,7 @@
                       placeholder="Address"
                     />
                   </div>
-                  <div class="form-group" v-if="auth_user.type != 'client'">
-                    <label for="inputAddress2">Office Address</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Office Address"
-                      v-model="auth_user.agencyAddress"
-                    />
-                  </div>
-                  <div class="form-group" v-if="auth_user.type != 'client'">
-                    <label for="inputAddress2">Office Website</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="http://example.com or https://example.com"
-                      v-model="auth_user.agencyWebsite"
-                    />
-                  </div>
-                  <!-- <div class="form-group col-md-6">
-                                      <label for="inputPassword4">Password</label>
-                                      <input type="password" class="form-control"  placeholder="Password"  v-model="auth_user.password">
-                                  </div> -->
+                
                   <button
                     type="submit"
                     class="btn btn-success btn-cta"
@@ -357,28 +336,7 @@
                   </button>
                 </div>
               </div>
-              <!-- <div class="card  py-3 m-b-30">
-                           <div class="card-body">
-                               <h1>CAC Certificate</h1>
-
-                               <button type="submit" class="btn btn-info btn-cta">View</button>
-                               <button type="submit" class="btn btn-danger btn-cta">Delete</button>
-
-                           </div>
-                       </div> -->
-
-              <!-- <div class="card  py-3 m-b-30">
-                           <div class="card-body">
-                               <h3 class="">Plans</h3>
-                               <p class="text-muted">
-                                   Changes in plans will reflect on 15<sup>th</sup> of every month
-                               </p>
-
-                               <div class="p-t-30">
-                                   <button type="submit" class="btn btn-success btn-cta">Save changes</button>
-                               </div>
-                           </div>
-                       </div> -->
+            
             </div>
           </div>
         </div>
@@ -538,7 +496,6 @@ export default {
             .category_of_vulnerable_group,
           agency_name: this.auth_user.agency_name,
           address1: this.auth_user.address1,
-          agencyAddress: this.auth_user.agencyAddress,
           plan_type: this.auth_user.plan_type,
           place_of_work: this.auth_user.place_of_work.name,
           expiry_date: this.auth_user.expiry_date,

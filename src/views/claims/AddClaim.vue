@@ -289,9 +289,9 @@ export default {
     getDiseases() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/diagnosis`)
+        .get(`/api/v1/auth/diagnosis-agency/95930`)
         .then((response) => {
-          this.diseases = response.data;
+          this.diseases = response.data.data;
           console.log(response);
         })
         .catch((error) => {

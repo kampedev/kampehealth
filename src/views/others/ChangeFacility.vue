@@ -18,14 +18,7 @@
     </div>
     <section>
       <div class="container">
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="show = !show"
-          style="margin-bottom:20px;"
-        >
-          Make Request <i class="fe fe-plus"></i>
-        </button>
+      
 
         <div class="row list" v-show="show">
           <div class="col-lg-12 col-md-12">
@@ -137,6 +130,20 @@
                   </div>
                 </div>
 
+                 <div class="col-md-4">
+                    <img
+                      :src="
+                        `https://api.hayokinsurance.com/image/${enrollee_details.user.user_image}`
+                      "
+                      class="img spacer-top"
+                      alt="User Photo"
+                      v-if="enrollee_details != '' && enrollee_details.user.user_image != null"
+                      onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                    />
+                 
+                  </div>
+
+
                 <div class="fileinput fileinput-new" data-provides="fileinput">
                   <span class="btn btn-file">
                     <button class="btn btn-success">
@@ -228,7 +235,7 @@ export default {
       card_style: "col-md-12",
       edit: false,
       isLoading: false,
-      show: false,
+      show: true,
       fullPage: true,
       transfer: {
         reason_for_change: "",

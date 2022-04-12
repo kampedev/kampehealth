@@ -18,8 +18,6 @@
     </div>
     <section>
       <div class="container">
-      
-
         <div class="row list" v-show="show">
           <div class="col-lg-12 col-md-12">
             <div class="card m-b-30">
@@ -84,11 +82,21 @@
                       class="form-control"
                       v-model="transfer.reason_for_change"
                     >
-                      <option value="">Change of location</option>
-                      <option value="">Poor service delivery</option>
-                      <option value="">Extortion/Over-billing</option>
-                      <option value="">Facility Disaccreditation</option>
-                      <option value="">Proximity to new facility</option>
+                      <option value="Change of location"
+                        >Change of location</option
+                      >
+                      <option value="Poor service delivery"
+                        >Poor service delivery</option
+                      >
+                      <option value="Extortion/Over-billing"
+                        >Extortion/Over-billing</option
+                      >
+                      <option value="Facility Disaccreditation"
+                        >Facility Disaccreditation</option
+                      >
+                      <option value="Proximity to new facility"
+                        >Proximity to new facility</option
+                      >
                     </select>
                     <label for="inputCity" class="mt-3"
                       >Full Residential Address:</label
@@ -97,7 +105,7 @@
                       rows="5"
                       cols="80"
                       class="form-control"
-                      v-model="transfer.reason_for_change"
+                      v-model="search_result.address1"
                       placeholder="Please Enter Your Full Home Address"
                     />
 
@@ -130,41 +138,45 @@
                   </div>
                 </div>
 
-                 <div class="col-md-4">
-                    <img
-                      :src="
-                        `https://api.hayokinsurance.com/image/${enrollee_details.user.user_image}`
-                      "
-                      class="img spacer-top"
-                      alt="User Photo"
-                      v-if="enrollee_details != '' && enrollee_details.user.user_image != null"
-                      onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
-                    />
-                 
-                  </div>
+                <div class="col-md-4 offset-md-4">
+                  <img
+                    :src="
+                      `https://api.hayokinsurance.com/image/${enrollee_details.user.user_image}`
+                    "
+                    class="img spacer-top"
+                    alt="User Photo"
+                    v-if="
+                      enrollee_details != '' &&
+                        enrollee_details.user.user_image != null
+                    "
+                    onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                  />
 
-
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                  <span class="btn btn-file">
-                    <button class="btn btn-success">
-                      Upload Picture <i class="fe fe-upload"></i>
-                    </button>
-                    <span class="fileinput-exists">Change</span>
-                    <input
-                      type="file"
-                      name="..."
-                      multiple
-                      v-on:change="attachPic"
-                    />
-                  </span>
-                  <span class="fileinput-filename"></span>
-                  <a
-                    href="#"
-                    class="close fileinput-exists"
-                    data-dismiss="fileinput"
-                    style="float: none"
-                    >&times;</a
+                  <div
+                    class="fileinput fileinput-new"
+                    data-provides="fileinput"
                   >
+                    <span class="btn btn-file">
+                      <button class="btn btn-success">
+                        Upload Picture <i class="fe fe-upload"></i>
+                      </button>
+                      <span class="fileinput-exists">Change</span>
+                      <input
+                        type="file"
+                        name="..."
+                        multiple
+                        v-on:change="attachPic"
+                      />
+                    </span>
+                    <span class="fileinput-filename"></span>
+                    <a
+                      href="#"
+                      class="close fileinput-exists"
+                      data-dismiss="fileinput"
+                      style="float: none"
+                      >&times;</a
+                    >
+                  </div>
                 </div>
 
                 <span class="notice">
@@ -271,28 +283,29 @@ export default {
       this.image = event.target.files[0];
       this.uploadPicture();
     },
+
     uploadPicture() {
       this.isLoading = true;
       this.user = JSON.parse(localStorage.getItem("user"));
       var formData = new FormData();
       formData.append("user_image", this.image);
-      formData.append("user_id", this.$route.params.id);
+      formData.append("user_id", this.enrollee_details.user.id);
       this.axios
-        .post("/api/v1/auth/uploadUserImage", formData, {
+        .post("/api/v1/uploadUserImage", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
         .then((response) => {
           console.log(response);
+          this.searchIDCard();
+
           this.isLoading = false;
           this.$toasted.info("Image added Successfully!", {
             position: "top-center",
             duration: 3000,
           });
-          this.fetchUser();
         });
-      console.log(this.client);
     },
     quickView(ref) {
       this.isLoading = true;
@@ -432,6 +445,8 @@ export default {
             agency_id: 95930,
             new_health_facility: this.transfer.new_health_facility.id,
             previous_health_facility: this.search_result.provider_id,
+            phone_number: this.enrollee_details.user.phone_number,
+            address: this.search_result.address,
             status: "created",
             reason_for_change: this.transfer.reason_for_change,
           })

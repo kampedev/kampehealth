@@ -63,8 +63,8 @@ import SingleReferral from "../views/claims/SingleReferral.vue";
 import EditClaim from "../views/claims/EditClaim.vue";
 import ServiceProcessing from "../views/claims/ServiceProcessing.vue";
 import AddReferral from "../views/claims/AddReferral.vue";
-// import TransferofHCP from "../views/others/TransferofHCP.vue";
-import SingleTransferofHCP from "../views/others/SingleTransferofHCP.vue";
+import TransferofHCPRequests from "../views/others/TransferofHCP.vue";
+// import SingleTransferofHCP from "../views/others/SingleTransferofHCP.vue";
 import QualityAssurance from "../views/others/QualityAssurance.vue";
 import QualityAssuranceItemsHR from "../views/others/QualityAssuranceItemsHR.vue";
 import QualityAssuranceItemsMntIssues from "../views/others/QualityAssuranceItemsMntIssues.vue";
@@ -573,8 +573,8 @@ const routes = [
     },
   },
   {
-    path: "/transfer/:id",
-    component: SingleTransferofHCP,
+    path: "/change-facility-requests",
+    component: TransferofHCPRequests,
     meta: {
       requiresAuth: true,
     },

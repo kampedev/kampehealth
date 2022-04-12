@@ -257,6 +257,7 @@ export default {
       sector:"",
       wards:[],
       json_fields: {
+        'Facility ID': 'id',
         'Facility Name': 'agency_name',
         'Contact First Name': "firstname",
         'Contact Last Name': "lastname",

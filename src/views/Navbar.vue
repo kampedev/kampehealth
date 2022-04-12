@@ -159,6 +159,17 @@
             </a>
           </li>
 
+          <li class="menu-item" v-if="user.type == 'employee'">
+            <a href="/change-facility-requests" class=" menu-link">
+              <span class="menu-label">
+                <span class="menu-name">Change Facility Requests</span>
+              </span>
+              <span class="menu-icon">
+                <i class="icon-placeholder fe fe-paper-clip"></i>
+              </span>
+            </a>
+          </li>
+
           <li class="menu-item" v-if="user.type == 'hmo'">
             <router-link href="/fund-manager" class="menu-link">
               <span class="menu-label">

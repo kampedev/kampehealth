@@ -49,7 +49,7 @@
                           />
                       </div>                 
 
-                     <div class="form-group col-md-4" v-if="type == 'Drug'">
+                     <div class="form-group col-md-6" v-if="type == 'Drug'">
                           <label for="inputPassword4">Select Drug  </label>
                           <v-select
                             
@@ -105,7 +105,7 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-6" v-if="type == 'Drug'">
+                      <div class="form-group col-md-4" v-if="type == 'Drug'">
                         <label for="inputCity"
                           >Frequency (Times per day)
                         </label>
@@ -170,7 +170,8 @@
                     <th>Days</th>
                     <th>Dose</th>
                     <th>Freq.</th>
-                    <th>Cost</th>
+                    <th>Unit Cost</th>
+                    <th>Total Cost</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -190,7 +191,16 @@
                     <td> {{service.days}} </td>
                     <td>  {{service.dose}} </td>
                     <td>  {{service.frequency}}  </td>
-                    <td>&#8358;{{ service.cost | numeral(0, 0) }}</td>
+                    <td>
+                      &#8358; <span v-if="service.service != null">{{
+                        service.service.price
+                      }}</span>
+                      <span v-if="service.drugs_id != null">{{
+                        service.drug.price
+                      }}</span>
+                     </td>
+                    <td>&#8358;{{ service.cost | numeral(0, 0) }} </td>
+                   
                     <td>
                       <button
                         class="btn btn-danger"

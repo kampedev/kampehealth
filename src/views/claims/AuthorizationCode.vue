@@ -157,7 +157,7 @@
                           </td>
                           <td>
                             {{ diag.enrollee.firstname }}
-                            {{ diag.creator.lastname }}
+                            {{ diag.enrollee.lastname }}
                           </td>
                           <td>{{ diag.code_created }}</td>
                           <td>
@@ -166,7 +166,7 @@
                             </td>
                           <td
                             v-if="
-                             diag.code_created == 'null' && (user.type == 'tpa' || user.type == 'tpa_employee')
+                             diag.code_created == null && (user.type == 'tpa' || user.type == 'tpa_employee')
                             "
                           >
                             <button class="btn btn-outline-success"

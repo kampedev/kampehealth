@@ -195,7 +195,7 @@
                       v-if="auth_user.place_of_work !== null"
                     >
                       <label
-                        >Place of Work: {{ auth_user.place_of_work }}
+                        >Place of Work
                       </label>
                       <v-select
                         v-model="auth_user.place_of_work"
@@ -466,6 +466,7 @@ export default {
     editUser() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.isLoading = true;
+      console.log('ldldl')
       this.axios
         .post(`/api/v1/auth/editProfile/${this.$route.params.id}`, {
           firstname: this.auth_user.firstname,
@@ -497,7 +498,7 @@ export default {
           agency_name: this.auth_user.agency_name,
           address1: this.auth_user.address1,
           plan_type: this.auth_user.plan_type,
-          place_of_work: this.auth_user.place_of_work.name,
+          place_of_work:  this.auth_user.place_of_work == null ? null : this.auth_user.place_of_work.name,
           expiry_date: this.auth_user.expiry_date,
         })
         .then((response) => {
@@ -510,6 +511,8 @@ export default {
         })
         .catch((error) => {
           console.log(error.response);
+           this.isLoading = false;
+           
         });
     },
   },

@@ -22,13 +22,13 @@
             Print <i class="fe fe-printer"></i>
           </button>
 
-          <button
+          <!-- <button
             class="btn btn-outline-success spacer"
             @click="createClaim"
             v-if="encounterDetails.claim_id == null"
           >
             Generate Claim <i class="fe fe-send"></i>
-          </button>
+          </button> -->
 
           <router-link :to="`/claim/${encounterDetails.claim_id}`">
             <button

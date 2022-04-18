@@ -18,13 +18,12 @@
     </div>
     <section>
       <div class="container">
-
         <div class="row">
           <div :class="card_style">
             <div class="card">
               <div class="card card-header">
                 <p class="h4">
-                 <!-- Request(s) -->
+                  <!-- Request(s) -->
                   <i class="mdi mdi-bank-transfer"></i>
                 </p>
               </div>
@@ -46,9 +45,9 @@
                         <!-- <td> {{ref.created_at}} </td> -->
 
                         <td>
-                         <span v-if="trf.client != null"> 
-                           {{ trf.client.firstname }} {{ trf.client.lastname }}
-                           </span>
+                          <span v-if="trf.client != null">
+                            {{ trf.client.firstname }} {{ trf.client.lastname }}
+                          </span>
                         </td>
                         <td>{{ trf.oldfacility.agency_name }}</td>
                         <td>{{ trf.newfacility.agency_name }}</td>
@@ -80,7 +79,6 @@
                           </span>
                         </td>
                         <td>
-                         
                           <button class="btn btn-info" @click="quickView(trf)">
                             <i class="mdi mdi-eye-check"></i>
                           </button>
@@ -89,6 +87,21 @@
                     </tbody>
                   </table>
                 </div>
+                <span class="pagination__CTAs">
+                  <button
+                    class="btn btn-primary next__page"
+                    @click="DecreamentPage"
+                  >
+                    Previous page
+                  </button>
+                  <p class="currentPage">{{ pageNum }}</p>
+                  <button
+                    class="btn btn-primary previous__page"
+                    @click="IncreamentPage"
+                  >
+                    Next page
+                  </button>
+                </span>
               </div>
             </div>
           </div>
@@ -175,6 +188,7 @@ export default {
       transfers: "",
       quickref: "",
       card_style: "col-md-12",
+      pageNum: 1,
       edit: false,
       isLoading: false,
       show: false,
@@ -259,11 +273,10 @@ export default {
       }
     },
 
-
     AllTransfers() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/all/change_providers/95930`)
+        .get(`/api/v1/auth/all/change_providers/95930?page=${this.pageNum}`)
         .then((response) => {
           this.transfers = response.data.data;
           console.log(response);
@@ -272,10 +285,36 @@ export default {
           console.error(error);
         });
     },
-  
+
+    IncreamentPage() {
+      this.pageNum = this.pageNum + 1;
+      this.AllTransfers();
+    },
+    DecreamentPage() {
+      if (this.pageNum > 1) {
+        this.pageNum = this.pageNum - 1;
+        this.AllTransfers();
+      }
+    },
   },
   created() {
     this.AllTransfers();
   },
 };
 </script>
+
+<style scoped>
+.pagination__CTAs {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+.previous__page {
+}
+
+.currentPage {
+  margin: 0 2rem;
+  font-weight: 600;
+}
+</style>

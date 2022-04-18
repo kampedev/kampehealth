@@ -288,11 +288,12 @@ export default {
     },
 
     clearIt() {
-      this.transfer.reason_for_change = "";
-      this.transfer.new_health_facility = "";
-      this.transfer.previous_health_facility = "";
-      this.transfer.status = "";
-      this.transfer.prepared_by = "";
+      this.search_result = "";
+      this.enrollee_details = "";
+      this.searchkey = "";
+      this.transfers = "";
+      this.quickref = "";
+      this.image = "";
     },
     attachPic(event) {
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -471,12 +472,18 @@ export default {
           .then((response) => {
             console.log(response);
             this.AllTransfers();
-            this.clearIt();
+            this.search_result = "";
+            this.enrollee_details = "";
+            this.searchkey = "";
+            this.transfers = "";
+            this.quickref = "";
+            this.image = "";
             this.isLoading = false;
             this.$toasted.info("Request submitted Successfully", {
               position: "top-center",
               duration: 3000,
             });
+
           })
           .catch((error) => {
             console.log(error.response);

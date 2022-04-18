@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                      <label for="inputAddress">Treatment Summary</label>
+                      <label for="inputAddress">Reason for Claim</label>
                       <textarea
                         name="name"
                         rows="5"

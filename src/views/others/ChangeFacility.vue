@@ -32,6 +32,7 @@
                       v-model="searchkey"
                       @change="searchIDCard"
                     />
+                    <button class="btn btn-success mt-3">Search</button>
                   </div>
 
                   <div
@@ -49,7 +50,7 @@
 
                   <div
                     class="form-group col-md-6"
-                    v-if="enrollee_details != ''"
+                    v-if="enrollee_details !== ''"
                   >
                     <label for="inputCity">Client First Name</label>
                     <input
@@ -61,7 +62,7 @@
                   </div>
                   <div
                     class="form-group col-md-6"
-                    v-if="enrollee_details != ''"
+                    v-if="enrollee_details !== ''"
                   >
                     <label for="inputCity">Client Phone Number</label>
                     <input
@@ -69,6 +70,22 @@
                       class="form-control"
                       required
                       :value="enrollee_details.user.phone_number"
+                    />
+                  </div>
+                  <div
+                    class="form-group col-md-6"
+                    v-if="
+                      enrollee_details != '' &&
+                        enrollee_details.user.place_of_work != null
+                    "
+                  >
+                    <label for="inputCity">MDA</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      required
+                      disabled
+                      :value="enrollee_details.user.place_of_work"
                     />
                   </div>
                 </div>
@@ -271,6 +288,14 @@ export default {
     },
 
     clearIt() {
+<<<<<<< HEAD
+      this.search_result = "";
+      this.enrollee_details = "";
+      this.searchkey = "";
+      this.transfers = "";
+      this.quickref = "";
+      this.image = "";
+=======
       this.transfer.reason_for_change = "";
       this.transfer.new_health_facility = "";
       this.transfer.previous_health_facility = "";
@@ -278,6 +303,7 @@ export default {
       this.transfer.prepared_by = "";
       this.searchkey = "";
       this.enrollee_details = "";
+>>>>>>> bde8ca7bc8279b068903f2b8f90392a62a8e8e2f
     },
     attachPic(event) {
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -407,12 +433,18 @@ export default {
           .then((response) => {
             console.log(response);
             this.AllTransfers();
-            this.clearIt();
+            this.search_result = "";
+            this.enrollee_details = "";
+            this.searchkey = "";
+            this.transfers = "";
+            this.quickref = "";
+            this.image = "";
             this.isLoading = false;
             this.$toasted.info("Request submitted Successfully", {
               position: "top-center",
               duration: 3000,
             });
+
           })
           .catch((error) => {
             console.log(error.response);

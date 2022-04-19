@@ -276,6 +276,8 @@ export default {
       this.transfer.previous_health_facility = "";
       this.transfer.status = "";
       this.transfer.prepared_by = "";
+      this.searchkey = "";
+      this.enrollee_details = "";
     },
     attachPic(event) {
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -307,57 +309,8 @@ export default {
           });
         });
     },
-    quickView(ref) {
-      this.isLoading = true;
-      this.card_style = "col-md-8";
-      this.axios
-        .get(`/api/v1/auth/change_providers/${ref.id}`)
-        .then((response) => {
-          console.log(response);
-          this.quickref = response.data;
-          this.isLoading = false;
-        })
-        .catch((error) => {
-          console.log(error.response);
-          this.isLoading = false;
-        });
-    },
-    updateRequestA() {
-      if (confirm("Are you sure you want to approve this request")) {
-        this.isLoading = true;
-        this.axios
-          .post(`/api/v1/auth/change_providers/update/${this.quickref.id}`, {
-            status: "approved",
-          })
-          .then((response) => {
-            console.log(response);
-            this.getTransfer();
-            this.isLoading = false;
-          })
-          .catch((error) => {
-            console.log(error.response);
-            this.isLoading = false;
-          });
-      }
-    },
-    updateRequestR() {
-      if (confirm("Are you sure you want to reject?")) {
-        this.isLoading = true;
-        this.axios
-          .post(`/api/v1/auth/change_providers/update/${this.quickref.id}`, {
-            status: "declined",
-          })
-          .then((response) => {
-            console.log(response);
-            this.getTransfer();
-            this.isLoading = false;
-          })
-          .catch((error) => {
-            console.log(error.response);
-            this.isLoading = false;
-          });
-      }
-    },
+   
+   
     searchIDCard() {
       this.loading = true;
       this.axios

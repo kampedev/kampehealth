@@ -791,7 +791,17 @@
               <li class="menu-item">
                 <router-link to="/transfer-of-hcp" class=" menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Change of HCP </span>
+                    <span class="menu-name">COF Form </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder  mdi mdi-bank-transfer "></i>
+                  </span>
+                </router-link>
+              </li>
+                <li class="menu-item">
+                <router-link to="/change-facility-requests" class=" menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">COF Requests </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder  mdi mdi-bank-transfer "></i>

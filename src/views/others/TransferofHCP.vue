@@ -87,7 +87,9 @@
                     </tbody>
                   </table>
                 </div>
-                <span class="pagination__CTAs">
+
+               <div class="col-md-12">
+                  <span class="pagination__CTAs">
                   <button
                     class="btn btn-primary next__page"
                     @click="DecreamentPage"
@@ -102,6 +104,8 @@
                     Next page
                   </button>
                 </span>
+                
+               </div>
               </div>
             </div>
           </div>

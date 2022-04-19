@@ -288,14 +288,6 @@ export default {
     },
 
     clearIt() {
-<<<<<<< HEAD
-      this.search_result = "";
-      this.enrollee_details = "";
-      this.searchkey = "";
-      this.transfers = "";
-      this.quickref = "";
-      this.image = "";
-=======
       this.transfer.reason_for_change = "";
       this.transfer.new_health_facility = "";
       this.transfer.previous_health_facility = "";
@@ -303,7 +295,6 @@ export default {
       this.transfer.prepared_by = "";
       this.searchkey = "";
       this.enrollee_details = "";
->>>>>>> bde8ca7bc8279b068903f2b8f90392a62a8e8e2f
     },
     attachPic(event) {
       this.user = JSON.parse(localStorage.getItem("user"));

@@ -15,7 +15,7 @@
         </div>
       </div>
       <section class="pull-up">
-        <div class="container">
+        <div class="container" id="printDiv" ref="printNow">
           <div class="row list">
             <div class="col-lg-12 col-md-8">
               <div class="card m-b-30">
@@ -127,6 +127,13 @@
                       <i class="fe fe-x"></i> Reject
                     </button>
 
+                    <button
+                      class="btn btn-outline-success spacer"
+                      @click="printMe"
+                    >
+                      Print <i class="fe fe-printer"></i>
+                    </button>
+
                     <div class="form-group col-md-12" v-show="show">
                       <label for="inputAddress">Please add a Comment</label>
                       <textarea
@@ -185,127 +192,121 @@
               </div>
             </div>
 
-          <div class="">
-            <div class="col-lg-12 col-md-12">
-              <div class="card">
-                <div class="card-header">
-                  <strong class="h4">Claim Details</strong>
-                </div>
+            <div class="">
+              <div class="col-lg-12 col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <strong class="h4">Claim Details</strong>
+                  </div>
 
-                <div class="card-body">
-                  <p>
-                    <span v-if="claimdetails.status == 1">
-                      <button
-                        type="button"
-                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
-                      >
-                        approved
-                      </button>
-                    </span>
-                    <span v-if="claimdetails.status == 0">
-                      <button
-                        type="button"
-                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger"
-                      >
-                        rejected
-                      </button>
-                    </span>
-                    <span v-if="claimdetails.status == null">
-                      <button
-                        type="button"
-                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
-                      >
-                        pending
-                      </button>
-                    </span>
-                    <span v-if="claimdetails.verified_by_id != null">
-                      <button
-                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
-                      >
-                        vetted
-                      </button>
-                    </span>
-                  </p>
-                 
+                  <div class="card-body">
+                    <p>
+                      <span v-if="claimdetails.status == 1">
+                        <button
+                          type="button"
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                        >
+                          approved
+                        </button>
+                      </span>
+                      <span v-if="claimdetails.status == 0">
+                        <button
+                          type="button"
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger"
+                        >
+                          rejected
+                        </button>
+                      </span>
+                      <span v-if="claimdetails.status == null">
+                        <button
+                          type="button"
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+                        >
+                          pending
+                        </button>
+                      </span>
+                      <span v-if="claimdetails.verified_by_id != null">
+                        <button
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
+                        >
+                          vetted
+                        </button>
+                      </span>
+                    </p>
 
-                 <div class="row">
-                   <div class="col-md-6">
- <p>
-                    <strong>Health Facility:</strong>
-                    {{ claimdetails.provider.agency_name }}
-                  </p>
-                  <br />
-                  <p>
-                    <strong>Prepared by:</strong> {{ prepared_by.firstname }}
-                    {{ prepared_by.lastname }}
-                  </p>
-                  <br />
-                  <p>
-                    <strong>Enrollee/ Patient Name:</strong>
-                    {{ claimdetails.enrollee.firstname }}
-                    {{ claimdetails.enrollee.lastname }}
-                  </p>
-                  <br />
-                  <p>
-                    <strong>Enrollee/ Patient O'HIS Number:</strong>
-                    {{ claimdetails.enrollee.id_card_number }}
-                  </p>
-                  <br />
-                  <p>
-                    <strong>Is Enrollee Out of Station:</strong>
-                    <span v-if="claimdetails.is_out_of_station == true">
-                      Yes
-                    </span>
-                    <span v-if="claimdetails.is_out_of_station == false">
-                      No
-                    </span>
-                  </p>
-                  <p>
-                    <strong>HMO/TPA:</strong>
-                    {{ claimdetails.tpa.organization_name }}
-                  </p>
-                  <br />
-                  <p>
-                    <strong>Date Seen:</strong> {{ claimdetails.seen_date }}
-                  </p>
-                  <br />
-                  <p>
-                    <strong>Diagnosis:</strong>
-                    {{ claimdetails.diagnosis.name }}
-                  </p>
-                  <br />
-                  <p v-if="claimdetails.verified_by_id != null">
-                    <strong>Vetted By:</strong>
-                    {{ claimdetails.verfieduser.firstname }}
-                    {{ claimdetails.verfieduser.lastname }}
-                  </p>
-                  <br />
-                  <p v-if="claimdetails.approved_by_id != null">
-                    <strong v-if="claimdetails.verified_by_id != null"
-                      >Approved By:</strong
-                    >
-                    {{ claimdetails.approveduser.firstname }}
-                    {{ claimdetails.approveduser.lastname }}
-                  </p>
-                  <br />
-                   </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <p>
+                          <strong>Health Facility:</strong>
+                          {{ claimdetails.provider.agency_name }}
+                        </p>
+                        <br />
+                        <p>
+                          <strong>Prepared by:</strong>
+                          {{ prepared_by.firstname }}
+                          {{ prepared_by.lastname }}
+                        </p>
+                        <br />
+                        <p>
+                          <strong>Enrollee/ Patient Name:</strong>
+                          {{ claimdetails.enrollee.firstname }}
+                          {{ claimdetails.enrollee.lastname }}
+                        </p>
+                        <br />
+                        <p>
+                          <strong>Enrollee/ Patient O'HIS Number:</strong>
+                          {{ claimdetails.enrollee.id_card_number }}
+                        </p>
+                        <br />
+                        <p>
+                          <strong>Is Enrollee Out of Station:</strong>
+                          <span v-if="claimdetails.is_out_of_station == true">
+                            Yes
+                          </span>
+                          <span v-if="claimdetails.is_out_of_station == false">
+                            No
+                          </span>
+                        </p>
+                        <p>
+                          <strong>HMO/TPA:</strong>
+                          {{ claimdetails.tpa.organization_name }}
+                        </p>
+                        <br />
+                        <p>
+                          <strong>Date Seen:</strong>
+                          {{ claimdetails.seen_date }}
+                        </p>
+                        <br />
+                        <p>
+                          <strong>Diagnosis:</strong>
+                          {{ claimdetails.diagnosis.name }}
+                        </p>
+                        <br />
+                        <p v-if="claimdetails.verified_by_id != null">
+                          <strong>Vetted By:</strong>
+                          {{ claimdetails.verfieduser.firstname }}
+                          {{ claimdetails.verfieduser.lastname }}
+                        </p>
+                        <br />
+                        <p v-if="claimdetails.approved_by_id != null">
+                          <strong v-if="claimdetails.verified_by_id != null"
+                            >Approved By:</strong
+                          >
+                          {{ claimdetails.approveduser.firstname }}
+                          {{ claimdetails.approveduser.lastname }}
+                        </p>
+                        <br />
+                      </div>
 
-                   <div class="col-md-6">
-                     
-                     <p class="h4">Reason For Claim:</p>
-                     <p>{{ claimdetails.treatment }}</p>
-                 
-                   </div>
-
-                 </div>
-                 
+                      <div class="col-md-6">
+                        <p class="h4">Reason For Claim:</p>
+                        <p>{{ claimdetails.treatment }}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-          
-         
-          </div>
 
             <div class="col-lg-12 col-md-12 spacer">
               <div class="card m-b-30">
@@ -319,7 +320,7 @@
 
                 <div class="card-body">
                   <p class="h3">Claim Service Breakdown:</p>
-                 
+
                   <div class="table-responsive">
                     <table class="table align-td-middle table-card">
                       <thead>
@@ -528,7 +529,7 @@
               </div>
             </div>
 
-              <div class="col-lg-12 col-md-12">
+            <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
                 <div class="card-header">
                   <p>
@@ -582,10 +583,7 @@
                 </div>
               </div>
             </div>
-         
           </div>
-
-        
         </div>
 
         <div class="vld-parent">
@@ -797,6 +795,13 @@ export default {
           this.show = true;
         });
       }
+    },
+     printMe() {
+      var printContents = document.getElementById("printDiv").innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
     },
   },
   created() {

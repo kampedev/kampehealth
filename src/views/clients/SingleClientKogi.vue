@@ -333,7 +333,7 @@
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">HMO/TPA:</strong>
-                      <strong> {{ client.tpa.organization_name }}</strong>
+                      <strong v-if="client.user.tpa != null"> {{ client.tpa.organization_name }}</strong>
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">

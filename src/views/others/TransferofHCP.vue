@@ -314,8 +314,7 @@ export default {
   align-items: center;
   width: 100%;
 }
-.previous__page {
-}
+
 
 .currentPage {
   margin: 0 2rem;

@@ -200,8 +200,8 @@ export default {
        phone_number: this.auth_user.phone_number,
        agency_name: this.auth_user.agency_name,
        address1: this.auth_user.address1,
-       agencyAddress: this.auth_user.agencyAddress,
-       agencyWebsite: this.auth_user.agencyWebsite
+    //    agencyAddress: this.auth_user.agencyAddress,
+    //    agencyWebsite: this.auth_user.agencyWebsite
      })
    .then(response=>{
        console.log(response);

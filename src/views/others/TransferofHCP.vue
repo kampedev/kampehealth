@@ -374,4 +374,8 @@ export default {
   margin: 0 2rem;
   font-weight: 600;
 }
+
+.dropdown-menu {
+  padding: 1rem;
+}
 </style>

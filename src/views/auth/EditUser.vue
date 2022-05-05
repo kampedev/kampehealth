@@ -192,7 +192,7 @@
 
                     <div
                       class="form-group col-md-6"
-                      v-if="auth_user.place_of_work !== null"
+                     
                     >
                       <label
                         >Place of Work
@@ -302,6 +302,26 @@
                         </option>
                       </select>
                     </div>
+
+                     <div class="form-group col-md-6">
+                        <label for="inputCity"
+                          >Select TPA/HMO
+                          <span class="text-danger">*</span></label
+                        >
+                        <select
+                          class="form-control"
+                          required
+                          v-model="auth_user.org_id"
+                        >
+                          <option
+                            v-for="tpa in tpas"
+                            v-bind:key="tpa"
+                            :value="tpa.id"
+                            >{{ tpa.organization_name }}</option
+                          >
+                        </select>
+                      </div>
+
                     <div
                       class="form-group col-md-12"
                       v-if="auth_user.type != 'client'"
@@ -373,6 +393,7 @@ export default {
       sector: "",
       wards: "",
       mdas: "",
+      tpas: "",
       lga_states: "",
       isLoading: false,
       fullPage: true,
@@ -490,6 +511,7 @@ export default {
           middlename: this.auth_user.middlename,
           nimc_number: this.auth_user.nimc_number,
           marital_status: this.auth_user.marital_status,
+          org_id: this.auth_user.org_id,
           password: this.auth_user.password,
           phone_number: this.auth_user.phone_number,
           sectorType: this.auth_user.sectorType,
@@ -515,11 +537,26 @@ export default {
            
         });
     },
+     getTPAs() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+
+      this.axios
+        .get(`/api/v1/auth/getorgenrollment/95930/A`)
+        .then((response) => {
+          this.tpas = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
   },
   created() {
     this.fetchLga();
     this.getProviders();
     this.getMDAs();
+    this.getTPAs();
   },
 };
 </script>

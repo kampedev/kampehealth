@@ -370,12 +370,6 @@ export default {
   width: 100%;
 }
 
-.dropdown-menu {
-  padding: 1rem;
-}
-.previous__page {
-}
-
 .currentPage {
   margin: 0 2rem;
   font-weight: 600;

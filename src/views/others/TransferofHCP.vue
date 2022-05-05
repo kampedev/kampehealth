@@ -36,6 +36,7 @@
                         <th>Patient Name</th>
                         <th>Current facility</th>
                         <th>Proposed (New) Facility</th>
+                        <th>Reason for Change</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
@@ -51,6 +52,9 @@
                         </td>
                         <td>{{ trf.oldfacility.agency_name }}</td>
                         <td>{{ trf.newfacility.agency_name }}</td>
+                        <td>
+                          {{ transfer.reason_for_change }}
+                        </td>
 
                         <td>
                           <span v-if="trf.status == 'approved'">
@@ -79,33 +83,84 @@
                           </span>
                         </td>
                         <td>
-                          <button class="btn btn-info" @click="quickView(trf)">
-                            <i class="mdi mdi-eye-check"></i>
-                          </button>
+                          <div class="btn-group CTAs">
+                            <button
+                              type="button"
+                              class="btn btn-outline-primary dropdown-toggle"
+                              data-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              <i class="fe fe-edit"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <button
+                                class="btn btn-success  "
+                                href="#"
+                                @click="remarkService(service)"
+                              >
+                                Approve
+                                <i class="fe fe-check"></i>
+                              </button>
+                              <div class="dropdown-divider"></div>
+                              <button
+                                class="btn btn-danger"
+                                href="#"
+                                @click="remarkService(service)"
+                              >
+                                Decline
+                                <i class="fe fe-x"></i>
+                              </button>
+                              <!-- <div class="dropdown-divider"></div> -->
+                              <!-- <a
+                                class="dropdown-item"
+                                href="#"
+                                @click="updateprice_vet = true"
+                                v-if="
+                                  user.type == 'tpa' ||
+                                    user.type == 'tpa_employee'
+                                "
+                                >update price</a
+                              >
+                              <div class="dropdown-divider"></div>
+                              <a
+                                class="dropdown-item"
+                                href="#"
+                                v-if="
+                                  user.type == 'shis' || user.type == 'employee'
+                                "
+                                @click="updateprice_ver = true"
+                                >update price</a
+                              >
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item text-info" href="#"
+                                >click as applicable</a
+                              > -->
+                            </div>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
 
-               <div class="col-md-12">
+                <div class="col-md-12">
                   <span class="pagination__CTAs">
-                  <button
-                    class="btn btn-primary next__page"
-                    @click="DecreamentPage"
-                  >
-                    Previous page
-                  </button>
-                  <p class="currentPage">{{ pageNum }}</p>
-                  <button
-                    class="btn btn-primary previous__page"
-                    @click="IncreamentPage"
-                  >
-                    Next page
-                  </button>
-                </span>
-                
-               </div>
+                    <button
+                      class="btn btn-primary next__page"
+                      @click="DecreamentPage"
+                    >
+                      Previous page
+                    </button>
+                    <p class="currentPage">{{ pageNum }}</p>
+                    <button
+                      class="btn btn-primary previous__page"
+                      @click="IncreamentPage"
+                    >
+                      Next page
+                    </button>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -315,9 +370,12 @@ export default {
   width: 100%;
 }
 
-
 .currentPage {
   margin: 0 2rem;
   font-weight: 600;
+}
+
+.dropdown-menu {
+  padding: 1rem;
 }
 </style>

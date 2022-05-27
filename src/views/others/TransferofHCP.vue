@@ -24,8 +24,8 @@
 
           <div class="card-body">
             <button class="btn btn-outline-info spacer-side" @click="getPending">Pending</button>
-            <button class="btn btn-outline-success spacer-side"  @click="getApproved">Approved</button>
-            <button class="btn btn-outline-danger spacer-side"  @click="getRejected">Rejected</button>
+            <button class="btn btn-outline-success spacer-side"  @click="getApproved" v-if="user.user_role != '0' ">Approved</button>
+            <button class="btn btn-outline-danger spacer-side"  @click="getRejected"  v-if="user.user_role != '0' ">Rejected</button>
           </div>
         </div>
 
@@ -54,7 +54,7 @@
                     </thead>
                     <tbody>
                       <tr v-for="trf in transfers" v-bind:key="trf.id">
-                        <!-- <td> {{ref.created_at}} </td> -->
+                      
 
                         <td>
                           <span v-if="trf.client != null">

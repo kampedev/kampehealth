@@ -74,20 +74,17 @@
                     <div class="col-md-8">
                       <p class="h2 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
                       <hr>
-                      <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p> -->
                       <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong> <strong>{{client.id_card_number}}</strong></p>
                       <hr>
 
                       <p class="h2 spacer-top-bottom"> <strong class="text-primary"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
-                      <!-- <hr> -->
-                      <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ALTERNATE HEALTH FACILITY:</strong> <strong>{{healthFacility.agency_name}}</strong> </p> -->
                       <hr>
                       <p class="h2 spacer-top-bottom" v-if="client.place_of_work != null"> <strong class="text-primary">MDA:</strong> <strong> {{client.place_of_work}}</strong> </p>
                       <hr>
                       <p class="h2 spacer-top-bottom"> <strong class="text-primary">BLOOD GROUP:</strong> <strong> {{client.blood}}</strong> </p>
                       <hr>
-                      <!-- <p class="h2 spacer-top-bottom"><strong class="text-primary">SECTOR:</strong>  <strong>{{client.sector}}</strong></p>
-                                  <hr> -->
+                      <p class="h2 spacer-top-bottom"><strong class="text-primary">Expiry Date:</strong>  <strong>{{client.date_of_expiry}}</strong></p>
+                                  <hr>
                       <p class="h2 spacer-top-bottom"> <strong class="text-primary">SECTOR:</strong> <strong> {{client.sector}}</strong> </p>
                       <hr>
                     </div>
@@ -120,7 +117,7 @@
                     <hr>
                     <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
                     <hr>
-                    <p class="spacer-top-bottom"><strong>LGA/Ward:</strong> {{singlelga.local_name}}/{{client.ward_name}}</p>
+                    <p class="spacer-top-bottom"><strong>LGA/Ward:</strong> {{local_government.local_name}}/{{ward.ward_name}}</p>
                     <hr>
                     <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                     <hr>
@@ -239,8 +236,8 @@
         healthFacility: "",
         signature: "",
         enrolled_by: "",
-        singleward: "",
-        singlelga: "",
+        ward: "",
+        local_government: "",
         edit: false,
         isLoading: false,
         fullPage: true,
@@ -280,62 +277,10 @@
         this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
           .then(response => {
             this.client = response.data.user
+            this.healthFacility = response.data.provider
+            this.local_government = response.data.local_government
+            this.ward = response.data.ward
             console.log(response)
-
-            // get facility
-            this.axios.get(`/api/v1/auth/user/${this.client.provider_id}`)
-              .then(response => {
-                this.healthFacility = response.data.user
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of facility
-
-            // get enrolled by
-            this.axios.get(`/api/v1/auth/user/${this.client.enrolled_by}`)
-              .then(response => {
-                this.enrolled_by = response.data.user
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of enrolled by
-
-            //get tpa
-            this.axios.get(`/api/v1/auth/orgenrollment/${this.client.org_id}`)
-              .then(response => {
-                this.singletpa = response.data[0]
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of get tpa
-
-            //get ward
-            this.axios.get(`/api/v1/auth/wards/${this.client.ward}`)
-              .then(response => {
-                this.singleward = response.data[0]
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of get ward
-
-            //get lga
-            this.axios.get(`/api/v1/auth/lgas/${this.client.localgovt}`)
-              .then(response => {
-                this.singlelga = response.data[0]
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of get lga
 
           })
           .catch(error => {

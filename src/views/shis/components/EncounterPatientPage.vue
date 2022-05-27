@@ -22,13 +22,13 @@
             Print <i class="fe fe-printer"></i>
           </button>
 
-          <!-- <button
+          <button
             class="btn btn-outline-success spacer"
-            @click="createClaim"
-            v-if="encounterDetails.claim_id == null"
+            data-toggle="modal"
+            data-target="#example_01"
           >
-            Generate Claim <i class="fe fe-send"></i>
-          </button> -->
+            Request Authorization Code <i class="fe fe-send"></i>
+          </button>
 
           <router-link :to="`/claim/${encounterDetails.claim_id}`">
             <button
@@ -212,6 +212,54 @@
               </tbody>
             </table>
           </div>
+
+            <!-- Modal for Authorization Code -->
+          <div
+            class="modal fade"
+            id="example_01"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="example_02"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered modal-lg"
+              role="document"
+            >
+              <div class="modal-content">
+                <div class="container-fluid">
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+
+                  <div class="row p-t-20 p-b-20">
+                    <div class="col-md-12">
+                      <p class="h4">Authorization Code Request </p>
+
+                      <div class="form-group col-md-12 ">
+                        <label>Select Secondary Facility </label>
+                        <v-select
+                          v-model="referred_to_facility"
+                          label="agency_name"
+                          :options="providers"
+                        />
+                      </div>
+
+                      <div class="col-md-12">
+                          <button class="btn btn-success btn-block" @click="createAuthCode">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal Ends -->
         </div>
       </div>
     </main>
@@ -232,10 +280,12 @@ export default {
   data() {
     return {
       encounterDetails: "",
+      providers: "",
       patient: "",
       dependants: [],
       isLoading: false,
       encounterId: "",
+      referred_to_facility: "",
       fullPage: true,
       payment_type: "online",
       selectedPaymentOption: "",
@@ -299,6 +349,61 @@ export default {
         this.isLoading = false;
       }
     },
+     createAuthCode() {
+     if (confirm('Are you sure you want to submit request') ) {
+        this.isLoading = true;
+      this.axios
+        .post("/api/v1/auth/authorization_code", {
+          agency_id: 95930,
+          principal_id: this.encounterDetails.client_id,
+          dependent_id: this.encounterDetails.dependent_id,
+          provider_id: this.encounterDetails.provider_id,
+          referred_to_facility: this.referred_to_facility.id,
+          service_summary_id: this.encounterDetails.id,
+          org_id:  this.encounterDetails.patient == null ?  this.encounterDetails.dependent.user.org_id : this.encounterDetails.patient.org_id   ,
+        })
+        .then((response) => {
+          console.log(response);
+          this.isLoading = false;
+          this.getUserEncounterDetails();
+          // this.sendSMS();
+          this.$toasted.info(`${response.data.message}`, {
+            position: "top-center",
+            duration: 3000,
+          });
+
+        })
+        .catch((error) => {
+          console.log(error.response);
+          this.isLoading = false;
+          this.$breadstick.notify("Oops! something went wrong", {
+            position: "top-right",
+          });
+        });
+     }
+    },
+     sendSMS() {
+      this.isLoading = true;
+      let message = `your code requested is successful. Go to https://app.oshia.ng/authorization-code  `;
+      this.axios
+        .post(
+          `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${message}&recipients=${this.encounterDetails.creator.phone_number}`,
+          {}
+        )
+        .then((response) => {
+          console.log(response);
+          let reply = response.data.msg;
+          this.clearIt();
+          this.isLoading = false;
+          this.$toasted.info(`${reply}`, {
+            position: "top-center",
+            duration: 3000,
+          });
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
     printMe() {
       var printContents = document.getElementById("printDiv").innerHTML;
       var originalContents = document.body.innerHTML;
@@ -306,10 +411,22 @@ export default {
       window.print();
       document.body.innerHTML = originalContents;
     },
+      getProviders() {
+      this.axios
+        .get(`/api/v1/auth/providerAgency/95930`)
+        .then((response) => {
+          this.providers = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
 
   created() {
     this.getUserEncounterDetails();
+    this.getProviders();
   },
 };
 </script>

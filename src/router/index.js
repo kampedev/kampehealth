@@ -116,6 +116,7 @@ import EcounterPatientPage from "../views/shis/components/EncounterPatientPage.v
 import ManageDiagnosis from "../views/shis/ManageDiagnosis.vue";
 import ChangeFacility from "../views/others/ChangeFacility.vue";
 import AuthorizationCode from "../views/claims/AuthorizationCode.vue";
+import SingleAuthorizationCode from "../views/claims/SingleAuthorizationCode.vue";
 
 Vue.use(VueRouter);
 
@@ -891,6 +892,13 @@ const routes = [
   {
     path: "/authorization-code",
     component: AuthorizationCode,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/authorization-code/:id",
+    component: SingleAuthorizationCode,
     meta: {
       requiresAuth: true,
     },

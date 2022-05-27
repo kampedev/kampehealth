@@ -585,7 +585,7 @@
                   class=" menu-link"
                 >
                   <span class="menu-label">
-                    <span class="menu-name">Add Employee </span>
+                    <span class="menu-name">Manage Employees </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-edit "></i>
@@ -666,19 +666,9 @@
               </li>
 
               <li class="menu-item">
-                <router-link to="/add-referral" class=" menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Add Referral </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder mdi mdi-plus-box"></i>
-                  </span>
-                </router-link>
-              </li>
-              <li class="menu-item">
                 <router-link to="/all-referrals" class=" menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">View Referrals </span>
+                    <span class="menu-name">Manage Referrals </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder mdi mdi-bank-transfer-out"></i>

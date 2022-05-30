@@ -1,145 +1,77 @@
 <template>
-  <div class="sidebar-pinned ">
+  <section class="admin-content " id="contact-search">
     <Navbar />
-
     <main class="admin-main">
-      <!--site header begins-->
-
-      <section class="admin-content">
+      <div class="bg-info m-b-30">
         <div class="container">
-          <div class="row">
-            <div class="col-12 m-b-20">
-              <h5 class="spacer-top">Finance Dashboard</h5>
+          <div class="row p-b-60 p-t-60">
+            <div class="col-md-6 text-center mx-auto text-white p-b-30">
+              <div class="m-b-10">
+                <div class="avatar ">
+                  <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
+                </div>
+              </div>
+              <strong class="h4 text-dark"
+                >{{ payments.total }} Capitations
+              </strong>
             </div>
-            <div class="col-lg-4 col-md-6">
-              <div class="card m-b-30">
-                <div class="card-body">
-                  <div class="pb-2">
-                    <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-primary rounded-circle">
-                        <i class="fe fe-credit-card"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-muted text-overline m-0">Total Payments Made</p>
-                    <h1 class="fw-400">
-                      <i class=" mdi mdi-currency-ngn"></i>{{ funds_dashboard.total_amount_paid | numeral(0,0) }}
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-              <div class="card m-b-30">
-                <div class="card-body">
-                  <div class="pb-2">
-                    <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-primary rounded-circle">
-                        <i class="fe fe-database"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-muted text-overline m-0">Claims Payment</p>
-                    <h1 class="fw-400">
-                      <i class=" mdi mdi-currency-ngn"></i>{{ funds_dashboard.sum_of_claims_paid | numeral(0,0) }}
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-              <div class="card m-b-30">
-                <div class="card-body">
-                  <div class="pb-2">
-                    <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-primary rounded-circle">
-                        <i class="fe fe-users"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-muted text-overline m-0">Capitations</p>
-                    <h1 class="fw-400">
-                      <i class=" mdi mdi-currency-ngn"></i>{{ funds_dashboard.sum_captitations | numeral(0,0) }}
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- <div class="col-lg-4 col-md-6">
-              <div class="card m-b-30">
-                <div class="card-body">
-                  <div class="pb-2">
-                    <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-primary rounded-circle">
-                        <i class="fe fe-credit-card"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-muted text-overline m-0">Reinsurance</p>
-                    <h1 class="fw-400">
-                      <i class=" mdi mdi-currency-ngn"></i>106,000
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-
-            <!-- <div class="col-lg-4 col-md-6">
-              <div class="card m-b-30">
-                <div class="card-body">
-                  <div class="pb-2">
-                    <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-primary rounded-circle">
-                        <i class="fe fe-credit-card"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-muted text-overline m-0">Investment</p>
-                    <h1 class="fw-400">
-                      <i class=" mdi mdi-currency-ngn"></i>171,000
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-
-            <!-- <div class="col-lg-4 col-md-6">
-              <div class="card m-b-30">
-                <div class="card-body">
-                  <div class="pb-2">
-                    <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-primary rounded-circle">
-                        <i class="fe fe-credit-card"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-muted text-overline m-0">FOS</p>
-                    <h1 class="fw-400">
-                      <i class=" mdi mdi-currency-ngn"></i>11,000
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div> -->
           </div>
-
+        </div>
+      </div>
+      <section class="">
+        <div class="container">
           <div>
             <div class="container">
               <div class="row">
+                <div class="col-md-12">
+                  <button
+                    class="btn btn-info"
+                    style="margin-bottom:5px;"
+                    @click="filterparams = !filterparams"
+                  >
+                    Add Capitation <i class="fe fe-plus"></i>
+                  </button>
+                </div>
+
+                <div class="col-md-12" v-show="filterparams">
+                  <div class="card" >
+                    <div class="card-header">
+                      <p class="text-center h4">Select Facility</p>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div
+                          class="form-group col-md-10"
+                          v-if="user.type == 'shis' || user.type == 'employee'"
+                        >
+                          <label> Select Facility </label>
+                          <select class="form-control" v-model="provider_id">
+                            <option
+                              v-for="provider in providers"
+                              v-bind:key="provider.id"
+                              :value="provider.id"
+                            >
+                              {{ provider.agency_name }}
+                            </option>
+                          </select>
+                        </div>
+
+                        <div class="form-group col-md-10">
+                          <button class="btn btn-info btn-block" @click="addCapitation">
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-md-12">
                   <div class="card">
                     <div class="card-body">
                       <div class="row m-b-20">
                         <div class="col-md-6 my-auto">
-                          <h4 class="m-0">Summary</h4>
+                          <h4 class="m-0">Payments</h4>
                         </div>
 
                         <!-- <div class="col-md-6 text-right my-auto">
@@ -164,7 +96,6 @@
                                   <th scope="col">Payment Order Number</th>
                                   <th scope="col">Recipient</th>
                                   <th scope="col">Status</th>
-                                  <th scope="col">Purpose</th>
                                   <th scope="col">Action</th>
                                 </tr>
                               </thead>
@@ -197,27 +128,19 @@
                                       {{ payment.status }}
                                     </span>
                                   </td>
-                                  <td class="align-middle">
-                                    <h6 class=" m-0">
-                                      <!-- <i class=" mdi mdi-currency-ngn"></i> -->
-                                      {{ payment.type }}
-                                    </h6>
-                                  </td>
+                                 
                                   <td class="align-middle">
                                     <div class="input-group ">
                                       <div class="input-group-prepend">
-                                          <router-link :to="`/transaction/${payment.id}`">
-                                        <button
+                                        <a
+                                          :href="`/transaction/${payment.id}`"
                                           class="btn btn-white"
-                                          >View Payment</button
+                                          >View Payment Order</a
                                         >
-                                          </router-link>
                                       </div>
                                     </div>
                                   </td>
                                 </tr>
-
-                             
                               </tbody>
                             </table>
                           </div>
@@ -256,24 +179,46 @@
               </div>
             </div>
           </div>
+
+          <div class="vld-parent">
+            <loading
+              :active.sync="isLoading"
+              loader="dots"
+              :can-cancel="true"
+              :is-full-page="fullPage"
+            ></loading>
+          </div>
         </div>
       </section>
     </main>
-  </div>
+  </section>
 </template>
 
 <script>
 import Navbar from "@/views/Navbar.vue";
+// Import component
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
+// Init plugin
 
 export default {
   components: {
     Navbar,
+    Loading,
   },
   data() {
     return {
-      funds_dashboard: "",
-      payments: "",
+      isLoading: false,
+      fullPage: true,
+      states: "",
       user: null,
+      employees: "",
+      filterparams: "",
+      providers: "",
+      provider_id: "",
+      state: "",
+      payments: "",
     };
   },
   beforeMount() {
@@ -282,11 +227,10 @@ export default {
   methods: {
     getPaymentAgency() {
       this.axios
-        .get(`/api/v1/auth/paymentorder-agency/95930`, {
-          params: {
-            type: "claims",
-          },
-        })
+        .get(`/api/v1/auth/paymentorder-agency/95930`,{
+        params:{
+            type:'capitations'
+        }})
         .then((response) => {
           this.payments = response.data;
           console.log(response);
@@ -295,7 +239,42 @@ export default {
           console.error(error);
         });
     },
+    getProviders() {
+      this.axios
+        .get(`/api/v1/auth/providerAgency/95930`,{
+        params:{
+            type:'capitations'
+        }})
+        .then((response) => {
+          this.providers = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    addCapitation() {
+      if (confirm("Are you sure you want to Submit")) {
+        this.axios
+          .post(`/api/v1/auth/addcaptitation`, {
+            agency_id: 95930,
+            provider_id: this.provider_id,
+            type: "capitations",
+          })
+          .then((response) => {
+            console.log(response);
+            this.$toasted.info("Capitation Created Successfully!", {
+              position: "top-center",
+              duration: 3000,
+            });
 
+            //  this.$router.push(`/payment-claims`);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
 
     getPaymentProvider() {
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -309,33 +288,6 @@ export default {
           console.error(error);
         });
     },
-
-    
- getDashboardAgency() {
-      this.axios
-        .get(`/api/v1/auth/finance-dashboard-agency/95930`)
-        .then((response) => {
-          this.funds_dashboard = response.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-     getDashboardProvider() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.axios
-        .get(`/api/v1/auth/finance-dashboard-provider/${this.user.id}`)
-        .then((response) => {
-          this.funds_dashboard = response.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
-
     getPayments() {
       this.user = JSON.parse(localStorage.getItem("user"));
       if (this.user.type == "employee" || this.user.type == "shis") {
@@ -344,25 +296,10 @@ export default {
         this.getPaymentProvider();
       }
     },
-
-    
-    getDashboard() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      if (this.user.type == "employee" || this.user.type == "shis") {
-        this.getDashboardAgency();
-      } else {
-        this.getDashboardProvider();
-      }
-    },
   },
   created() {
     this.getPayments();
-    this.getDashboard();
+    this.getProviders();
   },
 };
 </script>
-<style lang="css" scoped>
-.spacer-top {
-  margin-top: 10px;
-}
-</style>

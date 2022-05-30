@@ -42,7 +42,7 @@
                 style="margin-top: 10px"
                 class="btn btn-outline-success float-left"
               >
-                {{referrals.total}} Referrals
+                {{referrals.meta.total}} Referrals
               </button>
 
                  <button
@@ -181,7 +181,7 @@ export default {
     return {
       user: null,
       referrals: "",
-      provider_referral_category: "primary",
+      provider_referral_category: "secondary",
       edit: false,
       show: false,
       showsearch: false,
@@ -189,8 +189,8 @@ export default {
       fullPage: true,
       current_page: 1,
       buttoncolor: {
-        informal: "btn btn-default",
-        formal: "btn btn-success",
+        informal: "btn btn-success",
+        formal: "btn btn-default",
       },
       json_fields: {
         "Patient Name": "client.full_name",

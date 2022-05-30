@@ -20,24 +20,47 @@
               </div>
               <div class="card-body">
                 <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Claim ID</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="claim_unique_id"
+                        placeholder="CLM_xxxxx"
+                      />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Authorization Code</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="authorization_code"
+                        placeholder="AUT_xxxxxxxx"
+                      />
+                    </div>
+
+                     <div class="form-group col-md-6">
+                      <label for="inputEmail4">OHIS Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="id_card_number"
+                        placeholder="OHIS/xx/xxxxx"
+                      />
+                    </div>
+
                   <div
                     class="form-group col-md-6"
                     v-if="user.type == 'shis' || user.type == 'employee'"
                   >
                     <label> Select Facility </label>
-                    <select
-                      class="form-control"
-                      @change="getClaims"
+
+                    <v-select
                       v-model="provider_id"
-                    >
-                      <option
-                        v-for="provider in providers"
-                        v-bind:key="provider.id"
-                        :value="provider.id"
-                      >
-                        {{ provider.agency_name }}
-                      </option>
-                    </select>
+                      label="agency_name"
+                      :options="providers"
+                      @change="getClaims"
+                    />
                   </div>
                   <div
                     class="form-group col-md-6"
@@ -56,6 +79,17 @@
                       >
                         {{ tpa.organization_name }}
                       </option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label> Select Status </label>
+                    <select class="form-control" v-model="claim_status">
+                      <option value="All"> All </option>
+                      <option value="approved"> Approved </option>
+                      <option value="vetted"> Vetted </option>
+                      <option value="verified"> Verified </option>
+                      <option value="pending"> Pending </option>
+                      <option value="rejected"> Rejected </option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
@@ -82,15 +116,11 @@
                     />
                   </div>
                   <div class="col-md-12">
-                    <button class="btn btn-outline-success btn-block">
-                      <download-excel
-                        :data="claims.data"
-                        :fields="json_fields"
-                        type="csv"
-                        :escapeCsv="false"
-                        :name="'claim data' + '.csv'"
-                      >
-                      </download-excel>
+                    <button
+                      class="btn btn-outline-success btn-block"
+                      @click="getClaims"
+                    >
+                      Filter
                     </button>
                   </div>
                 </div>
@@ -102,7 +132,7 @@
           <div class="card row list">
             <div class="card-header">
               <button class="btn btn-outline-dark float-left">
-                {{ claims.meta.total }} Claims
+                {{ claims.length }} {{ provider_id.agency_name }} Claims
               </button>
 
               <button
@@ -131,7 +161,7 @@
                 <table class="table align-td-middle table-card">
                   <thead>
                     <tr>
-                      <th>Date</th>
+                      <th>Claim ID</th>
                       <th>Health Facility</th>
                       <th>Diagnosis</th>
                       <th>Status</th>
@@ -142,12 +172,28 @@
                     <tr v-for="claim in claims.data" v-bind:key="claim.id">
                       <td>
                         <router-link :to="{ path: '/claim/' + claim.id }">
-                          {{ claim.created_at | moment("dddd, MMMM Do YYYY") }}
+                          {{ claim.claim_unique_id }}
                         </router-link>
                       </td>
                       <td>{{ claim.provider.agency_name }}</td>
                       <td>{{ claim.diagnosis.name }}</td>
                       <td>
+                        <span v-if="claim.paymentorders.length >= 1">
+                          <button
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
+                            v-if="claim.paymentorders[0].status == 'pending'"
+                          >
+                            processed for payment
+                          </button>
+
+                          <button
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                            v-if="claim.paymentorders[0].status == 'paid'"
+                          >
+                            <i class="fe fe-check-square"></i>paid
+                          </button>
+                        </span>
+
                         <span v-if="claim.status == 1">
                           <button
                             type="button"
@@ -167,6 +213,14 @@
                           <button
                             type="button"
                             class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
+                          >
+                            verified
+                          </button>
+                        </span>
+                        <span v-if="claim.checked_by_id != null">
+                          <button
+                            type="button"
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
                           >
                             vetted
                           </button>
@@ -206,6 +260,28 @@
                         </router-link>
                       </td>
                     </tr>
+                    <tr>
+                      <td colspan="4">
+                        <p class="h5">No Pending claims available</p>
+                      </td>
+                    </tr>
+                    <tr
+                      v-if="
+                        user.job_title == 'Claims Verifier' &&
+                          provider_id != '' &&
+                          claims.data.length != 0
+                      "
+                    >
+                      <td colspan="4">
+                        <button
+                          class="btn btn-outline-dark btn-block"
+                          @click="forwwardClaims()"
+                        >
+                          Forward to the ES for Approval
+                          <i class="fe fe-send"></i>
+                        </button>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -243,6 +319,10 @@ export default {
     return {
       user: null,
       claims: "",
+      selected: "",
+      claim_unique_id: "",
+      authorization_code: "",
+      id_card_number: "",
       edit: false,
       show: false,
       filterparams: false,
@@ -254,7 +334,7 @@ export default {
       to: new Date(),
       providers: "",
       tpas: "",
-      claim_status: "",
+      claim_status: "All",
       org_id: "",
       provider_id: "",
       date: "",
@@ -293,11 +373,15 @@ export default {
     getClaims() {
       this.user = JSON.parse(localStorage.getItem("user"));
       if (this.user.type == "shis" || this.user.type == "employee") {
+        this.isLoading = true;
         this.axios
           .get(`/api/v1/auth/claims/95930`, {
             params: {
-              status: this.claim_status,
-              provider_id: this.provider_id,
+              claim_status: this.claim_status,
+              claim_unique_id: this.claim_unique_id,
+              authorization_code: this.authorization_code,
+              id_card_number: this.id_card_number,
+              provider_id: this.provider_id.id,
               org_id: this.org_id,
               date: this.date,
               from: this.from,
@@ -307,16 +391,22 @@ export default {
           .then((response) => {
             this.claims = response.data;
             console.log(response);
+            this.isLoading = false;
           })
           .catch((error) => {
             console.error(error);
+            this.isLoading = false;
           });
       }
       if (this.user.type == "provider") {
+        this.isLoading = true;
         this.axios
           .get(`/api/v1/auth/claminByProvider${this.user.id}`, {
             params: {
-              status: this.claim_status,
+              claim_status: this.claim_status,
+              claim_unique_id: this.claim_unique_id,
+              authorization_code: this.authorization_code,
+              id_card_number: this.id_card_number,
               org_id: this.org_id,
               date: this.date,
               from: this.from,
@@ -326,16 +416,22 @@ export default {
           .then((response) => {
             this.claims = response.data;
             console.log(response);
+            this.isLoading = false;
           })
           .catch((error) => {
             console.error(error);
+            this.isLoading = false;
           });
       }
       if (this.user.type == "provider_employee") {
+        this.isLoading = true;
         this.axios
           .get(`/api/v1/auth/claminByProvider${this.user.institutional_id}`, {
             params: {
-              status: this.claim_status,
+              claim_status: this.claim_status,
+              claim_unique_id: this.claim_unique_id,
+              authorization_code: this.authorization_code,
+              id_card_number: this.id_card_number,
               org_id: this.org_id,
               date: this.date,
               from: this.from,
@@ -344,6 +440,7 @@ export default {
           })
           .then((response) => {
             this.claims = response.data;
+            this.isLoading = false;
             console.log(response);
           })
           .catch((error) => {
@@ -352,10 +449,14 @@ export default {
       }
 
       if (this.user.type == "tpa" || this.user.type == "tpa_employee") {
+        this.isLoading = true;
         this.axios
           .get(`/api/v1/auth/claim-org`, {
             params: {
-              status: this.claim_status,
+              claim_status: this.claim_status,
+              claim_unique_id: this.claim_unique_id,
+              authorization_code: this.authorization_code,
+              id_card_number: this.id_card_number,
               provider_id: this.provider_id,
               date: this.date,
               from: this.from,
@@ -365,9 +466,11 @@ export default {
           .then((response) => {
             this.claims = response.data;
             console.log(response);
+            this.isLoading = false;
           })
           .catch((error) => {
             console.error(error);
+            this.isLoading = false;
           });
       }
     },
@@ -395,6 +498,18 @@ export default {
           console.error(error);
         });
     },
+    forwwardClaims() {
+      this.axios
+        .post(`/api/v1/auth/forwardclaimtoES`, {
+          claims: this.claims.data,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
   created() {
     this.getClaims();
@@ -403,3 +518,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.spacer-side {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+</style>

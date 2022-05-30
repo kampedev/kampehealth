@@ -518,9 +518,9 @@ export default {
           }
       }
 
-      if (this.user.type == "shis") {
+      if ( this.user.type == "tpa" || this.user.type == "tpa_employee" ) {
          if (this.register.provider_id != '') {
-            this.registerUserAdmin();
+            this.registerUserTPA();
           }
           else{
                  this.$toasted.error(`Facility cannot be null`, {
@@ -578,7 +578,7 @@ export default {
         });
     },
 
-    registerUserAdmin() {
+    registerUserTPA() {
       // console.log(this.selected_provider ? this.selected_provider : this.register.provider_id);
       this.user = JSON.parse(localStorage.getItem("user"));
       this.isLoading = true;
@@ -661,7 +661,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post("/api/v1/auth/registerProvider", {
-          agency_id: this.user.institutional_id,
+          agency_id: 95930,
           nimc_number: this.register.nimc_number,
           firstname: this.register.firstname.toUpperCase(),
           lastname: this.register.lastname.toUpperCase(),

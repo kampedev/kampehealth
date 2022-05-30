@@ -17,7 +17,9 @@
         </div>
       </div>
 
-      <section class="">
+      <section class=""
+      v-if="user.type == 'provider_employee' "
+      >
         <div class="container">
           <div class="row list">
             <div class=" col-md-12">
@@ -145,7 +147,7 @@
             <div class=" col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
-                  <h1>{{ codes.length }} Codes</h1>
+                  <p class="h5" >{{ codes.length }} Code Requests</p>
 
                   <div class="table-responsive">
                     <table class="table align-td-middle table-card">
@@ -163,7 +165,10 @@
                       </thead>
                       <tbody>
                         <tr v-for="diag in codes" v-bind:key="diag.id">
-                          <td>{{ diag.date_requested }}</td>
+                          <td>{{ diag.date_requested }}
+                            <span class="text-primary"> {{ diag.created_at  | moment("from", "now") }} </span>
+                            
+                          </td>
                           <td>
                             <span v-if="diag.provider != null">{{
                               diag.provider.agency_name
@@ -186,14 +191,7 @@
                           <td
                            
                           >
-                            <button class="btn btn-outline-success"
-                              @click="generateCode(diag)"
-                               v-if="
-                             diag.code_created == null && (user.type == 'shis' || user.type == 'employee')
-                            "
-                            >
-                              Generate Code <i class="fe fe-lock"></i>
-                            </button>
+                           
                               <router-link :to="{ path: '/authorization-code/' + diag.id }">
                             <button class="btn btn-outline-dark" 
                             >
@@ -245,8 +243,8 @@ export default {
       user: null,
       showadder: false,
       codes: "",
-      singlerecipient: "08024035326",
-      message: "Authorization Code is needed. Go to https://app.kgshia.ng/authorization-code  to generate.",
+      // singlerecipient: "08024035326",
+      message: "Authorization Code is needed. Go to https://app.oshia.ng/authorization-code  to generate.",
       searchkey: "",
       referred_to_facility : "",
       providers: "",
@@ -260,15 +258,15 @@ export default {
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.axios
-      .get(`/api/v1/auth/authorization_code/95930`)
-      .then((response) => {
-        this.codes = response.data;
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // this.axios
+    //   .get(`/api/v1/auth/authorization_code/95930`)
+    //   .then((response) => {
+    //     this.codes = response.data;
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   },
   methods: {
 
@@ -332,6 +330,7 @@ export default {
         })
         .then((response) => {
           this.search_result = response.data;
+          this.getRecords()
 
           console.log(response);
           this.$toasted.info("Searched Successfully", {
@@ -349,27 +348,6 @@ export default {
             duration: 3000,
           });
         });
-    },
-    getRecords(){
-        this.user = JSON.parse(localStorage.getItem("user"));
-        this.axios
-          .post(`/api/v1/auth/gethealthRecord`, {
-            provider: this.user.institutional_id,
-            patient_id:  this.search_result.type == "client"
-              ? this.search_result.data.id
-              : null,
-            dependent_id:  this.search_result.type == "dependent"
-              ? this.search_result.data.id
-              : null,
-
-          })
-          .then((response) => {
-            this.encounters = response.data.data;
-            console.log(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
     },
 
     generateCode(diag) {
@@ -403,7 +381,7 @@ export default {
             this.search_result.type == "dependent"
               ? this.search_result.data.id
               : 0,
-          // date_requested: this.register.date_requested,
+          org_id: this.search_result.data.org_id,
            provider_id: this.user.institutional_id,
            service_summary_id: this.service_summary_id,
            referred_to_facility: this.referred_to_facility.id,
@@ -411,6 +389,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.isLoading = false;
+          let org =  response.data.org
           this.getCodes();
           this.$toasted.info(`${response.data.message}`, {
             position: "top-center",
@@ -418,7 +397,7 @@ export default {
           });
 
           this.clearIt();
-          this.sendSMS()
+          this.sendSMS(org)
         })
         .catch((error) => {
           console.log(error.response);
@@ -427,6 +406,27 @@ export default {
             position: "top-right",
           });
         });
+    },
+     getRecords(){
+        this.user = JSON.parse(localStorage.getItem("user"));
+        this.axios
+          .post(`/api/v1/auth/gethealthRecord`, {
+            provider: this.user.institutional_id,
+            patient_id:  this.search_result.type == "client"
+              ? this.search_result.data.id
+              : null,
+            dependent_id:  this.search_result.type == "dependent"
+              ? this.search_result.data.id
+              : null,
+
+          })
+          .then((response) => {
+            this.encounters = response.data.data;
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
     },
     clearIt() {
       this.register.date_requested = "";
@@ -444,9 +444,9 @@ export default {
           console.error(error);
         });
     },
-    sendSMS(){
+    sendSMS(org){
        this.isLoading = true;
-          this.axios.post(`https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${this.message}&recipients=${this.singlerecipient}`, {
+          this.axios.post(`https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${this.message}&recipients=${org.phone_number}`, {
 
           })
           .then(response=>{
@@ -464,8 +464,8 @@ export default {
   },
   created() {
     this.getCodes();
-    this.getRecords();
      this.getProviders();
+     this.getRecords();
   },
 };
 </script>

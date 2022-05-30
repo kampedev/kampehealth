@@ -5,6 +5,7 @@
       <div class="jumbotron">
         <h1 class="h3 text-dark">Patient Details</h1>
       </div>
+     
 
       <div class="vld-parent">
         <loading
@@ -22,13 +23,13 @@
             Print <i class="fe fe-printer"></i>
           </button>
 
-          <button
+          <!-- <button
             class="btn btn-outline-success spacer"
             data-toggle="modal"
             data-target="#example_01"
           >
             Request Authorization Code <i class="fe fe-send"></i>
-          </button>
+          </button> -->
 
           <router-link :to="`/claim/${encounterDetails.claim_id}`">
             <button

@@ -55,13 +55,11 @@
                             
                             v-model="addservice.drugs_id"
                             
-                            label="drug_name"
+                            label="item_data"
                             :required="!addservice.drugs_id"
                             :options="drugs.data"
                           />
-                          <p class="spacer-top" v-if="addservice.drugs_id != ''">
-                            <b-alert variant="success" show> {{addservice.drugs_id.strengths}} </b-alert>
-                          </p>
+                       
                       </div>
 
                    
@@ -90,6 +88,7 @@
                           placeholder="Qty"
                           v-model="days"
                         />
+                        <p class="text-primary">For services such as bedrest, admissions etc </p>
                       </div>
 
                       <div class="form-group col-md-4" v-if="type == 'Drug'">
@@ -105,9 +104,9 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-4" v-if="type == 'Drug'">
+                      <div class="form-group col-md-4" v-if="type != ''">
                         <label for="inputCity"
-                          >Frequency (Times per day)
+                          >Frequency
                         </label>
                         <input
                           type="number"
@@ -118,6 +117,7 @@
                           placeholder="Qty"
                           v-model="frequency"
                         />
+                        <p class="text-primary">The number of times it was administered </p>
                       </div>
                     <!-- <div class="form-group col-md-6">
                       <label for="inputCity">Cost</label>

@@ -7,6 +7,7 @@
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-dark p-b-30">
               <h3 class="h3">Add Claim</h3>
+            
             </div>
           </div>
         </div>
@@ -41,10 +42,11 @@
                       <div class="form-group col-md-4">
                         <label for="inputCity">Enrollee OHIS Number </label>
                         <input
+                        disabled
                           type="text"
                           class="form-control"
-                          v-model="searchkey"
-                          @change="searchIDCard"
+                          v-model="summary.enrollee.id_card_number"
+                      
                         />
                       </div>
 
@@ -71,12 +73,12 @@
                           />
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputCity">OHIS Number</label>
+                          <label for="inputCity">OHIS Number </label>
                           <input
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            :value="search_result.data.id_card_number"
+                            :value="summary.enrollee.id_card_number"
                             disabled
                           />
                         </div>
@@ -96,7 +98,7 @@
                       <div class="form-group col-md-6">
                         <label for="inputPassword4">Select Diagnosis </label>
                         <v-select
-                          v-model="claim.diagnosis"
+                          v-model="summary.diagnosis.name"
                           label="name"
                           :required="!claim.diagnosis"
                           :options="diseases"
@@ -107,12 +109,13 @@
                         <label for="inputCity">Enter Encounter ID</label>
                         <input
                           type="text"
+                          disabled
                           class="form-control"
-                          v-model="encounter_id"
+                          v-model="summary.healthrecord.encounter_id"
                           @change="verifyEncounter"
                         />
-                        <p class="text-primary" v-if="encounter_details != ''">
-                          Encounter obtained for enrollee
+                        <p class="text-primary" v-if="summary != ''">
+                          Encounter verified for enrollee
                           <i class="fe fe-check-circle"></i>
                         </p>
                         <p class="text-danger" v-else>
@@ -120,7 +123,7 @@
                         </p>
                       </div>
                     </div>
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12">
                       <b-form-checkbox
                         v-model="claim.is_out_of_station"
                         name="check-button"
@@ -128,7 +131,7 @@
                       >
                         Enrollee is an Out-of-Station <b>({{ claim.is_out_of_station }})</b>
                       </b-form-checkbox>
-                    </div>
+                    </div> -->
 
                     <div class="form-group col-md-12">
                       <label for="inputAddress">Reason for Claim</label>
@@ -189,6 +192,7 @@ export default {
       client: "",
       encounter_id: "",
       encounter_details: "",
+      summary: "",
       claims: "",
       diseases: "",
       searchkey: "",
@@ -205,7 +209,6 @@ export default {
         is_out_of_station: false,
         client_name: "",
         seen_date: "",
-        cost: "",
       },
     };
   },
@@ -270,11 +273,11 @@ export default {
         });
     },
 
-    verifyEncounter() {
+    verifyEncounter(summary) {
       this.axios
         .post(`/api/v1/auth/verifyrecordbyencounterID`, {
-          encounter_id: this.encounter_id,
-          patient_id: this.search_result.data.id,
+          encounter_id: summary.id,
+          patient_id: summary.enrollee.id,
         })
         .then((response) => {
           console.log(response);
@@ -298,11 +301,11 @@ export default {
           console.error(error);
         });
     },
-    searchIDCard() {
+    searchIDCard(summary) {
       this.isLoading = true;
       this.axios
         .post(`/api/v1/auth/getuserbyIdcard`, {
-          id_card_number: this.searchkey,
+          id_card_number: summary.enrollee.id_card_number,
         })
         .then((response) => {
           this.search_result = response.data;
@@ -318,14 +321,14 @@ export default {
         .catch((error) => {
           console.error(error);
           this.isLoading = false;
-          this.$toasted.info("User not Found", {
+          this.$toasted.error("User not Found", {
             position: "top-center",
             duration: 3000,
           });
         });
     },
     makeClaim() {
-      if (this.encounter_details != "") {
+      if (this.claim.authorization_code != "") {
         this.user = JSON.parse(localStorage.getItem("user"));
         if (this.user.type == "provider_employee") {
           // Add claim
@@ -344,11 +347,10 @@ export default {
                   ? this.search_result.data.id
                   : 0,
               seen_date: this.claim.seen_date,
-              diagnosis: this.claim.diagnosis.id,
+              diagnosis: this.summary.diagnosis.id,
               treatment: this.claim.treatment,
               authorization_code: this.claim.authorization_code,
               is_out_of_station: this.claim.is_out_of_station,
-              cost: 0.0,
             })
 
             .then((response) => {
@@ -372,7 +374,6 @@ export default {
               seen_date: this.claim.seen_date,
               diagnosis: this.claim.diagnosis.id,
               treatment: this.claim.treatment,
-              cost: 0.0,
             })
 
             .then((response) => {
@@ -387,7 +388,7 @@ export default {
             });
         }
       } else {
-        this.$toasted.error("Encounter not Found", {
+        this.$toasted.error("Authorization Code cannot be blank", {
           position: "top-center",
           duration: 3000,
         });
@@ -405,17 +406,33 @@ export default {
         .catch((error) => {
           console.error(error);
           //  this.$toasted.info(`${error.message}`, {
-           this.$toasted.info(`Authorization Code not found or already used!`, {
+           this.$toasted.error(`Authorization Code not found or already used!`, {
             position: "top-center",
             duration: 3000,
           });
         });
 
     },
+     getSingleSummary() {
+      this.axios
+        .get(`/api/v1/auth/service_summary/${this.$route.params.id}`)
+        .then((response) => {
+          this.summary = response.data;
+          console.log(response);
+          let summary = this.summary
+          this.searchIDCard(summary)
+          this.verifyEncounter(summary)
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
   },
   created() {
     this.getDiseases();
     this.getEnrollees();
+    this.getSingleSummary();
   },
 };
 </script>

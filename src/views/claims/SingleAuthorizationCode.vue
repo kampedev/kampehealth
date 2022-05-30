@@ -86,7 +86,7 @@
                 <div class="card-body">
                   <div class="form-group col-md-12" v-show="show">
                     <label for="inputAddress"
-                      >Please add a Rejection Comment</label
+                      >Please leave a Comment</label
                     >
                     <textarea
                       name="name"
@@ -265,13 +265,13 @@
                       <div class="card-header">
                         <div class="card-title">Timeline</div>
 
-                        <div class="card-controls">
+                        <!-- <div class="card-controls">
                           <select class="custom-select">
                             <option value="">Everything</option>
                             <option value="">Charges</option>
                             <option value="">Upgrades</option>
                           </select>
-                        </div>
+                        </div> -->
                       </div>
                       <div class="card-body">
                         <div class="timeline">
@@ -303,6 +303,17 @@
                                   </div>
                                 </div>
 
+                                 <div
+                                  class="avatar avatar-sm"
+                                  v-if="auth_code.status == 'pending'"
+                                >
+                                  <div
+                                    class="avatar-title bg-warning rounded-circle"
+                                  >
+                                    <i class="fe fe-book-open"></i>
+                                  </div>
+                                </div>
+
                                 <div
                                   class="avatar avatar-sm"
                                   v-if="auth_code.status == 'approved'"
@@ -315,7 +326,11 @@
                                 </div>
                               </div>
                               <div class="col-auto">
-                                <h6 class="m-0"> {{auth_code.encounter.healthrecord.encounter_id}} </h6>
+                                <h6 class="m-0">
+                                  <router-link :to="`/authorization-code/${auth_code.id}`">
+                                   {{auth_code.encounter.healthrecord.encounter_id}}
+                                   </router-link>
+                                   </h6>
                                 <button
                                   v-if="auth_code.code_created != null"
                                   class="btn m-b-15 ml-2 mr-2 badge badge-soft-secondary spacer"
@@ -354,6 +369,48 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div class="container">
+          <div class="row list">
+            <div class="col-lg-12 col-md-12">
+              <div class="card m-b-30">
+                <div class="card-header">
+                  <p class="h4">Comments</p>
+                </div>
+
+                <div class="card-body">
+               
+                  <div class="col-lg-8 m-b-30">
+                  
+                      <div
+                    class="card bg-default"
+                    v-for="comment in auth_code.comments"
+                    v-bind:key="comment.id"
+                    style="margin-top: 10px"
+                  >
+                    <div class="card-body">
+                      <p class="">
+                        {{ comment.body }}
+                      </p>
+                      <p class="text-success">
+                        By: {{ comment.user.firstname }}
+                        {{ comment.user.lastname }} -
+                        <span>{{ comment.user.type }}</span>
+                      </p>
+                      <p class="text-xs">
+                        {{
+                          comment.created_at
+                            | moment("dddd, MMMM Do YYYY,  h:mm:ss a")
+                        }}
+                      </p>
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -444,42 +501,43 @@ export default {
     addComment() {
       this.axios
         .post(`/api/v1/auth/addComment/referral`, {
-          user_id: this.user.id,
-          referral_id: this.$route.params.id,
+          // user_id: this.user.id,
+          authorization_code_id: this.$route.params.id,
           body: this.body,
         })
         .then((response) => {
           console.log(response);
-          this.getReferral();
-          this.$router.push(`/all-referrals`);
+          this.getCode();
+          this.show = false;
+          // this.$router.push(`/all-referrals`);
           this.$toasted.info("added Successfully!", {
             position: "top-center",
             duration: 3000,
           });
         });
     },
-    sendSMS() {
-      this.isLoading = true;
-      let message = `your code requested is successful. Go to https://app.oshia.ng/authorization-code  `;
-      this.axios
-        .post(
-          `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${message}&recipients=${this.auth_code.creator.phone_number}`,
-          {}
-        )
-        .then((response) => {
-          console.log(response);
-          let reply = response.data.msg;
-          this.clearIt();
-          this.isLoading = false;
-          this.$toasted.info(`${reply}`, {
-            position: "top-center",
-            duration: 3000,
-          });
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
-    },
+    // sendSMS() {
+    //   this.isLoading = true;
+    //   let message = `your code requested is successful. Go to https://app.oshia.ng/authorization-code  `;
+    //   this.axios
+    //     .post(
+    //       `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${message}&recipients=${this.auth_code.creator.phone_number}`,
+    //       {}
+    //     )
+    //     .then((response) => {
+    //       console.log(response);
+    //       let reply = response.data.msg;
+    //       this.clearIt();
+    //       this.isLoading = false;
+    //       this.$toasted.info(`${reply}`, {
+    //         position: "top-center",
+    //         duration: 3000,
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response);
+    //     });
+    // },
 
     rejectRef() {
       if (confirm("Are you sure you want to reject this request?")) {
@@ -490,7 +548,7 @@ export default {
           })
           .then((response) => {
             console.log(response);
-            // this.show = true;
+            this.show = true;
             this.getCode();
             this.$toasted.info("Rejected Successfully!", {
               position: "top-center",
@@ -501,7 +559,7 @@ export default {
     },
 
     inProgress() {
-      if (confirm("Are you sure you want to reject this request?")) {
+      if (confirm("Are you sure you want to update this request?")) {
         this.axios
           .post(`/api/v1/auth/updateCodeRequestStatus`, {
             id: this.auth_code.id,
@@ -527,7 +585,7 @@ export default {
           })
           .then((response) => {
             this.getCode();
-            this.sendSMS();
+            // this.sendSMS();
             console.log(response);
             this.$toasted.info("Generated Successfully", {
               position: "top-center",
@@ -551,7 +609,7 @@ export default {
           })
           .then((response) => {
             console.log(response);
-            this.getReferral();
+            this.getCode();
             this.$router.push(`/all-referrals`);
             this.$toasted.info("Approved Successfully!", {
               position: "top-center",

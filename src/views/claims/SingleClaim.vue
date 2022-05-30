@@ -25,13 +25,12 @@
                   <div class="form-group">
                     <button
                       class="btn btn-success spacer"
-                      @click="approveClaim"
+                      @click="verifyClaim"
                       v-if="
-                        (claimdetails.status != 1 && user.type == 'shis') ||
-                          user.institutional_id == 95930
+                        claimdetails.verified_by_id == null && user.job_title == 'Claims Verifier'
                       "
                     >
-                      Approve <i class="fe fe-check"></i>
+                     mark as verified <i class="fe fe-check"></i>
                     </button>
 
                     <button
@@ -43,9 +42,9 @@
 
                     <button
                       class="btn btn-success spacer"
-                      @click="verifyClaim"
+                      @click="vetClaim"
                       v-if="
-                        claimdetails.verified_by_id == null &&
+                        claimdetails.checked_by_id == null &&
                           (user.type == 'tpa' || user.type == 'tpa_employee')
                       "
                     >
@@ -118,7 +117,7 @@
                       style="margin-left: 10px"
                       @click="rejectClaim"
                       v-if="
-                        claimdetails.status != 0 &&
+                        claimdetails.status != 1 &&
                           (user.type == 'employee' ||
                             user.type == 'tpa' ||
                             user.type == 'tpa_employee')
@@ -225,13 +224,42 @@
                           pending
                         </button>
                       </span>
-                      <span v-if="claimdetails.verified_by_id != null">
+                      <span v-if="claimdetails.checked_by_id != null">
                         <button
                           class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
                         >
                           vetted
                         </button>
                       </span>
+
+                       <span v-if="claimdetails.verified_by_id != null">
+                        <button
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
+                        >
+                          verified
+                        </button>
+                      </span>
+
+                      <span v-if="claimdetails.paymentorders.length >= 1">
+                            <button
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
+                              v-if="
+                                claimdetails.paymentorders[0].status ==
+                                  'pending'
+                              "
+                            >
+                              processed for payment
+                            </button>
+
+                            <button
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                              v-if="
+                                claimdetails.paymentorders[0].status == 'paid'
+                              "
+                            >
+                              <i class="fe fe-check-square"></i>paid
+                            </button>
+                          </span>
                     </p>
 
                     <div class="row">
@@ -281,15 +309,25 @@
                           <strong>Diagnosis:</strong>
                           {{ claimdetails.diagnosis.name }}
                         </p>
+                         <p>
+                          <strong>Claim Treatment Level:</strong>
+                          {{ claimdetails.claim_level }}
+                        </p>
+                        <br />
+                        <p v-if="claimdetails.checked_by_id != null">
+                          <strong>Vetted By:</strong>
+                          {{ claimdetails.checkeduser.firstname }}
+                          {{ claimdetails.checkeduser.lastname }}
+                        </p>
                         <br />
                         <p v-if="claimdetails.verified_by_id != null">
-                          <strong>Vetted By:</strong>
+                          <strong>Verified By:</strong>
                           {{ claimdetails.verfieduser.firstname }}
                           {{ claimdetails.verfieduser.lastname }}
                         </p>
                         <br />
                         <p v-if="claimdetails.approved_by_id != null">
-                          <strong v-if="claimdetails.verified_by_id != null"
+                          <strong 
                             >Approved By:</strong
                           >
                           {{ claimdetails.approveduser.firstname }}
@@ -327,13 +365,13 @@
                         <tr>
                           <th>S/N.</th>
                           <th>Name</th>
-                          <th>Dose</th>
+                          <!-- <th>Dose</th> -->
                           <th>Quantity</th>
                           <th>Days</th>
                           <th>Comments</th>
                           <th>Requested Cost</th>
-                          <th>Vetted Price</th>
-                          <th>Verified Price</th>
+                          <th>Vetted Amount</th>
+                          <th>Verified Amount</th>
                           <th>Verdict</th>
 
                           <th>Action</th>
@@ -353,7 +391,7 @@
                               service.drug.drug_name
                             }}</span>
                           </td>
-                          <td>{{ service.dose }}</td>
+                          <!-- <td>{{ service.dose }}</td> -->
                           <td>{{ service.frequency }}</td>
                           <td>{{ service.days }}</td>
                           <td>
@@ -409,7 +447,7 @@
                             }}</span>
                           </td>
 
-                          <td>
+                          <td v-if="claimdetails.status != 1 ">
                             <div class="col-md-12">
                               <div
                                 class="form-group"
@@ -445,7 +483,7 @@
                                   <div class="dropdown-menu">
                                     <a
                                       class="dropdown-item"
-                                      href="#"
+                                   
                                       @click="remarkService(service)"
                                     >
                                       make verdict</a
@@ -453,14 +491,14 @@
                                     <div class="dropdown-divider"></div>
                                     <a
                                       class="dropdown-item"
-                                      href="#"
+                                    
                                       @click="readycommentService(service)"
                                       >add comment</a
                                     >
                                     <div class="dropdown-divider"></div>
                                     <a
                                       class="dropdown-item"
-                                      href="#"
+                                     
                                       @click="updateprice_vet = true"
                                       v-if="
                                         user.type == 'tpa' ||
@@ -471,7 +509,7 @@
                                     <div class="dropdown-divider"></div>
                                     <a
                                       class="dropdown-item"
-                                      href="#"
+                                     
                                       v-if="
                                         user.type == 'shis' ||
                                           user.type == 'employee'
@@ -494,7 +532,7 @@
 
                     <p class="spacer">
                       <strong class="h5"
-                        >Requested Total Cost of Service
+                        >Requested Total Amount of Service
                       </strong>
                       <strong class="h5"
                         >&#8358;{{ singleclaim.sum | numeral(0, 0) }}</strong
@@ -509,7 +547,7 @@
                       >
                     </p> -->
                     <p class="spacer">
-                      <strong class="h5">Vetted Total Cost of Service </strong>
+                      <strong class="h5">Vetted Total Amount of Service </strong>
                       <strong class="h5"
                         >&#8358;{{
                           singleclaim.vetted_sum | numeral(0, 0)
@@ -517,7 +555,7 @@
                       >
                     </p>
                     <p class="h5 spacer">
-                      Approved Total Cost of Service
+                      Approved Total Amount of Service
                       <span
                         >&#8358;{{
                           singleclaim.verified_sum | numeral(0, 0)
@@ -596,11 +634,13 @@
         </div>
       </section>
     </div>
+     <Footer />
   </section>
 </template>
 
 <script>
 import Navbar from "@/views/Navbar.vue";
+import Footer from "@/views/Footer.vue";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -609,7 +649,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   components: {
-    Navbar,
+    Navbar, Footer,
     Loading,
   },
   data() {
@@ -743,7 +783,7 @@ export default {
         .post(`/api/v1/auth/claim_service/update-cost`, {
           claims_service_id: service.id,
           vetted_price: service.vetted_price,
-          verified_price: service.verified_price,
+          verified_price: service.vetted_price,
         })
         .then((response) => {
           console.log(response);
@@ -756,10 +796,12 @@ export default {
           this.selected_service = "";
         });
     },
-    approveClaim() {
-      if (confirm("Are you sure you want to approve?")) {
+    verifyClaim() {
+      if (confirm("Are you sure you want to make verified?")) {
         this.axios
-          .post(`/api/v1/auth/acceptClaim/${this.$route.params.id}`)
+          .post(`/api/v1/auth/verify-claims/${this.$route.params.id}`,{
+             claim_level : 'Verification'
+          })
           .then((response) => {
             console.log(response);
             this.$router.push(`/all-claims`);
@@ -771,10 +813,12 @@ export default {
           });
       }
     },
-    verifyClaim() {
+    vetClaim() {
       if (confirm("Are you sure you want to mark as vetted?")) {
         this.axios
-          .post(`/api/v1/auth/verify-claims/${this.$route.params.id}`)
+          .post(`/api/v1/auth/checked-claims/${this.$route.params.id}`,{
+            claim_level : 'HMO'
+          })
           .then((response) => {
             console.log(response);
             this.$router.push(`/all-claims`);

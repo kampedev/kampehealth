@@ -55,13 +55,11 @@
                             
                             v-model="addservice.drugs_id"
                             
-                            label="drug_name"
+                            label="item_data"
                             :required="!addservice.drugs_id"
                             :options="drugs.data"
                           />
-                          <p class="spacer-top" v-if="addservice.drugs_id != ''">
-                            <b-alert variant="success" show> {{addservice.drugs_id.strengths}} </b-alert>
-                          </p>
+                       
                       </div>
 
                    

@@ -145,7 +145,7 @@
             <div class=" col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
-                  <h1>{{ codes.length }} Codes</h1>
+                  <h1>{{ codes.length }} Code Requests</h1>
 
                   <div class="table-responsive">
                     <table class="table align-td-middle table-card">
@@ -186,14 +186,7 @@
                           <td
                            
                           >
-                            <button class="btn btn-outline-success"
-                              @click="generateCode(diag)"
-                               v-if="
-                             diag.code_created == null && (user.type == 'shis' || user.type == 'employee')
-                            "
-                            >
-                              Generate Code <i class="fe fe-lock"></i>
-                            </button>
+                           
                               <router-link :to="{ path: '/authorization-code/' + diag.id }">
                             <button class="btn btn-outline-dark" 
                             >
@@ -260,15 +253,15 @@ export default {
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.axios
-      .get(`/api/v1/auth/authorization_code/95930`)
-      .then((response) => {
-        this.codes = response.data;
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // this.axios
+    //   .get(`/api/v1/auth/authorization_code/95930`)
+    //   .then((response) => {
+    //     this.codes = response.data;
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   },
   methods: {
 
@@ -350,27 +343,6 @@ export default {
           });
         });
     },
-    getRecords(){
-        this.user = JSON.parse(localStorage.getItem("user"));
-        this.axios
-          .post(`/api/v1/auth/gethealthRecord`, {
-            provider: this.user.institutional_id,
-            patient_id:  this.search_result.type == "client"
-              ? this.search_result.data.id
-              : null,
-            dependent_id:  this.search_result.type == "dependent"
-              ? this.search_result.data.id
-              : null,
-
-          })
-          .then((response) => {
-            this.encounters = response.data.data;
-            console.log(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-    },
 
     generateCode(diag) {
       this.axios
@@ -403,7 +375,7 @@ export default {
             this.search_result.type == "dependent"
               ? this.search_result.data.id
               : 0,
-          // date_requested: this.register.date_requested,
+          org_id: this.search_result.data.org_id,
            provider_id: this.user.institutional_id,
            service_summary_id: this.service_summary_id,
            referred_to_facility: this.referred_to_facility.id,
@@ -427,6 +399,27 @@ export default {
             position: "top-right",
           });
         });
+    },
+     getRecords(){
+        this.user = JSON.parse(localStorage.getItem("user"));
+        this.axios
+          .post(`/api/v1/auth/gethealthRecord`, {
+            provider: this.user.institutional_id,
+            patient_id:  this.search_result.type == "client"
+              ? this.search_result.data.id
+              : null,
+            dependent_id:  this.search_result.type == "dependent"
+              ? this.search_result.data.id
+              : null,
+
+          })
+          .then((response) => {
+            this.encounters = response.data.data;
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
     },
     clearIt() {
       this.register.date_requested = "";
@@ -464,8 +457,8 @@ export default {
   },
   created() {
     this.getCodes();
-    this.getRecords();
      this.getProviders();
+     this.getRecords();
   },
 };
 </script>

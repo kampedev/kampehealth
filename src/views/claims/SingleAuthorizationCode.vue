@@ -189,6 +189,22 @@
                             >
                             {{ auth_code.creator.full_name }}
                           </p>
+
+                           <p class="">
+                            <span class="h5 text-success"
+                              >Requested at:</span
+                            >  
+                          
+                           <span class="h5">  {{ auth_code.created_at  | moment("dddd, MMMM Do YYYY, h:mm:ss a") }} </span>
+                           <span class="text-primary" > {{ auth_code.created_at  | moment("from", "now") }} </span> 
+                          </p>
+
+                           <p class="h5">
+                            <span class="text-success"
+                              >Expiry Date:</span
+                            >
+                            {{ auth_code.expiry_date  | moment("dddd, MMMM Do YYYY")}}
+                          </p>
                         </div>
                         <hr />
 
@@ -582,6 +598,7 @@ export default {
         this.axios
           .post(`/api/v1/auth/generateCode`, {
             id: this.auth_code.id,
+            expiry_days: 90,
           })
           .then((response) => {
             this.getCode();

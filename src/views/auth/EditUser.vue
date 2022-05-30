@@ -2,18 +2,19 @@
   <div class="">
     <Navbar />
     <section class="admin-content">
-      <div class="bg-dark bg-dots m-b-30">
+      <div class="bg-success bg-dots m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-lg-8 text-center mx-auto text-white p-b-30">
               <div class="m-b-10">
                 <div class="avatar avatar-lg">
                   <div
-                    class="avatar-title bg-info rounded-circle mdi mdi-settings"
+                  style="margin-top:10px;"
+                    class="avatar-title bg-dark rounded-circle mdi mdi-settings"
                   ></div>
                 </div>
               </div>
-              <h3>Edit User</h3>
+              <h3>Edit Enrollee</h3>
             </div>
           </div>
         </div>
@@ -180,7 +181,9 @@
                         v-model="auth_user.nimc_number"
                       />
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6"
+                    v-if="user.user_role == 1"
+                    >
                       <label for="asd">Computer Number/Salary Number</label>
                       <input
                         type="text"
@@ -212,9 +215,10 @@
                         v-model="auth_user.dob"
                       />
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6"
+                     v-if="user.user_role == 1">
                       <label for="inputCity"
-                        >Date of Expiry: {{ auth_user.expiry_date }}
+                        >Date of Expiry: <strong>{{ auth_user.expiry_date }}</strong>
                       </label>
                       <input
                         type="date"
@@ -243,7 +247,8 @@
                         <option value="Divorced">Divorced</option>
                       </select>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6"
+                     v-if="user.user_role == 1">
                       <label for="inputCity"
                         >Principal Facility for Accessing Care
                       </label>

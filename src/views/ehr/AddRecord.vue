@@ -243,7 +243,7 @@
                   >
                     <div class="row">
                       <div
-                        class="form-group col-md-6"
+                        class="form-group col-md-3"
                         v-if="record.treatment_type == 'Primary'"
                       >
                         <label>Select Type </label>
@@ -258,7 +258,7 @@
                       </div>
 
                       <div
-                        class="form-group col-md-6"
+                        class="form-group col-md-3"
                         v-if="
                           record.treatment_type == 'Primary' &&
                             service_renderred.type == 'Drug'
@@ -276,7 +276,7 @@
                       </div>
 
                       <div
-                        class="form-group col-md-6"
+                        class="form-group col-md-3"
                         v-if="
                           record.treatment_type == 'Primary' &&
                             service_renderred.type == 'Service'
@@ -292,11 +292,10 @@
                           :options="services.data"
                         />
                       </div>
-                    </div>
 
-                    <div class="row" v-if="record.treatment_type == 'Primary'">
+                      <!-- <div  v-if="record.treatment_type == 'Primary'"> -->
                       <div
-                        class="form-group col-md-4"
+                        class="form-group col-md-2"
                         v-if="service_renderred.type != ''"
                       >
                         <label for="inputCity">Days </label>
@@ -309,10 +308,11 @@
                           placeholder="1"
                           v-model="service_renderred.days"
                         />
+                         <p class="text-primary">For services such as bedrest, admissions etc </p>
                       </div>
 
                       <div
-                        class="form-group col-md-4"
+                        class="form-group col-md-2"
                         v-if="service_renderred.type == 'Drug'"
                       >
                         <label for="inputCity">Dosage</label>
@@ -328,11 +328,11 @@
                       </div>
 
                       <div
-                        class="form-group col-md-4"
-                        v-if="service_renderred.type == 'Drug'"
+                        class="form-group col-md-2"
+                        v-if="service_renderred.type != ''"
                       >
                         <label for="inputCity"
-                          >Frequency (Times per day)
+                          >Frequency
                         </label>
                         <input
                           type="number"
@@ -343,17 +343,24 @@
                           placeholder="1"
                           v-model="service_renderred.frequency"
                         />
+                        <p class="text-primary">The number of times it was administered </p>
                       </div>
 
                       <div
                         class="form-group col-md-12"
                         style="margin-bottom:20px"
+                        v-if="record.treatment_type == 'Primary'"
                       >
                         <button @click="addArray()" class="btn btn-success">
                           add more <i class="fe fe-activity"></i>
                         </button>
                       </div>
+                    <!-- </div> -->
+
+
                     </div>
+
+                  
                   </div>
 
                   <div

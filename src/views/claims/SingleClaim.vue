@@ -9,7 +9,7 @@
               <div class="m-b-10">
                 <div class="avatar"></div>
               </div>
-              <h3 class="h5">Claim Details</h3>
+              <h3 class="h5">Claim: {{claimdetails.claim_unique_id}} </h3>
             </div>
           </div>
         </div>
@@ -314,7 +314,15 @@
                           {{ claimdetails.claim_level }}
                         </p>
                         <br />
-                        <p v-if="claimdetails.checked_by_id != null">
+                      
+
+                      </div>
+
+                      <div class="col-md-6">
+                        <p class="h4">Reason For Claim:</p>
+                        <p>{{ claimdetails.treatment }}</p>
+
+                          <p v-if="claimdetails.checked_by_id != null">
                           <strong>Vetted By:</strong>
                           {{ claimdetails.checkeduser.firstname }}
                           {{ claimdetails.checkeduser.lastname }}
@@ -334,11 +342,36 @@
                           {{ claimdetails.approveduser.lastname }}
                         </p>
                         <br />
-                      </div>
+                        <p>
+                           <strong 
+                            >Approved On:</strong
+                          >  {{ claimdetails.approved_by_date }}
+                        </p>
+                        <br />
 
-                      <div class="col-md-6">
-                        <p class="h4">Reason For Claim:</p>
-                        <p>{{ claimdetails.treatment }}</p>
+                         <div
+                                  v-if="claimdetails.paymentorders.length >= 1"
+                                >
+                                  <p class="h4">
+                                    Payment Details:
+                                  </p>
+                                  <p>
+                                    <strong>Payment Order ID:</strong>
+                                    <a
+                                      :href="
+                                        `/transaction/${claimdetails.paymentorders[0].id}`
+                                      "
+                                      class="text-info"
+                                    >
+                                      {{
+                                        claimdetails.paymentorders[0]
+                                          .payment_number
+                                      }}
+                                    </a>
+                                  </p>
+
+                                  <br />
+                                </div>
                       </div>
                     </div>
                   </div>

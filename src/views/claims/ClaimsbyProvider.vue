@@ -114,7 +114,7 @@
                     <tr v-for="claim in claims.data.data" v-bind:key="claim.id">
                       <td>
                         <router-link :to="{ path: '/claim/' + claim.id }">
-                          {{ claim.created_at | moment("dddd, MMMM Do YYYY") }}
+                          {{ claim.created_at | moment("dddd, MMMM Do YYYY") }} s
                         </router-link>
                       </td>
                       <td>{{ claim.provider.agency_name }}</td>

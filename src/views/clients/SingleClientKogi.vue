@@ -72,9 +72,7 @@
                         >&times;</a
                       >
                     </div>
-                    <!-- <router-link :to="{ path: '/client.user/biometrics/'+client.user.id, params: {} }">
-                                           <button class="btn btn-info spacer"  > <i class="mdi mdi-hand"></i> </button>
-                                        </router-link> -->
+                  
 
                     <button
                       class="btn btn-outline-primary spacer"
@@ -85,6 +83,7 @@
                     <button
                       class="btn btn-outline-danger spacer"
                       @click="deleteUser"
+                      v-if="user.user_role == 1"
                     >
                       Delete <i class="fe fe-delete"></i>
                     </button>
@@ -131,6 +130,7 @@
                       <!-- Button trigger modal -->
                       <button
                         type="button"
+                         v-if="user.user_role == 1"
                         class="btn btn-outline-dark spacer"
                         data-toggle="modal"
                         data-target="#exampleModal"
@@ -281,9 +281,8 @@
                       :src="
                         `https://api.hayokinsurance.com/image/${client.user.user_image}`
                       "
-                      class="img spacer-top"
+                      class="img"
                       alt="User Photo"
-                      v-if="client.user.user_image != null"
                       onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                     />
                     <!-- <img :src="`http://localhost:8000/image/${client.user.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user.user_image != null "> -->
@@ -333,7 +332,7 @@
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">HMO/TPA:</strong>
-                      <strong v-if="client.user.tpa != null"> {{ client.tpa.organization_name }}</strong>
+                      <strong v-if="client.tpa != null">   {{ client.tpa.organization_name }}</strong>
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">

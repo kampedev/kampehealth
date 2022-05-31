@@ -294,7 +294,7 @@
                       </div>
 
                       <!-- <div  v-if="record.treatment_type == 'Primary'"> -->
-                      <div
+                      <!-- <div
                         class="form-group col-md-2"
                         v-if="service_renderred.type != ''"
                       >
@@ -309,9 +309,9 @@
                           v-model="service_renderred.days"
                         />
                          <p class="text-primary">For services such as bedrest, admissions etc </p>
-                      </div>
+                      </div> -->
 
-                      <div
+                      <!-- <div
                         class="form-group col-md-2"
                         v-if="service_renderred.type == 'Drug'"
                       >
@@ -325,14 +325,14 @@
                           placeholder="Qty"
                           v-model="service_renderred.dose"
                         />
-                      </div>
+                      </div> -->
 
                       <div
-                        class="form-group col-md-2"
+                        class="form-group col-md-3"
                         v-if="service_renderred.type != ''"
                       >
                         <label for="inputCity"
-                          >Frequency
+                          >Quantity/Frequency
                         </label>
                         <input
                           type="number"
@@ -343,13 +343,13 @@
                           placeholder="1"
                           v-model="service_renderred.frequency"
                         />
-                        <p class="text-primary">The number of times it was administered </p>
+                        <p class="text-primary">The number of times or quantity given. </p>
                       </div>
 
                       <div
-                        class="form-group col-md-12"
-                        style="margin-bottom:20px"
-                        v-if="record.treatment_type == 'Primary'"
+                        class="form-group col-md-3 d-flex align-items-center"
+                     
+                        v-if="service_renderred.type != ''"
                       >
                         <button @click="addArray()" class="btn btn-success">
                           add more <i class="fe fe-activity"></i>

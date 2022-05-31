@@ -190,7 +190,7 @@
 
           <li
             class="menu-item "
-            v-if="user.type != 'provider' || user.type == 'provider_employee'"
+            v-if="user.type == 'employee' || user.type == 'tpa' || user.type == 'tpa_employee' "
           >
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">

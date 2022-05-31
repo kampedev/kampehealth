@@ -156,7 +156,7 @@
                           <th>Date Requested</th>
                           <th>Requesting Facility</th>
                           <th>Expiry Date</th>
-                          <th>Code</th>
+                          <th>Authorization Code</th>
                           <th>Status</th>
                           <th   v-if="
                             user.type == 'shis' || user.type == 'employee'
@@ -174,9 +174,26 @@
                               diag.provider.agency_name
                             }}</span>
                           </td>
-                          <td>{{ diag.expiry_date }}</td>
+                          <td>{{ diag.expiry_date }}
+                             <button
+                             v-if="diag.status == 'rejected'"
+                              type="button"
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger spacer"
+                            >
+                              {{diag.status}}
+                            </button>
+                          </td>
                          
-                          <td>{{ diag.code_created }}</td>
+                          <td>{{ diag.code_created }}
+
+                             <button
+                             v-if="diag.status == 'rejected'"
+                              type="button"
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger spacer"
+                            >
+                              {{diag.status}}
+                            </button>
+                          </td>
                             <td>
                                <button
                               type="button"

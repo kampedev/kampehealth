@@ -9,7 +9,7 @@
               <div class="m-b-10">
                 <div class="avatar"></div>
               </div>
-              <h3 class="h5">Claim: {{claimdetails.claim_unique_id}} </h3>
+              <h3 class="h5">Claim: {{ claimdetails.claim_unique_id }}</h3>
             </div>
           </div>
         </div>
@@ -17,7 +17,7 @@
       <section class="pull-up">
         <div class="container" id="printDiv" ref="printNow">
           <div class="row list">
-            <div class="col-lg-12 col-md-8">
+            <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
                 <div class="card-header"></div>
 
@@ -27,10 +27,11 @@
                       class="btn btn-success spacer"
                       @click="verifyClaim"
                       v-if="
-                        claimdetails.verified_by_id == null && user.job_title == 'Claims Verifier'
+                        claimdetails.verified_by_id == null &&
+                          user.job_title == 'Claims Verifier'
                       "
                     >
-                     mark as verified <i class="fe fe-check"></i>
+                      mark as verified <i class="fe fe-check"></i>
                     </button>
 
                     <button
@@ -116,12 +117,7 @@
                       class="btn btn-danger"
                       style="margin-left: 10px"
                       @click="rejectClaim"
-                      v-if="
-                        claimdetails.status != 1 &&
-                          (user.type == 'employee' ||
-                            user.type == 'tpa' ||
-                            user.type == 'tpa_employee')
-                      "
+                      v-if="claimdetails.status != 1 && user.type == 'employee'"
                     >
                       <i class="fe fe-x"></i> Reject
                     </button>
@@ -232,7 +228,7 @@
                         </button>
                       </span>
 
-                       <span v-if="claimdetails.verified_by_id != null">
+                      <span v-if="claimdetails.verified_by_id != null">
                         <button
                           class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
                         >
@@ -241,25 +237,22 @@
                       </span>
 
                       <span v-if="claimdetails.paymentorders.length >= 1">
-                            <button
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
-                              v-if="
-                                claimdetails.paymentorders[0].status ==
-                                  'pending'
-                              "
-                            >
-                              processed for payment
-                            </button>
+                        <button
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
+                          v-if="
+                            claimdetails.paymentorders[0].status == 'pending'
+                          "
+                        >
+                          processed for payment
+                        </button>
 
-                            <button
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
-                              v-if="
-                                claimdetails.paymentorders[0].status == 'paid'
-                              "
-                            >
-                              <i class="fe fe-check-square"></i>paid
-                            </button>
-                          </span>
+                        <button
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                          v-if="claimdetails.paymentorders[0].status == 'paid'"
+                        >
+                          <i class="fe fe-check-square"></i>paid
+                        </button>
+                      </span>
                     </p>
 
                     <div class="row">
@@ -309,20 +302,18 @@
                           <strong>Diagnosis:</strong>
                           {{ claimdetails.diagnosis.name }}
                         </p>
-                         <p>
+                        <p>
                           <strong>Claim Treatment Level:</strong>
                           {{ claimdetails.claim_level }}
                         </p>
                         <br />
-                      
-
                       </div>
 
                       <div class="col-md-6">
                         <p class="h4">Reason For Claim:</p>
                         <p>{{ claimdetails.treatment }}</p>
 
-                          <p v-if="claimdetails.checked_by_id != null">
+                        <p v-if="claimdetails.checked_by_id != null">
                           <strong>Vetted By:</strong>
                           {{ claimdetails.checkeduser.firstname }}
                           {{ claimdetails.checkeduser.lastname }}
@@ -335,43 +326,35 @@
                         </p>
                         <br />
                         <p v-if="claimdetails.approved_by_id != null">
-                          <strong 
-                            >Approved By:</strong
-                          >
+                          <strong>Approved By:</strong>
                           {{ claimdetails.approveduser.firstname }}
                           {{ claimdetails.approveduser.lastname }}
                         </p>
                         <br />
                         <p>
-                           <strong 
-                            >Approved On:</strong
-                          >  {{ claimdetails.approved_by_date }}
+                          <strong>Approved On:</strong>
+                          {{ claimdetails.approved_by_date }}
                         </p>
                         <br />
 
-                         <div
-                                  v-if="claimdetails.paymentorders.length >= 1"
-                                >
-                                  <p class="h4">
-                                    Payment Details:
-                                  </p>
-                                  <p>
-                                    <strong>Payment Order ID:</strong>
-                                    <a
-                                      :href="
-                                        `/transaction/${claimdetails.paymentorders[0].id}`
-                                      "
-                                      class="text-info"
-                                    >
-                                      {{
-                                        claimdetails.paymentorders[0]
-                                          .payment_number
-                                      }}
-                                    </a>
-                                  </p>
+                        <div v-if="claimdetails.paymentorders.length >= 1">
+                          <p class="h4">
+                            Payment Details:
+                          </p>
+                          <p>
+                            <strong>Payment Order ID:</strong>
+                            <a
+                              :href="
+                                `/transaction/${claimdetails.paymentorders[0].id}`
+                              "
+                              class="text-info"
+                            >
+                              {{ claimdetails.paymentorders[0].payment_number }}
+                            </a>
+                          </p>
 
-                                  <br />
-                                </div>
+                          <br />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -398,10 +381,8 @@
                         <tr>
                           <th>S/N.</th>
                           <th>Name</th>
-                          <!-- <th>Dose</th> -->
                           <th>Quantity</th>
-                          <th>Days</th>
-                          <th>Comments</th>
+                          <th>Unit Amount</th>
                           <th>Requested Cost</th>
                           <th>Vetted Amount</th>
                           <th>Verified Amount</th>
@@ -426,24 +407,16 @@
                           </td>
                           <!-- <td>{{ service.dose }}</td> -->
                           <td>{{ service.frequency }}</td>
-                          <td>{{ service.days }}</td>
                           <td>
-                            <div
-                              v-for="comment in service.servicecomments"
-                              v-bind:key="comment.id"
-                              class="spacer"
-                            >
-                              <b-card class="text-left">
-                                <div class="bg-white text-dark">
-                                  {{ comment.body }}
-                                  <p>
-                                    By: {{ comment.user.firstname }}
-                                    {{ comment.user.lastname }}
-                                  </p>
-                                </div>
-                              </b-card>
-                            </div>
+                            &#8358;
+                            <span v-if="service.service != null">{{
+                              service.service.price
+                            }}</span>
+                            <span v-if="service.drugs_id != null">{{
+                              service.drug.price
+                            }}</span>
                           </td>
+
                           <td>&#8358;{{ service.cost | numeral(0, 0) }}</td>
                           <td>
                             <span v-show="listprice">
@@ -480,8 +453,19 @@
                             }}</span>
                           </td>
 
-                          <td v-if="claimdetails.status != 1 ">
-                            <div class="col-md-12">
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#slideRightModalAll"
+                              class="btn m-b-15 ml-2 mr-2 btn-outline-success"
+                              @click="getSingleService(service)"
+                            >
+                              <i class="fe fe-eye"> </i>
+                            </button>
+                            <div
+                              class="col-md-12"
+                              v-if="claimdetails.status != 1"
+                            >
                               <div
                                 class="form-group"
                                 v-if="service.id == selected_service"
@@ -516,7 +500,6 @@
                                   <div class="dropdown-menu">
                                     <a
                                       class="dropdown-item"
-                                   
                                       @click="remarkService(service)"
                                     >
                                       make verdict</a
@@ -524,46 +507,70 @@
                                     <div class="dropdown-divider"></div>
                                     <a
                                       class="dropdown-item"
-                                    
+                                      href="#"
                                       @click="readycommentService(service)"
                                       >add comment</a
                                     >
                                     <div class="dropdown-divider"></div>
                                     <a
                                       class="dropdown-item"
-                                     
                                       @click="updateprice_vet = true"
                                       v-if="
                                         user.type == 'tpa' ||
                                           user.type == 'tpa_employee'
                                       "
-                                      >update price</a
+                                      >vet amount</a
                                     >
                                     <div class="dropdown-divider"></div>
                                     <a
                                       class="dropdown-item"
-                                     
                                       v-if="
                                         user.type == 'shis' ||
                                           user.type == 'employee'
                                       "
                                       @click="updateprice_ver = true"
-                                      >update price</a
+                                      >verify amount</a
                                     >
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-info" href="#"
-                                      >click as applicable</a
-                                    >
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </td>
                         </tr>
+                        <tr>
+                          <td colspan="4" >
+                            <strong>Total</strong>
+                          </td>
+                          <td >
+                            <strong 
+                              >&#8358;{{
+                                singleclaim.sum | numeral(0, 0)
+                              }}</strong
+                            >
+                          </td>
+                          <td>
+                            <strong 
+                              >&#8358;{{
+                                singleclaim.vetted_sum | numeral(0, 0)
+                              }}</strong
+                            >
+                          </td>
+                         
+                          <td>
+                             <strong >
+                             <span
+                            >&#8358;{{
+                              singleclaim.verified_sum | numeral(0, 0)
+                            }}</span
+                          >
+                          </strong>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
 
-                    <p class="spacer">
+                    <!-- <p class="spacer">
                       <strong class="h5"
                         >Requested Total Amount of Service
                       </strong>
@@ -571,16 +578,11 @@
                         >&#8358;{{ singleclaim.sum | numeral(0, 0) }}</strong
                       >
                     </p>
-                    <!-- <p class="spacer">
-                      <strong class="h5">Okayed Total Cost of Service </strong>
-                      <strong class="h5"
-                        >&#8358;{{
-                          singleclaim.revised_fee | numeral(0, 0)
-                        }}</strong
-                      >
-                    </p> -->
+
                     <p class="spacer">
-                      <strong class="h5">Vetted Total Amount of Service </strong>
+                      <strong class="h5"
+                        >Vetted Total Amount of Service
+                      </strong>
                       <strong class="h5"
                         >&#8358;{{
                           singleclaim.vetted_sum | numeral(0, 0)
@@ -594,11 +596,122 @@
                           singleclaim.verified_sum | numeral(0, 0)
                         }}</span
                       >
-                    </p>
+                    </p> -->
                   </div>
                 </div>
               </div>
             </div>
+
+            <!-- Modal -->
+            <div
+              class="modal fade modal-slide-right"
+              id="slideRightModalAll"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="slideRightModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content" id="printDiv" ref="printNow">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="slideRightModalLabel">
+                      <span v-if="singlservicemodal.service != null">{{
+                        singlservicemodal.service.description
+                      }}</span>
+                      <span v-if="singlservicemodal.drugs_id != null">{{
+                        singlservicemodal.drug.drug_name
+                      }}</span>
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <p v-if="singlservicemodal.drugs_id != null">
+                      <span class="font-weignt-bold">Other Service Info :</span>
+
+                      <span>{{ singlservicemodal.drug.item_data }}</span>
+                    </p>
+                    <br />
+                    <p>
+                      <span class="font-weight-bold">Quantity</span> :
+                      {{ singlservicemodal.frequency }}
+                    </p>
+                    <br />
+
+                    <p>
+                      <span class="font-weight-bold">Unit Amount</span> :
+                      &#8358;
+                      <span v-if="singlservicemodal.service != null">{{
+                        singlservicemodal.service.price
+                      }}</span>
+                      <span v-if="singlservicemodal.drugs_id != null">{{
+                        singlservicemodal.drug.price
+                      }}</span>
+                    </p>
+                    <br />
+                    <p>
+                      <span class="font-weight-bold">Verdict</span> :
+                      <span v-if="singlservicemodal.remark != null">{{
+                        singlservicemodal.remark.name
+                      }}</span>
+                    </p>
+                    <br />
+                    <p>
+                      <span class="font-weight-bold">Requested Amount</span> :
+                      &#8358;{{ singlservicemodal.vetted_price }}
+                    </p>
+                    <br />
+
+                    <p>
+                      <span class="font-weight-bold">Approved Amount</span> :
+                      &#8358;{{ singlservicemodal.verified_price }}
+                    </p>
+                    <br />
+
+                    <p class="h4">
+                      Comments
+                    </p>
+
+                    <div
+                      v-for="comment in singlservicemodal.servicecomments"
+                      v-bind:key="comment.id"
+                      class=""
+                    >
+                      <b-card class="text-left">
+                        <div class="bg-white text-dark">
+                          {{ comment.body }}
+                          <p>
+                            <span class="text-primary">{{
+                              comment.user.full_name
+                            }} </span> <span class="font-weight-light"> 
+                              <small> {{comment.created_at  | moment("from", "now") }}</small> </span>
+                          </p>
+                        </div>
+                      </b-card>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--End of Modal -->
 
             <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
@@ -667,7 +780,7 @@
         </div>
       </section>
     </div>
-     <Footer />
+    <Footer />
   </section>
 </template>
 
@@ -682,7 +795,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   components: {
-    Navbar, Footer,
+    Navbar,
+    Footer,
     Loading,
   },
   data() {
@@ -702,6 +816,7 @@ export default {
       body: "",
       claimdetails: "",
       prepared_by: "",
+      singlservicemodal: "",
       show: false,
       isLoading: false,
       fullPage: true,
@@ -832,8 +947,8 @@ export default {
     verifyClaim() {
       if (confirm("Are you sure you want to make verified?")) {
         this.axios
-          .post(`/api/v1/auth/verify-claims/${this.$route.params.id}`,{
-             claim_level : 'Verification'
+          .post(`/api/v1/auth/verify-claims/${this.$route.params.id}`, {
+            claim_level: "Verification",
           })
           .then((response) => {
             console.log(response);
@@ -849,8 +964,8 @@ export default {
     vetClaim() {
       if (confirm("Are you sure you want to mark as vetted?")) {
         this.axios
-          .post(`/api/v1/auth/checked-claims/${this.$route.params.id}`,{
-            claim_level : 'HMO'
+          .post(`/api/v1/auth/checked-claims/${this.$route.params.id}`, {
+            claim_level: "HMO",
           })
           .then((response) => {
             console.log(response);
@@ -873,7 +988,10 @@ export default {
         });
       }
     },
-     printMe() {
+    getSingleService(service) {
+      this.singlservicemodal = service;
+    },
+    printMe() {
       var printContents = document.getElementById("printDiv").innerHTML;
       var originalContents = document.body.innerHTML;
       document.body.innerHTML = printContents;

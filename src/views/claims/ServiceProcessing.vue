@@ -74,7 +74,7 @@
                       />
                     </div> -->
 
-                  <div class="form-group col-md-4" v-if="type != ''">
+                  <!-- <div class="form-group col-md-4" v-if="type != ''">
                         <label for="inputCity"
                           >Days
                         </label>
@@ -89,9 +89,9 @@
                           v-model="days"
                         />
                         <p class="text-primary">For services such as bedrest, admissions etc </p>
-                      </div>
+                      </div> -->
 
-                      <div class="form-group col-md-4" v-if="type == 'Drug'">
+                      <!-- <div class="form-group col-md-4" v-if="type == 'Drug'">
                         <label for="inputCity">Dosage</label>
                         <input
                           type="number"
@@ -102,11 +102,11 @@
                           placeholder="Qty"
                           v-model="dose"
                         />
-                      </div>
+                      </div> -->
 
                       <div class="form-group col-md-4" v-if="type != ''">
                         <label for="inputCity"
-                          >Frequency
+                          >Quantity/Frequency
                         </label>
                         <input
                           type="number"
@@ -117,7 +117,7 @@
                           placeholder="Qty"
                           v-model="frequency"
                         />
-                        <p class="text-primary">The number of times it was administered </p>
+                        <p class="text-primary">The number of times or quantity given. </p>
                       </div>
                     <!-- <div class="form-group col-md-6">
                       <label for="inputCity">Cost</label>
@@ -167,9 +167,9 @@
                   <tr>
                     <th>Number</th>
                     <th>Name</th>
-                    <th>Days</th>
-                    <th>Dose</th>
-                    <th>Freq.</th>
+                    <!-- <th>Days</th> -->
+                    <!-- <th>Dose</th> -->
+                    <th>Quantity/Frequency</th>
                     <th>Unit Cost</th>
                     <th>Total Cost</th>
                   </tr>
@@ -188,8 +188,8 @@
                         service.drug.drug_name
                       }}</span>
                     </td>
-                    <td> {{service.days}} </td>
-                    <td>  {{service.dose}} </td>
+                    <!-- <td> {{service.days}} </td> -->
+                    <!-- <td>  {{service.dose}} </td> -->
                     <td>  {{service.frequency}}  </td>
                     <td>
                       &#8358; <span v-if="service.service != null">{{

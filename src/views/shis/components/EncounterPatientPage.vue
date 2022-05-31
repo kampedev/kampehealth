@@ -88,6 +88,14 @@
               {{ encounterDetails.provider.agency_name }}
             </p>
           </div>
+
+           <div class="primary__detail">
+            <i class="fas fa-calendar fa-2x icon"></i>
+            <p class="mda primary__detail--text">
+              {{ encounterDetails.created_at }} 
+               <span class="text-primary font-weight-light" > ({{ encounterDetails.created_at  | moment("from", "now") }}) </span> 
+            </p>
+          </div>
         </div>
         <div class="user__-details--container-other">
           <div class="user__details-header-and-renewal__CTA">
@@ -135,7 +143,7 @@
           <br />
 
           <div class="card table-responsive">
-            <strong class="h4 text-center card-header">
+            <strong class="h5 text-center card-header">
               Service/Drugs Administered During Encounter</strong
             >
             <table class="table align-td-middle table-card">
@@ -144,10 +152,10 @@
                   <th>Number</th>
                   <th>Type</th>
                   <th>Name</th>
-                  <th>Dose</th>
-                  <th>Frequency</th>
-                  <th>Days</th>
-                  <th>Cost</th>
+                  <th>Frequency/Qty </th>
+                  <th>Unit Amount</th>
+                  <!-- <th>Days</th> -->
+                  <th>Amount</th>
                 </tr>
               </thead>
               <tbody>
@@ -168,23 +176,31 @@
                       service.drug.drug_name
                     }}</span>
                   </td>
-
-                  <td>
-                    <span v-if="service.drug != null">
-                      {{ service.dose }}
-                    </span>
-                  </td>
-                  <td>
+                   <td>
                     <span>
                       {{ service.frequency }}
                     </span>
                   </td>
-
                   <td>
+                     <span v-if="service.service != null">{{
+                      service.service.price
+                    }}</span>
+                    <span v-if="service.drug != null">{{
+                      service.drug.price
+                    }}</span>
+                  </td>
+
+                  <!-- <td>
+                    <span v-if="service.drug != null">
+                      {{ service.dose }}
+                    </span>
+                  </td> -->
+                 
+                  <!-- <td>
                     <span>
                       {{ service.days }}
                     </span>
-                  </td>
+                  </td> -->
                   <td>
                     <span v-if="service.service != null"> </span>
                     <span v-if="service.drug != null">
@@ -194,7 +210,7 @@
                 </tr>
 
                 <tr>
-                  <td><strong>10% of Drug Charged to Customer </strong></td>
+                  <td ><strong>10% of Drug Charged to Customer </strong></td>
                   <td>
                     <strong> &#8358;{{ tenPercent | numeral(0, 0) }}</strong>
                   </td>
@@ -202,7 +218,7 @@
 
                 <tr>
                   <td><strong>Total Cost of Encounter</strong></td>
-                  <td>
+                  <td colspan="3" >
                     <strong
                       >Total = &#8358;{{
                         totalServiceCharge | numeral(0, 0)

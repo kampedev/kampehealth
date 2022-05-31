@@ -60,7 +60,7 @@
               </div>
             </div>
             <button
-              class="btn btn-primary btn-block btn-lg"
+              class="btn btn-success btn-block btn-lg"
               @click="SearchUser"
               style="margin-top: 20px"
             >

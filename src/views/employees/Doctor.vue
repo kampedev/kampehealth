@@ -75,7 +75,7 @@
                     </router-link>
                   </div>
                   <div>
-                    <p class="text-muted text-overline m-0">Referrals</p>
+                    <p class="text-muted text-overline m-0">Incoming Referrals</p>
                     <h1 class="fw-400">{{ referrals.meta.total }}</h1> 
                   </div>
                 </div>

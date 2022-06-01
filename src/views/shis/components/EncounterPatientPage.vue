@@ -202,9 +202,19 @@
                     </span>
                   </td> -->
                   <td>
-                    <span v-if="service.service != null"> </span>
+                    <span v-if="service.service != null">  &#8358;{{ service.total_cost | numeral(0, 0) }} </span>
                     <span v-if="service.drug != null">
                       &#8358;{{ service.total_cost | numeral(0, 0) }}</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5"><strong>Total Cost of Encounter</strong></td>
+                  <td  >
+                    <strong
+                      > &#8358;{{
+                        totalServiceCharge | numeral(0, 0)
+                      }}</strong
                     >
                   </td>
                 </tr>
@@ -216,16 +226,7 @@
                   </td>
                 </tr>
 
-                <tr>
-                  <td><strong>Total Cost of Encounter</strong></td>
-                  <td colspan="3" >
-                    <strong
-                      >Total = &#8358;{{
-                        totalServiceCharge | numeral(0, 0)
-                      }}</strong
-                    >
-                  </td>
-                </tr>
+                
               </tbody>
             </table>
           </div>

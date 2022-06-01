@@ -51,7 +51,7 @@
                 <div class="card-body">
                   <div class="row">
                      <div class="form-group col-md-6">
-                        <label>Select Secondary Facility </label>
+                        <label>Select Receiving Facility </label>
                         <v-select
                           v-model="referred_to_facility"
                           label="agency_name"
@@ -60,7 +60,7 @@
                       </div>
 
                     <div class="form-group col-md-6">
-                      <label for="inputCity">Enrollee KGSHIA Number </label>
+                      <label for="inputCity">Enrollee OHIS Number </label>
                       <input
                         type="text"
                         class="form-control"
@@ -93,7 +93,7 @@
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="inputCity">KGSHIA Number</label>
+                      <label for="inputCity">OHIS Number</label>
                       <input
                         type="text"
                         class="form-control"
@@ -203,7 +203,7 @@
                             </button>
 
                             <span v-if="diag.is_code_used == true" class="bg-success text-white"> code used </span> 
-                            <span v-if="diag.is_code_used == false"> code not used yet</span> 
+                            <span v-if="diag.is_code_used == false && diag.status == 'approved'"> code not used yet</span> 
                             </td>
                           <td
                            

@@ -33,6 +33,13 @@
                     >
                       mark as verified <i class="fe fe-check"></i>
                     </button>
+                    <router-link :to="`/patient/${claimdetails.enrollee.id}`" >
+                     <button
+                      class="btn btn-outline-success spacer"
+                    >
+                      enrollee records <i class="fe fe-user"></i>
+                    </button>
+                    </router-link>
 
                     <button
                       class="btn btn-outline-success spacer"
@@ -270,8 +277,10 @@
                         <br />
                         <p>
                           <strong>Enrollee/ Patient Name:</strong>
+                          <router-link :to="`/patient/${claimdetails.enrollee.id}`" >
                           {{ claimdetails.enrollee.firstname }}
                           {{ claimdetails.enrollee.lastname }}
+                          </router-link>
                         </p>
                         <br />
                         <p>
@@ -494,6 +503,10 @@
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
+                                     v-if="
+                                       ( user.type != 'provider_employee' && user.type != 'provider')
+                                        && claimdetails.status === 1 
+                                      "
                                   >
                                     <i class="fe fe-edit"></i>
                                   </button>

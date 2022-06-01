@@ -265,7 +265,7 @@ export default {
       json_fields: {
         "Facility Name": "provider.agency_name",
         "Enrollee Full Name": "patient.full_name",
-        "Enrollee KGSHIA Number": "patient.id_card_number",
+        "Enrollee OHIS Number": "patient.id_card_number",
         Diagnosis: "diagnosis.name",
         HMO: "tpa.organization_name",
       },

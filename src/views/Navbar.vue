@@ -458,7 +458,7 @@
                 user.type == 'provider' ||
                 user.type == 'provider_employee' ||
                 user.user_role == 1 ||
-                user.job_title == 'Claims'
+                user.job_title == 'Claims Verifier'
             "
           >
             <a href="#" class="open-dropdown menu-link">
@@ -511,7 +511,7 @@
               <li class="menu-item">
                 <router-link to="/all-referrals" class=" menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Manage Referrals </span>
+                    <span class="menu-name">Incoming Referrals </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder mdi mdi-bank-transfer-out"></i>
@@ -814,20 +814,6 @@
               </span>
               <span class="menu-icon">
                 <i class="icon-placeholder mdi mdi-view-day"></i>
-              </span>
-            </a>
-          </li>
-
-          <li
-            class="menu-item"
-            v-if="user.type == 'tpa' || user.type == 'tpa_employee'"
-          >
-            <a href="/all-referrals" class=" menu-link">
-              <span class="menu-label">
-                <span class="menu-name">Referrals Management </span>
-              </span>
-              <span class="menu-icon">
-                <i class="icon-placeholder fe fe-help-circle"></i>
               </span>
             </a>
           </li>

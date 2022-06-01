@@ -505,7 +505,7 @@
                                     aria-expanded="false"
                                      v-if="
                                        ( user.type != 'provider_employee' && user.type != 'provider')
-                                        && claimdetails.status === 1 
+                                        && claimdetails.status != 1 
                                       "
                                   >
                                     <i class="fe fe-edit"></i>

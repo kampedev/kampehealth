@@ -4,7 +4,6 @@
 
     <main class="admin-main">
       <!--site header begins-->
-
       <section class="admin-content">
         <div class="container">
           <div class="row">

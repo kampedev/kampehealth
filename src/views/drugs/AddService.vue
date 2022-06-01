@@ -196,7 +196,7 @@ export default {
           agency_id : 95930,
           service_category_id : this.register.service_category_id,
           price : this.register.price,
-          kgshia_code : 'ZCHEMA',
+          kgshia_code : 'OHIS',
           description : this.register.description,
 
         })
@@ -220,7 +220,7 @@ export default {
           agency_id : 95930,
           service_category_id : this.register.service_category_id,
           price : this.register.price,
-          kgshia_code : 'ZCHEMA',
+          kgshia_code : 'OHIS',
           description : this.register.description,
 
         })

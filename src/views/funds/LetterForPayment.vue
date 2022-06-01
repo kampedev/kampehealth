@@ -11,7 +11,7 @@
                   <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                 </div>
               </div>
-              <p class="h3 text-dark">Letter from KGSHIA</p>
+              <p class="h3 text-dark">Letter from OHIS</p>
             </div>
           </div>
         </div>

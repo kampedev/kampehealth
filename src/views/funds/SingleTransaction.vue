@@ -115,7 +115,7 @@
                       </div>
 
                       <div class="">
-                        Payment For: {{ paymentorder.data.type }}
+                        Payment For:  <span class="font-weight-bold">{{ paymentorder.data.type }}</span> 
                       </div>
                       <div class="">
                         Date:
@@ -140,7 +140,7 @@
                         >
                           <td class="">
                             <p class="text-black m-0">
-                              Claim ID: #{{ claim.id }}
+                              Claim ID: #{{ claim.claim_unique_id }}
                             </p>
                             <p class="text-muted">
                               {{ claim.enrollee.firstname }}
@@ -200,7 +200,7 @@
                     </table>
                   </div>
                   <div class="p-t-10 p-b-20">
-                    <p class="text-muted ">
+                    <p class="font-weight-bold ">
                       Powered by Osun State Health Insurance Agency
                     </p>
                     <hr />

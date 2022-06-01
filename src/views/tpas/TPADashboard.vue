@@ -12,7 +12,7 @@
               <h5 class="h5">{{ orgDetails.organization_name }}</h5>
             </div>
 
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
@@ -36,7 +36,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
@@ -62,7 +62,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
@@ -78,8 +78,32 @@
                   </div>
                   <div>
                     <p class="text-muted text-overline m-0">Claims</p>
-                    <h1 class="fw-400" v-if="employees != ''">
-                      {{ claims.total }}
+                    <h1 class="fw-400" >
+                      {{ claims.data.length }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+             <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30">
+                <div class="card-body">
+                  <div class="pb-2">
+                    <router-link :to="{ path: '/authorization-code' }">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-primary rounded-circle"
+                        >
+                          <i class="fe fe-anchor"></i>
+                        </div>
+                      </div>
+                    </router-link>
+                  </div>
+                  <div>
+                    <p class="text-muted text-overline m-0">Authorization Code</p>
+                    <h1 class="fw-400" >
+                      {{ codes.length }}
                     </h1>
                   </div>
                 </div>
@@ -146,6 +170,7 @@ export default {
       clients: "",
       officers: "",
       orgDetails: "",
+      codes: "",
       employees: "",
       claims: "",
       user: null,
@@ -217,12 +242,37 @@ export default {
       //end of employees
     },
     getClaims() {
+      this.isLoading = true;
+        this.axios
+          .get(`/api/v1/auth/claim-org`, {
+            params: {
+              claim_status: 'All',
+              claim_unique_id: this.claim_unique_id,
+              authorization_code: this.authorization_code,
+              id_card_number: this.id_card_number,
+              provider_id: this.provider_id,
+              date: this.date,
+              from: this.from,
+              to: this.addOneDay,
+            },
+          })
+          .then((response) => {
+            this.claims = response.data;
+            console.log(response);
+            this.isLoading = false;
+          })
+          .catch((error) => {
+            console.error(error);
+            this.isLoading = false;
+          });
+    },
+
+     getCodesTpa() {
+      this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .post(`/api/v1/auth/claim-org`, {
-          user_id: this.user.id,
-        })
+        .get(`/api/v1/auth/authorization_code-tpa`)
         .then((response) => {
-          this.claims = response.data;
+          this.codes = response.data;
           console.log(response);
         })
         .catch((error) => {
@@ -254,6 +304,7 @@ export default {
   created() {
     this.getOrgDetails();
     this.getClaims();
+    this.getCodesTpa();
   },
 };
 </script>

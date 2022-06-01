@@ -41,7 +41,7 @@
                       class="btn btn-outline-success spacer"
                       @click="generateCode"
                       v-if="
-                        (auth_code.status != 'rejected' &&
+                        (auth_code.status != 'approved' &&
                           user.type == 'tpa') ||
                           user.type == 'tpa_employee'
                       "

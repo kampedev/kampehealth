@@ -172,7 +172,7 @@
                     <tr v-for="claim in claims.data" v-bind:key="claim.id">
                       <td>
                         <router-link :to="{ path: '/claim/' + claim.id }">
-                          {{ claim.claim_unique_id }}
+                          {{ claim.claim_unique_id }} {{claim.claim_status}}
                         </router-link>
                       </td>
                       <td>{{ claim.provider.agency_name }}</td>
@@ -262,7 +262,12 @@
                     </tr>
                     <tr>
                       <td colspan="4">
-                        <p class="h5">No Pending claims available</p>
+                        <div class="col-md-12" v-if=" user.job_title == 'Claims Verifier'" >
+                                 <b-alert show variant="primary">
+                                   To forward claims to the ES for approval, select a facility  
+                                   </b-alert>
+
+                            </div>
                       </td>
                     </tr>
                     <tr
@@ -277,7 +282,7 @@
                           class="btn btn-outline-dark btn-block"
                           @click="forwwardClaims()"
                         >
-                          Forward to the ES for Approval
+                          Forward {{provider_id.agency_name}}'s Claims to the ES for Approval
                           <i class="fe fe-send"></i>
                         </button>
                       </td>
@@ -499,16 +504,22 @@ export default {
         });
     },
     forwwardClaims() {
-      this.axios
+     if ( confirm('Are you sure you want to Forward') ) {
+        this.axios
         .post(`/api/v1/auth/forwardclaimtoES`, {
           claims: this.claims.data,
         })
         .then((response) => {
           console.log(response);
+           this.$toasted.info("Forwarded Successfully!", {
+              position: "top-center",
+              duration: 3000,
+            });
         })
         .catch((error) => {
           console.error(error);
         });
+     }
     },
   },
   created() {

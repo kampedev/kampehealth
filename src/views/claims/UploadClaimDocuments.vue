@@ -85,12 +85,20 @@
                              </div>
                            </form>
 
-                            <div class="col-md-12">
+                            <div class="col-md-12"
+                            v-if="singleclaim.docs.length >= 1 "
+                            >
                               <button class="btn btn-outline-success btn-block" @click="gotoSingleClaim">Proceed to Claim 
                                 <i class="fe fe-chevron-right"></i>
                               </button>
+                              
 
                             </div>
+                            <div class="col-md-12" v-else >
+                                 <b-alert show variant="warning">You must upload atleast a document to proceed</b-alert>
+
+                            </div>
+                            
 
 
                            </div>

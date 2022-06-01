@@ -1,7 +1,7 @@
 <template>
   <section class="admin-content" id="contact-search">
     <Navbar />
-    <main class="admin-main">
+    <main class="admin-main"  v-if="user.job_title == 'Executive Secretary'">
       <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">

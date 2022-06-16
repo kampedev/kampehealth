@@ -203,7 +203,7 @@
                       </select>
                     </div>
 
-                    <div
+                    <!-- <div
                       class="row col-md-12"
                       v-if="record.encounter_outcome == 'Admission'"
                     >
@@ -225,7 +225,7 @@
                           valueType="format"
                         ></date-picker>
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group col-md-12">
                       <label for="inputCity">Comments</label>
@@ -406,9 +406,8 @@
 
 <script>
 import Navbar from "@/views/Navbar.vue";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import DatePicker from "vue2-datepicker";
-import "vue2-datepicker/index.css";
+// import DatePicker from "vue2-datepicker";
+// import "vue2-datepicker/index.css";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -418,14 +417,11 @@ export default {
   components: {
     Navbar,
     Loading,
-    DatePicker,
+    // DatePicker,
   },
   data() {
     return {
-      editor: ClassicEditor,
-      editorConfig: {
-        // The configuration of the editor.
-      },
+      
       user: null,
       searchkey: "",
       diseases: "",

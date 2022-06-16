@@ -155,6 +155,14 @@
                             {{ auth_code.provider.agency_name }}
                           </p>
 
+                           <p class="h6">
+                            <span class="text-success"
+                              >Is Intra-Referral :</span
+                            >
+                            <span v-if="auth_code.provider_id === auth_code.referred_to_facility"> Intra - Referred Case</span>  
+                            <span v-else>None Intra referral</span>
+                          </p>
+
                           <br />
                         </div>
 

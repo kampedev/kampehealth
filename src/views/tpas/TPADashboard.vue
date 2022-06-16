@@ -110,8 +110,20 @@
               </div>
             </div>
           </div>
+          <div class="col-md-12" style="margin-top:20px;">
+              <TPAEnrollees/>
+          </div>
+         <div class="row" style="margin-top:20px;">
+             <div class="col-md-6">
+            <ClaimStatusChart/>
+          </div>
 
-          <div class="row">
+           <div class="col-md-6">
+            <ReferralStatusChart/>
+          </div>
+         </div>
+
+          <div class="row" style="margin-top:20px;">
             <div class="col-md-10 m-b-30">
               <h5 class="h5"><i class="fe fe-users"></i>Employees</h5>
               <div class="table-responsive">
@@ -157,11 +169,14 @@
 <script>
 import Navbar from "@/views/Navbar.vue";
 import Footer from "@/views/Footer.vue";
+import TPAEnrollees from "./components/TPAEnrollees.vue";
+import ClaimStatusChart from "./components/ClaimStatusChart.vue";
+import ReferralStatusChart from "./components/ReferralStatusChart.vue";
 
 export default {
   components: {
     Navbar,
-    Footer,
+    Footer, TPAEnrollees, ClaimStatusChart, ReferralStatusChart
   },
 
   data() {

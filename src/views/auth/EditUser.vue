@@ -9,7 +9,7 @@
               <div class="m-b-10">
                 <div class="avatar avatar-lg">
                   <div
-                  style="margin-top:10px;"
+                    style="margin-top:10px;"
                     class="avatar-title bg-dark rounded-circle mdi mdi-settings"
                   ></div>
                 </div>
@@ -181,9 +181,7 @@
                         v-model="auth_user.nimc_number"
                       />
                     </div>
-                    <div class="form-group col-md-6"
-                    v-if="user.user_role == 1"
-                    >
+                    <div class="form-group col-md-6" v-if="user.user_role == 1">
                       <label for="asd">Computer Number/Salary Number</label>
                       <input
                         type="text"
@@ -193,13 +191,8 @@
                       />
                     </div>
 
-                    <div
-                      class="form-group col-md-6"
-                     
-                    >
-                      <label
-                        >Place of Work
-                      </label>
+                    <div class="form-group col-md-6">
+                      <label>Place of Work </label>
                       <v-select
                         v-model="auth_user.place_of_work"
                         :options="mdas"
@@ -215,10 +208,10 @@
                         v-model="auth_user.dob"
                       />
                     </div>
-                    <div class="form-group col-md-6"
-                     v-if="user.user_role == 1">
+                    <div class="form-group col-md-6" v-if="user.user_role == 1">
                       <label for="inputCity"
-                        >Date of Expiry: <strong>{{ auth_user.expiry_date }}</strong>
+                        >Date of Expiry:
+                        <strong>{{ auth_user.expiry_date }}</strong>
                       </label>
                       <input
                         type="date"
@@ -247,8 +240,7 @@
                         <option value="Divorced">Divorced</option>
                       </select>
                     </div>
-                    <div class="form-group col-md-6"
-                     v-if="user.user_role == 1">
+                    <div class="form-group col-md-6">
                       <label for="inputCity"
                         >Principal Facility for Accessing Care
                       </label>
@@ -308,24 +300,24 @@
                       </select>
                     </div>
 
-                     <div class="form-group col-md-6">
-                        <label for="inputCity"
-                          >Select TPA/HMO
-                          <span class="text-danger">*</span></label
+                    <div class="form-group col-md-6">
+                      <label for="inputCity"
+                        >Select TPA/HMO
+                        <span class="text-danger">*</span></label
+                      >
+                      <select
+                        class="form-control"
+                        required
+                        v-model="auth_user.org_id"
+                      >
+                        <option
+                          v-for="tpa in tpas"
+                          v-bind:key="tpa"
+                          :value="tpa.id"
+                          >{{ tpa.organization_name }}</option
                         >
-                        <select
-                          class="form-control"
-                          required
-                          v-model="auth_user.org_id"
-                        >
-                          <option
-                            v-for="tpa in tpas"
-                            v-bind:key="tpa"
-                            :value="tpa.id"
-                            >{{ tpa.organization_name }}</option
-                          >
-                        </select>
-                      </div>
+                      </select>
+                    </div>
 
                     <div
                       class="form-group col-md-12"
@@ -351,7 +343,7 @@
                       placeholder="Address"
                     />
                   </div>
-                
+
                   <button
                     type="submit"
                     class="btn btn-success btn-cta"
@@ -361,7 +353,6 @@
                   </button>
                 </div>
               </div>
-            
             </div>
           </div>
         </div>
@@ -492,7 +483,7 @@ export default {
     editUser() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.isLoading = true;
-      console.log('ldldl')
+      console.log("ldldl");
       this.axios
         .post(`/api/v1/auth/editProfile/${this.$route.params.id}`, {
           firstname: this.auth_user.firstname,
@@ -525,7 +516,10 @@ export default {
           agency_name: this.auth_user.agency_name,
           address1: this.auth_user.address1,
           plan_type: this.auth_user.plan_type,
-          place_of_work:  this.auth_user.place_of_work == null ? null : this.auth_user.place_of_work.name,
+          place_of_work:
+            this.auth_user.place_of_work == null
+              ? null
+              : this.auth_user.place_of_work.name,
           expiry_date: this.auth_user.expiry_date,
         })
         .then((response) => {
@@ -538,11 +532,10 @@ export default {
         })
         .catch((error) => {
           console.log(error.response);
-           this.isLoading = false;
-           
+          this.isLoading = false;
         });
     },
-     getTPAs() {
+    getTPAs() {
       this.user = JSON.parse(localStorage.getItem("user"));
 
       this.axios
@@ -555,7 +548,6 @@ export default {
           console.error(error);
         });
     },
-
   },
   created() {
     this.fetchLga();

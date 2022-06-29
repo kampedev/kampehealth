@@ -18,7 +18,7 @@
       </div>
 
       <section class=""
-      v-if="user.type == 'provider' || user.type == 'provider_employee'"
+      v-if="user.type == 'provider_employee' "
       >
         <div class="container">
           <div class="row list">
@@ -27,10 +27,10 @@
                 <div class="card-body">
                   <button
                     type="button"
-                    class="btn btn-outline-success"
+                    class="btn btn-success"
                     @click="showadder = !showadder"
                   >
-                    Make Code Request <i class="fe fe-plus"></i>
+                    Request Code <i class="fe fe-plus"></i>
                   </button>
                 </div>
               </div>
@@ -45,19 +45,19 @@
             <div class="col-lg-12 col-md-12" v-show="showadder">
               <div class="card m-b-30">
                 <div class="card-header">
-                  <h3 class="p-t-10 searchBy-name">Make Code Request</h3>
+                  <h3 class="p-t-10 searchBy-name">New Request</h3>
                 </div>
 
                 <div class="card-body">
                   <div class="row">
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Date Requested</label>
-                      <input
-                        type="date"
-                        class="form-control"
-                        v-model="register.date_requested"
-                      />
-                    </div>
+                     <div class="form-group col-md-6">
+                        <label>Select Receiving Facility </label>
+                        <v-select
+                          v-model="referred_to_facility"
+                          label="agency_name"
+                          :options="providers"
+                        />
+                      </div>
 
                     <div class="form-group col-md-6">
                       <label for="inputCity">Enrollee OHIS Number </label>
@@ -93,7 +93,7 @@
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="inputCity">O'HIS Number</label>
+                      <label for="inputCity">OHIS Number</label>
                       <input
                         type="text"
                         class="form-control"
@@ -113,13 +113,28 @@
                         disabled
                       />
                     </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Select Encounter </label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="service_summary_id"
+                            
+                          >
+                            <option :value="encounter.service.id" v-for="encounter in encounters" 
+                            v-bind:key="encounter.id"> {{encounter.encounter_id}} ({{encounter.service.diagnosis.name}} ) </option>
+                          </select>
+                        </div>
+                      </div>
+
                   </div>
 
                   <div class="form-group">
-                    <button
-                      class="btn btn-success btn-block"
-                      @click="AddDisease"
-                    >
+                    <button class="btn btn-success btn-block" @click="AddDisease">
                       Submit <i class="fe fe-send"></i>
                     </button>
                   </div>
@@ -132,48 +147,74 @@
             <div class=" col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
-                  <h1>{{ codes.length }} Codes</h1>
+                  <p class="h5" >{{ codes.length }} Code Requests</p>
 
                   <div class="table-responsive">
                     <table class="table align-td-middle table-card">
                       <thead>
                         <tr>
-                          <th>Creation Date</th>
+                          <th>Date Requested</th>
+                          <th>Requesting Facility</th>
                           <th>Expiry Date</th>
-                          <th>Created By</th>
-                          <th>Patient</th>
-                          <th>Code</th>
-                          <th>Code Usage Status</th>
-                          <th>Action</th>
+                          <th>Authorization Code</th>
+                          <th>Status</th>
+                          <th   v-if="
+                            user.type == 'shis' || user.type == 'employee'
+                            ">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="diag in codes" v-bind:key="diag.id">
-                          <td>{{ diag.date_requested }}</td>
-                          <td>{{ diag.expiry_date }}</td>
-                          <td>
-                            {{ diag.creator.firstname }}
-                            {{ diag.creator.lastname }}
+                          <td>{{ diag.date_requested }}
+                            <span class="text-primary"> {{ diag.created_at  | moment("from", "now") }} </span>
+                            
                           </td>
                           <td>
-                            {{ diag.enrollee.firstname }}
-                            {{ diag.enrollee.lastname }}
+                            <span v-if="diag.provider != null">{{
+                              diag.provider.agency_name
+                            }}</span>
                           </td>
-                          <td>{{ diag.code_created }}</td>
-                          <td>
+                          <td>{{ diag.expiry_date }}
+                             <button
+                             v-if="diag.status == 'rejected'"
+                              type="button"
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger spacer"
+                            >
+                              {{diag.status}}
+                            </button>
+                          </td>
+                         
+                          <td>{{ diag.code_created }}
+
+                             <button
+                             v-if="diag.status == 'rejected'"
+                              type="button"
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger spacer"
+                            >
+                              {{diag.status}}
+                            </button>
+                          </td>
+                            <td>
+                               <button
+                              type="button"
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark spacer"
+                            >
+                              {{diag.status}}
+                            </button>
+
                             <span v-if="diag.is_code_used == true" class="bg-success text-white"> code used </span> 
-                            <span v-if="diag.is_code_used == false"> code not used yet</span> 
+                            <span v-if="diag.is_code_used == false && diag.status == 'approved'"> code not used yet</span> 
                             </td>
                           <td
-                            v-if="
-                             diag.code_created == null && (user.type == 'tpa' || user.type == 'tpa_employee')
-                            "
+                           
                           >
-                            <button class="btn btn-outline-success"
-                              @click="generateCode(diag)"
+                           
+                              <router-link :to="{ path: '/authorization-code/' + diag.id }">
+                            <button class="btn btn-outline-dark" 
                             >
-                              Generate Code <i class="fe fe-lock"></i>
+                              <i class="fe fe-eye"></i>
                             </button>
+                              </router-link>
                           </td>
                         </tr>
                       </tbody>
@@ -213,14 +254,20 @@ export default {
   },
   data() {
     return {
-      user: null,
       isLoading: false,
       fullPage: true,
       states: "",
+      user: null,
       showadder: false,
       codes: "",
+      // singlerecipient: "08024035326",
+      message: "Authorization Code is needed. Go to https://app.oshia.ng/authorization-code  to generate.",
       searchkey: "",
+      referred_to_facility : "",
+      providers: "",
       search_result: "",
+      service_summary_id: "",
+      encounters: "",
       register: {
         date_requested: "",
       },
@@ -229,7 +276,7 @@ export default {
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     // this.axios
-    //   .get(`/api/v1/auth/authorization_code/90`)
+    //   .get(`/api/v1/auth/authorization_code/95930`)
     //   .then((response) => {
     //     this.codes = response.data;
     //     console.log(response);
@@ -239,69 +286,53 @@ export default {
     //   });
   },
   methods: {
-    getCodes() {
-      this.user = JSON.parse(localStorage.getItem("user"));
 
-      if (this.user.type == "employee" || this.user.type == "shis") {
-        this.axios
-          .get(`/api/v1/auth/authorization_code/95930`)
-          .then((response) => {
-            this.codes = response.data;
-            console.log(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-      if (this.user.type == "tpa_employee" || this.user.type == "tpa") {
-        this.axios
-          .get(`/api/v1/auth/authorization_code-tpa`)
-          .then((response) => {
-            this.codes = response.data;
-            console.log(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-
-      if (this.user.type == "provider_employee") {
-        this.axios
-          .get(
-            `/api/v1/auth/authorization_code-provider/${this.user.institutional_id}`
-          )
-          .then((response) => {
-            this.codes = response.data;
-            console.log(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-      if (this.user.type == "provider") {
-        this.axios
-          .get(`/api/v1/auth/authorization_code-provider/${this.user.id}`)
-          .then((response) => {
-            this.codes = response.data;
-            console.log(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
+    getCodes(){
+       this.user = JSON.parse(localStorage.getItem("user"));
+       if ( this.user.type == 'provider'  || this.user.type == 'provider_employee' ) {
+         this.getCodesProvider()
+       }
+        if ( this.user.type == 'tpa' || this.user.type == 'tpa_employee' ) {
+         this.getCodesTpa()
+       }
+        if ( this.user.type == 'employee' || this.user.type == 'shis' ) {
+         this.getCodesAgency()
+       }
     },
-    generateCode(diag) {
+
+    getCodesAgency() {
+      this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .post(`/api/v1/auth/generateCode`,{
-          id: diag.id
-        })
+        .get(`/api/v1/auth/authorization_code/95930`)
         .then((response) => {
-         this.getCodes()
+          this.codes = response.data;
           console.log(response);
-           this.$toasted.info("Generated Successfully", {
-            position: "top-center",
-            duration: 3000,
-          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+     getCodesProvider() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .get(`/api/v1/auth/authorization_code-provider`)
+        .then((response) => {
+          this.codes = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+      getCodesTpa() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .get(`/api/v1/auth/authorization_code-tpa`)
+        .then((response) => {
+          this.codes = response.data;
+          console.log(response);
         })
         .catch((error) => {
           console.error(error);
@@ -316,6 +347,7 @@ export default {
         })
         .then((response) => {
           this.search_result = response.data;
+          this.getRecords()
 
           console.log(response);
           this.$toasted.info("Searched Successfully", {
@@ -335,6 +367,24 @@ export default {
         });
     },
 
+    generateCode(diag) {
+      this.axios
+        .post(`/api/v1/auth/generateCode`,{
+          id: diag.id
+        })
+        .then((response) => {
+         this.getCodes()
+          console.log(response);
+           this.$toasted.info("Generated Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
     AddDisease() {
       this.isLoading = true;
       this.axios
@@ -348,13 +398,15 @@ export default {
             this.search_result.type == "dependent"
               ? this.search_result.data.id
               : 0,
-          date_requested: this.register.date_requested,
           org_id: this.search_result.data.org_id,
-          provider_id: this.user.institutional_id,
+           provider_id: this.user.institutional_id,
+           service_summary_id: this.service_summary_id,
+           referred_to_facility: this.referred_to_facility.id,
         })
         .then((response) => {
           console.log(response);
           this.isLoading = false;
+          let org =  response.data.org
           this.getCodes();
           this.$toasted.info(`${response.data.message}`, {
             position: "top-center",
@@ -362,6 +414,7 @@ export default {
           });
 
           this.clearIt();
+          this.sendSMS(org)
         })
         .catch((error) => {
           console.log(error.response);
@@ -371,14 +424,65 @@ export default {
           });
         });
     },
+     getRecords(){
+        this.user = JSON.parse(localStorage.getItem("user"));
+        this.axios
+          .post(`/api/v1/auth/gethealthRecord`, {
+            provider: this.user.institutional_id,
+            patient_id:  this.search_result.type == "client"
+              ? this.search_result.data.id
+              : null,
+            dependent_id:  this.search_result.type == "dependent"
+              ? this.search_result.data.id
+              : null,
+
+          })
+          .then((response) => {
+            this.encounters = response.data.data;
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    },
     clearIt() {
       this.register.date_requested = "";
       this.searchkey = "";
       this.search_result = "";
     },
+    getProviders() {
+      this.axios
+        .get(`/api/v1/auth/providerAgency/95930`)
+        .then((response) => {
+          this.providers = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    sendSMS(org){
+       this.isLoading = true;
+          this.axios.post(`https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${this.message}&recipients=${org.phone_number}`, {
+
+          })
+          .then(response=>{
+              console.log(response);
+              let reply = response.data.msg
+              this.clearIt();
+              this.isLoading = false;
+              this.$toasted.info(`${reply}`, {position: 'top-center', duration:3000 })
+
+          })
+          .catch(error=>{
+              console.log(error.response)
+          })
+    }
   },
   created() {
     this.getCodes();
+     this.getProviders();
+     this.getRecords();
   },
 };
 </script>

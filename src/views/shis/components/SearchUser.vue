@@ -60,7 +60,7 @@
               </div>
             </div>
             <button
-              class="btn btn-primary btn-block btn-lg"
+              class="btn btn-success btn-block btn-lg"
               @click="SearchUser"
               style="margin-top: 20px"
             >
@@ -251,10 +251,10 @@ export default {
                 duration: 3000,
               });
             } 
-            if (  this.user.type == "employee" ||
-              this.user.type == "shis" ) {
+            if (  this.user.type == "employee" || 
+              this.user.type == "shis" || this.user.type == "tpa"  || this.user.type == "tpa_employee" ){
               this.$router.push(`/client/${user.id}`);
-              this.$toasted.info("Searched Successfully l", {
+              this.$toasted.info("Searched Successfully", {
                 position: "top-center",
                 duration: 3000,
               });

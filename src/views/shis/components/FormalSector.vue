@@ -102,7 +102,7 @@
                             </div>
                             <div>
                                 <p class="h4">Claims</p>
-                                <h1 class="fw-400">{{claims.meta.total}}</h1>
+                                <h1 class="fw-400">{{claims.length}}</h1>
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,11 @@ export default {
 
     getClaims(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/claims/95930`)
+      this.axios.get(`/api/v1/auth/claims/95930`,{
+        params:{
+           claim_status: 'All',
+        }
+      })
                   .then(response => {
                       this.claims = response.data
                       console.log(response)

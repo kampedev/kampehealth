@@ -27,6 +27,7 @@ import AddDependentsOffline from "../views/clients/offline/AddDependentsOffline.
 import AddClientFormFormal from "../views/clients/AddClientFormFormal.vue";
 import AddClientFormVoluntary from "../views/clients/AddClientFormVoluntary.vue";
 import EditProvider from "../views/providers/EditProvider.vue";
+import UpdateProviderBank from "../views/providers/UpdateProviderBank.vue";
 import ManageClientsEmployee from "../views/clients/ManageClientsEmployee.vue";
 import SingleClient from "../views/clients/SingleClient.vue";
 import SinglePatient from "../views/clients/SinglePatient.vue";
@@ -52,6 +53,8 @@ import SingleDependent from "../views/dependents/SingleDependent.vue";
 import AddPlan from "../views/plans/AddPlan.vue";
 import Plans from "../views/plans/Plans.vue";
 import Funds from "../views/funds/Funds.vue";
+import PaymentOrdersClaims from "../views/funds/PaymentOrdersClaims.vue";
+import PaymentOrdersCap from "../views/funds/PaymentOrdersCap.vue";
 import StateDashboard from "../views/shis/StateDashboard.vue";
 import AllClaims from "../views/claims/AllClaims.vue";
 import Allreferrals from "../views/claims/Allreferrals.vue";
@@ -62,6 +65,8 @@ import SingleClaim from "../views/claims/SingleClaim.vue";
 import SingleReferral from "../views/claims/SingleReferral.vue";
 import EditClaim from "../views/claims/EditClaim.vue";
 import ServiceProcessing from "../views/claims/ServiceProcessing.vue";
+import ClaimsbyProvider from "../views/claims/ClaimsbyProvider.vue";
+import ManageClaimsProvider from "../views/claims/ManageClaimsProvider.vue";
 import AddReferral from "../views/claims/AddReferral.vue";
 import TransferofHCPRequests from "../views/others/TransferofHCP.vue";
 // import SingleTransferofHCP from "../views/others/SingleTransferofHCP.vue";
@@ -116,6 +121,7 @@ import EcounterPatientPage from "../views/shis/components/EncounterPatientPage.v
 import ManageDiagnosis from "../views/shis/ManageDiagnosis.vue";
 import ChangeFacility from "../views/others/ChangeFacility.vue";
 import AuthorizationCode from "../views/claims/AuthorizationCode.vue";
+import SingleAuthorizationCode from "../views/claims/SingleAuthorizationCode.vue";
 
 Vue.use(VueRouter);
 
@@ -369,6 +375,16 @@ const routes = [
       requiresAuth: true,
     },
   },
+
+  {
+    path: "/edit-provider-bank/:id",
+    component: UpdateProviderBank,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
+  
   {
     path: "/hmo-dashboard",
     component: HDashboard,
@@ -503,8 +519,43 @@ const routes = [
     },
   },
   {
+    path: "/payment-claims",
+    component: PaymentOrdersClaims,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/payment-capitations",
+    component: PaymentOrdersCap,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/transaction/:id",
+    component: SingleTransaction, 
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/all-claims",
     component: AllClaims,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/all-claims-facility",
+    component: ManageClaimsProvider,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/all-claims/:id",
+    component: ClaimsbyProvider,
     meta: {
       requiresAuth: true,
     },
@@ -517,7 +568,7 @@ const routes = [
     },
   },
   {
-    path: "/add-claim",
+    path: "/add-claim/:id",
     component: AddClaim,
     meta: {
       requiresAuth: true,
@@ -797,13 +848,7 @@ const routes = [
       requiresAuth: true,
     },
   },
-  {
-    path: "/transaction",
-    component: SingleTransaction,
-    meta: {
-      requiresAuth: true,
-    },
-  },
+ 
   // {
   //   path: '/provider-employee',
   //   component: ProviderEmployee,
@@ -891,6 +936,13 @@ const routes = [
   {
     path: "/authorization-code",
     component: AuthorizationCode,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/authorization-code/:id",
+    component: SingleAuthorizationCode,
     meta: {
       requiresAuth: true,
     },

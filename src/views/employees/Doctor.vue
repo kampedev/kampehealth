@@ -4,7 +4,6 @@
 
     <main class="admin-main">
       <!--site header begins-->
-
       <section class="admin-content">
         <div class="container">
           <div class="row">
@@ -22,7 +21,7 @@
             
             </div>
 
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-4 col-md-4">
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
@@ -35,14 +34,14 @@
                     <!-- </router-link> -->
                   </div>
                   <div>
-                    <p class="text-muted text-overline m-0">My Records</p>
+                    <p class="text-muted text-overline m-0">My Encounters</p>
                     <h1 class="fw-400">{{ records.meta.total }}</h1>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-4 col-md-4">
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
@@ -55,12 +54,34 @@
                     <!-- </router-link> -->
                   </div>
                   <div>
-                    <p class="text-muted text-overline m-0">Patients</p>
+                    <p class="text-muted text-overline m-0">Enrollees</p>
                     <h1 class="fw-400">{{ clients.length }}</h1>
                   </div>
                 </div>
               </div>
             </div>
+
+             <div class="col-lg-4 col-md-4">
+              <div class="card m-b-30">
+                <div class="card-body">
+                  <div class="pb-2">
+                    <router-link :to="{ path: '/all-referrals'}">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-success rounded-circle">
+                        <i class="fe fe-external-link"></i>
+                      </div>
+                    </div>
+                    </router-link>
+                  </div>
+                  <div>
+                    <p class="text-muted text-overline m-0">Incoming Referrals</p>
+                    <h1 class="fw-400">{{ referrals.meta.total }}</h1> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+          
           </div>
 
           <div class="row">
@@ -160,6 +181,7 @@ export default {
       records: "",
       clients: "",
       wallet: "",
+      referrals: "",
       complaints: "",
       user: null,
     };
@@ -211,6 +233,20 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+    getfacilityReferrals(){
+        this.axios
+          .get(
+            `/api/v1/auth/referrals-secondary/${this.user.institutional_id}`
+          )
+          .then((response) => {
+            this.referrals = response.data;
+            console.log(response);
+            this.isLoading = false;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
     },
     getClients() {
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -339,6 +375,7 @@ export default {
     this.getDataFromDb();
     this.getServices();
     this.getDrugs();
+    this.getfacilityReferrals();
   },
 };
 </script>

@@ -72,13 +72,13 @@
               </div>
             </a>
             
-            <a href="/all-referrals" class="d-block m-b-10"
+            <a href="/authorization-code" class="d-block m-b-10"
             v-if="user.type == 'tpa' || user.type == 'tpa_employee' "
             >
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-cancel text-warning"></i> 
-                  {{result.pending_referrals}} pending Referral(s) need your attention
+                  {{result.pending_referrals}} pending Auth Code(s) need your attention
                 </div>
               </div>
             </a>

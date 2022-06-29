@@ -40,14 +40,14 @@
 
                <button
                 style="margin-top: 10px"
-                class="btn btn-outline-primary float-left"
+                class="btn btn-outline-success float-left"
               >
-                {{referrals.total}} Referrals
+                {{referrals.meta.total}} Referrals
               </button>
 
                  <button
                   style="margin-top: 10px"
-                class="btn btn-outline-primary float-right"
+                class="btn btn-outline-success float-right"
               >
                 <download-excel
                   :data="referrals.data"
@@ -67,7 +67,7 @@
                       <th>Date</th>
                       <th>Refering HCP</th>
                       <th>Recipient HCP</th>
-                      <th>Diagnosis</th>
+                      <th>TPA</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -75,15 +75,15 @@
                   <tbody>
                     <tr v-for="ref in referrals.data" v-bind:key="ref.id">
                       <td>
-                        <router-link :to="{ path: '/referral/' + ref.id }">
-                          {{ ref.date | moment("dddd, MMMM Do YYYY") }}
+                        <router-link :to="{ path: '/authorization-code/' + ref.id }">
+                          {{ ref.date_requested | moment("dddd, MMMM Do YYYY") }}
                         </router-link>
                       </td>
-                      <td>{{ ref.referring.agency_name }}</td>
-                      <td>{{ ref.referred.agency_name }}</td>
-                      <td>{{ ref.diagnosis.name }}</td>
+                      <td>{{ ref.provider.agency_name }}</td>
+                      <td>{{ ref.recipientfacility.agency_name }}</td>
+                      <td>{{ ref.tpa.organization_name }}</td>
                       <td>
-                        <span v-if="ref.status == 'approved'">
+                        <span >
                           <button
                             type="button"
                             class="
@@ -91,10 +91,10 @@
                               m-b-15
                               ml-2
                               mr-2
-                              badge badge-soft-success
+                              badge badge-soft-dark
                             "
                           >
-                            approved
+                            {{ref.status}}
                           </button>
 
                           <details>
@@ -103,7 +103,7 @@
                                 Code: <i class="mdi mdi-eye-check"></i>
                               </span>
                             </summary>
-                            <p>{{ ref.authorization_code }}</p>
+                            <p>{{ ref.code_created }}</p>
                           </details>
                         </span>
 
@@ -131,7 +131,7 @@
                         </span>
                       </td>
                       <td>
-                        <router-link :to="{ path: '/referral/' + ref.id }">
+                        <router-link :to="{ path: '/authorization-code/' + ref.id }">
                           <button
                             type="button"
                             name="button"
@@ -181,7 +181,7 @@ export default {
     return {
       user: null,
       referrals: "",
-      provider_referral_category: "primary",
+      provider_referral_category: "secondary",
       edit: false,
       show: false,
       showsearch: false,
@@ -189,8 +189,8 @@ export default {
       fullPage: true,
       current_page: 1,
       buttoncolor: {
-        informal: "btn btn-default",
-        formal: "btn btn-success",
+        informal: "btn btn-success",
+        formal: "btn btn-default",
       },
       json_fields: {
         "Patient Name": "client.full_name",

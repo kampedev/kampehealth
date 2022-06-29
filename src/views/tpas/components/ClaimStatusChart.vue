@@ -21,7 +21,8 @@ export default {
   },
   methods: {
 
-     getOrgDetails() {
+    
+          getOrgDetails() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .get(`/api/v1/auth/getOrgDetails/${this.user.id}`)
@@ -36,12 +37,21 @@ export default {
           console.error(error);
         });
     },
-
     getDashboardLGA(org_id) {
       this.axios
-        .get(`/api/v1/auth/dashboardtpareferrals/${org_id}`)
+        .get(`/api/v1/auth/dashboardtpaclaims/${org_id}`)
         .then((response) => {
+          // console.log(response.data);
           var data = response.data;
+          // var seriesb = data[0].wards
+          // var categories  = [];
+          // var series = [];
+          // for (let index = 0; index < seriesb.length; index++) {
+
+          //     const element = seriesb[index];
+
+          //     categories.push(element[index]);
+          //     }
 
           console.log(data[0].wards);
           this.chartOptions = {
@@ -49,7 +59,7 @@ export default {
               type: "pie",
             },
             title: {
-              text: "Referrals Distribution by Status",
+              text: "Claims Distribution by Status",
             },
 
             accessibility: {
@@ -77,7 +87,7 @@ export default {
                 '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
             },
 
-            series: data[0].referrals,
+            series: data[0].claims,
           };
         });
     },

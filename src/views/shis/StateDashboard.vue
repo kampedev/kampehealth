@@ -73,7 +73,7 @@
                       <th>Name</th>
                       <th>Phone Number</th>
                       <th>Sector</th>
-                      <th>OHIS Number</th>
+                      <th>O'HIS Number</th>
                       <th>Action</th>
                       <th>Status</th>
                     </tr>

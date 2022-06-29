@@ -16,8 +16,19 @@
         </div>
       </div>
     </div>
+
     <section>
       <div class="container">
+        <div class="col-md-12 card">
+          <div class="card-header"></div>
+
+          <div class="card-body">
+            <button class="btn btn-outline-info spacer-side" @click="getPending">Pending</button>
+            <button class="btn btn-outline-success spacer-side"  @click="getApproved" v-if="user.user_role != '0' ">Approved</button>
+            <button class="btn btn-outline-danger spacer-side"  @click="getRejected"  v-if="user.user_role != '0' ">Rejected</button>
+          </div>
+        </div>
+
         <div class="row">
           <div :class="card_style">
             <div class="card">
@@ -43,7 +54,7 @@
                     </thead>
                     <tbody>
                       <tr v-for="trf in transfers" v-bind:key="trf.id">
-                        <!-- <td> {{ref.created_at}} </td> -->
+                      
 
                         <td>
                           <span v-if="trf.client != null">
@@ -53,7 +64,7 @@
                         <td>{{ trf.oldfacility.agency_name }}</td>
                         <td>{{ trf.newfacility.agency_name }}</td>
                         <td>
-                          {{ transfer.reason_for_change }}
+                          {{ trf.reason_for_change }}
                         </td>
 
                         <td>
@@ -97,7 +108,7 @@
                               <button
                                 class="btn btn-success  "
                                 href="#"
-                                @click="remarkService(service)"
+                                @click="updateRequestA(trf)"
                               >
                                 Approve
                                 <i class="fe fe-check"></i>
@@ -106,7 +117,7 @@
                               <button
                                 class="btn btn-danger"
                                 href="#"
-                                @click="remarkService(service)"
+                                @click="updateRequestR(trf)"
                               >
                                 Decline
                                 <i class="fe fe-x"></i>
@@ -246,6 +257,7 @@ export default {
       searchkey: "",
       transfers: "",
       quickref: "",
+      status: "created",
       card_style: "col-md-12",
       pageNum: 1,
       edit: false,
@@ -269,6 +281,18 @@ export default {
     //
   },
   methods: {
+    getPending(){
+      this.status = 'created';
+      this.AllTransfers()
+    },
+     getApproved(){
+      this.status = 'approved';
+      this.AllTransfers()
+    },
+     getRejected(){
+      this.status = 'declined';
+      this.AllTransfers()
+    },
     selected(value) {
       this.transfer.new_health_facility = value;
     },
@@ -295,16 +319,20 @@ export default {
           this.isLoading = false;
         });
     },
-    updateRequestA() {
+    updateRequestA(trf) {
       if (confirm("Are you sure you want to approve this request")) {
         this.isLoading = true;
         this.axios
-          .post(`/api/v1/auth/change_providers/update/${this.quickref.id}`, {
+          .post(`/api/v1/auth/change_providers/update/${trf.id}`, {
             status: "approved",
           })
           .then((response) => {
             console.log(response);
-            this.getTransfer();
+            this.AllTransfers();
+            this.$toasted.success("Updated Successfully", {
+              position: "top-center",
+              duration: 3000,
+            });
             this.isLoading = false;
           })
           .catch((error) => {
@@ -313,17 +341,21 @@ export default {
           });
       }
     },
-    updateRequestR() {
+    updateRequestR(trf) {
       if (confirm("Are you sure you want to reject?")) {
         this.isLoading = true;
         this.axios
-          .post(`/api/v1/auth/change_providers/update/${this.quickref.id}`, {
+          .post(`/api/v1/auth/change_providers/update/${trf.id}`, {
             status: "declined",
           })
           .then((response) => {
             console.log(response);
-            this.getTransfer();
+            this.AllTransfers();
             this.isLoading = false;
+            this.$toasted.success("Updated Successfully", {
+              position: "top-center",
+              duration: 3000,
+            });
           })
           .catch((error) => {
             console.log(error.response);
@@ -335,7 +367,7 @@ export default {
     AllTransfers() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/all/change_providers/95930?page=${this.pageNum}`)
+        .get(`/api/v1/auth/all/change_providers/95930?page=${this.pageNum}&status=${this.status}`)
         .then((response) => {
           this.transfers = response.data.data;
           console.log(response);
@@ -377,5 +409,9 @@ export default {
 
 .dropdown-menu {
   padding: 1rem;
+}
+.spacer-side{
+  margin-left:3px;
+  margin-right:3px;
 }
 </style>

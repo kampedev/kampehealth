@@ -5,6 +5,7 @@
       <div class="jumbotron">
         <h1 class="h3 text-dark">Patient Details</h1>
       </div>
+     
 
       <div class="vld-parent">
         <loading
@@ -24,10 +25,10 @@
 
           <!-- <button
             class="btn btn-outline-success spacer"
-            @click="createClaim"
-            v-if="encounterDetails.claim_id == null"
+            data-toggle="modal"
+            data-target="#example_01"
           >
-            Generate Claim <i class="fe fe-send"></i>
+            Request Authorization Code <i class="fe fe-send"></i>
           </button> -->
 
           <router-link :to="`/claim/${encounterDetails.claim_id}`">
@@ -87,6 +88,14 @@
               {{ encounterDetails.provider.agency_name }}
             </p>
           </div>
+
+           <div class="primary__detail">
+            <i class="fas fa-calendar fa-2x icon"></i>
+            <p class="mda primary__detail--text">
+              {{ encounterDetails.created_at }} 
+               <span class="text-primary font-weight-light" > ({{ encounterDetails.created_at  | moment("from", "now") }}) </span> 
+            </p>
+          </div>
         </div>
         <div class="user__-details--container-other">
           <div class="user__details-header-and-renewal__CTA">
@@ -134,7 +143,7 @@
           <br />
 
           <div class="card table-responsive">
-            <strong class="h4 text-center card-header">
+            <strong class="h5 text-center card-header">
               Service/Drugs Administered During Encounter</strong
             >
             <table class="table align-td-middle table-card">
@@ -143,10 +152,10 @@
                   <th>Number</th>
                   <th>Type</th>
                   <th>Name</th>
-                  <th>Dose</th>
-                  <th>Frequency</th>
-                  <th>Days</th>
-                  <th>Cost</th>
+                  <th>Frequency/Qty </th>
+                  <th>Unit Amount</th>
+                  <!-- <th>Days</th> -->
+                  <th>Amount</th>
                 </tr>
               </thead>
               <tbody>
@@ -167,51 +176,108 @@
                       service.drug.drug_name
                     }}</span>
                   </td>
-
-                  <td>
-                    <span v-if="service.drug != null">
-                      {{ service.dose }}
-                    </span>
-                  </td>
-                  <td>
+                   <td>
                     <span>
                       {{ service.frequency }}
                     </span>
                   </td>
-
                   <td>
+                     <span v-if="service.service != null">{{
+                      service.service.price
+                    }}</span>
+                    <span v-if="service.drug != null">{{
+                      service.drug.price
+                    }}</span>
+                  </td>
+
+                  <!-- <td>
+                    <span v-if="service.drug != null">
+                      {{ service.dose }}
+                    </span>
+                  </td> -->
+                 
+                  <!-- <td>
                     <span>
                       {{ service.days }}
                     </span>
-                  </td>
+                  </td> -->
                   <td>
-                    <span v-if="service.service != null"> </span>
+                    <span v-if="service.service != null">  &#8358;{{ service.total_cost | numeral(0, 0) }} </span>
                     <span v-if="service.drug != null">
                       &#8358;{{ service.total_cost | numeral(0, 0) }}</span
                     >
                   </td>
                 </tr>
-
                 <tr>
-                  <td><strong>10% of Drug Charged to Customer </strong></td>
-                  <td>
-                    <strong> &#8358;{{ tenPercent | numeral(0, 0) }}</strong>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td><strong>Total Cost of Encounter</strong></td>
-                  <td>
+                  <td colspan="5"><strong>Total Cost of Encounter</strong></td>
+                  <td  >
                     <strong
-                      >Total = &#8358;{{
+                      > &#8358;{{
                         totalServiceCharge | numeral(0, 0)
                       }}</strong
                     >
                   </td>
                 </tr>
+
+                <tr>
+                  <td ><strong>10% of Drug Charged to Customer </strong></td>
+                  <td>
+                    <strong> &#8358;{{ tenPercent | numeral(0, 0) }}</strong>
+                  </td>
+                </tr>
+
+                
               </tbody>
             </table>
           </div>
+
+            <!-- Modal for Authorization Code -->
+          <div
+            class="modal fade"
+            id="example_01"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="example_02"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered modal-lg"
+              role="document"
+            >
+              <div class="modal-content">
+                <div class="container-fluid">
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+
+                  <div class="row p-t-20 p-b-20">
+                    <div class="col-md-12">
+                      <p class="h4">Authorization Code Request </p>
+
+                      <div class="form-group col-md-12 ">
+                        <label>Select Secondary Facility </label>
+                        <v-select
+                          v-model="referred_to_facility"
+                          label="agency_name"
+                          :options="providers"
+                        />
+                      </div>
+
+                      <div class="col-md-12">
+                          <button class="btn btn-success btn-block" @click="createAuthCode">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal Ends -->
         </div>
       </div>
     </main>
@@ -232,10 +298,12 @@ export default {
   data() {
     return {
       encounterDetails: "",
+      providers: "",
       patient: "",
       dependants: [],
       isLoading: false,
       encounterId: "",
+      referred_to_facility: "",
       fullPage: true,
       payment_type: "online",
       selectedPaymentOption: "",
@@ -299,6 +367,61 @@ export default {
         this.isLoading = false;
       }
     },
+     createAuthCode() {
+     if (confirm('Are you sure you want to submit request') ) {
+        this.isLoading = true;
+      this.axios
+        .post("/api/v1/auth/authorization_code", {
+          agency_id: 95930,
+          principal_id: this.encounterDetails.client_id,
+          dependent_id: this.encounterDetails.dependent_id,
+          provider_id: this.encounterDetails.provider_id,
+          referred_to_facility: this.referred_to_facility.id,
+          service_summary_id: this.encounterDetails.id,
+          org_id:  this.encounterDetails.patient == null ?  this.encounterDetails.dependent.user.org_id : this.encounterDetails.patient.org_id   ,
+        })
+        .then((response) => {
+          console.log(response);
+          this.isLoading = false;
+          this.getUserEncounterDetails();
+          // this.sendSMS();
+          this.$toasted.info(`${response.data.message}`, {
+            position: "top-center",
+            duration: 3000,
+          });
+
+        })
+        .catch((error) => {
+          console.log(error.response);
+          this.isLoading = false;
+          this.$breadstick.notify("Oops! something went wrong", {
+            position: "top-right",
+          });
+        });
+     }
+    },
+     sendSMS() {
+      this.isLoading = true;
+      let message = `your code requested is successful. Go to https://app.oshia.ng/authorization-code  `;
+      this.axios
+        .post(
+          `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${message}&recipients=${this.encounterDetails.creator.phone_number}`,
+          {}
+        )
+        .then((response) => {
+          console.log(response);
+          let reply = response.data.msg;
+          this.clearIt();
+          this.isLoading = false;
+          this.$toasted.info(`${reply}`, {
+            position: "top-center",
+            duration: 3000,
+          });
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
     printMe() {
       var printContents = document.getElementById("printDiv").innerHTML;
       var originalContents = document.body.innerHTML;
@@ -306,10 +429,22 @@ export default {
       window.print();
       document.body.innerHTML = originalContents;
     },
+      getProviders() {
+      this.axios
+        .get(`/api/v1/auth/providerAgency/95930`)
+        .then((response) => {
+          this.providers = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
 
   created() {
     this.getUserEncounterDetails();
+    this.getProviders();
   },
 };
 </script>

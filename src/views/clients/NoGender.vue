@@ -282,7 +282,14 @@ export default {
           user_image: this.idcard_offline[this.json_index].user_image,
           plan_type: this.idcard_offline[this.json_index].plan_type,
           nimc_number: this.idcard_offline[this.json_index].nimc_number,
-          enrolled_by: this.idcard_offline[this.json_index].enrolled_by,
+          agency_id: 95930,
+          state: 2676,
+          enrolled_by: 95930,
+          sector: this.idcard_offline[this.json_index].sector,
+          sectorType: this.idcard_offline[this.json_index].sectorType,
+          marital_status: this.idcard_offline[this.json_index].marital_status,
+          localgovt: this.idcard_offline[this.json_index].localgovt,
+          user_role: 0,
         })
         .then((response) => {
           console.log(response);

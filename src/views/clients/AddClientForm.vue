@@ -369,18 +369,17 @@
                         </select>
                       </div>
 
-                        <div class="form-group col-md-6">
-                          <label
-                            >Principal Facility for Accessing Health Care 
-                          </label>
-                          <v-select
-                            v-model="register.provider_id"
-                            :options="providers"
-                            label="agency_name"
-                            :value="register.provider_id"
-                          ></v-select>
-                        </div>
-                                         
+                      <div class="form-group col-md-6">
+                        <label
+                          >Principal Facility for Accessing Health Care
+                        </label>
+                        <v-select
+                          v-model="register.provider_id"
+                          :options="providers"
+                          label="agency_name"
+                          :value="register.provider_id"
+                        ></v-select>
+                      </div>
 
                       <div class="form-group col-md-6">
                         <label for="inputCity">Blood Group</label>
@@ -504,30 +503,27 @@ export default {
   },
 
   methods: {
-   
     submitForm() {
       if (this.user.type == "employee") {
-             if (this.register.provider_id != '') {
-            this.registerUserEmployee();
-          }
-          else{
-                 this.$toasted.error(`Facility cannot be null`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
+        if (this.register.provider_id != "") {
+          this.registerUserEmployee();
+        } else {
+          this.$toasted.error(`Facility cannot be null`, {
+            position: "top-center",
+            duration: 3000,
+          });
+        }
       }
 
-      if ( this.user.type == "tpa" || this.user.type == "tpa_employee" ) {
-         if (this.register.provider_id != '') {
-            this.registerUserTPA();
-          }
-          else{
-                 this.$toasted.error(`Facility cannot be null`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
+      if (this.user.type == "tpa" || this.user.type == "tpa_employee") {
+        if (this.register.provider_id != "") {
+          this.registerUserTPA();
+        } else {
+          this.$toasted.error(`Facility cannot be null`, {
+            position: "top-center",
+            duration: 3000,
+          });
+        }
       }
     },
     fetchWards() {
@@ -679,6 +675,7 @@ export default {
           localgovt: this.register.localgovt,
           ward: this.register.ward,
           blood: this.register.blood,
+          dob: this.register.dob,
           expiry_date: this.register.expiry_date,
           address1: this.register.address,
           genotype: this.register.genotype,

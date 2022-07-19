@@ -182,6 +182,7 @@
                             >Date of Birth<span class="text-danger">*</span>
                           </label>
                         </p>
+
                         <input
                           type="date"
                           required
@@ -525,6 +526,8 @@ export default {
           });
         }
       }
+
+      // console.log(this.register);
     },
     fetchWards() {
       this.axios

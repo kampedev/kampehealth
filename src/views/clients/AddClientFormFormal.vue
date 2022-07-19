@@ -104,18 +104,17 @@
                         </div>
                       </div>
 
-                       <div class="form-group col-md-6"
-                       v-if="register.sector == 'Civil Servant'"
-                       >
-                          <label
-                            >Select MDA
-                          </label>
-                          <v-select
-                            v-model="register.place_of_work"
-                            :options="mdas"
-                            label="name"
-                          ></v-select>
-                        </div>
+                      <div
+                        class="form-group col-md-6"
+                        v-if="register.sector == 'Civil Servant'"
+                      >
+                        <label>Select MDA </label>
+                        <v-select
+                          v-model="register.place_of_work"
+                          :options="mdas"
+                          label="name"
+                        ></v-select>
+                      </div>
 
                       <div
                         class="form-group col-md-6"
@@ -458,20 +457,17 @@
                       </div>
 
                       <div class="form-group col-md-6">
-                          <label
-                            >Principal Facility for Accessing Health Care
-                          </label>
-                          <v-select
-                            
-                            v-model="register.provider_id"
-                            :options="providers"
-                            label="agency_name"
-                            :value="register.provider_id"
-                            @input="selected"
-                          ></v-select>
-                        </div>
-
-                     
+                        <label
+                          >Principal Facility for Accessing Health Care
+                        </label>
+                        <v-select
+                          v-model="register.provider_id"
+                          :options="providers"
+                          label="agency_name"
+                          :value="register.provider_id"
+                          @input="selected"
+                        ></v-select>
+                      </div>
 
                       <div class="form-group col-md-6">
                         <label for="inputCity">Blood Group</label>
@@ -602,30 +598,32 @@ export default {
       this.selected_provider_dependents = value.agency_name;
     },
     submitForm() {
-      if (this.user.type == "employee") {
+      // if (this.user.type == "employee") {
 
-          if (this.register.provider_id != '') {
-            this.registerUserEmployee();
-          }
-          else{
-                 this.$toasted.error(`Facility cannot be null`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
-      }
+      //     if (this.register.provider_id != '') {
+      //       this.registerUserEmployee();
+      //     }
+      //     else{
+      //            this.$toasted.error(`Facility cannot be null`, {
+      //         position: "top-center",
+      //         duration: 3000,
+      //       });
+      //     }
+      // }
 
-      if (this.user.type == "shis") {
-         if (this.register.provider_id != '') {
-            this.registerUserAdmin();
-          }
-          else{
-                 this.$toasted.error(`Facility cannot be null`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
-      }
+      // if (this.user.type == "shis") {
+      //    if (this.register.provider_id != '') {
+      //       this.registerUserAdmin();
+      //     }
+      //     else{
+      //            this.$toasted.error(`Facility cannot be null`, {
+      //         position: "top-center",
+      //         duration: 3000,
+      //       });
+      //     }
+      // }
+
+      console.log(this.register);
     },
     fetchWards() {
       this.axios

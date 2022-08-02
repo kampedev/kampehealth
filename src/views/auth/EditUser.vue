@@ -208,7 +208,7 @@
                         v-model="auth_user.dob"
                       />
                     </div>
-                    <div class="form-group col-md-6" v-if="user.user_role == 1">
+                    <div class="form-group col-md-6">
                       <label for="inputCity"
                         >Date of Expiry:
                         <strong>{{ auth_user.expiry_date }}</strong>

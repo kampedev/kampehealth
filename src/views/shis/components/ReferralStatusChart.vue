@@ -17,29 +17,13 @@ export default {
     };
   },
   mounted() {
-    this.getOrgDetails();
+    this.getDashboardLGA();
   },
   methods: {
 
-     getOrgDetails() {
-      this.user = JSON.parse(localStorage.getItem("user"));
+    getDashboardLGA() {
       this.axios
-        .get(`/api/v1/auth/getOrgDetails/${this.user.id}`)
-        .then((response) => {
-          this.orgDetails = response.data;
-          let org_id = response.data.id;
-          this.getDashboardLGA(org_id)
-
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
-    getDashboardLGA(org_id) {
-      this.axios
-        .get(`/api/v1/auth/dashboardtpareferrals/${org_id}`)
+        .get(`/api/v1/auth/referralsdashboard/95930`)
         .then((response) => {
           var data = response.data;
 

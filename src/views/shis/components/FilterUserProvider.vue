@@ -180,6 +180,7 @@ export default {
                 'Enrolled By':'userenrolledby.full_name',
                 '(Dependent) Enrolled By':'user.userenrolledby.full_name',
                 'MDA':'place_of_work',
+                "Enrollee Address": "address1",
                 'MDA (Dependent)':'user.place_of_work',
                 'Health Facility':'userprovider.agency_name',
 

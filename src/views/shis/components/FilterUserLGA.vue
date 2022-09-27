@@ -134,6 +134,7 @@ export default {
                 // 'LGA/Ward':'dob',
                 // 'HMO':'dob',
                 'Gender':'gender',
+                "Enrollee Address": "address1",
                 'phone_number':'phone_number' },
                 json_data: [],
                 json_meta: [

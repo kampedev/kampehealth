@@ -495,7 +495,10 @@
                     </div>
 
                     <div class="form-group">
-                      <button class="btn btn-success btn-block btn-lg">
+                      <button
+                        class="btn btn-success btn-block btn-lg"
+                        @click="submitForm()"
+                      >
                         Submit <i class="fe fe-send"></i>
                       </button>
                     </div>
@@ -598,32 +601,27 @@ export default {
       this.selected_provider_dependents = value.agency_name;
     },
     submitForm() {
-      // if (this.user.type == "employee") {
+      if (this.user.type == "employee") {
+        if (this.register.provider_id != "") {
+          this.registerUserEmployee();
+        } else {
+          this.$toasted.error(`Facility cannot be null`, {
+            position: "top-center",
+            duration: 3000,
+          });
+        }
+      }
 
-      //     if (this.register.provider_id != '') {
-      //       this.registerUserEmployee();
-      //     }
-      //     else{
-      //            this.$toasted.error(`Facility cannot be null`, {
-      //         position: "top-center",
-      //         duration: 3000,
-      //       });
-      //     }
-      // }
-
-      // if (this.user.type == "shis") {
-      //    if (this.register.provider_id != '') {
-      //       this.registerUserAdmin();
-      //     }
-      //     else{
-      //            this.$toasted.error(`Facility cannot be null`, {
-      //         position: "top-center",
-      //         duration: 3000,
-      //       });
-      //     }
-      // }
-
-      console.log(this.register);
+      if (this.user.type == "shis") {
+        if (this.register.provider_id != "") {
+          this.registerUserAdmin();
+        } else {
+          this.$toasted.error(`Facility cannot be null`, {
+            position: "top-center",
+            duration: 3000,
+          });
+        }
+      }
     },
     fetchWards() {
       this.axios

@@ -83,7 +83,7 @@
                     <button
                       class="btn btn-outline-danger spacer"
                       @click="deleteUser"
-                      v-if="user.user_role == 1"
+                      v-if="user.user_role != 0"
                     >
                       Delete <i class="fe fe-delete"></i>
                     </button>

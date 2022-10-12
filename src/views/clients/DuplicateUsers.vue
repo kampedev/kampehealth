@@ -50,10 +50,20 @@
                           <th>Type</th>
                           <th>Agency Name</th>
                           <th>Dependents</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="client in clients" v-bind:key="client.id">
+                          
+                          <td>
+                            {{ client.firstname }} {{ client.lastname }}
+                            {{ client.id }}
+                          </td>
+                          <td>{{ client.phone_number }}</td>
+                          <td>{{ client.type }}</td>
+                          <td>{{ client.agency_name }}</td>
+                          <td>{{ client.dependants.length }}</td>
                           <td>
                             <button
                               type="button"
@@ -63,16 +73,7 @@
                             >
                               <i class="fe fe-star"></i>
                             </button>
-                          </td>
-                          <td>
-                            {{ client.firstname }} {{ client.lastname }}
-                            {{ client.id }}
-                          </td>
-                          <td>{{ client.phone_number }}</td>
-                          <td>{{ client.type }}</td>
-                          <td>{{ client.agency_name }}</td>
-                          <td>{{ client.dependents.length }}</td>
-                          <td>
+
                             <button
                               type="button"
                               @click="deleteUser(client)"

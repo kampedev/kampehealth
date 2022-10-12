@@ -115,14 +115,14 @@
                             <i class="fe fe-eye"></i>
                           </button>
                         </router-link>
-                        <button
+                        <!-- <button
                           type="button"
                           @click="deleteUser(client)"
                           class="btn btn-outline-danger"
                           style="margin-left:10px; margin-top:10px;"
                         >
                           <i class="fe fe-delete"></i>
-                        </button>
+                        </button> -->
                       </td>
                     </tr>
                   </tbody>

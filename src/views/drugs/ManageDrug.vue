@@ -2,14 +2,14 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
     <main class="admin-main">
-       <div class="bg-dark m-b-30">
+       <div class="bg-success m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
                    <div class="col-md-12  mx-auto text-white p-b-30">
 
                      <div class="text-center">
-                       <h3 class="h3">Drugs Manager</h3>
+                       <h3 class="h3 text-dark">Drugs Manager</h3>
                      </div>
 
                    </div>

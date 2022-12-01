@@ -92,7 +92,7 @@
                     <div class="card m-b-30 bg-success">
                         <div class="card-body text-dark">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/#'}">
+                              <router-link :to="{ path: '/all-claims'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-clipboard"></i>
@@ -102,7 +102,7 @@
                             </div>
                             <div>
                                 <p class="h4">Claims</p>
-                                <h1 class="fw-400">{{claims.meta.total}}</h1>
+                                <h1 class="fw-400">{{claims.length}}</h1>
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                     <div class="card m-b-30 bg-info">
                         <div class="card-body text-dark">
                             <div class="pb-2">
-                              <router-link :to="{ path: '/#'}">
+                              <router-link :to="{ path: '/list-records'}">
                                 <div class="avatar avatar-lg">
                                     <div class="avatar-title bg-soft-primary rounded-circle">
                                         <i class="fe fe-file-plus"></i>
@@ -121,7 +121,7 @@
                             </div>
                             <div>
                                 <p class="h4">Encounters</p>
-                                <h1 class="fw-400">0</h1>
+                                <h1 class="fw-400">{{formaldata.encounters}} </h1>
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,11 @@ export default {
 
     getClaims(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/claims/95930`)
+      this.axios.get(`/api/v1/auth/claims/95930`,{
+        params:{
+           claim_status: 'All',
+        }
+      })
                   .then(response => {
                       this.claims = response.data
                       console.log(response)

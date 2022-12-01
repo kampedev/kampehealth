@@ -1,12 +1,11 @@
 <template>
-  <section class="admin-content " id="contact-search">
-    <Navbar />
-    <div class="bg-dark m-b-30">
+  <section class="admin-content" id="contact-search">
+    <div class="bg-success m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
             <div class="m-b-10">
-              <div class="avatar ">
+              <div class="avatar">
                 <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
               </div>
             </div>
@@ -23,7 +22,7 @@
         <div class="">
           <div class="row list">
             <div class="col-lg-12 col-md-12">
-              <div class="card m-b-30" style="margin-top:35px;">
+              <div class="card m-b-30" style="margin-top: 35px">
                 <div class="card-body">
                   <div class="text-center">
                     <p>
@@ -61,18 +60,18 @@
                             v-model="register.sector"
                             disabled
                           >
-                            <option value="Basic Healthcare Provision Fund"
-                              >Basic Healthcare Provision Fund</option
-                            >
-                            <option value="Vulnerable Groups"
-                              >Vulnerable Groups</option
-                            >
-                            <option value="Voluntary Contributor"
-                              >Voluntary Contributor</option
-                            >
-                            <option value="Organized Community Healthcare Plan"
-                              >Organized Community Healthcare Plan</option
-                            >
+                            <option value="Basic Healthcare Provision Fund">
+                              Basic Healthcare Provision Fund
+                            </option>
+                            <option value="Vulnerable Groups">
+                              Vulnerable Groups
+                            </option>
+                            <option value="Voluntary Contributor">
+                              Voluntary Contributor
+                            </option>
+                            <option value="Organized Community Healthcare Plan">
+                              Organized Community Healthcare Plan
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -108,15 +107,16 @@
                             :value="mda.name"
                             v-for="mda in mdas"
                             v-bind:key="mda.id"
-                            >{{ mda.name }}</option
                           >
+                            {{ mda.name }}
+                          </option>
                         </select>
                       </div>
                       <div
                         class="form-group col-md-6"
                         v-if="
                           register.sector ==
-                            'Tertiary Student Health Insurance Plan (T-SHIP)'
+                          'Tertiary Student Health Insurance Plan (T-SHIP)'
                         "
                       >
                         <label for="inputEmail4">Institution Name</label>
@@ -271,8 +271,7 @@
                           <option value="Divorced">Divorced</option>
                         </select>
                       </div>
-                    
-                    
+
                       <div class="form-group col-md-6">
                         <label for="inputCity"
                           >LGA <span class="text-danger">*</span></label
@@ -287,8 +286,9 @@
                             v-for="lga in lga_states"
                             v-bind:key="lga"
                             :value="lga.id"
-                            >{{ lga.local_name }}</option
                           >
+                            {{ lga.local_name }}
+                          </option>
                         </select>
                       </div>
 
@@ -303,22 +303,23 @@
                             v-for="ward in wards"
                             v-bind:key="ward.id"
                             :value="ward.id"
-                            >{{ ward.ward_name }}</option
                           >
+                            {{ ward.ward_name }}
+                          </option>
                         </select>
                       </div>
 
-                        <div class="form-group col-md-12" v-if="register.localgovt != ''">
+                      <div
+                        class="form-group col-md-12"
+                        v-if="register.localgovt != ''"
+                      >
                         <label for="inputAddress">TPA/HMO</label>
                         <input
                           type="text"
                           class="form-control"
                           :value="getTPA.tpa_name"
-                          
                           disabled
                         />
-
-                   
                       </div>
 
                       <div class="form-group col-md-6">
@@ -361,8 +362,8 @@
                     </div>
 
                     <div class="form-group">
-                      <button class="btn btn-primary btn-block btn-lg">
-                        Submit
+                      <button class="btn btn-success btn-block btn-lg">
+                        Submit <i class="fe fe-send"></i>
                       </button>
                     </div>
                   </form>
@@ -386,8 +387,6 @@
 </template>
 
 <script>
-import Navbar from "@/views/Navbar.vue";
-
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -395,10 +394,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 // import tpaLGAJson from "./../../public/offline/lga_tpa.json";
 import tpaLGAJson from "@/views/clients/lga_tpa.json";
 
-
 export default {
   components: {
-    Navbar,
     Loading,
   },
   data() {
@@ -422,6 +419,7 @@ export default {
       image: "",
       imagefile: null,
       lga_states: "",
+      response: "",
       tpa_Lga: tpaLGAJson,
       register: {
         firstname: "",
@@ -583,8 +581,8 @@ export default {
           grade_level: this.register.grade_level,
           date_of_entry: this.register.date_of_entry,
           marital_status: this.register.marital_status,
-          category_of_vulnerable_group: this.register
-            .category_of_vulnerable_group,
+          category_of_vulnerable_group:
+            this.register.category_of_vulnerable_group,
           // enrolled_by: this.user.id,
         })
         .then((response) => {
@@ -616,12 +614,6 @@ export default {
           }
           if (this.response.phone_number != null) {
             this.$toasted.error(`${this.response.phone_number}`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
-          else{
-             this.$toasted.error('Duplicate email', {
               position: "top-center",
               duration: 3000,
             });

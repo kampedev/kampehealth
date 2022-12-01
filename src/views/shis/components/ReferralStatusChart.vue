@@ -20,9 +20,10 @@ export default {
     this.getDashboardLGA();
   },
   methods: {
+
     getDashboardLGA() {
       this.axios
-        .get("/api/v1/auth/referralsdashboard/95930")
+        .get(`/api/v1/auth/referralsdashboard/95930`)
         .then((response) => {
           var data = response.data;
 

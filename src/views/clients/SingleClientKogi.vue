@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <div>
-      <div class="bg-dark m-b-30">
+      <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div
@@ -15,11 +15,12 @@
                 spacer-image
               "
             >
-              <div class="m-b-10">
-               
-              </div>
+              <div class="m-b-10"></div>
               <button v-clipboard="client.user.firstname">
-                <strong>{{ client.user.firstname }} {{ client.user.lastname }}</strong>
+                <strong
+                  >{{ client.user.firstname }}
+                  {{ client.user.lastname }}</strong
+                >
               </button>
             </div>
           </div>
@@ -71,9 +72,7 @@
                         >&times;</a
                       >
                     </div>
-                    <!-- <router-link :to="{ path: '/client.user/biometrics/'+client.user.id, params: {} }">
-                                           <button class="btn btn-info spacer"  > <i class="mdi mdi-hand"></i> </button>
-                                        </router-link> -->
+                  
 
                     <button
                       class="btn btn-outline-primary spacer"
@@ -84,6 +83,7 @@
                     <button
                       class="btn btn-outline-danger spacer"
                       @click="deleteUser"
+                      v-if="user.user_role != 0"
                     >
                       Delete <i class="fe fe-delete"></i>
                     </button>
@@ -105,7 +105,6 @@
                     >
                       <button
                         class="btn btn-outline-info spacer"
-                        v-if="client.user.type == 'client.user'"
                         @click="findDependents"
                       >
                         Dependents <i class="fe fe-users"></i>
@@ -131,6 +130,7 @@
                       <!-- Button trigger modal -->
                       <button
                         type="button"
+                         v-if="user.user_role == 1"
                         class="btn btn-outline-dark spacer"
                         data-toggle="modal"
                         data-target="#exampleModal"
@@ -172,6 +172,32 @@
                                 class="form-control"
                                 v-model="userPayment.amount"
                               />
+                              <div
+                                class="fileinput fileinput-new"
+                                data-provides="fileinput"
+                              >
+                                <span class="btn btn-file">
+                                  <span class="fileinput-new"
+                                    >Upload Picture <i class="fe fe-upload"></i
+                                  ></span>
+                                  <span class="fileinput-exists">Change</span>
+                                  <input
+                                    type="file"
+                                    accept="image/png, image/gif, image/jpeg"
+                                    name="..."
+                                    multiple
+                                    v-on:change="attachPaymentProof"
+                                  />
+                                </span>
+                                <span class="fileinput-filename"></span>
+                                <a
+                                  href="#"
+                                  class="close fileinput-exists"
+                                  data-dismiss="fileinput"
+                                  style="float: none"
+                                  >&times;</a
+                                >
+                              </div>
                             </div>
                             <div class="modal-footer">
                               <button
@@ -240,7 +266,7 @@
                     </div>
                     <div class="col-md-10">
                       <strong
-                        ><h2 class="h1 text-primary">
+                        ><h2 class="h1 text-success">
                           OSUN HEALTH INSURANCE SCHEME
                         </h2>
                       </strong>
@@ -251,19 +277,12 @@
 
                 <div class="card-body row">
                   <div class="col-md-4">
-                    <vue-initials-img
-                      :name="client.user.firstname + ' ' + client.user.lastname"
-                      class="img-thumbnail"
-                      size="300"
-                      v-if="client.user.user_image == null"
-                    />
                     <img
                       :src="
                         `https://api.hayokinsurance.com/image/${client.user.user_image}`
                       "
-                      class="img spacer-top"
+                      class="img"
                       alt="User Photo"
-                      v-if="client.user.user_image != null"
                       onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                     />
                     <!-- <img :src="`http://localhost:8000/image/${client.user.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user.user_image != null "> -->
@@ -275,8 +294,8 @@
                   <div class="col-md-8">
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">NAME :</strong>
-                      <strong>{{ client.user.lastname }}</strong
-                      >{{ client.user.firstname }}, {{ client.user.middlename }}
+                      <strong>{{ client.user.lastname }}</strong>
+                      {{ client.user.firstname }}, {{ client.user.middlename }}
                     </p>
                     <hr />
                     <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.user.id_card_number}}</strong></p> -->
@@ -301,7 +320,7 @@
                       >
                       <strong>{{ client.provider.agency_name }}</strong>
                     </p>
-                    
+
                     <hr />
                     <p
                       class="h3 spacer-top-bottom"
@@ -313,7 +332,7 @@
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">HMO/TPA:</strong>
-                      <strong> {{ client.tpa.organization_name }}</strong>
+                      <strong v-if="client.tpa != null">   {{ client.tpa.organization_name }}</strong>
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">
@@ -353,8 +372,12 @@
                     <hr />
                   </div>
 
-                  <p class="spacer-top-bottom">
-                    <strong>Enrolled By:</strong> {{ client.enrolled_by.firstname }}
+                  <p
+                    class="spacer-top-bottom"
+                    v-if="client.enrolled_by != null"
+                  >
+                    <strong>Enrolled By:</strong>
+                    {{ client.enrolled_by.firstname }}
                     {{ client.enrolled_by.lastname }}
                   </p>
                   <hr />
@@ -363,18 +386,32 @@
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
+                    <strong>Virtual Account Number:</strong>
+                    {{ client.user.virtual_account }}
+                  </p>
+                  <hr />
+                  <p class="spacer-top-bottom">
                     <strong>Gender:</strong> {{ client.user.gender }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
-                    <strong>Phone Number:</strong> {{ client.user.phone_number }}
+                    <strong>Phone Number:</strong>
+                    {{ client.user.phone_number }}
                   </p>
                   <hr />
+
                   <p class="spacer-top-bottom">
-                    <strong>LGA/Ward:</strong> {{ client.local_government.local_name }}/{{
-                      client.ward.ward_name
-                    }}
+                    <strong>LGA/Ward:</strong>
+                    <span v-if="client.local_government != null">{{
+                      client.local_government.local_name
+                    }}</span>
+                    /
+
+                    <span v-if="client.ward != null">
+                      {{ client.ward.ward_name }}
+                    </span>
                   </p>
+
                   <hr />
                   <p class="spacer-top-bottom">
                     <strong>Date of Birth:</strong>
@@ -385,15 +422,15 @@
                     <strong>Email:</strong> {{ client.user.email }}
                   </p>
                   <hr />
-                  <!-- <p class="spacer-top-bottom"><strong>Enrolment Date:</strong> {{client.user.created_at}}</p>
-                                   <hr> -->
+                  
                   <p class="spacer-top-bottom">
                     <strong>Expiry Date:</strong> {{ client.user.expiry_date }}
                   </p>
                   <hr />
 
                   <p class="spacer-top-bottom">
-                    <strong>Marital Status:</strong> {{ client.user.marital_status }}
+                    <strong>Marital Status:</strong>
+                    {{ client.user.marital_status }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
@@ -404,10 +441,7 @@
                     <strong>Staff ID:</strong> {{ client.user.salary_number }}
                   </p>
                   <hr />
-                  <p
-                    class="spacer-top-bottom"
-                   
-                  >
+                  <p class="spacer-top-bottom">
                     <strong>Category of Vulnerable Group:</strong>
                     {{ client.user.category_of_vulnerable_group }}
                   </p>
@@ -417,10 +451,11 @@
             </div>
           </div>
 
-          <div class="col-md-12">
+         <div class="row">
+            <div :class="trxtableclass">
             <h5>
-              <i class="fe fe-credit-card"></i
-              > <strong>{{client.transactions.length }} Transactions </strong>
+              <i class="fe fe-credit-card"></i>
+              <strong>{{ client.transactions.length }} Transactions </strong>
             </h5>
             <div class="table-responsive">
               <table class="table align-td-middle table-card">
@@ -429,22 +464,45 @@
                     <th>S/N</th>
                     <th>Transaction Type</th>
                     <th>Transaction Amount</th>
-                    <th>Description </th>
-                    <th>Date Created </th>
+                    <th>Transaction Proof</th>
+                    <th>Description</th>
+                    <th>Date Created</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(trx, index) in client.transactions" v-bind:key="trx.id" >
-                    <td> {{index+1}} </td>
-                     <td>{{trx.type}} </td>
-                    <td> &#8358;{{trx.amount | numeral(0,0) }}  </td>
-                      <td>{{trx.description}} </td>
-                    <td> {{trx.created_at | moment("dddd, MMMM Do YYYY") }}  </td>
+                  <tr
+                    v-for="(trx, index) in client.transactions"
+                    v-bind:key="trx.id"
+                  >
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ trx.type }}</td>
+                    <td>&#8358;{{ trx.amount | numeral(0, 0) }}</td>
+                    <td>
+                      <button class="btn btn-info"
+                      v-if="trx.type == 'offline'"
+                       @click="gotoTrxImage(trx)" >
+                        view proof </button>
+                    </td>
+                    <td>{{ trx.description }}</td>
+                    <td>{{ trx.created_at | moment("dddd, MMMM Do YYYY") }}</td>
+                    <td>
+                      <button class="btn btn-danger"
+                              name="button" @click="deleteTrx(trx)"><i class="fe fe-delete"></i>
+                            </button>
+                    </td>
+                   
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
+          <div :class="trxdocclass" v-show="trx_image">
+                 <img :src="`http://localhost:8000/documents/${trx_doc.document}`"
+                       class="img-responsive" v-if="trx_doc != null">
+          </div>
+
+         </div>
 
           <!-- Modal for Prescription/Notes -->
           <div
@@ -534,8 +592,10 @@ export default {
   data() {
     return {
       user: null,
+      trx_image: false,
       auth_user: "",
       client: "",
+      trx_doc: null,
       notes: "",
       dependents: "",
       medications: "",
@@ -547,11 +607,16 @@ export default {
       edit: false,
       isLoading: false,
       fullPage: true,
+      transactionID: "",
       agency_id: "",
       imagefile: "",
       image: "",
+      paymentProofFile: "",
+      paymentProofImage: "",
       output: "",
       singletpa: "",
+      trxdocclass: "col-md-4",
+      trxtableclass: "col-md-12",
       pictureShower: true,
       userPayment: {
         description: "",
@@ -639,35 +704,43 @@ export default {
 
   methods: {
     addPayment() {
-        if (confirm('Are you sure you want to Submit?') ) {
-           this.isLoading = true;
-      this.axios
-        .post(`/api/v1/make/transaction`, {
-          user_id: this.$route.params.id,
-          agency_id: 95930,
-          description: this.userPayment.description,
-          amount: this.userPayment.amount,
-          type: "offline",
-          status: "approved",
-          transaction_ref: this.randomTransId,
-        })
-        .then((response) => {
-          console.log(response);
-          this.isLoading = false;
-          this.$toasted.success("Payment Added Successfully", {
-            position: "top-center",
-            duration: 3000,
+      if (confirm("Are you sure you want to Submit?")) {
+        this.isLoading = true;
+        this.axios
+          .post(`/api/v1/make/transaction`, {
+            user_id: this.$route.params.id,
+            agency_id: 95930,
+            description: this.userPayment.description,
+            amount: this.userPayment.amount,
+            type: "offline",
+            status: "approved",
+            transaction_ref: this.randomTransId,
+          })
+          .then((response) => {
+            this.transactionID = response.data.id;
+
+            // this.isLoading = false;
+            // this.$toasted.success("Payment Added Successfully", {
+            //   position: "top-center",
+            //   duration: 3000,
+            // });
+            // this.fetchUser()
+          })
+          .catch((error) => {
+            console.error(error);
+            this.isLoading = false;
           });
-          // this.fetchUser()
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading = false;
-        });
-      console.log("Helloooooooooooooos");
-      this.userPayment.description = "";
-      this.userPayment.amount = "";
-        }
+
+        this.userPayment.description = "";
+        this.userPayment.amount = "";
+      }
+
+      // if (this.transactionID !== "") {
+      //   }
+
+      setTimeout(() => {
+        this.uploadPaymentProof();
+      }, 3000);
     },
 
     changeNumber() {
@@ -719,11 +792,42 @@ export default {
           });
           this.fetchUser();
         });
+      console.log(this.client);
+    },
+
+    attachPaymentProof(event) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      console.log(event);
+      this.paymentProofFile = event.target.files[0];
+      console.log(this.paymentProofFile);
+    },
+
+    uploadPaymentProof() {
+      this.isLoading = true;
+      this.user = JSON.parse(localStorage.getItem("user"));
+
+      var formData = new FormData();
+      formData.append("transaction_id", this.transactionID);
+      formData.append("user_id", this.$route.params.id);
+      formData.append("document", this.paymentProofFile);
+
+      this.axios
+        .post("/api/v1/auth/uploadTransactionDocument", formData)
+        .then((response) => {
+          this.paymentProofImage = response.data.document;
+          console.log(response.data.document);
+          this.isLoading = false;
+          this.$toasted.success("Payment Added Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.fetchUser();
+        });
     },
 
     async print() {
       const el = this.$refs.printNow;
-     
+
       const options = {
         type: "dataURL",
       };
@@ -814,14 +918,53 @@ export default {
           .then((response) => {
             console.log(response);
             // this.getClients()
-            this.$breadstick.notify("Deleted Successfully!", {
-              position: "top-right",
-            });
+           this.$toasted.success("Deleted Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
           })
           .catch((error) => {
             console.error(error);
           });
       }
+    },
+
+    deleteTrx(trx) {
+      if (confirm("Are you Sure you want to delete?")) {
+        this.axios
+          .delete(`/api/v1/auth/delete/transaction/${trx.id}`)
+          .then((response) => {
+            console.log(response);
+            this.fetchUser()
+            this.$toasted.success("Deleted Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
+    gotoTrxImage(trx){
+
+      this.axios
+          .get(`/api/v1/auth/get/transaction-document/${trx.id}`)
+          .then((response) => {
+            console.log(response);
+            this.$toasted.success("Gotten Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.trx_doc = response.data.data
+          this.trx_image = true
+          this.trxtableclass = 'col-md-8'
+
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
     },
 
     fetchUser() {
@@ -831,8 +974,7 @@ export default {
         .then((response) => {
           this.client = response.data;
           this.dependents = response.data.dependents;
-        
-         
+
           //get dependents
           this.axios
             .post(`/api/v1/auth/allDependantsUser`, {
@@ -859,14 +1001,15 @@ export default {
       this.axios
         .post(`/api/v1/auth/allDependantsUser`, {
           agency_id: 95930,
-          id_card_number: this.client.id_card_number,
+          id_card_number: this.client.user.id_card_number,
           user_id: this.$route.params.id,
         })
         .then((response) => {
           let answers = response.data;
           answers;
           this.fetchUser();
-          console.log(response);
+          console.log({response});
+
         })
         .catch((error) => {
           console.error(error);
@@ -895,15 +1038,37 @@ export default {
           // this.getUser()
         });
     },
+    // uploadPaymentProof() {
+    //   this.isLoading = true;
+    //   let snap = localStorage.getItem("snap");
+
+    //   var formData = new FormData();
+    //   formData.append("user_image", snap);
+    //   this.axios
+    //     .post("/api/v1/auth/uploadUserImage", formData, {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     })
+    //     .then((response) => {
+    //       console.log(response);
+    //       this.isLoading = false;
+    //       this.$breadstick.notify("Profile Image changed Successfully!", {
+    //         position: "top-right",
+    //       });
+    //       // this.getUser()
+    //     });
+    // },
   },
   created() {
     this.fetchUser();
-    this.streamPic();
     this.findDependents();
+    this.streamPic();
+    
   },
 };
 </script>
-<style>
+<style scoped>
 .spacer {
   margin-left: 1px;
   margin-top: 5px;
@@ -929,5 +1094,28 @@ export default {
   width: 500px;
   height: 375px;
   background-color: #666;
+}
+th {
+  text-align: center;
+}
+
+td {
+  width: fit-content;
+  text-align: center;
+}
+
+.payment__proof {
+  width: 20%;
+}
+
+.payment__proof,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: inline-block;
 }
 </style>

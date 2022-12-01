@@ -28,15 +28,7 @@ export default {
       .then(response => {
         // console.log(response.data);
         var data = response.data;
-        // var seriesb = data[0].wards
-        // var categories  = [];
-        // var series = [];
-        // for (let index = 0; index < seriesb.length; index++) {
-
-        //     const element = seriesb[index];
-
-        //     categories.push(element[index]);
-        //     }
+       
 
             console.log(data[0].wards);
             this.chartOptions = {
@@ -93,13 +85,6 @@ export default {
                         }
             }
 
-            // console.log(series);
-
-            // this.chartOptions.xAxis.categories = categories;
-            // this.chartOptions.yAxis.series = series;
-            // this.chartOptions = {
-            //   xAxis.categories: response.
-            // }
         })
         },
     }

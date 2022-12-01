@@ -26,7 +26,7 @@
     <button @click="submitForm" class="btn btn-primary btn-block btn-lg">Submit</button>
 
     <div class="col-md-12 m-b-30">
-        <h5 class="h4"> <i class="fe fe-activity"></i>{{services.meta.total}} Services</h5>
+        <h5 class="h4"> <i class="fe fe-activity"></i>{{services.length}} Services</h5>
         <div class="table-responsive">
            <table class="table align-td-middle table-card">
                <thead>
@@ -39,7 +39,7 @@
                </thead>
                <tbody>
                <tr v-for="service in services.data" v-bind:key="service.id">
-                   <td >{{service.service_category_id}}</td>
+                   <td >{{service.category.category_name}}</td>
                    <td>{{service.description}}</td>
                    <td>  <i class="mdi mdi-currency-ngn"></i>{{service.price | numeral('0,0.00')}}</td>
                    <td>
@@ -196,7 +196,7 @@ export default {
           agency_id : 95930,
           service_category_id : this.register.service_category_id,
           price : this.register.price,
-          kgshia_code : 'ZCHEMA',
+          kgshia_code : 'OHIS',
           description : this.register.description,
 
         })
@@ -220,7 +220,7 @@ export default {
           agency_id : 95930,
           service_category_id : this.register.service_category_id,
           price : this.register.price,
-          kgshia_code : 'ZCHEMA',
+          kgshia_code : 'OHIS',
           description : this.register.description,
 
         })

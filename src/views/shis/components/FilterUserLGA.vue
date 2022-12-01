@@ -3,7 +3,7 @@
                <div class="row list">
                    <div class="col-md-3">
                        <div class="row">
-                           <button class="btn btn-info" @click="show = !show"
+                           <button class="btn btn-success" @click="show = !show"
                            style="margin-bottom:10px;margin-left:15px;">Filter Enrollee LGA </button>
                        </div>
                    </div>
@@ -48,7 +48,7 @@
 
                           </div>
 
-                         <button @click="filterEnrollees()" class="btn btn-primary btn-block btn-lg" style="margin-top:20px;"> Filter </button>
+                         <button @click="filterEnrollees()" class="btn btn-success btn-block btn-lg" style="margin-top:20px;"> Filter </button>
                         <br />
 
                         <div v-show="showdownload">
@@ -134,6 +134,7 @@ export default {
                 // 'LGA/Ward':'dob',
                 // 'HMO':'dob',
                 'Gender':'gender',
+                "Enrollee Address": "address1",
                 'phone_number':'phone_number' },
                 json_data: [],
                 json_meta: [

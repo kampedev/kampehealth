@@ -132,7 +132,7 @@ export default {
    }
  },
  beforeMount(){
-   this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+   this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
                .then(response => {
                    this.auth_user = response.data.user
                    console.log(response)
@@ -155,7 +155,7 @@ export default {
                  })
    },
    getUser(){
-     this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+     this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
                  .then(response => {
                      this.auth_user = response.data.user
                      console.log(response)
@@ -200,8 +200,8 @@ export default {
        phone_number: this.auth_user.phone_number,
        agency_name: this.auth_user.agency_name,
        address1: this.auth_user.address1,
-       agencyAddress: this.auth_user.agencyAddress,
-       agencyWebsite: this.auth_user.agencyWebsite
+    //    agencyAddress: this.auth_user.agencyAddress,
+    //    agencyWebsite: this.auth_user.agencyWebsite
      })
    .then(response=>{
        console.log(response);
@@ -211,6 +211,8 @@ export default {
    })
    .catch(error=>{
        console.log(error.response)
+     this.$breadstick.notify("error on adding!", {position: "top-right"});
+
    })
  },
  },

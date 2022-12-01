@@ -90,8 +90,8 @@
                   <option value="Voluntary Contributor">
                     Voluntary Contributor
                   </option>
-                  <option value="Organized Community Healthcare Plan">
-                    Organized Community Healthcare Plan
+                  <option value="State Equity Program">
+                    State Equity Program
                   </option>
                 </select>
               </div>

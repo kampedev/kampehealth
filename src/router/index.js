@@ -1,784 +1,854 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Zarota from '../views/Zarota.vue'
-import GetAccount from '../views/auth/GetAccount.vue'
-import Privacy from '../views/auth/Privacy.vue'
-import Login from '../views/auth/Login.vue'
-import Pusher from '../views/auth/Pusher.vue'
-import SelectType from '../views/auth/SelectType.vue'
-import SignupClient from '../views/auth/SignupClient.vue'
-import SignupState from '../views/auth/SignupState.vue'
-import SignupHmo from '../views/auth/SignupHmo.vue'
-import SignupProvider from '../views/auth/SignupProvider.vue'
-import SignupAgency from '../views/auth/SignupAgency.vue'
-import OnboardClient from '../views/onboarding/OnboardClient.vue'
-import AllDashboard from '../views/Dashboard.vue'
-import Dashboard from '../views/clients/Dashboard.vue'
-import Subscribe from '../views/clients/Subscribe.vue'
-import SubscribeSuccess from '../views/clients/SubscribeSuccess.vue'
-import AddClientAgency from '../views/clients/AddClientAgency.vue'
-import AddClientAgencyOffline from '../views/clients/offline/AddClientAgencyOffline.vue'
-import AddClientEmployeeOffline from '../views/clients/offline/AddClientEmployeeOffline.vue'
-import ALLEnrolleesOfflineEmployee from '../views/clients/offline/ALLEnrolleesOfflineEmployee.vue'
-import EditOfflineEmployee from '../views/clients/offline/EditOfflineEmployee.vue'
-import AddDependentsOffline from '../views/clients/offline/AddDependentsOffline.vue'
-import AddClientFormFormal from '../views/clients/AddClientFormFormal.vue'
-import AddClientFormVoluntary from '../views/clients/AddClientFormVoluntary.vue'
-import EditProvider from '../views/providers/EditProvider.vue'
-import ManageClientsEmployee from '../views/clients/ManageClientsEmployee.vue'
-import SingleClient from '../views/clients/SingleClient.vue'
-import SinglePatient from '../views/clients/SinglePatient.vue'
-import SingleClientBiometrics from '../views/clients/SingleClientBiometrics.vue'
-import SingleClientCaptureSignature from '../views/clients/SingleClientCaptureSignature.vue'
-import SingleClientSelectSector from '../views/clients/SingleClientSelectSector.vue'
-import SingleClientHealthFacility from '../views/clients/SingleClientHealthFacility.vue'
-import SingleClientEnrolmentSuccess from '../views/clients/SingleClientEnrolmentSuccess.vue'
-import ViewClientsProvider from '../views/clients/ViewClientsProvider.vue'
-import ViewClientsAgency from '../views/clients/ViewClientsAgency.vue'
-import ProviderDashboard from '../views/providers/Dashboard.vue'
-import HDashboard from '../views/hmos/Dashboard.vue'
-import ListProviders from '../views/providers/ListProviders.vue'
-import SingleProvider from '../views/providers/SingleProvider.vue'
-import AddEmployee from '../views/employees/AddEmployee.vue'
-import Employee from '../views/employees/Employee.vue'
-import AddEmployeeState from '../views/employees/AddEmployeeState.vue'
-import ViewEmployees from '../views/employees/ViewEmployees.vue'
-import AddDependents from '../views/dependents/AddDependents.vue'
-import MyDependents from '../views/dependents/MyDependents.vue'
-import SingleDependent from '../views/dependents/SingleDependent.vue'
-import AddPlan from '../views/plans/AddPlan.vue'
-import Plans from '../views/plans/Plans.vue'
-import Funds from '../views/funds/Funds.vue'
-import StateDashboard from '../views/shis/StateDashboard.vue'
-import AllClaims from '../views/claims/AllClaims.vue'
-import Allreferrals from '../views/claims/Allreferrals.vue'
-import AddClaim from '../views/claims/AddClaim.vue'
-import UploadClaimDocuments from '../views/claims/UploadClaimDocuments.vue'
-import ProvidersClaims from '../views/claims/ProvidersClaims.vue'
-import SingleClaim from '../views/claims/SingleClaim.vue'
-import SingleReferral from '../views/claims/SingleReferral.vue'
-import EditClaim from '../views/claims/EditClaim.vue'
-import ServiceProcessing from '../views/claims/ServiceProcessing.vue'
-import AddReferral from '../views/claims/AddReferral.vue'
-import TransferofHCP from '../views/others/TransferofHCP.vue'
-import SingleTransferofHCP from '../views/others/SingleTransferofHCP.vue'
-import QualityAssurance from '../views/others/QualityAssurance.vue'
-import QualityAssuranceItemsHR from '../views/others/QualityAssuranceItemsHR.vue'
-import QualityAssuranceItemsMntIssues from '../views/others/QualityAssuranceItemsMntIssues.vue'
-import QualityAssuranceItemsClinical from '../views/others/QualityAssuranceItemsClinical.vue'
-import ServiceSummaryForm from '../views/services/ServiceSummaryForm.vue'
-import DetailsofTreatment from '../views/services/DetailsofTreatment.vue'
-import SingleServiceSummary from '../views/services/SingleServiceSummary.vue'
-import ManageDrug from '../views/drugs/ManageDrug.vue'
-import ManageService from '../views/drugs/ManageService.vue'
-import AddComplaint from '../views/complaints/AddComplaint.vue'
-import MyComplaints from '../views/complaints/MyComplaints.vue'
-import AddRecord from '../views/ehr/AddRecord.vue'
-import MyRecords from '../views/ehr/MyRecords.vue'
-import AddInventory from '../views/inventories/AddInventory.vue'
-import MyInventories from '../views/inventories/MyInventories.vue'
-import AddAgency from '../views/providers/AddAgency.vue'
-import Settings from '../views/auth/Settings.vue'
-import EditUser from '../views/auth/EditUser.vue'
-import ClientFunds from '../views/funds/ClientFunds.vue'
-import SingleTransaction from '../views/funds/SingleTransaction.vue'
-import Doctor from '../views/employees/Doctor.vue'
-import Nurse from '../views/employees/Nurse.vue'
-import Receptionist from '../views/employees/Receptionist.vue'
-import Laboratorist from '../views/employees/Laboratorist.vue'
-import Pharmacist from '../views/employees/Pharmacist.vue'
-import Accountant from '../views/employees/Accountant.vue'
-import Appointments from '../views/appointments/Appointments.vue'
-import SingleAppointment from '../views/appointments/SingleAppointment.vue'
-import MDApage from '../views/shis/MDApage.vue'
-import WardManager from '../views/shis/WardManager.vue'
-import SingleLGA from '../views/shis/SingleLGA.vue'
-import SingleWard from '../views/shis/SingleWard.vue'
-import ListTPAs from '@/views/tpas/ListTPAs.vue'
-import SingleTPA from '@/views/tpas/SingleTPA.vue'
-import AddClientTPA from '@/views/tpas/AddClientTPA.vue'
-import ViewClientsTPA from '@/views/tpas/ViewClientsTPA.vue'
-import AddOfficers from '@/views/tpas/AddOfficers.vue'
-import TPADashboard from '@/views/tpas/TPADashboard.vue'
-import TPAData from '@/views/tpas/TPAData.vue'
-import TPAEmployeeDashboard from '@/views/tpas/TPAEmployeeDashboard.vue'
-import SingleEmployee from '@/views/employees/SingleEmployee.vue'
-import DuplicateUsers from '../views/clients/DuplicateUsers.vue'
-import DuplicateDependents from '../views/clients/DuplicateDependents.vue'
-import DuplicateUsersIDcard from '../views/clients/DuplicateUsersIDcard.vue'
-import DBQuery from '../views/shis/DBQuery.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
+import Zarota from "../views/Zarota.vue";
+import GetAccount from "../views/auth/GetAccount.vue";
+import Privacy from "../views/auth/Privacy.vue";
+import Login from "../views/auth/Login.vue";
+import OfflineHome from "../views/auth/OfflineHome.vue";
+import Pusher from "../views/auth/Pusher.vue";
+import SelectType from "../views/auth/SelectType.vue";
+import SignupClient from "../views/auth/SignupClient.vue";
+import SignupState from "../views/auth/SignupState.vue";
+import SignupHmo from "../views/auth/SignupHmo.vue";
+import SignupProvider from "../views/auth/SignupProvider.vue";
+import SignupAgency from "../views/auth/SignupAgency.vue";
+import OnboardClient from "../views/onboarding/OnboardClient.vue";
+import AllDashboard from "../views/Dashboard.vue";
+import Dashboard from "../views/clients/Dashboard.vue";
+import Subscribe from "../views/clients/Subscribe.vue";
+import SubscribeSuccess from "../views/clients/SubscribeSuccess.vue";
+import AddClientAgency from "../views/clients/AddClientAgency.vue";
+import AddClientAgencyOffline from "../views/clients/offline/AddClientAgencyOffline.vue";
+import AddClientEmployeeOffline from "../views/clients/offline/AddClientEmployeeOffline.vue";
+import ALLEnrolleesOfflineEmployee from "../views/clients/offline/ALLEnrolleesOfflineEmployee.vue";
+import EditOfflineEmployee from "../views/clients/offline/EditOfflineEmployee.vue";
+import AddDependentsOffline from "../views/clients/offline/AddDependentsOffline.vue";
+import AddClientFormFormal from "../views/clients/AddClientFormFormal.vue";
+import AddClientFormVoluntary from "../views/clients/AddClientFormVoluntary.vue";
+import EditProvider from "../views/providers/EditProvider.vue";
+import UpdateProviderBank from "../views/providers/UpdateProviderBank.vue";
+import ManageClientsEmployee from "../views/clients/ManageClientsEmployee.vue";
+import SingleClient from "../views/clients/SingleClient.vue";
+import SinglePatient from "../views/clients/SinglePatient.vue";
+import SingleClientBiometrics from "../views/clients/SingleClientBiometrics.vue";
+import SingleClientCaptureSignature from "../views/clients/SingleClientCaptureSignature.vue";
+import SingleClientSelectSector from "../views/clients/SingleClientSelectSector.vue";
+import SingleClientHealthFacility from "../views/clients/SingleClientHealthFacility.vue";
+import SingleClientEnrolmentSuccess from "../views/clients/SingleClientEnrolmentSuccess.vue";
+import ViewClientsProvider from "../views/clients/ViewClientsProvider.vue";
+import ViewClientsAgency from "../views/clients/ViewClientsAgency.vue";
+import ProviderDashboard from "../views/providers/Dashboard.vue";
+import HDashboard from "../views/hmos/Dashboard.vue";
+import ListProviders from "../views/providers/ListProviders.vue";
+import SingleProvider from "../views/providers/SingleProvider.vue";
+import AddEmployee from "../views/employees/AddEmployee.vue";
+import Employee from "../views/employees/Employee.vue";
+import AddEmployeeState from "../views/employees/AddEmployeeState.vue";
+import ViewEmployees from "../views/employees/ViewEmployees.vue";
+import ViewEncounters from "../views/shis/ViewEncounters.vue";
+import AddDependents from "../views/dependents/AddDependents.vue";
+import MyDependents from "../views/dependents/MyDependents.vue";
+import SingleDependent from "../views/dependents/SingleDependent.vue";
+import AddPlan from "../views/plans/AddPlan.vue";
+import Plans from "../views/plans/Plans.vue";
+import Funds from "../views/funds/Funds.vue";
+import PaymentOrdersClaims from "../views/funds/PaymentOrdersClaims.vue";
+import PaymentOrdersCap from "../views/funds/PaymentOrdersCap.vue";
+import StateDashboard from "../views/shis/StateDashboard.vue";
+import AllClaims from "../views/claims/AllClaims.vue";
+import Allreferrals from "../views/claims/Allreferrals.vue";
+import AddClaim from "../views/claims/AddClaim.vue";
+import UploadClaimDocuments from "../views/claims/UploadClaimDocuments.vue";
+import ProvidersClaims from "../views/claims/ProvidersClaims.vue";
+import SingleClaim from "../views/claims/SingleClaim.vue";
+import SingleReferral from "../views/claims/SingleReferral.vue";
+import EditClaim from "../views/claims/EditClaim.vue";
+import ServiceProcessing from "../views/claims/ServiceProcessing.vue";
+import ClaimsbyProvider from "../views/claims/ClaimsbyProvider.vue";
+import ManageClaimsProvider from "../views/claims/ManageClaimsProvider.vue";
+import AddReferral from "../views/claims/AddReferral.vue";
+import TransferofHCPRequests from "../views/others/TransferofHCP.vue";
+// import SingleTransferofHCP from "../views/others/SingleTransferofHCP.vue";
+import QualityAssurance from "../views/others/QualityAssurance.vue";
+import QualityAssuranceItemsHR from "../views/others/QualityAssuranceItemsHR.vue";
+import QualityAssuranceItemsMntIssues from "../views/others/QualityAssuranceItemsMntIssues.vue";
+import QualityAssuranceItemsClinical from "../views/others/QualityAssuranceItemsClinical.vue";
+import ServiceSummaryForm from "../views/services/ServiceSummaryForm.vue";
+import DetailsofTreatment from "../views/services/DetailsofTreatment.vue";
+import SingleServiceSummary from "../views/services/SingleServiceSummary.vue";
+import ManageDrug from "../views/drugs/ManageDrug.vue";
+import ManageService from "../views/drugs/ManageService.vue";
+import AddComplaint from "../views/complaints/AddComplaint.vue";
+import MyComplaints from "../views/complaints/MyComplaints.vue";
+import AddRecord from "../views/ehr/AddRecord.vue";
+import AddRecordOffline from "../views/ehr/AddRecordOffline.vue";
+import MyRecords from "../views/ehr/MyRecords.vue";
+import AddInventory from "../views/inventories/AddInventory.vue";
+import MyInventories from "../views/inventories/MyInventories.vue";
+import AddAgency from "../views/providers/AddAgency.vue";
+import Settings from "../views/auth/Settings.vue";
+import EditUser from "../views/auth/EditUser.vue";
+import ClientFunds from "../views/funds/ClientFunds.vue";
+import SingleTransaction from "../views/funds/SingleTransaction.vue";
+import Doctor from "../views/employees/Doctor.vue";
+import Nurse from "../views/employees/Nurse.vue";
+import Receptionist from "../views/employees/Receptionist.vue";
+import Laboratorist from "../views/employees/Laboratorist.vue";
+import Pharmacist from "../views/employees/Pharmacist.vue";
+import Accountant from "../views/employees/Accountant.vue";
+import Appointments from "../views/appointments/Appointments.vue";
+import SingleAppointment from "../views/appointments/SingleAppointment.vue";
+import MDApage from "../views/shis/MDApage.vue";
+import WardManager from "../views/shis/WardManager.vue";
+import SingleLGA from "../views/shis/SingleLGA.vue";
+import SingleWard from "../views/shis/SingleWard.vue";
+import ListTPAs from "@/views/tpas/ListTPAs.vue";
+import SingleTPA from "@/views/tpas/SingleTPA.vue";
+import AddClientTPA from "@/views/tpas/AddClientTPA.vue";
+import ViewClientsTPA from "@/views/tpas/ViewClientsTPA.vue";
+import AddOfficers from "@/views/tpas/AddOfficers.vue";
+import TPADashboard from "@/views/tpas/TPADashboard.vue";
+import TPAData from "@/views/tpas/TPAData.vue";
+import TPAEmployeeDashboard from "@/views/tpas/TPAEmployeeDashboard.vue";
+import SingleEmployee from "@/views/employees/SingleEmployee.vue";
+import DuplicateUsers from "../views/clients/DuplicateUsers.vue";
+import DuplicateDependents from "../views/clients/DuplicateDependents.vue";
+import DuplicateUsersIDcard from "../views/clients/DuplicateUsersIDcard.vue";
+import DBQuery from "../views/shis/DBQuery.vue";
+import SubscriptionRenewal from "../views/clients/SubscriptionRenewal.vue";
+import EcounterPatientPage from "../views/shis/components/EncounterPatientPage.vue";
+import ManageDiagnosis from "../views/shis/ManageDiagnosis.vue";
+import ChangeFacility from "../views/others/ChangeFacility.vue";
+import AuthorizationCode from "../views/claims/AuthorizationCode.vue";
+import SingleAuthorizationCode from "../views/claims/SingleAuthorizationCode.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/landing',
-    name: 'Home',
-    component: Home
+    path: "/landing",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/zarota',
-    component: Zarota
+    path: "/zarota",
+    component: Zarota,
+  },
+
+  {
+    path: "/offline-home",
+    component: OfflineHome,
   },
   {
-    path: '/activate-account',
-    component: GetAccount
+    path: "/activate-account",
+    component: GetAccount,
   },
   {
-    path: '/',
-    component: Login
+    path: "/",
+    component: Login,
   },
   {
-    path: '/privacy',
-    component: Privacy
+    path: "/privacy",
+    component: Privacy,
   },
   {
-    path: '/about',
-    name: 'About',
+    path: "/about",
+    name: "About",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
 
   {
-    path: '/pusher',
-    component: Pusher
+    path: "/pusher",
+    component: Pusher,
   },
   {
-    path: '/select-type',
-    component: SelectType
+    path: "/select-type",
+    component: SelectType,
   },
   {
-    path: '/signup-client',
-    component: SignupClient
+    path: "/signup-client",
+    component: SignupClient,
   },
   {
-    path: '/signup-state',
-    component: SignupState
+    path: "/signup-state",
+    component: SignupState,
   },
   {
-    path: '/signup-hmo',
-    component: SignupHmo
+    path: "/signup-hmo",
+    component: SignupHmo,
   },
   {
-    path: '/signup-provider',
-    component: SignupProvider
+    path: "/signup-provider",
+    component: SignupProvider,
   },
   {
-    path: '/signup-agency',
-    component: SignupAgency
+    path: "/signup-agency",
+    component: SignupAgency,
   },
   {
-    path: '/onboard-client',
+    path: "/onboard-client",
     component: OnboardClient,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/user-settings',
+    path: "/user-settings",
     component: Settings,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/edit-user/:id',
+    path: "/edit-user/:id",
     component: EditUser,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/dashboard',
+    path: "/dashboard",
     component: AllDashboard,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/client-dashboard',
+    path: "/client-dashboard",
     component: Dashboard,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/subscribe/:id',
+    path: "/subscribe/:id",
     component: Subscribe,
-    
   },
   {
-    path: '/subscribe-success/:id',
+    path: "/subscribe-success/:id",
     component: SubscribeSuccess,
-    
   },
   {
-    path: '/add-client-agency',
+    path: "/add-client-agency",
     component: AddClientAgency,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add-client-offline',
+    path: "/add-client-offline",
     component: AddClientAgencyOffline,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
 
   {
-    path: '/offline-sync',
+    path: "/offline-sync",
     component: ALLEnrolleesOfflineEmployee,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/edit-offline',
+    path: "/edit-offline",
     component: EditOfflineEmployee,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add-client/employee-offline',
+    path: "/add-client/employee-offline",
     component: AddClientEmployeeOffline,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add/dependent-offline',
+    path: "/add/dependent-offline",
     component: AddDependentsOffline,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-
-    path: '/add-client-formal',
+    path: "/add-client-formal",
     component: AddClientFormFormal,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/voluntary-registration-form',
+    path: "/voluntary-registration-form",
     component: AddClientFormVoluntary,
     // meta: {
     //     requiresAuth: true,
     //   },
   },
   {
-    path: '/manage-clients',
+    path: "/manage-clients",
     component: ManageClientsEmployee,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
 
   {
-    path: '/client/:id',
+    path: "/client/:id",
     component: SingleClient,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/patient/:id',
+    path: "/patient/:id",
     component: SinglePatient,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/client/biometrics/:id',
+    path: "/client/biometrics/:id",
     component: SingleClientBiometrics,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/client/capture-signature/:id',
+    path: "/client/capture-signature/:id",
     component: SingleClientCaptureSignature,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/client-select-sector/:id',
+    path: "/client-select-sector/:id",
     component: SingleClientSelectSector,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/client-select-facility/:id',
+    path: "/client-select-facility/:id",
     component: SingleClientHealthFacility,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/client-submit-success/:id',
+    path: "/client-submit-success/:id",
     component: SingleClientEnrolmentSuccess,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/view-clients-provider',
+    path: "/view-clients-provider",
     component: ViewClientsProvider,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/view-clients-agency',
+    path: "/view-clients-agency",
     component: ViewClientsAgency,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/provider-dashboard',
+    path: "/provider-dashboard",
     component: ProviderDashboard,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/edit-provider/:id',
+    path: "/edit-provider/:id",
     component: EditProvider,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
+
   {
-    path: '/hmo-dashboard',
+    path: "/edit-provider-bank/:id",
+    component: UpdateProviderBank,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
+  
+  {
+    path: "/hmo-dashboard",
     component: HDashboard,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/my-providers',
+    path: "/my-providers",
     component: ListProviders,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/provider-:id',
+    path: "/provider-:id",
     component: SingleProvider,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/state-dashboard',
+    path: "/state-dashboard",
     component: StateDashboard,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/mda-manager',
+    path: "/mda-manager",
     component: MDApage,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/lga/:id',
+    path: "/lga/:id",
     component: SingleLGA,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/ward/:id',
+    path: "/ward/:id",
     component: SingleWard,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/ward-manager',
+    path: "/ward-manager",
     component: WardManager,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/provider/add-employee/:id',
+    path: "/provider/add-employee/:id",
     component: AddEmployee,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/employee-dashboard',
+    path: "/employee-dashboard",
     component: Employee,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add-employee-state',
+    path: "/add-employee-state",
     component: AddEmployeeState,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/my-employees',
+    path: "/my-employees",
     component: ViewEmployees,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add-dependent/:id',
+    path: "/add-dependent/:id",
     component: AddDependents,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/my-dependents',
+    path: "/my-dependents",
     component: MyDependents,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/dependent/:id',
+    path: "/my-encounters",
+    component: ViewEncounters,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/dependent/:id",
     component: SingleDependent,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add-plan',
+    path: "/add-plan",
     component: AddPlan,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/plans',
+    path: "/plans",
     component: Plans,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/fund-manager',
+    path: "/fund-manager",
     component: Funds,
     meta: {
-        requiresAuth: true,
-      },
-  },
-  {
-  path: '/all-claims',
-  component: AllClaims,
-  meta: {
-      requiresAuth: true,
-    },
-},
-  {
-  path: '/all-referrals',
-  component: Allreferrals,
-  meta: {
       requiresAuth: true,
     },
   },
   {
-    path: '/add-claim',
+    path: "/payment-claims",
+    component: PaymentOrdersClaims,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/payment-capitations",
+    component: PaymentOrdersCap,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/transaction/:id",
+    component: SingleTransaction, 
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/all-claims",
+    component: AllClaims,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/all-claims-facility",
+    component: ManageClaimsProvider,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/all-claims/:id",
+    component: ClaimsbyProvider,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/all-referrals",
+    component: Allreferrals,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/add-claim/:id",
     component: AddClaim,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/claim/:id',
+    path: "/claim/:id",
     component: SingleClaim,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/referral/:id',
+    path: "/referral/:id",
     component: SingleReferral,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-  path: '/edit-claim/:id',
-  component: EditClaim,
-  meta: {
+    path: "/edit-claim/:id",
+    component: EditClaim,
+    meta: {
       requiresAuth: true,
     },
-},
+  },
   {
-  path: '/upload-claims-docs/:id',
-  component: UploadClaimDocuments,
-  meta: {
+    path: "/upload-claims-docs/:id",
+    component: UploadClaimDocuments,
+    meta: {
       requiresAuth: true,
     },
-},
+  },
   {
-    path: '/service-processing-form/:id',
+    path: "/service-processing-form/:id",
     component: ServiceProcessing,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add-referral',
+    path: "/add-referral",
     component: AddReferral,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/transfer-of-hcp',
-    component: TransferofHCP,
+    path: "/transfer-of-hcp",
+    component: ChangeFacility,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/transfer/:id',
-    component: SingleTransferofHCP,
+    path: "/change-facility-requests",
+    component: TransferofHCPRequests,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/quality-assurance',
+    path: "/quality-assurance",
     component: QualityAssurance,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/quality-assurance-items-hr',
+    path: "/quality-assurance-items-hr",
     component: QualityAssuranceItemsHR,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/quality-assurance-items-management',
+    path: "/quality-assurance-items-management",
     component: QualityAssuranceItemsMntIssues,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/quality-assurance-items-clinical',
+    path: "/quality-assurance-items-clinical",
     component: QualityAssuranceItemsClinical,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/service-summary-form/:id',
+    path: "/service-summary-form/:id",
     component: ServiceSummaryForm,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/details-of-treatment/:id',
+    path: "/details-of-treatment/:id",
     component: DetailsofTreatment,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/single-service-summary',
+    path: "/single-service-summary",
     component: SingleServiceSummary,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/manage-drugs',
+    path: "/manage-drugs",
     component: ManageDrug,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/manage-services',
+    path: "/manage-services",
     component: ManageService,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/providers-claims',
+    path: "/providers-claims",
     component: ProvidersClaims,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/claim-:id',
+    path: "/claim-:id",
     component: SingleClaim,
     meta: {
-        requiresAuth: true,
-      },
-  },
-  {
-  path: '/my-tpas',
-  component: ListTPAs,
-  meta: {
       requiresAuth: true,
     },
-},
-{
-path: '/tpa/:id',
-component: SingleTPA,
-meta: {
-    requiresAuth: true,
   },
-},
+  {
+    path: "/my-tpas",
+    component: ListTPAs,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/tpa/:id",
+    component: SingleTPA,
+    meta: {
+      requiresAuth: true,
+    },
+  },
 
-{
-  path: '/tpa-dashboard',
-  component: TPADashboard,
-  meta: {
-      requiresAuth: true,
-    },
-},
-{
-  path: '/tpa-data',
-  component: TPAData,
-  meta: {
-      requiresAuth: true,
-    },
-},
   {
-    path: '/tpa-employee-dashboard',
+    path: "/tpa-dashboard",
+    component: TPADashboard,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/tpa-data",
+    component: TPAData,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/tpa-employee-dashboard",
     component: TPAEmployeeDashboard,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/employee/:id',
+    path: "/employee/:id",
     component: SingleEmployee,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
-{
-  path: '/add-officers',
-  component: AddOfficers,
-  meta: {
-      requiresAuth: true,
-    },
-},
-{
-  path: '/view-clients-tpa',
-  component: ViewClientsTPA,
-  meta: {
-      requiresAuth: true,
-    },
-},
-{
-  path: '/add-client-tpa',
-  component: AddClientTPA,
-  meta: {
-      requiresAuth: true,
-    },
-},
   {
-    path: '/add-complaint',
+    path: "/add-officers",
+    component: AddOfficers,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/view-clients-tpa",
+    component: ViewClientsTPA,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/add-client-tpa",
+    component: AddClientTPA,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/add-complaint",
     component: AddComplaint,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/my-complaints',
+    path: "/my-complaints",
     component: MyComplaints,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add-record',
+    path: "/add-record",
     component: AddRecord,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/my-records',
+    path: "/add-record-offline",
+    component: AddRecordOffline,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/list-records",
     component: MyRecords,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add-inventory',
+    path: "/add-inventory",
     component: AddInventory,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/manage-appointments',
+    path: "/manage-appointments",
     component: Appointments,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/appointment/:id',
+    path: "/appointment/:id",
     component: SingleAppointment,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/my-inventories',
+    path: "/my-inventories",
     component: MyInventories,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/add-agency',
+    path: "/add-agency",
     component: AddAgency,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/my-funds',
+    path: "/my-funds",
     component: ClientFunds,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
-  {
-    path: '/transaction',
-    component: SingleTransaction,
-    meta: {
-        requiresAuth: true,
-      },
-  },
+ 
   // {
   //   path: '/provider-employee',
   //   component: ProviderEmployee,
@@ -787,96 +857,127 @@ meta: {
   //     },
   // },
   {
-    path: '/personnel',
+    path: "/personnel",
     component: Doctor,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/nurse',
+    path: "/nurse",
     component: Nurse,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/receptionist',
+    path: "/receptionist",
     component: Receptionist,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/laboratorist',
+    path: "/laboratorist",
     component: Laboratorist,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/pharmacist',
+    path: "/pharmacist",
     component: Pharmacist,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/accountant',
+    path: "/accountant",
     component: Accountant,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/duplicate',
+    path: "/duplicate",
     component: DuplicateUsers,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/duplicate-dependent',
+    path: "/duplicate-dependent",
     component: DuplicateDependents,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/duplicate-id-card',
+    path: "/plan-renewal",
+    component: SubscriptionRenewal,
+    // meta: {
+    //   requiresAuth: true,
+    // },
+  },
+  {
+    path: "/encounter/:id",
+    component: EcounterPatientPage,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/manage-diagnosis",
+    component: ManageDiagnosis,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/authorization-code",
+    component: AuthorizationCode,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/authorization-code/:id",
+    component: SingleAuthorizationCode,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/duplicate-id-card",
     component: DuplicateUsersIDcard,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
   {
-    path: '/db-query',
+    path: "/db-query",
     component: DBQuery,
     meta: {
-        requiresAuth: true,
-      },
+      requiresAuth: true,
+    },
   },
-]
-
-
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
-
-
+  routes,
+});
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(route => route.meta.requiresAuth)) {
-    if (localStorage.getItem('jwt') != null) {
+  if (to.matched.some((route) => route.meta.requiresAuth)) {
+    if (localStorage.getItem("jwt") != null) {
       next();
     } else {
-      next({ path: '/' });
+      next({ path: "/" });
     }
   }
   next();
 });
 
-export default router
+export default router;

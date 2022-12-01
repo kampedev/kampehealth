@@ -1,190 +1,222 @@
 <template>
   <section class="admin-content " id="contact-search">
-    <Navbar/>
+    <Navbar />
     <main class="admin-main">
-       <div class="bg-dark m-b-30">
-           <div class="container">
-               <div class="row p-b-60 p-t-60">
+      <div class="bg-success m-b-30">
+        <div class="container">
+          <div class="row p-b-60 p-t-60">
+            <div class="col-md-6 text-center mx-auto text-white p-b-30">
+              <p class="h3 text-dark">My Records</p>
+            </div>
 
-                   <div class="col-md-6 text-center mx-auto text-white p-b-30">
-                       <div class="m-b-10">
-                           <div class="avatar ">
-                               <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-                           </div>
-                       </div>
-                       <h3>My Records</h3>
-                       <!-- <div class="form-dark">
-                           <div class="input-group input-group-flush mb-3">
-                               <input placeholder="Filter Clients" type="search"
-                                      class="form-control form-control-lg search form-control-prepended">
-                               <div class="input-group-prepend">
-                                   <div class="input-group-text">
-                                       <i class="mdi mdi-magnify"></i>
-                                   </div>
-                               </div>
-                           </div>
-                       </div> -->
+           
+          </div>
+            <div class="col-md-12">
+              <button
+               v-if="user.type == 'shis' || user.type == 'employee'"
+                class="btn btn-dark"
+                style="margin-bottom:10px"
+                @click="encounterform = !encounterform"
+              >
+                <i class="fe fe-plus"></i> Add Encounter code
+              </button>
+            </div>
+        </div>
+           
 
-                   </div>
+      </div>
+      <section class="">
+        <div class="container">
+          <div class="form-group col-md-12 card" v-show="encounterform">
+            <div class="card-header"></div>
 
+            <div class="card-body">
+              <form @submit.prevent="sendCode">
+                <div class="form-group col-md-12">
+                  <label>Encounter Code</label>
+                  <input
+                    type="text"
+                    required
+                    class="form-control"
+                    v-model="string_data"
+                    placeholder="EC0/000/000/000"
+                  />
+                </div>
 
-               </div>
-           </div>
-       </div>
-       <section class="">
-           <div class="container">
+                <div class="form-group">
+                  <button class="btn btn-primary btn-block btn-lg">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
 
-               <div class="row list">
-                   <div class="col-lg-12 col-md-8">
-                       <div class="card m-b-30">
+          <div
+            class="col-md-12 form-group"
+            v-if="user.type == 'provider_employee'"
+          >
+            <button
+              type="button"
+              :class="buttoncolor.online"
+              @click="showOnline"
+            >
+              Online <i class="fe fe-wifi"></i>
+            </button>
+            <button
+              type="button"
+              :class="buttoncolor.offline"
+              @click="showOffline"
+            >
+              Offline <i class="fe fe-wifi-off"></i>
+            </button>
+          </div>
 
-                           <div class="card-body">
+          <div class="col-md-12" v-show="online_S">
+            <MyRecordsOnline />
+          </div>
 
-                             <div class="table-responsive">
-                                 <table class="table align-td-middle table-card">
-                                     <thead>
-                                     <tr>
-                                         <!-- <th>Avatar</th> -->
-                                         <!-- <th>Name</th> -->
-                                         <th>Dr. Visited</th>
-                                         <th>Reason for Visit</th>
-                                         <th>Date</th>
-                                     </tr>
-                                     </thead>
-                                     <tbody>
-                                     <tr v-for="record in records" v-bind:key="record.id">
-                                         <!-- <td>
-                                             <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                                 class="avatar-img avatar-sm rounded-circle"
-                                                                                 alt=""></div>
-                                         </td> -->
-                                         <!-- <td >{{client.firstname}} {{client.lastname}}</td> -->
-                                         <td>{{record.drVisited}}</td>
-                                         <td>{{record.reasonVisit}}</td>
-                                         <td>{{record.created_at}}</td>
-
-                                     </tr>
-
-
-                                     </tbody>
-                                 </table>
-
-                             </div>
-
-
-                           </div>
-                       </div>
-                   </div>
-
-
-
-                   <div class="vld-parent">
-                        <loading :active.sync="isLoading"
-                        loader="dots"
-                        :can-cancel="true"
-                        :is-full-page="fullPage"></loading>
-                    </div>
-
-
-               </div>
-           </div>
-
-       </section>
-       </main>
-   </section>
+          <div class="col-md-12" v-show="offline_S">
+            <MyRecordsOffline />
+          </div>
+        </div>
+      </section>
+    </main>
+    <div class="vld-parent">
+      <loading
+        :active.sync="isLoading"
+        loader="dots"
+        :can-cancel="true"
+        :is-full-page="fullPage"
+      ></loading>
+    </div>
+  </section>
 </template>
 
 <script>
-  import Navbar from '@/views/Navbar.vue'
-  // Import component
-     import Loading from 'vue-loading-overlay';
-     // Import stylesheet
-     import 'vue-loading-overlay/dist/vue-loading.css';
-     // Init plugin
+import Navbar from "@/views/Navbar.vue";
+import MyRecordsOnline from "./MyRecordsOnline.vue";
+import MyRecordsOffline from "./MyRecordsOffline.vue";
+// Import component
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
+// Init plugin
 
 export default {
   components: {
-     Navbar, Loading
+    Navbar,
+    Loading,
+    MyRecordsOffline,
+    MyRecordsOnline,
   },
-  data(){
-    return{
+  data() {
+    return {
       isLoading: false,
       fullPage: true,
-      states:"",
-      records:"",
-      state:"",
-      lga_states:"",
-      register:{
-                firstname:"",
-                lastname:"",
-                email:"",
-                phone_number:"",
-                type:"client",
-                username:"",
-                state:"",
-                lga:"",
-                ward:"",
-                address:"",
-            }
-    }
+      online_S: true,
+      offline_S: false,
+      encounterform: false,
+      user: null,
+      records: "",
+      string_data: "",
+      buttoncolor: {
+        offline: "btn btn-default",
+        online: "btn btn-success",
+      },
+    };
   },
-  beforeMount(){
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/gethealthRecord`)
-                .then(response => {
-                    this.records = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+  beforeMount() {
+    this.user = JSON.parse(localStorage.getItem("user"));
   },
-  methods:{
-    getRecords(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/gethealthRecord`)
-                  .then(response => {
-                      this.records = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
+  methods: {
+    showOnline() {
+      this.online_S = true;
+      this.offline_S = false;
+      this.buttoncolor.online = "btn btn-success";
+      this.buttoncolor.offline = "btn btn-default";
     },
-
-    registerUser(){
+    showOffline() {
+      this.online_S = false;
+      this.offline_S = true;
+      this.buttoncolor.online = "btn btn-default";
+      this.buttoncolor.offline = "btn btn-success";
+    },
+    sendCode() {
+      if (confirm("Are you Sure you want submit")) {
         this.isLoading = true;
-        this.axios.post('/api/v1/auth/register',{
-          firstname: this.register.firstname,
-          lastname: this.register.lastname,
-          email: this.register.email,
-          phone_number: this.register.phone_number,
-          type: this.register.type,
-          username: this.register.username,
-          state: this.state,
-          role: 0,
-          lga: this.register.lga,
-          ward: this.register.ward,
-        })
-        .then(response=>{
-
+        this.axios
+          .post(`/api/v1/auth/get-string`, {
+            string_data: this.string_data,
+            agency_id: 95930,
+          })
+          .then((response) => {
             console.log(response);
+            this.getEncounters();
+            // let encounter_id = response.data.service_summary.id
+            //  this.$router.push(`/encounter/${encounter_id}`);
+            this.string_data = "";
             this.isLoading = false;
-            this.$breadstick.notify("Client added successfully", {position: "top-right"});
-
-        })
-        .catch(error=>{
-            console.log(error.response)
+            this.$toasted.info("Encounted submitted Successfully!", {
+              position: "top-center",
+              duration: 3000,
+            });
+          })
+          .catch((error) => {
+            console.error(error);
             this.isLoading = false;
-            this.$breadstick.notify("Oops! something went wrong", {position: "top-right"});
+            this.$toasted.error("Code Error!", {
+              position: "top-center",
+              duration: 3000,
+            });
+          });
+      }
+    },
+    getRecords() {
+      this.user = JSON.parse(localStorage.getItem("user"));
 
-        })
-    }
-
+      if (this.user.type == "provider") {
+        this.user = JSON.parse(localStorage.getItem("user"));
+        this.axios
+          .post(`/api/v1/auth/gethealthRecord`, { provider: this.user.id })
+          .then((response) => {
+            this.records = response.data.data;
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+      if (this.user.type == "provider_employee") {
+        this.user = JSON.parse(localStorage.getItem("user"));
+        this.axios
+          .post(`/api/v1/auth/gethealthRecord`, {
+            provider: this.user.institutional_id,
+          })
+          .then((response) => {
+            this.records = response.data.data;
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+      if (this.user.type == "employee" || this.user.type == "shis") {
+        this.user = JSON.parse(localStorage.getItem("user"));
+        this.axios
+          .post(`/api/v1/auth/service_summary-agency`, { agency_id: 95930 })
+          .then((response) => {
+            this.records = response.data.data;
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
   },
-  created(){
-    this.getRecords()
-  }
-
-}
+  created() {
+    this.getRecords();
+  },
+};
 </script>

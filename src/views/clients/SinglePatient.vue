@@ -3,17 +3,14 @@
     <Navbar />
     <main class="admin-main">
       <div>
-        <div class="bg-dark m-b-30">
+        <div class="bg-success m-b-30">
           <div class="container">
             <div class="row p-b-60 p-t-60">
 
               <div class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image">
-                <p class="h1 text-primary">O'HIS PATIENT RECORD MANAGEMENT </p>
+                <p class="h1 text-dark">O'HIS PATIENT RECORD MANAGEMENT </p>
 
-                <!-- <button v-clipboard="client.firstname">
-
-                  <strong> <span class="h3">{{client.firstname}} {{client.lastname}}</span> </strong>
-                </button> -->
+          
 
               </div>
 
@@ -28,16 +25,15 @@
                 <div class="card m-b-30">
                   <div class="card-header">
 
-                    <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
                   </div>
 
                   <div class="card-body">
                     <div class="form-group">
 
-                      <button class="btn btn-default spacer">{{records.meta.total}}  Health Records<i class="fe fe-clipboard"></i> </button>
-                      <button class="btn btn-default spacer">{{referrals.meta.total}}  Referrals<i class="mdi mdi-bank-transfer"></i> </button>
+                      <button class="btn btn-dark spacer">{{records.meta.total}}  Health Records<i class="fe fe-clipboard"></i> </button>
+                      <button class="btn btn-dark spacer">{{referrals.meta.total}}  Referrals<i class="mdi mdi-bank-transfer"></i> </button>
 
-                      <button class="btn btn-primary spacer" @click="printMe"><i class="fe fe-printer"></i></button>
+                      <button class="btn btn-success spacer" @click="printMe">print <i class="fe fe-printer"></i></button>
 
                     </div>
 
@@ -68,33 +64,27 @@
                   <div class="card-body row">
 
                     <div class="col-md-4">
-                      <vue-initials-img :name="client.firstname+' '+client.lastname" class="img-thumbnail" size="300" v-if="client.user_image == null " />
-                      <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo" v-if="client.user_image != null ">
-                      <!-- <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null "> -->
-                      <!-- <p class="btn btn-default spacer-top-bottom">
-                                   <button type="button"  name="button"> Enrollment Card </button>
-                                 </p> -->
-
+                      <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo"
+                      onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                      >
+                     
                     </div>
 
                     <div class="col-md-8">
-                      <p class="h2 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
+                      <p class="h5 spacer-top-bottom"><strong class="text-primary">NAME :</strong> <strong>{{client.firstname }}</strong>, {{client.lastname}} {{client.middlename}}</p>
                       <hr>
-                      <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.id_card_number}}</strong></p> -->
-                      <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong> <strong>{{client.id_card_number}}</strong></p>
+                      <p class="h5 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong> <strong>{{client.id_card_number}}</strong></p>
                       <hr>
 
-                      <p class="h2 spacer-top-bottom"> <strong class="text-primary"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
-                      <!-- <hr> -->
-                      <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ALTERNATE HEALTH FACILITY:</strong> <strong>{{healthFacility.agency_name}}</strong> </p> -->
+                      <p class="h5 spacer-top-bottom"> <strong class="text-primary"> FACILITY TO ACCESS CARE:</strong> <strong>{{healthFacility.agency_name}}</strong> </p>
                       <hr>
-                      <p class="h2 spacer-top-bottom" v-if="client.place_of_work != null"> <strong class="text-primary">MDA:</strong> <strong> {{client.place_of_work}}</strong> </p>
+                      <p class="h5 spacer-top-bottom" v-if="client.place_of_work != null"> <strong class="text-primary">MDA:</strong> <strong> {{client.place_of_work}}</strong> </p>
                       <hr>
-                      <p class="h2 spacer-top-bottom"> <strong class="text-primary">BLOOD GROUP:</strong> <strong> {{client.blood}}</strong> </p>
+                      <p class="h5 spacer-top-bottom"> <strong class="text-primary">BLOOD GROUP:</strong> <strong> {{client.blood}}</strong> </p>
                       <hr>
-                      <!-- <p class="h2 spacer-top-bottom"><strong class="text-primary">SECTOR:</strong>  <strong>{{client.sector}}</strong></p>
-                                  <hr> -->
-                      <p class="h2 spacer-top-bottom"> <strong class="text-primary">SECTOR:</strong> <strong> {{client.sector}}</strong> </p>
+                      <p class="h5 spacer-top-bottom"><strong class="text-primary">Expiry Date:</strong>  <strong>{{client.date_of_expiry}}</strong></p>
+                                  <hr>
+                      <p class="h5 spacer-top-bottom"> <strong class="text-primary">SECTOR:</strong> <strong> {{client.sector}}</strong> </p>
                       <hr>
                     </div>
 
@@ -114,19 +104,27 @@
 
 
 
-                    <p class="spacer-top-bottom"><strong>HMO:</strong> {{singletpa.organization_name}}</p>
+                    <p class="spacer-top-bottom" >
+                      <span v-if="singletpa != ''">
+                            <strong>HMO:</strong> {{singletpa.organization_name}}
+                      </span>
+                      
+                      </p>
                     <hr>
 
                     <p class="spacer-top-bottom"><strong>Gender:</strong> {{client.gender}}</p>
                     <hr>
                     <p class="spacer-top-bottom"><strong>Phone Number:</strong> {{client.phone_number}}</p>
                     <hr>
-                    <p class="spacer-top-bottom"><strong>LGA/Ward:</strong> {{singlelga.local_name}}/{{client.ward_name}}</p>
+                    <p class="spacer-top-bottom"><strong>LGA/Ward:</strong> {{local_government.local_name}}/{{ward.ward_name}}</p>
                     <hr>
                     <p class="spacer-top-bottom"><strong>Date of Birth:</strong> {{client.dob | moment("D/M/YYYY") }}</p>
                     <hr>
 
                     <p class="spacer-top-bottom"><strong>Expiry Date:</strong> {{client.expiry_date}}</p>
+                    <hr>
+
+                     <p class="spacer-top-bottom"><strong>Date Enrolled:</strong> {{client.created_at | moment("D/M/YYYY") }}</p>
                     <hr>
 
                     <p class="spacer-top-bottom"><strong>Marital Status:</strong> {{client.marital_status }}</p>
@@ -148,32 +146,34 @@
 
                   <div class="card-body">
 
-                    <h5> <i class="fe fe-clipboard"></i>Services/Drugs <i class="fe fe-thermometer"></i></h5>
                     <div class="table-responsive">
                         <table class="table align-td-middle table-card">
                             <thead>
                             <tr>
-                                <th>Number</th>
+                                <th>Encounter ID</th>
                                 <th>Name</th>
                                 <th>Healthcare Provider</th>
-                                <th>Attending Professional</th>
                                 <th>Diagnosis</th>
+                                <th>Action</th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(record, index) in records.data" v-bind:key="record.id">
+                            <tr v-for="record in records.data" v-bind:key="record.id">
 
-                               <td>{{index+1}}</td>
+                               <td>{{record.healthrecord.encounter_id}}</td>
                                 <td>
                                   <span >{{record.healthrecord.reasonVisit}}</span>
                                  </td>
                                  <td>{{record.provider.agency_name}}</td>
-                                 <td>{{record.healthrecord.professional.firstname}}</td>
+                                
                                  <td>{{record.diagnosis.name}}</td>
-                                <!-- <td>
-                                  <button class="btn btn-danger" name="button" @click="deleteService(service)"><i class="fe fe-delete"></i> </button>
-                                </td> -->
+                                 <td>
+                                     <router-link :to="{ path: '/encounter/'+ record.id}">
+                                           <button type="button" class="btn btn-info" name="button"><i class="fe fe-eye"></i> </button>
+                                         </router-link>
+                                 </td>
+                               
 
                             </tr>
 
@@ -187,6 +187,137 @@
 
               </div>
 
+          
+
+               <div class="container">
+          <div class="row list">
+            <div class="col-lg-12 col-md-12">
+              <div class="card m-b-30">
+                <div class="card-header">
+                  <p class="h4">Authorization Code History</p>
+                </div>
+
+                <div class="card-body">
+               
+                  <div class="col-lg-8 m-b-30">
+                    <div class="card">
+                      <div class="card-header">
+                        <div class="card-title">Timeline</div>
+
+                        <!-- <div class="card-controls">
+                          <select class="custom-select">
+                            <option value="">Everything</option>
+                            <option value="">Charges</option>
+                            <option value="">Upgrades</option>
+                          </select>
+                        </div> -->
+                      </div>
+                      <div class="card-body">
+                        <div class="timeline">
+                          <div
+                            class="timeline-item"
+                            v-for="auth_code in referrals.data"
+                            v-bind:key="auth_code.id"
+                          >
+                            <div class="timeline-wrapper">
+                              <div class="">
+                                <div
+                                  class="avatar avatar-sm"
+                                  v-if="auth_code.status == 'in-progress'"
+                                >
+                                  <div
+                                    class="avatar-title bg-primary rounded-circle"
+                                  >
+                                    <i class="mdi mdi-magnet"></i>
+                                  </div>
+                                </div>
+                                <div
+                                  class="avatar avatar-sm"
+                                  v-if="auth_code.status == 'rejected'"
+                                >
+                                  <div
+                                    class="avatar-title bg-danger rounded-circle"
+                                  >
+                                    <i class="mdi mdi-alert-circle-outline"></i>
+                                  </div>
+                                </div>
+
+                                 <div
+                                  class="avatar avatar-sm"
+                                  v-if="auth_code.status == 'pending'"
+                                >
+                                  <div
+                                    class="avatar-title bg-warning rounded-circle"
+                                  >
+                                    <i class="fe fe-book-open"></i>
+                                  </div>
+                                </div>
+
+                                <div
+                                  class="avatar avatar-sm"
+                                  v-if="auth_code.status == 'approved'"
+                                >
+                                  <div
+                                    class="avatar-title bg-success rounded-circle"
+                                  >
+                                    <i class="mdi mdi-check-all"></i>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-auto">
+                                <h6 class="m-0">
+                                  <router-link :to="`/authorization-code/${auth_code.id}`">
+                                   {{auth_code.encounter.healthrecord.encounter_id}}
+                                   </router-link>
+                                   </h6>
+                                <button
+                                  v-if="auth_code.code_created != null"
+                                  class="btn m-b-15 ml-2 mr-2 badge badge-soft-secondary spacer"
+                                >
+                                  {{auth_code.code_created}}
+                                </button>
+                              </div>
+                              <div class="ml-auto col-auto text-muted">
+                                {{auth_code.date_requested}}
+                              </div>
+                            </div>
+                          </div>
+                        
+                         
+                        
+
+                          <div class="timeline-item">
+                            <div class="timeline-wrapper">
+                              <div class="">
+                                <div class="avatar avatar-sm">
+                                  <div
+                                    class="avatar-title bg-success rounded-circle"
+                                  >
+                                    <i class="mdi mdi-account-circle"></i>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-auto">
+                                <h6 class="m-0">Enrolled on</h6>
+                              </div>
+                              <div class="ml-auto col-auto text-muted">
+                               {{client.created_at}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+           
+           
+           
             </div>
 
 
@@ -211,8 +342,7 @@
   import Loading from 'vue-loading-overlay';
   // Import stylesheet
   import 'vue-loading-overlay/dist/vue-loading.css';
-  // Init plugin
-  // import { WebCam } from "vue-web-cam";
+ 
 
   export default {
     components: {
@@ -230,8 +360,8 @@
         healthFacility: "",
         signature: "",
         enrolled_by: "",
-        singleward: "",
-        singlelga: "",
+        ward: "",
+        local_government: "",
         edit: false,
         isLoading: false,
         fullPage: true,
@@ -245,14 +375,14 @@
 
     beforeMount() {
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
-        .then(response => {
-          this.client = response.data.user
-          console.log(response)
-        })
-        .catch(error => {
-          console.error(error);
-        })
+      // this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
+      //   .then(response => {
+      //     this.client = response.data.user
+      //     console.log(response)
+      //   })
+      //   .catch(error => {
+      //     console.error(error);
+      //   })
 
     },
 
@@ -268,65 +398,13 @@
 
       fetchUser() {
         this.user = JSON.parse(localStorage.getItem('user'))
-        this.axios.get(`/api/v1/auth/user/${this.$route.params.id}`)
+        this.axios.get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
           .then(response => {
             this.client = response.data.user
+            this.healthFacility = response.data.provider
+            this.local_government = response.data.local_government
+            this.ward = response.data.ward
             console.log(response)
-
-            // get facility
-            this.axios.get(`/api/v1/auth/user/${this.client.provider_id}`)
-              .then(response => {
-                this.healthFacility = response.data.user
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of facility
-
-            // get enrolled by
-            this.axios.get(`/api/v1/auth/user/${this.client.enrolled_by}`)
-              .then(response => {
-                this.enrolled_by = response.data.user
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of enrolled by
-
-            //get tpa
-            this.axios.get(`/api/v1/auth/orgenrollment/${this.client.org_id}`)
-              .then(response => {
-                this.singletpa = response.data[0]
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of get tpa
-
-            //get ward
-            this.axios.get(`/api/v1/auth/wards/${this.client.ward}`)
-              .then(response => {
-                this.singleward = response.data[0]
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of get ward
-
-            //get lga
-            this.axios.get(`/api/v1/auth/lgas/${this.client.localgovt}`)
-              .then(response => {
-                this.singlelga = response.data[0]
-                console.log(response)
-              })
-              .catch(error => {
-                console.error(error);
-              })
-            //end of get lga
 
           })
           .catch(error => {
@@ -395,7 +473,7 @@
   }
 
   .spacer-top {
-    margin-top: 50px;
+    margin-top: 10px;
   }
 
   #container {

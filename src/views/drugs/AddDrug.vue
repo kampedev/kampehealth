@@ -44,10 +44,10 @@
         </div>
   </div>
 
-    <button @click="submitForm" class="btn btn-primary btn-block btn-lg">Add Drug</button>
+    <button @click="submitForm" class="btn btn-success btn-block">Submit Drug <i class="fe fe-send"></i> </button>
 
     <div class="col-md-12 m-b-30">
-        <h5 class="h4"> <i class="fe fe-droplet"></i>{{drugs.meta.total}} Drugs</h5>
+        <h5 class="h4"> <i class="fe fe-droplet"></i>{{drugs.length}} Drugs</h5>
         <div class="table-responsive">
            <table class="table align-td-middle table-card">
                <thead>
@@ -62,14 +62,15 @@
                </thead>
                <tbody>
                <tr v-for="drug in drugs.data" v-bind:key="drug.id">
-                   <td >{{drug.drug_name}}</td>
+                   <td >{{drug.drug_name}} </td>
                    <td >{{drug.dosage}}</td>
                    <td >{{drug.strengths}}</td>
                    <td>{{drug.presentation}}</td>
+                   <td>{{drug.agency_id}} </td>
                    <td>  <i class="mdi mdi-currency-ngn"></i>{{drug.price | numeral('0,0.00')}}</td>
                    <td>
-                     <button class="btn btn-info" @click="editDrug(drug)"><i class="fe fe-edit"></i> </button>
-                     <button class="btn btn-danger" style="margin-left:10px;" @click="deleteDrug(drug)"><i class="fe fe-delete"></i> </button>
+                     <button class="btn btn-outline-info" style="margin-left:10px;" @click="editDrug(drug)"><i class="fe fe-edit"></i> </button>
+                     <button class="btn btn-outline-danger" style="margin-left:10px;" @click="deleteDrug(drug)"><i class="fe fe-delete"></i> </button>
                    </td>
                </tr>
                </tbody>
@@ -142,7 +143,7 @@ export default {
         this.axios.delete(`/api/v1/auth/drugs/${drug.id}`)
                     .then(response => {
                         console.log(response)
-                        this.getDrugs()
+                        // this.getDrugs()
                         this.$toasted.success('Deleted Successfully!', {position: 'top-left', duration:5000 })
 
                     })
@@ -154,6 +155,7 @@ export default {
     },
     editDrug(drug){
       this.register.category_id = drug.category_id
+      this.register.subcategory_id = drug.sub_category_id
       this.register.drug_name = drug.drug_name
       this.register.dosage = drug.dosage
       this.register.strengths = drug.strengths
@@ -220,10 +222,11 @@ export default {
 
         })
     },
-    updateDrug(drug){
+    updateDrug(){
+       console.log(this.drug_id)
         this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
-        this.axios.put(`/api/v1/auth/drugs/${drug.id}`,{
+        this.axios.put(`/api/v1/auth/drugs/${this.drug_id}`,{
           agency_id : 95930,
           category_id : this.register.category_id,
           sub_category_id : this.register.subcategory_id,
@@ -252,6 +255,7 @@ export default {
     },
     getDrugs(){
       this.user = JSON.parse(localStorage.getItem('user'))
+      // this.axios.get(`/api/v1/auth/drug-agency/95930?page=${this.current_page}`)
       this.axios.get(`/api/v1/auth/drug-agency/95930`)
                   .then(response => {
                       this.drugs = response.data

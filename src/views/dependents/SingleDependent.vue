@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
     <div >
-       <div class="bg-dark m-b-30">
+       <div class="bg-success m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
@@ -30,7 +30,7 @@
                                    <!-- <button class="btn btn-default spacer" >Upload Photo </button> -->
                                        <router-link :to="{ path: '/add-dependent/'+dependent.user.id, params: {} }">
                                          <button class="btn btn-default spacer" >Edit <i class="fe fe-edit"></i> </button>
-                                        </router-link>
+                                        </router-link> 
 
                                </div>
                            </div>

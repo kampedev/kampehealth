@@ -1086,6 +1086,11 @@
     "global-agent" "^2.0.2"
     "global-tunnel-ng" "^2.7.1"
 
+"@fortawesome/fontawesome-free@^5.15.4":
+  "integrity" "sha512-eYm8vijH/hpzr/6/1CJ/V/Eb1xQFW2nnUKArb3z+yUWv7HTwj6M7SP957oMjfZjAHU6qpoNc2wQvIxBLWYa/Jg=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.4.tgz"
+  "version" "5.15.4"
+
 "@hapi/address@2.x.x":
   "integrity" "sha512-QD1PhQk+s31P1ixsX0H0Suoupp3VMXzIVMSwobR3F3MSUO2YCV0B7xqLcUw/Bh8yuvd3LhpyqLQWTNcRmp6IdQ=="
   "resolved" "https://registry.npmjs.org/@hapi/address/-/address-2.1.4.tgz"
@@ -7696,10 +7701,10 @@
   dependencies:
     "minimist" "0.0.8"
 
-"moment@^2.19.2":
-  "integrity" "sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ=="
-  "resolved" "https://registry.npmjs.org/moment/-/moment-2.27.0.tgz"
-  "version" "2.27.0"
+"moment@^2.19.2", "moment@^2.29.1":
+  "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
+  "version" "2.29.4"
 
 "move-concurrently@^1.0.1":
   "integrity" "sha1-viwAX9oy4LKa8fBdfEszIUxwH5I="
@@ -12557,6 +12562,7 @@
     "strip-indent" "^2.0.0"
 
 "zingchart-constants@github:zingchart/zingchart-constants#master":
+  "integrity" "sha512-kfwlaiDRumFzkLrv7luGNJHSY354vnXwqUqu+8f1Ybgd1mvUgFpsgIMVekIvOeEH8zpRQ1KImGkvCciblcgOAQ=="
   "resolved" "git+ssh://git@github.com/zingchart/zingchart-constants.git#2cb0b3a55bbae8ee6fb943161fdd5b71618bc95f"
   "version" "1.0.2"
 

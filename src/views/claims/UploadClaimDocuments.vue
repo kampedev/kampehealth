@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
 
-       <div class="bg-dark m-b-30">
+       <div class="bg-success m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
@@ -73,8 +73,8 @@
                                </div>
 
 
-                               <div class="fileinput fileinput-new" data-provides="fileinput" >
-                                 <span class="btn btn-secondary  btn-lg btn-file">
+                               <div class="fileinput fileinput-new" data-provides="fileinput" v-if="doc_name != ''" >
+                                 <span class="btn btn-info  btn-block btn-file">
                                    <span class="fileinput-new"><i class="fe fe-upload"></i> Upload Document</span>
                                    <span class="fileinput-exists">Change</span>
                                    <input type="file" name="..." multiple   v-on:change="attachPic">
@@ -82,10 +82,23 @@
                                  <span class="fileinput-filename"></span>
                                  <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                               </div>
-
-                              <button class="btn btn-primary " style="margin-left:25px;">Proceed to Claim</button>
                              </div>
                            </form>
+
+                            <div class="col-md-12"
+                            v-if="singleclaim.docs.length >= 1 "
+                            >
+                              <button class="btn btn-outline-success btn-block" @click="gotoSingleClaim">Proceed to Claim 
+                                <i class="fe fe-chevron-right"></i>
+                              </button>
+                              
+
+                            </div>
+                            <div class="col-md-12" v-else >
+                                 <b-alert show variant="warning">You must upload atleast a document to proceed</b-alert>
+
+                            </div>
+                            
 
 
                            </div>
@@ -218,6 +231,11 @@ export default {
 
          })
      },
+     gotoSingleClaim(){
+       if (confirm('Are you done uploading required documents?')) {
+         this.singleClaim()
+       }
+     }
 
 
 

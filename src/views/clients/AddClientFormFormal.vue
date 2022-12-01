@@ -108,21 +108,14 @@
                         class="form-group col-md-6"
                         v-if="register.sector == 'Civil Servant'"
                       >
-                        <label for="inputCity">Select MDA</label>
-                        <select
-                          class="form-control"
+                        <label>Select MDA </label>
+                        <v-select
                           v-model="register.place_of_work"
-                          required
-                        >
-                          <option
-                            :value="mda.name"
-                            v-for="mda in mdas"
-                            v-bind:key="mda.id"
-                          >
-                            {{ mda.name }}
-                          </option>
-                        </select>
+                          :options="mdas"
+                          label="name"
+                        ></v-select>
                       </div>
+
                       <div
                         class="form-group col-md-6"
                         v-if="
@@ -162,7 +155,7 @@
                           placeholder="NIN Number"
                         />
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="inputPassword4"
                           >Surname <span class="text-danger">*</span></label
                         >
@@ -174,7 +167,7 @@
                           placeholder="Last Name"
                         />
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="inputEmail4"
                           >First Name <span class="text-danger">*</span></label
                         >
@@ -187,7 +180,7 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="inputPassword4">Middle Name</label>
                         <input
                           type="text"
@@ -463,37 +456,17 @@
                         </select>
                       </div>
 
-                      <div class="col-md-12 row">
-                        <div class="form-group col-md-6">
-                          <label
-                            >Principal Facility for Accessing Health Care
-                          </label>
-                          <v-select
-                            v-model="register.provider_id"
-                            :options="providers"
-                            label="agency_name"
-                            :value="register.provider_id"
-                            @input="selected"
-                          ></v-select>
-                        </div>
-                        <div
-                          class="form-group col-md-6"
-                          v-if="
-                            register.sector !=
-                              'Tertiary Student Health Insurance Plan (T-SHIP)'
-                          "
-                        >
-                          <label>
-                            Dependents Facility for Accessing Health Care
-                          </label>
-                          <v-select
-                            v-model="register.point_of_care"
-                            :options="providers"
-                            label="agency_name"
-                            :value="register.point_of_care"
-                            @input="selectedPointocare"
-                          ></v-select>
-                        </div>
+                      <div class="form-group col-md-6">
+                        <label
+                          >Principal Facility for Accessing Health Care
+                        </label>
+                        <v-select
+                          v-model="register.provider_id"
+                          :options="providers"
+                          label="agency_name"
+                          :value="register.provider_id"
+                          @input="selected"
+                        ></v-select>
                       </div>
 
                       <div class="form-group col-md-6">
@@ -522,8 +495,8 @@
                     </div>
 
                     <div class="form-group">
-                      <button class="btn btn-primary btn-block btn-lg">
-                        Submit
+                      <button class="btn btn-success btn-block btn-lg">
+                        Submit <i class="fe fe-send"></i>
                       </button>
                     </div>
                   </form>
@@ -626,11 +599,25 @@ export default {
     },
     submitForm() {
       if (this.user.type == "employee") {
-        this.registerUserEmployee();
+        if (this.register.provider_id != "") {
+          this.registerUserEmployee();
+        } else {
+          this.$toasted.error(`Facility cannot be null`, {
+            position: "top-center",
+            duration: 3000,
+          });
+        }
       }
 
       if (this.user.type == "shis") {
-        this.registerUserAdmin();
+        if (this.register.provider_id != "") {
+          this.registerUserAdmin();
+        } else {
+          this.$toasted.error(`Facility cannot be null`, {
+            position: "top-center",
+            duration: 3000,
+          });
+        }
       }
     },
     fetchWards() {
@@ -714,8 +701,8 @@ export default {
           weight: this.register.weight,
           gender: this.register.gender,
           sector: this.register.sector,
-          place_of_work: this.register.place_of_work,
-          point_of_care: this.selected_provider_dependents,
+          place_of_work: this.register.place_of_work.name,
+          point_of_care: this.register.provider_id.id,
           finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
           grade_level: this.register.grade_level,
@@ -791,8 +778,8 @@ export default {
           date_of_entry: this.register.date_of_entry,
           gender: this.register.gender,
           sector: this.register.sector,
-          place_of_work: this.register.place_of_work,
-          point_of_care: this.selected_provider_dependents,
+          place_of_work: this.register.place_of_work.name,
+          point_of_care: this.register.provider_id.id,
           // finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
           grade_level: this.register.grade_level,

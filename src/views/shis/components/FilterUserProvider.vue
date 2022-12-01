@@ -3,7 +3,7 @@
                <div class="row list">
                    <div class="col-md-3">
                        <div class="row">
-                           <button class="btn btn-info" @click="show = !show"
+                           <button class="btn btn-success" @click="show = !show"
                            style="margin-bottom:10px;">Filter Enrollee Provider</button>
                        </div>
                    </div>
@@ -23,7 +23,7 @@
 
                           </div>
 
-                         <button @click="filterProvider()" class="btn btn-primary btn-block btn-lg" style="margin-top:20px;"> Filter </button>
+                         <button @click="filterProvider()" class="btn btn-success btn-block btn-lg" style="margin-top:20px;"> Filter </button>
                         <br />
 
                         <div v-show="showdownload">
@@ -49,7 +49,7 @@
                                      <thead>
                                      <tr>
                                          <th>NO.</th>
-                                         <th>Plan Type</th>
+                                         <!-- <th>Plan Type</th> -->
                                          <th>Name (OHIS Number)</th>
                                          <th>Phone Number</th>
                                          <th>Facility</th>
@@ -61,9 +61,9 @@
                                      <tbody>
                                      <tr v-for="(client,index) in json_data" v-bind:key="client.id">
                                           <td> {{index+1 }} </td>
-                                          <td> <span v-if="client.account_type == 'Principal'">{{client.plan_type}}</span>
+                                          <!-- <td> <span v-if="client.account_type == 'Principal'">{{client.plan_type}}</span>
                                                <span v-if="client.account_type != 'Principal'">{{client.user.plan_type}}</span>
-                                          </td>
+                                          </td> -->
                                          <td >
                                            <router-link
                                                 :to="{ path: '/client/' + client.id, params: {} }"
@@ -126,7 +126,7 @@ export default {
     return{
       loader:true,
       isLoading: false,
-      fullPage: true,
+      fullPage: false,
       showdownload:false,
       inspect:false,
       user:null,
@@ -180,6 +180,7 @@ export default {
                 'Enrolled By':'userenrolledby.full_name',
                 '(Dependent) Enrolled By':'user.userenrolledby.full_name',
                 'MDA':'place_of_work',
+                "Enrollee Address": "address1",
                 'MDA (Dependent)':'user.place_of_work',
                 'Health Facility':'userprovider.agency_name',
 
@@ -216,7 +217,7 @@ export default {
           console.log(response)
           this.isLoading = false;
           this.showdownload = true;
-       this.$toasted.success('Filtered Successfully', {position: 'top-center', duration:3000 })
+         this.$toasted.success('Filtered Successfully', {position: 'top-center', duration:3000 })
 
         })
         .catch((error) => {

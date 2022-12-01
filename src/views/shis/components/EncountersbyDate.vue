@@ -4,7 +4,9 @@
       <div class="card-header">
         <button class="btn btn-outline-primary spacer" @click="newfilter = 7">Last 7 days</button>
         <button class="btn btn-outline-primary spacer" @click="currentPage = 30">Last 30 days</button>
-
+        <a href="/list-records">
+        <button class="btn btn-outline-success spacer" >View Encounters</button>
+         </a>
       </div>
       <div class="card card-body">
         <highcharts :options="chartOptions"></highcharts>

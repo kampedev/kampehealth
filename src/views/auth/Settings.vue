@@ -45,9 +45,9 @@
 
                                   </div>
 
-                                  <div class="fileinput fileinput-new" data-provides="fileinput" v-if="auth_user.user_image == null">
+                                  <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <span class="btn btn-file">
-                                      <span class="fileinput-new">  <vue-initials-img :name="auth_user.firstname+' '+auth_user.lastname" class="text-center rounded-circle"   /></span>
+                                      <span class="fileinput-new">Upload Picture</span>
                                       <span class="fileinput-exists">Change</span>
                                       <input type="file" name="..." multiple   v-on:change="attachPic">
                                     </span>
@@ -140,7 +140,7 @@ export default {
  },
  beforeMount(){
    this.user = JSON.parse(localStorage.getItem('user'))
-   this.axios.get(`/api/v1/auth/user/${this.user.id}`)
+   this.axios.get(`/api/v1/auth/user/zam/${this.user.id}`)
                .then(response => {
                    this.auth_user = response.data.user
                    console.log(response)
@@ -152,7 +152,7 @@ export default {
  methods:{
    getUser(){
      this.user = JSON.parse(localStorage.getItem('user'))
-     this.axios.get(`/api/v1/auth/user/${this.user.id}`)
+     this.axios.get(`/api/v1/auth/user/zam/${this.user.id}`)
                  .then(response => {
                      this.auth_user = response.data.user
                      console.log(response)

@@ -19,7 +19,6 @@
             <div class="text-center">
               <strong>(Fill any one of field to search for enrollee)</strong>
             </div>
-           
 
             <div class="row">
               <div class="form-group col-md-12">
@@ -67,13 +66,16 @@
               Search
             </button>
             <div class="col-md-12">
-              <p class="h4" v-if="searched_phonenumbers != ''">
-                Searched Results
+              <p class="h4 mt-4" v-if="searched_phonenumbers != ''">
+                Searched Results {{ searched_phonenumbers.length }}
               </p>
-              <p v-for="search in searched_phonenumbers" v-bind:key="search.id">
+              <p
+                v-for="(search, index) in searched_phonenumbers"
+                v-bind:key="search.id"
+              >
                 <a :href="`/client/${search.id}`">
-                  {{ search.firstname }} {{ search.lastname }}
-                  {{ search.middlename }}
+                  {{ index + 1 }}. {{ search.full_name }} -
+                  {{ search.id_card_number }}
                 </a>
               </p>
               <br />
@@ -160,8 +162,7 @@ export default {
               position: "top-center",
               duration: 3000,
             });
-          } 
-          else {
+          } else {
             this.$toasted.info("User not Found", {
               position: "top-center",
               duration: 3000,
@@ -183,7 +184,7 @@ export default {
           nimc_number: this.searchkey,
         })
         .then((response) => {
-          this.search_result = response.data;
+          this.searched_phonenumbers = response.data;
           let user = response.data;
 
           if (user.length >= 1) {
@@ -219,47 +220,47 @@ export default {
     },
     searchSalary() {
       this.loading = true;
-       this.user = JSON.parse(localStorage.getItem("user"));
+      this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .post(`/api/v1/auth/getuserbyIdcard`, {
           // agency_id: 95930,
           id_card_number: this.searchkey,
         })
         .then((response) => {
-          this.search_result = response.data;
-          this.user = JSON.parse(localStorage.getItem("user"));
-          let user = response.data.data;
-          console.log(user);
+          this.searched_phonenumbers = response.data.data;
+          // this.user = JSON.parse(localStorage.getItem("user"));
+          // let user = response.data.data;
+          // console.log(user);
 
           // this.$toasted.info("Searched Successfully", {
           //   position: "top-center",
           //   duration: 3000,
           // });
           if (response.data.type == "dependent") {
-            this.$router.push(`/dependent/${user.id}`);
-          } 
-          
-          else {
-
+            // this.$router.push(`/dependent/${user.id}`);
+          } else {
             if (
               this.user.type == "provider" ||
               this.user.type == "provider_employee"
             ) {
-              this.$router.push(`/patient/${user.id}`);
+              // this.$router.push(`/patient/${user.id}`);
               this.$toasted.info("Searched Successfully l", {
                 position: "top-center",
                 duration: 3000,
               });
-            } 
-            if (  this.user.type == "employee" || 
-              this.user.type == "shis" || this.user.type == "tpa"  || this.user.type == "tpa_employee" ){
-              this.$router.push(`/client/${user.id}`);
+            }
+            if (
+              this.user.type == "employee" ||
+              this.user.type == "shis" ||
+              this.user.type == "tpa" ||
+              this.user.type == "tpa_employee"
+            ) {
+              // this.$router.push(`/client/${user.id}`);
               this.$toasted.info("Searched Successfully", {
                 position: "top-center",
                 duration: 3000,
               });
             }
-          
           }
 
           console.log(response);

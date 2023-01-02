@@ -6,7 +6,7 @@
           <button
             class="btn btn-success"
             @click="show = !show"
-            style="margin-bottom:10px;margin-left:15px;"
+            style="margin-bottom: 10px; margin-left: 15px"
           >
             Filter Enrollee By Date
           </button>
@@ -20,25 +20,25 @@
               <div class="form-group col-md-4">
                 <label for="inputCity">Select Sector *</label>
                 <select class="form-control" v-model="sector">
-                  <option value="Basic Healthcare Provision Fund"
-                    >Basic Healthcare Provision Fund</option
-                  >
-                  <option value="State Equity Program"
-                    >State Equity Program</option
-                  >
+                  <option value="Basic Healthcare Provision Fund">
+                    Basic Healthcare Provision Fund
+                  </option>
+                  <option value="State Equity Program">
+                    State Equity Program
+                  </option>
                   <option value="Vulnerable Groups">Vulnerable Groups</option>
-                  <option value="Voluntary Contributor"
-                    >Voluntary Contributor</option
-                  >
+                  <option value="Voluntary Contributor">
+                    Voluntary Contributor
+                  </option>
                   <option value="Civil Servant">Civil Servant</option>
-                  <option value="Oganized Private Sector Plan"
-                    >Organized Private Sector Plan</option
-                  >
+                  <option value="Oganized Private Sector Plan">
+                    Organized Private Sector Plan
+                  </option>
                   <option
                     value="Tertiary Student Health Insurance Plan (T-SHIP)"
                   >
-                    Tertiary Student Health Insurance Plan (T-SHIP)</option
-                  >
+                    Tertiary Student Health Insurance Plan (T-SHIP)
+                  </option>
                 </select>
               </div>
               <div class="form-group col-md-4">
@@ -51,12 +51,12 @@
                   <option value="Pregnant Women">Pregnant Women</option>
                   <option value="Children under 5">Children under 5</option>
                   <option value="Aged">Aged</option>
-                  <option value="People with Special Needs"
-                    >People with Special Needs</option
-                  >
-                  <option value="Poorest of the Poor"
-                    >Poorest of the Poor</option
-                  >
+                  <option value="People with Special Needs">
+                    People with Special Needs
+                  </option>
+                  <option value="Poorest of the Poor">
+                    Poorest of the Poor
+                  </option>
                 </select>
               </div>
               <div class="form-group col-md-4">
@@ -70,8 +70,39 @@
                     v-for="lga in lga_states"
                     v-bind:key="lga"
                     :value="lga"
-                    >{{ lga.local_name }}</option
                   >
+                    {{ lga.local_name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="inputCity">Health Facility</label>
+                <select
+                  class="form-control"
+                  v-model="provider_id"
+                  @click="getProviders($event)"
+                >
+                  <option
+                    v-for="provider in providers"
+                    v-bind:key="provider"
+                    :value="provider.id"
+                  >
+                    {{ provider.agency_name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="inputCity">Select MDA</label>
+                <select class="form-control" v-model="place_of_work">
+                  <option
+                    :value="mda.name"
+                    v-for="mda in mdas.data"
+                    v-bind:key="mda.id"
+                  >
+                    {{ mda.name }}
+                  </option>
                 </select>
               </div>
 
@@ -82,8 +113,9 @@
                     v-for="ward in wards"
                     v-bind:key="ward.id"
                     :value="ward"
-                    >{{ ward.ward_name }}</option
                   >
+                    {{ ward.ward_name }}
+                  </option>
                 </select>
               </div>
 
@@ -112,7 +144,7 @@
               @click="filterEnrollees()"
               class="btn btn-success btn-block btn-lg"
               :disabled="disabled"
-              style="margin-top:20px;"
+              style="margin-top: 20px"
             >
               Filter
             </button>
@@ -138,13 +170,13 @@
                   :escapeCsv="false"
                   :name="
                     sector +
-                      ' _ ' +
-                      category_of_vulnerable_group +
-                      '_' +
-                      from +
-                      '_' +
-                      to +
-                      '.csv'
+                    ' _ ' +
+                    category_of_vulnerable_group +
+                    '_' +
+                    from +
+                    '_' +
+                    to +
+                    '.csv'
                   "
                 >
                   Download Data for {{ from }} to {{ to }}
@@ -195,7 +227,13 @@
                                 {{ client.firstname }} {{ client.lastname }}
                                 <button
                                   type="button"
-                                  class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
+                                  class="
+                                    btn
+                                    m-b-15
+                                    ml-2
+                                    mr-2
+                                    badge badge-soft-dark
+                                  "
                                 >
                                   {{ client.status }}
                                 </button>
@@ -275,6 +313,7 @@ export default {
       fullPage: false,
       agency_id: "",
       provider_id: "",
+      providers: "",
       mdas: [],
       state: "",
       category_of_vulnerable_group: "",
@@ -365,6 +404,8 @@ export default {
           date: this.date,
           from: this.from,
           to: this.addOneDay,
+          place_of_work: this.place_of_work,
+          provider_id: this.provider_id,
           lga_id: this.localgovt.id,
           ward: this.ward.id,
         })
@@ -419,6 +460,28 @@ export default {
           console.error(error);
         });
     },
+    getProviders() {
+      this.axios
+        .get(`/api/v1/auth/providerAgency/95930`)
+        .then((response) => {
+          this.providers = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getMDAs() {
+      this.axios
+        .get(`/api/v1/auth/ministry/95930`)
+        .then((response) => {
+          this.mdas = response.data;
+          // console.log(response)
+        })
+        .catch(() => {
+          // console.error(error);
+        });
+    },
     fetchWards() {
       this.axios
         .get(`/api/v1/auth/getwards/${this.localgovt.id}`)
@@ -438,7 +501,7 @@ export default {
     },
   },
   created() {
-    // this.getProviders()
+    this.getProviders();
     this.getMDAs();
   },
 };

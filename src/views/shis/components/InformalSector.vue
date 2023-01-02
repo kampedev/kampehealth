@@ -206,8 +206,8 @@
                 </div>
               </div>
             </div>
-            <FilterUserLGA />
-            <FilterUserProvider />
+            <!-- <FilterUserLGA /> -->
+            <!-- <FilterUserProvider /> -->
             <FilterUserDate />
           </div>
 
@@ -265,16 +265,16 @@
 import InformalLga from "./informallga";
 import SepSectorlga from "./sepSectorlga";
 import BasicCategory from "./basicCategory";
-import FilterUserLGA from "./FilterUserLGA";
-import FilterUserProvider from "./FilterUserProvider";
+// import FilterUserLGA from "./FilterUserLGA";
+// import FilterUserProvider from "./FilterUserProvider";
 import FilterUserDate from "./FilterUserDate";
 import genderCategory from "./genderCategory";
 
 export default {
   components: {
-    FilterUserProvider,
+    // FilterUserProvider,
     genderCategory,
-    FilterUserLGA,
+    // FilterUserLGA,
     InformalLga,
     SepSectorlga,
     BasicCategory,

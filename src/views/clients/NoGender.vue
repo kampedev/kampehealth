@@ -250,7 +250,7 @@ export default {
     autoUpdate() {
       if (confirm("Are you sure you want to auto update?")) {
         setInterval(
-          function() {
+          function () {
             this.updateDateauto();
           }.bind(this),
           3000

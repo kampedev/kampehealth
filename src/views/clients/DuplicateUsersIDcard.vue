@@ -106,10 +106,20 @@
                     <div class="card-body">
                       <h5>Total Page: {{ clients.length }}</h5>
                       <div class="col-md-12">
-                        <input type="text" class="form-control" v-model="listIndex" >
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model="listIndex"
+                        />
                       </div>
 
-                      <button type="button" class="btn btn-primary btn-block" @click="autoUpdate">update All</button>
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-block"
+                        @click="autoUpdate"
+                      >
+                        update All
+                      </button>
 
                       <div class="table-responsive">
                         <table class="table align-td-middle table-card">
@@ -155,16 +165,15 @@
                             </tr>
                           </tbody>
                         </table>
-                        
-                        <div class="vld-parent">
-                      <loading
-                        :active.sync="isLoading"
-                        loader="dots"
-                        :can-cancel="true"
-                        :is-full-page="fullPage"
-                      ></loading>
-                    </div>
 
+                        <div class="vld-parent">
+                          <loading
+                            :active.sync="isLoading"
+                            loader="dots"
+                            :can-cancel="true"
+                            :is-full-page="fullPage"
+                          ></loading>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -239,23 +248,21 @@ export default {
         });
     },
 
-       autoUpdate() {
+    autoUpdate() {
       if (confirm("Are you sure you want to auto update?")) {
-       
         setInterval(
           function () {
             this.changeNumberauto();
-             
           }.bind(this),
           5000
         );
       }
     },
 
-      changeNumberauto() {
+    changeNumberauto() {
       this.isLoading = true;
       this.axios
-        .post(`/api/v1/auth/attach/dependent`,{
+        .post(`/api/v1/auth/attach/dependent`, {
           id_card_number: this.clients[this.listIndex].id_card_number,
           dep_id: this.clients[this.listIndex].id,
         })
@@ -267,7 +274,7 @@ export default {
             duration: 3000,
           });
           this.isLoading = false;
-          this.listIndex ++
+          this.listIndex++;
         })
         .catch((error) => {
           console.error(error);
@@ -276,7 +283,7 @@ export default {
             duration: 3000,
           });
           this.isLoading = false;
-          this.listIndex ++
+          this.listIndex++;
           //  this.getClients();
         });
     },
@@ -284,7 +291,7 @@ export default {
     changeNumber(client) {
       this.isLoading = true;
       this.axios
-        .post(`/api/v1/auth/attach/dependent`,{
+        .post(`/api/v1/auth/attach/dependent`, {
           id_card_number: client.id_card_number,
           dep_id: client.id,
         })
@@ -304,10 +311,10 @@ export default {
             duration: 3000,
           });
           this.isLoading = false;
-           this.getClients();
+          this.getClients();
         });
     },
-     changeNumberID(client) {
+    changeNumberID(client) {
       this.isLoading = true;
       this.axios
         .patch(`/api/v1/auth/id-card-number/change/${client.id}`)
@@ -331,8 +338,8 @@ export default {
     },
   },
   created() {
-    this.getClients()
-    this.getClientsDuplicateID()
+    this.getClients();
+    this.getClientsDuplicateID();
   },
 };
 </script>

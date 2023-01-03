@@ -1,12 +1,41 @@
 <template>
-  <div class="sidebar-pinned ">
+  <div class="sidebar-pinned">
     <Navbar />
 
     <main class="admin-main">
       <!--site header begins-->
       <section class="admin-content">
         <div class="container">
-          <div class="col-md-12" style="margin-top:15px;">
+          <div class="card m-b-30 mt-4">
+            <div class="card-body">
+              <div
+                class="alert alert-border-warning alert-dismissible fade show"
+                role="alert"
+              >
+                <div class="d-flex">
+                  <div class="icon">
+                    <i class="icon mdi mdi-alert-circle-outline"></i>
+                  </div>
+                  <div class="content">
+                    <strong
+                      >You have {{ trial_date | moment("from", "now") }}! free
+                      trial left.</strong
+                    >
+                    <!-- <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12" style="margin-top: 15px">
             <button
               type="button"
               :class="buttoncolor.formal"
@@ -37,17 +66,14 @@
             <InformalSector />
           </div>
 
+          <div class="col-md-12" style="margin-top: 20px">
+            <EncounterbyLGA />
+          </div>
 
-           <div class="col-md-12"  style="margin-top:20px;">
-              <EncounterbyLGA />
-            </div>
-
-          <div class="row" style="margin-top:20px;">
+          <div class="row" style="margin-top: 20px">
             <div class="col-md-12">
               <ClaimsDate />
             </div>
-
-
 
             <div class="col-md-12">
               <EncountersbyDate />
@@ -89,7 +115,13 @@
                           <span v-if="client.status == 'active'">
                             <button
                               type="button"
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                              class="
+                                btn
+                                m-b-15
+                                ml-2
+                                mr-2
+                                badge badge-soft-success
+                              "
                             >
                               active
                             </button>
@@ -97,7 +129,13 @@
                           <span v-if="client.status == 'inactive'">
                             <button
                               type="button"
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+                              class="
+                                btn
+                                m-b-15
+                                ml-2
+                                mr-2
+                                badge badge-soft-warning
+                              "
                             >
                               inactive
                             </button>
@@ -110,7 +148,7 @@
                             type="button"
                             name="button"
                             class="btn btn-outline-success"
-                            style="margin-left:10px; margin-top:10px;"
+                            style="margin-left: 10px; margin-top: 10px"
                           >
                             <i class="fe fe-eye"></i>
                           </button>
@@ -172,6 +210,7 @@ export default {
       mydata: "",
       auth_user: "",
       providers: "",
+      trial_date: "1/1/2023",
       clients: "",
       total_clients: "",
       claims: "",

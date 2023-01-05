@@ -140,6 +140,16 @@
               </div>
             </div>
 
+            <div class="col-md-12">
+              <input
+                type="checkbox"
+                v-model="dependents"
+                id=""
+                class="form-control"
+              />
+              filter with dependents
+            </div>
+
             <button
               @click="filterEnrollees()"
               class="btn btn-success btn-block btn-lg"
@@ -311,6 +321,7 @@ export default {
       disabled: false,
       isLoading: false,
       fullPage: false,
+      dependents: true,
       agency_id: "",
       provider_id: "",
       providers: "",
@@ -358,8 +369,11 @@ export default {
         "Enrolled By": "userenrolledby.full_name",
         "(Dependent) Enrolled By": "user.userenrolledby.full_name",
         MDA: "place_of_work",
-        "Enrollee Address": "address1",
         "MDA (Dependent)": "user.place_of_work",
+        "Computer Number": "salary_number",
+        "Computer Number(Dependent)": "user.salary_number",
+        "Enrollee Address": "address1",
+
         "Health Facility": "userprovider.agency_name",
       },
       json_data: [],
@@ -404,6 +418,7 @@ export default {
           date: this.date,
           from: this.from,
           to: this.addOneDay,
+          dependents: this.dependents,
           place_of_work: this.place_of_work,
           provider_id: this.provider_id,
           lga_id: this.localgovt.id,

@@ -210,7 +210,7 @@ export default {
       mydata: "",
       auth_user: "",
       providers: "",
-      trial_date: "1/1/2023",
+      trial_date: "2/2/2023",
       clients: "",
       total_clients: "",
       claims: "",

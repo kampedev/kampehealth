@@ -40,12 +40,12 @@
                     </div>
 
                      <div class="form-group col-md-6">
-                      <label for="inputEmail4">OHIS Number</label>
+                      <label for="inputEmail4">KGSHIA Number</label>
                       <input
                         type="text"
                         class="form-control"
                         v-model="id_card_number"
-                        placeholder="OHIS/xx/xxxxx"
+                        placeholder="KGSHIA/XX/XXXX"
                       />
                     </div>
 
@@ -62,25 +62,9 @@
                       @change="getClaims"
                     />
                   </div>
-                  <div
-                    class="form-group col-md-6"
-                    v-if="user.type == 'shis' || user.type == 'employee'"
-                  >
-                    <label> Select TPA/HMO </label>
-                    <select
-                      class="form-control"
-                      @change="getClaims"
-                      v-model="org_id"
-                    >
-                      <option
-                        v-for="tpa in tpas"
-                        v-bind:key="tpa.id"
-                        :value="tpa.id"
-                      >
-                        {{ tpa.organization_name }}
-                      </option>
-                    </select>
-                  </div>
+                 
+               
+
                   <div class="form-group col-md-6">
                     <label> Select Status </label>
                     <select class="form-control" v-model="claim_status">
@@ -346,7 +330,7 @@ export default {
       json_fields: {
         "Facility Name": "provider.agency_name",
         "Enrollee Full Name": "patient.full_name",
-        "Enrollee OHIS Number": "patient.id_card_number",
+        "Enrollee KGSHIA Number": "patient.id_card_number",
         Diagnosis: "diagnosis.name",
         HMO: "tpa.organization_name",
       },
@@ -387,7 +371,7 @@ export default {
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
               provider_id: this.provider_id.id,
-              org_id: this.org_id,
+              // org_id: this.org_id,
               date: this.date,
               from: this.from,
               to: this.addOneDay,
@@ -412,7 +396,7 @@ export default {
               claim_unique_id: this.claim_unique_id,
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
-              org_id: this.org_id,
+              // org_id: this.org_id,
               date: this.date,
               from: this.from,
               to: this.addOneDay,
@@ -437,7 +421,7 @@ export default {
               claim_unique_id: this.claim_unique_id,
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
-              org_id: this.org_id,
+              // org_id: this.org_id,
               date: this.date,
               from: this.from,
               to: this.addOneDay,
@@ -481,7 +465,7 @@ export default {
     },
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/90`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -490,19 +474,7 @@ export default {
           console.error(error);
         });
     },
-    getTPAs() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-
-      this.axios
-        .get(`/api/v1/auth/org_agency/95930`)
-        .then((response) => {
-          this.tpas = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+   
     forwwardClaims() {
      if ( confirm('Are you sure you want to Forward') ) {
         this.axios
@@ -525,7 +497,6 @@ export default {
   created() {
     this.getClaims();
     this.getProviders();
-    this.getTPAs();
   },
 };
 </script>

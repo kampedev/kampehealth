@@ -409,7 +409,7 @@
 
                     <div class="form-group">
                       <button class="btn btn-success btn-block btn-lg">
-                        Submit <i class="fe fe-send"></i>
+                        Submit  <i class="fe fe-send"></i>
                       </button>
                     </div>
                   </form>

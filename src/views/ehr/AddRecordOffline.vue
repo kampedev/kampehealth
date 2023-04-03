@@ -123,7 +123,7 @@
                           required
                         >
                           <option
-                            v-for="dis in diseases"
+                            v-for="dis in diseases.data"
                             v-bind:key="dis.id"
                             :value="dis"
                           >

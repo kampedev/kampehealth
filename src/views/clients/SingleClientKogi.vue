@@ -1,19 +1,12 @@
 <template>
   <section class="admin-content" id="contact-search">
     <Navbar />
-    <div>
+    <main class="admin-main">
       <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div
-              class="
-                col-md-6
-                text-center
-                mx-auto
-                text-white
-                p-b-30
-                spacer-image
-              "
+              class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image"
             >
               <div class="m-b-10"></div>
               <button v-clipboard="client.user.firstname">
@@ -41,7 +34,7 @@
 
                     <button
                       class="btn btn-outline-success spacer"
-                      @click="streamPic"
+                      @click="startCamera"
                       data-toggle="modal"
                       data-target="#example_01"
                     >
@@ -72,7 +65,6 @@
                         >&times;</a
                       >
                     </div>
-                  
 
                     <button
                       class="btn btn-outline-primary spacer"
@@ -130,7 +122,7 @@
                       <!-- Button trigger modal -->
                       <button
                         type="button"
-                         v-if="user.user_role == 1"
+                        v-if="user.user_role == 1"
                         class="btn btn-outline-dark spacer"
                         data-toggle="modal"
                         data-target="#exampleModal"
@@ -278,9 +270,7 @@
                 <div class="card-body row">
                   <div class="col-md-4">
                     <img
-                      :src="
-                        `https://api.hayokinsurance.com/image/${client.user.user_image}`
-                      "
+                      :src="`https://api.hayokinsurance.com/image/${client.user.user_image}`"
                       class="img"
                       alt="User Photo"
                       onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -332,7 +322,9 @@
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">HMO/TPA:</strong>
-                      <strong v-if="client.tpa != null">   {{ client.tpa.organization_name }}</strong>
+                      <strong v-if="client.tpa != null">
+                        {{ client.tpa.organization_name }}</strong
+                      >
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">
@@ -422,7 +414,7 @@
                     <strong>Email:</strong> {{ client.user.email }}
                   </p>
                   <hr />
-                  
+
                   <p class="spacer-top-bottom">
                     <strong>Expiry Date:</strong> {{ client.user.expiry_date }}
                   </p>
@@ -451,58 +443,68 @@
             </div>
           </div>
 
-         <div class="row">
+          <div class="row">
             <div :class="trxtableclass">
-            <h5>
-              <i class="fe fe-credit-card"></i>
-              <strong>{{ client.transactions.length }} Transactions </strong>
-            </h5>
-            <div class="table-responsive">
-              <table class="table align-td-middle table-card">
-                <thead>
-                  <tr>
-                    <th>S/N</th>
-                    <th>Transaction Type</th>
-                    <th>Transaction Amount</th>
-                    <th>Transaction Proof</th>
-                    <th>Description</th>
-                    <th>Date Created</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(trx, index) in client.transactions"
-                    v-bind:key="trx.id"
-                  >
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ trx.type }}</td>
-                    <td>&#8358;{{ trx.amount | numeral(0, 0) }}</td>
-                    <td>
-                      <button class="btn btn-info"
-                      v-if="trx.type == 'offline'"
-                       @click="gotoTrxImage(trx)" >
-                        view proof </button>
-                    </td>
-                    <td>{{ trx.description }}</td>
-                    <td>{{ trx.created_at | moment("dddd, MMMM Do YYYY") }}</td>
-                    <td>
-                      <button class="btn btn-danger"
-                              name="button" @click="deleteTrx(trx)"><i class="fe fe-delete"></i>
-                            </button>
-                    </td>
-                   
-                  </tr>
-                </tbody>
-              </table>
+              <h5>
+                <i class="fe fe-credit-card"></i>
+                <strong>{{ client.transactions.length }} Transactions </strong>
+              </h5>
+              <div class="table-responsive">
+                <table class="table align-td-middle table-card">
+                  <thead>
+                    <tr>
+                      <th>S/N</th>
+                      <th>Transaction Type</th>
+                      <th>Transaction Amount</th>
+                      <th>Transaction Proof</th>
+                      <th>Description</th>
+                      <th>Date Created</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(trx, index) in client.transactions"
+                      v-bind:key="trx.id"
+                    >
+                      <td>{{ index + 1 }}</td>
+                      <td>{{ trx.type }}</td>
+                      <td>&#8358;{{ trx.amount | numeral(0, 0) }}</td>
+                      <td>
+                        <button
+                          class="btn btn-info"
+                          v-if="trx.type == 'offline'"
+                          @click="gotoTrxImage(trx)"
+                        >
+                          view proof
+                        </button>
+                      </td>
+                      <td>{{ trx.description }}</td>
+                      <td>
+                        {{ trx.created_at | moment("dddd, MMMM Do YYYY") }}
+                      </td>
+                      <td>
+                        <button
+                          class="btn btn-danger"
+                          name="button"
+                          @click="deleteTrx(trx)"
+                        >
+                          <i class="fe fe-delete"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div :class="trxdocclass" v-show="trx_image">
+              <img
+                :src="`http://localhost:8000/documents/${trx_doc.document}`"
+                class="img-responsive"
+                v-if="trx_doc != null"
+              />
             </div>
           </div>
-          <div :class="trxdocclass" v-show="trx_image">
-                 <img :src="`http://localhost:8000/documents/${trx_doc.document}`"
-                       class="img-responsive" v-if="trx_doc != null">
-          </div>
-
-         </div>
 
           <!-- Modal for Prescription/Notes -->
           <div
@@ -571,7 +573,7 @@
           ></loading>
         </div>
       </section>
-    </div>
+    </main>
   </section>
 </template>
 
@@ -642,37 +644,8 @@ export default {
   },
   mounted() {
     this.print();
-
-    var video = document.getElementById("video");
-    // Get access to the camera!
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      // Not adding `{ audio: true }` since we only want video now
-      // navigator.mediaDevices.getUserMedia({ video: true}).then(function(stream) {
-      navigator.mediaDevices
-        .getUserMedia(this.video_settings)
-        .then(function(stream) {
-          //video.src = window.URL.createObjectURL(stream);
-          video.srcObject = stream;
-          video.play();
-        });
-    }
-
-    var canvas = document.getElementById("canvas");
-    var context = canvas.getContext("2d");
-    // var video = document.getElementById('video');
-
-    // Trigger photo take
-    document.getElementById("snap").addEventListener("click", function() {
-      context.drawImage(video, 0, 0, 500, 350);
-
-      // get image
-      var image = new Image();
-      image.src = canvas.toDataURL("image/png");
-      console.log(image);
-      localStorage.setItem("snap", image);
-      // this.this.uploadPic()
-    });
   },
+
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
@@ -703,6 +676,26 @@ export default {
   },
 
   methods: {
+    async startCamera() {
+      // var video = document.getElementById("video");
+      // Get access to the camera!
+      // let stream = null;
+      // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      // Not adding `{ audio: true }` since we only want video now
+      // navigator.mediaDevices.getUserMedia({ video: true}).then(function(stream) {
+      // stream;
+
+      navigator.mediaDevices
+        .getUserMedia({ audio: true, video: { width: 1280, height: 720 } })
+        .then((stream) => {
+          /* use the stream */
+          console.log(stream);
+        })
+        .catch((err) => {
+          /* handle the error */
+          console.log(err);
+        });
+    },
     addPayment() {
       if (confirm("Are you sure you want to Submit?")) {
         this.isLoading = true;
@@ -842,7 +835,7 @@ export default {
         // Not adding `{ audio: true }` since we only want video now
         navigator.mediaDevices
           .getUserMedia(this.video_settings)
-          .then(function(stream) {
+          .then(function (stream) {
             //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
             video.play();
@@ -918,10 +911,10 @@ export default {
           .then((response) => {
             console.log(response);
             // this.getClients()
-           this.$toasted.success("Deleted Successfully", {
-            position: "top-center",
-            duration: 3000,
-          });
+            this.$toasted.success("Deleted Successfully", {
+              position: "top-center",
+              duration: 3000,
+            });
           })
           .catch((error) => {
             console.error(error);
@@ -935,36 +928,33 @@ export default {
           .delete(`/api/v1/auth/delete/transaction/${trx.id}`)
           .then((response) => {
             console.log(response);
-            this.fetchUser()
+            this.fetchUser();
             this.$toasted.success("Deleted Successfully", {
-            position: "top-center",
-            duration: 3000,
-          });
+              position: "top-center",
+              duration: 3000,
+            });
           })
           .catch((error) => {
             console.error(error);
           });
       }
     },
-    gotoTrxImage(trx){
-
+    gotoTrxImage(trx) {
       this.axios
-          .get(`/api/v1/auth/get/transaction-document/${trx.id}`)
-          .then((response) => {
-            console.log(response);
-            this.$toasted.success("Gotten Successfully", {
+        .get(`/api/v1/auth/get/transaction-document/${trx.id}`)
+        .then((response) => {
+          console.log(response);
+          this.$toasted.success("Gotten Successfully", {
             position: "top-center",
             duration: 3000,
           });
-          this.trx_doc = response.data.data
-          this.trx_image = true
-          this.trxtableclass = 'col-md-8'
-
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-
+          this.trx_doc = response.data.data;
+          this.trx_image = true;
+          this.trxtableclass = "col-md-8";
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
 
     fetchUser() {
@@ -1008,8 +998,7 @@ export default {
           let answers = response.data;
           answers;
           this.fetchUser();
-          console.log({response});
-
+          console.log({ response });
         })
         .catch((error) => {
           console.error(error);
@@ -1061,10 +1050,10 @@ export default {
     // },
   },
   created() {
+    this.startCamera();
     this.fetchUser();
     this.findDependents();
-    this.streamPic();
-    
+    // this.streamPic();
   },
 };
 </script>

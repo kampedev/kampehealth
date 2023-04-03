@@ -16,7 +16,10 @@
             </div>
 
             <div class="col-md-12">
-              <button class="btn btn-success" @click="encounterform = !encounterform" >
+              <button
+                class="btn btn-success"
+                @click="encounterform = !encounterform"
+              >
                 <i class="fe fe-plus"></i> Add Encounter code
               </button>
             </div>
@@ -28,22 +31,21 @@
           <div class="card-header"></div>
 
           <div class="card-body">
-            <form @submit.prevent="sendCode" >
+            <form @submit.prevent="sendCode">
+              <div class="form-group col-md-12">
+                <label>Encounter Code</label>
+                <input
+                  type="text"
+                  required
+                  class="form-control"
+                  v-model="string_data"
+                  placeholder="EC0/000/000/000"
+                />
+              </div>
 
-            
-            <div class="form-group col-md-12">
-              <label>Encounter Code</label>
-              <input
-                type="text" required
-                class="form-control"
-                v-model="string_data"
-                placeholder="EC0/000/000/000"
-              />
-            </div>
-
-            <div class="form-group">
-              <button class="btn btn-primary btn-block btn-lg">Submit</button>
-            </div>
+              <div class="form-group">
+                <button class="btn btn-success btn-block btn-lg">Submit</button>
+              </div>
             </form>
           </div>
         </div>
@@ -71,19 +73,25 @@
                           v-for="(encounter, index) in encounters.data"
                           v-bind:key="encounter.id"
                         >
-                        <td> {{index+1}} </td>
+                          <td>{{ index + 1 }}</td>
                           <td>
-                            <span v-if="encounter.healthrecord != null" >
-                              {{encounter.healthrecord.encounter_id}}
+                            <span v-if="encounter.healthrecord != null">
+                              {{ encounter.healthrecord.encounter_id }}
                             </span>
                           </td>
                           <td>
                             {{ encounter.provider.agency_name }}
                           </td>
                           <td>
-                            {{ encounter.patient.full_name }}
+                            <span v-if="encounter.patient != null">
+                              {{ encounter.patient.full_name }}</span
+                            >
                           </td>
-                          <td>{{ encounter.patient.phone_number }}</td>
+                          <td>
+                            <span v-if="encounter.patient != null">
+                              {{ encounter.patient.phone_number }}</span
+                            >
+                          </td>
                           <td>
                             {{ encounter.diagnosis.name }}
                           </td>
@@ -94,7 +102,7 @@
                             >
                               <button
                                 type="button"
-                                class="btn btn-info"
+                                class="btn btn-success"
                                 name="button"
                               >
                                 <i class="fe fe-eye"></i>
@@ -172,28 +180,27 @@ export default {
         .then((response) => {
           this.encounters = response.data;
           console.log(response);
-          
         })
         .catch((error) => {
           console.error(error);
         });
     },
 
-    sendCode(){
+    sendCode() {
       if (confirm("Are you Sure you want submit")) {
-        this.isLoading = true
+        this.isLoading = true;
         this.axios
           .post(`/api/v1/auth/get-string`, {
-           string_data : this.string_data,
-           agency_id: 95930
+            string_data: this.string_data,
+            agency_id: 95930,
           })
           .then((response) => {
             console.log(response);
-             this.getEncounters();
+            this.getEncounters();
             // let encounter_id = response.data.service_summary.id
             //  this.$router.push(`/encounter/${encounter_id}`);
             this.string_data = "";
-            this.isLoading = false
+            this.isLoading = false;
             this.$toasted.info("Encounted submitted Successfully!", {
               position: "top-center",
               duration: 3000,
@@ -201,8 +208,8 @@ export default {
           })
           .catch((error) => {
             console.error(error);
-             this.isLoading = false
-             this.$toasted.error("Code Error!", {
+            this.isLoading = false;
+            this.$toasted.error("Code Error!", {
               position: "top-center",
               duration: 3000,
             });

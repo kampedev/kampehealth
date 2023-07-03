@@ -183,7 +183,8 @@
                     <table class="table align-td-middle table-card">
                       <thead>
                         <tr>
-                          <th>Avatar</th>
+                          <th>Image</th>
+                          <th>Type</th>
                           <th>Name</th>
                           <th>Phone Number</th>
                           <th>Sector</th>
@@ -210,6 +211,9 @@
                                 onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                               />
                             </div>
+                          </td>
+                          <td>
+                            {{ client.account_type }}
                           </td>
                           <td>
                             {{ client.firstname }}, {{ client.middlename }}
@@ -256,7 +260,9 @@
                             </p>
                           </td>
                           <td>
-                            <router-link :to="{ path: '/client/' + client.id }">
+                            <router-link :to="{ path: '/client/' + client.id }"
+                            v-if="client.account_type == 'Principal'"
+                            >
                               <button
                                 type="button"
                                 name="button"
@@ -273,6 +279,7 @@
                               :data-target="'#collapseExample' + client.id"
                               aria-expanded="false"
                               aria-controls="collapseExample"
+                                v-if="client.account_type == 'Principal'"
                             >
                               <i class="fe fe-users"></i>
                             </button>

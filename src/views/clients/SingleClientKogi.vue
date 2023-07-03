@@ -122,7 +122,7 @@
                       <!-- Button trigger modal -->
                       <button
                         type="button"
-                        v-if="user.user_role == 1"
+                        v-if="user.user_role != 0"
                         class="btn btn-outline-dark spacer"
                         data-toggle="modal"
                         data-target="#exampleModal"

@@ -1,113 +1,86 @@
 <template>
-  <div class="container">
-               <div class="row list">
-                   <div class="col-md-3">
-                       <div class="row">
-                           <button class="btn btn-success" @click="show = !show"
-                           style="margin-bottom:10px;">Filter Enrollee Provider</button>
-                       </div>
-                   </div>
+  <section>
 
-                   <div class="col-md-12" v-show="show">
-                     <div class="card m-b-30">
-                       <div class="card-body">
+    <div>
+      <div class="m-b-30">
+        <div class="container">
+          <div class="row p-b-60 p-t-60"></div>
+        </div>
+      </div>
+    </div>
 
-                          <div class="row" >
+    <section>
+      <div class="container">
+        <div class="row list">
+          <div class="col-md-12">
+            <div class="card m-b-30">
+              <div class="card-body">
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>Select Facility</label>
+                    <select class="form-control" v-model="selected_provider">
+                      <option
+                        v-for="provider in providers"
+                        v-bind:key="provider.id"
+                        :value="provider"
+                      >
+                        {{ provider.agency_name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
 
-                            <div class="form-group col-md-12" >
-                              <label>Select Facility</label>
-                              <select class="form-control"  v-model="selected_provider">
-                                  <option v-for="provider in providers" v-bind:key="provider.id" :value="provider">{{provider.agency_name}}</option>
-                               </select>
-                          </div>
+                <button
+                  @click="filterProvider()"
+                  class="btn btn-primary btn-block btn-lg"
+                  style="margin-top: 20px"
+                >
+                  Filter
+                </button>
+                <br />
 
-                          </div>
-
-                         <button @click="filterProvider()" class="btn btn-success btn-block btn-lg" style="margin-top:20px;"> Filter </button>
-                        <br />
-
-                        <div v-show="showdownload">
-                        <div v-if="isLoading == true">
-                           <p> Preparing data for download for Health Facility</p>
-                        </div>
-                        <div v-else>
-                          <p class="h5">Result: {{json_data.length}} data filtered  <span class="text-success" @click="inspect = true">preview data</span> </p>
-                                  <download-excel :data="json_data" :fields="json_fields" class="btn btn-success"
-                                   :header="'Enrollee Data for'+selected_provider.agency_name" :escapeCsv=false :name="selected_provider.agency_name+'.xls'">
-                                  <span class="fe fe-download"></span>
-                            Download Data for {{selected_provider.agency_name}}
-                            </download-excel>
-                        </div>
-
-                        <div class="col-lg-12 col-md-12" v-show="inspect">
-                       <div class="card m-b-30">
-
-                           <div class="card-body">
-
-                             <div class="table-responsive">
-                                 <table class="table align-td-middle table-card">
-                                     <thead>
-                                     <tr>
-                                         <th>NO.</th>
-                                         <!-- <th>Plan Type</th> -->
-                                         <th>Name (OHIS Number)</th>
-                                         <th>Phone Number</th>
-                                         <th>Facility</th>
-                                             <th> DOB/ Expiry Date</th>
-                                             <th> Account Type</th>
-
-                                     </tr>
-                                     </thead>
-                                     <tbody>
-                                     <tr v-for="(client,index) in json_data" v-bind:key="client.id">
-                                          <td> {{index+1 }} </td>
-                                          <!-- <td> <span v-if="client.account_type == 'Principal'">{{client.plan_type}}</span>
-                                               <span v-if="client.account_type != 'Principal'">{{client.user.plan_type}}</span>
-                                          </td> -->
-                                         <td >
-                                           <router-link
-                                                :to="{ path: '/client/' + client.id, params: {} }"
-                                              >
-                                           {{client.firstname}} {{client.lastname}} <button type="button" class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark">{{client.status}} </button>
-                                           </router-link>
-                                            <b> ({{client.id_card_number}}) </b> </td>
-                                         <td>{{client.phone_number}}</td>
-                                         <td>
-                                            {{client.userprovider.agency_name}}
-                                         </td>
-                                          <td>{{client.dob}}|| {{client.expiry_date}} </td>
-                                          <td>{{client.account_type}} </td>
-
-                                         <td v-if="user.id == '95930'"> <button class="btn btn-default" @click="updateExp(client)">update Exp {{client.id}} </button> </td>
-                                     </tr>
-
-                                     </tbody>
-                                 </table>
-
-                             </div>
-
-                           </div>
-                       </div>
-                   </div>
-
-
-                      </div>
-                       </div>
-                     </div>
-
-
-                   </div>
-
-               </div>
-
-
-           <div class="vld-parent">
-                <loading :active.sync="isLoading"
-                loader="dots"
-                :can-cancel="true"
-                :is-full-page="fullPage"></loading>
+                <div v-show="showdownload">
+                  <div v-if="loader == true">
+                    <vue-loaders
+                      name="line-spin-fade-loader"
+                      color="black"
+                      scale="1"
+                    ></vue-loaders>
+                    Preparing data for download for Health Facility
+                  </div>
+                  <div v-else>
+                    <download-excel
+                      :data="json_data"
+                      :fields="json_fields"
+                      class="btn btn-success"
+                      :header="
+                        'Enrollee Data for' + selected_provider.agency_name
+                      "
+                      :escapeCsv="false"
+                      :name="selected_provider.agency_name + '.xls'"
+                    >
+                      <span class="fe fe-download"></span>
+                      Download {{ json_data.length }} Data for
+                      {{ selected_provider.agency_name }}
+                    </download-excel>
+                  </div>
+                </div>
+              </div>
             </div>
-  </div>
+          </div>
+        </div>
+
+        <div class="vld-parent">
+          <loading
+            :active.sync="isLoading"
+            loader="dots"
+            :can-cancel="true"
+            :is-full-page="fullPage"
+          ></loading>
+        </div>
+      </div>
+    </section>
+  </section>
 </template>
 
 <script>
@@ -133,9 +106,7 @@ export default {
       providers:"",
       selected_provider:"",
       place_of_work:"",
-      edit:false,
-      show:false,
-     
+      edit:false,     
       agency_id:"",
       provider_id:"",
       mdas:[],

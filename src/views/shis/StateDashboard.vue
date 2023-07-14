@@ -6,36 +6,9 @@
       <!--site header begins-->
       <section class="admin-content">
         <div class="container">
-          <div class="card m-b-30 mt-4">
-            <div class="card-body">
-              <div
-                class="alert alert-border-warning alert-dismissible fade show"
-                role="alert"
-              >
-                <div class="d-flex">
-                  <div class="icon">
-                    <i class="icon mdi mdi-alert-circle-outline"></i>
-                  </div>
-                  <div class="content">
-                    <strong
-                      >You have {{ trial_date | moment("from", "now") }}! free
-                      trial left.</strong
-                    >
-                    <!-- <button
-                  type="button"
-                  class="close"
-                  data-dismiss="alert"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+         
 
-          <div class="col-md-12" style="margin-top: 15px">
+          <div class="col-md-12 my-8">
             <button
               type="button"
               :class="buttoncolor.formal"
@@ -50,12 +23,6 @@
             >
               Informal <i class="fe fe-grid"></i>
             </button>
-          </div>
-
-          <div class="col-md-12 spacer">
-            <p class="h5">
-              <b>{{ auth_user.firstname }} {{ auth_user.lastname }}</b>
-            </p>
           </div>
 
           <div class="" v-show="formal_S">
@@ -89,7 +56,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-12 m-b-30">
               <h5><i class="fe fe-users"></i>Recent Beneficiaries</h5>
               <div class="table table-responsive">
@@ -153,21 +120,14 @@
                             <i class="fe fe-eye"></i>
                           </button>
                         </router-link>
-                        <!-- <button
-                          type="button"
-                          @click="deleteUser(client)"
-                          class="btn btn-outline-danger"
-                          style="margin-left:10px; margin-top:10px;"
-                        >
-                          <i class="fe fe-delete"></i>
-                        </button> -->
+                      
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-          </div>
+          </div> -->
           <ClientDataDashboard />
         </div>
         <Footer />
@@ -211,7 +171,6 @@ export default {
       auth_user: "",
       providers: "",
       trial_date: "2/2/2023",
-      clients: "",
       total_clients: "",
       claims: "",
       offlineclients: [],
@@ -224,17 +183,7 @@ export default {
       },
     };
   },
-  beforeMount() {
-    this.axios
-      .get(`/api/v1/auth/user`)
-      .then((response) => {
-        this.auth_user = response.data;
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  },
+  beforeMount() {},
   computed: {
     //
   },
@@ -252,37 +201,8 @@ export default {
       this.buttoncolor.informal = "btn btn-success";
       this.buttoncolor.formal = "btn btn-default";
     },
-
-    deleteUser(client) {
-      if (confirm("Are you Sure you want to delete this user")) {
-        this.axios
-          .delete(`/api/v1/auth/deleteUser/${client.id}`)
-          .then((response) => {
-            console.log(response);
-            this.getClients();
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-    },
-
-    getClients() {
-      this.axios
-        .get(`/api/v1/auth/getAgencyToUser/95930`)
-        .then((response) => {
-          this.clients = response.data.data;
-          this.total_clients = response.data.meta.total;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
   },
-  created() {
-    this.getClients();
-  },
+  created() {},
 };
 </script>
 <style lang="css" scoped>

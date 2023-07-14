@@ -4,7 +4,7 @@
       <section>
         <div class="container">
           <div class="row">
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30 bg-info">
                 <div class="card-body text-black">
                   <div class="pb-2">
@@ -27,7 +27,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30 bg-default">
                 <div class="card-body text-black">
                   <div class="pb-2">
@@ -50,7 +50,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30 bg-dark">
                 <div class="card-body text-white">
                   <div class="pb-2">
@@ -73,7 +73,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30 bg-secondary">
                 <div class="card-body text-dark">
                   <div class="pb-2">
@@ -97,7 +97,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30 bg-primary">
                 <div class="card-body text-dark">
                   <div class="pb-2">
@@ -121,7 +121,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30 bg-light bg-gradient">
                 <div class="card-body text-black">
                   <div class="pb-2">
@@ -143,7 +143,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
               <div class="card m-b-30 bg-success">
                 <div class="card-body text-dark">
                   <div class="pb-2">
@@ -163,30 +163,8 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-4">
-              <div class="card m-b-30 bg-warning">
-                <div class="card-body text-dark">
-                  <div class="pb-2">
-                    <router-link :to="{ path: '/all-claims' }">
-                      <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-primary rounded-circle"
-                        >
-                          <i class="fe fe-credit-card"></i>
-                        </div>
-                      </div>
-                    </router-link>
-                  </div>
-                  <div>
-                    <p class="h4">Claims</p>
-                    <h1 class="fw-400">{{ claims.length }}</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4">
-              <div class="card m-b-30 bg-success">
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-white">
                 <div class="card-body text-dark">
                   <div class="pb-2">
                     <router-link :to="{ path: '/list-records' }">
@@ -206,38 +184,39 @@
                 </div>
               </div>
             </div>
-            <!-- <FilterUserLGA /> -->
-            <!-- <FilterUserProvider /> -->
-            <FilterUserDate />
+          </div>
+
+          <div class="container col-md-12 mb-5">
+            <div class="row">
+              <router-link to="export-date">
+                <button class="btn btn-outline-info mr-2">
+                  Filter Enrollee Date
+                </button>
+              </router-link>
+
+              <router-link to="export-provider">
+                <button class="btn btn-outline-dark">
+                  Filter Enrollee Provider
+                </button>
+              </router-link>
+            </div>
+          </div>
+
+          <div>
+            <InformalLga />
           </div>
 
           <div class="row">
             <div class="col-md-12 p-t-20">
               <h5 class="h5">
-                <i class="fe fe-activity"></i> BHCPF Enrollment Data
+                <i class="fe fe-activity"></i>Gender Distribution by LGA
               </h5>
             </div>
 
             <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
-                  <InformalLga />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12 p-t-20">
-              <h5 class="h5">
-                <i class="fe fe-activity"></i>SEP Enrollment Data
-              </h5>
-            </div>
-
-            <div class="col-md-12">
-              <div class="card m-b-30">
-                <div class="card-body">
-                  <SepSectorlga />
+                  <GenderbyLGA :sectors="sectors" />
                 </div>
               </div>
             </div>
@@ -263,22 +242,16 @@
 
 <script>
 import InformalLga from "./informallga";
-import SepSectorlga from "./sepSectorlga";
+import GenderbyLGA from "./GenderbyLGA";
 import BasicCategory from "./basicCategory";
-// import FilterUserLGA from "./FilterUserLGA";
-// import FilterUserProvider from "./FilterUserProvider";
-import FilterUserDate from "./FilterUserDate";
 import genderCategory from "./genderCategory";
 
 export default {
   components: {
-    // FilterUserProvider,
     genderCategory,
-    // FilterUserLGA,
     InformalLga,
-    SepSectorlga,
+    GenderbyLGA,
     BasicCategory,
-    FilterUserDate,
   },
 
   data() {
@@ -293,6 +266,17 @@ export default {
       claims: "",
       claim_status: "",
       offlineclients: [],
+      sectors: [
+        {
+          name: "Basic Healthcare Provision Fund",
+        },
+        {
+          name: "State Equity Program",
+        },
+        {
+          name: "Voluntary Contributor",
+        },
+      ],
       employees: "",
       plans: "",
       tpas: "",
@@ -329,13 +313,8 @@ export default {
         });
     },
   },
-  created() {
-    this.getClaims();
-  },
+  created() {},
 };
 </script>
 <style lang="css" scoped>
-.spacer-top {
-  margin-top: 10px;
-}
 </style>

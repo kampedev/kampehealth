@@ -122,7 +122,8 @@ import ManageDiagnosis from "../views/shis/ManageDiagnosis.vue";
 import ChangeFacility from "../views/others/ChangeFacility.vue";
 import AuthorizationCode from "../views/claims/AuthorizationCode.vue";
 import SingleAuthorizationCode from "../views/claims/SingleAuthorizationCode.vue";
-
+import FilterUserProvider from "../views/shis/components/FilterUserProvider.vue";
+import FilterUserDate from "../views/shis/components/FilterUserDate.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -409,6 +410,21 @@ const routes = [
   {
     path: "/state-dashboard",
     component: StateDashboard,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/export-date",
+    component: FilterUserDate,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
+  {
+    path: "/export-provider",
+    component: FilterUserProvider,
     meta: {
       requiresAuth: true,
     },

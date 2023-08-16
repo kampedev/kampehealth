@@ -19,7 +19,7 @@
                     </div>
                   </div>
                   <div>
-                    <p class="h4">Total Formal Sector Enrollees</p>
+                    <p class="h4">Total Formal Sector Enrollees  </p>
                     <h1 class="fw-400">{{ total | numeral(0, 0) }}</h1>
                   </div>
                 </div>
@@ -114,7 +114,7 @@
                   </div>
                   <div>
                     <p class="h4">Claims</p>
-                    <h1 class="fw-400">{{ claims.length }}</h1>
+                    <h1 class="fw-400">{{ claims.data.length }}</h1>
                   </div>
                 </div>
               </div>
@@ -141,20 +141,46 @@
               </div>
             </div>
 
-            <!-- <FilterUserProvider/> -->
-            <FilterUserDate />
+          </div>
+
+          <div class="container col-md-12 mb-5">
+              <div class="row">
+                <router-link to="export-date">
+                  <button class="btn btn-outline-info mr-2">
+                    Filter Enrollee Date
+                  </button>
+                </router-link>
+
+                <router-link to="export-provider">
+                  <button class="btn btn-outline-dark">
+                    Filter Enrollee Provider
+                  </button>
+                </router-link>
+              </div>
+            </div>
+          <div>
+            <FormalSectorChartByLGA />
+          </div>
+
+          <div>
+            <DependentsByLGAChart />
+          </div>
+
+          <div>
+            <MDAData />
           </div>
 
           <div class="row">
             <div class="col-md-12 p-t-20">
               <h5 class="h5">
-                <i class="fe fe-activity"></i> MDA Sector Enrollment Data
+                <i class="fe fe-activity"></i>Gender Distribution by LGA
               </h5>
             </div>
+
             <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
-                  <MDAData />
+                  <GenderbyLGA :sectors="sectors" />
                 </div>
               </div>
             </div>
@@ -167,13 +193,15 @@
 
 <script>
 import MDAData from "./mda";
-// import FilterUserProvider from "./FilterUserProvider";
-import FilterUserDate from "./FilterUserDate";
+import FormalSectorChartByLGA from "./FormalSectorChartByLGA";
+import GenderbyLGA from "./GenderbyLGA";
+import DependentsByLGAChart from "./DependentsByLGAChart";
 
 export default {
   components: {
-    //  FilterUserProvider,
-    FilterUserDate,
+    FormalSectorChartByLGA,
+    GenderbyLGA,
+    DependentsByLGAChart,
     MDAData,
   },
 
@@ -189,6 +217,12 @@ export default {
       total_clients: "",
       claims: "",
       offlineclients: [],
+      sectors: [
+        {
+          name: "Civil Servant",
+        }
+       
+      ],
       employees: "",
       plans: "",
       tpas: "",

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12 p-t-20">
       <h5 class="h5">
-        <i class="fe fe-activity"></i> Informal Sector Enrollment Data
+        <i class="fe fe-activity"></i> Formal Sector Dependents Enrollment Data
       </h5>
     </div>
 
@@ -13,41 +13,33 @@
             <button
               type="button"
               class="btn btn-outline-primary"
-              @click="getChart('Basic Healthcare Provision Fund')"
+              @click="getChart('Civil Servant')"
             >
-              Basic Healthcare Provision Fund
+              Civil Servant
             </button>
 
-            <button
+            <!-- <button
               type="button"
               class="btn btn-outline-success ml-4"
-              @click="getChart('State Equity Program')"
+              @click="getChart('State Public Servant')"
             >
-              State Equity Program
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-outline-dark ml-4"
-              @click="getChart('Voluntary Contributor')"
-            >
-              Voluntary Contributor
-            </button>
+              State Public Servant
+            </button> -->
           </div>
         </div>
-
-        <div class="card-body">
+        <div class="card-body col-md-12">
           <highcharts :options="chartOptions"></highcharts>
         </div>
       </div>
-    </div>
-    <div class="vld-parent">
-      <loading
-        :active.sync="isLoading"
-        loader="dots"
-        :can-cancel="true"
-        :is-full-page="fullPage"
-      ></loading>
+
+      <div class="vld-parent">
+        <loading
+          :active.sync="isLoading"
+          loader="dots"
+          :can-cancel="true"
+          :is-full-page="fullPage"
+        ></loading>
+      </div>
     </div>
   </div>
 </template>
@@ -56,6 +48,7 @@
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
+
 export default {
   components: {
     Loading,
@@ -65,9 +58,9 @@ export default {
       isLoading: false,
       fullPage: true,
       title: "",
+      sector: "Civil Servant",
       points: [10, 0, 8, 2, 6, 4, 5, 5],
       chartType: "",
-      sector: "Basic Healthcare Provision Fund",
       seriesColor: "#6fcd98",
       colorInputIsSupported: null,
       chartOptions: {},
@@ -85,21 +78,22 @@ export default {
     },
     getDashboardLGA() {
       this.axios
-        .post("/api/v1/auth/DashboardLgaDataPrincipal/2676", {
+        .post("/api/v1/auth/DashboardLgaDataFormalDependents/2676", {
           sector: this.sector,
         })
         .then((response) => {
           var data = response.data;
+
           console.log(data[0].wards);
           this.chartOptions = {
             chart: {
               type: "column",
             },
             title: {
-              text: `${this.sector} Enrollees Distributed By LGA`,
+              text: `${this.sector} Dependents Distributed By LGA`,
             },
             subtitle: {
-              text: "Click the columns to view wards.",
+              text: "Formal Sector Dependents.",
             },
             accessibility: {
               announceNewData: {

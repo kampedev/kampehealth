@@ -92,7 +92,7 @@
                             v-model="register.sector"
                           >
                             <option value="Civil Servant">Civil Servant</option>
-                            <option value="Organized Private Sector Plan">
+                            <option value="Organized Private Sector">
                               Organized Private Sector Plan
                             </option>
                             <option

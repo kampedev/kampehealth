@@ -29,7 +29,7 @@
           <div class="row">
             <div class="form-group col-md-4">
               <label for="inputCity"
-                ><i class="fe fe-credit-card"></i> Select Sector Plan</label
+                ><i class="fe fe-credit-card"></i> Select Sector</label
               >
               <select class="form-control" v-model="sector">
                 <option value="Basic Healthcare Provision Fund">

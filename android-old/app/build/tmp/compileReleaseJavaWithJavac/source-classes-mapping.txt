@@ -1,5 +1,0 @@
-com/ohis/app/BuildConfig.java
- com.ohis.app.BuildConfig
-com/ohis/app/MainActivity.java
- com.ohis.app.MainActivity
- com.ohis.app.MainActivity$1

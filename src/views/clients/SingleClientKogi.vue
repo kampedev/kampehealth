@@ -537,14 +537,14 @@
                         height="auto"
                         autoplay
                       ></video>
-                      <p>
+                      <p class="mt-4">
                         <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
                         <button @click="takePic" class="bg-navy btn btn-flat">
                           Snap Photo
                         </button>
                         <button
                           type="button"
-                          class="btn btn-info"
+                          class="btn btn-info ml-2"
                           name="button"
                           @click="savePic"
                         >
@@ -554,7 +554,7 @@
                       <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
                       <!-- <p>{{imagefile}}</p> -->
 
-                      <canvas id="canvas" width="600px" height="450px"></canvas>
+                      <canvas id="canvas" width="750px" height="400px"></canvas>
                     </div>
                   </div>
                 </div>
@@ -677,24 +677,18 @@ export default {
 
   methods: {
     async startCamera() {
-      // var video = document.getElementById("video");
+      var video = document.getElementById("video");
       // Get access to the camera!
-      // let stream = null;
-      // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      // Not adding `{ audio: true }` since we only want video now
-      // navigator.mediaDevices.getUserMedia({ video: true}).then(function(stream) {
-      // stream;
-
-      navigator.mediaDevices
-        .getUserMedia({ audio: true, video: { width: 1280, height: 720 } })
-        .then((stream) => {
-          /* use the stream */
-          console.log(stream);
-        })
-        .catch((err) => {
-          /* handle the error */
-          console.log(err);
-        });
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices
+          .getUserMedia(this.video_settings)
+          .then(function (stream) {
+            //video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+          });
+      }
     },
     addPayment() {
       if (confirm("Are you sure you want to Submit?")) {

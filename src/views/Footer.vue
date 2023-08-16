@@ -8,7 +8,7 @@
                       <div class="input-group input-group-flush mb-3">
 
                       </div>
-                      <p>Version 1.0 &#169; 2022</p>
+                      <p>Version 1.0 &#169; 2023</p>
                   </div>
 
               </div>

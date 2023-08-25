@@ -9,7 +9,7 @@
               <div class="m-b-10">
                 <div class="avatar avatar-lg">
                   <div
-                    style="margin-top:10px;"
+                    style="margin-top: 10px"
                     class="avatar-title bg-dark rounded-circle mdi mdi-settings"
                   ></div>
                 </div>
@@ -196,6 +196,7 @@
                       <v-select
                         v-model="auth_user.place_of_work"
                         :options="mdas"
+                        :reduce="(name) => name.name"
                         label="name"
                       ></v-select>
                     </div>
@@ -314,8 +315,9 @@
                           v-for="tpa in tpas"
                           v-bind:key="tpa"
                           :value="tpa.id"
-                          >{{ tpa.organization_name }}</option
                         >
+                          {{ tpa.organization_name }}
+                        </option>
                       </select>
                     </div>
 
@@ -511,15 +513,12 @@ export default {
           password: this.auth_user.password,
           phone_number: this.auth_user.phone_number,
           sectorType: this.auth_user.sectorType,
-          category_of_vulnerable_group: this.auth_user
-            .category_of_vulnerable_group,
+          category_of_vulnerable_group:
+            this.auth_user.category_of_vulnerable_group,
           agency_name: this.auth_user.agency_name,
           address1: this.auth_user.address1,
           plan_type: this.auth_user.plan_type,
-          place_of_work:
-            this.auth_user.place_of_work == null
-              ? null
-              : this.auth_user.place_of_work.name,
+          place_of_work: this.auth_user.place_of_work,
           expiry_date: this.auth_user.expiry_date,
         })
         .then((response) => {

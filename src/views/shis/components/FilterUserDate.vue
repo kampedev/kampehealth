@@ -30,19 +30,19 @@
                         Voluntary Contributor
                       </option>
 
-                      <option value="State Civil Servant">
-                        State Civil Servant
+                      <option value="Civil Servant">
+                        Civil Servant
                       </option>
                       <option value="State Public Servant">
                         State Public Servant
                       </option>
-                      <option value="LGA Civil Servant">
+                      <!-- <option value="LGA Civil Servant">
                         LGA Civil Servant
-                      </option>
+                      </option> -->
                       <option
-                        value="Universal Basic Education Board Healthcare Plan"
+                        value="Universal Basic Education Board"
                       >
-                        Universal Basic Education Board Healthcare Plan
+                        Universal Basic Education Board
                       </option>
 
                       <option value="Oganized Private Sector Plan">

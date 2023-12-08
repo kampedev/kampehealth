@@ -481,7 +481,8 @@ export default {
             enrolled_by: this.enrolled_by ? this.enrolled_by : "",
             date: this.date ? this.date : "",
             from: this.from ? this.from : "",
-            to: this.addOneDay ? this.addOneDay : "",
+            // to: this.addOneDay ? this.addOneDay : "",
+            to: this.to,
             ward: this.ward ? this.ward : "",
           },
         })

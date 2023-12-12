@@ -353,7 +353,7 @@
 
                   <p class="spacer-top-bottom">
                     <strong>Date Enrolled:</strong>
-                    {{ client.user.created_at | moment("dddd, MMMM Do YYYY") }}
+                   {{ client.user.created_at | moment("dddd, MMMM Do YYYY") }}
                   </p>
                   <hr />
                   <div v-for="(dep, index) in dependents" v-bind:key="dep.id">

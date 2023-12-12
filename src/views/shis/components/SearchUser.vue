@@ -76,6 +76,9 @@
                 <a :href="`/client/${search.id}`">
                   {{ index + 1 }}. {{ search.full_name }} -
                   {{ search.id_card_number }}
+                  <button class="btn mx-2 badge badge-soft-info">
+                    {{ search.type }}
+                  </button>
                 </a>
               </p>
               <br />

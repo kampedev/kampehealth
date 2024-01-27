@@ -102,7 +102,7 @@
                             >
                               <button
                                 type="button"
-                                class="btn btn-success"
+                                class="btn btn-success mr-1"
                                 name="button"
                               >
                                 <i class="fe fe-eye"></i>

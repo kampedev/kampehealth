@@ -66,7 +66,7 @@
                
 
                   <div class="form-group col-md-6">
-                    <label> Select Status </label>
+                    <label> Select Status  </label>
                     <select class="form-control" v-model="claim_status">
                       <option value="All"> All </option>
                       <option value="approved"> Approved </option>
@@ -156,7 +156,7 @@
                     <tr v-for="claim in claims.data" v-bind:key="claim.id">
                       <td>
                         <router-link :to="{ path: '/claim/' + claim.id }">
-                          {{ claim.claim_unique_id }} {{claim.claim_status}}
+                          {{ claim.claim_unique_id }}
                         </router-link>
                       </td>
                       <td>{{ claim.provider.agency_name }}</td>
@@ -258,12 +258,12 @@
                       v-if="
                         user.job_title == 'Claims Verifier' &&
                           provider_id != '' &&
-                          claims.data.length != 0
+                          claims.data.length > 0 && claim_status == 'verified'
                       "
                     >
                       <td colspan="4">
                         <button
-                          class="btn btn-outline-dark btn-block"
+                          class="btn btn-outline-success btn-block"
                           @click="forwwardClaims()"
                         >
                           Forward {{provider_id.agency_name}}'s Claims to the ES for Approval
@@ -465,7 +465,7 @@ export default {
     },
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/90`)
+        .get(`/api/v1/auth/providerAgency/95930`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

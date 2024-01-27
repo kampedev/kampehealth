@@ -10,7 +10,7 @@
               <div class="media">
                 <div class="avatar avatar mr-3">
                   <div
-                    class="avatar-title bg-success rounded-circle mdi mdi-receipt  "
+                    class="avatar-title bg-success rounded-circle mdi mdi-receipt"
                   ></div>
                 </div>
                 <div class="media-body">
@@ -21,11 +21,8 @@
                     Invoice Date :
                     {{ paymentorder.data.created_at | moment("D/M/YYYY") }}
                   </p>
-                  <button class="btn btn-white-translucent"  @click="printMe">
-                    <i
-                      class="mdi mdi-printer"
-                                   
-                    ></i>
+                  <button class="btn btn-white-translucent" @click="printMe">
+                    <i class="mdi mdi-printer"></i>
                     Print
                   </button>
                   <!-- <a
@@ -39,8 +36,8 @@
                     Letter of Address
                   </a> -->
                   <button
-                  v-if="paymentorder.data.status != 'paid'"
-                    @click="InitiateTransfer"
+                    v-if="paymentorder.data.status != 'paid'"
+                    @click="approvePayment"
                     class="btn btn-white-translucent spacer-left"
                   >
                     complete payment
@@ -54,19 +51,13 @@
                 <div class="p-all-15">
                   <div class="row">
                     <div class="col-md-6 my-2 m-md-0">
-                      <div class="text-overline    opacity-75">
-                        Total Amount
-                      </div>
+                      <div class="text-overline opacity-75">Total Amount</div>
                       <h3 class="m-0 text-success">
                         <i class="mdi mdi-currency-ngn"></i
                         >{{ paymentorder.total_claims_cost | numeral(0, 0) }}
                       </h3>
                     </div>
-                    <!-- <div class="col-md-6 my-2 m-md-0">
-
-                                           <div class="text-overline    opacity-75">amount pending</div>
-                                           <h3 class="m-0 text-danger">$32,590</h3>
-                                       </div> -->
+                   
                   </div>
                 </div>
               </div>
@@ -115,7 +106,10 @@
                       </div>
 
                       <div class="">
-                        Payment For:  <span class="font-weight-bold">{{ paymentorder.data.type }}</span> 
+                        Payment For:
+                        <span class="font-weight-bold">{{
+                          paymentorder.data.type
+                        }}</span>
                       </div>
                       <div class="">
                         Date:
@@ -124,7 +118,7 @@
                     </div>
                   </div>
 
-                  <div class="table-responsive ">
+                  <div class="table-responsive">
                     <table class="table m-t-50">
                       <thead>
                         <tr>
@@ -184,9 +178,7 @@
                                            </tr> -->
 
                         <tr class="bg-light">
-                          <td class="">
-                            Total
-                          </td>
+                          <td class="">Total</td>
                           <td class="text-right">
                             <i class="mdi mdi-currency-ngn"></i>
                             <strong>
@@ -200,13 +192,11 @@
                     </table>
                   </div>
                   <div class="p-t-10 p-b-20">
-                    <p class="font-weight-bold ">
+                    <p class="font-weight-bold">
                       Powered by Osun State Health Insurance Agency
                     </p>
                     <hr />
-                    <div class="text-center opacity-75">
-                      &copy; 2022
-                    </div>
+                    <div class="text-center opacity-75">&copy; 2024</div>
                   </div>
                 </div>
               </div>
@@ -260,61 +250,29 @@ export default {
       this.agency_id = "";
     },
 
-     InitiateTransfer() {
-        if (confirm("Are you sure")) {
-          this.isLoading = true
+   
+
+    approvePayment() {
+
+      if (confirm('Are you Sure you want to complete') ) {
+        
+      
       this.axios
-        .post(
-          `https://api.paystack.co/transfer`,{
-            source: "balance",
-            amount: this.paymentorder.total_claims_cost*100,
-            recipient: this.paymentorder.data.provider.recipient_code,
-            reason: "Claim Payment",
-            currency: "NGN",
-          },
-          {
-            headers: {
-              Authorization: `Bearer sk_test_9bf6e51dcb060ac515b5f073b4a1dec81cb200a8`,
-            },
-          },
-           
-        )
+        .post(`/api/v1/auth/update-payment-status/${this.$route.params.id}`, {
+          status: "paid",
+        })
         .then((response) => {
-          this.$toasted.success("Payment Completed Successfully", {
+          console.log(response);
+          this.getPayment();
+          this.$toasted.info("Updated Successfully", {
             position: "top-center",
             duration: 3000,
           });
-          console.log(response);
-           this.isLoading = false
-          this.approvePayment()
         })
         .catch((error) => {
           console.error(error);
-           this.$toasted.error("Error!", {
-            position: "top-center",
-            duration: 3000,
-          });
         });
       }
-    },
-
-    approvePayment() {
-     
-        this.axios
-          .post(`/api/v1/auth/update-payment-status/${this.$route.params.id}`, {
-            status: "paid",
-          })
-          .then((response) => {
-            console.log(response);
-            this.getPayment();
-            this.$toasted.info("Updated Successfully", {
-              position: "top-center",
-              duration: 3000,
-            });
-          })
-          .catch((error) => {
-            console.error(error);
-          });
     },
     getPayment() {
       this.axios
@@ -327,7 +285,7 @@ export default {
           console.error(error);
         });
     },
-     printMe() {
+    printMe() {
       var printContents = document.getElementById("printDiv").innerHTML;
       var originalContents = document.body.innerHTML;
       document.body.innerHTML = printContents;

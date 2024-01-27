@@ -50,14 +50,14 @@
                         />
                       </div>
 
-                      <div class="row col-md-12" v-if="search_result != ''">
+                      <div class="row col-md-12" >
                         <div class="form-group col-md-6">
                           <label for="inputCity">Enrollee Surname</label>
                           <input
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            :value="search_result.data.firstname"
+                            :value="summary.enrollee.firstname"
                             disabled
                           />
                         </div>
@@ -68,7 +68,7 @@
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            :value="search_result.data.lastname"
+                            :value="summary.enrollee.lastname"
                             disabled
                           />
                         </div>
@@ -89,7 +89,7 @@
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            :value="search_result.data.phone_number"
+                            :value="summary.enrollee.phone_number"
                             disabled
                           />
                         </div>
@@ -340,11 +340,11 @@ export default {
               agency_id: 95930,
               client_name:
                 this.search_result.type == "client"
-                  ? this.search_result.data.id
+                  ? this.search_result.data[0].id
                   : 0,
               dependent_id:
                 this.search_result.type == "dependent"
-                  ? this.search_result.data.id
+                  ? this.search_result.data[0].id
                   : 0,
               seen_date: this.claim.seen_date,
               diagnosis: this.summary.diagnosis.id,

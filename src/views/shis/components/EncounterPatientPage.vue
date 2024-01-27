@@ -149,10 +149,10 @@
             <table class="table align-td-middle table-card">
               <thead>
                 <tr>
-                  <th>Number</th>
+                  <th>No.</th>
                   <th>Type</th>
                   <th>Name</th>
-                  <th>Frequency/Qty </th>
+                  <th>Distribution </th>
                   <th>Unit Amount</th>
                   <!-- <th>Days</th> -->
                   <th>Amount</th>
@@ -177,9 +177,11 @@
                     }}</span>
                   </td>
                    <td>
-                    <span>
-                      {{ service.frequency }}
-                    </span>
+                    <p>
+                     (Freq =  {{ service.frequency }}),
+                     (Dose  = {{ service.dose }}),
+                   (   Days = {{ service.days }})
+                    </p>
                   </td>
                   <td>
                      <span v-if="service.service != null">{{

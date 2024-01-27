@@ -66,17 +66,6 @@
             </router-link>
           </li>
 
-          <li class="menu-item active" v-if="user.type == 'provider'">
-            <router-link to="/provider-dashboard" class="menu-link">
-              <span class="menu-label">
-                <span class="menu-name">Dashboard </span>
-              </span>
-              <span class="menu-icon">
-                <i class="icon-placeholder fe fe-home"></i>
-              </span>
-            </router-link>
-          </li>
-
           <li
             class="menu-item active"
             v-if="user.type == 'shis' || user.user_role == 1"
@@ -105,10 +94,10 @@
             </a>
           </li>
 
-          <li class="menu-item active" v-if="user.type == 'provider_employee'">
+          <li class="menu-item" v-if="user.type == 'provider_employee'">
             <a href="/personnel" class="menu-link">
               <span class="menu-label">
-                <span class="menu-name">Dashboard </span>
+                <span class="menu-name">My Dashboard </span>
               </span>
               <span class="menu-icon">
                 <i class="icon-placeholder fe fe-home"></i>
@@ -154,20 +143,33 @@
             </ul>
           </li>
 
-          <li class="menu-item" v-if="user.type == 'provider'">
+          <li
+            class="menu-item"
+            v-if="user.type == 'provider' || user.type == 'provider_employee'"
+          >
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
                 <span class="menu-name"
-                  >Clients
+                  >Facility Data
                   <span class="menu-arrow"></span>
                 </span>
               </span>
               <span class="menu-icon">
-                <i class="icon-placeholder fe fe-users"></i>
+                <i class="icon-placeholder fe fe-airplay"></i>
               </span>
             </a>
             <!--submenu-->
             <ul class="sub-menu">
+              <li class="menu-item">
+                <router-link to="/provider-dashboard" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Facility Dashboard </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-bar-chart-2"></i>
+                  </span>
+                </router-link>
+              </li>
               <li class="menu-item">
                 <router-link to="/view-clients-provider" class="menu-link">
                   <span class="menu-label">
@@ -453,16 +455,15 @@
               user.type == 'provider' ||
               user.type == 'provider_employee' ||
               user.user_role == 1 ||
-              user.job_title == 'Claims Verifier'
+              user.job_title == 'Claims Vetter' ||
+                user.job_title == 'Claims Verifier'
             "
           >
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
                 <span class="menu-name"
                   >Claims
-                  <span v-if="user.type != 'tpa_employee' && user.type != 'tpa'"
-                    >and Referrals</span
-                  >
+                 
                   Manager
                   <span class="menu-arrow"></span>
                 </span>
@@ -501,10 +502,20 @@
                 </router-link>
               </li>
 
-              <li class="menu-item">
-                <router-link to="/all-referrals" class="menu-link">
+              <!-- <li class="menu-item">
+                <router-link to="/add-referral" class=" menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Incoming Referrals </span>
+                    <span class="menu-name">Add Referral </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder mdi mdi-plus-box"></i>
+                  </span>
+                </router-link>
+              </li> -->
+              <li class="menu-item">
+                <router-link to="/all-referrals" class=" menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">View Referrals </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder mdi mdi-bank-transfer-out"></i>
@@ -512,7 +523,7 @@
                 </router-link>
               </li>
               <li class="menu-item">
-                <router-link to="/authorization-code" class="menu-link">
+                <router-link to="/authorization-code" class=" menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Authorization Code</span>
                   </span>
@@ -521,6 +532,8 @@
                   </span>
                 </router-link>
               </li>
+
+
             </ul>
           </li>
 

@@ -77,7 +77,7 @@
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="search_result.data.firstname"
+                        :value="search_result.firstname"
                         disabled
                       />
                     </div>
@@ -88,17 +88,17 @@
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="search_result.data.lastname"
+                        :value="search_result.lastname"
                         disabled
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="inputCity">OHIS Number</label>
+                      <label for="inputCity">OSHIA Number</label>
                       <input
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="search_result.data.id_card_number"
+                        :value="search_result.id_card_number"
                         disabled
                       />
                     </div>
@@ -109,28 +109,34 @@
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="search_result.data.sector"
+                        :value="search_result.sector"
                         disabled
                       />
                     </div>
 
                     <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="inputCity"
-                            >Select Encounter </label
+                      <div class="form-group">
+                        <label for="inputCity">Select Encounter </label>
+                        <select
+                          class="form-control"
+                          required
+                          v-model="service_summary_id"
+                        >
+                          <option
+                            :value="encounter.service.id"
+                            v-for="encounter in encounters"
+                            v-bind:key="encounter.id"
                           >
-                          <select
-                            class="form-control"
-                            required
-                            v-model="service_summary_id"
+                            {{ encounter.encounter_id }}
                             
-                          >
-                            <option :value="encounter.service.id" v-for="encounter in encounters" 
-                            v-bind:key="encounter.id"> {{encounter.encounter_id}} ({{encounter.service.diagnosis.name}} ) </option>
-                          </select>
-                        </div>
+                            <span v-if="encounter.service.diagnosis != null ">({{
+                              encounter.service.diagnosis.name
+                            }}
+                            )</span>
+                          </option>
+                        </select>
                       </div>
-
+                    </div>
                   </div>
 
                   <div class="form-group">
@@ -266,6 +272,7 @@ export default {
       referred_to_facility : "",
       providers: "",
       search_result: "",
+      search_obj: "",
       service_summary_id: "",
       encounters: "",
       register: {
@@ -326,19 +333,6 @@ export default {
         });
     },
 
-      getCodesTpa() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.axios
-        .get(`/api/v1/auth/authorization_code-tpa`)
-        .then((response) => {
-          this.codes = response.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
     searchIDCard() {
       this.isLoading = true;
       this.axios
@@ -346,8 +340,9 @@ export default {
           id_card_number: this.searchkey,
         })
         .then((response) => {
-          this.search_result = response.data;
-          this.getRecords()
+          this.isLoading = false;
+          this.search_result = response.data.data[0];
+          this.search_obj = response.data;
 
           console.log(response);
           this.$toasted.info("Searched Successfully", {
@@ -355,7 +350,7 @@ export default {
             duration: 3000,
           });
 
-          this.isLoading = false;
+         
         })
         .catch((error) => {
           console.error(error);
@@ -366,7 +361,6 @@ export default {
           });
         });
     },
-
     generateCode(diag) {
       this.axios
         .post(`/api/v1/auth/generateCode`,{
@@ -391,14 +385,10 @@ export default {
         .post("/api/v1/auth/authorization_code", {
           agency_id: 95930,
           principal_id:
-            this.search_result.type == "client"
-              ? this.search_result.data.id
-              : 0,
+            this.search_obj.type == "client" ? this.search_result.id : 0,
           dependent_id:
-            this.search_result.type == "dependent"
-              ? this.search_result.data.id
-              : 0,
-          org_id: this.search_result.data.org_id,
+            this.search_obj.type == "dependent" ? this.search_result.id : 0,
+          // org_id: this.search_result.data.org_id,
            provider_id: this.user.institutional_id,
            service_summary_id: this.service_summary_id,
            referred_to_facility: this.referred_to_facility.id,
@@ -406,7 +396,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.isLoading = false;
-          let org =  response.data.org
+          // let org =  response.data.org
           this.getCodes();
           this.$toasted.info(`${response.data.message}`, {
             position: "top-center",
@@ -414,7 +404,7 @@ export default {
           });
 
           this.clearIt();
-          this.sendSMS(org)
+          this.sendSMS()
         })
         .catch((error) => {
           console.log(error.response);
@@ -461,9 +451,9 @@ export default {
           console.error(error);
         });
     },
-    sendSMS(org){
+    sendSMS(){
        this.isLoading = true;
-          this.axios.post(`https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${this.message}&recipients=${org.phone_number}`, {
+          this.axios.post(`https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${this.message}&recipients=+2348033886362`, {
 
           })
           .then(response=>{

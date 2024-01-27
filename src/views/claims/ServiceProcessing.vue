@@ -22,62 +22,72 @@
             <div class="card m-b-30">
               <div class="card-body">
                 <div class="">
-                 
-                  <form  @submit.prevent="addServiceRendered">
-                    <div class="row"> 
-                    <div class="form-group col-md-6">
-                      <label >Select Type</label>
-                      <select
-                        class="form-control"
-                        v-model="type" required
-                        @change="handleData"
-                      >
-                        <option value="Drug">Drug</option>
-                        <option value="Service">Service</option>
-                      </select>
-                    </div>
-
-
-                    <div class="form-group col-md-6" v-if="type == 'Service'">
-                          <label >Select Service  </label>
-                          <v-select
-                            v-model="addservice.services_id"
-                            @change="getService()"
-                            label="description"
-                            :required="!addservice.services_id"
-                            :options="services.data"
-                          />
-                      </div>                 
-
-                     <div class="form-group col-md-6" v-if="type == 'Drug'">
-                          <label for="inputPassword4">Select Drug  </label>
-                          <v-select
-                            
-                            v-model="addservice.drugs_id"
-                            
-                            label="item_data"
-                            :required="!addservice.drugs_id"
-                            :options="drugs.data"
-                          />
-                       
+                  <form @submit.prevent="addServiceRendered">
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                        <label>Select Type</label>
+                        <select
+                          class="form-control"
+                          v-model="type"
+                          required
+                          @change="handleData"
+                        >
+                          <option value="Drug">Drug</option>
+                          <option value="Service">Service</option>
+                        </select>
                       </div>
 
-                   
-                    <!-- <div class="form-group col-md-6" v-if="type == 'Drug'">
-                      <label for="inputCity">Quantity</label>
-                      <input
-                        type="text"
-                        class="form-control" required
-                        id="inputEmail4"
-                        placeholder="1"
-                        v-model="days"
-                      />
-                    </div> -->
+                      <div class="form-group col-md-6" v-if="type == 'Service'">
+                        <label>Select Service </label>
+                        <v-select
+                          v-model="addservice.services_id"
+                          @change="getService()"
+                          label="description"
+                          :required="!addservice.services_id"
+                          :options="services.data"
+                        />
+                      </div>
 
-                  <!-- <div class="form-group col-md-4" v-if="type != ''">
-                        <label for="inputCity"
-                          >Days
-                        </label>
+                      <div class="form-group col-md-6" v-if="type == 'Drug'">
+                        <label for="inputPassword4">Select Drug </label>
+                        <v-select
+                          v-model="addservice.drugs_id"
+                          label="item_data"
+                          :required="!addservice.drugs_id"
+                          :options="drugs.data"
+                        />
+                      </div>
+
+                      <div class="form-group col-md-4" v-if="type == 'Drug'">
+                        <label for="inputCity">Dose</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="1"
+                          v-model="dose"
+                        />
+                      </div>
+
+                      <div class="form-group col-md-4" v-if="type != ''">
+                        <label for="inputCity">Frequency </label>
+                        <input
+                          type="number"
+                          min="1"
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="freq"
+                          v-model="frequency"
+                        />
+                        <p class="text-primary">
+                          The number of times or quantity given.
+                        </p>
+                      </div>
+
+                      <div class="form-group col-md-4" v-if="type != ''">
+                        <label for="inputCity">Days </label>
                         <input
                           type="number"
                           min="1"
@@ -88,52 +98,17 @@
                           placeholder="Qty"
                           v-model="days"
                         />
-                        <p class="text-primary">For services such as bedrest, admissions etc </p>
-                      </div> -->
-
-                      <!-- <div class="form-group col-md-4" v-if="type == 'Drug'">
-                        <label for="inputCity">Dosage</label>
-                        <input
-                          type="number"
-                          min="1"
-                          class="form-control"
-                          required
-                          id="inputEmail4"
-                          placeholder="Qty"
-                          v-model="dose"
-                        />
-                      </div> -->
-
-                      <div class="form-group col-md-4" v-if="type != ''">
-                        <label for="inputCity"
-                          >Quantity/Frequency
-                        </label>
-                        <input
-                          type="number"
-                          min="1"
-                          class="form-control"
-                          required
-                          id="inputEmail4"
-                          placeholder="Qty"
-                          v-model="frequency"
-                        />
-                        <p class="text-primary">The number of times or quantity given. </p>
+                        <p class="text-primary">
+                          For services such as bedrest, admissions etc
+                        </p>
                       </div>
-                    <!-- <div class="form-group col-md-6">
-                      <label for="inputCity">Cost</label>
-                      <input
-                        type="text"
-                        class="form-control" required
-                        id="inputEmail4"
-                        placeholder="Cost"
-                        v-model="calcCost"
-                        disabled
-                      />
-                    </div>
-                    -->
 
-                    </div>
-                     <div class="col-md-6">
+                     
+
+                     
+                     
+                  </div>
+                    <div class="col-md-12">
                       <button
                         class="btn btn-success btn-block"
                         style="margin-bottom: 30px"
@@ -149,7 +124,8 @@
                     class="btn btn-outline-success btn-block"
                     @click="singleClaim()"
                   >
-                    Proceed to Document Upload <i class="fe fe-chevron-right"></i>
+                    Proceed to Document Upload
+                    <i class="fe fe-chevron-right"></i>
                   </button>
                 </div>
               </div>
@@ -165,11 +141,11 @@
               <table class="table align-td-middle table-card">
                 <thead>
                   <tr>
-                    <th>Number</th>
+                    <th>No.</th>
                     <th>Name</th>
-                    <!-- <th>Days</th> -->
-                    <!-- <th>Dose</th> -->
-                    <th>Quantity/Frequency</th>
+                    <th>Dose</th>
+                    <th>Frequency</th>
+                    <th>Days</th>
                     <th>Unit Cost</th>
                     <th>Total Cost</th>
                   </tr>
@@ -188,19 +164,21 @@
                         service.drug.drug_name
                       }}</span>
                     </td>
-                    <!-- <td> {{service.days}} </td> -->
-                    <!-- <td>  {{service.dose}} </td> -->
-                    <td>  {{service.frequency}}  </td>
+                    <td>  {{service.dose}} </td>
+                    <td>{{ service.frequency }}</td>
+                    <td> {{service.days}} </td>
+
                     <td>
-                      &#8358; <span v-if="service.service != null">{{
+                      &#8358;
+                      <span v-if="service.service != null">{{
                         service.service.price
                       }}</span>
                       <span v-if="service.drugs_id != null">{{
                         service.drug.price
                       }}</span>
-                     </td>
-                    <td>&#8358;{{ service.cost | numeral(0, 0) }} </td>
-                   
+                    </td>
+                    <td>&#8358;{{ service.cost | numeral(0, 0) }}</td>
+
                     <td>
                       <button
                         class="btn btn-danger"
@@ -406,7 +384,7 @@ export default {
 };
 </script>
 <style scoped>
-.spacer-top{
-  margin-top:4px;
+.spacer-top {
+  margin-top: 4px;
 }
 </style>

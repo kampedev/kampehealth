@@ -42,8 +42,8 @@
                       @click="generateCode"
                       v-if="
                         (auth_code.status != 'approved' &&
-                          user.type == 'tpa') ||
-                          user.type == 'tpa_employee'
+                          user.type == 'employee') ||
+                          user.type == 'shis'
                       "
                     >
                       Generate Authorization Code <i class="fe fe-lock"></i>
@@ -187,10 +187,10 @@
                             <span class="text-success">Date Prepared:</span>
                             {{ auth_code.created_at }}
                           </p>
-                          <p class="h5">
+                          <!-- <p class="h5">
                             <span class="text-success">TPA/HMO:</span>
                             {{ auth_code.tpa.organization_name }}
-                          </p>
+                          </p> -->
                           <p class="h5">
                             <span class="text-success"
                               >Requesting Officer:</span

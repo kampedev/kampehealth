@@ -62,12 +62,12 @@
                         </option>
                         <option value="Emergency">Emergency</option>
                         <option value="Referred In">Referred In</option>
-                        <option value="Review/follow-up"
-                          >Review/follow-up</option
-                        >
-                        <option value="Specialist Consultation"
-                          >Specialist Consultation</option
-                        >
+                        <option value="Review/follow-up">
+                          Review/follow-up
+                        </option>
+                        <option value="Specialist Consultation">
+                          Specialist Consultation
+                        </option>
                         <option value="Out of Station">Out of Station</option>
                       </select>
                     </div>
@@ -82,96 +82,54 @@
                       />
                     </div>
 
-                    <div class="card-body row" v-if="search_result != ''">
-                      <div class="col-md-4">
-                        <img
-                          :src="
-                            `https://api.hayokinsurance.com/image/${search_result.data.user_image}`
-                          "
-                          alt="User Photo"
-                          class="rounded"
-                          width="200px"
-                          height="200px"
-                          onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
-                        />
-                      </div>
+                    <div v-if="search_result != ''">
+                      <div class="row col-md-12" v-show="userDetails">
+                        <div class="form-group col-md-6">
+                          <label for="inputCity">Client Surname</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            :value="search_result.data[0].firstname"
+                            disabled
+                          />
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputCity">Client First Name</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            :value="search_result.data[0].lastname"
+                            disabled
+                          />
+                        </div>
 
-                      <div class="col-md-6">
-                        <p class=" spacer-top-bottom">
-                          <strong class="text-primary">Full Name :</strong>
-                          <strong>{{ search_result.data.lastname }}</strong>
-                          {{ search_result.data.firstname }},
-                          {{ search_result.data.middlename }}
-                        </p>
-                        <hr />
-                        <p class=" spacer-top-bottom">
-                          <strong class="text-primary">O'HIS Number:</strong>
-                          <strong>{{
-                            search_result.data.id_card_number
-                          }}</strong>
-                        </p>
-                        <hr />
-                        <p class=" spacer-top-bottom">
-                          <strong class="text-primary">Expiry Date:</strong>
-
-                          <strong>{{
-                            search_result.data.expiry_date
-                              | moment("dddd, MMMM Do YYYY")
-                          }}</strong>
-                          <button class="btn btn-dark btn-sm">
-                            {{ search_result.data.status }}
-                          </button>
-                        </p>
-
-                        <hr />
-                        <p class=" spacer-top-bottom">
-                          <strong class="text-primary">
-                            Facility to Access Care:</strong
-                          >
-                          <strong>{{
-                            search_result.data.userprovider.agency_name
-                          }}</strong>
-                        </p>
-
-                        <hr />
-                        <p
-                          class="spacer-top-bottom"
-                          v-if="search_result.data.place_of_work != null"
-                        >
-                          <strong class="text-primary">MDA:</strong>
-                          <strong>
-                            {{ search_result.data.place_of_work }}</strong
-                          >
-                        </p>
-
-                        <hr />
-                        <p class=" spacer-top-bottom">
-                          <strong class="text-primary">Plan Type:</strong>
-                          <strong>{{ search_result.data.plan_type }} </strong>
-                        </p>
-                        <hr />
-                        <p class=" spacer-top-bottom">
-                          <strong class="text-primary">Sector:</strong>
-                          <strong> {{ search_result.data.sector }}</strong>
-                        </p>
-                        <hr />
-
-                        <p class=" spacer-top-bottom">
-                          <strong class="text-primary">Gender:</strong>
-                          <strong> {{ search_result.data.gender }}</strong>
-                        </p>
-                        <hr />
-                        <p class=" spacer-top-bottom">
-                          <strong class="text-primary">Date of Birth:</strong>
-                          <strong> {{ search_result.data.dob }}</strong>
-                        </p>
-                        <hr />
+                        <div class="form-group col-md-6">
+                          <label for="inputCity"
+                            >Sector {{ search_result.data[0].agency_id }}
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="inputEmail4"
+                            :value="search_result.data[0].sector"
+                            disabled
+                          />
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputCity">Phone Number</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="inputEmail4"
+                            v-model="search_result.data[0].phone_number"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   <div class="form-row">
-                    <div class="form-group col-md-6" v-if="search_result != ''">
+                    <!-- <div class="form-group col-md-6" v-if="search_result != ''">
                       <label for="inputCity">Enrollee Phone Number</label>
                       <input
                         type="text"
@@ -179,7 +137,7 @@
                         id="inputEmail4"
                         v-model="search_result.data.phone_number"
                       />
-                    </div>
+                    </div> -->
 
                     <div class="form-group col-md-6">
                       <label for="inputPassword4">Diagnosis </label>
@@ -238,12 +196,12 @@
                   </div>
 
                   <div
-                    v-for="service_renderred in record.services"
+                    v-for="(service_renderred, index) in record.services"
                     v-bind:key="service_renderred"
                   >
                     <div class="row">
                       <div
-                        class="form-group col-md-3"
+                        class="form-group col-md-2"
                         v-if="record.treatment_type == 'Primary'"
                       >
                         <label>Select Type </label>
@@ -258,14 +216,14 @@
                       </div>
 
                       <div
-                        class="form-group col-md-3"
+                        class="form-group col-md-6"
                         v-if="
                           record.treatment_type == 'Primary' &&
-                            service_renderred.type == 'Drug'
+                          service_renderred.type == 'Drug'
                         "
                       >
                         <label for="inputPassword4"
-                          >Select Primary Drugs
+                          >Select Primary Drug
                         </label>
                         <v-select
                           v-model="service_renderred.drug"
@@ -276,15 +234,13 @@
                       </div>
 
                       <div
-                        class="form-group col-md-3"
+                        class="form-group col-md-7"
                         v-if="
                           record.treatment_type == 'Primary' &&
-                            service_renderred.type == 'Service'
+                          service_renderred.type == 'Service'
                         "
                       >
-                        <label for="inputPassword4"
-                          >Select Primary Services
-                        </label>
+                        <label for="inputPassword4">Select Services </label>
                         <v-select
                           v-model="service_renderred.service"
                           label="description"
@@ -293,9 +249,54 @@
                         />
                       </div>
 
-                      <!-- <div  v-if="record.treatment_type == 'Primary'"> -->
-                      <!-- <div
-                        class="form-group col-md-2"
+                     
+
+                      <div
+                        class="form-group col-md-1"
+                        v-if="
+                          record.treatment_type == 'Primary' &&
+                          service_renderred.type == 'Drug'"
+                      >
+                        <label for="inputCity">Dose </label>
+                        <input
+                          type="number"
+                          min="1"
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="1"
+                          v-model="service_renderred.dose"
+                        />
+                      
+                      </div>
+
+
+                     
+
+                     
+
+
+                      <div
+                        class="form-group col-md-1"
+                        v-if="service_renderred.type != ''"
+                      >
+                        <label for="inputCity">Frequency </label>
+                        <input
+                          type="number"
+                          min="1"
+                          
+                          class="form-control"
+                          required
+                          id="inputEmail4"
+                          placeholder="1"
+                          :value="service_renderred.frequency"
+                        />
+                        <p class="text-primary">
+                        </p>
+                      </div>
+
+                      <div
+                        class="form-group col-md-1"
                         v-if="service_renderred.type != ''"
                       >
                         <label for="inputCity">Days </label>
@@ -308,59 +309,32 @@
                           placeholder="1"
                           v-model="service_renderred.days"
                         />
-                         <p class="text-primary">For services such as bedrest, admissions etc </p>
-                      </div> -->
-
-                      <!-- <div
-                        class="form-group col-md-2"
-                        v-if="service_renderred.type == 'Drug'"
-                      >
-                        <label for="inputCity">Dosage</label>
-                        <input
-                          type="number"
-                          min="1"
-                          class="form-control"
-                          required
-                          id="inputEmail4"
-                          placeholder="Qty"
-                          v-model="service_renderred.dose"
-                        />
-                      </div> -->
-
-                      <div
-                        class="form-group col-md-3"
-                        v-if="service_renderred.type != ''"
-                      >
-                        <label for="inputCity"
-                          >Quantity/Frequency
-                        </label>
-                        <input
-                          type="number"
-                          min="1"
-                          class="form-control"
-                          required
-                          id="inputEmail4"
-                          placeholder="1"
-                          v-model="service_renderred.frequency"
-                        />
-                        <p class="text-primary">The number of times or quantity given. </p>
+                       
                       </div>
 
                       <div
-                        class="form-group col-md-3 d-flex align-items-center"
-                     
+                        class="form-group col-md-1 d-flex align-items-center"
                         v-if="service_renderred.type != ''"
                       >
-                        <button @click="addArray()" class="btn btn-success">
-                          add more <i class="fe fe-activity"></i>
+                      
+                        <button @click="removeArray(index)" class="mt-4 btn btn-outline-danger">
+                          <i class="fe fe-delete"></i> 
                         </button>
                       </div>
-                    <!-- </div> -->
-
-
+                      <!-- </div> -->
                     </div>
+                  </div>
 
-                  
+                  <div
+                    class="col-md-12 mb-6"
+                    v-if="record.treatment_type == 'Primary'"
+                  >
+                    <button
+                      @click="addArray()"
+                      class="btn btn-outline-success btn-block"
+                    >
+                      <i class="fe fe-plus"></i>
+                    </button>
                   </div>
 
                   <div
@@ -375,12 +349,13 @@
                     </button>
                   </div>
 
-                  <div class="form-group"
-                   v-if="record.treatment_type == 'Secondary'"
+                  <div
+                    class="form-group"
+                    v-if="record.treatment_type == 'Secondary'"
                   >
                     <button
                       class="btn btn-success btn-block"
-                      @click="AddRecordSecondary"
+                      @click="AddRecord"
                     >
                       Proceed to Claims <i class="fe fe-send"></i>
                     </button>
@@ -421,13 +396,13 @@ export default {
   },
   data() {
     return {
-      
       user: null,
       searchkey: "",
       diseases: "",
       search_result: "",
       enrollee_details: "",
       edit: false,
+      userDetails: false,
       isLoading: false,
       fullPage: true,
       clients: "",
@@ -484,16 +459,22 @@ export default {
           id_card_number: this.searchkey,
         })
         .then((response) => {
+          this.isLoading = false;
           this.search_result = response.data;
 
-          console.log(response);
-          // this.$router.push(`/client/${user.id}`)
-          this.$toasted.info("Searched Successfully", {
-            position: "top-center",
-            duration: 3000,
-          });
+          if (response.data.data.length > 0) {
+            this.userDetails = true;
 
-          this.isLoading = false;
+            this.$toasted.info("Searched Successfully", {
+              position: "top-center",
+              duration: 3000,
+            });
+          } else {
+            this.$toasted.info("User not Found", {
+              position: "top-center",
+              duration: 3000,
+            });
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -507,19 +488,19 @@ export default {
 
     AddRecord() {
       this.user = JSON.parse(localStorage.getItem("user"));
-      if (confirm("Are you sure you want to submit ?")) {
+      if (this.edit === false) {
+        // Add comp
         this.isLoading = true;
         this.axios
           .post("/api/v1/auth/addHealthRecord", {
             provider_id: this.user.institutional_id,
-            // patient_id: this.enrollee_details.user.id,
             patient_id:
               this.search_result.type == "client"
-                ? this.search_result.data.id
+                ? this.search_result.data[0].id
                 : 0,
             dependent_id:
               this.search_result.type == "dependent"
-                ? this.search_result.data.id
+                ? this.search_result.data[0].id
                 : null,
             reasonVisit: this.record.reasonVisit,
             testResult: this.record.testResult,
@@ -527,13 +508,12 @@ export default {
             drVisited: this.user.id,
             professional_id: this.user.id,
             notes: this.record.medications,
-            encounter_outcome: this.record.encounter_outcome,
-            treatment_type: this.record.treatment_type,
             diagnosis: this.record.diagnosis.id,
-            phone_number: this.search_result.data.phone_number,
+            phone_number: this.search_result.data[0].phone_number,
             patient_type: this.record.patient_type,
             medications: "view service rendered page for more details",
             documents: this.record.documents,
+            treatment_type: this.record.treatment_type,
             date_of_admission: this.record.date_of_admission,
             date_of_discharge: this.record.date_of_discharge,
             date_of_visit: this.record.date_of_visit,
@@ -548,8 +528,14 @@ export default {
               position: "top-center",
               duration: 3000,
             });
-            let record_id = response.data.service_summary.id;
-            this.$router.push(`/encounter/${record_id}`);
+
+            if (this.record.treatment_type == "Primary") {
+              let record_id = response.data.service_summary.id;
+              this.$router.push(`/encounter/${record_id}`);
+            } else {
+              let record_id = response.data.service_summary.id;
+              this.$router.push(`/add-claim/${record_id}`);
+            }
           })
           .catch((error) => {
             console.log(error.response);
@@ -561,63 +547,8 @@ export default {
           });
       }
     },
+    
 
-  AddRecordSecondary() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      if (confirm("Are you sure you want to submit ?")) {
-        this.isLoading = true;
-        this.axios
-          .post("/api/v1/auth/addHealthRecord", {
-            provider_id: this.user.institutional_id,
-            // patient_id: this.enrollee_details.user.id,
-            patient_id:
-              this.search_result.type == "client"
-                ? this.search_result.data.id
-                : 0,
-            dependent_id:
-              this.search_result.type == "dependent"
-                ? this.search_result.data.id
-                : null,
-            reasonVisit: this.record.reasonVisit,
-            testResult: this.record.testResult,
-            agency_id: 95930,
-            drVisited: this.user.id,
-            professional_id: this.user.id,
-            notes: this.record.medications,
-            encounter_outcome: this.record.encounter_outcome,
-            treatment_type: this.record.treatment_type,
-            diagnosis: this.record.diagnosis.id,
-            phone_number: this.search_result.data.phone_number,
-            patient_type: this.record.patient_type,
-            medications: "view service rendered page for more details",
-            documents: this.record.documents,
-            date_of_admission: this.record.date_of_admission,
-            date_of_discharge: this.record.date_of_discharge,
-            date_of_visit: this.record.date_of_visit,
-            services: this.record.services,
-          })
-
-          .then((response) => {
-            console.log(response);
-            this.clearIt();
-            this.isLoading = false;
-            this.$toasted.info("Added Successfully!", {
-              position: "top-center",
-              duration: 3000,
-            });
-            let record_id = response.data.service_summary.id;
-            this.$router.push(`/add-claim/${record_id}`);
-          })
-          .catch((error) => {
-            console.log(error.response);
-            this.isLoading = false;
-            this.$toasted.error("Error! Fill up on fields", {
-              position: "top-center",
-              duration: 3000,
-            });
-          });
-      }
-    },
 
     getDrugs() {
       this.axios

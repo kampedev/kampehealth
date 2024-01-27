@@ -50,7 +50,7 @@ export default {
     methods:{
         getDashboardLGA(){
          this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/provider-encountersdate/${this.user.id}?date=` + this.currentPage)
+      this.axios.get(`/api/v1/auth/provider-encountersdate/${this.user.type == 'provider' ? this.user.id : this.user.institutional_id}?date=` + this.currentPage)
       .then(response => {
         console.log(response)
         // var data = response.data.chartData;

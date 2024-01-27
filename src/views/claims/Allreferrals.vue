@@ -65,9 +65,8 @@
                   <thead>
                     <tr>
                       <th>Date</th>
-                      <th>Refering HCP</th>
+                      <th>Referring HCP</th>
                       <th>Recipient HCP</th>
-                      <th>TPA</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -81,7 +80,6 @@
                       </td>
                       <td>{{ ref.provider.agency_name }}</td>
                       <td>{{ ref.recipientfacility.agency_name }}</td>
-                      <td>{{ ref.tpa.organization_name }}</td>
                       <td>
                         <span >
                           <button
@@ -271,18 +269,7 @@ export default {
             console.error(error);
           });
       }
-      if (this.user.type == "tpa" || this.user.type == "tpa_employee") {
-        this.axios
-          .get(`/api/v1/auth/referrals-tpa/${this.user.id}`)
-          .then((response) => {
-            this.referrals = response.data;
-            console.log(response);
-            this.isLoading = false;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
+   
     },
   },
   created() {

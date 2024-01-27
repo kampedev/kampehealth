@@ -17,21 +17,22 @@
                     <div class="form-group col-md-12">
                       <label for="inputCity">Job Title</label>
                       <select class="form-control" v-model="job_title">
-                        <option value="Executive Secretary"
-                          >Executive Secretary</option
-                        >
+                        <option value="Executive Secretary">
+                          Executive Secretary
+                        </option>
                         <option value="Finance">Finance</option>
+                        <option value="Claims Vetter">Claims Vetter</option>
                         <option value="Claims Verifier">Claims Verifier</option>
-                        <option value="Enrollment Officer"
-                          >Enrollment Officer</option
-                        >
+                        <option value="Enrollment Officer">
+                          Enrollment Officer
+                        </option>
                       </select>
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    class="btn btn-primary btn-block btn-lg"
+                    class="btn btn-success btn-block btn-lg"
                     @click="changeDept"
                   >
                     Submit
@@ -41,9 +42,7 @@
             </div>
           </div>
 
-          <!-- <div class="col-lg-8 d-none d-md-block bg-cover" style="background-image: url('assets/img/login.svg');">
-
-            </div> -->
+        
         </div>
       </div>
     </main>

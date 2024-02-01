@@ -6,7 +6,7 @@
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-dark p-b-30">
-              <h3 class="h3">Add Claim</h3>
+              <h3 class="h3">Claims</h3>
             
             </div>
           </div>

@@ -82,6 +82,7 @@ import ManageService from "../views/drugs/ManageService.vue";
 import AddComplaint from "../views/complaints/AddComplaint.vue";
 import MyComplaints from "../views/complaints/MyComplaints.vue";
 import AddRecord from "../views/ehr/AddRecord.vue";
+import AddRecordSecondary from "../views/ehr/AddRecord.vue";
 import AddRecordOffline from "../views/ehr/AddRecordOffline.vue";
 import MyRecords from "../views/ehr/MyRecords.vue";
 import AddInventory from "../views/inventories/AddInventory.vue";
@@ -804,6 +805,13 @@ const routes = [
   {
     path: "/add-record",
     component: AddRecord,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/add-record-sec/:type",
+    component: AddRecordSecondary,
     meta: {
       requiresAuth: true,
     },

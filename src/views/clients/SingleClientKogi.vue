@@ -275,10 +275,7 @@
                       alt="User Photo"
                       onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                     />
-                    <!-- <img :src="`http://localhost:8000/image/${client.user.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user.user_image != null "> -->
-                    <!-- <p class="btn btn-default spacer-top-bottom">
-                                 <button type="button"  name="button"> Enrollment Card </button>
-                               </p> -->
+                  
                   </div>
 
                   <div class="col-md-8">

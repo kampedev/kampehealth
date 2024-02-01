@@ -634,7 +634,7 @@
                 <router-link to="/manage-services" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name"
-                      >Fees for Professional service
+                      >Fee for Service
                     </span>
                   </span>
                   <span class="menu-icon">
@@ -751,7 +751,7 @@
               </span>
             </a>
           </li>
-          <li
+          <!-- <li
             class="menu-item"
             v-if="user.type == 'shis' || user.user_role == 1"
           >
@@ -763,7 +763,7 @@
                 <i class="icon-placeholder fe fe-briefcase"></i>
               </span>
             </a>
-          </li>
+          </li> -->
 
           <li class="menu-item" v-if="user.type == 'tpa'">
             <a href="/view-clients-tpa" class="menu-link">
@@ -956,6 +956,17 @@
                 <router-link to="/add-record" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Add Record </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-edit"></i>
+                  </span>
+                </router-link>
+              </li>
+
+              <li class="menu-item" v-if="user.type == 'provider_employee'">
+                <router-link to="/add-record-sec/secondary" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Add Record Secondary </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-edit"></i>

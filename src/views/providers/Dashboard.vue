@@ -81,9 +81,12 @@
                 <div class="card-body">
                   <div class="pb-2">
                     <div class="avatar avatar-lg">
+                      <router-link :to="{ path: '/list-records' }">
+
                       <div class="avatar-title bg-soft-success rounded-circle">
                         <i class="mdi mdi-medical-bag"></i>
                       </div>
+                      </router-link>
                     </div>
                   </div>
                   <div>
@@ -146,11 +149,14 @@
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
+                    <router-link :to="{ path: '/all-referrals' }">
+
                     <div class="avatar avatar-lg">
                       <div class="avatar-title bg-soft-success rounded-circle">
                         <i class="mdi mdi-bank-transfer-in"></i>
                       </div>
                     </div>
+                    </router-link>
                   </div>
                   <div>
                     <p class="text-muted text-overline m-0">

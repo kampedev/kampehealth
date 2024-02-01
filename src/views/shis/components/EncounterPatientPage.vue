@@ -3,7 +3,7 @@
     <Navbar />
     <main class="admin-main">
       <div class="jumbotron">
-        <h1 class="h3 text-dark">Patient Details</h1>
+        <h1 class="h3 text-dark">Encounter Details</h1>
       </div>
      
 
@@ -107,6 +107,18 @@
               <p class="other__detail">
                 <strong>Encounter ID: </strong>
                 {{ encounterDetails.healthrecord.encounter_id }}
+              </p>
+
+              <p class="other__detail">
+                <strong>Primary Diagnosis: </strong>
+                {{ encounterDetails.diagnosis.name }}
+              </p>
+              <p class="other__detail"
+              >
+                <strong>Secondary Diagnosis: </strong>
+               <span v-if="encounterDetails.secondarydiagnosis != null">
+                {{ encounterDetails.secondarydiagnosis.name }}
+              </span> 
               </p>
               <p class="other__detail">
                 <strong>Reason for visit: </strong>

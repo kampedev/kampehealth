@@ -248,7 +248,7 @@
                       <td colspan="4">
                         <div class="col-md-12" v-if=" user.job_title == 'Claims Verifier'" >
                                  <b-alert show variant="primary">
-                                   To forward claims to the ES for approval, select a facility  
+                                   To forward claims to the ES for approval, select the verified facility claims. 
                                    </b-alert>
 
                             </div>

@@ -10,7 +10,7 @@
                 <div class="avatar"></div>
               </div>
 
-              <strong class="h4 text-dark">Add Record</strong>
+              <strong class="h4 text-dark">Add Record </strong>
             </div>
           </div>
         </div>
@@ -73,23 +73,42 @@
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label for="inputCity">Patient OHIS Number </label>
+                      <label for="inputCity">Search Enrollee </label>
                       <input
                         type="text"
                         class="form-control"
+                        placeholder="OHIS Number, First Name, Last name, "
                         v-model="searchkey"
                         @change="searchIDCard"
                       />
+                      <p>{{ search_result.length }} enrollee(s) found</p>
                     </div>
 
-                    <div v-if="search_result != ''">
+                    <div class="form-group col-md-12">
+                      <label for="inputPassword4">Select Enrollee </label>
+                      <v-select
+                        v-model="selected_enrollee"
+                        label="user_query"
+                        :options="search_result"
+                      />
+                    </div>
+
+                    <div>
                       <div class="row col-md-12" v-show="userDetails">
+                        <div class="col-md-6 offset-md-3 my-6">
+                          <img
+                            :src="`https://api.hayokinsurance.com/image/${selected_enrollee.user_image}`"
+                            class="img"
+                            alt="User Photo"
+                            onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                          />
+                        </div>
                         <div class="form-group col-md-6">
                           <label for="inputCity">Client Surname</label>
                           <input
                             type="text"
                             class="form-control"
-                            :value="search_result.data[0].firstname"
+                            :value="selected_enrollee.full_name"
                             disabled
                           />
                         </div>
@@ -98,20 +117,18 @@
                           <input
                             type="text"
                             class="form-control"
-                            :value="search_result.data[0].lastname"
+                            :value="selected_enrollee.lastname"
                             disabled
                           />
                         </div>
 
                         <div class="form-group col-md-6">
-                          <label for="inputCity"
-                            >Sector {{ search_result.data[0].agency_id }}
-                          </label>
+                          <label for="inputCity">Sector </label>
                           <input
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            :value="search_result.data[0].sector"
+                            :value="selected_enrollee.sector"
                             disabled
                           />
                         </div>
@@ -121,7 +138,7 @@
                             type="text"
                             class="form-control"
                             id="inputEmail4"
-                            v-model="search_result.data[0].phone_number"
+                            v-model="selected_enrollee.phone_number"
                           />
                         </div>
                       </div>
@@ -129,27 +146,25 @@
                   </div>
 
                   <div class="form-row">
-                    <!-- <div class="form-group col-md-6" v-if="search_result != ''">
-                      <label for="inputCity">Enrollee Phone Number</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="inputEmail4"
-                        v-model="search_result.data.phone_number"
-                      />
-                    </div> -->
-
-                    <div class="form-group col-md-6">
-                      <label for="inputPassword4">Diagnosis </label>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">Primary Diagnosis </label>
                       <v-select
                         v-model="record.diagnosis"
                         label="name"
-                        :required="!record.diagnosis"
                         :options="diseases"
                       />
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">Secondary Diagnosis </label>
+                      <v-select
+                        v-model="record.secondary_diagnosis"
+                        label="name"
+                        :options="diseases"
+                      />
+                    </div>
+
+                    <div class="form-group col-md-4">
                       <label for="inputCity">Encounter Outcome</label>
                       <select
                         class="form-control"
@@ -160,30 +175,6 @@
                         <option value="Referred Out">Referred Out</option>
                       </select>
                     </div>
-
-                    <!-- <div
-                      class="row col-md-12"
-                      v-if="record.encounter_outcome == 'Admission'"
-                    >
-                      <div class="form-group col-md-6">
-                        <p>
-                          <label for="inputPassword4">Date of Admission</label>
-                        </p>
-                        <date-picker
-                          v-model="record.date_of_admission"
-                          valueType="format"
-                        ></date-picker>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <p>
-                          <label for="inputPassword4">Date of Discharge</label>
-                        </p>
-                        <date-picker
-                          v-model="record.date_of_discharge"
-                          valueType="format"
-                        ></date-picker>
-                      </div>
-                    </div> -->
 
                     <div class="form-group col-md-12">
                       <label for="inputCity">Comments</label>
@@ -196,6 +187,13 @@
                   </div>
 
                   <div
+                    class="col-md-12"
+                    v-if="record.treatment_type == 'Primary'"
+                  >
+                    <h3 class="h3">Treatment</h3>
+                  </div>
+
+                  <div
                     v-for="(service_renderred, index) in record.services"
                     v-bind:key="service_renderred"
                   >
@@ -204,14 +202,14 @@
                         class="form-group col-md-2"
                         v-if="record.treatment_type == 'Primary'"
                       >
-                        <label>Select Type </label>
+                        <label>Select Drug </label>
                         <select
                           required
                           class="form-control"
                           v-model="service_renderred.type"
                         >
                           <option value="Drug">Drug</option>
-                          <option value="Service">Service</option>
+                          <!-- <option value="Service">Service</option> -->
                         </select>
                       </div>
 
@@ -222,9 +220,7 @@
                           service_renderred.type == 'Drug'
                         "
                       >
-                        <label for="inputPassword4"
-                          >Select Primary Drug
-                        </label>
+                        <label for="inputPassword4">Select Primary Drug </label>
                         <v-select
                           v-model="service_renderred.drug"
                           label="item_data"
@@ -249,13 +245,12 @@
                         />
                       </div>
 
-                     
-
                       <div
                         class="form-group col-md-1"
                         v-if="
                           record.treatment_type == 'Primary' &&
-                          service_renderred.type == 'Drug'"
+                          service_renderred.type == 'Drug'
+                        "
                       >
                         <label for="inputCity">Dose </label>
                         <input
@@ -267,14 +262,7 @@
                           placeholder="1"
                           v-model="service_renderred.dose"
                         />
-                      
                       </div>
-
-
-                     
-
-                     
-
 
                       <div
                         class="form-group col-md-1"
@@ -284,15 +272,13 @@
                         <input
                           type="number"
                           min="1"
-                          
                           class="form-control"
                           required
                           id="inputEmail4"
                           placeholder="1"
                           :value="service_renderred.frequency"
                         />
-                        <p class="text-primary">
-                        </p>
+                        <p class="text-primary"></p>
                       </div>
 
                       <div
@@ -309,16 +295,17 @@
                           placeholder="1"
                           v-model="service_renderred.days"
                         />
-                       
                       </div>
 
                       <div
                         class="form-group col-md-1 d-flex align-items-center"
                         v-if="service_renderred.type != ''"
                       >
-                      
-                        <button @click="removeArray(index)" class="mt-4 btn btn-outline-danger">
-                          <i class="fe fe-delete"></i> 
+                        <button
+                          @click="removeArray(index)"
+                          class="mt-4 btn btn-outline-danger"
+                        >
+                          <i class="fe fe-delete"></i>
                         </button>
                       </div>
                       <!-- </div> -->
@@ -381,8 +368,6 @@
 
 <script>
 import Navbar from "@/views/Navbar.vue";
-// import DatePicker from "vue2-datepicker";
-// import "vue2-datepicker/index.css";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -398,6 +383,7 @@ export default {
     return {
       user: null,
       searchkey: "",
+      selected_enrollee: {},
       diseases: "",
       search_result: "",
       enrollee_details: "",
@@ -408,7 +394,6 @@ export default {
       clients: "",
       services: "",
       drugs: "",
-
       record: {
         provider_id: "",
         patient_id: "",
@@ -420,6 +405,7 @@ export default {
         medications: "",
         patient_type: "",
         diagnosis: "",
+        secondary_diagnosis: "",
         date_of_admission: "",
         date_of_discharge: "",
         treatment_type: "",
@@ -435,12 +421,17 @@ export default {
           },
         ],
         drug: "",
-        // services: "",
       },
     };
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
+
+    if (this.$route.params.type == "secondary") {
+      this.record.treatment_type = "Secondary";
+    } else {
+      this.record.treatment_type = "Primary";
+    }
     this.axios
       .get(`/api/v1/auth/diagnosis-agency/95930`)
       .then((response) => {
@@ -455,34 +446,24 @@ export default {
     searchIDCard() {
       this.isLoading = true;
       this.axios
-        .post(`/api/v1/auth/getuserbyIdcard`, {
-          id_card_number: this.searchkey,
+        .post(`/api/v1/auth/searchenrollees`, {
+          provider_id: this.user.institutional_id,
+          request_query: this.searchkey,
         })
         .then((response) => {
           this.isLoading = false;
           this.search_result = response.data;
 
-          if (response.data.data.length > 0) {
-            this.userDetails = true;
+          this.userDetails = true;
 
-            this.$toasted.info("Searched Successfully", {
-              position: "top-center",
-              duration: 3000,
-            });
-          } else {
-            this.$toasted.info("User not Found", {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
+          this.$toasted.info("Searched Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
         })
         .catch((error) => {
           console.error(error);
           this.isLoading = false;
-          this.$toasted.info("User not Found", {
-            position: "top-center",
-            duration: 3000,
-          });
         });
     },
 
@@ -495,12 +476,12 @@ export default {
           .post("/api/v1/auth/addHealthRecord", {
             provider_id: this.user.institutional_id,
             patient_id:
-              this.search_result.type == "client"
-                ? this.search_result.data[0].id
+              this.selected_enrollee.type == "client"
+                ? this.selected_enrollee.id
                 : 0,
             dependent_id:
-              this.search_result.type == "dependent"
-                ? this.search_result.data[0].id
+              this.selected_enrollee.type == "dependent"
+                ? this.selected_enrollee.id
                 : null,
             reasonVisit: this.record.reasonVisit,
             testResult: this.record.testResult,
@@ -509,7 +490,8 @@ export default {
             professional_id: this.user.id,
             notes: this.record.medications,
             diagnosis: this.record.diagnosis.id,
-            phone_number: this.search_result.data[0].phone_number,
+            secondary_diagnosis: this.record.secondary_diagnosis.id,
+            phone_number: this.selected_enrollee.phone_number,
             patient_type: this.record.patient_type,
             medications: "view service rendered page for more details",
             documents: this.record.documents,
@@ -547,8 +529,6 @@ export default {
           });
       }
     },
-    
-
 
     getDrugs() {
       this.axios

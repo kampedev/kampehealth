@@ -59,25 +59,48 @@
                         />
                       </div>
 
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Enrollee OHIS Number </label>
+                      <div class="form-group col-md-6">
+                      <label for="inputCity">Search Enrollee </label>
                       <input
                         type="text"
                         class="form-control"
+                        placeholder="OHIS Number, First Name, Last name, "
                         v-model="searchkey"
                         @change="searchIDCard"
                       />
+                      <p>{{ search_result.length }} enrollee(s) found</p>
                     </div>
+
+                    <div class="form-group col-md-12">
+                      <label for="inputPassword4">Select Enrollee </label>
+                      <v-select
+                        v-model="selected_enrollee"
+                        label="user_query"
+                        :options="search_result"
+                      />
+                    </div>
+
+
                   </div>
 
-                  <div class="row col-md-12" v-if="search_result != ''">
+                  <div class="row col-md-12" v-show="userDetails">
+
+                    <div class="col-md-6 offset-md-3 my-6">
+                          <img
+                            :src="`https://api.hayokinsurance.com/image/${selected_enrollee.user_image}`"
+                            class="img"
+                            alt="User Photo"
+
+                            onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                          />
+                        </div>
                     <div class="form-group col-md-6">
-                      <label for="inputCity">Enrollee Surname</label>
+                      <label for="inputCity">Enrollee Full Name</label>
                       <input
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="search_result.firstname"
+                        :value="selected_enrollee.full_name"
                         disabled
                       />
                     </div>
@@ -88,7 +111,7 @@
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="search_result.lastname"
+                        :value="selected_enrollee.lastname"
                         disabled
                       />
                     </div>
@@ -98,7 +121,7 @@
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="search_result.id_card_number"
+                        :value="selected_enrollee.id_card_number"
                         disabled
                       />
                     </div>
@@ -109,7 +132,7 @@
                         type="text"
                         class="form-control"
                         id="inputEmail4"
-                        :value="search_result.sector"
+                        :value="selected_enrollee.sector"
                         disabled
                       />
                     </div>
@@ -262,13 +285,15 @@ export default {
     return {
       isLoading: false,
       fullPage: true,
-      states: "",
       user: null,
       showadder: false,
+      userDetails: false,
       codes: "",
       // singlerecipient: "08024035326",
       message: "Authorization Code is needed. Go to https://app.oshia.ng/authorization-code  to generate.",
       searchkey: "",
+      selected_enrollee: {},
+      enrollee_details: "",
       referred_to_facility : "",
       providers: "",
       search_result: "",
@@ -282,15 +307,7 @@ export default {
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    // this.axios
-    //   .get(`/api/v1/auth/authorization_code/95930`)
-    //   .then((response) => {
-    //     this.codes = response.data;
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+   
   },
   methods: {
 
@@ -336,29 +353,24 @@ export default {
     searchIDCard() {
       this.isLoading = true;
       this.axios
-        .post(`/api/v1/auth/getuserbyIdcard`, {
-          id_card_number: this.searchkey,
+        .post(`/api/v1/auth/searchenrollees`, {
+          provider_id: this.user.institutional_id,
+          request_query: this.searchkey,
         })
         .then((response) => {
           this.isLoading = false;
-          this.search_result = response.data.data[0];
-          this.search_obj = response.data;
+          this.search_result = response.data;
 
-          console.log(response);
+          this.userDetails = true;
+
           this.$toasted.info("Searched Successfully", {
             position: "top-center",
             duration: 3000,
           });
-
-         
         })
         .catch((error) => {
           console.error(error);
           this.isLoading = false;
-          this.$toasted.info("User not Found", {
-            position: "top-center",
-            duration: 3000,
-          });
         });
     },
     generateCode(diag) {
@@ -385,10 +397,9 @@ export default {
         .post("/api/v1/auth/authorization_code", {
           agency_id: 95930,
           principal_id:
-            this.search_obj.type == "client" ? this.search_result.id : 0,
+            this.selected_enrollee.type == "client" ? this.selected_enrollee.id : 0,
           dependent_id:
-            this.search_obj.type == "dependent" ? this.search_result.id : 0,
-          // org_id: this.search_result.data.org_id,
+            this.selected_enrollee.type == "dependent" ? this.selected_enrollee.id : 0,
            provider_id: this.user.institutional_id,
            service_summary_id: this.service_summary_id,
            referred_to_facility: this.referred_to_facility.id,
@@ -396,7 +407,6 @@ export default {
         .then((response) => {
           console.log(response);
           this.isLoading = false;
-          // let org =  response.data.org
           this.getCodes();
           this.$toasted.info(`${response.data.message}`, {
             position: "top-center",
@@ -404,7 +414,7 @@ export default {
           });
 
           this.clearIt();
-          this.sendSMS()
+          // this.sendSMS()
         })
         .catch((error) => {
           console.log(error.response);

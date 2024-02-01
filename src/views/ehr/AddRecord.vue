@@ -447,7 +447,8 @@ export default {
       this.isLoading = true;
       this.axios
         .post(`/api/v1/auth/searchenrollees`, {
-          provider_id: this.user.institutional_id,
+          // provider_id: this.user.institutional_id,
+          agency_id: 95930,
           request_query: this.searchkey,
         })
         .then((response) => {
@@ -469,7 +470,7 @@ export default {
 
     AddRecord() {
       this.user = JSON.parse(localStorage.getItem("user"));
-      if (this.edit === false) {
+      if (confirm('Are you Sure you want to Submit?') ) {
         // Add comp
         this.isLoading = true;
         this.axios

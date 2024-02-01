@@ -252,18 +252,13 @@
                             </button>
                           </span>
 
+                        
                           <button
-                            v-if="auth_code.is_code_used == true"
-                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-secondary spacer"
+                            class="btn m-b-15 ml-2  badge badge-soft-secondary"
                           >
-                            code used
+                          {{ auth_code.code_usage }}
                           </button>
-                          <button
-                            v-if="auth_code.is_code_used == false"
-                            class="btn m-b-15 ml-2 mr-2 badgebadge-soft-secondary spacer"
-                          >
-                            code not used yet
-                          </button>
+                         
                         </div>
                       </div>
                     </div>
@@ -289,13 +284,7 @@
                       <div class="card-header">
                         <div class="card-title">Timeline</div>
 
-                        <!-- <div class="card-controls">
-                          <select class="custom-select">
-                            <option value="">Everything</option>
-                            <option value="">Charges</option>
-                            <option value="">Upgrades</option>
-                          </select>
-                        </div> -->
+                   
                       </div>
                       <div class="card-body">
                         <div class="timeline">
@@ -606,7 +595,7 @@ export default {
         this.axios
           .post(`/api/v1/auth/generateCode`, {
             id: this.auth_code.id,
-            expiry_days: 90,
+            expiry_days: 2,
           })
           .then((response) => {
             this.getCode();

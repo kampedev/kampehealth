@@ -1,15 +1,15 @@
 <template>
   <div class="">
     <Navbar />
-    <section class="admin-content ">
+    <section class="admin-content">
       <div class="bg-dark bg-dots m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-lg-8 text-center mx-auto text-white p-b-30">
               <div class="m-b-10">
-                <div class="avatar avatar-lg ">
+                <div class="avatar avatar-lg">
                   <div
-                    class="avatar-title bg-info rounded-circle mdi mdi-settings "
+                    class="avatar-title bg-info rounded-circle mdi mdi-settings"
                   ></div>
                 </div>
               </div>
@@ -20,18 +20,16 @@
       </div>
       <section class="pull-up">
         <div class="container">
-          <div class="row ">
-            <div class="col-lg-10 mx-auto  mt-2">
+          <div class="row">
+            <div class="col-lg-10 mx-auto mt-2">
               <div class="card py-3 m-b-30">
                 <div class="card-body">
                   <h3 class="">Bank Details</h3>
                   <p class="text-muted">
-                    OHIS Bank Code: {{auth_user.recipient_code}}
+                    OHIS Bank Code: {{ auth_user.recipient_code }}
                   </p>
 
                   <div class="form-row">
-                   
-
                     <div class="form-group col-md-6">
                       <label for="inputCity">Bank </label>
                       <select class="form-control" v-model="bank_code">
@@ -39,12 +37,13 @@
                           v-for="bank in banks.data"
                           v-bind:key="bank"
                           :value="bank.code"
-                          >{{ bank.name }}</option
                         >
+                          {{ bank.name }}
+                        </option>
                       </select>
                     </div>
 
-                     <div class="form-group col-md-6">
+                    <div class="form-group col-md-6">
                       <label for="asd">Bank Account Number</label>
                       <input
                         type="text"
@@ -55,7 +54,7 @@
                       />
                     </div>
 
-                     <div class="form-group col-md-6" v-if="verified_user != ''">
+                    <div class="form-group col-md-6" v-if="verified_user != ''">
                       <label for="asd">Bank Account Name</label>
                       <input
                         type="text"
@@ -63,11 +62,8 @@
                         class="form-control"
                         placeholder="Phone Number"
                         :value="verified_user.data.account_name"
-                       
                       />
                     </div>
-
-            
                   </div>
 
                   <button
@@ -120,7 +116,7 @@ export default {
     };
   },
   beforeMount() {
-   this.user = JSON.parse(localStorage.getItem("user"));
+    this.user = JSON.parse(localStorage.getItem("user"));
   },
   methods: {
     getProviders() {
@@ -145,24 +141,27 @@ export default {
       this.isLoading = true;
 
       this.axios
-        .get(`https://api.paystack.co/bank/resolve?account_number=${this.bank_account_number}&bank_code=${this.bank_code}`, {
-          headers: {
-            Authorization: `Bearer sk_test_9bf6e51dcb060ac515b5f073b4a1dec81cb200a8`,
-          },
-        })
+        .get(
+          `https://api.paystack.co/bank/resolve?account_number=${this.bank_account_number}&bank_code=${this.bank_code}`,
+          {
+            headers: {
+              Authorization: `Bearer sk_test_9bf6e51dcb060ac515b5f073b4a1dec81cb200a8`,
+            },
+          }
+        )
         .then((response) => {
           this.verified_user = response.data;
           console.log(response);
-             this.isLoading = false;
-              this.$toasted.success("Account Verified Successfully", {
+          this.isLoading = false;
+          this.$toasted.success("Account Verified Successfully", {
             position: "top-center",
             duration: 3000,
           });
         })
         .catch((error) => {
           console.error(error);
-           this.isLoading = false;
-            this.$toasted.error("Account Not Found!", {
+          this.isLoading = false;
+          this.$toasted.error("Account Not Found!", {
             position: "top-center",
             duration: 3000,
           });
@@ -172,7 +171,8 @@ export default {
     creatAccount() {
       this.axios
         .post(
-          `https://api.paystack.co/transferrecipient`,{
+          `https://api.paystack.co/transferrecipient`,
+          {
             type: "nuban",
             name: this.verified_user.data.account_name,
             account_number: this.bank_account_number,
@@ -183,8 +183,7 @@ export default {
             headers: {
               Authorization: `Bearer sk_test_9bf6e51dcb060ac515b5f073b4a1dec81cb200a8`,
             },
-          },
-           
+          }
         )
         .then((response) => {
           this.$toasted.success("Account Created Successfully", {
@@ -192,12 +191,12 @@ export default {
             duration: 3000,
           });
           console.log(response);
-            let recipient_code = response.data.data.recipient_code
-          this.updateRecipientCode(recipient_code)
+          let recipient_code = response.data.data.recipient_code;
+          this.updateRecipientCode(recipient_code);
         })
         .catch((error) => {
           console.error(error);
-           this.$toasted.error("Error!", {
+          this.$toasted.error("Error!", {
             position: "top-center",
             duration: 3000,
           });
@@ -217,11 +216,10 @@ export default {
 
     updateRecipientCode(recipient_code) {
       this.axios
-        .patch(`/api/v1/auth/update/recipientcode/${this.$route.params.id}`,{
-            recipient_code : recipient_code 
+        .patch(`/api/v1/auth/update/recipientcode/${this.$route.params.id}`, {
+          recipient_code: recipient_code,
         })
         .then((response) => {
-         
           console.log(response);
         })
         .catch((error) => {

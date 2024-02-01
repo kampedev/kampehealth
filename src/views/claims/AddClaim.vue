@@ -7,7 +7,6 @@
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-dark p-b-30">
               <h3 class="h3">Claims</h3>
-            
             </div>
           </div>
         </div>
@@ -30,27 +29,36 @@
                         />
                       </div>
 
-                       <div class="form-group col-md-4">
-                        <label for="inputCity">Authorization Code</label>
-                        <input
-                          type="text"
+                      <div class="form-group col-md-4">
+                        <label for="inputCity">Authorization Code </label>
+
+                        <select
                           class="form-control"
+                          required
                           v-model="claim.authorization_code"
-                        />
+                        >
+                          <option
+                            v-for="auth_code in referrals"
+                            :key="auth_code.id"
+                            :value="auth_code.code_created"
+                          >
+                            {{ auth_code.code_created }} (
+                            {{ auth_code.code_usage }})
+                          </option>
+                        </select>
                       </div>
 
                       <div class="form-group col-md-4">
                         <label for="inputCity">Enrollee OHIS Number </label>
                         <input
-                        disabled
+                          disabled
                           type="text"
                           class="form-control"
                           v-model="summary.enrollee.id_card_number"
-                      
                         />
                       </div>
 
-                      <div class="row col-md-12" >
+                      <div class="row col-md-12">
                         <div class="form-group col-md-6">
                           <label for="inputCity">Enrollee Surname</label>
                           <input
@@ -193,6 +201,7 @@ export default {
       encounter_id: "",
       encounter_details: "",
       summary: "",
+      referrals: "",
       claims: "",
       diseases: "",
       searchkey: "",
@@ -216,7 +225,7 @@ export default {
     this.user = JSON.parse(localStorage.getItem("user"));
   },
   computed: {
-    randomNumber: function() {
+    randomNumber: function () {
       let authorization_code = Math.floor(
         Math.random() * (this.max - this.min + 1) + this.min
       );
@@ -394,45 +403,59 @@ export default {
         });
       }
     },
-      checkCode(){
+    checkCode() {
       this.axios
-        .post(`/api/v1/auth/checkAuthCode`,{
-           authorization_code: this.claim.authorization_code,
+        .post(`/api/v1/auth/checkAuthCode`, {
+          authorization_code: this.claim.authorization_code,
         })
         .then((response) => {
-          this.makeClaim() 
+          this.makeClaim();
           console.log(response);
         })
         .catch((error) => {
           console.error(error);
           //  this.$toasted.info(`${error.message}`, {
-           this.$toasted.error(`Authorization Code not found or already used!`, {
+          this.$toasted.error(`Authorization Code not found or already used!`, {
             position: "top-center",
             duration: 3000,
           });
         });
-
     },
-     getSingleSummary() {
+    verifyRef(summary) {
+      this.axios
+        .post(`/api/v1/auth/verifyReferal`, {
+          searchkey: summary.enrollee.id_card_number,
+        })
+        .then((response) => {
+          this.referrals = response.data.data;
+          console.log(response);
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          console.error(error);
+        });
+    },
+    getSingleSummary() {
       this.axios
         .get(`/api/v1/auth/service_summary/${this.$route.params.id}`)
         .then((response) => {
           this.summary = response.data;
           console.log(response);
-          let summary = this.summary
-          this.searchIDCard(summary)
-          this.verifyEncounter(summary)
+          let summary = this.summary;
+          this.searchIDCard(summary);
+          this.verifyEncounter(summary);
+          this.verifyRef(summary);
         })
         .catch((error) => {
           console.error(error);
         });
     },
-
   },
   created() {
+    this.getSingleSummary();
     this.getDiseases();
     this.getEnrollees();
-    this.getSingleSummary();
   },
 };
 </script>

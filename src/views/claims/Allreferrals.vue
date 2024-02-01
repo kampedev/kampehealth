@@ -32,15 +32,12 @@
             >
               Secondary (Recipient) <i class="fe fe-grid"></i>
             </button>
-
-          
           </div>
 
           <div class="container my-6">
             <div class="card">
               <div class="card-header">
                 <p class="h5">Verify Referral</p>
-
               </div>
               <div class="form-group col-md-12">
                 <input
@@ -51,27 +48,26 @@
                 />
               </div>
 
-             <div class="form-group col-md-12">
-              <button
-              type="button"
-              class="btn btn-success btn-block"
-              @click="verifyRef"
-            >
-              Verify Referral
-            </button>
-
-             </div>
+              <div class="form-group col-md-12">
+                <button
+                  type="button"
+                  class="btn btn-success btn-block"
+                  @click="verifyRef"
+                >
+                  Verify Referral
+                </button>
+              </div>
             </div>
           </div>
 
           <div class="row list">
             <div class="col-md-12">
-              <button
+              <!-- <button
                 style="margin-top: 10px"
                 class="btn btn-outline-success float-left"
               >
                 {{ referrals.meta.total }} Referrals
-              </button>
+              </button> -->
 
               <button
                 style="margin-top: 10px"
@@ -116,19 +112,23 @@
                         <span>
                           <button
                             type="button"
-                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
+                            class="btn  mr-2 badge badge-soft-info"
                           >
                             {{ ref.status }}
                           </button>
 
-                          <details>
-                            <summary>
-                              <span class="btn btn-outline-info">
-                                Code: <i class="mdi mdi-eye-check"></i>
-                              </span>
-                            </summary>
-                            <p>{{ ref.code_created }}</p>
-                          </details>
+                          <button
+                            class="btn badge badge-soft-dark"
+                          >
+                            {{ ref.code_usage }}
+                          </button>
+
+                          <button
+                            class="btn btn-outline-success btn-sm ml-2"
+                            @click="copyCode(ref)"
+                          >
+                            {{ ref.code_created }} <i class="fe fe-copy"></i>
+                          </button>
                         </span>
 
                         <span v-if="ref.status == 'pending'">
@@ -199,7 +199,11 @@ export default {
     return {
       user: null,
       searchkey: "",
-      referrals: "",
+      referrals: {
+        meta: {
+          total: 0,
+        },
+      },
       provider_referral_category: "secondary",
       edit: false,
       show: false,
@@ -291,19 +295,32 @@ export default {
       }
     },
 
-    verifyReferral() {
+    verifyRef() {
       this.axios
-        .post(`/api/v1/auth/verifyReferal`,{ searchkey: this.searchkey})
+        .post(`/api/v1/auth/verifyReferal`, { searchkey: this.searchkey })
         .then((response) => {
           this.referrals = response.data;
           console.log(response);
           this.isLoading = false;
+          this.$toasted.info("Searched Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
         })
         .catch((error) => {
           this.isLoading = false;
           console.error(error);
         });
     },
+    copyCode(ref) {
+      const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+      copyToClipboard(ref.code_created);
+      this.$toasted.info("Copied to clipboard", {
+        position: "top-center",
+        duration: 3000,
+      });
+    },
+
   },
   created() {
     this.getReferrals();

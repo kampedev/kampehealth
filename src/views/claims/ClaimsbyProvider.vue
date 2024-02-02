@@ -1,7 +1,7 @@
 <template>
   <section class="admin-content" id="contact-search">
     <Navbar />
-    <main class="admin-main"  v-if="user.job_title == 'Executive Secretary'">
+    <main class="admin-main" v-if="user.job_title == 'Executive Secretary'">
       <div class="bg-success m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
@@ -114,7 +114,10 @@
                     <tr v-for="claim in claims.data.data" v-bind:key="claim.id">
                       <td>
                         <router-link :to="{ path: '/claim/' + claim.id }">
-                          {{ claim.created_at | moment("dddd, MMMM Do YYYY") }} s
+                          {{
+                            claim.created_at | moment("dddd, MMMM Do YYYY")
+                          }}
+                          s
                         </router-link>
                       </td>
                       <td>{{ claim.provider.agency_name }}</td>
@@ -123,13 +126,7 @@
                         <span v-if="claim.status == 1">
                           <button
                             type="button"
-                            class="
-                              btn
-                              m-b-15
-                              ml-2
-                              mr-2
-                              badge badge-soft-success
-                            "
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
                           >
                             approved
                           </button>
@@ -162,13 +159,7 @@
                         <span v-if="claim.status == null">
                           <button
                             type="button"
-                            class="
-                              btn
-                              m-b-15
-                              ml-2
-                              mr-2
-                              badge badge-soft-warning
-                            "
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
                           >
                             pending
                           </button>
@@ -189,25 +180,42 @@
                     </tr>
                     <tr>
                       <td colspan="3">
-                        <strong
-                          >Total Approved Sum
-                        </strong>
+                        <strong>Total Approved Sum </strong>
                       </td>
                       <td></td>
                       <td>
                         <strong
-                          >&#8358;{{ claims.total_sum | numeral(0, 0) }}</strong
+                          >&#8358;{{ claims.total_sum | numeral(0, 0) }}  </strong
                         >
                       </td>
                     </tr>
                     <tr>
                       <td colspan="6">
-                        <button
+                        <!-- <button
                           class="btn btn-outline-dark btn-block"
                           @click="createPaymentOrder()"
                         >
-                          Approve for Payment
+                          Make Payment
                           <i class="mdi mdi-credit-card"></i>
+                        </button> -->
+
+                        <button class="btn btn-dark btn-block btn-lg">
+                          <paystack
+                            :amount="claims.total_sum * 100"
+                            :email="email"
+                            :paystackkey="paystackkey"
+                            :reference="reference"
+                            :callback="createPaymentOrder"
+                            :first_name="user.firstname"
+                            :last_name="user.lastname"
+                            :phone="user.phone_number"
+                            :close="close"
+                            :embed="false"
+                          >
+                          Make to Payment   <i class="mdi mdi-credit-card"></i>
+
+
+                          </paystack>
                         </button>
                       </td>
                     </tr>
@@ -238,14 +246,18 @@ import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
+import paystack from "vue-paystack";
 
 export default {
   components: {
     Navbar,
+    paystack,
     Loading,
   },
   data() {
     return {
+      paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
+      email: "faisalnas7@gmail.com",
       user: null,
       claims: "",
       edit: false,
@@ -288,6 +300,16 @@ export default {
       result.setDate(result.getDate() + 1);
       return result;
     },
+    reference() {
+      let text = "";
+      let possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (let i = 0; i < 100; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+    },
   },
   methods: {
     pushDate() {
@@ -315,28 +337,32 @@ export default {
         });
     },
     createPaymentOrder() {
-      if (confirm("Are you sure you want to Submit")) {
-        this.axios
-          .post(`/api/v1/auth/paymentorder`, {
-            agency_id: 95930,
-            provider_id: this.$route.params.id,
-            type: "claims",
-            payment_method: "online",
-            claims: this.cleaned_array,
-          })
-          .then((response) => {
-            console.log(response);
-            this.$toasted.info("Payment Order Created Successfully!", {
-              position: "top-center",
-              duration: 3000,
-            });
-
-            this.$router.push(`/all-claims-facility`);
-          })
-          .catch((error) => {
-            console.error(error);
+      // if (confirm("Are you sure you want to Submit")) {
+      this.axios
+        .post(`/api/v1/auth/paymentorder`, {
+          agency_id: 95930,
+          provider_id: this.$route.params.id,
+          type: "claims",
+          status: "paid",
+          payment_method: "online",
+          claims: this.cleaned_array,
+        })
+        .then((response) => {
+          console.log(response);
+          this.$toasted.info("Payment Order Created Successfully!", {
+            position: "top-center",
+            duration: 3000,
           });
-      }
+
+          this.$router.push(`/all-claims-facility`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      // }
+    },
+    close: function () {
+      console.log("Payment closed");
     },
   },
   created() {

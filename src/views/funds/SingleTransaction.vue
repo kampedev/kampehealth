@@ -38,7 +38,7 @@
                   <button
                     v-if="paymentorder.data.status != 'paid'"
                     @click="approvePayment"
-                    class="btn btn-white-translucent spacer-left"
+                    class="btn btn-white-translucent ml-2 mt-4"
                   >
                     complete payment
                   </button>
@@ -57,7 +57,6 @@
                         >{{ paymentorder.total_claims_cost | numeral(0, 0) }}
                       </h3>
                     </div>
-                   
                   </div>
                 </div>
               </div>
@@ -250,28 +249,23 @@ export default {
       this.agency_id = "";
     },
 
-   
-
     approvePayment() {
-
-      if (confirm('Are you Sure you want to complete') ) {
-        
-      
-      this.axios
-        .post(`/api/v1/auth/update-payment-status/${this.$route.params.id}`, {
-          status: "paid",
-        })
-        .then((response) => {
-          console.log(response);
-          this.getPayment();
-          this.$toasted.info("Updated Successfully", {
-            position: "top-center",
-            duration: 3000,
+      if (confirm("Are you Sure you want to complete")) {
+        this.axios
+          .post(`/api/v1/auth/update-payment-status/${this.$route.params.id}`, {
+            status: "paid",
+          })
+          .then((response) => {
+            console.log(response);
+            this.getPayment();
+            this.$toasted.info("Updated Successfully", {
+              position: "top-center",
+              duration: 3000,
+            });
+          })
+          .catch((error) => {
+            console.error(error);
           });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
       }
     },
     getPayment() {

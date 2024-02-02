@@ -171,9 +171,21 @@
                 </router-link>
               </li>
               <li class="menu-item">
+                <router-link to="/add-client-provider" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Add Enrollees </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i
+                      class="icon-placeholder mdi mdi-account-multiple-plus"
+                    ></i>
+                  </span>
+                </router-link>
+              </li>
+              <li class="menu-item">
                 <router-link to="/view-clients-provider" class="menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">View Clients </span>
+                    <span class="menu-name">View Enrollees </span>
                   </span>
                   <span class="menu-icon">
                     <i

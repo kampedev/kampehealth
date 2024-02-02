@@ -106,7 +106,7 @@ import SingleLGA from "../views/shis/SingleLGA.vue";
 import SingleWard from "../views/shis/SingleWard.vue";
 import ListTPAs from "@/views/tpas/ListTPAs.vue";
 import SingleTPA from "@/views/tpas/SingleTPA.vue";
-import AddClientTPA from "@/views/tpas/AddClientTPA.vue";
+import AddClientProvider from "@/views/tpas/AddClientProvider.vue";
 import ViewClientsTPA from "@/views/tpas/ViewClientsTPA.vue";
 import AddOfficers from "@/views/tpas/AddOfficers.vue";
 import TPADashboard from "@/views/tpas/TPADashboard.vue";
@@ -782,8 +782,8 @@ const routes = [
     },
   },
   {
-    path: "/add-client-tpa",
-    component: AddClientTPA,
+    path: "/add-client-provider",
+    component: AddClientProvider,
     meta: {
       requiresAuth: true,
     },

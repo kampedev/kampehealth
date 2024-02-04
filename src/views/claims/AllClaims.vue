@@ -20,34 +20,34 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-md-6">
-                      <label for="inputEmail4">Claim ID</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="claim_unique_id"
-                        placeholder="CLM_xxxxx"
-                      />
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputPassword4">Authorization Code</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="authorization_code"
-                        placeholder="AUT_xxxxxxxx"
-                      />
-                    </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">Claim ID</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="claim_unique_id"
+                      placeholder="CLM_xxxxx"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputPassword4">Authorization Code</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="authorization_code"
+                      placeholder="AUT_xxxxxxxx"
+                    />
+                  </div>
 
-                     <div class="form-group col-md-6">
-                      <label for="inputEmail4">KGSHIA Number</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="id_card_number"
-                        placeholder="KGSHIA/XX/XXXX"
-                      />
-                    </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">KGSHIA Number</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="id_card_number"
+                      placeholder="KGSHIA/XX/XXXX"
+                    />
+                  </div>
 
                   <div
                     class="form-group col-md-6"
@@ -62,18 +62,16 @@
                       @change="getClaims"
                     />
                   </div>
-                 
-               
 
                   <div class="form-group col-md-6">
-                    <label> Select Status  </label>
+                    <label> Select Status </label>
                     <select class="form-control" v-model="claim_status">
-                      <option value="All"> All </option>
-                      <option value="approved"> Approved </option>
-                      <option value="vetted"> Vetted </option>
-                      <option value="verified"> Verified </option>
-                      <option value="pending"> Pending </option>
-                      <option value="rejected"> Rejected </option>
+                      <option value="All">All</option>
+                      <option value="approved">Approved</option>
+                      <option value="vetted">Vetted</option>
+                      <option value="verified">Verified</option>
+                      <option value="pending">Pending</option>
+                      <option value="rejected">Rejected</option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
@@ -176,39 +174,43 @@
                           >
                             <i class="fe fe-check-square"></i>paid
                           </button>
+
+                          <span v-if="claim.status == 1">
+                            <button
+                              type="button"
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                            >
+                              approved
+                            </button>
+                          </span>
+
+                          <span v-if="claim.verified_by_id != null">
+                            <button
+                              type="button"
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
+                            >
+                              verified
+                            </button>
+                          </span>
+
+                          <span v-if="claim.checked_by_id != null">
+                            <button
+                              type="button"
+                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
+                            >
+                              vetted
+                            </button>
+                          </span>
+                        </span>
+                        <span v-if="claim.status == null">
+                          <button
+                            type="button"
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+                          >
+                            pending
+                          </button>
                         </span>
 
-                        <span v-if="claim.status == 1">
-                          <button
-                            type="button"
-                            class="
-                              btn
-                              m-b-15
-                              ml-2
-                              mr-2
-                              badge badge-soft-success
-                            "
-                          >
-                            approved
-                          </button>
-                        </span>
-
-                        <span v-if="claim.verified_by_id != null">
-                          <button
-                            type="button"
-                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
-                          >
-                            verified
-                          </button>
-                        </span>
-                        <span v-if="claim.checked_by_id != null">
-                          <button
-                            type="button"
-                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
-                          >
-                            vetted
-                          </button>
-                        </span>
                         <span v-if="claim.status == 0">
                           <button
                             type="button"
@@ -217,20 +219,8 @@
                             rejected
                           </button>
                         </span>
-                        <span v-if="claim.status == null">
-                          <button
-                            type="button"
-                            class="
-                              btn
-                              m-b-15
-                              ml-2
-                              mr-2
-                              badge badge-soft-warning
-                            "
-                          >
-                            pending
-                          </button>
-                        </span>
+
+                        <!-- border -->
                       </td>
                       <td>
                         <router-link :to="{ path: '/claim/' + claim.id }">
@@ -246,19 +236,23 @@
                     </tr>
                     <tr>
                       <td colspan="4">
-                        <div class="col-md-12" v-if=" user.job_title == 'Claims Verifier'" >
-                                 <b-alert show variant="primary">
-                                   To forward claims to the ES for approval, select the verified facility claims. 
-                                   </b-alert>
-
-                            </div>
+                        <div
+                          class="col-md-12"
+                          v-if="user.job_title == 'Claims Verifier'"
+                        >
+                          <b-alert show variant="primary">
+                            To forward claims to the ES for approval, select the
+                            verified facility claims.
+                          </b-alert>
+                        </div>
                       </td>
                     </tr>
                     <tr
                       v-if="
                         user.job_title == 'Claims Verifier' &&
-                          provider_id != '' &&
-                          claims.data.length > 0 && claim_status == 'verified'
+                        provider_id != '' &&
+                        claims.data.length > 0 &&
+                        claim_status == 'verified'
                       "
                     >
                       <td colspan="4">
@@ -266,7 +260,8 @@
                           class="btn btn-outline-success btn-block"
                           @click="forwwardClaims()"
                         >
-                          Forward {{provider_id.agency_name}}'s Claims to the ES for Approval
+                          Forward {{ provider_id.agency_name }}'s Claims to the
+                          ES for Approval
                           <i class="fe fe-send"></i>
                         </button>
                       </td>
@@ -474,24 +469,24 @@ export default {
           console.error(error);
         });
     },
-   
+
     forwwardClaims() {
-     if ( confirm('Are you sure you want to Forward') ) {
+      if (confirm("Are you sure you want to Forward")) {
         this.axios
-        .post(`/api/v1/auth/forwardclaimtoES`, {
-          claims: this.claims.data,
-        })
-        .then((response) => {
-          console.log(response);
-           this.$toasted.info("Forwarded Successfully!", {
+          .post(`/api/v1/auth/forwardclaimtoES`, {
+            claims: this.claims.data,
+          })
+          .then((response) => {
+            console.log(response);
+            this.$toasted.info("Forwarded Successfully!", {
               position: "top-center",
               duration: 3000,
             });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-     }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
   },
   created() {

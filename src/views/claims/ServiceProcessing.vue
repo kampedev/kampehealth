@@ -73,6 +73,7 @@
                       <div class="form-group col-md-4" v-if="type != ''">
                         <label for="inputCity">Frequency </label>
                         <input
+                        v-if="type == 'Service'"
                           type="number"
                           min="1"
                           class="form-control"
@@ -81,13 +82,24 @@
                           placeholder="freq"
                           v-model="frequency"
                         />
+                      
+                        <select
+                        v-else
+                          class="form-control"
+                          v-model="frequency"
+                        >
+                          <option value="1">Daily</option>
+                          <option value="2">BD</option>
+                          <option value="3">TDS</option>
+                          <option value="4">QDS</option>
+                        </select>
                         <p class="text-primary">
-                          The number of times or quantity given.
+                          The number of times or quantity in a day.
                         </p>
                       </div>
 
                       <div class="form-group col-md-4" v-if="type != ''">
-                        <label for="inputCity">Days </label>
+                        <label for="inputCity">Duration (Days) </label>
                         <input
                           type="number"
                           min="1"

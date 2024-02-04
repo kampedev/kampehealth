@@ -212,7 +212,7 @@
                             :close="close"
                             :embed="false"
                           >
-                          Make to Payment   <i class="mdi mdi-credit-card"></i>
+                          Make Payment   <i class="mdi mdi-credit-card"></i>
 
 
                           </paystack>

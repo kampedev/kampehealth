@@ -173,7 +173,7 @@
               <li class="menu-item">
                 <router-link to="/add-client-provider" class="menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Add Enrollees </span>
+                    <span class="menu-name">Add Other Patient </span>
                   </span>
                   <span class="menu-icon">
                     <i

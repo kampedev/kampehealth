@@ -643,8 +643,18 @@
                     </p>
                     <br />
                     <p>
-                      <span class="font-weight-bold">Quantity</span> :
+                      <span class="font-weight-bold">Dose </span> :
+                      {{ singlservicemodal.dose }}
+                    </p>
+                    <br />
+                    <p>
+                      <span class="font-weight-bold">Frequency (in a day)</span> :
                       {{ singlservicemodal.frequency }}
+                    </p>
+                    <br />
+                    <p>
+                      <span class="font-weight-bold">Duration (days)</span> :
+                      {{ singlservicemodal.days }}
                     </p>
                     <br />
 

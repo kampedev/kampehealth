@@ -147,7 +147,7 @@
 
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="inputPassword4">Primary Diagnosis </label>
+                      <label for="inputPassword4">Diagnosis </label>
                       <v-select
                         v-model="record.diagnosis"
                         label="name"
@@ -156,7 +156,7 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                      <label for="inputPassword4">Secondary Diagnosis </label>
+                      <label for="inputPassword4">Other Diagnosis </label>
                       <v-select
                         v-model="record.secondary_diagnosis"
                         label="name"

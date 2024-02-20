@@ -143,17 +143,25 @@
 
                     <div class="form-group col-md-12">
                       <label for="inputAddress">Reason for Claim</label>
-                      <textarea
+                    
+                      <v-select
+                          v-model="claim.treatment"
+                          label="name"
+                          :options="reasons"
+                        />
+
+                         <textarea
+                         v-if="claim.treatment == 'Others'"
                         name="name"
                         rows="5"
                         cols="80"
-                        class="form-control"
+                        class="form-control mt-4"
                         v-model="claim.treatment"
                       ></textarea>
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group mt-4">
                     <button
                       class="btn btn-outline-success btn-block"
                       @click="checkCode"
@@ -219,6 +227,29 @@ export default {
         client_name: "",
         seen_date: "",
       },
+      reasons:[
+  "Medical treatment for an illness or injury",
+  "Prescription medications",
+  "Diagnostic tests and screenings",
+  "Surgical procedures",
+  "Physical therapy or rehabilitation",
+  "Mental health counseling or therapy",
+  "Medical equipment or supplies",
+  "Home health care",
+  "Dental or vision care",
+  "Emergency room visits",
+  "Hospitalization",
+  "Maternity care",
+  "Preventive care services",
+  "Specialist consultations",
+  "Out-of-network provider services",
+  "Ambulance services",
+  "Hospice care",
+  "Chiropractic care",
+  "Occupational therapy",
+  "Speech therapy",
+  "Others"
+]
     };
   },
   beforeMount() {

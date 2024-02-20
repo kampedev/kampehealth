@@ -117,7 +117,7 @@
                           {{
                             claim.created_at | moment("dddd, MMMM Do YYYY")
                           }}
-                          s
+                        
                         </router-link>
                       </td>
                       <td>{{ claim.provider.agency_name }}</td>

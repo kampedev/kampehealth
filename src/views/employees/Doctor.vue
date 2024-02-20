@@ -25,13 +25,11 @@
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
-                    <!-- <router-link :to="{ path: '/my-dependents'}"> -->
                     <div class="avatar avatar-lg">
                       <div class="avatar-title bg-soft-success rounded-circle">
                         <i class="mdi mdi-medical-bag"></i>
                       </div>
                     </div>
-                    <!-- </router-link> -->
                   </div>
                   <div>
                     <p class="text-muted text-overline m-0">My Encounters</p>
@@ -75,7 +73,7 @@
                   </div>
                   <div>
                     <p class="text-muted text-overline m-0">Incoming Referrals</p>
-                    <h1 class="fw-400">{{ referrals.meta.total }}</h1> 
+                    <!-- <h1 class="fw-400">{{ referrals.meta.total }}</h1>  -->
                   </div>
                 </div>
               </div>

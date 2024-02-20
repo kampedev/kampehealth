@@ -110,12 +110,12 @@
               </p>
 
               <p class="other__detail">
-                <strong>Primary Diagnosis: </strong>
+                <strong>Diagnosis: </strong>
                 {{ encounterDetails.diagnosis.name }}
               </p>
               <p class="other__detail"
               >
-                <strong>Secondary Diagnosis: </strong>
+                <strong>Other Diagnosis: </strong>
                <span v-if="encounterDetails.secondarydiagnosis != null">
                 {{ encounterDetails.secondarydiagnosis.name }}
               </span> 

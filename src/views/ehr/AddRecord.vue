@@ -25,180 +25,203 @@
                 </div>
 
                 <div class="card-body">
-                  <div class="text-center">
-                    <!-- <h3 class="p-t-10 searchBy-name">Add Record</h3> -->
-                  </div>
+                  <form @submit.prevent="AddRecord">
+                    <div class="form-row">
+                      <div class="col-md-6">
+                        <label for="inputCity">Date of Hospital Visit</label>
+                        <input
+                          required
+                          class="form-control"
+                          type="date"
+                          v-model="record.date_of_visit"
+                        />
+                      </div>
 
-                  <div class="form-row">
-                    <div class="col-md-6">
-                      <label for="inputCity">Date of Hospital Visit</label>
-                      <input
-                        class="form-control"
-                        type="date"
-                        v-model="record.date_of_visit"
-                      />
-                    </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">Treatment Type</label>
+                        <select
+                          required
+                          class="form-control"
+                          v-model="record.treatment_type"
+                        >
+                          <option value="Primary">Primary Treatment</option>
+                          <option value="Secondary">Secondary Treatment</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">Reason for Visit</label>
 
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Treatment Type</label>
-                      <select
-                        class="form-control"
-                        v-model="record.treatment_type"
-                      >
-                        <option value="Primary">Primary Treatment</option>
-                        <option value="Secondary">Secondary Treatment</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Reason for Visit</label>
+                        <select
+                          class="form-control"
+                          v-model="record.reasonVisit"
+                          required
+                        >
+                          <option value="General Consultation">
+                            General Consultation
+                          </option>
+                          <option value="Laboratory Test">
+                            Laboratory Test
+                          </option>
+                          <option value="Regular Check ups">
+                            Regular Check ups
+                          </option>
+                          <option value="Emergency">Emergency</option>
+                          <option value="Referred In">Referred In</option>
+                          <option value="Review/follow-up">
+                            Review/follow-up
+                          </option>
+                          <option value="Specialist Consultation">
+                            Specialist Consultation
+                          </option>
+                          <option value="Out of Station">Out of Station</option>
+                        </select>
+                      </div>
 
-                      <select class="form-control" v-model="record.reasonVisit">
-                        <option value="General Consultation">
-                          General Consultation
-                        </option>
-                        <option value="Laboratory Test">Laboratory Test</option>
-                        <option value="Regular Check ups">
-                          Regular Check ups
-                        </option>
-                        <option value="Emergency">Emergency</option>
-                        <option value="Referred In">Referred In</option>
-                        <option value="Review/follow-up">
-                          Review/follow-up
-                        </option>
-                        <option value="Specialist Consultation">
-                          Specialist Consultation
-                        </option>
-                        <option value="Out of Station">Out of Station</option>
-                      </select>
-                    </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">Search Enrollee </label>
+                        <input
+                          required
+                          type="text"
+                          class="form-control"
+                          placeholder="OHIS Number, First Name, Last name, "
+                          v-model="searchkey"
+                          @change="searchIDCard"
+                        />
+                        <p>{{ search_result.length }} enrollee(s) found</p>
+                      </div>
 
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Search Enrollee </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="OHIS Number, First Name, Last name, "
-                        v-model="searchkey"
-                        @change="searchIDCard"
-                      />
-                      <p>{{ search_result.length }} enrollee(s) found</p>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                      <label for="inputPassword4">Select Enrollee </label>
-                      <v-select
+                      <div class="form-group col-md-12">
+                        <label for="inputPassword4">Select Enrollee </label>
+                        <!-- <v-select
                         v-model="selected_enrollee"
                         label="user_query"
                         :options="search_result"
-                      />
-                    </div>
+                      /> -->
 
-                    <div>
-                      <div class="row col-md-12" v-show="userDetails">
-                        <div class="col-md-6 offset-md-3 my-6">
-                          <img
-                            :src="`https://api.hayokinsurance.com/image/${selected_enrollee.user_image}`"
-                            class="img"
-                            alt="User Photo"
-                            onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
-                          />
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputCity">Client Surname</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            :value="selected_enrollee.full_name"
-                            disabled
-                          />
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputCity">Client First Name</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            :value="selected_enrollee.lastname"
-                            disabled
-                          />
-                        </div>
+                        <select
+                          class="form-control"
+                          v-model="selected_enrollee"
+                          required
+                        >
+                          <option
+                            :value="user"
+                            v-for="user in search_result"
+                            :key="user.id"
+                          >
+                            {{ user.user_query }}
+                          </option>
+                        </select>
+                      </div>
 
-                        <div class="form-group col-md-6">
-                          <label for="inputCity">Sector </label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="inputEmail4"
-                            :value="selected_enrollee.sector"
-                            disabled
-                          />
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputCity">Phone Number</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="inputEmail4"
-                            v-model="selected_enrollee.phone_number"
-                          />
+                      <div>
+                        <div class="row col-md-12" v-show="userDetails">
+                          <div class="col-md-6 offset-md-3 my-6">
+                            <img
+                              :src="`https://api.hayokinsurance.com/image/${selected_enrollee.user_image}`"
+                              class="img"
+                              alt="User Photo"
+                              onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                            />
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Client Surname</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              :value="selected_enrollee.full_name"
+                              disabled
+                            />
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Client First Name</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              :value="selected_enrollee.lastname"
+                              disabled
+                            />
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Sector </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputEmail4"
+                              :value="selected_enrollee.sector"
+                              disabled
+                            />
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Phone Number</label>
+                            <input
+                              required
+                              type="text"
+                              class="form-control"
+                              id="inputEmail4"
+                              v-model="selected_enrollee.phone_number"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label for="inputPassword4">Diagnosis </label>
-                      <v-select
-                        v-model="record.diagnosis"
-                        label="name"
-                        :options="diseases"
-                      />
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="inputPassword4">Diagnosis </label>
+                        <v-select
+                          v-model="record.diagnosis"
+                          label="name"
+                          :options="diseases"
+                        />
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label for="inputPassword4">Other Diagnosis </label>
+                        <v-select
+                          v-model="record.secondary_diagnosis"
+                          label="name"
+                          :options="diseases"
+                        />
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label for="inputCity">Encounter Outcome</label>
+                        <select
+                          required
+                          class="form-control"
+                          v-model="record.encounter_outcome"
+                        >
+                          <option value="Admission">Admission</option>
+                          <option value="Outpatient">Outpatient</option>
+                          <option value="Referred Out">Referred Out</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <label for="inputCity">Comments</label>
+                        <textarea
+                          required
+                          class="form-control"
+                          rows="4"
+                          v-model="record.medications"
+                        ></textarea>
+                      </div>
                     </div>
 
-                    <div class="form-group col-md-4">
-                      <label for="inputPassword4">Other Diagnosis </label>
-                      <v-select
-                        v-model="record.secondary_diagnosis"
-                        label="name"
-                        :options="diseases"
-                      />
+                    <div
+                      class="col-md-12"
+                      v-if="record.treatment_type == 'Primary'"
+                    >
+                      <h3 class="h3">Treatment</h3>
                     </div>
 
-                    <div class="form-group col-md-4">
-                      <label for="inputCity">Encounter Outcome</label>
-                      <select
-                        class="form-control"
-                        v-model="record.encounter_outcome"
-                      >
-                        <option value="Admission">Admission</option>
-                        <option value="Outpatient">Outpatient</option>
-                        <option value="Referred Out">Referred Out</option>
-                      </select>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                      <label for="inputCity">Comments</label>
-                      <textarea
-                        class="form-control"
-                        rows="4"
-                        v-model="record.medications"
-                      ></textarea>
-                    </div>
-                  </div>
-
-                  <div
-                    class="col-md-12"
-                    v-if="record.treatment_type == 'Primary'"
-                  >
-                    <h3 class="h3">Treatment</h3>
-                  </div>
-
-                  <div
-                    v-for="(service_renderred, index) in record.services"
-                    v-bind:key="service_renderred"
-                  >
-                    <div class="row">
-                      <div
+                    <div
+                      v-for="(service_renderred, index) in record.services"
+                      v-bind:key="service_renderred"
+                    >
+                      <div class="row">
+                        <!-- <div
                         class="form-group col-md-2"
                         v-if="record.treatment_type == 'Primary'"
                       >
@@ -208,28 +231,27 @@
                           class="form-control"
                           v-model="service_renderred.type"
                         >
-                          <option value="Drug">Drug</option>
-                          <!-- <option value="Service">Service</option> -->
+                          <option value="Drug" selected >Drug</option>
+                          <option value="Service">Service</option>
                         </select>
-                      </div>
+                      </div> -->
 
-                      <div
-                        class="form-group col-md-6"
-                        v-if="
-                          record.treatment_type == 'Primary' &&
-                          service_renderred.type == 'Drug'
-                        "
-                      >
-                        <label for="inputPassword4">Select Primary Drug </label>
-                        <v-select
-                          v-model="service_renderred.drug"
-                          label="item_data"
-                          :required="!record.drugs"
-                          :options="drugs.data"
-                        />
-                      </div>
+                        <div
+                          class="form-group col-md-6"
+                          v-if="record.treatment_type == 'Primary'"
+                        >
+                          <label for="inputPassword4"
+                            >Select Primary Drug
+                          </label>
+                          <v-select
+                            v-model="service_renderred.drug"
+                            label="item_data"
+                            :required="!record.drugs"
+                            :options="drugs.data"
+                          />
+                        </div>
 
-                      <div
+                        <!-- <div
                         class="form-group col-md-7"
                         v-if="
                           record.treatment_type == 'Primary' &&
@@ -243,110 +265,103 @@
                           :required="!record.services"
                           :options="services.data"
                         />
-                      </div>
+                      </div> -->
 
-                      <div
-                        class="form-group col-md-1"
-                        v-if="
-                          record.treatment_type == 'Primary' &&
-                          service_renderred.type == 'Drug'
-                        "
-                      >
-                        <label for="inputCity">Dose </label>
-                        <input
+                        <div class="form-group col-md-2">
+                          <label for="inputCity">Dose </label>
+                          <input
+                            type="number"
+                            min="1"
+                            class="form-control"
+                            required
+                            id="inputEmail4"
+                            placeholder="1"
+                            v-model="service_renderred.dose"
+                          />
+                        </div>
+
+                        <div class="form-group col-md-2">
+                          <label for="inputCity">Freq. </label>
+                          <!-- <input
+                          v-if="type == 'Service'"
                           type="number"
                           min="1"
                           class="form-control"
                           required
                           id="inputEmail4"
-                          placeholder="1"
-                          v-model="service_renderred.dose"
-                        />
-                      </div>
+                          placeholder="freq"
+                          v-model="service_renderred.frequency"
+                        /> -->
 
-                      <div
-                        class="form-group col-md-1"
-                        v-if="service_renderred.type != ''"
-                      >
-                        <label for="inputCity">Frequency </label>
-                        <input
-                          type="number"
-                          min="1"
-                          class="form-control"
-                          required
-                          id="inputEmail4"
-                          placeholder="1"
-                          :value="service_renderred.frequency"
-                        />
-                        <p class="text-primary"></p>
-                      </div>
+                          <select
+                            class="form-control"
+                            v-model="service_renderred.frequency"
+                          >
+                            <option value="1">Daily</option>
+                            <option value="2">BD</option>
+                            <option value="3">TDS</option>
+                            <option value="4">QDS</option>
+                          </select>
+                        </div>
 
-                      <div
-                        class="form-group col-md-1"
-                        v-if="service_renderred.type != ''"
-                      >
-                        <label for="inputCity">Days </label>
-                        <input
-                          type="number"
-                          min="1"
-                          class="form-control"
-                          required
-                          id="inputEmail4"
-                          placeholder="1"
-                          v-model="service_renderred.days"
-                        />
-                      </div>
+                        <div class="form-group col-md-1">
+                          <label for="inputCity">Days </label>
+                          <input
+                            type="number"
+                            min="1"
+                            class="form-control"
+                            required
+                            id="inputEmail4"
+                            placeholder="1"
+                            v-model="service_renderred.days"
+                          />
+                        </div>
 
-                      <div
-                        class="form-group col-md-1 d-flex align-items-center"
-                        v-if="service_renderred.type != ''"
-                      >
-                        <button
-                          @click="removeArray(index)"
-                          class="mt-4 btn btn-outline-danger"
+                        <div
+                          class="form-group col-md-1 d-flex align-items-center"
+                          v-if="service_renderred.type != ''"
                         >
-                          <i class="fe fe-delete"></i>
-                        </button>
+                          <button
+                            @click="removeArray(index)"
+                            class="mt-4 btn btn-outline-danger"
+                          >
+                            <i class="fe fe-delete"></i>
+                          </button>
+                        </div>
+                        <!-- </div> -->
                       </div>
-                      <!-- </div> -->
                     </div>
-                  </div>
-
-                  <div
-                    class="col-md-12 mb-6"
-                    v-if="record.treatment_type == 'Primary'"
-                  >
-                    <button
-                      @click="addArray()"
-                      class="btn btn-outline-success btn-block"
+                    <div
+                      class="col-md-12 mb-6"
+                      v-if="record.treatment_type == 'Primary'"
                     >
-                      <i class="fe fe-plus"></i>
-                    </button>
-                  </div>
+                      <button
+                        type="button"
+                        @click="addArray()"
+                        class="btn btn-outline-success btn-block"
+                      >
+                        <i class="fe fe-plus"></i>
+                      </button>
+                    </div>
 
-                  <div
-                    class="form-group"
-                    v-if="record.treatment_type == 'Primary'"
-                  >
-                    <button
-                      class="btn btn-success btn-block"
-                      @click="AddRecord"
+                    <div
+                      class="form-group"
+                      v-if="record.treatment_type == 'Primary'"
                     >
-                      Submit <i class="fe fe-send"></i>
-                    </button>
-                  </div>
+                      <button class="btn btn-success btn-block" type="submit">
+                        Submit <i class="fe fe-send"></i>
+                      </button>
+                    </div>
 
-                  <div
-                    class="form-group"
-                    v-if="record.treatment_type == 'Secondary'"
-                  >
-                    <button
-                      class="btn btn-success btn-block"
-                      @click="AddRecord"
+                    <div
+                      class="form-group"
+                      v-if="record.treatment_type == 'Secondary'"
                     >
-                      Proceed to Claims <i class="fe fe-send"></i>
-                    </button>
-                  </div>
+                      <button class="btn btn-success btn-block" type="submit">
+                        Proceed to Claims <i class="fe fe-send"></i>
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -414,7 +429,7 @@ export default {
           {
             drug: "",
             service: "",
-            type: "",
+            type: "Drug",
             dose: 1,
             frequency: 1,
             days: 1,
@@ -470,7 +485,7 @@ export default {
 
     AddRecord() {
       this.user = JSON.parse(localStorage.getItem("user"));
-      if (confirm('Are you Sure you want to Submit?') ) {
+      if (confirm("Are you Sure you want to Submit?")) {
         // Add comp
         this.isLoading = true;
         this.axios
@@ -558,7 +573,7 @@ export default {
       this.record.services.push({
         drug: "",
         service: "",
-        type: "",
+        type: "Drug",
         dose: 1,
         frequency: 1,
         days: 1,
@@ -571,6 +586,21 @@ export default {
       this.record.medications = "";
       this.record.reasonVisit = "";
       this.record.testResult = "";
+    },
+
+    removeArray(index) {
+      if (this.record.services.length != 1) {
+        // only splice array when item is found
+        this.record.services.splice(index, 1); // 2nd parameter means remove one item only
+      } else {
+        this.$toasted.error("Minimum of 1 Service/Drug", {
+          position: "top-center",
+          duration: 3000,
+        });
+      }
+
+      // array = [2, 9]
+      console.log(this.record.services);
     },
   },
   created() {

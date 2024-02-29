@@ -2,8 +2,6 @@
   <section class="admin-content" id="contact-search">
     <main class="admin-main">
       <section class="">
-        
-       
         <div class="">
           <div class="col-md-12">
             <div class="card" v-show="filterparams">
@@ -31,7 +29,7 @@
                       </option>
                     </select>
                   </div>
-               
+
                   <div class="form-group col-md-4">
                     <label for="inputCity"
                       ><i class="fe fe-calendar"></i> Start Date
@@ -73,8 +71,6 @@
           </div>
           <br />
 
-           
-
           <div
             class="row list"
             v-if="user.type == 'provider' || user.type == 'provider_employee'"
@@ -96,26 +92,38 @@
                       </thead>
                       <tbody>
                         <tr v-for="record in records" v-bind:key="record.id">
-                          <td>{{ record.encounter_id }}
-                              <i class="fe fe-copy text-success" @click="copyText(record)"></i>
+                          <td>
+                            {{ record.encounter_id }}
+                            <i
+                              class="fe fe-copy text-success"
+                              @click="copyText(record)"
+                            ></i>
                           </td>
-                          <td>{{ record.enrollee.full_name }}</td>
+                          <td>
+                            <span v-if="record.enrollee != null">
+                              {{ record.enrollee.full_name }}
+                            </span>
+                          </td>
                           <td>{{ record.reasonVisit }}</td>
-                          <td>{{ record.service.diagnosis.name }}</td>
+                          <td>
+                            <span v-if="record.service.diagnosis != null">
+                              {{ record.service.diagnosis.name }}
+                            </span>
+                          </td>
                           <td>{{ record.date_of_visit }}</td>
-                         <td>
-                              <router-link
-                            :to="{ path: '/encounter/' + record.service.id }"
-                          >
-                            <button
-                              type="button"
-                              class="btn btn-outline-success"
-                              name="button"
+                          <td>
+                            <router-link
+                              :to="{ path: '/encounter/' + record.service.id }"
                             >
-                              <i class="fe fe-eye"></i>
-                            </button>
-                          </router-link>
-                         </td>
+                              <button
+                                type="button"
+                                class="btn btn-outline-success"
+                                name="button"
+                              >
+                                <i class="fe fe-eye"></i>
+                              </button>
+                            </router-link>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -141,24 +149,20 @@
             <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
+                  <div class="card row list">
+                    <div class="card-header">
+                      <button class="btn btn-outline-dark float-left">
+                        {{ records.meta.total }} Encounters
+                      </button>
 
-                   <div class="card row list">
-            <div class="card-header">
-              <button class="btn btn-outline-dark float-left">
-                {{ records.meta.total }} Encounters
-              </button>
-
-              <button
-                class="btn btn-outline-dark float-right"
-                @click="filterparams = !filterparams"
-              >
-                filters
-              </button>
-
-             
-            </div>
-           
-          </div>
+                      <button
+                        class="btn btn-outline-dark float-right"
+                        @click="filterparams = !filterparams"
+                      >
+                        filters
+                      </button>
+                    </div>
+                  </div>
 
                   <div class="table-responsive">
                     <table class="table align-td-middle table-card">
@@ -174,7 +178,10 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="record in records.data" v-bind:key="record.id">
+                        <tr
+                          v-for="record in records.data"
+                          v-bind:key="record.id"
+                        >
                           <td>{{ record.healthrecord.encounter_id }}</td>
                           <td>{{ record.enrollee.full_name }}</td>
                           <td>{{ record.provider.agency_name }}</td>
@@ -230,26 +237,26 @@ export default {
     return {
       isLoading: false,
       fullPage: true,
-       filterparams: false,
+      filterparams: false,
       user: null,
       records: "",
-       provider_id: "",
-       providers: "",
-        date: "",
-        from: "",
-        to: "",
-       paginate_value: 20,
-       json_fields: {
-         "Date of Visit" : "healthrecord.date_of_visit",
+      provider_id: "",
+      providers: "",
+      date: "",
+      from: "",
+      to: "",
+      paginate_value: 20,
+      json_fields: {
+        "Date of Visit": "healthrecord.date_of_visit",
         "Facility Name": "provider.agency_name",
         "Enrollee Full Name": "enrollee.full_name",
         "Enrollee OHIS Number": "enrollee.id_card_number",
-        "Diagnosis": "diagnosis.name",
-        "Reason for Visit" : "healthrecord.reasonVisit",
-        "Test Conducted" : "healthrecord.testResult",
-        "Desk Officer" : "professional.full_name",
-        "Date of Admission" : "date_of_admission",
-        "Date of Discharge" : "date_of_discharge",
+        Diagnosis: "diagnosis.name",
+        "Reason for Visit": "healthrecord.reasonVisit",
+        "Test Conducted": "healthrecord.testResult",
+        "Desk Officer": "professional.full_name",
+        "Date of Admission": "date_of_admission",
+        "Date of Discharge": "date_of_discharge",
       },
       json_meta: [
         [
@@ -264,15 +271,15 @@ export default {
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
   },
-  computed:{
-      addOneDay() {
+  computed: {
+    addOneDay() {
       var result = new Date(this.to);
       result.setDate(result.getDate() + 1);
       return result;
     },
   },
   methods: {
-     pushDate() {
+    pushDate() {
       this.date = "date";
       this.getRecords();
     },
@@ -309,14 +316,13 @@ export default {
         this.user = JSON.parse(localStorage.getItem("user"));
         this.axios
           .post(`/api/v1/auth/service_summary-agency`, {
-             agency_id: 95930, 
-             provider_id: this.provider_id, 
-             paginate_value: this.paginate_value, 
-             date: this.date, 
-              from: this.from,
-              to: this.addOneDay,
-             
-             })
+            agency_id: 95930,
+            provider_id: this.provider_id,
+            paginate_value: this.paginate_value,
+            date: this.date,
+            from: this.from,
+            to: this.addOneDay,
+          })
           .then((response) => {
             this.records = response.data;
             console.log(response);
@@ -326,7 +332,7 @@ export default {
           });
       }
     },
-     getProviders() {
+    getProviders() {
       this.axios
         .get(`/api/v1/auth/providerAgency/95930`)
         .then((response) => {

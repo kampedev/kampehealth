@@ -5,7 +5,6 @@
       <div class="jumbotron">
         <h1 class="h3 text-dark">Encounter Details</h1>
       </div>
-     
 
       <div class="vld-parent">
         <loading
@@ -45,39 +44,51 @@
       <div class="user__details--container" id="printDiv" ref="printNow">
         <div class="user__details--container-main">
           <h1 class="name">
-            {{ encounterDetails.enrollee.lastname }}
-            {{ encounterDetails.enrollee.firstname }}
+            <span v-if="encounterDetails.enrollee != null">
+              {{ encounterDetails.enrollee.lastname }}
+              {{ encounterDetails.enrollee.firstname }}
+            </span>
           </h1>
 
           <img
-            :src="
-              `https://api.hayokinsurance.com/image/${encounterDetails.enrollee.user_image}`
-            "
+            :src="`https://api.hayokinsurance.com/image/${encounterDetails.enrollee.user_image}`"
             alt="Enrollee Image"
             class="enrollee__img"
             onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
           />
           <div class="primary__detail">
             <i class="fas fa-id-card fa-2x icon"></i>
-            <p class="id__number primary__detail--text">
+            <p
+              class="id__number primary__detail--text"
+              v-if="encounterDetails.enrollee != null"
+            >
               {{ encounterDetails.enrollee.id_card_number }}
             </p>
           </div>
           <div class="primary__detail">
             <i class="fas fa-phone fa-2x icon"></i>
-            <p class="exp__date primary__detail--text">
+            <p
+              class="exp__date primary__detail--text"
+              v-if="encounterDetails.enrollee != null"
+            >
               {{ encounterDetails.enrollee.phone_number }}
             </p>
           </div>
           <div class="primary__detail">
             <i class="far fa-calendar-alt fa-2x icon"></i>
-            <p class="facility primary__detail--text">
+            <p
+              class="facility primary__detail--text"
+              v-if="encounterDetails.enrollee != null"
+            >
               {{ encounterDetails.enrollee.dob }}
             </p>
           </div>
           <div class="primary__detail">
             <i class="fas fa-venus-mars fa-2x icon"></i>
-            <p class="facility primary__detail--text">
+            <p
+              class="facility primary__detail--text"
+              v-if="encounterDetails.enrollee != null"
+            >
               {{ encounterDetails.enrollee.gender }}
             </p>
           </div>
@@ -89,11 +100,13 @@
             </p>
           </div>
 
-           <div class="primary__detail">
+          <div class="primary__detail">
             <i class="fas fa-calendar fa-2x icon"></i>
             <p class="mda primary__detail--text">
-              {{ encounterDetails.created_at }} 
-               <span class="text-primary font-weight-light" > ({{ encounterDetails.created_at  | moment("from", "now") }}) </span> 
+              {{ encounterDetails.created_at }}
+              <span class="text-primary font-weight-light">
+                ({{ encounterDetails.created_at | moment("from", "now") }})
+              </span>
             </p>
           </div>
         </div>
@@ -111,14 +124,15 @@
 
               <p class="other__detail">
                 <strong>Diagnosis: </strong>
-                {{ encounterDetails.diagnosis.name }}
+                <span v-if="encounterDetails.diagnosis != null">
+                  {{ encounterDetails.diagnosis.name }}
+                </span>
               </p>
-              <p class="other__detail"
-              >
+              <p class="other__detail">
                 <strong>Other Diagnosis: </strong>
-               <span v-if="encounterDetails.secondarydiagnosis != null">
-                {{ encounterDetails.secondarydiagnosis.name }}
-              </span> 
+                <span v-if="encounterDetails.secondarydiagnosis != null">
+                  {{ encounterDetails.secondarydiagnosis.name }}
+                </span>
               </p>
               <p class="other__detail">
                 <strong>Reason for visit: </strong>
@@ -164,7 +178,7 @@
                   <th>No.</th>
                   <th>Type</th>
                   <th>Name</th>
-                  <th>Distribution </th>
+                  <th>Distribution</th>
                   <th>Unit Amount</th>
                   <!-- <th>Days</th> -->
                   <th>Amount</th>
@@ -188,15 +202,14 @@
                       service.drug.drug_name
                     }}</span>
                   </td>
-                   <td>
+                  <td>
                     <p>
-                     (Freq =  {{ service.frequency }}),
-                     (Dose  = {{ service.dose }}),
-                   (   Days = {{ service.days }})
+                      (Freq = {{ service.frequency }}), (Dose =
+                      {{ service.dose }}), ( Days = {{ service.days }})
                     </p>
                   </td>
                   <td>
-                     <span v-if="service.service != null">{{
+                    <span v-if="service.service != null">{{
                       service.service.price
                     }}</span>
                     <span v-if="service.drug != null">{{
@@ -209,14 +222,16 @@
                       {{ service.dose }}
                     </span>
                   </td> -->
-                 
+
                   <!-- <td>
                     <span>
                       {{ service.days }}
                     </span>
                   </td> -->
                   <td>
-                    <span v-if="service.service != null">  &#8358;{{ service.total_cost | numeral(0, 0) }} </span>
+                    <span v-if="service.service != null">
+                      &#8358;{{ service.total_cost | numeral(0, 0) }}
+                    </span>
                     <span v-if="service.drug != null">
                       &#8358;{{ service.total_cost | numeral(0, 0) }}</span
                     >
@@ -224,28 +239,24 @@
                 </tr>
                 <tr>
                   <td colspan="5"><strong>Total Cost of Encounter</strong></td>
-                  <td  >
-                    <strong
-                      > &#8358;{{
-                        totalServiceCharge | numeral(0, 0)
-                      }}</strong
+                  <td>
+                    <strong>
+                      &#8358;{{ totalServiceCharge | numeral(0, 0) }}</strong
                     >
                   </td>
                 </tr>
 
                 <tr>
-                  <td ><strong>10% of Drug Charged to Customer </strong></td>
+                  <td><strong>10% of Drug Charged to Customer </strong></td>
                   <td>
                     <strong> &#8358;{{ tenPercent | numeral(0, 0) }}</strong>
                   </td>
                 </tr>
-
-                
               </tbody>
             </table>
           </div>
 
-            <!-- Modal for Authorization Code -->
+          <!-- Modal for Authorization Code -->
           <div
             class="modal fade"
             id="example_01"
@@ -271,9 +282,9 @@
 
                   <div class="row p-t-20 p-b-20">
                     <div class="col-md-12">
-                      <p class="h4">Authorization Code Request </p>
+                      <p class="h4">Authorization Code Request</p>
 
-                      <div class="form-group col-md-12 ">
+                      <div class="form-group col-md-12">
                         <label>Select Secondary Facility </label>
                         <v-select
                           v-model="referred_to_facility"
@@ -283,7 +294,12 @@
                       </div>
 
                       <div class="col-md-12">
-                          <button class="btn btn-success btn-block" @click="createAuthCode">Submit</button>
+                        <button
+                          class="btn btn-success btn-block"
+                          @click="createAuthCode"
+                        >
+                          Submit
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -381,40 +397,42 @@ export default {
         this.isLoading = false;
       }
     },
-     createAuthCode() {
-     if (confirm('Are you sure you want to submit request') ) {
+    createAuthCode() {
+      if (confirm("Are you sure you want to submit request")) {
         this.isLoading = true;
-      this.axios
-        .post("/api/v1/auth/authorization_code", {
-          agency_id: 95930,
-          principal_id: this.encounterDetails.client_id,
-          dependent_id: this.encounterDetails.dependent_id,
-          provider_id: this.encounterDetails.provider_id,
-          referred_to_facility: this.referred_to_facility.id,
-          service_summary_id: this.encounterDetails.id,
-          org_id:  this.encounterDetails.patient == null ?  this.encounterDetails.dependent.user.org_id : this.encounterDetails.patient.org_id   ,
-        })
-        .then((response) => {
-          console.log(response);
-          this.isLoading = false;
-          this.getUserEncounterDetails();
-          // this.sendSMS();
-          this.$toasted.info(`${response.data.message}`, {
-            position: "top-center",
-            duration: 3000,
+        this.axios
+          .post("/api/v1/auth/authorization_code", {
+            agency_id: 95930,
+            principal_id: this.encounterDetails.client_id,
+            dependent_id: this.encounterDetails.dependent_id,
+            provider_id: this.encounterDetails.provider_id,
+            referred_to_facility: this.referred_to_facility.id,
+            service_summary_id: this.encounterDetails.id,
+            org_id:
+              this.encounterDetails.patient == null
+                ? this.encounterDetails.dependent.user.org_id
+                : this.encounterDetails.patient.org_id,
+          })
+          .then((response) => {
+            console.log(response);
+            this.isLoading = false;
+            this.getUserEncounterDetails();
+            // this.sendSMS();
+            this.$toasted.info(`${response.data.message}`, {
+              position: "top-center",
+              duration: 3000,
+            });
+          })
+          .catch((error) => {
+            console.log(error.response);
+            this.isLoading = false;
+            this.$breadstick.notify("Oops! something went wrong", {
+              position: "top-right",
+            });
           });
-
-        })
-        .catch((error) => {
-          console.log(error.response);
-          this.isLoading = false;
-          this.$breadstick.notify("Oops! something went wrong", {
-            position: "top-right",
-          });
-        });
-     }
+      }
     },
-     sendSMS() {
+    sendSMS() {
       this.isLoading = true;
       let message = `your code requested is successful. Go to https://app.oshia.ng/authorization-code  `;
       this.axios
@@ -443,7 +461,7 @@ export default {
       window.print();
       document.body.innerHTML = originalContents;
     },
-      getProviders() {
+    getProviders() {
       this.axios
         .get(`/api/v1/auth/providerAgency/95930`)
         .then((response) => {

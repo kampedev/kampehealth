@@ -110,12 +110,20 @@
                         }}
                       </td>
                       <td>
-                        {{ record.enrollee.firstname }}
+                        <span v-if="record.enrollee != null">
+                          {{ record.enrollee.firstname }}
                         {{ record.enrollee.lastname }}
+                        </span>
+                       
                       </td>
                       <td>
-                        {{ record.enrollee.id_card_number }}
+                        <span v-if="record.enrollee != null">
+                          {{ record.enrollee.id_card_number }}
                         <i class="fe fe-copy" @click="copyText(record)"></i>
+                     
+                        </span>
+                       
+                     
                       </td>
 
                       <td>

@@ -17,159 +17,159 @@
             <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
-                  <div class="col-md-12">
-                    <div class="row">
-                      <div class="form-group col-md-4">
-                        <p><label for="inputPassword4">Date of Care</label></p>
+                  <form @submit.prevent="checkCode">
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <p>
+                            <label for="inputPassword4">Date of Care</label>
+                          </p>
 
-                        <input
-                          type="date"
-                          class="form-control"
-                          v-model="claim.seen_date"
-                        />
-                      </div>
+                          <input
+                            type="date"
+                            required
+                            class="form-control"
+                            v-model="claim.seen_date"
+                          />
+                        </div>
 
-                      <div class="form-group col-md-4">
-                        <label for="inputCity">Authorization Code </label>
+                        <div class="form-group col-md-4">
+                          <label for="inputCity">Authorization Code </label>
 
-                        <select
-                          class="form-control"
-                          required
-                          v-model="claim.authorization_code"
-                        >
-                          <option
-                            v-for="auth_code in referrals"
-                            :key="auth_code.id"
-                            :value="auth_code.code_created"
+                          <select
+                            class="form-control"
+                            required
+                            v-model="claim.authorization_code"
                           >
-                            {{ auth_code.code_created }} (
-                            {{ auth_code.code_usage }})
-                          </option>
-                        </select>
+                            <option
+                              v-for="auth_code in referrals"
+                              :key="auth_code.id"
+                              :value="auth_code.code_created"
+                            >
+                              {{ auth_code.code_created }} (
+                              {{ auth_code.code_usage }})
+                            </option>
+                          </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                          <label for="inputCity">Enrollee OHIS Number </label>
+                          <input
+                            required
+                            disabled
+                            type="text"
+                            class="form-control"
+                            v-model="summary.enrollee.id_card_number"
+                          />
+                        </div>
+
+                        <div class="row col-md-12">
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Enrollee Surname</label>
+                            <input
+                              required
+                              type="text"
+                              class="form-control"
+                              id="inputEmail4"
+                              :value="summary.enrollee.firstname"
+                              disabled
+                            />
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Enrollee First Name</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputEmail4"
+                              :value="summary.enrollee.lastname"
+                              disabled
+                            />
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">OHIS Number </label>
+                            <input
+                              required
+                              type="text"
+                              class="form-control"
+                              id="inputEmail4"
+                              :value="summary.enrollee.id_card_number"
+                              disabled
+                            />
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Phone Number</label>
+                            <input
+                              required
+                              type="text"
+                              class="form-control"
+                              id="inputEmail4"
+                              :value="summary.enrollee.phone_number"
+                              disabled
+                            />
+                          </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Select Diagnosis </label>
+                          <v-select
+                            v-model="summary.diagnosis.name"
+                            label="name"
+                            :required="!claim.diagnosis"
+                            :options="diseases"
+                          />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                          <label for="inputCity">Enter Encounter ID</label>
+                          <input
+                            type="text"
+                            required
+                            disabled
+                            class="form-control"
+                            v-model="summary.healthrecord.encounter_id"
+                            @change="verifyEncounter"
+                          />
+                          <p class="text-primary" v-if="summary != ''">
+                            Encounter verified for enrollee
+                            <i class="fe fe-check-circle"></i>
+                          </p>
+                          <p class="text-danger" v-else>
+                            Encounter not Found for enrollee
+                          </p>
+                        </div>
                       </div>
 
-                      <div class="form-group col-md-4">
-                        <label for="inputCity">Enrollee OHIS Number </label>
-                        <input
-                          disabled
-                          type="text"
-                          class="form-control"
-                          v-model="summary.enrollee.id_card_number"
-                        />
-                      </div>
+                      <div class="form-group col-md-12">
+                        <label for="inputAddress">Reason for Claim</label>
 
-                      <div class="row col-md-12">
-                        <div class="form-group col-md-6">
-                          <label for="inputCity">Enrollee Surname</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="inputEmail4"
-                            :value="summary.enrollee.firstname"
-                            disabled
-                          />
-                        </div>
-
-                        <div class="form-group col-md-6">
-                          <label for="inputCity">Enrollee First Name</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="inputEmail4"
-                            :value="summary.enrollee.lastname"
-                            disabled
-                          />
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputCity">OHIS Number </label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="inputEmail4"
-                            :value="summary.enrollee.id_card_number"
-                            disabled
-                          />
-                        </div>
-
-                        <div class="form-group col-md-6">
-                          <label for="inputCity">Phone Number</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="inputEmail4"
-                            :value="summary.enrollee.phone_number"
-                            disabled
-                          />
-                        </div>
-                      </div>
-
-                      <div class="form-group col-md-6">
-                        <label for="inputPassword4">Select Diagnosis </label>
                         <v-select
-                          v-model="summary.diagnosis.name"
-                          label="name"
-                          :required="!claim.diagnosis"
-                          :options="diseases"
-                        />
-                      </div>
-
-                      <div class="form-group col-md-6">
-                        <label for="inputCity">Enter Encounter ID</label>
-                        <input
-                          type="text"
-                          disabled
-                          class="form-control"
-                          v-model="summary.healthrecord.encounter_id"
-                          @change="verifyEncounter"
-                        />
-                        <p class="text-primary" v-if="summary != ''">
-                          Encounter verified for enrollee
-                          <i class="fe fe-check-circle"></i>
-                        </p>
-                        <p class="text-danger" v-else>
-                          Encounter not Found for enrollee
-                        </p>
-                      </div>
-                    </div>
-                    <!-- <div class="col-md-12">
-                      <b-form-checkbox
-                        v-model="claim.is_out_of_station"
-                        name="check-button"
-                        switch
-                      >
-                        Enrollee is an Out-of-Station <b>({{ claim.is_out_of_station }})</b>
-                      </b-form-checkbox>
-                    </div> -->
-
-                    <div class="form-group col-md-12">
-                      <label for="inputAddress">Reason for Claim</label>
-                    
-                      <v-select
                           v-model="claim.treatment"
+                          required
                           label="name"
                           :options="reasons"
                         />
 
-                         <textarea
-                         v-if="claim.treatment == 'Others'"
-                        name="name"
-                        rows="5"
-                        cols="80"
-                        class="form-control mt-4"
-                        v-model="claim.treatment"
-                      ></textarea>
+                        <textarea
+                          v-if="claim.treatment == 'Others'"
+                          required
+                          name="name"
+                          rows="5"
+                          cols="80"
+                          class="form-control mt-4"
+                          v-model="claim.treatment"
+                        ></textarea>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="form-group mt-4">
-                    <button
-                      class="btn btn-outline-success btn-block"
-                      @click="checkCode"
-                    >
-                      Proceed to Drugs/Service Processing
-                      <i class="fe fe-chevron-right"></i>
-                    </button>
-                  </div>
+                    <div class="form-group mt-4">
+                      <button class="btn btn-outline-success btn-block">
+                        Proceed to Drugs/Service Processing
+                        <i class="fe fe-chevron-right"></i>
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -227,41 +227,36 @@ export default {
         client_name: "",
         seen_date: "",
       },
-      reasons:[
-  "Medical treatment for an illness or injury",
-  "Prescription medications",
-  "Diagnostic tests and screenings",
-  "Surgical procedures",
-  "Physical therapy or rehabilitation",
-  "Mental health counseling or therapy",
-  "Medical equipment or supplies",
-  "Home health care",
-  "Dental or vision care",
-  "Emergency room visits",
-  "Hospitalization",
-  "Maternity care",
-  "Preventive care services",
-  "Specialist consultations",
-  "Out-of-network provider services",
-  "Ambulance services",
-  "Hospice care",
-  "Chiropractic care",
-  "Occupational therapy",
-  "Speech therapy",
-  "Others"
-]
+      reasons: [
+        "Medical treatment for an illness or injury",
+        "Prescription medications",
+        "Diagnostic tests and screenings",
+        "Surgical procedures",
+        "Physical therapy or rehabilitation",
+        "Mental health counseling or therapy",
+        "Medical equipment or supplies",
+        "Home health care",
+        "Dental or vision care",
+        "Emergency room visits",
+        "Hospitalization",
+        "Maternity care",
+        "Preventive care services",
+        "Specialist consultations",
+        "Out-of-network provider services",
+        "Ambulance services",
+        "Hospice care",
+        "Chiropractic care",
+        "Occupational therapy",
+        "Speech therapy",
+        "Others",
+      ],
     };
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
   },
   computed: {
-    randomNumber: function () {
-      let authorization_code = Math.floor(
-        Math.random() * (this.max - this.min + 1) + this.min
-      );
-      return authorization_code;
-    },
+    //
   },
   methods: {
     getEnrollees() {

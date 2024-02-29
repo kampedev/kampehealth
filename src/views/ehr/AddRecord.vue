@@ -170,6 +170,7 @@
                       <div class="form-group col-md-4">
                         <label for="inputPassword4">Diagnosis </label>
                         <v-select
+                          @input="clearOthers"
                           v-model="record.diagnosis"
                           label="name"
                           :options="diseases"
@@ -182,6 +183,19 @@
                           v-model="record.secondary_diagnosis"
                           label="name"
                           :options="diseases"
+                        />
+                      </div>
+
+                      <div
+                        class="form-group col-md-4"
+                        v-if="record.diagnosis.name == 'Others'"
+                      >
+                        <label for="inputCity">Type Diagnosis</label>
+                        <input
+                          required
+                          type="text"
+                          class="form-control"
+                          v-model="record.other_diagnosis"
                         />
                       </div>
 
@@ -209,19 +223,16 @@
                       </div>
                     </div>
 
-                    <div
-                      class="col-md-12"
-                      v-if="record.treatment_type == 'Primary'"
-                    >
+                    <div v-if="record.treatment_type == 'Primary'">
                       <h3 class="h3">Treatment</h3>
-                    </div>
 
-                    <div
-                      v-for="(service_renderred, index) in record.services"
-                      v-bind:key="service_renderred"
-                    >
-                      <div class="row">
-                        <!-- <div
+                      <div
+                        v-for="(service_renderred, index) in record.services"
+                        v-bind:key="service_renderred"
+                        class="card my-4"
+                      >
+                        <div class="row card-body">
+                          <!-- <div
                         class="form-group col-md-2"
                         v-if="record.treatment_type == 'Primary'"
                       >
@@ -236,22 +247,19 @@
                         </select>
                       </div> -->
 
-                        <div
-                          class="form-group col-md-6"
-                          v-if="record.treatment_type == 'Primary'"
-                        >
-                          <label for="inputPassword4"
-                            >Select Primary Drug
-                          </label>
-                          <v-select
-                            v-model="service_renderred.drug"
-                            label="item_data"
-                            :required="!record.drugs"
-                            :options="drugs.data"
-                          />
-                        </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4"
+                              >Select Primary Drug
+                            </label>
+                            <v-select
+                              v-model="service_renderred.drug"
+                              label="item_data"
+                              :required="!record.drugs"
+                              :options="drugs.data"
+                            />
+                          </div>
 
-                        <!-- <div
+                          <!-- <div
                         class="form-group col-md-7"
                         v-if="
                           record.treatment_type == 'Primary' &&
@@ -267,85 +275,72 @@
                         />
                       </div> -->
 
-                        <div class="form-group col-md-2">
-                          <label for="inputCity">Dose </label>
-                          <input
-                            type="number"
-                            min="1"
-                            class="form-control"
-                            required
-                            id="inputEmail4"
-                            placeholder="1"
-                            v-model="service_renderred.dose"
-                          />
+                          <div class="form-group col-md-2">
+                            <label for="inputCity">Dose </label>
+                            <input
+                              type="number"
+                              min="1"
+                              class="form-control"
+                              required
+                              id="inputEmail4"
+                              placeholder="1"
+                              v-model="service_renderred.dose"
+                            />
+                          </div>
+
+                          <div class="form-group col-md-2">
+                            <label for="inputCity">Freq. </label>
+
+                            <select
+                              class="form-control"
+                              v-model="service_renderred.frequency"
+                            >
+                              <option value="1">Daily</option>
+                              <option value="2">BD</option>
+                              <option value="3">TDS</option>
+                              <option value="4">QDS</option>
+                            </select>
+                          </div>
+
+                          <div class="form-group col-md-2">
+                            <label for="inputCity">Days </label>
+                            <input
+                              type="number"
+                              min="1"
+                              class="form-control"
+                              required
+                              id="inputEmail4"
+                              placeholder="1"
+                              v-model="service_renderred.days"
+                            />
+                          </div>
+
+                          <div class="col-md-6 my-2">
+                            <button
+                              type="button"
+                              @click="addArray()"
+                              class="btn btn-outline-success btn-block"
+                            >
+                              <i class="fe fe-plus"></i>
+                            </button>
+                          </div>
+
+                          <div class="col-md-6 my-2">
+                            <button
+                              type="button"
+                              @click="removeArray(index)"
+                              class="btn btn-outline-danger btn-block"
+                            >
+                              <i class="fe fe-delete"></i>
+                            </button>
+                          </div>
                         </div>
 
-                        <div class="form-group col-md-2">
-                          <label for="inputCity">Freq. </label>
-                          <!-- <input
-                          v-if="type == 'Service'"
-                          type="number"
-                          min="1"
-                          class="form-control"
-                          required
-                          id="inputEmail4"
-                          placeholder="freq"
-                          v-model="service_renderred.frequency"
-                        /> -->
-
-                          <select
-                            class="form-control"
-                            v-model="service_renderred.frequency"
-                          >
-                            <option value="1">Daily</option>
-                            <option value="2">BD</option>
-                            <option value="3">TDS</option>
-                            <option value="4">QDS</option>
-                          </select>
-                        </div>
-
-                        <div class="form-group col-md-1">
-                          <label for="inputCity">Days </label>
-                          <input
-                            type="number"
-                            min="1"
-                            class="form-control"
-                            required
-                            id="inputEmail4"
-                            placeholder="1"
-                            v-model="service_renderred.days"
-                          />
-                        </div>
-
-                        <div
-                          class="form-group col-md-1 d-flex align-items-center"
-                          v-if="service_renderred.type != ''"
-                        >
-                          <button
-                            @click="removeArray(index)"
-                            class="mt-4 btn btn-outline-danger"
-                          >
-                            <i class="fe fe-delete"></i>
-                          </button>
-                        </div>
-                        <!-- </div> -->
                       </div>
                     </div>
-                    <div
-                      class="col-md-12 mb-6"
-                      v-if="record.treatment_type == 'Primary'"
-                    >
-                      <button
-                        type="button"
-                        @click="addArray()"
-                        class="btn btn-outline-success btn-block"
-                      >
-                        <i class="fe fe-plus"></i>
-                      </button>
-                    </div>
 
                     <div
-                      class="form-group"
+                      class="form-group mt-8"
                       v-if="record.treatment_type == 'Primary'"
                     >
                       <button class="btn btn-success btn-block" type="submit">
@@ -354,7 +349,7 @@
                     </div>
 
                     <div
-                      class="form-group"
+                      class="form-group mt-8"
                       v-if="record.treatment_type == 'Secondary'"
                     >
                       <button class="btn btn-success btn-block" type="submit">
@@ -421,6 +416,7 @@ export default {
         patient_type: "",
         diagnosis: "",
         secondary_diagnosis: "",
+        other_diagnosis: "",
         date_of_admission: "",
         date_of_discharge: "",
         treatment_type: "",
@@ -458,6 +454,9 @@ export default {
       });
   },
   methods: {
+    clearOthers() {
+      this.record.other_diagnosis = "";
+    },
     searchIDCard() {
       this.isLoading = true;
       this.axios
@@ -507,6 +506,7 @@ export default {
             notes: this.record.medications,
             diagnosis: this.record.diagnosis.id,
             secondary_diagnosis: this.record.secondary_diagnosis.id,
+            other_diagnosis: this.record.other_diagnosis,
             phone_number: this.selected_enrollee.phone_number,
             patient_type: this.record.patient_type,
             medications: "view service rendered page for more details",

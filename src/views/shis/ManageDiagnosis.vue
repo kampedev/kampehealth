@@ -210,6 +210,7 @@ export default {
           symptoms: this.register.symptoms,
           transmission: this.register.transmission,
           treatment: this.register.treatment,
+          is_primary: false,
         })
         .then((response) => {
           console.log(response);

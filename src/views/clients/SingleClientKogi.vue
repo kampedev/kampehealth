@@ -23,14 +23,14 @@
         <div class="container">
           <div class="row list">
             <div class="col-lg-12 col-md-12">
-              <div class="card m-b-30">
-                <div class="card-header">
-                  <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
-                </div>
+              <div
+                class="card m-b-30"
+                v-if="user.type == 'employee' || user.type == 'shis'"
+              >
+                <div class="card-header"></div>
 
                 <div class="card-body">
                   <div class="form-group">
-
                     <button
                       class="btn btn-outline-success spacer"
                       @click="startCamera"
@@ -74,7 +74,7 @@
                     <button
                       class="btn btn-outline-danger spacer"
                       @click="deleteUser"
-                      v-if="user.user_role == 1 "
+                      v-if="user.user_role == 1"
                     >
                       Delete <i class="fe fe-delete"></i>
                     </button>
@@ -93,7 +93,7 @@
                         path: '/add-dependent/' + $route.params.id,
                         params: {},
                       }"
-                        v-if="user.type != 'provider_employee' "
+                      v-if="user.type != 'provider_employee'"
                     >
                       <button
                         class="btn btn-outline-info mx-2"
@@ -108,8 +108,9 @@
                         params: {},
                       }"
                     >
-                      <button class="btn btn-outline-dark mx-2"
-                      v-if="user.type != 'provider_employee' "
+                      <button
+                        class="btn btn-outline-dark mx-2"
+                        v-if="user.type != 'provider_employee'"
                       >
                         Edit <i class="fe fe-edit"></i>
                       </button>

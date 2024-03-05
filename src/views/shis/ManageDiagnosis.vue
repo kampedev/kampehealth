@@ -50,8 +50,8 @@
                   <div class="text-center"></div>
 
                   <div class="form-row">
-                    <div class="form-group col-md-12">
-                      <label for="inputEmail4">Name</label>
+                    <div class="form-group col-md-6">
+                      <label>Name</label>
                       <input
                         type="text"
                         class="form-control"
@@ -60,43 +60,23 @@
                       />
                     </div>
 
-                    <div class="form-group col-md-12">
-                      <label for="inputAddress">Symptoms</label>
-                      <textarea
-                        name="name"
-                        rows="5"
-                        cols="80"
+                    <div class="form-group col-md-6">
+                      <label>Select Type</label>
+                      <select
                         class="form-control"
-                        v-model="register.symptoms"
-                      ></textarea>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                      <label for="inputAddress">Transmission</label>
-                      <textarea
-                        name="name"
-                        rows="5"
-                        cols="80"
-                        class="form-control"
-                        v-model="register.transmission"
-                      ></textarea>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-12">
-                      <label for="inputAddress">Treatment</label>
-                      <textarea
-                        name="name"
-                        rows="5"
-                        cols="80"
-                        class="form-control"
-                        v-model="register.treatment"
-                      ></textarea>
+                        v-model="register.is_primary"
+                      >
+                        <option value="1">Primary</option>
+                        <option value="0">Secondary</option>
+                      </select>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <button class="btn btn-primary" @click="AddDisease">
+                    <button
+                      class="btn btn-success btn-block"
+                      @click="AddDisease"
+                    >
                       Submit
                     </button>
                   </div>
@@ -115,19 +95,30 @@
                     <table class="table align-td-middle table-card">
                       <thead>
                         <tr>
-                          <!-- <th>Avatar</th> -->
                           <th>Name</th>
-                          <th>Symptoms</th>
-                          <th>Diagnosis</th>
-                          <th>Treatment</th>
+                          <th>Type</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="diag in diagnoses.data" v-bind:key="diag.id">
                           <td>{{ diag.name }}</td>
-                          <td>{{ diag.symptoms }}</td>
-                          <td>{{ diag.diagnosis }}</td>
-                          <td>{{ diag.treatment }}</td>
+                          <td>{{ diag.type }}</td>
+                          <td>
+                            <button
+                              class="btn btn-outline-info mr-2"
+                              @click="startEdit(diag)"
+                            >
+                              <i class="fe fe-edit"> </i>
+                            </button>
+
+                            <button
+                              class="btn btn-outline-danger"
+                              @click="deleteDiagnosis(diag)"
+                            >
+                              <i class="fe fe-delete"> </i>
+                            </button>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -168,23 +159,20 @@ export default {
     return {
       isLoading: false,
       fullPage: true,
-      states: "",
       showadder: false,
+      edit: false,
       diagnoses: "",
-      state: "",
-      lga_states: "",
-      wards: "",
       register: {
         name: "",
         symptoms: "",
         transmission: "",
         treatment: "",
+        is_primary: "",
       },
     };
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
-   
   },
   methods: {
     getDiagnoses() {
@@ -233,6 +221,59 @@ export default {
       this.register.treatment = "";
       this.register.symptoms = "";
       this.register.transmission = "";
+    },
+
+    deleteDiagnosis(diag) {
+      if (confirm("Are you Sure?")) {
+        this.user = JSON.parse(localStorage.getItem("user"));
+        this.axios
+          .delete(`/api/v1/auth/diagnosis/${diag.id}`)
+          .then((response) => {
+            this.getDiagnoses();
+            response;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
+
+    updateDisease() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.isLoading = true;
+      this.axios
+        .put("/api/v1/auth/diagnosis/" + this.register.id, {
+          agency_id: 90,
+          is_primary: this.register.is_primary,
+          name: this.register.name,
+          symptoms: this.register.symptoms,
+          transmission: this.register.transmission,
+          treatment: this.register.treatment,
+        })
+        .then((response) => {
+          console.log(response);
+          this.isLoading = false;
+          this.edit = false;
+          this.$breadstick.notify("Disease updated successfully! ", {
+            position: "top-right",
+          });
+          this.clearIt();
+          this.getDiagnoses();
+        })
+        .catch((error) => {
+          console.log(error.response);
+          this.isLoading = false;
+          this.$breadstick.notify("Oops! something went wrong", {
+            position: "top-right",
+          });
+        });
+    },
+
+    startEdit(diag) {
+      this.edit = true;
+      this.register.name = diag.name;
+      this.register.id = diag.id;
+      this.register.is_primary = diag.is_primary;
     },
   },
   created() {

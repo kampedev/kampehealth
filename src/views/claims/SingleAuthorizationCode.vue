@@ -55,23 +55,23 @@
                       v-if="
                         auth_code.status != 'approved' &&
                         auth_code.status != 'rejected' &&
-                        (user.type == 'tpa' || user.type == 'tpa_employee')
+                        (user.type == 'employee' || user.type == 'shis')
                       "
                     >
                       reject <i class="fe fe-x"></i>
                     </button>
 
-                    <button
+                    <!-- <button
                       class="btn btn-dark spacer"
                       @click="inProgress"
                       v-if="
                         auth_code.status == 'pending' &&
                         auth_code.status != 'rejected' &&
-                        (user.type == 'tpa' || user.type == 'tpa_employee')
+                        (user.type == 'employee' || user.type == 'shis')
                       "
                     >
                       mark as in-progess
-                    </button>
+                    </button> -->
 
                     <button
                       class="btn btn-outline-success btn-sm spacer"

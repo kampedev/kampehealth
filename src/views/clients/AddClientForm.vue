@@ -1,5 +1,5 @@
 <template>
-  <section class="admin-content " id="contact-search">
+  <section class="admin-content" id="contact-search">
     <!-- <Navbar/> -->
     <main class="admin-main">
       <section class="">
@@ -63,18 +63,18 @@
                             required
                             v-model="register.sector"
                           >
-                            <option value="Basic Healthcare Provision Fund"
-                              >Basic Healthcare Provision Fund</option
-                            >
-                            <option value="State Equity Program"
-                              >State Equity Program</option
-                            >
-                            <option value="Vulnerable Groups"
-                              >Vulnerable Groups</option
-                            >
-                            <option value="Voluntary Contributor"
-                              >Voluntary Contributor</option
-                            >
+                            <option value="Basic Healthcare Provision Fund">
+                              Basic Healthcare Provision Fund
+                            </option>
+                            <option value="State Equity Program">
+                              State Equity Program
+                            </option>
+                            <option value="Vulnerable Groups">
+                              Vulnerable Groups
+                            </option>
+                            <option value="Voluntary Contributor">
+                              Voluntary Contributor
+                            </option>
                             <!-- <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option> -->
                           </select>
                         </div>
@@ -93,15 +93,14 @@
                             v-model="register.sector"
                           >
                             <option value="Civil Servant">Civil Servant</option>
-                            <option value="Oganized Private Sector Plan"
-                              >Organized Private Sector Plan</option
-                            >
+                            <option value="Oganized Private Sector Plan">
+                              Organized Private Sector Plan
+                            </option>
                             <option
                               value="Tertiary Student Health Insurance Plan (T-SHIP)"
                             >
-                              Tertiary Student Health Insurance Plan
-                              (T-SHIP)</option
-                            >
+                              Tertiary Student Health Insurance Plan (T-SHIP)
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -117,16 +116,16 @@
                           v-model="register.category_of_vulnerable_group"
                         >
                           <option value="Pregnant Women">Pregnant Women</option>
-                          <option value="Children under 5"
-                            >Children under 5</option
-                          >
+                          <option value="Children under 5">
+                            Children under 5
+                          </option>
                           <option value="Aged">Aged</option>
-                          <option value="People with Special Needs"
-                            >People with Special Needs</option
-                          >
-                          <option value="Poorest of the Poor"
-                            >Poorest of the Poor</option
-                          >
+                          <option value="People with Special Needs">
+                            People with Special Needs
+                          </option>
+                          <option value="Poorest of the Poor">
+                            Poorest of the Poor
+                          </option>
                         </select>
                       </div>
 
@@ -252,8 +251,9 @@
                             :value="mda.name"
                             v-for="mda in mdas"
                             v-bind:key="mda.id"
-                            >{{ mda.name }}</option
                           >
+                            {{ mda.name }}
+                          </option>
                         </select>
                       </div>
 
@@ -330,8 +330,9 @@
                             v-for="tpa in tpas"
                             v-bind:key="tpa"
                             :value="tpa.id"
-                            >{{ tpa.organization_name }}</option
                           >
+                            {{ tpa.organization_name }}
+                          </option>
                         </select>
                       </div>
 
@@ -349,8 +350,9 @@
                             v-for="lga in lga_states"
                             v-bind:key="lga"
                             :value="lga.id"
-                            >{{ lga.local_name }}</option
                           >
+                            {{ lga.local_name }}
+                          </option>
                         </select>
                       </div>
 
@@ -365,8 +367,9 @@
                             v-for="ward in wards"
                             v-bind:key="ward.id"
                             :value="ward.id"
-                            >{{ ward.ward_name }}</option
                           >
+                            {{ ward.ward_name }}
+                          </option>
                         </select>
                       </div>
 
@@ -409,7 +412,7 @@
 
                     <div class="form-group">
                       <button class="btn btn-success btn-block btn-lg">
-                        Submit  <i class="fe fe-send"></i>
+                        Submit <i class="fe fe-send"></i>
                       </button>
                     </div>
                   </form>
@@ -615,8 +618,8 @@ export default {
           grade_level: this.register.grade_level,
           date_of_entry: this.register.date_of_entry,
           marital_status: this.register.marital_status,
-          category_of_vulnerable_group: this.register
-            .category_of_vulnerable_group,
+          category_of_vulnerable_group:
+            this.register.category_of_vulnerable_group,
           enrolled_by: this.user.id,
         })
         .then((response) => {
@@ -692,8 +695,8 @@ export default {
           grade_level: this.register.grade_level,
           date_of_entry: this.register.date_of_entry,
           marital_status: this.register.marital_status,
-          category_of_vulnerable_group: this.register
-            .category_of_vulnerable_group,
+          category_of_vulnerable_group:
+            this.register.category_of_vulnerable_group,
           enrolled_by: this.user.id,
         })
         .then((response) => {

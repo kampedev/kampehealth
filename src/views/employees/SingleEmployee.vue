@@ -30,7 +30,7 @@
                            <div class="card-body">
 
                              <div class="form-group" v-if="user.id == 95930 || user.user_role == 1">
-                                 <button class="btn btn-info spacer-left" @click="show = !show" >Change Password</button>
+                                 <button class="btn btn-success spacer-left" @click="show = !show" >Change Password</button>
                                  <button class="btn btn-secondary spacer-left" @click="showupdatedep = !showupdatedep" >Change Role</button>
                                  <button class="btn btn-primary spacer-left" @click="updateRole"  v-if="employeee.user.user_role == 0">make admin</button>
                                  <button class="btn btn-primary spacer-left" @click="updateRole" v-if="employeee.user.user_role == 1">make maintainer</button>
@@ -55,7 +55,7 @@
 
 
                <div class="row">
-                   <div class="col-lg-8 col-12-8">
+                   <div class="col-lg-8 col-md-8">
 
                        <div class="card m-b-30">
                          <div class="card-header">

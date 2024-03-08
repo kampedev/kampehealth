@@ -15,12 +15,21 @@
               <strong class="h4">Manage Encounters</strong>
             </div>
 
-            <div class="col-md-12">
+            <div class="container col-md-12 mb-4">
+           
+
               <button
                 class="btn btn-success"
                 @click="encounterform = !encounterform"
               >
                 <i class="fe fe-plus"></i> Add Encounter code
+              </button>
+
+              <button
+                class="btn btn-outline-dark ml-3 my-2"
+                @click="filterparams = !filterparams"
+              >
+                <i class="fe fe-filter"></i> Filter Encounters
               </button>
             </div>
           </div>
@@ -49,16 +58,119 @@
             </form>
           </div>
         </div>
+
+        <div class="col-md-12 mb-5">
+          <div class="card" v-show="filterparams">
+            <div class="card-header">
+              <p class="text-center h4">Filter Parameter</p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <!-- <div class="form-group col-md-6">
+                      <label for="inputCity">Diagnosis </label>
+                      <v-select
+                    v-model="filter_field.diagnosis"
+                    label="name"
+                    :options="diseases"
+                  />
+                    </div> -->
+
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">OHIS Number</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="filter_field.enrollee"
+                    placeholder="OHIS/XXX/XXXXX"
+                  />
+                </div>
+
+                <div
+                  class="form-group col-md-6"
+                  v-if="user.type == 'shis' || user.type == 'employee'"
+                >
+                  <label> Select Facility </label>
+
+                  <v-select
+                    v-model="filter_field.provider_id"
+                    label="agency_name"
+                    :options="providers"
+                  />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="inputCity"
+                    ><i class="fe fe-calendar"></i> Start Date
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    v-model="filter_field.from"
+                  />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="inputCity"
+                    ><i class="fe fe-calendar"></i> End Date
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    v-model="filter_field.to"
+                  />
+                </div>
+
+                <div class="col-md-12 form-group">
+                  <label for="">Rows</label>
+                  <select class="form-control" v-model="paginate_value">
+                    <option>30</option>
+                    <option>100</option>
+                    <option>500</option>
+                    <option>1000</option>
+                    <option>5000</option>
+                    <option>10000</option>
+                  </select>
+                </div>
+                <div class="col-md-12">
+                  <button
+                    class="btn btn-outline-success btn-block"
+                    @click="getEncounters"
+                  >
+                    Filter
+                  </button>
+
+                  <button class="btn btn-outline-dark my-2 btn-block">
+                    <download-excel
+                      :data="encounters.data"
+                      :fields="json_fields"
+                      type="xls"
+                      :escapeCsv="false"
+                      :name="'encounter_data' + '.xls'"
+                    >
+                    </download-excel>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="">
           <div class="row list">
             <div class="col-lg-12 col-md-8">
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="table-responsive">
+
+                    <p class="h4 my-3">
+                      <span v-if="encounters != ''">{{
+                        encounters.meta.total
+                      }}</span>
+                      Encounters
+                    </p>
+
                     <table class="table align-td-middle table-card">
                       <thead>
                         <tr>
-                          <th>Number</th>
                           <th>Encounter ID</th>
                           <th>Facility</th>
                           <th>Patient</th>
@@ -70,10 +182,9 @@
                       </thead>
                       <tbody>
                         <tr
-                          v-for="(encounter, index) in encounters.data"
+                          v-for="encounter in encounters.data"
                           v-bind:key="encounter.id"
                         >
-                          <td>{{ index + 1 }}</td>
                           <td>
                             <span v-if="encounter.healthrecord != null">
                               {{ encounter.healthrecord.encounter_id }}
@@ -102,19 +213,13 @@
                             >
                               <button
                                 type="button"
-                                class="btn btn-success"
+                                class="btn btn-success mr-1"
                                 name="button"
                               >
                                 <i class="fe fe-eye"></i>
                               </button>
                             </router-link>
-                            <button
-                              type="button"
-                              @click="deleteUser(encounter)"
-                              class="btn btn-danger"
-                            >
-                              <i class="fe fe-delete"></i>
-                            </button>
+                           
                           </td>
                         </tr>
                       </tbody>
@@ -154,29 +259,59 @@ export default {
   },
   data() {
     return {
+      paginate_value: 30,
+      user: null,
       isLoading: false,
       encounterform: false,
       fullPage: true,
-      states: "",
+      filterparams: false,
+      diseases: "",
+      providers: "",
+      json_fields: {
+        "Encounter ID": "healthrecord.encounter_id",
+        "Enrollee Full Name": "patient.full_name",
+        "Enrollee OHIS Number": "patient.id_card_number",
+        Diagnosis: "diagnosis.name",
+        "Facility Name": "provider.agency_name",
+      },
       string_data: "",
-      encounters: "",
+      encounters: {
+        meta:{}
+      },
+      filter_field: {
+        diagnosis: "",
+        provider_id: "",
+        enrollee: "",
+        date: "",
+        from: "",
+        to: "",
+      },
     };
   },
   beforeMount() {
-    this.axios
-      .post(`/api/v1/auth/service_summary-agency`, { agency_id: 95930 })
-      .then((response) => {
-        this.encounters = response.data;
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    this.user = JSON.parse(localStorage.getItem("user"));
+    // this.axios
+    //   .get(`/api/v1/auth/diagnosis-agency/95930`)
+    //   .then((response) => {
+    //     this.diseases = response.data.data;
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   },
   methods: {
     getEncounters() {
       this.axios
-        .post(`/api/v1/auth/service_summary-agency`, { agency_id: 95930 })
+        .post(`/api/v1/auth/service_summary-agency`, {
+          provider_id: this.filter_field.provider_id.id,
+          enrollee: this.filter_field.enrollee,
+          date: this.filter_field.date,
+          from: this.filter_field.from,
+          to: this.filter_field.to,
+          agency_id: 95930,
+          paginate_value: this.paginate_value,
+        })
         .then((response) => {
           this.encounters = response.data;
           console.log(response);
@@ -197,7 +332,6 @@ export default {
           .then((response) => {
             console.log(response);
             this.getEncounters();
-            // let encounter_id = response.data.service_summary.id
             //  this.$router.push(`/encounter/${encounter_id}`);
             this.string_data = "";
             this.isLoading = false;
@@ -216,22 +350,21 @@ export default {
           });
       }
     },
-    deleteUser(employee) {
-      if (confirm("Are you Sure you want to delete this user")) {
-        this.axios
-          .delete(`/api/v1/auth/deleteUser/${employee.id}`)
-          .then((response) => {
-            console.log(response);
-            this.getEmployees();
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
+    getProviders() {
+      this.axios
+        .get(`/api/v1/auth/providerAgency/95930`)
+        .then((response) => {
+          this.providers = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
   created() {
-    //
+    this.getEncounters();
+    this.getProviders();
   },
 };
 </script>

@@ -84,7 +84,7 @@
               </select>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
               <label><i class="fe fe-activity"></i> Select Facility </label>
               <select class="form-control" required v-model="provider_id">
                 <option
@@ -96,7 +96,7 @@
                 </option>
               </select>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
               <label for="inputCity"
                 ><i class="fe fe-briefcase"></i> Select MDA
               </label>
@@ -110,8 +110,26 @@
                 </option>
               </select>
             </div>
+            <div class="form-group col-md-3">
+                    <label>Special Needs</label>
+                    <select
+                      class="form-control"
+                      v-model="category_of_vulnerable_group"
+                    >
+                      <option value="All">All</option>
+                      <option value="Pregnant Women">Pregnant Women</option>
+                      <option value="Children under 5">Children under 5</option>
+                      <option value="Aged">Aged</option>
+                      <option value="People with Special Needs">
+                        People with Special Needs
+                      </option>
+                      <option value="Poorest of the Poor">
+                        Poorest of the Poor
+                      </option>
+                    </select>
+                  </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
               <label for="inputCity"
                 ><i class="fe fe-user-plus"></i> Select Employee</label
               >
@@ -370,6 +388,7 @@ export default {
       provider_id: "",
       sector: "",
       place_of_work: "",
+      category_of_vulnerable_group: "",
       localgovt: "",
       dependents: "",
       enrolled_by: "",
@@ -385,13 +404,7 @@ export default {
   beforeMount() {
     this.getClients();
   },
-  computed: {
-    addOneDay() {
-      var result = new Date(this.to);
-      result.setDate(result.getDate() + 1);
-      return result;
-    },
-  },
+ 
   methods: {
     clearFilter() {
       this.ward = "";
@@ -481,8 +494,9 @@ export default {
             enrolled_by: this.enrolled_by ? this.enrolled_by : "",
             date: this.date ? this.date : "",
             from: this.from ? this.from : "",
-            to: this.addOneDay ? this.addOneDay : "",
+            to: this.to,
             ward: this.ward ? this.ward : "",
+            category_of_vulnerable_group: this.category_of_vulnerable_group ? this.category_of_vulnerable_group : "",
           },
         })
         .then((response) => {

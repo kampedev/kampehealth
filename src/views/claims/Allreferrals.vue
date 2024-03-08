@@ -34,19 +34,43 @@
             </button>
           </div>
 
+          <div class="container my-6">
+            <div class="card">
+              <div class="card-header">
+                <p class="h5">Verify Referral</p>
+              </div>
+              <div class="form-group col-md-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchkey"
+                  placeholder="Enrollee ID"
+                />
+              </div>
+
+              <div class="form-group col-md-12">
+                <button
+                  type="button"
+                  class="btn btn-success btn-block"
+                  @click="verifyRef"
+                >
+                  Verify Referral
+                </button>
+              </div>
+            </div>
+          </div>
+
           <div class="row list">
-
             <div class="col-md-12">
-
-               <button
+              <!-- <button
                 style="margin-top: 10px"
                 class="btn btn-outline-success float-left"
               >
-                {{referrals.meta.total}} Referrals
-              </button>
+                {{ referrals.meta.total }} Referrals
+              </button> -->
 
-                 <button
-                  style="margin-top: 10px"
+              <button
+                style="margin-top: 10px"
                 class="btn btn-outline-success float-right"
               >
                 <download-excel
@@ -65,9 +89,8 @@
                   <thead>
                     <tr>
                       <th>Date</th>
-                      <th>Refering HCP</th>
+                      <th>Referring HCP</th>
                       <th>Recipient HCP</th>
-                      <th>TPA</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -75,48 +98,43 @@
                   <tbody>
                     <tr v-for="ref in referrals.data" v-bind:key="ref.id">
                       <td>
-                        <router-link :to="{ path: '/authorization-code/' + ref.id }">
-                          {{ ref.date_requested | moment("dddd, MMMM Do YYYY") }}
+                        <router-link
+                          :to="{ path: '/authorization-code/' + ref.id }"
+                        >
+                          {{
+                            ref.date_requested | moment("dddd, MMMM Do YYYY")
+                          }}
                         </router-link>
                       </td>
                       <td>{{ ref.provider.agency_name }}</td>
                       <td>{{ ref.recipientfacility.agency_name }}</td>
-                      <td>{{ ref.tpa.organization_name }}</td>
                       <td>
-                        <span >
+                        <span>
                           <button
                             type="button"
-                            class="
-                              btn
-                              m-b-15
-                              ml-2
-                              mr-2
-                              badge badge-soft-dark
-                            "
+                            class="btn  mr-2 badge badge-soft-info"
                           >
-                            {{ref.status}}
+                            {{ ref.status }}
                           </button>
 
-                          <details>
-                            <summary>
-                              <span class="btn btn-outline-info">
-                                Code: <i class="mdi mdi-eye-check"></i>
-                              </span>
-                            </summary>
-                            <p>{{ ref.code_created }}</p>
-                          </details>
+                          <button
+                            class="btn badge badge-soft-dark"
+                          >
+                            {{ ref.code_usage }}
+                          </button>
+
+                          <button
+                            class="btn btn-outline-success btn-sm ml-2"
+                            @click="copyCode(ref)"
+                          >
+                            {{ ref.code_created }} <i class="fe fe-copy"></i>
+                          </button>
                         </span>
 
                         <span v-if="ref.status == 'pending'">
                           <button
                             type="button"
-                            class="
-                              btn
-                              m-b-15
-                              ml-2
-                              mr-2
-                              badge badge-soft-warning
-                            "
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
                           >
                             pending
                           </button>
@@ -131,7 +149,9 @@
                         </span>
                       </td>
                       <td>
-                        <router-link :to="{ path: '/authorization-code/' + ref.id }">
+                        <router-link
+                          :to="{ path: '/authorization-code/' + ref.id }"
+                        >
                           <button
                             type="button"
                             name="button"
@@ -144,8 +164,6 @@
                     </tr>
                   </tbody>
                 </table>
-
-               
               </div>
             </div>
           </div>
@@ -180,7 +198,12 @@ export default {
   data() {
     return {
       user: null,
-      referrals: "",
+      searchkey: "",
+      referrals: {
+        meta: {
+          total: 0,
+        },
+      },
       provider_referral_category: "secondary",
       edit: false,
       show: false,
@@ -197,9 +220,8 @@ export default {
         "Patient Phone Number": "client.phone_number",
         "Reffering Facility": "referring.agency_name",
         "Receiving Facility": "referred.agency_name",
-        "Diagnosis": "diagnosis.name",
+        Diagnosis: "diagnosis.name",
         "Date Created": "created_at",
-       
       },
       json_meta: [
         [
@@ -271,19 +293,34 @@ export default {
             console.error(error);
           });
       }
-      if (this.user.type == "tpa" || this.user.type == "tpa_employee") {
-        this.axios
-          .get(`/api/v1/auth/referrals-tpa/${this.user.id}`)
-          .then((response) => {
-            this.referrals = response.data;
-            console.log(response);
-            this.isLoading = false;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
     },
+
+    verifyRef() {
+      this.axios
+        .post(`/api/v1/auth/verifyReferal`, { searchkey: this.searchkey })
+        .then((response) => {
+          this.referrals = response.data;
+          console.log(response);
+          this.isLoading = false;
+          this.$toasted.info("Searched Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          console.error(error);
+        });
+    },
+    copyCode(ref) {
+      const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+      copyToClipboard(ref.code_created);
+      this.$toasted.info("Copied to clipboard", {
+        position: "top-center",
+        duration: 3000,
+      });
+    },
+
   },
   created() {
     this.getReferrals();

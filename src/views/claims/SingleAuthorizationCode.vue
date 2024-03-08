@@ -42,8 +42,8 @@
                       @click="generateCode"
                       v-if="
                         (auth_code.status != 'approved' &&
-                          user.type == 'tpa') ||
-                          user.type == 'tpa_employee'
+                          user.type == 'employee') ||
+                        user.type == 'shis'
                       "
                     >
                       Generate Authorization Code <i class="fe fe-lock"></i>
@@ -54,24 +54,24 @@
                       @click="rejectRef"
                       v-if="
                         auth_code.status != 'approved' &&
-                          auth_code.status != 'rejected' &&
-                          (user.type == 'tpa' || user.type == 'tpa_employee')
+                        auth_code.status != 'rejected' &&
+                        (user.type == 'employee' || user.type == 'shis')
                       "
                     >
                       reject <i class="fe fe-x"></i>
                     </button>
 
-                    <button
+                    <!-- <button
                       class="btn btn-dark spacer"
                       @click="inProgress"
                       v-if="
                         auth_code.status == 'pending' &&
-                          auth_code.status != 'rejected' &&
-                          (user.type == 'tpa' || user.type == 'tpa_employee')
+                        auth_code.status != 'rejected' &&
+                        (user.type == 'employee' || user.type == 'shis')
                       "
                     >
                       mark as in-progess
-                    </button>
+                    </button> -->
 
                     <button
                       class="btn btn-outline-success btn-sm spacer"
@@ -85,9 +85,7 @@
 
                 <div class="card-body">
                   <div class="form-group col-md-12" v-show="show">
-                    <label for="inputAddress"
-                      >Please leave a Comment</label
-                    >
+                    <label for="inputAddress">Please leave a Comment</label>
                     <textarea
                       name="name"
                       rows="5"
@@ -155,11 +153,18 @@
                             {{ auth_code.provider.agency_name }}
                           </p>
 
-                           <p class="h6">
+                          <p class="h6">
                             <span class="text-success"
                               >Is Intra-Referral :</span
                             >
-                            <span v-if="auth_code.provider_id === auth_code.referred_to_facility"> Intra - Referred Case</span>  
+                            <span
+                              v-if="
+                                auth_code.provider_id ===
+                                auth_code.referred_to_facility
+                              "
+                            >
+                              Intra - Referred Case</span
+                            >
                             <span v-else>None Intra referral</span>
                           </p>
 
@@ -187,10 +192,10 @@
                             <span class="text-success">Date Prepared:</span>
                             {{ auth_code.created_at }}
                           </p>
-                          <p class="h5">
+                          <!-- <p class="h5">
                             <span class="text-success">TPA/HMO:</span>
                             {{ auth_code.tpa.organization_name }}
-                          </p>
+                          </p> -->
                           <p class="h5">
                             <span class="text-success"
                               >Requesting Officer:</span
@@ -198,20 +203,26 @@
                             {{ auth_code.creator.full_name }}
                           </p>
 
-                           <p class="">
-                            <span class="h5 text-success"
-                              >Requested at:</span
-                            >  
-                          
-                           <span class="h5">  {{ auth_code.created_at  | moment("dddd, MMMM Do YYYY, h:mm:ss a") }} </span>
-                           <span class="text-primary" > {{ auth_code.created_at  | moment("from", "now") }} </span> 
+                          <p class="">
+                            <span class="h5 text-success">Requested at:</span>
+
+                            <span class="h5">
+                              {{
+                                auth_code.created_at
+                                  | moment("dddd, MMMM Do YYYY, h:mm:ss a")
+                              }}
+                            </span>
+                            <span class="text-primary">
+                              {{ auth_code.created_at | moment("from", "now") }}
+                            </span>
                           </p>
 
-                           <p class="h5">
-                            <span class="text-success"
-                              >Expiry Date:</span
-                            >
-                            {{ auth_code.expiry_date  | moment("dddd, MMMM Do YYYY")}}
+                          <p class="h5">
+                            <span class="text-success">Expiry Date:</span>
+                            {{
+                              auth_code.expiry_date
+                                | moment("dddd, MMMM Do YYYY")
+                            }}
                           </p>
                         </div>
                         <hr />
@@ -253,16 +264,9 @@
                           </span>
 
                           <button
-                            v-if="auth_code.is_code_used == true"
-                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-secondary spacer"
+                            class="btn m-b-15 ml-2 badge badge-soft-secondary"
                           >
-                            code used
-                          </button>
-                          <button
-                            v-if="auth_code.is_code_used == false"
-                            class="btn m-b-15 ml-2 mr-2 badgebadge-soft-secondary spacer"
-                          >
-                            code not used yet
+                            {{ auth_code.code_usage }}
                           </button>
                         </div>
                       </div>
@@ -283,19 +287,10 @@
                 </div>
 
                 <div class="card-body">
-               
                   <div class="col-lg-8 m-b-30">
                     <div class="card">
                       <div class="card-header">
                         <div class="card-title">Timeline</div>
-
-                        <!-- <div class="card-controls">
-                          <select class="custom-select">
-                            <option value="">Everything</option>
-                            <option value="">Charges</option>
-                            <option value="">Upgrades</option>
-                          </select>
-                        </div> -->
                       </div>
                       <div class="card-body">
                         <div class="timeline">
@@ -327,7 +322,7 @@
                                   </div>
                                 </div>
 
-                                 <div
+                                <div
                                   class="avatar avatar-sm"
                                   v-if="auth_code.status == 'pending'"
                                 >
@@ -351,25 +346,27 @@
                               </div>
                               <div class="col-auto">
                                 <h6 class="m-0">
-                                  <router-link :to="`/authorization-code/${auth_code.id}`">
-                                   {{auth_code.encounter.healthrecord.encounter_id}}
-                                   </router-link>
-                                   </h6>
+                                  <router-link
+                                    :to="`/authorization-code/${auth_code.id}`"
+                                  >
+                                    {{
+                                      auth_code.encounter.healthrecord
+                                        .encounter_id
+                                    }}
+                                  </router-link>
+                                </h6>
                                 <button
                                   v-if="auth_code.code_created != null"
                                   class="btn m-b-15 ml-2 mr-2 badge badge-soft-secondary spacer"
                                 >
-                                  {{auth_code.code_created}}
+                                  {{ auth_code.code_created }}
                                 </button>
                               </div>
                               <div class="ml-auto col-auto text-muted">
-                                {{auth_code.date_requested}}
+                                {{ auth_code.date_requested }}
                               </div>
                             </div>
                           </div>
-                        
-                         
-                        
 
                           <div class="timeline-item">
                             <div class="timeline-wrapper">
@@ -386,7 +383,7 @@
                                 <h6 class="m-0">Enrolled on</h6>
                               </div>
                               <div class="ml-auto col-auto text-muted">
-                               {{auth_code.patient.created_at}}
+                                {{ auth_code.patient.created_at }}
                               </div>
                             </div>
                           </div>
@@ -400,7 +397,7 @@
           </div>
         </div>
 
-          <div class="container">
+        <div class="container">
           <div class="row list">
             <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
@@ -409,32 +406,30 @@
                 </div>
 
                 <div class="card-body">
-               
                   <div class="col-lg-8 m-b-30">
-                  
-                      <div
-                    class="card bg-default"
-                    v-for="comment in auth_code.comments"
-                    v-bind:key="comment.id"
-                    style="margin-top: 10px"
-                  >
-                    <div class="card-body">
-                      <p class="">
-                        {{ comment.body }}
-                      </p>
-                      <p class="text-success">
-                        By: {{ comment.user.firstname }}
-                        {{ comment.user.lastname }} -
-                        <span>{{ comment.user.type }}</span>
-                      </p>
-                      <p class="text-xs">
-                        {{
-                          comment.created_at
-                            | moment("dddd, MMMM Do YYYY,  h:mm:ss a")
-                        }}
-                      </p>
+                    <div
+                      class="card bg-default"
+                      v-for="comment in auth_code.comments"
+                      v-bind:key="comment.id"
+                      style="margin-top: 10px"
+                    >
+                      <div class="card-body">
+                        <p class="">
+                          {{ comment.body }}
+                        </p>
+                        <p class="text-success">
+                          By: {{ comment.user.firstname }}
+                          {{ comment.user.lastname }} -
+                          <span>{{ comment.user.type }}</span>
+                        </p>
+                        <p class="text-xs">
+                          {{
+                            comment.created_at
+                              | moment("dddd, MMMM Do YYYY,  h:mm:ss a")
+                          }}
+                        </p>
+                      </div>
                     </div>
-                  </div>
                   </div>
                 </div>
               </div>
@@ -606,7 +601,7 @@ export default {
         this.axios
           .post(`/api/v1/auth/generateCode`, {
             id: this.auth_code.id,
-            expiry_days: 90,
+            expiry_days: 2,
           })
           .then((response) => {
             this.getCode();

@@ -17,7 +17,7 @@
 
     <div class="col-md-6 offset-md-3" v-if="showdependent == true">
       <div class="spacer-top-bot">
-        <button class="btn btn-dark btn-block btn-lg " @click="showPayPart">
+        <button class="btn btn-dark btn-block btn-lg" @click="showPayPart">
           Proceed to Payment
         </button>
       </div>
@@ -156,15 +156,13 @@
                   {{ auth_user.firstname }} {{ auth_user.lastname }}
                 </p>
 
-                <div class="avatar  mx-auto d-block">
+                <div class="avatar mx-auto d-block">
                   <label class="avatar-input">
                     <span class="avatar avatar-lg">
                       <img
-                        :src="
-                          `https://api.hayokinsurance.com/image/${auth_user.user_image}`
-                        "
+                        :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
                         onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
-                        class="avatar-img rounded-circle "
+                        class="avatar-img rounded-circle"
                       />
                     </span>
                   </label>
@@ -178,13 +176,9 @@
                       ><strong>Select Payment Method: </strong></label
                     >
                     <select class="form-control" v-model="payment_type">
-                      <option value="online">
-                        Pay Online
-                      </option>
+                      <option value="online">Pay Online</option>
 
-                      <option value="offline">
-                        Pay Offline
-                      </option>
+                      <option value="offline">Pay Offline</option>
                     </select>
                     <label for="inputPassword4"
                       ><strong
@@ -225,11 +219,7 @@
                           <div class="pb-2 text-center">
                             <div class="avatar avatar-lg">
                               <div
-                                class="
-                                  avatar-title
-                                  bg-soft-primary
-                                  rounded-circle
-                                "
+                                class="avatar-title bg-soft-primary rounded-circle"
                               >
                                 <i class="fe fe-credit-card"></i>
                               </div>
@@ -300,7 +290,7 @@
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">
@@ -473,12 +463,12 @@ export default {
       this.showpic = false;
       this.showdependent = false;
     },
-    callback: function(response) {
+    callback: function (response) {
       this.sendSMS();
       this.makeSubscribe();
       console.log(response);
     },
-    close: function() {
+    close: function () {
       console.log("Payment closed");
     },
     attachPic(event) {
@@ -553,7 +543,7 @@ export default {
         // Not adding `{ audio: true }` since we only want video now
         navigator.mediaDevices
           .getUserMedia(this.video_settings)
-          .then(function(stream) {
+          .then(function (stream) {
             //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
             video.play();

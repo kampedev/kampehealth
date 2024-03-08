@@ -28,17 +28,15 @@
                       @click="verifyClaim"
                       v-if="
                         claimdetails.verified_by_id == null &&
-                          user.job_title == 'Claims Verifier'
+                        user.job_title == 'Claims Verifier'
                       "
                     >
                       mark as verified <i class="fe fe-check"></i>
                     </button>
-                    <router-link :to="`/patient/${claimdetails.enrollee.id}`" >
-                     <button
-                      class="btn btn-outline-success spacer"
-                    >
-                      enrollee records <i class="fe fe-user"></i>
-                    </button>
+                    <router-link :to="`/patient/${claimdetails.enrollee.id}`">
+                      <button class="btn btn-outline-success spacer">
+                        enrollee records <i class="fe fe-user"></i>
+                      </button>
                     </router-link>
 
                     <button
@@ -53,7 +51,7 @@
                       @click="vetClaim"
                       v-if="
                         claimdetails.checked_by_id == null &&
-                          (user.type == 'tpa' || user.type == 'tpa_employee')
+                        user.job_title == 'Claims Vetter'
                       "
                     >
                       mark as vetted <i class="fe fe-check"></i>
@@ -66,7 +64,7 @@
                         class="btn btn-warning spacer"
                         v-if="
                           claimdetails.status == 0 &&
-                            user.type == 'provider_employee'
+                          user.type == 'provider_employee'
                         "
                       >
                         Update Claim Application
@@ -120,14 +118,14 @@
                       </button>
                     </router-link>
 
-                    <button
+                    <!-- <button
                       class="btn btn-danger"
                       style="margin-left: 10px"
                       @click="rejectClaim"
                       v-if="claimdetails.status != 1 && user.type == 'employee'"
                     >
                       <i class="fe fe-x"></i> Reject
-                    </button>
+                    </button> -->
 
                     <button
                       class="btn btn-outline-success spacer"
@@ -277,9 +275,11 @@
                         <br />
                         <p>
                           <strong>Enrollee/ Patient Name:</strong>
-                          <router-link :to="`/patient/${claimdetails.enrollee.id}`" >
-                          {{ claimdetails.enrollee.firstname }}
-                          {{ claimdetails.enrollee.lastname }}
+                          <router-link
+                            :to="`/patient/${claimdetails.enrollee.id}`"
+                          >
+                            {{ claimdetails.enrollee.firstname }}
+                            {{ claimdetails.enrollee.lastname }}
                           </router-link>
                         </p>
                         <br />
@@ -297,11 +297,7 @@
                             No
                           </span>
                         </p>
-                        <p>
-                          <strong>HMO/TPA:</strong>
-                          {{ claimdetails.tpa.organization_name }}
-                        </p>
-                        <br />
+
                         <p>
                           <strong>Date Seen:</strong>
                           {{ claimdetails.seen_date }}
@@ -347,15 +343,11 @@
                         <br />
 
                         <div v-if="claimdetails.paymentorders.length >= 1">
-                          <p class="h4">
-                            Payment Details:
-                          </p>
+                          <p class="h4">Payment Details:</p>
                           <p>
                             <strong>Payment Order ID:</strong>
                             <a
-                              :href="
-                                `/transaction/${claimdetails.paymentorders[0].id}`
-                              "
+                              :href="`/transaction/${claimdetails.paymentorders[0].id}`"
                               class="text-info"
                             >
                               {{ claimdetails.paymentorders[0].payment_number }}
@@ -450,7 +442,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              id=""
+                              :id="`price${service.id}`"
                               v-show="updateprice_ver"
                               @change="updateServicePrice(service)"
                               v-model="service.verified_price"
@@ -499,14 +491,15 @@
                                 <div class="btn-group">
                                   <button
                                     type="button"
-                                    class="btn btn-outline-primary dropdown-toggle"
+                                    class="btn btn-outline-success dropdown-toggle"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
-                                     v-if="
-                                       ( user.type != 'provider_employee' && user.type != 'provider')
-                                        && claimdetails.status != 1 
-                                      "
+                                    v-if="
+                                      user.type != 'provider_employee' &&
+                                      user.type != 'provider' &&
+                                      claimdetails.status != 1
+                                    "
                                   >
                                     <i class="fe fe-edit"></i>
                                   </button>
@@ -528,10 +521,7 @@
                                     <a
                                       class="dropdown-item"
                                       @click="updateprice_vet = true"
-                                      v-if="
-                                        user.type == 'tpa' ||
-                                          user.type == 'tpa_employee'
-                                      "
+                                      v-if="user.job_title == 'Claims Vetter'"
                                       >vet amount</a
                                     >
                                     <div class="dropdown-divider"></div>
@@ -539,7 +529,7 @@
                                       class="dropdown-item"
                                       v-if="
                                         user.type == 'shis' ||
-                                          user.type == 'employee'
+                                        user.type == 'employee'
                                       "
                                       @click="updateprice_ver = true"
                                       >verify amount</a
@@ -552,32 +542,32 @@
                           </td>
                         </tr>
                         <tr>
-                          <td colspan="4" >
+                          <td colspan="4">
                             <strong>Total</strong>
                           </td>
-                          <td >
-                            <strong 
+                          <td>
+                            <strong
                               >&#8358;{{
                                 singleclaim.sum | numeral(0, 0)
                               }}</strong
                             >
                           </td>
                           <td>
-                            <strong 
+                            <strong
                               >&#8358;{{
                                 singleclaim.vetted_sum | numeral(0, 0)
                               }}</strong
                             >
                           </td>
-                         
+
                           <td>
-                             <strong >
-                             <span
-                            >&#8358;{{
-                              singleclaim.verified_sum | numeral(0, 0)
-                            }}</span
-                          >
-                          </strong>
+                            <strong>
+                              <span
+                                >&#8358;{{
+                                  singleclaim.verified_sum | numeral(0, 0)
+                                }}</span
+                              >
+                            </strong>
                           </td>
                         </tr>
                       </tbody>
@@ -653,8 +643,18 @@
                     </p>
                     <br />
                     <p>
-                      <span class="font-weight-bold">Quantity</span> :
+                      <span class="font-weight-bold">Dose </span> :
+                      {{ singlservicemodal.dose }}
+                    </p>
+                    <br />
+                    <p>
+                      <span class="font-weight-bold">Frequency (in a day)</span> :
                       {{ singlservicemodal.frequency }}
+                    </p>
+                    <br />
+                    <p>
+                      <span class="font-weight-bold">Duration (days)</span> :
+                      {{ singlservicemodal.days }}
                     </p>
                     <br />
 
@@ -688,9 +688,7 @@
                     </p>
                     <br />
 
-                    <p class="h4">
-                      Comments
-                    </p>
+                    <p class="h4">Comments</p>
 
                     <div
                       v-for="comment in singlservicemodal.servicecomments"
@@ -701,10 +699,16 @@
                         <div class="bg-white text-dark">
                           {{ comment.body }}
                           <p>
-                            <span class="text-primary">{{
-                              comment.user.full_name
-                            }} </span> <span class="font-weight-light"> 
-                              <small> {{comment.created_at  | moment("from", "now") }}</small> </span>
+                            <span class="text-primary"
+                              >{{ comment.user.full_name }}
+                            </span>
+                            <span class="font-weight-light">
+                              <small>
+                                {{
+                                  comment.created_at | moment("from", "now")
+                                }}</small
+                              >
+                            </span>
                           </p>
                         </div>
                       </b-card>
@@ -761,7 +765,7 @@
                             <a
                               :href="
                                 'https://api.hayokinsurance.com/documents/' +
-                                  doc.document
+                                doc.document
                               "
                               target="_blank"
                             >
@@ -937,6 +941,7 @@ export default {
             duration: 3000,
           });
           this.selected_service = "";
+          this.remark_selected = "";
         });
     },
     updateServicePrice(service) {
@@ -944,7 +949,7 @@ export default {
         .post(`/api/v1/auth/claim_service/update-cost`, {
           claims_service_id: service.id,
           vetted_price: service.vetted_price,
-          verified_price: service.vetted_price,
+          verified_price: service.verified_price,
         })
         .then((response) => {
           console.log(response);

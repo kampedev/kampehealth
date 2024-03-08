@@ -23,15 +23,14 @@
         <div class="container">
           <div class="row list">
             <div class="col-lg-12 col-md-12">
-              <div class="card m-b-30">
-                <div class="card-header">
-                  <!-- <h3 class="p-t-10 searchBy-name">Add Employee</h3> -->
-                </div>
+              <div
+                class="card m-b-30"
+                v-if="user.type == 'employee' || user.type == 'shis'"
+              >
+                <div class="card-header"></div>
 
                 <div class="card-body">
                   <div class="form-group">
-                    <!-- <button class="btn btn-info spacer"  >Principal's Details</button> -->
-
                     <button
                       class="btn btn-outline-success spacer"
                       @click="startCamera"
@@ -75,7 +74,7 @@
                     <button
                       class="btn btn-outline-danger spacer"
                       @click="deleteUser"
-                      v-if="user.user_role != 0"
+                      v-if="user.user_role == 1"
                     >
                       Delete <i class="fe fe-delete"></i>
                     </button>
@@ -94,9 +93,10 @@
                         path: '/add-dependent/' + $route.params.id,
                         params: {},
                       }"
+                      v-if="user.type != 'provider_employee'"
                     >
                       <button
-                        class="btn btn-outline-info spacer"
+                        class="btn btn-outline-info mx-2"
                         @click="findDependents"
                       >
                         Dependents <i class="fe fe-users"></i>
@@ -108,7 +108,10 @@
                         params: {},
                       }"
                     >
-                      <button class="btn btn-outline-dark spacer">
+                      <button
+                        class="btn btn-outline-dark mx-2"
+                        v-if="user.type != 'provider_employee'"
+                      >
                         Edit <i class="fe fe-edit"></i>
                       </button>
                     </router-link>
@@ -122,8 +125,8 @@
                       <!-- Button trigger modal -->
                       <button
                         type="button"
-                        v-if="user.user_role != 0"
-                        class="btn btn-outline-dark spacer"
+                        v-if="user.user_role == 1"
+                        class="btn btn-outline-dark mx-2"
                         data-toggle="modal"
                         data-target="#exampleModal"
                       >
@@ -275,10 +278,6 @@
                       alt="User Photo"
                       onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                     />
-                    <!-- <img :src="`http://localhost:8000/image/${client.user.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user.user_image != null "> -->
-                    <!-- <p class="btn btn-default spacer-top-bottom">
-                                 <button type="button"  name="button"> Enrollment Card </button>
-                               </p> -->
                   </div>
 
                   <div class="col-md-8">

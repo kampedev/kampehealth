@@ -82,6 +82,7 @@ import ManageService from "../views/drugs/ManageService.vue";
 import AddComplaint from "../views/complaints/AddComplaint.vue";
 import MyComplaints from "../views/complaints/MyComplaints.vue";
 import AddRecord from "../views/ehr/AddRecord.vue";
+import AddRecordSecondary from "../views/ehr/AddRecord.vue";
 import AddRecordOffline from "../views/ehr/AddRecordOffline.vue";
 import MyRecords from "../views/ehr/MyRecords.vue";
 import AddInventory from "../views/inventories/AddInventory.vue";
@@ -105,7 +106,7 @@ import SingleLGA from "../views/shis/SingleLGA.vue";
 import SingleWard from "../views/shis/SingleWard.vue";
 import ListTPAs from "@/views/tpas/ListTPAs.vue";
 import SingleTPA from "@/views/tpas/SingleTPA.vue";
-import AddClientTPA from "@/views/tpas/AddClientTPA.vue";
+import AddClientProvider from "@/views/tpas/AddClientProvider.vue";
 import ViewClientsTPA from "@/views/tpas/ViewClientsTPA.vue";
 import AddOfficers from "@/views/tpas/AddOfficers.vue";
 import TPADashboard from "@/views/tpas/TPADashboard.vue";
@@ -781,8 +782,8 @@ const routes = [
     },
   },
   {
-    path: "/add-client-tpa",
-    component: AddClientTPA,
+    path: "/add-client-provider",
+    component: AddClientProvider,
     meta: {
       requiresAuth: true,
     },
@@ -804,6 +805,13 @@ const routes = [
   {
     path: "/add-record",
     component: AddRecord,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/add-record-sec/:type",
+    component: AddRecordSecondary,
     meta: {
       requiresAuth: true,
     },

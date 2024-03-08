@@ -1,5 +1,5 @@
 <template>
-  <section class="admin-content " id="contact-search">
+  <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
       <div class="bg-success m-b-30">
@@ -7,7 +7,7 @@
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
               <div class="m-b-10">
-                <div class="avatar ">
+                <div class="avatar">
                   <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                 </div>
               </div>
@@ -17,12 +17,10 @@
         </div>
       </div>
 
-      <section class=""
-      v-if="user.type == 'provider_employee' "
-      >
+      <section class="" v-if="user.type == 'provider_employee'">
         <div class="container">
           <div class="row list">
-            <div class=" col-md-12">
+            <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
                   <button
@@ -49,8 +47,9 @@
                 </div>
 
                 <div class="card-body">
-                  <div class="row">
-                     <div class="form-group col-md-6">
+                  <form @submit.prevent="AddDisease">
+                    <div class="row">
+                      <div class="form-group col-md-6">
                         <label>Select Receiving Facility </label>
                         <v-select
                           v-model="referred_to_facility"
@@ -59,95 +58,134 @@
                         />
                       </div>
 
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Enrollee OHIS Number </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="searchkey"
-                        @change="searchIDCard"
-                      />
-                    </div>
-                  </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">Search Enrollee </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="OHIS Number, First Name, Last name, "
+                          v-model="searchkey"
+                          @change="searchIDCard"
+                        />
+                        <p>{{ search_result.length }} enrollee(s) found</p>
+                      </div>
 
-                  <div class="row col-md-12" v-if="search_result != ''">
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Enrollee Surname</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="inputEmail4"
-                        :value="search_result.data.firstname"
-                        disabled
-                      />
-                    </div>
+                      <div class="form-group col-md-12">
+                        <label for="inputPassword4">Select Enrollee </label>
+                        <!-- <v-select
+                          v-model="selected_enrollee"
+                          label="user_query"
+                          :options="search_result"
+                        /> -->
 
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Enrollee First Name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="inputEmail4"
-                        :value="search_result.data.lastname"
-                        disabled
-                      />
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">OHIS Number</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="inputEmail4"
-                        :value="search_result.data.id_card_number"
-                        disabled
-                      />
-                    </div>
-
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Sector</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="inputEmail4"
-                        :value="search_result.data.sector"
-                        disabled
-                      />
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="inputCity"
-                            >Select Encounter </label
+                        <select
+                          class="form-control"
+                          v-model="selected_enrollee"
+                          required
+                        >
+                          <option
+                            :value="user"
+                            v-for="user in search_result"
+                            :key="user.id"
                           >
+                            {{ user.user_query }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row col-md-12" v-show="userDetails">
+                      <div class="col-md-6 offset-md-3 my-6">
+                        <img
+                          :src="`https://api.hayokinsurance.com/image/${selected_enrollee.user_image}`"
+                          class="img"
+                          alt="User Photo"
+                          onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                        />
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">Enrollee Full Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputEmail4"
+                          :value="selected_enrollee.full_name"
+                          disabled
+                        />
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">Enrollee First Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputEmail4"
+                          :value="selected_enrollee.lastname"
+                          disabled
+                        />
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">OSHIA Number</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputEmail4"
+                          :value="selected_enrollee.id_card_number"
+                          disabled
+                        />
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">Sector</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputEmail4"
+                          :value="selected_enrollee.sector"
+                          disabled
+                        />
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="inputCity">Select Encounter </label>
                           <select
                             class="form-control"
                             required
                             v-model="service_summary_id"
-                            
                           >
-                            <option :value="encounter.service.id" v-for="encounter in encounters" 
-                            v-bind:key="encounter.id"> {{encounter.encounter_id}} ({{encounter.service.diagnosis.name}} ) </option>
+                            <option
+                              :value="encounter.service.id"
+                              v-for="encounter in encounters"
+                              v-bind:key="encounter.id"
+                            >
+                              {{ encounter.encounter_id }}
+
+                              <span v-if="encounter.service.diagnosis != null"
+                                >({{ encounter.service.diagnosis.name }} )</span
+                              >
+                            </option>
                           </select>
                         </div>
                       </div>
+                    </div>
 
-                  </div>
-
-                  <div class="form-group">
-                    <button class="btn btn-success btn-block" @click="AddDisease">
-                      Submit <i class="fe fe-send"></i>
-                    </button>
-                  </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-success btn-block">
+                        Submit <i class="fe fe-send"></i>
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="row list">
-            <div class=" col-md-12">
+            <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
-                  <p class="h5" >{{ codes.length }} Code Requests</p>
+                  <p class="h5">{{ codes.length }} Code Requests</p>
 
                   <div class="table-responsive">
                     <table class="table align-td-middle table-card">
@@ -158,63 +196,81 @@
                           <th>Expiry Date</th>
                           <th>Authorization Code</th>
                           <th>Status</th>
-                          <th   v-if="
-                            user.type == 'shis' || user.type == 'employee'
-                            ">Action</th>
+                          <th
+                            v-if="
+                              user.type == 'shis' || user.type == 'employee'
+                            "
+                          >
+                            Action
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="diag in codes" v-bind:key="diag.id">
-                          <td>{{ diag.date_requested }}
-                            <span class="text-primary"> {{ diag.created_at  | moment("from", "now") }} </span>
-                            
+                          <td>
+                            {{ diag.date_requested }}
+                            <span class="text-primary">
+                              {{ diag.created_at | moment("from", "now") }}
+                            </span>
                           </td>
                           <td>
                             <span v-if="diag.provider != null">{{
                               diag.provider.agency_name
                             }}</span>
                           </td>
-                          <td>{{ diag.expiry_date }}
-                             <button
-                             v-if="diag.status == 'rejected'"
+                          <td>
+                            {{ diag.expiry_date }}
+                            <button
+                              v-if="diag.status == 'rejected'"
                               type="button"
                               class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger spacer"
                             >
-                              {{diag.status}}
+                              {{ diag.status }}
                             </button>
                           </td>
-                         
-                          <td>{{ diag.code_created }}
 
-                             <button
-                             v-if="diag.status == 'rejected'"
+                          <td>
+                            {{ diag.code_created }}
+
+                            <button
+                              v-if="diag.status == 'rejected'"
                               type="button"
                               class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger spacer"
                             >
-                              {{diag.status}}
+                              {{ diag.status }}
                             </button>
                           </td>
-                            <td>
-                               <button
+                          <td>
+                            <button
                               type="button"
                               class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark spacer"
                             >
-                              {{diag.status}}
+                              {{ diag.status }}
                             </button>
 
-                            <span v-if="diag.is_code_used == true" class="bg-success text-white"> code used </span> 
-                            <span v-if="diag.is_code_used == false && diag.status == 'approved'"> code not used yet</span> 
-                            </td>
-                          <td
-                           
-                          >
-                           
-                              <router-link :to="{ path: '/authorization-code/' + diag.id }">
-                            <button class="btn btn-outline-dark" 
+                            <span
+                              v-if="diag.is_code_used == true"
+                              class="bg-success text-white"
                             >
-                              <i class="fe fe-eye"></i>
-                            </button>
-                              </router-link>
+                              code used
+                            </span>
+                            <span
+                              v-if="
+                                diag.is_code_used == false &&
+                                diag.status == 'approved'
+                              "
+                            >
+                              code not used yet</span
+                            >
+                          </td>
+                          <td>
+                            <router-link
+                              :to="{ path: '/authorization-code/' + diag.id }"
+                            >
+                              <button class="btn btn-outline-dark">
+                                <i class="fe fe-eye"></i>
+                              </button>
+                            </router-link>
                           </td>
                         </tr>
                       </tbody>
@@ -256,16 +312,20 @@ export default {
     return {
       isLoading: false,
       fullPage: true,
-      states: "",
       user: null,
       showadder: false,
+      userDetails: false,
       codes: "",
       // singlerecipient: "08024035326",
-      message: "Authorization Code is needed. Go to https://app.oshia.ng/authorization-code  to generate.",
+      message:
+        "Authorization Code is needed. Go to https://app.oshia.ng/authorization-code  to generate.",
       searchkey: "",
-      referred_to_facility : "",
+      selected_enrollee: {},
+      enrollee_details: "",
+      referred_to_facility: "",
       providers: "",
       search_result: "",
+      search_obj: "",
       service_summary_id: "",
       encounters: "",
       register: {
@@ -275,29 +335,22 @@ export default {
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    // this.axios
-    //   .get(`/api/v1/auth/authorization_code/95930`)
-    //   .then((response) => {
-    //     this.codes = response.data;
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
   },
   methods: {
-
-    getCodes(){
-       this.user = JSON.parse(localStorage.getItem("user"));
-       if ( this.user.type == 'provider'  || this.user.type == 'provider_employee' ) {
-         this.getCodesProvider()
-       }
-        if ( this.user.type == 'tpa' || this.user.type == 'tpa_employee' ) {
-         this.getCodesTpa()
-       }
-        if ( this.user.type == 'employee' || this.user.type == 'shis' ) {
-         this.getCodesAgency()
-       }
+    getCodes() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      if (
+        this.user.type == "provider" ||
+        this.user.type == "provider_employee"
+      ) {
+        this.getCodesProvider();
+      }
+      if (this.user.type == "tpa" || this.user.type == "tpa_employee") {
+        this.getCodesTpa();
+      }
+      if (this.user.type == "employee" || this.user.type == "shis") {
+        this.getCodesAgency();
+      }
     },
 
     getCodesAgency() {
@@ -313,7 +366,7 @@ export default {
         });
     },
 
-     getCodesProvider() {
+    getCodesProvider() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .get(`/api/v1/auth/authorization_code-provider`)
@@ -326,56 +379,39 @@ export default {
         });
     },
 
-      getCodesTpa() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.axios
-        .get(`/api/v1/auth/authorization_code-tpa`)
-        .then((response) => {
-          this.codes = response.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
     searchIDCard() {
       this.isLoading = true;
       this.axios
-        .post(`/api/v1/auth/getuserbyIdcard`, {
-          id_card_number: this.searchkey,
+        .post(`/api/v1/auth/searchenrollees`, {
+          // provider_id: this.user.institutional_id,
+          agency_id: 95930,
+          request_query: this.searchkey,
         })
         .then((response) => {
+          this.isLoading = false;
           this.search_result = response.data;
-          this.getRecords()
 
-          console.log(response);
+          this.userDetails = true;
+
           this.$toasted.info("Searched Successfully", {
             position: "top-center",
             duration: 3000,
           });
-
-          this.isLoading = false;
         })
         .catch((error) => {
           console.error(error);
           this.isLoading = false;
-          this.$toasted.info("User not Found", {
-            position: "top-center",
-            duration: 3000,
-          });
         });
     },
-
     generateCode(diag) {
       this.axios
-        .post(`/api/v1/auth/generateCode`,{
-          id: diag.id
+        .post(`/api/v1/auth/generateCode`, {
+          id: diag.id,
         })
         .then((response) => {
-         this.getCodes()
+          this.getCodes();
           console.log(response);
-           this.$toasted.info("Generated Successfully", {
+          this.$toasted.info("Generated Successfully", {
             position: "top-center",
             duration: 3000,
           });
@@ -391,64 +427,67 @@ export default {
         .post("/api/v1/auth/authorization_code", {
           agency_id: 95930,
           principal_id:
-            this.search_result.type == "client"
-              ? this.search_result.data.id
+            this.selected_enrollee.type == "client"
+              ? this.selected_enrollee.id
               : 0,
           dependent_id:
-            this.search_result.type == "dependent"
-              ? this.search_result.data.id
+            this.selected_enrollee.type == "dependent"
+              ? this.selected_enrollee.id
               : 0,
-          org_id: this.search_result.data.org_id,
-           provider_id: this.user.institutional_id,
-           service_summary_id: this.service_summary_id,
-           referred_to_facility: this.referred_to_facility.id,
+          provider_id: this.user.institutional_id,
+          service_summary_id: this.service_summary_id,
+          referred_to_facility: this.referred_to_facility.id,
         })
         .then((response) => {
           console.log(response);
           this.isLoading = false;
-          let org =  response.data.org
           this.getCodes();
-          this.$toasted.info(`${response.data.message}`, {
+          this.$toasted.info("Successful!", {
             position: "top-center",
             duration: 3000,
           });
 
           this.clearIt();
-          this.sendSMS(org)
+          this.sendSMS()
         })
         .catch((error) => {
           console.log(error.response);
           this.isLoading = false;
-          this.$breadstick.notify("Oops! something went wrong", {
-            position: "top-right",
+          this.$toasted.error("Not Added!", {
+            position: "top-center",
+            duration: 3000,
           });
         });
     },
-     getRecords(){
-        this.user = JSON.parse(localStorage.getItem("user"));
-        this.axios
-          .post(`/api/v1/auth/gethealthRecord`, {
-            provider: this.user.institutional_id,
-            patient_id:  this.search_result.type == "client"
+    getRecords() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .post(`/api/v1/auth/gethealthRecord`, {
+          provider: this.user.institutional_id,
+          patient_id:
+            this.search_result.type == "client"
               ? this.search_result.data.id
               : null,
-            dependent_id:  this.search_result.type == "dependent"
+          dependent_id:
+            this.search_result.type == "dependent"
               ? this.search_result.data.id
               : null,
-
-          })
-          .then((response) => {
-            this.encounters = response.data.data;
-            console.log(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        })
+        .then((response) => {
+          this.encounters = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     clearIt() {
       this.register.date_requested = "";
       this.searchkey = "";
       this.search_result = "";
+      this.user.institutional_id = "";
+      this.service_summary_id = "";
+      this.referred_to_facility = "";
     },
     getProviders() {
       this.axios
@@ -461,28 +500,32 @@ export default {
           console.error(error);
         });
     },
-    sendSMS(org){
-       this.isLoading = true;
-          this.axios.post(`https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${this.message}&recipients=${org.phone_number}`, {
-
-          })
-          .then(response=>{
-              console.log(response);
-              let reply = response.data.msg
-              this.clearIt();
-              this.isLoading = false;
-              this.$toasted.info(`${reply}`, {position: 'top-center', duration:3000 })
-
-          })
-          .catch(error=>{
-              console.log(error.response)
-          })
-    }
+    sendSMS() {
+      this.isLoading = true;
+      this.axios
+        .post(
+          `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${this.message}&recipients=+2348033886362`,
+          {}
+        )
+        .then((response) => {
+          console.log(response);
+          let reply = response.data.msg;
+          this.clearIt();
+          this.isLoading = false;
+          this.$toasted.info(`${reply}`, {
+            position: "top-center",
+            duration: 3000,
+          });
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
   },
   created() {
     this.getCodes();
-     this.getProviders();
-     this.getRecords();
+    this.getProviders();
+    this.getRecords();
   },
 };
 </script>

@@ -72,16 +72,12 @@
 
                       <div class="form-group col-md-12">
                         <label for="inputPassword4">Select Enrollee </label>
-                        <!-- <v-select
-                          v-model="selected_enrollee"
-                          label="user_query"
-                          :options="search_result"
-                        /> -->
 
                         <select
                           class="form-control"
                           v-model="selected_enrollee"
                           required
+                          @change="getRecords(selected_enrollee)"
                         >
                           <option
                             :value="user"
@@ -99,7 +95,7 @@
                         <img
                           :src="`https://api.hayokinsurance.com/image/${selected_enrollee.user_image}`"
                           class="img"
-                          alt="User Photo"
+                          alt="Enrollee Photo"
                           onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                         />
                       </div>
@@ -155,14 +151,14 @@
                             v-model="service_summary_id"
                           >
                             <option
-                              :value="encounter.service.id"
+                              :value="encounter.id"
                               v-for="encounter in encounters"
                               v-bind:key="encounter.id"
                             >
-                              {{ encounter.encounter_id }}
+                              {{ encounter.healthrecord.encounter_id }}
 
-                              <span v-if="encounter.service.diagnosis != null"
-                                >({{ encounter.service.diagnosis.name }} )</span
+                              <span v-if="encounter.diagnosis != null"
+                                >({{ encounter.diagnosis.name }} )</span
                               >
                             </option>
                           </select>
@@ -431,7 +427,7 @@ export default {
               ? this.selected_enrollee.id
               : 0,
           dependent_id:
-            this.selected_enrollee.type == "dependent"
+            this.selected_enrollee.type == "Dependent"
               ? this.selected_enrollee.id
               : 0,
           provider_id: this.user.institutional_id,
@@ -448,7 +444,7 @@ export default {
           });
 
           this.clearIt();
-          this.sendSMS()
+          this.sendSMS();
         })
         .catch((error) => {
           console.log(error.response);
@@ -459,19 +455,16 @@ export default {
           });
         });
     },
-    getRecords() {
+    getRecords(selected_enrollee) {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .post(`/api/v1/auth/gethealthRecord`, {
-          provider: this.user.institutional_id,
-          patient_id:
-            this.search_result.type == "client"
-              ? this.search_result.data.id
-              : null,
+        .post(`/api/v1/auth/service_summary-agency`, {
+          agency_id: 95930,
+          provider_id: this.user.institutional_id,
+          client_id:
+            selected_enrollee.type == "client" ? selected_enrollee.id : null,
           dependent_id:
-            this.search_result.type == "dependent"
-              ? this.search_result.data.id
-              : null,
+            selected_enrollee.type == "Dependent" ? selected_enrollee.id : null,
         })
         .then((response) => {
           this.encounters = response.data.data;
@@ -525,7 +518,7 @@ export default {
   created() {
     this.getCodes();
     this.getProviders();
-    this.getRecords();
+    // this.getRecords();
   },
 };
 </script>

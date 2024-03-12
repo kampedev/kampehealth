@@ -51,6 +51,7 @@
           </h1>
 
           <img
+          v-if="encounterDetails.enrollee != null"
             :src="`https://api.hayokinsurance.com/image/${encounterDetails.enrollee.user_image}`"
             alt="Enrollee Image"
             class="enrollee__img"

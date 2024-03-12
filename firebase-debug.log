@@ -1,0 +1,30 @@
+[debug] [2024-03-12T04:52:55.228Z] ----------------------------------------------------------------------
+[debug] [2024-03-12T04:52:55.229Z] Command:       /Users/quebee/.nvm/versions/node/v16.20.1/bin/node /Users/quebee/.nvm/versions/node/v16.20.1/bin/firebase deploy
+[debug] [2024-03-12T04:52:55.229Z] CLI Version:   12.9.1
+[debug] [2024-03-12T04:52:55.229Z] Platform:      darwin
+[debug] [2024-03-12T04:52:55.229Z] Node Version:  v16.20.1
+[debug] [2024-03-12T04:52:55.231Z] Time:          Tue Mar 12 2024 05:52:55 GMT+0100 (West Africa Standard Time)
+[debug] [2024-03-12T04:52:55.231Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-12T04:52:55.270Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-12T04:52:55.271Z] > authorizing via signed-in user (wearegrumie@gmail.com)
+[debug] [2024-03-12T04:52:55.271Z] [iam] checking project oshia-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-03-12T04:52:55.271Z] > refreshing access token with scopes: []
+[debug] [2024-03-12T04:52:55.272Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-03-12T04:52:55.272Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-12T04:52:56.627Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-03-12T04:52:56.628Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-12T04:52:56.645Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oshia-app:testIamPermissions [none]
+[debug] [2024-03-12T04:52:56.645Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oshia-app:testIamPermissions x-goog-quota-user=projects/oshia-app
+[debug] [2024-03-12T04:52:56.645Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oshia-app:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-12T04:52:59.251Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/oshia-app:testIamPermissions 200
+[debug] [2024-03-12T04:52:59.255Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oshia-app:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-12T04:52:59.265Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/oshia-app [none]
+[debug] [2024-03-12T04:53:01.702Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/oshia-app 200
+[debug] [2024-03-12T04:53:01.702Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/oshia-app {"projectId":"oshia-app","projectNumber":"143638534807","displayName":"Oshia App","name":"projects/oshia-app","resources":{"hostingSite":"oshia-app"},"state":"ACTIVE","etag":"1_5c1d0d76-b0d6-4aea-99c5-ab61e495bfc3"}
+[info] 
+[info] === Deploying to 'oshia-app'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2024-03-12T04:53:01.712Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/oshia-app/versions [none]
+[debug] [2024-03-12T04:53:01.712Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/oshia-app/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}

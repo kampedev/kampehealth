@@ -184,7 +184,7 @@
                         >
                           <td>{{ record.healthrecord.encounter_id }}</td>
                           <td>{{ record.enrollee.full_name }}</td>
-                          <td>{{ record.provider.agency_name }}</td>
+                          <td> {{ record.provider.agency_name }}</td>
                           <td>{{ record.healthrecord.reasonVisit }}</td>
                           <td>{{ record.diagnosis.name }}</td>
                           <td>{{ record.date_of_visit }}</td>

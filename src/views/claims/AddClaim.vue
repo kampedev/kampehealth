@@ -378,7 +378,7 @@ export default {
                   ? this.search_result.data[0].id
                   : 0,
               dependent_id:
-                this.search_result.type == "dependent"
+                this.search_result.type == "Dependent"
                   ? this.search_result.data[0].id
                   : 0,
               seen_date: this.claim.seen_date,

@@ -37,146 +37,65 @@
         </div>
       </section>
 
-      <section class="">
+      <section
+        class=""
+        v-if="
+          user.user_role == 1 ||
+          user.job_title == 'Claims Vetter' ||
+          user.job_title == 'Claims Verifier' ||
+          user.type == 'shis'
+        "
+      >
         <div class="container">
           <div class="row list">
-            <div class="col-lg-12 col-md-12" v-show="showadder">
+            <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-header">
-                  <h3 class="p-t-10 searchBy-name">New Request</h3>
+                  <p  class="h5" >
+                    Filter Auth Code Requests
+
+                  </p>
+
                 </div>
-
                 <div class="card-body">
-                  <form @submit.prevent="AddDisease">
-                    <div class="row">
-                      <div class="form-group col-md-6">
-                        <label>Select Receiving Facility </label>
-                        <v-select
-                          v-model="referred_to_facility"
-                          label="agency_name"
-                          :options="providers"
-                        />
-                      </div>
+                  <div class="">
+                    <form @submit.prevent="getCodesAgency">
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <label>Select Facility </label>
+                          <v-select
+                            v-model="query.provider_id"
+                            label="agency_name"
+                            :options="providers"
+                          />
+                        </div>
 
-                      <div class="form-group col-md-6">
-                        <label for="inputCity">Search Enrollee </label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="OHIS Number, First Name, Last name, "
-                          v-model="searchkey"
-                          @change="searchIDCard"
-                        />
-                        <p>{{ search_result.length }} enrollee(s) found</p>
-                      </div>
-
-                      <div class="form-group col-md-12">
-                        <label for="inputPassword4">Select Enrollee </label>
-
-                        <select
-                          class="form-control"
-                          v-model="selected_enrollee"
-                          required
-                          @change="getRecords(selected_enrollee)"
-                        >
-                          <option
-                            :value="user"
-                            v-for="user in search_result"
-                            :key="user.id"
-                          >
-                            {{ user.user_query }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="row col-md-12" v-show="userDetails">
-                      <div class="col-md-6 offset-md-3 my-6">
-                        <img
-                          :src="`https://api.hayokinsurance.com/image/${selected_enrollee.user_image}`"
-                          class="img"
-                          alt="Enrollee Photo"
-                          onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
-                        />
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="inputCity">Enrollee Full Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEmail4"
-                          :value="selected_enrollee.full_name"
-                          disabled
-                        />
-                      </div>
-
-                      <div class="form-group col-md-6">
-                        <label for="inputCity">Enrollee First Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEmail4"
-                          :value="selected_enrollee.lastname"
-                          disabled
-                        />
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="inputCity">OSHIA Number</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEmail4"
-                          :value="selected_enrollee.id_card_number"
-                          disabled
-                        />
-                      </div>
-
-                      <div class="form-group col-md-6">
-                        <label for="inputCity">Sector</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEmail4"
-                          :value="selected_enrollee.sector"
-                          disabled
-                        />
-                      </div>
-
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="inputCity">Select Encounter </label>
-                          <select
-                            class="form-control"
-                            required
-                            v-model="service_summary_id"
-                          >
-                            <option
-                              :value="encounter.id"
-                              v-for="encounter in encounters"
-                              v-bind:key="encounter.id"
-                            >
-                              {{ encounter.healthrecord.encounter_id }}
-
-                              <span v-if="encounter.diagnosis != null"
-                                >({{ encounter.diagnosis.name }} )</span
-                              >
-                            </option>
-                          </select>
+                        <div class="form-group col-md-6">
+                          <label>Select Status </label>
+                          <v-select
+                            v-model="query.status"
+                            label="agency_name"
+                            :options="statuses"
+                          />
                         </div>
                       </div>
-                    </div>
 
-                    <div class="form-group">
-                      <button type="submit" class="btn btn-success btn-block">
-                        Submit <i class="fe fe-send"></i>
-                      </button>
-                    </div>
-                  </form>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block">
+                          Filter 
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
+      <section class="">
+        <div class="container">
           <div class="row list">
             <div class="col-md-12">
               <div class="card m-b-30">
@@ -311,6 +230,11 @@ export default {
       user: null,
       showadder: false,
       userDetails: false,
+      statuses: ["pending", "approved", "rejected"],
+      query: {
+        provider_id: "",
+        status: "pending",
+      },
       codes: "",
       // singlerecipient: "08024035326",
       message:
@@ -352,7 +276,12 @@ export default {
     getCodesAgency() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/authorization_code/95930`)
+        .get(`/api/v1/auth/authorization_code/95930`, {
+          params: {
+            provider_id: this.query.provider_id.id,
+            status: this.query.status,
+          },
+        })
         .then((response) => {
           this.codes = response.data;
           console.log(response);

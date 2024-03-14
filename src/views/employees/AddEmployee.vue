@@ -167,11 +167,9 @@
                     <table class="table align-td-middle table-card">
                       <thead>
                         <tr>
-                          <!-- <th>Avatar</th> -->
                           <th>Name</th>
                           <th>E mail</th>
                           <th>Phone Number</th>
-                          <!-- <th>State</th> -->
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -181,13 +179,12 @@
                           v-bind:key="employee.id"
                         >
                           <td>
-                            {{ employee.firstname }} {{ employee.lastname }}
+                            {{ employee.full_name }} 
                           </td>
                           <td>{{ employee.email }}</td>
                           <td>{{ employee.phone_number }}</td>
-                          <!-- <td>{{employee.state}}</td> -->
                           <td>
-                            <!-- <router-link :to="{ path: '/client/'+ employee.id}"> -->
+                            <router-link :to="{ path: '/employee/'+ employee.id}">
                             <button
                               type="button"
                               name="button"
@@ -195,7 +192,7 @@
                             >
                               <i class="fe fe-eye"></i>
                             </button>
-                            <!-- </router-link> -->
+                            </router-link>
                           </td>
                         </tr>
                       </tbody>

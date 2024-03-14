@@ -51,11 +51,7 @@
             <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-header">
-                  <p  class="h5" >
-                    Filter Auth Code Requests
-
-                  </p>
-
+                  <p class="h5">Filter Auth Code Requests</p>
                 </div>
                 <div class="card-body">
                   <div class="">
@@ -82,7 +78,7 @@
 
                       <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block">
-                          Filter 
+                          Filter
                         </button>
                       </div>
                     </form>
@@ -93,6 +89,147 @@
           </div>
         </div>
       </section>
+
+      <div class="col-lg-12 col-md-12" v-show="showadder">
+        <div class="card m-b-30">
+          <div class="card-header">
+            <h3 class="p-t-10 searchBy-name">New Request</h3>
+          </div>
+
+          <div class="card-body">
+            <form @submit.prevent="AddDisease">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>Select Receiving Facility </label>
+                  <v-select
+                    v-model="referred_to_facility"
+                    label="agency_name"
+                    :options="providers"
+                  />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="inputCity">Search Enrollee </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="OHIS Number, First Name, Last name, "
+                    v-model="searchkey"
+                    @change="searchIDCard"
+                  />
+                  <p>{{ search_result.length }} enrollee(s) found</p>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <label for="inputPassword4">Select Enrollee </label>
+                  <!-- <v-select
+                          v-model="selected_enrollee"
+                          label="user_query"
+                          :options="search_result"
+                        /> -->
+
+                  <select
+                    class="form-control"
+                    v-model="selected_enrollee"
+                    required
+                    @change="getRecords(selected_enrollee)"
+                  >
+                    <option
+                      :value="user"
+                      v-for="user in search_result"
+                      :key="user.id"
+                    >
+                      {{ user.user_query }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row col-md-12" v-show="userDetails">
+                <div class="col-md-6 offset-md-3 my-6">
+                  <img
+                    :src="`https://api.hayokinsurance.com/image/${selected_enrollee.user_image}`"
+                    class="img"
+                    alt="User Photo"
+                    onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputCity">Enrollee Full Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputEmail4"
+                    :value="selected_enrollee.full_name"
+                    disabled
+                  />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="inputCity">Enrollee First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputEmail4"
+                    :value="selected_enrollee.lastname"
+                    disabled
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputCity">OSHIA Number</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputEmail4"
+                    :value="selected_enrollee.id_card_number"
+                    disabled
+                  />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="inputCity">Sector</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputEmail4"
+                    :value="selected_enrollee.sector"
+                    disabled
+                  />
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="inputCity">Select Encounter </label>
+                    <select
+                      class="form-control"
+                      required
+                      v-model="service_summary_id"
+                    >
+                      <option
+                        :value="encounter.id"
+                        v-for="encounter in encounters"
+                        v-bind:key="encounter.id"
+                      >
+                        {{ encounter.encounter_id }}
+
+                        <span v-if="encounter.diagnosis != null"
+                          >({{ encounter.diagnosis.name }} )</span
+                        >
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block">
+                  Submit <i class="fe fe-send"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
       <section class="">
         <div class="container">

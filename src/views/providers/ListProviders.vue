@@ -21,16 +21,14 @@
                 <div class="card-body">
                   <div class="row">
                     <button
-                      class="btn btn-primary"
+                      class="btn btn-primary m-2"
                       @click="show = !show"
-                      style="margin-right:10px;"
                     >
                       Add Facility
                     </button>
                     <button
-                      class="btn btn-info"
+                      class="btn btn-info m-2"
                       @click="showsearch = !showsearch"
-                      style="margin-right:10px;"
                     >
                       Search Facility
                     </button>
@@ -38,7 +36,7 @@
                     <download-excel
                       :data="providers"
                       :fields="json_fields"
-                      class="btn btn-success"
+                      class="btn btn-success m-2"
                       header="Health Facilty Data for OHIS "
                       :escapeCsv="false"
                       name="Health Facilty Data for OHIS "

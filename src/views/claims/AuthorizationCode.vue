@@ -237,7 +237,7 @@
             <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
-                  <p class="h5">{{ codes.length }} Code Requests</p>
+                  <p class="h5">{{ codes.total }} Code Requests</p>
 
                   <div class="table-responsive">
                     <table class="table align-td-middle table-card">
@@ -258,7 +258,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="diag in codes" v-bind:key="diag.id">
+                        <tr v-for="diag in codes.data" v-bind:key="diag.id">
                           <td>
                             {{ diag.date_requested }}
                             <span class="text-primary">
@@ -370,7 +370,7 @@ export default {
       statuses: ["pending", "approved", "rejected"],
       query: {
         provider_id: "",
-        status: "pending",
+        status: "",
       },
       codes: "",
       // singlerecipient: "08024035326",

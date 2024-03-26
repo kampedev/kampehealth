@@ -374,12 +374,12 @@ export default {
               user_id: this.user.id,
               agency_id: 95930,
               client_name:
-                this.search_result.type == "client"
-                  ? this.search_result.data[0].id
+                this.summary.enrollee.type == "client"
+                  ? this.summary.enrollee.id
                   : 0,
               dependent_id:
-                this.search_result.type == "dependent"
-                  ? this.search_result.data[0].id
+                this.summary.enrollee.type == "Dependent"
+                  ? this.summary.enrollee.id
                   : 0,
               seen_date: this.claim.seen_date,
               diagnosis: this.summary.diagnosis.id,

@@ -18,7 +18,6 @@
               <button class="btn btn-outline-dark" @click="addRecordOffline">
                 <i class="fe fe-download"></i> Download Hospital Data
               </button>
-            
             </div>
 
             <div class="col-lg-4 col-md-4">
@@ -59,27 +58,29 @@
               </div>
             </div>
 
-             <div class="col-lg-4 col-md-4">
+            <div class="col-lg-4 col-md-4">
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
-                    <router-link :to="{ path: '/all-referrals'}">
-                    <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-success rounded-circle">
-                        <i class="fe fe-external-link"></i>
+                    <router-link :to="{ path: '/all-referrals' }">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="fe fe-external-link"></i>
+                        </div>
                       </div>
-                    </div>
                     </router-link>
                   </div>
                   <div>
-                    <p class="text-muted text-overline m-0">Incoming Referrals</p>
+                    <p class="text-muted text-overline m-0">
+                      Incoming Referrals
+                    </p>
                     <!-- <h1 class="fw-400">{{ referrals.meta.total }}</h1>  -->
                   </div>
                 </div>
               </div>
             </div>
-          
-          
           </div>
 
           <div class="row">
@@ -101,33 +102,34 @@
                   </thead>
                   <tbody>
                     <tr v-for="record in records.data" v-bind:key="record.id">
-                      <td>
-                        {{ record.encounter_id }}
+                      <td
+                      v-if="record.healthrecord != null"
+                      >
+                        {{ record.healthrecord.encounter_id }}
                       </td>
-                      <td>
+                      <td
+                      v-if="record.healthrecord != null"
+                      >
                         {{
-                          record.date_of_visit | moment("dddd, MMMM Do YYYY")
+                          record.healthrecord.date_of_visit | moment("dddd, MMMM Do YYYY")
                         }}
                       </td>
                       <td>
                         <span v-if="record.enrollee != null">
                           {{ record.enrollee.firstname }}
-                        {{ record.enrollee.lastname }}
+                          {{ record.enrollee.lastname }}
                         </span>
-                       
                       </td>
                       <td>
                         <span v-if="record.enrollee != null">
                           {{ record.enrollee.id_card_number }}
-                        <i class="fe fe-copy" @click="copyText(record)"></i>
-                     
+                          <i class="fe fe-copy" @click="copyText(record)"></i>
                         </span>
-                       
-                     
                       </td>
 
                       <td>
                         <router-link
+                          v-if="record.service != null"
                           :to="{ path: '/encounter/' + record.service.id }"
                         >
                           <button
@@ -211,7 +213,15 @@ export default {
     getRecords() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/professionalGetHealthRecord/${this.user.id}`)
+        .post(`/api/v1/auth/service_summary-agency`, {
+          provider_id: this.user.institutional_id,
+          // enrollee: this.filter_field.enrollee,
+          // date: this.filter_field.date,
+          // from: this.filter_field.from,
+          // to: this.filter_field.to,
+          agency_id: 95930,
+          paginate_value: 15,
+        })
         .then((response) => {
           this.records = response.data;
           console.log(response);
@@ -240,19 +250,17 @@ export default {
           console.error(error);
         });
     },
-    getfacilityReferrals(){
-        this.axios
-          .get(
-            `/api/v1/auth/referrals-secondary/${this.user.institutional_id}`
-          )
-          .then((response) => {
-            this.referrals = response.data;
-            console.log(response);
-            this.isLoading = false;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+    getfacilityReferrals() {
+      this.axios
+        .get(`/api/v1/auth/referrals-secondary/${this.user.institutional_id}`)
+        .then((response) => {
+          this.referrals = response.data;
+          console.log(response);
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     getClients() {
       this.user = JSON.parse(localStorage.getItem("user"));

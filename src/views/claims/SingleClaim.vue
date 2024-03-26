@@ -33,7 +33,9 @@
                     >
                       mark as verified <i class="fe fe-check"></i>
                     </button>
-                    <router-link :to="`/patient/${claimdetails.enrollee.id}`">
+                    <router-link :to="`/patient/${claimdetails.enrollee.id}`"
+                    v-if="claimdetails.enrollee != null"
+                    >
                       <button class="btn btn-outline-success spacer">
                         enrollee records <i class="fe fe-user"></i>
                       </button>
@@ -276,6 +278,7 @@
                         <p>
                           <strong>Enrollee/ Patient Name:</strong>
                           <router-link
+                          v-if="claimdetails.enrollee != null"
                             :to="`/patient/${claimdetails.enrollee.id}`"
                           >
                             {{ claimdetails.enrollee.firstname }}
@@ -283,7 +286,9 @@
                           </router-link>
                         </p>
                         <br />
-                        <p>
+                        <p
+                        v-if="claimdetails.enrollee != null"
+                        >
                           <strong>Enrollee/ Patient O'HIS Number:</strong>
                           {{ claimdetails.enrollee.id_card_number }}
                         </p>

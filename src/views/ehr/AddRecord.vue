@@ -124,7 +124,7 @@
                             />
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputCity">Client Surname</label>
+                            <label for="inputCity">Client Surname  </label>
                             <input
                               type="text"
                               class="form-control"
@@ -495,7 +495,7 @@ export default {
                 ? this.selected_enrollee.id
                 : 0,
             dependent_id:
-              this.selected_enrollee.type == "dependent"
+              this.selected_enrollee.type == "Dependent"
                 ? this.selected_enrollee.id
                 : null,
             reasonVisit: this.record.reasonVisit,

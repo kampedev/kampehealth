@@ -194,13 +194,13 @@
                             {{ encounter.provider.agency_name }}
                           </td>
                           <td>
-                            <span v-if="encounter.patient != null">
-                              {{ encounter.patient.full_name }}</span
+                            <span v-if="encounter.enrollee != null">
+                              {{ encounter.enrollee.full_name }}</span
                             >
                           </td>
                           <td>
-                            <span v-if="encounter.patient != null">
-                              {{ encounter.patient.phone_number }}</span
+                            <span v-if="encounter.enrollee != null">
+                              {{ encounter.enrollee.phone_number }}</span
                             >
                           </td>
                           <td>

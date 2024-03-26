@@ -95,10 +95,10 @@
                     ></textarea>
                     <button
                       type="button"
-                      class="btn btn-success"
+                      class="btn btn-success mt-4"
                       @click="addComment"
                     >
-                      submit
+                      Submit 
                     </button>
                   </div>
                 </div>
@@ -119,6 +119,7 @@
                           <p class="h5">
                             <span class="text-success">Full Name: </span>
                             <router-link
+                            v-if="auth_code.enrollee != null"
                               :to="{
                                 path: '/patient/' + auth_code.enrollee.id,
                                 params: {},
@@ -128,25 +129,35 @@
                               {{ auth_code.enrollee.lastname }}
                             </router-link>
                           </p>
-                          <p class="h5">
+                          <p class="h5"
+                          v-if="auth_code.enrollee != null"
+                          >
                             <span class="text-success">Phone Number:</span>
                             {{ auth_code.enrollee.phone_number }}
                           </p>
-                          <p class="h5">
+                          <p class="h5"
+                          v-if="auth_code.enrollee != null"
+                          >
                             <span class="text-success">O'HIS Number:</span>
                             {{ auth_code.enrollee.id_card_number }}
                           </p>
-                          <p class="h5">
+                          <p class="h5"
+                          v-if="auth_code.enrollee != null"
+                          >
                             <span class="text-success">Gender:</span>
                             {{ auth_code.enrollee.gender }}
                           </p>
 
-                          <p class="h5">
+                          <p class="h5"
+                          v-if="auth_code.enrollee != null"
+                          >
                             <span class="text-success">Date of Birth:</span>
                             {{ auth_code.enrollee.dob }}
                           </p>
 
-                          <p class="h5">
+                          <p class="h5"
+                          v-if="auth_code.provider != null"
+                          >
                             <span class="text-success"
                               >Primary/Referring Facilty:</span
                             >
@@ -278,7 +289,7 @@
           </div>
         </div>
 
-        <div class="container">
+        <!-- <div class="container">
           <div class="row list">
             <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
@@ -395,7 +406,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="container">
           <div class="row list">
@@ -473,7 +484,7 @@ export default {
       clientdetail: "",
       referrals: "",
       body: "",
-      show: false,
+      show: true,
       isLoading: false,
       fullPage: true,
       agency_id: "",
@@ -490,9 +501,9 @@ export default {
         .get(`/api/v1/auth/single_authorization_code/${this.$route.params.id}`)
         .then((response) => {
           this.auth_code = response.data;
-          let patient_id = response.data.enrollee.id;
+          // let patient_id = response.data.enrollee.id;
 
-          this.getReferralPatient(patient_id);
+          // this.getReferralPatient(patient_id);
 
           console.log(response);
           this.isLoading = false;
@@ -528,7 +539,6 @@ export default {
           console.log(response);
           this.getCode();
           this.show = false;
-          // this.$router.push(`/all-referrals`);
           this.$toasted.info("added Successfully!", {
             position: "top-center",
             duration: 3000,

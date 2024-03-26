@@ -179,6 +179,7 @@ export default {
           type : this.register.type,
           state : this.state.id,
           localgovt : this.register.localgovt,
+          user_role: 1,
           role : this.register.role,
           password : this.register.password,
           enrolled_by:0,

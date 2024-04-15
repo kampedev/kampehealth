@@ -125,6 +125,7 @@ import AuthorizationCode from "../views/claims/AuthorizationCode.vue";
 import SingleAuthorizationCode from "../views/claims/SingleAuthorizationCode.vue";
 import FilterUserProvider from "../views/shis/components/FilterUserProvider.vue";
 import FilterUserDate from "../views/shis/components/FilterUserDate.vue";
+import UploadEnrolleesCSV from "../views/clients/UploadEnrolleesCSV.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -981,6 +982,13 @@ const routes = [
   {
     path: "/db-query",
     component: DBQuery,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/upload-enrollee/csv",
+    component: UploadEnrolleesCSV,
     meta: {
       requiresAuth: true,
     },

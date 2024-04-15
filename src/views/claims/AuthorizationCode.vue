@@ -327,6 +327,16 @@
                         </tr>
                       </tbody>
                     </table>
+
+                    <div class="text-center">
+                      <b-pagination
+                        v-model="currentPage"
+                        :total-rows="codes.total"
+                        :per-page="codes.per_page"
+                        aria-controls="my-table"
+                        @input="getCodes(currentPage ? currentPage : 1)"
+                      ></b-pagination>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -388,33 +398,34 @@ export default {
       register: {
         date_requested: "",
       },
+      rows: "1",
+      perPage: 15,
     };
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
   },
   methods: {
-    getCodes() {
+    getCodes(currentPage) {
       this.user = JSON.parse(localStorage.getItem("user"));
       if (
         this.user.type == "provider" ||
         this.user.type == "provider_employee"
       ) {
-        this.getCodesProvider();
+        this.getCodesProvider(currentPage);
       }
-      if (this.user.type == "tpa" || this.user.type == "tpa_employee") {
-        this.getCodesTpa();
-      }
+    
       if (this.user.type == "employee" || this.user.type == "shis") {
-        this.getCodesAgency();
+        this.getCodesAgency(currentPage);
       }
     },
 
-    getCodesAgency() {
+    getCodesAgency(currentPage) {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .get(`/api/v1/auth/authorization_code/95930`, {
           params: {
+            page: currentPage,
             provider_id: this.query.provider_id.id,
             status: this.query.status,
           },
@@ -428,10 +439,14 @@ export default {
         });
     },
 
-    getCodesProvider() {
+    getCodesProvider(currentPage) {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/authorization_code-provider`)
+        .get(`/api/v1/auth/authorization_code-provider`,{
+          params: {
+            page: currentPage,
+          }
+        })
         .then((response) => {
           this.codes = response.data;
           console.log(response);

@@ -323,21 +323,25 @@
                       <td colspan="4">
                         <div
                           class="col-md-12"
-                          v-if="user.job_title == 'Claims Verifier'"
+                          v-if="
+                            user.job_title == 'Claims Verifier' ||
+                            user.job_title == 'Executive Secretary'
+                          "
                         >
                           <b-alert show variant="primary">
-                            To forward claims to the ES for approval, select the
-                            verified facility claims.
+                            To forward claims for approval, select the verified
+                            facility claims.
                           </b-alert>
                         </div>
                       </td>
                     </tr>
                     <tr
                       v-if="
-                        user.job_title == 'Claims Verifier' &&
-                        provider_id != '' &&
-                        claims.data.length > 0 &&
-                        claim_status == 'verified'
+                        user.job_title == 'Claims Verifier' ||
+                        (user.job_title == 'Executive Secretary' &&
+                          provider_id != '' &&
+                          claims.data.length > 0 &&
+                          claim_status == 'verified')
                       "
                     >
                       <td colspan="4">
@@ -345,8 +349,8 @@
                           class="btn btn-outline-success btn-block"
                           @click="forwwardClaims()"
                         >
-                          Forward {{ provider_id.agency_name }}'s Claims to the
-                          ES for Approval
+                          Forward {{ provider_id.agency_name }}'s Claims for
+                          Approval
                           <i class="fe fe-send"></i>
                         </button>
                       </td>
@@ -520,8 +524,6 @@ export default {
             console.error(error);
           });
       }
-
-     
     },
     getProviders() {
       this.axios

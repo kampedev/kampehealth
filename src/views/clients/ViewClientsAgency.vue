@@ -43,12 +43,11 @@
                   Voluntary Contributor
                 </option>
                 <option value="Civil Servant">Civil Servant</option>
-                <option value="Oganized Private Sector Plan">
-                  Organized Private Sector Plan
-                </option>
-                <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
+                <option  value="State Pensioners Plan">State Pensioners Plan</option>
+
+                <!-- <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
                   Tertiary Student Health Insurance Plan (T-SHIP)
-                </option>
+                </option> -->
               </select>
             </div>
 

@@ -13,6 +13,90 @@
       </div>
       <section class="">
         <div class="container">
+          <!-- <div
+            class="row"
+            v-if="user.type == 'shis' || user.type == 'employee'"
+          >
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-info">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-primary rounded-circle">
+                        <i class="fe fe-activity"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">All Claims</p>
+                    <h1 class="fw-400">
+                      {{ metrics.all_claims | numeral(0, 0) }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-default">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-primary rounded-circle">
+                        <i class="fe fe-user-plus"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Pending Claims</p>
+                    <h1 class="fw-400">
+                      {{ metrics.pending_claims | numeral(0, 0) }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-dark">
+                <div class="card-body text-white">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-primary rounded-circle">
+                        <i class="fe fe-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Vetted Claims</p>
+                    <h1 class="fw-400">
+                      {{ metrics.vetted_claims | numeral(0, 0) }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-dark">
+                <div class="card-body text-white">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-primary rounded-circle">
+                        <i class="fe fe-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Verified Claims</p>
+                    <h1 class="fw-400">
+                      {{ metrics.verified_claims | numeral(0, 0) }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
           <div class="col-md-12">
             <div class="card" v-show="filterparams">
               <div class="card-header">
@@ -40,12 +124,12 @@
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label for="inputEmail4">KGSHIA Number</label>
+                    <label for="inputEmail4">OHIS Number</label>
                     <input
                       type="text"
                       class="form-control"
                       v-model="id_card_number"
-                      placeholder="KGSHIA/XX/XXXX"
+                      placeholder="OHIS/XX/XXXX"
                     />
                   </div>
 
@@ -114,7 +198,7 @@
           <div class="card row list">
             <div class="card-header">
               <button class="btn btn-outline-dark float-left">
-                {{ claims.length }} {{ provider_id.agency_name }} Claims
+                {{ claims.data.length }} {{ provider_id.agency_name }} Claims
               </button>
 
               <button
@@ -167,41 +251,42 @@
                           >
                             processed for payment
                           </button>
+                        </span>
 
-                          <button
+                        <!-- <button
                             class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
                             v-if="claim.paymentorders[0].status == 'paid'"
                           >
                             <i class="fe fe-check-square"></i>paid
+                          </button> -->
+
+                        <span v-if="claim.status == 1">
+                          <button
+                            type="button"
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                          >
+                            approved
                           </button>
-
-                          <span v-if="claim.status == 1">
-                            <button
-                              type="button"
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
-                            >
-                              approved
-                            </button>
-                          </span>
-
-                          <span v-if="claim.verified_by_id != null">
-                            <button
-                              type="button"
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
-                            >
-                              verified
-                            </button>
-                          </span>
-
-                          <span v-if="claim.checked_by_id != null">
-                            <button
-                              type="button"
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
-                            >
-                              vetted
-                            </button>
-                          </span>
                         </span>
+
+                        <span v-if="claim.verified_by_id != null">
+                          <button
+                            type="button"
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
+                          >
+                            verified
+                          </button>
+                        </span>
+
+                        <span v-if="claim.checked_by_id != null">
+                          <button
+                            type="button"
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
+                          >
+                            vetted
+                          </button>
+                        </span>
+
                         <span v-if="claim.status == null">
                           <button
                             type="button"
@@ -302,6 +387,7 @@ export default {
   data() {
     return {
       user: null,
+      metrics: "",
       claims: "",
       selected: "",
       claim_unique_id: "",
@@ -323,11 +409,14 @@ export default {
       provider_id: "",
       date: "",
       json_fields: {
-        "Facility Name": "provider.agency_name",
+        "Claim ID": "claim_unique_id",
         "Enrollee Full Name": "patient.full_name",
-        "Enrollee KGSHIA Number": "patient.id_card_number",
+        "Enrollee OHIS Number": "patient.id_card_number",
         Diagnosis: "diagnosis.name",
-        HMO: "tpa.organization_name",
+        "Verified Amount": "approved_total_cost",
+        "Authorization Code": "authorization_code",
+        "Date Created": "seen_date",
+        "Facility Name": "provider.agency_name",
       },
       json_meta: [
         [
@@ -366,7 +455,7 @@ export default {
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
               provider_id: this.provider_id.id,
-              // org_id: this.org_id,
+              paginate_value: "20",
               date: this.date,
               from: this.from,
               to: this.addOneDay,
@@ -391,14 +480,14 @@ export default {
               claim_unique_id: this.claim_unique_id,
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
-              // org_id: this.org_id,
               date: this.date,
               from: this.from,
               to: this.addOneDay,
             },
           })
           .then((response) => {
-            this.claims = response.data;
+            this.claims = response.data.data;
+            this.metrics = response.data;
             console.log(response);
             this.isLoading = false;
           })
@@ -432,31 +521,7 @@ export default {
           });
       }
 
-      if (this.user.type == "tpa" || this.user.type == "tpa_employee") {
-        this.isLoading = true;
-        this.axios
-          .get(`/api/v1/auth/claim-org`, {
-            params: {
-              claim_status: this.claim_status,
-              claim_unique_id: this.claim_unique_id,
-              authorization_code: this.authorization_code,
-              id_card_number: this.id_card_number,
-              provider_id: this.provider_id,
-              date: this.date,
-              from: this.from,
-              to: this.addOneDay,
-            },
-          })
-          .then((response) => {
-            this.claims = response.data;
-            console.log(response);
-            this.isLoading = false;
-          })
-          .catch((error) => {
-            console.error(error);
-            this.isLoading = false;
-          });
-      }
+     
     },
     getProviders() {
       this.axios

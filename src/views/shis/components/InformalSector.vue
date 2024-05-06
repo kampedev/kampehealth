@@ -147,17 +147,17 @@
               <div class="card m-b-30 bg-success">
                 <div class="card-body text-dark">
                   <div class="pb-2">
-                    <router-link :to="{ path: '/my-tpas' }">
+                    <!-- <router-link :to="{ path: '/my-tpas' }"> -->
                       <div class="avatar avatar-lg">
                         <div class="avatar-title bg-soft-dark rounded-circle">
                           <i class="fe fe-briefcase"></i>
                         </div>
                       </div>
-                    </router-link>
+                    <!-- </router-link> -->
                   </div>
                   <div>
-                    <p class="h4">TPAs</p>
-                    <h1 class="fw-400">{{ informaldata.tpas }}</h1>
+                    <p class="h4">State Pensioners Plan</p>
+                    <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
                   </div>
                 </div>
               </div>

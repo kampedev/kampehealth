@@ -33,8 +33,9 @@
                     >
                       mark as verified <i class="fe fe-check"></i>
                     </button>
-                    <router-link :to="`/patient/${claimdetails.enrollee.id}`"
-                    v-if="claimdetails.enrollee != null"
+                    <router-link
+                      :to="`/patient/${claimdetails.enrollee.id}`"
+                      v-if="claimdetails.enrollee != null"
                     >
                       <button class="btn btn-outline-success spacer">
                         enrollee records <i class="fe fe-user"></i>
@@ -278,7 +279,7 @@
                         <p>
                           <strong>Enrollee/ Patient Name:</strong>
                           <router-link
-                          v-if="claimdetails.enrollee != null"
+                            v-if="claimdetails.enrollee != null"
                             :to="`/patient/${claimdetails.enrollee.id}`"
                           >
                             {{ claimdetails.enrollee.firstname }}
@@ -286,9 +287,7 @@
                           </router-link>
                         </p>
                         <br />
-                        <p
-                        v-if="claimdetails.enrollee != null"
-                        >
+                        <p v-if="claimdetails.enrollee != null">
                           <strong>Enrollee/ Patient O'HIS Number:</strong>
                           {{ claimdetails.enrollee.id_card_number }}
                         </p>
@@ -653,7 +652,8 @@
                     </p>
                     <br />
                     <p>
-                      <span class="font-weight-bold">Frequency (in a day)</span> :
+                      <span class="font-weight-bold">Frequency (in a day)</span>
+                      :
                       {{ singlservicemodal.frequency }}
                     </p>
                     <br />

@@ -45,14 +45,13 @@
                         Universal Basic Education Board
                       </option>
 
-                      <option value="Oganized Private Sector Plan">
-                        Organized Private Sector Plan
-                      </option>
-                      <option
+                      <option  value="State Pensioners Plan">State Pensioners Plan</option>
+
+                      <!-- <option
                         value="Tertiary Student Health Insurance Plan (T-SHIP)"
                       >
                         Tertiary Student Health Insurance Plan (T-SHIP)
-                      </option>
+                      </option> -->
                     </select>
                   </div>
                   <div class="form-group col-md-3">

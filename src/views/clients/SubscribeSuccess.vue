@@ -72,7 +72,7 @@
                     <div class="col-md-5">
                       <!-- <img :src="`http://localhost:8000/image/${auth_user.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="350" height="236"> -->
                       <img
-                        :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                        :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
                         class="img spacer-top"
                         alt="User Photo"
                         onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -170,7 +170,7 @@
                               <td>
                                 <div class="avatar avatar-md">
                                   <img
-                                    :src="`https://api.hayokinsurance.com/image/${dep.image}`"
+                                    :src="`https://insurance-api.hayokmedicare.ng/image/${dep.image}`"
                                     class="avatar-img avatar-lg rounded"
                                     onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                                     alt=""

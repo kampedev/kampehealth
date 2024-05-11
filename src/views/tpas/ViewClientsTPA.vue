@@ -55,7 +55,7 @@
                                      <tr v-for="client in clients.data" v-bind:key="client.id">
                                          <!-- <td>
                                              <div class="avatar avatar-sm " v-if="client.user_image != null ">
-                                               <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
+                                               <img :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`"
                                                 class="avatar-img avatar-sm rounded-circle"
                                                       alt=""></div>
                                          </td> -->

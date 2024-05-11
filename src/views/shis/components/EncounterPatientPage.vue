@@ -52,7 +52,7 @@
 
           <img
           v-if="encounterDetails.enrollee != null"
-            :src="`https://api.hayokinsurance.com/image/${encounterDetails.enrollee.user_image}`"
+            :src="`https://insurance-api.hayokmedicare.ng/image/${encounterDetails.enrollee.user_image}`"
             alt="Enrollee Image"
             class="enrollee__img"
             onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"

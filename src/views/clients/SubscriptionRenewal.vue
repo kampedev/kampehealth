@@ -18,7 +18,7 @@
       <div class="user__details--container-main">
         <h1 class="name">{{ user.full_name }}</h1>
         <img
-          :src="`https://api.hayokinsurance.com/image/${user.user_image}`"
+          :src="`https://insurance-api.hayokmedicare.ng/image/${user.user_image}`"
           alt="Enrollee Image"
           class="enrollee__img"
           onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -295,7 +295,7 @@ export default {
       console.log(this.userIdentifier);
       this.isLoading = true;
       this.axios
-        .post(`https://api.hayokinsurance.com/api/v1/get-userbyEnrollee`, {
+        .post(`https://insurance-api.hayokmedicare.ng/api/v1/get-userbyEnrollee`, {
           identifier: this.userIdentifier,
         })
         .then((response) => {

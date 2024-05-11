@@ -144,7 +144,7 @@
                                  <vue-initials-img :name="dependent.firstname+' '+dependent.lastname" class="img-thumbnail" size="25"  v-if="dependent.image == null "/>
 
                                    <div class="avatar avatar-md " v-if="dependent.image != null ">
-                                     <img :src="`https://api.hayokinsurance.com/image/${dependent.image}`"
+                                     <img :src="`https://insurance-api.hayokmedicare.ng/image/${dependent.image}`"
                                            class="avatar-img avatar-lg rounded"
                                            onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                                            alt="">

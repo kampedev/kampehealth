@@ -64,7 +64,7 @@
                   <div class="card-body row">
 
                     <div class="col-md-4">
-                      <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img spacer-top" alt="User Photo"
+                      <img :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`" class="img spacer-top" alt="User Photo"
                       onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                       >
                      

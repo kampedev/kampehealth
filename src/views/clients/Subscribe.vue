@@ -160,7 +160,7 @@
                   <label class="avatar-input">
                     <span class="avatar avatar-lg">
                       <img
-                        :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                        :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
                         onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                         class="avatar-img rounded-circle"
                       />

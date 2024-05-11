@@ -273,7 +273,7 @@
                 <div class="card-body row">
                   <div class="col-md-4">
                     <img
-                      :src="`https://api.hayokinsurance.com/image/${client.user.user_image}`"
+                      :src="`https://insurance-api.hayokmedicare.ng/image/${client.user.user_image}`"
                       class="img"
                       alt="User Photo"
                       onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"

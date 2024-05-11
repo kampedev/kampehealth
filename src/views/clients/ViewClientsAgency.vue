@@ -222,7 +222,7 @@
                               v-if="client.user_image != null"
                             >
                               <img
-                                :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
+                                :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`"
                                 class="avatar-img avatar-sm rounded-circle"
                                 alt="User Photo"
                                 onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"

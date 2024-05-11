@@ -74,7 +74,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueFullscreen);
 
 window.axios = axios;
-// axios.defaults.baseURL = "https://api.hayokinsurance.com";
+// axios.defaults.baseURL = "https://insurance-api.hayokmedicare.ng";
 axios.defaults.baseURL = "https://insurance-api.hayokmedicare.ng";
 // axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.headers.common["Content-Type"] = "application/json";

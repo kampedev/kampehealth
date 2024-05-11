@@ -47,7 +47,7 @@
                               :value="auth_code.code_created"
                             >
                               {{ auth_code.code_created }} (
-                              {{ auth_code.code_usage }})
+                              {{ auth_code.code_usage }}) - ({{ auth_code.expiry_date }})
                             </option>
                           </select>
                         </div>
@@ -441,7 +441,7 @@ export default {
         .catch((error) => {
           console.error(error);
           //  this.$toasted.info(`${error.message}`, {
-          this.$toasted.error(`Authorization Code not found or already used!`, {
+          this.$toasted.error(`Authorization Code expired or already used!`, {
             position: "top-center",
             duration: 3000,
           });

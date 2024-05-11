@@ -48,7 +48,7 @@
                     /> -->
                     <div class="" v-if="dependent.image != null">
                       <img
-                        :src="`https://api.hayokinsurance.com/image/${dependent.image}`"
+                        :src="`https://insurance-api.hayokmedicare.ng/image/${dependent.image}`"
                         class="img-thumbnail"
                         width="304"
                         height="236"

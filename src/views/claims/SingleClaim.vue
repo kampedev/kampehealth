@@ -769,7 +769,7 @@
                           <td>
                             <a
                               :href="
-                                'https://api.hayokinsurance.com/documents/' +
+                                'https://insurance-api.hayokmedicare.ng/documents/' +
                                 doc.document
                               "
                               target="_blank"

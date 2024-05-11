@@ -142,7 +142,7 @@
                     <tr v-for="client in employees.data" v-bind:key="client.id">
                       <!-- <td>
                                 <div class="avatar avatar-sm " v-if="client.agent.user_image != null ">
-                                  <img :src="`https://api.hayokinsurance.com/image/${client.agent.user_image}`"
+                                  <img :src="`https://insurance-api.hayokmedicare.ng/image/${client.agent.user_image}`"
                                     class="avatar-img avatar-sm rounded-circle"
                                             alt=""></div>
                             </td> -->

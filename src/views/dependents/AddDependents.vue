@@ -211,7 +211,7 @@
                     >
                       <img
                         :src="
-                          `https://api.hayokinsurance.com/image/${dependent.image}`
+                          `https://insurance-api.hayokmedicare.ng/image/${dependent.image}`
                         "
                         class="avatar-img avatar-lg rounded"
                         onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"

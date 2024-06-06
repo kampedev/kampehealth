@@ -24,9 +24,10 @@
                 <div class="">
                   <form @submit.prevent="addServiceRendered">
                     <div class="row">
-                      <div class="form-group col-md-6">
+                      <!-- <div class="form-group col-md-6">
                         <label>Select Type</label>
                         <select
+                        disabled
                           class="form-control"
                           v-model="type"
                           required
@@ -35,7 +36,7 @@
                           <option value="Drug">Drug</option>
                           <option value="Service">Service</option>
                         </select>
-                      </div>
+                      </div> -->
 
                       <div class="form-group col-md-6" v-if="type == 'Service'">
                         <label>Select Service </label>
@@ -48,8 +49,8 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-6" v-if="type == 'Drug'">
-                        <label for="inputPassword4">Select Drug </label>
+                      <div class="form-group col-md-12" v-if="type == 'Drug'">
+                        <label >Select Drug </label>
                         <v-select
                           v-model="addservice.drugs_id"
                           label="item_data"
@@ -93,8 +94,8 @@
                           <option value="3">TDS</option>
                           <option value="4">QDS</option>
                         </select>
-                        <p class="text-primary">
-                          The number of times or quantity in a day.
+                        <p class="text-dark">
+                          number of times or in a day.
                         </p>
                       </div>
 
@@ -110,8 +111,8 @@
                           placeholder="Qty"
                           v-model="days"
                         />
-                        <p class="text-primary">
-                          For services such as bedrest, admissions etc
+                        <p class="text-dark">
+                          number of days
                         </p>
                       </div>
 
@@ -193,6 +194,7 @@
 
                     <td>
                       <button
+                      v-if="service.drugs_id != null"
                         class="btn btn-danger"
                         name="button"
                         @click="deleteService(service)"
@@ -252,7 +254,7 @@ export default {
       edit: false,
       isLoading: false,
       fullPage: true,
-      type: "",
+      type: "Drug",
       selected_type: "",
       addservice: {
         services_id: "",
@@ -386,6 +388,12 @@ export default {
         })
         .catch((error) => {
           console.log(error.response);
+          this.isLoading = false;
+          this.$toasted.error(error.response.data.errors, {
+              position:"top-right" ,
+              duration: 3000,
+            });
+
         });
     },
   },

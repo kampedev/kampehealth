@@ -56,7 +56,7 @@
                             </div>
                           </td>
                           <td>
-                            {{ employee.firstname }} {{ employee.lastname }}
+                            {{ employee.full_name }} 
                           </td>
                           <td>
                             {{ employee.email }}

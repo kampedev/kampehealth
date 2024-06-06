@@ -10,7 +10,7 @@
             <div class="col-md-12 m-b-20">
               <h5 class="spacer-top">
                 Hello, <span v-if="auth_user.job_title == 'Doctor'">Dr.</span>
-                {{ auth_user.firstname }} {{ auth_user.lastname }}
+                {{ auth_user.full_name }}
               </h5>
             </div>
 
@@ -116,8 +116,7 @@
                       </td>
                       <td>
                         <span v-if="record.enrollee != null">
-                          {{ record.enrollee.firstname }}
-                          {{ record.enrollee.lastname }}
+                          {{ record.enrollee.full_name }}
                         </span>
                       </td>
                       <td>

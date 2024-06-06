@@ -1,5 +1,5 @@
 <template>
-  <section class="admin-content " id="contact-search">
+  <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
       <div class="bg-dark m-b-30">
@@ -73,8 +73,7 @@
                                          </td> -->
                           <!-- <td >{{index+1}} </td> -->
                           <td>
-                            {{ client.firstname }} {{ client.lastname }}
-                            {{ client.middlename }}
+                            {{ client.full_name }}
                           </td>
                           <td>{{ client.phone_number }}</td>
                           <td>{{ client.sector }}</td>
@@ -334,8 +333,8 @@ export default {
           grade_level: this.register.grade_level,
           date_of_entry: this.register.date_of_entry,
           marital_status: this.register.marital_status,
-          category_of_vulnerable_group: this.register
-            .category_of_vulnerable_group,
+          category_of_vulnerable_group:
+            this.register.category_of_vulnerable_group,
           enrolled_by: this.user.id,
         })
         .then((response) => {

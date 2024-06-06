@@ -51,8 +51,8 @@
                                         params: {},
                                       }"
                                     >
-                                      {{ client.firstname }}
-                                      {{ client.lastname }} {{ client.id }}
+                                      {{ client.full_name }}
+                                      {{ client.id }}
                                     </router-link>
                                   </td>
                                   <td>{{ client.phone_number }}</td>
@@ -143,7 +143,7 @@
                                     params: {},
                                   }"
                                 >
-                                  {{ client.firstname }} {{ client.lastname }}
+                                  {{ client.full_name }}
                                   {{ client.id }}
                                 </router-link>
                               </td>

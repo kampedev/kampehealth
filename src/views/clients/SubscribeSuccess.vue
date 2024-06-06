@@ -8,9 +8,7 @@
               <div class="m-b-10">
                 <div class="avatar"></div>
               </div>
-              <strong>
-                {{ auth_user.firstname }} {{ auth_user.lastname }}</strong
-              >
+              <strong> {{ auth_user.full_name }} </strong>
             </div>
           </div>
         </div>
@@ -81,8 +79,8 @@
 
                     <div class="col-md-7">
                       <p class="spacer-top-bottom">
-                        <strong>Name:</strong> {{ auth_user.lastname }}
-                        {{ auth_user.firstname }} {{ auth_user.middlename }}
+                        <strong>Name:</strong>
+                        {{ auth_user.full_name }}
                       </p>
                       <hr />
                       <p class="spacer-top-bottom">

@@ -17,7 +17,7 @@
                            </label>
                          </div> -->
                        </div>
-                       <strong> {{client.firstname}} {{client.lastname}}</strong>
+                       <strong> {{client.full_name}} </strong>
                    </div>
 
                </div>

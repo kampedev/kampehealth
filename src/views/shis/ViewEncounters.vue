@@ -156,16 +156,16 @@
         </div>
         <div class="">
           <div class="row list">
-            <div class="col-lg-12 col-md-8">
+            <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="table-responsive">
 
                     <p class="h4 my-3">
                       <span v-if="encounters != ''">{{
-                        encounters.meta.total
+                        encounters.meta.total | numeral(0,0)
                       }}</span>
-                      Encounters
+                      Encounters 
                     </p>
 
                     <table class="table align-td-middle table-card">

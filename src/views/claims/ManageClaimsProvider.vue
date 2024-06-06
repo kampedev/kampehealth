@@ -1,5 +1,5 @@
 <template>
-  <section class="admin-content " id="contact-search">
+  <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
       <div class="bg-success m-b-30">
@@ -7,7 +7,6 @@
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
               <p class="h4 text-dark">Manage Claims Facilities</p>
-             
             </div>
           </div>
         </div>
@@ -17,9 +16,10 @@
           <div class="row list">
             <div class="col-md-10 offset-md-1">
               <div class="card-header">
-                
-               <p class="h6">  <i class="fe fe-activity"></i> Health Facilities</p>
-                </div>
+                <p class="h6">
+                  <i class="fe fe-activity"></i> Health Facilities
+                </p>
+              </div>
               <div class="card-body table-responsive">
                 <table class="table align-td-middle table-card">
                   <thead>
@@ -39,10 +39,12 @@
                       </td>
                       <td>{{ provider.email }}</td>
                       <td>{{ provider.phone_number }}</td>
-                      <td> {{provider.claimsprovider.length}} </td>
-                     
+                      <td>{{ provider.claimsprovider.length }}</td>
+
                       <td>
-                        <router-link :to="{ path: '/all-claims/' + provider.id }">
+                        <router-link
+                          :to="{ path: '/all-claims/' + provider.id }"
+                        >
                           <button
                             type="button"
                             name="button"
@@ -53,10 +55,10 @@
                         </router-link>
                       </td>
                     </tr>
-                    <tr v-if="providers.length == 0" >
+                    <tr v-if="providers.length == 0">
                       <td colspan="4">
-                        <p class="h5">You have no pending claims </p>
-                          </td>
+                        <p class="h5">You have no pending claims</p>
+                      </td>
                     </tr>
                   </tbody>
                 </table>

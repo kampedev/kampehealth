@@ -146,7 +146,7 @@
                                     class="avatar-img avatar-sm rounded-circle"
                                             alt=""></div>
                             </td> -->
-                      <td>{{ client.firstname }} {{ client.lastname }}</td>
+                      <td>{{ client.full_name }} </td>
                       <td>{{ client.phone_number }}</td>
                       <td>{{ client.email }}</td>
                       <!-- <td> {{client.enrolleduserby_count}} Enrollees</td> -->

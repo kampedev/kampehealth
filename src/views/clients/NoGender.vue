@@ -67,8 +67,7 @@
                     <router-link
                       :to="{ path: '/client/' + client.id, params: {} }"
                     >
-                      {{ index + 1 }} {{ client.firstname }}
-                      {{ client.lastname }}
+                      {{ index + 1 }} {{ client.full_name }}
                     </router-link>
                   </td>
                   <td>{{ client.account_type }}</td>
@@ -160,8 +159,7 @@ export default {
         // 'MDA':'place_of_work',
         "NIN Number": "nimc_number",
         HMO: "usertpa.organization_name",
-        "Enrolled By First Name": "userenrolledby.firstname",
-        "Enrolled By Last Name": "userenrolledby.lastname",
+        "Enrolled By Name": "userenrolledby.full_name",
       },
       json_data: [],
       json_meta: [

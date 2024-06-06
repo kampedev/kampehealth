@@ -39,7 +39,7 @@
 
                     <button
                       class="btn btn-outline-success spacer"
-                      @click="generateCode"
+                      @click="runCheckerForCode"
                       v-if="
                         (auth_code.status != 'approved' &&
                           user.type == 'employee') ||
@@ -47,6 +47,14 @@
                       "
                     >
                       Generate Authorization Code <i class="fe fe-lock"></i>
+                    </button>
+
+                    <button
+                      data-toggle="modal"
+                      data-target="#slideRightModalAll"
+                      class="btn spacer btn-outline-success"
+                    >
+                      Services <i class="fe fe-thermometer"> </i>
                     </button>
 
                     <button
@@ -98,7 +106,7 @@
                       class="btn btn-success mt-4"
                       @click="addComment"
                     >
-                      Submit 
+                      Submit
                     </button>
                   </div>
                 </div>
@@ -119,45 +127,34 @@
                           <p class="h5">
                             <span class="text-success">Full Name: </span>
                             <router-link
-                            v-if="auth_code.enrollee != null"
+                              v-if="auth_code.enrollee != null"
                               :to="{
                                 path: '/patient/' + auth_code.enrollee.id,
                                 params: {},
                               }"
                             >
-                              {{ auth_code.enrollee.firstname }}
-                              {{ auth_code.enrollee.lastname }}
+                              {{ auth_code.enrollee.full_name }}
                             </router-link>
                           </p>
-                          <p class="h5"
-                          v-if="auth_code.enrollee != null"
-                          >
+                          <p class="h5" v-if="auth_code.enrollee != null">
                             <span class="text-success">Phone Number:</span>
                             {{ auth_code.enrollee.phone_number }}
                           </p>
-                          <p class="h5"
-                          v-if="auth_code.enrollee != null"
-                          >
+                          <p class="h5" v-if="auth_code.enrollee != null">
                             <span class="text-success">O'HIS Number:</span>
                             {{ auth_code.enrollee.id_card_number }}
                           </p>
-                          <p class="h5"
-                          v-if="auth_code.enrollee != null"
-                          >
+                          <p class="h5" v-if="auth_code.enrollee != null">
                             <span class="text-success">Gender:</span>
                             {{ auth_code.enrollee.gender }}
                           </p>
 
-                          <p class="h5"
-                          v-if="auth_code.enrollee != null"
-                          >
+                          <p class="h5" v-if="auth_code.enrollee != null">
                             <span class="text-success">Date of Birth:</span>
                             {{ auth_code.enrollee.dob }}
                           </p>
 
-                          <p class="h5"
-                          v-if="auth_code.provider != null"
-                          >
+                          <p class="h5" v-if="auth_code.provider != null">
                             <span class="text-success"
                               >Primary/Referring Facilty:</span
                             >
@@ -196,8 +193,7 @@
                           </p>
                           <p class="h5">
                             <span class="text-success">Prepared by:</span>
-                            {{ auth_code.creator.firstname }}
-                            {{ auth_code.creator.lastname }}
+                            {{ auth_code.creator.full_name }}
                           </p>
                           <p class="h5">
                             <span class="text-success">Date Prepared:</span>
@@ -289,7 +285,7 @@
           </div>
         </div>
 
-        <!-- <div class="container">
+        <div class="container">
           <div class="row list">
             <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
@@ -364,37 +360,32 @@
                                       auth_code.encounter.healthrecord
                                         .encounter_id
                                     }}
+                                    ({{ auth_code.encounter.diagnosis.name }})
                                   </router-link>
                                 </h6>
                                 <button
+                                  v-if="auth_code.id == $route.params.id"
+                                  class="btn mx-2 badge badge-soft-default"
+                                >
+                                  <i class="fe fe-droplet"></i>
+                                </button>
+                                <button
                                   v-if="auth_code.code_created != null"
-                                  class="btn m-b-15 ml-2 mr-2 badge badge-soft-secondary spacer"
+                                  class="btn mx-2 badge badge-soft-success spacer"
                                 >
                                   {{ auth_code.code_created }}
                                 </button>
+                                <a
+                                  :href="`/authorization-code/${auth_code.id}`"
+                                  class="btn mx-2 badge badge-soft-dark spacer"
+                                >
+                                  <i class="fe fe-eye"></i>
+                                </a>
                               </div>
                               <div class="ml-auto col-auto text-muted">
-                                {{ auth_code.date_requested }}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="timeline-item">
-                            <div class="timeline-wrapper">
-                              <div class="">
-                                <div class="avatar avatar-sm">
-                                  <div
-                                    class="avatar-title bg-success rounded-circle"
-                                  >
-                                    <i class="mdi mdi-account-circle"></i>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-auto">
-                                <h6 class="m-0">Enrolled on</h6>
-                              </div>
-                              <div class="ml-auto col-auto text-muted">
-                                {{ auth_code.patient.created_at }}
+                                {{
+                                  auth_code.created_at | moment("from", "now")
+                                }}
                               </div>
                             </div>
                           </div>
@@ -406,7 +397,7 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
 
         <div class="container">
           <div class="row list">
@@ -429,8 +420,8 @@
                           {{ comment.body }}
                         </p>
                         <p class="text-success">
-                          By: {{ comment.user.firstname }}
-                          {{ comment.user.lastname }} -
+                          By: {{ comment.user.full_name }}
+                          -
                           <span>{{ comment.user.type }}</span>
                         </p>
                         <p class="text-xs">
@@ -457,6 +448,186 @@
           ></loading>
         </div>
       </section>
+
+      <!--Approval Modal -->
+      <div
+        class="modal fade modal-slide-right"
+        id="slideRightModalAll"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="slideRightModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" id="printDiv" ref="printNow">
+            <div class="modal-header">
+              <h5 class="modal-title h5" id="slideRightModalLabel">
+                 Services for this Request
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <form @submit.prevent="addServiceRendered"
+              v-if="user.type == 'employee' || user.type == 'shis'"
+              >
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>Select Service </label>
+                    <v-select
+                      v-model="service.service_id"
+                      label="description"
+                      :required="!service.service_id"
+                      :options="services.data"
+                    />
+                  </div>
+
+                  <!-- <div class="form-group col-md-6" v-if="type == 'Drug'">
+                        <label for="inputPassword4">Select Drug </label>
+                        <v-select
+                          v-model="service.drug_id"
+                          label="item_data"
+                          :required="!addservice.drugs_id"
+                          :options="drugs.data"
+                        />
+                      </div> -->
+
+                  <!-- <div class="form-group col-md-4" v-if="type == 'Drug'">
+                        <label for="inputCity">Dose</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          required
+                          placeholder="1"
+                          v-model="service.dose"
+                        />
+                      </div> -->
+
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">Frequency </label>
+                    <input
+                      type="number"
+                      min="1"
+                      class="form-control"
+                      required
+                      placeholder="freq"
+                      v-model="service.frequency"
+                    />
+
+                    <!-- <select
+                          class="form-control"
+                          v-model="service.frequency"
+                        >
+                          <option value="1">Daily</option>
+                          <option value="2">BD</option>
+                          <option value="3">TDS</option>
+                          <option value="4">QDS</option>
+                        </select> -->
+                    <p class="text-dark">number of times in a day</p>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">Duration (Days) </label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="50"
+                      class="form-control"
+                      required
+                      placeholder="Qty"
+                      v-model="service.days"
+                    />
+                    <p class="text-dark">number of days</p>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <button class="btn btn-success btn-block my-6">
+                    <i class="fe fe-send"></i> Add
+                  </button>
+                </div>
+              </form>
+
+              <br />
+
+              <div class="col-md-12 m-b-30">
+                <h5>
+                  <i class="fe fe-activity"></i> Approved Services
+                  <i class="fe fe-thermometer"></i>
+                </h5>
+                <div class="table-responsive">
+                  <table class="table align-td-middle table-card">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Frequency</th>
+                        <th>Days</th>
+                        <th>Action</th>
+                        <!-- <th>Unit Cost</th> -->
+                        <!-- <th>Total Cost</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="(service, index) in auth_code.services"
+                        v-bind:key="service.id"
+                      >
+                        <td>{{ index + 1 }}</td>
+                        <td>
+                          <span v-if="service.service != null">{{
+                            service.service.description
+                          }}</span>
+                        </td>
+                        <td>{{ service.frequency }}</td>
+                        <td>{{ service.days }}</td>
+
+                        <!-- <td>
+                          &#8358;
+                          <span v-if="service.service != null">{{
+                            service.service.price
+                          }}</span>
+                        </td> -->
+                        <!-- <td>&#8358;{{ service.cost | numeral(0, 0) }}</td> -->
+
+                        <td>
+                          <button
+                          v-if="user.type == 'employee' || user.type == 'shis'"
+
+                            class="btn btn-danger"
+                            name="button"
+                            @click="deleteService(service)"
+                          >
+                            <i class="fe fe-delete"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--End of Modal -->
     </main>
   </div>
 </template>
@@ -477,6 +648,11 @@ export default {
   data() {
     return {
       user: null,
+      services: [],
+      service: {
+        frequency: 1,
+        days: 1,
+      },
       auth_code: "",
       encounter: "",
       shownotes: false,
@@ -501,9 +677,9 @@ export default {
         .get(`/api/v1/auth/single_authorization_code/${this.$route.params.id}`)
         .then((response) => {
           this.auth_code = response.data;
-          // let patient_id = response.data.enrollee.id;
+          let patient_id = this.auth_code.enrollee.id;
 
-          // this.getReferralPatient(patient_id);
+          this.getReferralPatient(patient_id);
 
           console.log(response);
           this.isLoading = false;
@@ -516,7 +692,11 @@ export default {
     getReferralPatient(patient_id) {
       this.isLoading = true;
       this.axios
-        .get(`/api/v1/auth/referrals-patient/${patient_id}`)
+        .get(`/api/v1/auth/referrals-patient/${patient_id}`, {
+          params: {
+            user_type: this.auth_code.enrollee.account_type,
+          },
+        })
         .then((response) => {
           console.log(response);
           this.referrals = response.data;
@@ -606,6 +786,17 @@ export default {
       }
     },
 
+    runCheckerForCode() {
+      if (this.auth_code.services.length < 1) {
+        this.$toasted.error("Add atleast 1 service to Approve!", {
+          position: "top-center",
+          duration: 3000,
+        });
+      } else {
+        this.generateCode();
+      }
+    },
+
     generateCode() {
       if (confirm("Are you sure you want to Approve?")) {
         this.axios
@@ -664,9 +855,63 @@ export default {
       window.print();
       document.body.innerHTML = originalContents;
     },
+
+    getServices() {
+      this.axios
+        .get(`/api/v1/auth/service-agency/95930`)
+        .then((response) => {
+          this.services = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    addServiceRendered() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      // Add claim_service
+      this.isLoading = true;
+      this.axios
+        .post("/api/v1/auth/authorization_code/add_service", {
+          service_id: this.service.service_id.id,
+          user_id: this.user.id,
+          authorizationcode_id: this.$route.params.id,
+          dose: this.service.dose,
+          frequency: this.service.frequency,
+          days: this.service.days,
+        })
+
+        .then((response) => {
+          console.log(response);
+          this.getCode();
+          this.isLoading = false;
+          this.$breadstick.notify("Added Successfully!", {
+            position: "top-right",
+          });
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+    deleteService(service) {
+      if (confirm("Are you want you want to delete?")) {
+        this.axios
+          .delete(
+            `/api/v1/auth/authorization_code/delete_service/${service.id}`
+          )
+          .then((response) => {
+            console.log(response);
+            this.getCode();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
   },
   created() {
     this.getCode();
+    this.getServices();
   },
 };
 </script>

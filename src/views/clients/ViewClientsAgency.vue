@@ -138,7 +138,7 @@
                   v-for="emoployee in employees.data"
                   v-bind:key="emoployee.id"
                 >
-                  {{ emoployee.firstname }} {{ emoployee.lastname }}
+                  {{ emoployee.full_name }} 
                 </option>
               </select>
             </div>
@@ -233,8 +233,7 @@
                             {{ client.account_type }}
                           </td>
                           <td>
-                            {{ client.firstname }}, {{ client.middlename }}
-                            {{ client.lastname }}
+                            {{ client.full_name }}
                           </td>
                           <td>{{ client.phone_number }}</td>
                           <td>{{ client.sector }}</td>
@@ -317,7 +316,7 @@
                                   v-bind:key="dep.id"
                                 >
                                   <td>
-                                    {{ dep.firstname }} {{ dep.lastname }}
+                                    {{ dep.full_name }} 
                                   </td>
                                   <td>{{ dep.relationShipType }}</td>
                                   <td>{{ dep.gender }}</td>

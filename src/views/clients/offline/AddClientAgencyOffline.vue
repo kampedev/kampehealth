@@ -1,62 +1,58 @@
 <template>
-  <section class="admin-content " id="contact-search">
-    <Navbar/>
+  <section class="admin-content" id="contact-search">
+    <Navbar />
     <main class="admin-main">
-       <div class="bg-dark m-b-30">
-           <div class="container">
-               <div class="row p-b-1 p-t-1">
+      <div class="bg-dark m-b-30">
+        <div class="container">
+          <div class="row p-b-1 p-t-1"></div>
+        </div>
+      </div>
+      <section class="">
+        <div class="container">
+          <div class="row list">
+            <div class="col-md-12">
+              <div class="card m-b-30">
+                <StudentGrid
+                  :students="students"
+                  @add-item="addStudent"
+                  @remove-item="refreshStudent"
+                  @update-item="refreshStudent"
+                />
+              </div>
+            </div>
 
-
-               </div>
-           </div>
-       </div>
-       <section class="">
-           <div class="container">
-
-               <div class="row list">
-                   <div class="col-md-12">
-                       <div class="card m-b-30">
-                         <StudentGrid
-                            :students="students"
-                            @add-item="addStudent"
-                            @remove-item="refreshStudent"
-                            @update-item="refreshStudent"
-                          />
-                       </div>
-                   </div>
-
-
-                   <div class="vld-parent">
-                        <loading :active.sync="isLoading"
-                        loader="dots"
-                        :can-cancel="true"
-                        :is-full-page="fullPage"></loading>
-                    </div>
-
-
-               </div>
-           </div>
-
-       </section>
-       </main>
-   </section>
+            <div class="vld-parent">
+              <loading
+                :active.sync="isLoading"
+                loader="dots"
+                :can-cancel="true"
+                :is-full-page="fullPage"
+              ></loading>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
 </template>
 
 <script>
-  import Navbar from '@/views/Navbar.vue'
-  // Import component
-     import Loading from 'vue-loading-overlay';
-     // Import stylesheet
-     import 'vue-loading-overlay/dist/vue-loading.css';
-     // Init plugin
-     import StudentGrid from "./OfflineEmployee.vue";
-     import { initJsStore } from "./../../../service/idb_service";
-     import { StudentService } from "./../../../service/student_service";
-     import { Global } from "./../../../global";
+import Navbar from "@/views/Navbar.vue";
+// Import component
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
+// Init plugin
+import StudentGrid from "./OfflineEmployee.vue";
+import { initJsStore } from "./../../../service/idb_service";
+import { StudentService } from "./../../../service/student_service";
+import { Global } from "./../../../global";
 
 export default {
   components: {
-     Navbar, Loading, StudentGrid
+    Navbar,
+    Loading,
+    StudentGrid,
   },
   async beforeCreate() {
     try {
@@ -76,64 +72,63 @@ export default {
   mounted() {
     this.refreshStudent();
   },
-  data(){
-    return{
+  data() {
+    return {
       isLoading: false,
       fullPage: true,
-      states:"",
-      clients:"",
-      state:"",
+      states: "",
+      clients: "",
+      state: "",
       students: [],
-      lga_states:"",
-      register:{
-                firstname:"",
-                lastname:"",
-                email:"",
-                phone_number:"",
-                type:"client",
-                username:"",
-                state:"",
-                lga:"",
-                ward:"",
-                address:"",
-            }
-    }
+      lga_states: "",
+      register: {
+        firstname: "",
+        lastname: "",
+        email: "",
+        phone_number: "",
+        type: "client",
+        username: "",
+        state: "",
+        lga: "",
+        ward: "",
+        address: "",
+      },
+    };
   },
-  beforeMount(){
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
-                .then(response => {
-                    this.clients = response.data.data
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+  beforeMount() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    this.axios
+      .get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
+      .then((response) => {
+        this.clients = response.data.data;
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
-  methods:{
-    getClients(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
-                  .then(response => {
-                      this.clients = response.data.data
-                      console.log(response)
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  })
+  methods: {
+    getClients() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .get(`/api/v1/auth/getAgencyToUser/${this.user.id}`)
+        .then((response) => {
+          this.clients = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     async refreshStudent() {
       this.students = await new StudentService().getStudents();
     },
     addStudent(student) {
       this.students.push(student);
-    }
-
-
+    },
   },
-  created(){
-    this.getClients()
-  }
-
-}
+  created() {
+    this.getClients();
+  },
+};
 </script>

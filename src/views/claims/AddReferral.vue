@@ -62,26 +62,26 @@
 
                   <div class="row col-md-12" v-if="search_result != ''">
                     <div class="form-group col-md-6">
-                      <label for="inputCity">Client Surname</label>
+                      <label for="inputCity">Client Full Name</label>
                       <input
                         type="text"
                         class="form-control"
-                        :value="search_result.data.firstname"
+                        :value="search_result.data.full_name"
                         disabled
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="inputCity">Client First Name</label>
+                      <label for="inputCity">Client DOB</label>
                       <input
                         type="text"
                         class="form-control"
-                        :value="search_result.data.lastname"
+                        :value="search_result.data.dob"
                         disabled
                       />
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label for="inputCity">Sex</label>
+                      <label for="inputCity">Gender</label>
                       <input
                         type="text"
                         class="form-control"

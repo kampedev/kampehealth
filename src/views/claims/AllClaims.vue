@@ -150,7 +150,7 @@
                   <div class="form-group col-md-6">
                     <label> Select Status </label>
                     <select class="form-control" v-model="claim_status">
-                      <option value="All">All</option>
+                      <option value="">All</option>
                       <option value="approved">Approved</option>
                       <option value="vetted">Vetted</option>
                       <option value="verified">Verified</option>
@@ -198,7 +198,8 @@
           <div class="card row list">
             <div class="card-header">
               <button class="btn btn-outline-dark float-left">
-                {{ claims.data.length }} {{ provider_id.agency_name }} Claims
+                {{ claims.data.length }} {{ claim_status }}
+                {{ provider_id.agency_name }} Claims
               </button>
 
               <button
@@ -392,7 +393,9 @@ export default {
     return {
       user: null,
       metrics: "",
-      claims: "",
+      claims: {
+        data: [],
+      },
       selected: "",
       claim_unique_id: "",
       authorization_code: "",
@@ -408,7 +411,7 @@ export default {
       to: new Date(),
       providers: "",
       tpas: "",
-      claim_status: "All",
+      claim_status: "pending",
       org_id: "",
       provider_id: "",
       date: "",

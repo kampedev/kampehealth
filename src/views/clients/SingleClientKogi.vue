@@ -9,11 +9,8 @@
               class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image"
             >
               <div class="m-b-10"></div>
-              <button v-clipboard="client.user.firstname">
-                <strong
-                  >{{ client.user.firstname }}
-                  {{ client.user.lastname }}</strong
-                >
+              <button v-clipboard="client.user.full_name">
+                <strong>{{ client.user.full_name }} </strong>
               </button>
             </div>
           </div>
@@ -358,7 +355,7 @@
                   <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
                     <p class="spacer-top-bottom">
                       <strong>Dependent Name {{ index + 1 }} :</strong>
-                      {{ dep.firstname }} {{ dep.lastname }}
+                      {{ dep.full_name }}
                     </p>
                     <hr />
                   </div>
@@ -368,8 +365,7 @@
                     v-if="client.enrolled_by != null"
                   >
                     <strong>Enrolled By:</strong>
-                    {{ client.enrolled_by.firstname }}
-                    {{ client.enrolled_by.lastname }}
+                    {{ client.enrolled_by.full_name }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">

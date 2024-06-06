@@ -1,5 +1,5 @@
 <template>
-  <section class="admin-content " id="contact-search">
+  <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
       <div class="bg-dark m-b-30">
@@ -7,7 +7,7 @@
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
               <div class="m-b-10">
-                <div class="avatar ">
+                <div class="avatar">
                   <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                 </div>
               </div>
@@ -55,11 +55,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="client in clients" v-bind:key="client.id">
-                          
-                          <td>
-                            {{ client.firstname }} {{ client.lastname }}
-                            {{ client.id }}
-                          </td>
+                          <td>{{ client.full_name }} {{ client.id }}</td>
                           <td>{{ client.phone_number }}</td>
                           <td>{{ client.type }}</td>
                           <td>{{ client.agency_name }}</td>
@@ -69,7 +65,7 @@
                               type="button"
                               @click="valuepasser(client)"
                               class="btn btn-default"
-                              style="margin-left:10px; margin-top:10px;"
+                              style="margin-left: 10px; margin-top: 10px"
                             >
                               <i class="fe fe-star"></i>
                             </button>
@@ -78,7 +74,7 @@
                               type="button"
                               @click="deleteUser(client)"
                               class="btn btn-danger"
-                              style="margin-left:10px; margin-top:10px;"
+                              style="margin-left: 10px; margin-top: 10px"
                             >
                               <i class="fe fe-delete"></i>
                             </button>

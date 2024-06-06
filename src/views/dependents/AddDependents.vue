@@ -221,8 +221,7 @@
                   </td>
                   <td>
                     <router-link :to="{ path: '/provider-' + dependent.id }">
-                      {{ dependent.firstname }} {{ dependent.middlename }}
-                      {{ dependent.lastname }}
+                      {{ dependent.full_name }} 
                     </router-link>
                   </td>
                   <td>{{ dependent.id_card_number }}</td>

@@ -30,7 +30,7 @@
             <div class="card m-b-30">
               <div class="card-header">
                 <p class="h5 text-center">
-                  {{ auth_user.firstname }} {{ auth_user.lastname }}
+                  {{ auth_user.full_name }}
                 </p>
               </div>
 
@@ -153,7 +153,7 @@
             <div class="card m-b-30">
               <div class="card-header">
                 <p class="h5 text-center">
-                  {{ auth_user.firstname }} {{ auth_user.lastname }}
+                  {{ auth_user.full_name }} 
                 </p>
 
                 <div class="avatar mx-auto d-block">

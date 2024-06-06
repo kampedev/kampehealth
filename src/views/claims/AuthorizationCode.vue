@@ -74,11 +74,55 @@
                             :options="statuses"
                           />
                         </div>
+
+                   <div class="form-group col-md-5">
+                  <label for="inputCity"
+                    ><i class="fe fe-calendar"></i> Start Date
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    v-model="query.from"
+                  />
+                </div>
+
+                <div class="form-group col-md-5">
+                  <label for="inputCity"
+                    ><i class="fe fe-calendar"></i> End Date
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    v-model="query.to"
+                  />
+                </div>
+
+                <div class="col-md-2 form-group">
+                  <label for="">Rows</label>
+                  <select class="form-control" v-model="query.paginate_value">
+                    <option>30</option>
+                    <option>100</option>
+                    <option>500</option>
+                    <option>1000</option>
+                    <option>2000</option>
+                  </select>
+                </div>
                       </div>
 
                       <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block">
                           Filter
+                        </button>
+
+                        <button class="btn btn-outline-dark my-2 btn-block">
+                          <download-excel
+                            :data="codes.data"
+                            :fields="json_fields"
+                            type="xls"
+                            :escapeCsv="false"
+                            :name="'authorization_codes_data' + '.xls'"
+                          >
+                          </download-excel>
                         </button>
                       </div>
                     </form>
@@ -378,12 +422,24 @@ export default {
       showadder: false,
       userDetails: false,
       statuses: ["pending", "approved", "rejected"],
+      json_fields: {
+        "Date Requested": "created_at",
+        "Auth Code": "code_created",
+        "Code Usage": "code_usage",
+        "Primary Diagnosis": "encounter.diagnosis.name",
+        "Enrollee OHIS Number": "enrollee.id_card_number",
+        "Intra Referral": "intra_referral",
+        "Primary Facility": "provider.agency_name",
+        "Secondary Facility": "recipientfacility.agency_name",
+      },
       query: {
         provider_id: "",
         status: "",
+        from: "",
+        to: "",
+        paginate_value: "",
       },
       codes: "",
-      // singlerecipient: "08024035326",
       message:
         "Authorization Code is needed. Go to https://app.oshia.ng/authorization-code  to generate.",
       searchkey: "",
@@ -414,7 +470,7 @@ export default {
       ) {
         this.getCodesProvider(currentPage);
       }
-    
+
       if (this.user.type == "employee" || this.user.type == "shis") {
         this.getCodesAgency(currentPage);
       }
@@ -428,6 +484,9 @@ export default {
             page: currentPage,
             provider_id: this.query.provider_id.id,
             status: this.query.status,
+            paginate_value: this.query.paginate_value,
+            from: this.query.from,
+            to: this.query.to,
           },
         })
         .then((response) => {
@@ -442,10 +501,13 @@ export default {
     getCodesProvider(currentPage) {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/authorization_code-provider`,{
+        .get(`/api/v1/auth/authorization_code-provider`, {
           params: {
             page: currentPage,
-          }
+            paginate_value: this.query.paginate_value,
+            from: this.query.from,
+            to: this.query.to,
+          },
         })
         .then((response) => {
           this.codes = response.data;

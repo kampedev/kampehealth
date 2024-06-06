@@ -45,8 +45,7 @@
         <div class="user__details--container-main">
           <h1 class="name">
             <span v-if="encounterDetails.enrollee != null">
-              {{ encounterDetails.enrollee.lastname }}
-              {{ encounterDetails.enrollee.firstname }}
+              {{ encounterDetails.enrollee.full_name }}
             </span>
           </h1>
 
@@ -153,8 +152,7 @@
               </p>
               <p class="other__detail">
                 <strong>Desk Officer: </strong>
-                {{ encounterDetails.healthrecord.professional.lastname }}
-                {{ encounterDetails.healthrecord.professional.firstname }}
+                {{ encounterDetails.healthrecord.professional.full_name }}
               </p>
               <p class="other__detail">
                 <strong>Desk Officer's Phone Number: </strong>

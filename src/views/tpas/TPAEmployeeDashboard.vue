@@ -10,7 +10,7 @@
 
             <div class="row">
                 <div class="col-12 m-b-20">
-                    <h5 class="spacer-top">{{user.firstname}} {{user.lastname}}</h5>
+                    <h5 class="spacer-top">{{user.full_name}} </h5>
                 </div>
 
                 <div class="col-lg-6 col-md-6">
@@ -78,7 +78,7 @@
                                                                     alt=""></div>
                             </td>
                               <td>
-                                {{client.firstname}} {{client.lastname}}
+                                {{client.full_name}} 
                               </td>
                               <td>{{client.phone_number}}</td>
                               <td> {{client.sector}}</td>

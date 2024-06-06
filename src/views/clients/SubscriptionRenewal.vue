@@ -187,8 +187,7 @@
               :key="index"
             >
               <strong>Dependent {{ dependentChar(index) }}: </strong>
-              {{ dependant.firstname }}
-              {{ dependant.lastname }}
+              {{ dependant.full_name }}
             </p>
           </div>
           <p class="other__detail">

@@ -84,8 +84,7 @@
                             <router-link
                               :to="{ path: '/provider-' + provider.id }"
                             >
-                              {{ enrollee.firstname }} {{ enrollee.lastname }}
-                            </router-link>
+                              {{ enrollee.full_name }} </router-link>
                           </td>
                           <td>{{ enrollee.phone_number }}</td>
                           <td>{{ enrollee.sector }}</td>
@@ -142,8 +141,7 @@
                   </p>
                   <br />
                   <p>
-                    <strong>Contact Name:</strong> {{ provider.firstname }}
-                    {{ provider.lastname }}
+                    <strong>Contact Name:</strong> {{ provider.full_name }}
                   </p>
                   <br />
                   <p><strong>E - Mail:</strong> {{ provider.email }}</p>

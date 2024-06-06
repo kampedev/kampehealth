@@ -313,7 +313,6 @@ export default {
     this.register.provider_id = this.user.institutional_id;
   },
   methods: {
-
     fetchWards() {
       this.axios
         .get(`/api/v1/auth/getwards/${event.target.value}`)
@@ -325,7 +324,7 @@ export default {
           console.error(error);
         });
     },
-   
+
     fetchLga() {
       this.axios
         .get(`/api/v1/auth/lga/2676`)
@@ -337,7 +336,7 @@ export default {
           console.error(error);
         });
     },
-  
+
     registerUser() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.isLoading = true;
@@ -364,7 +363,7 @@ export default {
           dob: this.register.dob,
           address1: this.register.address,
           gender: this.register.gender,
-          marital_status: this.register.marital_status,        
+          marital_status: this.register.marital_status,
         })
         .then((response) => {
           console.log(response);

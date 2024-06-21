@@ -117,6 +117,7 @@ import DuplicateUsers from "../views/clients/DuplicateUsers.vue";
 import DuplicateDependents from "../views/clients/DuplicateDependents.vue";
 import DuplicateUsersIDcard from "../views/clients/DuplicateUsersIDcard.vue";
 import DBQuery from "../views/shis/DBQuery.vue";
+import extraData from "../views/clients/extraData";
 import SubscriptionRenewal from "../views/clients/SubscriptionRenewal.vue";
 import EcounterPatientPage from "../views/shis/components/EncounterPatientPage.vue";
 import ManageDiagnosis from "../views/shis/ManageDiagnosis.vue";
@@ -266,6 +267,13 @@ const routes = [
     },
   },
   {
+    path: "/manage-extra",
+    component: extraData,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/add-client/employee-offline",
     component: AddClientEmployeeOffline,
     meta: {
@@ -387,7 +395,6 @@ const routes = [
     },
   },
 
-  
   {
     path: "/hmo-dashboard",
     component: HDashboard,
@@ -552,7 +559,7 @@ const routes = [
   },
   {
     path: "/transaction/:id",
-    component: SingleTransaction, 
+    component: SingleTransaction,
     meta: {
       requiresAuth: true,
     },
@@ -873,7 +880,7 @@ const routes = [
       requiresAuth: true,
     },
   },
- 
+
   // {
   //   path: '/provider-employee',
   //   component: ProviderEmployee,

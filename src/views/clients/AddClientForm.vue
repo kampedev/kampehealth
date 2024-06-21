@@ -75,7 +75,9 @@
                             <option value="Voluntary Contributor">
                               Voluntary Contributor
                             </option>
-                            <option  value="State Pensioners Plan">State Pensioners Plan</option>
+                            <option value="State Pensioners Plan">
+                              State Pensioners Plan
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -125,6 +127,22 @@
                           </option>
                           <option value="Poorest of the Poor">
                             Poorest of the Poor
+                          </option>
+                        </select>
+                      </div>
+
+                      <div
+                        class="form-group col-md-12"
+                        v-if="register.sector == 'State Pensioners Plan'"
+                      >
+                        <label>Category of Pensioner</label>
+                        <select
+                          class="form-control"
+                          v-model="register.category_of_vulnerable_group"
+                        >
+                          <option value="Contributory">Contributory</option>
+                          <option value="Non-Contributory">
+                            Non-Contributory
                           </option>
                         </select>
                       </div>
@@ -185,6 +203,8 @@
                         <input
                           type="date"
                           required
+                          :min="minDate"
+                          :max="maxDate"
                           class="form-control"
                           v-model="register.dob"
                         />
@@ -240,7 +260,7 @@
 
                       <div
                         class="form-group col-md-6"
-                        v-if="sector == 'formal'"
+                        v-if="register.sector == 'State Pensioners Plan'"
                       >
                         <label for="inputCity">Select MDA</label>
                         <select
@@ -249,7 +269,7 @@
                         >
                           <option
                             :value="mda.name"
-                            v-for="mda in mdas"
+                            v-for="mda in mdas.data"
                             v-bind:key="mda.id"
                           >
                             {{ mda.name }}
@@ -259,14 +279,14 @@
 
                       <div
                         class="form-group col-md-6"
-                        v-if="sector == 'formal'"
+                        v-if="register.sector == 'State Pensioners Plans'"
                       >
-                        <label for="inputEmail4">Computer Number</label>
+                        <label for="inputEmail4">File Number</label>
                         <input
                           type="text"
                           class="form-control"
                           v-model="register.salary_number"
-                          placeholder="Computer Employment Number"
+                          placeholder="File Number"
                         />
                       </div>
 
@@ -506,6 +526,26 @@ export default {
     this.user = JSON.parse(localStorage.getItem("user"));
   },
 
+  computed: {
+    minDate() {
+      if (this.register.sector == "State Pensioners Plan") {
+        // const min = new Date(this.currentDate);
+        // min.setFullYear(min.getFullYear() - 60);
+        // return min.toISOString().split("T")[0];
+        return "1920-01-01";
+      }
+      return null;
+    },
+
+    maxDate() {
+      if (this.register.sector == "State Pensioners Plan") {
+       
+        return  "1964-01-01";
+      }
+      return null;
+    },
+  },
+
   methods: {
     submitForm() {
       if (this.user.type == "employee") {
@@ -557,7 +597,7 @@ export default {
     },
     getMDAs() {
       this.axios
-        .get(`/api/v1/auth/ministry`)
+        .get(`/api/v1/auth/ministry/95930`)
         .then((response) => {
           this.mdas = response.data;
           console.log(response);

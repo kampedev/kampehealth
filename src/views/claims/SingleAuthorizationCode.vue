@@ -787,14 +787,18 @@ export default {
     },
 
     runCheckerForCode() {
-      if (this.auth_code.services.length < 1) {
-        this.$toasted.error("Add atleast 1 service to Approve!", {
-          position: "top-center",
-          duration: 3000,
-        });
-      } else {
-        this.generateCode();
-      }
+
+      this.generateCode();
+      // if (this.auth_code.services.length < 1) {
+      //   this.$toasted.error("Add atleast 1 service to Approve!", {
+      //     position: "top-center",
+      //     duration: 3000,
+      //   });
+      // } else {
+
+      //   this.generateCode();
+     
+      // }
     },
 
     generateCode() {

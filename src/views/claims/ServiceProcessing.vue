@@ -24,10 +24,9 @@
                 <div class="">
                   <form @submit.prevent="addServiceRendered">
                     <div class="row">
-                      <!-- <div class="form-group col-md-6">
+                      <div class="form-group col-md-6">
                         <label>Select Type</label>
                         <select
-                        disabled
                           class="form-control"
                           v-model="type"
                           required
@@ -36,7 +35,7 @@
                           <option value="Drug">Drug</option>
                           <option value="Service">Service</option>
                         </select>
-                      </div> -->
+                      </div>
 
                       <div class="form-group col-md-6" v-if="type == 'Service'">
                         <label>Select Service </label>
@@ -254,7 +253,7 @@ export default {
       edit: false,
       isLoading: false,
       fullPage: true,
-      type: "Drug",
+      type: "",
       selected_type: "",
       addservice: {
         services_id: "",

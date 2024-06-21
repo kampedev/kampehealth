@@ -145,6 +145,20 @@
                       :options="providers"
                       @change="getClaims"
                     />
+
+                    <button
+                      class="btn btn-outline-warning btn-sm my-1"
+                      @click="getProviders('pending')"
+                    >
+                      pending
+                    </button>
+
+                    <button
+                      class="btn btn-outline-dark btn-sm my-1 ml-1"
+                      @click="getProviders('vetted')"
+                    >
+                      vetted
+                    </button>
                   </div>
 
                   <div class="form-group col-md-6">
@@ -158,28 +172,27 @@
                       <option value="rejected">Rejected</option>
                     </select>
                   </div>
+
+                  <div class="form-group col-md-6">
+                    <label> Select Date Query </label>
+                    <select class="form-control" v-model="date">
+                      <option value="created_at">Created At</option>
+                      <option value="checked_by_date">Vetted Date</option>
+                      <option value="verified_by_date">Verified Date</option>
+                    </select>
+                  </div>
                   <div class="form-group col-md-6">
                     <label for="inputCity"
                       ><i class="fe fe-calendar"></i> Start Date
                     </label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      v-model="from"
-                      @change="pushDate"
-                    />
+                    <input type="date" class="form-control" v-model="from" />
                   </div>
 
                   <div class="form-group col-md-6">
                     <label for="inputCity"
                       ><i class="fe fe-calendar"></i> End Date
                     </label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      v-model="to"
-                      @change="pushDate"
-                    />
+                    <input type="date" class="form-control" v-model="to" />
                   </div>
                   <div class="col-md-12">
                     <button
@@ -417,8 +430,9 @@ export default {
       date: "",
       json_fields: {
         "Claim ID": "claim_unique_id",
-        "Enrollee Full Name": "patient.full_name",
-        "Enrollee OHIS Number": "patient.id_card_number",
+        "Enrollee Full Name": "enrollee.full_name",
+        "Enrollee OHIS Number": "enrollee.id_card_number",
+        "Enrollee Phone Number": "enrollee.phone_number",
         Diagnosis: "diagnosis.name",
         "Verified Amount": "approved_total_cost",
         "Authorization Code": "authorization_code",
@@ -462,10 +476,15 @@ export default {
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
               provider_id: this.provider_id.id,
-              paginate_value: "20",
-              date: this.date,
+              // paginate_value: "20",
+              created_at: this.date == "created_at" ? "created_at" : null,
+              checked_by_date:
+                this.date == "checked_by_date" ? "checked_by_date" : null,
+              verified_by_date:
+                this.date == "verified_by_date" ? "verified_by_date" : null,
+
               from: this.from,
-              to: this.addOneDay,
+              to: this.to,
             },
           })
           .then((response) => {
@@ -487,9 +506,14 @@ export default {
               claim_unique_id: this.claim_unique_id,
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
-              date: this.date,
+              created_at: this.date == "created_at" ? "created_at" : null,
+              checked_by_date:
+                this.date == "checked_by_date" ? "checked_by_date" : null,
+              verified_by_date:
+                this.date == "verified_by_date" ? "verified_by_date" : null,
+
               from: this.from,
-              to: this.addOneDay,
+              to: this.to,
             },
           })
           .then((response) => {
@@ -513,9 +537,14 @@ export default {
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
               // org_id: this.org_id,
-              date: this.date,
+              created_at: this.date == "created_at" ? "created_at" : null,
+              checked_by_date:
+                this.date == "checked_by_date" ? "checked_by_date" : null,
+              verified_by_date:
+                this.date == "verified_by_date" ? "verified_by_date" : null,
+
               from: this.from,
-              to: this.addOneDay,
+              to: this.to,
             },
           })
           .then((response) => {
@@ -528,15 +557,28 @@ export default {
           });
       }
     },
-    getProviders() {
+    getProviders(status) {
+      this.isLoading = true;
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        // .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/getProviderByClaims/95930`, {
+          params: {
+            checked_by_id: status == "pending" ? "pending" : null,
+            verified_by_id: status == "vetted" ? "vetted" : null,
+          },
+        })
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
+          this.isLoading = false;
+          this.$toasted.info("Facility Fetched Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
         })
         .catch((error) => {
           console.error(error);
+          this.isLoading = false;
         });
     },
 
@@ -561,7 +603,6 @@ export default {
   },
   created() {
     this.getClaims();
-    this.getProviders();
   },
 };
 </script>

@@ -17,7 +17,9 @@
       </div>
 
       <div class="container">
-        <a class="btn btn-dark my-3" href="/Sample_Data.xlsx">Download Sample Format</a>
+        <a class="btn btn-dark my-3" href="/Sample_Data.xlsx"
+          >Download Sample Format</a
+        >
         <div class="row list">
           <div class="col-lg-12 col-md-12">
             <div class="card m-b-30">

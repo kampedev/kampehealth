@@ -311,6 +311,19 @@
                   </span>
                 </a>
               </li>
+              <li
+                class="menu-item"
+                v-if="user.type == 'shis' || user.user_role == 1"
+              >
+                <a href="/manage-extra" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Manage Expiries </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder mdi mdi-view-day"></i>
+                  </span>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="menu-item" v-if="user.type == 'client'">

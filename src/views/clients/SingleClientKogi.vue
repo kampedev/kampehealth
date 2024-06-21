@@ -304,7 +304,7 @@
                       <strong class="text-primary">
                         FACILITY TO ACCESS CARE:</strong
                       >
-                      <strong>{{ client.provider.agency_name }}</strong>
+                      <strong  v-if="client.provider" >{{ client.provider.agency_name }}</strong>
                     </p>
 
                     <hr />

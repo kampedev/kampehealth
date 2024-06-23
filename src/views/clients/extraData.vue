@@ -24,10 +24,13 @@
       </div>
       <div class="container">
         <div class="card my-6">
-          <form @submit.prevent="getData" method="post" class="card-body">
+          <form
+            @submit.prevent="getData(currentPage ? currentPage : 1)"
+            class="card-body"
+          >
             <div class="row">
               <div class="form-group col-md-6">
-                <label>Principal Facility for Accessing Health Care </label>
+                <label>Select Facility </label>
                 <v-select
                   v-model="register.provider_id"
                   :options="providers"
@@ -37,14 +40,8 @@
               </div>
 
               <div class="form-group col-md-6">
-                <label for="inputCity"
-                  >LGA <span class="text-danger">*</span></label
-                >
-                <select
-                  class="form-control"
-                  required
-                  v-model="register.localgovt"
-                >
+                <label for="inputCity">LGA </label>
+                <select class="form-control" v-model="register.localgovt">
                   <option
                     v-for="lga in lga_states"
                     v-bind:key="lga"
@@ -67,10 +64,12 @@
           <div class="col-md-7">
             <div class="card m-b-30">
               <div class="card-header">
-                <h5 class="m-b-0">
+                <h5 class="h5 mb-4">
                   <i class="mdi mdi-checkbox-intermediate"></i> Data Info
                   {{ info.meta.total }}
                 </h5>
+                <p class="h6">Principals: {{ info.meta.total_principal }}</p>
+                <p class="h6">Dependents: {{ info.meta.total_dep }}</p>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -104,6 +103,16 @@
                       </tr>
                     </tbody>
                   </table>
+
+                  <div class="text-center">
+                    <b-pagination
+                      v-model="currentPage"
+                      :total-rows="rows"
+                      :per-page="15"
+                      aria-controls="my-table"
+                      @input="getData(currentPage ? currentPage : 1)"
+                    ></b-pagination>
+                  </div>
                 </div>
               </div>
             </div>
@@ -128,7 +137,7 @@
                       <img
                         :src="`https://insurance-api.hayokmedicare.ng/image/${selected.user_image}`"
                         class="img-thumbnail mt-3"
-                        onerror="this.onerror=null; this.src='/kschma_logo.jpg'"
+                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                       />
                     </div>
 
@@ -186,21 +195,31 @@
                     </div>
 
                     <div class="row my-8">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <button
                           class="btn btn-success btn-block"
                           @click="date_form = true"
                         >
-                          Renew Expiration
+                          Renew
                         </button>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <button
                           class="btn btn-danger btn-block"
                           @click="disableUser(selected)"
                         >
                           Disable User
                         </button>
+                      </div>
+
+                      <div class="col-md-4">
+                        <a
+                          :href="`/${selected.type}/${selected.id}`"
+                          target="_blank"
+                          class="btn btn-dark btn-block"
+                        >
+                          visit
+                        </a>
                       </div>
                     </div>
 
@@ -243,7 +262,13 @@ export default {
     return {
       isLoading: false,
       date_form: false,
-      register: {},
+      rows: "",
+      register: {
+        localgovt: "",
+        provider_id: {
+          id: "",
+        },
+      },
       lga_states: [],
       providers: [],
       info: {
@@ -267,14 +292,20 @@ export default {
           console.error(error);
         });
     },
-    getData() {
+    getData(currentPage) {
       this.axios
-        .get(`/api/v1/auth/get-expiry-due/95930`, {
-          provider_id: this.register.provider_id.id,
-          localgovt: this.register.localgovt,
-        })
+        .post(
+          `/api/v1/auth/get-expiry-due/95930`,
+
+          {
+            page: currentPage,
+            provider_id: this.register.provider_id.id,
+            localgovt: this.register.localgovt,
+          }
+        )
         .then((response) => {
           this.info = response.data;
+          this.rows = response.data.meta.total;
         })
         .catch((error) => {
           console.error(error);

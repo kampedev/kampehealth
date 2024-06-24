@@ -640,7 +640,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post(
-          `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${this.message}&recipients=+2348033886362`,
+          `https://api.bulksmslive.com/v2/app/sms?email=info@oshia.ng&password=osun@4141&sender_name=OHIS&message=${this.message}&recipients=+2348033886362`,
           {}
         )
         .then((response) => {

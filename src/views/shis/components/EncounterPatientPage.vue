@@ -50,7 +50,7 @@
           </h1>
 
           <img
-          v-if="encounterDetails.enrollee != null"
+            v-if="encounterDetails.enrollee != null"
             :src="`https://insurance-api.hayokmedicare.ng/image/${encounterDetails.enrollee.user_image}`"
             alt="Enrollee Image"
             class="enrollee__img"
@@ -436,7 +436,7 @@ export default {
       let message = `your code requested is successful. Go to https://app.oshia.ng/authorization-code  `;
       this.axios
         .post(
-          `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${message}&recipients=${this.encounterDetails.creator.phone_number}`,
+          `https://api.bulksmslive.com/v2/app/sms?email=info@oshia.ng&password=osun@4141&sender_name=OHIS&message=${message}&recipients=${this.encounterDetails.creator.phone_number}`,
           {}
         )
         .then((response) => {

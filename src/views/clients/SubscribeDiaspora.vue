@@ -113,14 +113,14 @@
               <div class="card-body">
                 <div class="form-row">
                   <div class="form-group col-md-12">
-                    <label for="inputPassword4"
-                      ><strong>Select Payment Method: </strong></label
+                    <!-- <label for="inputPassword4"
+                      ><strong>Select Payment Method: </strong></label -->
                     >
-                    <select class="form-control" v-model="payment_type">
+                    <!-- <select class="form-control" v-model="payment_type">
                       <option value="online">Pay Online</option>
 
                       <option value="offline">Pay Offline</option>
-                    </select>
+                    </select>  -->
                     <label for="inputPassword4"
                       ><strong
                         >Selected Plan: {{ auth_user.plan_type }}
@@ -136,17 +136,16 @@
                         v-bind:key="plan.id"
                         :value="plan.plan_name"
                       >
-                        {{ plan.plan_name }} Plan (&#8358;
-                        {{ plan.plan_cost | numeral(0, 0) }} )
+                        {{ plan.plan_name }} Plan ${{
+                          plan.plan_cost | numeral(0, 0)
+                        }}
                       </option>
                     </select>
-                    <p class="h6 spacer-top-bot">
-                      Fee: &#8358; {{ getPlan.fee }}
-                    </p>
+                    <p class="h6 mt-4">Fee: $ {{ getPlan.fee }}</p>
                     <hr />
-                    <p class="h5 spacer-top-bot">
+                    <p class="h5 mt-4">
                       <b
-                        >Total: &#8358;
+                        >Total: $
                         {{ (getPlan.plan_cost + getPlan.fee) | numeral(0, 0) }}
                       </b>
                     </p>
@@ -173,9 +172,9 @@
                             </p>
                             <p>
                               <!-- Thank you for enrolling under the Osun Health
-                              Insurance Scheme. The plan you selected covers
-                              ONLY ONE PERSON for a period of 12 months at the
-                              cost of #12,066.  -->
+                                Insurance Scheme. The plan you selected covers
+                                ONLY ONE PERSON for a period of 12 months at the
+                                cost of #12,066.  -->
                               Upon payment, you will be able to access robust,
                               qualitative healthcare services as contained in
                               our benefit package. Please note that this
@@ -191,24 +190,24 @@
                   </div>
                 </div>
 
-                <div class="col-lg-12">
-                  <paystack
-                    :amount="totalCost * 100"
-                    :email="auth_user.email"
-                    :paystackkey="paystackkey"
-                    :reference="reference"
-                    :callback="callback"
-                    :first_name="auth_user.firstname"
-                    :last_name="auth_user.lastname"
-                    :phone="auth_user.phone_number"
-                    :close="close"
-                    :embed="false"
-                    v-if="payment_type == 'online'"
-                  >
-                    <button class="btn btn-dark btn-block btn-lg">
+                <div class="col-md-12">
+                  <button class="btn btn-dark btn-block">
+                    <paystack
+                      :amount="totalCost * 100"
+                      :email="auth_user.email"
+                      :paystackkey="paystackkey"
+                      :reference="reference"
+                      :callback="callback"
+                      :first_name="auth_user.firstname"
+                      :last_name="auth_user.lastname"
+                      :phone="auth_user.phone_number"
+                      :close="close"
+                      :embed="false"
+                      v-if="payment_type == 'online'"
+                    >
                       Proceed to Pay (Online)
-                    </button>
-                  </paystack>
+                    </paystack>
+                  </button>
 
                   <button
                     class="btn btn-dark btn-block btn-lg"
@@ -284,8 +283,8 @@
     </section>
   </section>
 </template>
-
-<script>
+  
+  <script>
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -318,16 +317,16 @@ export default {
           plan_name: "Individual",
           description:
             "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to cheap and qualititative healthcare coverage. It allows no depandent(s).",
-          plan_cost: 12066,
-          fee: 280.99,
+          plan_cost: 15,
+          fee: 2,
         },
         {
           id: 2,
           plan_name: "Family",
           description:
             " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to cheap and qualititative healthcare coverage. It allows a Maximum of 5-depandent(s).",
-          plan_cost: 57600,
-          fee: 964.0,
+          plan_cost: 15,
+          fee: 2,
         },
       ],
       plan_id: null,
@@ -370,7 +369,8 @@ export default {
     },
 
     totalCost() {
-      return this.getPlan.plan_cost + this.getPlan.fee;
+      //   return this.getPlan.plan_cost + 2 ;
+      return 0;
     },
 
     reference() {
@@ -473,7 +473,6 @@ export default {
       this.imagefile = "data:image/png;base64," + imageUrl;
       this.savePic();
     },
-
     savePic() {
       this.isLoading = true;
       this.axios
@@ -529,9 +528,6 @@ export default {
   },
 };
 </script>
-<style scoped>
-.spacer-top-bot {
-  margin-top: 10px;
-  margin-bottom: 15px;
-}
+  <style scoped>
 </style>
+  

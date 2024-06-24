@@ -253,6 +253,17 @@
                 </a>
               </li>
 
+              <li class="menu-item">
+                <a href="/diaspora-registration" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Diaspora Enrollment</span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-user-plus"></i>
+                  </span>
+                </a>
+              </li>
+
               <!-- <li class="menu-item">
                 <router-link to="/add-client-offline" class=" menu-link">
                   <span class="menu-label">

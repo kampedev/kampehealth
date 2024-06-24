@@ -124,7 +124,7 @@
                             />
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputCity">Client Surname  </label>
+                            <label for="inputCity">Client Surname </label>
                             <input
                               type="text"
                               class="form-control"
@@ -335,7 +335,6 @@
                             </button>
                           </div>
                         </div>
-
                       </div>
                     </div>
 

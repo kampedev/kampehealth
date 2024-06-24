@@ -878,6 +878,11 @@
 "@capacitor/android@^4.1.0":
   "version" "4.8.1"
 
+"@capacitor/camera@^5.0.7":
+  "integrity" "sha512-DOLYjiaOdUQk8mtAAgliqVVJaGegC7VzV4Tk3j1rjXyuc8JeX5SJOfow4v0N+NYxyGMsEEtwNnVZ1B7yzxsrVg=="
+  "resolved" "https://registry.npmjs.org/@capacitor/camera/-/camera-5.0.10.tgz"
+  "version" "5.0.10"
+
 "@capacitor/cli@^4.1.0":
   "version" "4.8.1"
   dependencies:
@@ -899,7 +904,7 @@
     "tslib" "^2.4.0"
     "xml2js" "^0.5.0"
 
-"@capacitor/core@^4.1.0", "@capacitor/core@^4.8.0":
+"@capacitor/core@^4.1.0", "@capacitor/core@^4.8.0", "@capacitor/core@^5.0.0":
   "version" "4.8.1"
   dependencies:
     "tslib" "^2.1.0"
@@ -948,6 +953,11 @@
     "@ionic/utils-terminal" "2.3.3"
     "debug" "^4.0.0"
     "tslib" "^2.0.1"
+
+"@ionic/pwa-elements@^3.3.0":
+  "integrity" "sha512-vbykpxd2nGRlA67AnqDwsiVf8PUmInLyi6lQdnPDjeiML1WZa0CPe6r632nGDV9PTi+sWNde9Xexg9SD6Pwyqw=="
+  "resolved" "https://registry.npmjs.org/@ionic/pwa-elements/-/pwa-elements-3.3.0.tgz"
+  "version" "3.3.0"
 
 "@ionic/utils-array@2.1.5":
   "version" "2.1.5"

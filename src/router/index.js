@@ -17,6 +17,7 @@ import OnboardClient from "../views/onboarding/OnboardClient.vue";
 import AllDashboard from "../views/Dashboard.vue";
 import Dashboard from "../views/clients/Dashboard.vue";
 import Subscribe from "../views/clients/Subscribe.vue";
+import SubscribeDiaspora from "../views/clients/SubscribeDiaspora.vue";
 import SubscribeSuccess from "../views/clients/SubscribeSuccess.vue";
 import AddClientAgency from "../views/clients/AddClientAgency.vue";
 import AddClientAgencyOffline from "../views/clients/offline/AddClientAgencyOffline.vue";
@@ -26,6 +27,7 @@ import EditOfflineEmployee from "../views/clients/offline/EditOfflineEmployee.vu
 import AddDependentsOffline from "../views/clients/offline/AddDependentsOffline.vue";
 import AddClientFormFormal from "../views/clients/AddClientFormFormal.vue";
 import AddClientFormVoluntary from "../views/clients/AddClientFormVoluntary.vue";
+import AddClientDiaspora from "../views/clients/AddClientDiaspora.vue";
 import EditProvider from "../views/providers/EditProvider.vue";
 import UpdateProviderBank from "../views/providers/UpdateProviderBank.vue";
 import ManageClientsEmployee from "../views/clients/ManageClientsEmployee.vue";
@@ -234,6 +236,10 @@ const routes = [
     component: Subscribe,
   },
   {
+    path: "/subscribe-diaspora/:id",
+    component: SubscribeDiaspora,
+  },
+  {
     path: "/subscribe-success/:id",
     component: SubscribeSuccess,
   },
@@ -297,9 +303,10 @@ const routes = [
   {
     path: "/voluntary-registration-form",
     component: AddClientFormVoluntary,
-    // meta: {
-    //     requiresAuth: true,
-    //   },
+  },
+  {
+    path: "/diaspora-registration",
+    component: AddClientDiaspora,
   },
   {
     path: "/manage-clients",

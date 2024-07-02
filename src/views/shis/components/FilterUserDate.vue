@@ -22,30 +22,28 @@
                       <option value="State Equity Program">
                         State Equity Program
                       </option>
-                      <option value="Vulnerable Groups"
-                              >Vulnerable Groups</option
-                            >
-                            
+                      <option value="Vulnerable Groups">
+                        Vulnerable Groups
+                      </option>
+
                       <option value="Voluntary Contributor">
                         Voluntary Contributor
                       </option>
 
-                      <option value="Civil Servant">
-                        Civil Servant
-                      </option>
+                      <option value="Civil Servant">Civil Servant</option>
                       <option value="State Public Servant">
                         State Public Servant
                       </option>
                       <!-- <option value="LGA Civil Servant">
                         LGA Civil Servant
                       </option> -->
-                      <option
-                        value="Universal Basic Education Board"
-                      >
+                      <option value="Universal Basic Education Board">
                         Universal Basic Education Board
                       </option>
 
-                      <option  value="State Pensioners Plan">State Pensioners Plan</option>
+                      <option value="State Pensioners Plan">
+                        State Pensioners Plan
+                      </option>
 
                       <!-- <option
                         value="Tertiary Student Health Insurance Plan (T-SHIP)"
@@ -90,19 +88,19 @@
                   </div>
 
                   <div class="form-group col-md-3">
-              <label for="inputCity"
-                ><i class="fe fe-briefcase"></i> Select MDA
-              </label>
-              <select class="form-control" v-model="place_of_work">
-                <option
-                  :value="mda.name"
-                  v-for="mda in mdas.data"
-                  v-bind:key="mda.id"
-                >
-                  {{ mda.name }}
-                </option>
-              </select>
-            </div>
+                    <label for="inputCity"
+                      ><i class="fe fe-briefcase"></i> Select MDA
+                    </label>
+                    <select class="form-control" v-model="place_of_work">
+                      <option
+                        :value="mda.name"
+                        v-for="mda in mdas.data"
+                        v-bind:key="mda.id"
+                      >
+                        {{ mda.name }}
+                      </option>
+                    </select>
+                  </div>
 
                   <div class="form-group col-md-3">
                     <label for="inputCity">Health Facility</label>
@@ -144,161 +142,162 @@
                     />
                   </div>
                   <div class="form-group col-md-3">
-                <label for="inputCity">End Date *</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  v-model="to"
-                  @change="pushDate"
-                />
-              </div>
+                    <label for="inputCity">End Date *</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      v-model="to"
+                      @change="pushDate"
+                    />
+                  </div>
 
-            <div class="col-md-12">
-              <input
-                type="checkbox"
-                v-model="dependents"
-                id=""
-                class="form-control"
-              />
-              filter with dependents
-            </div>
+                  <div class="col-md-12">
+                    <input
+                      type="checkbox"
+                      v-model="dependents"
+                      id=""
+                      class="form-control"
+                    />
+                    filter with dependents
+                  </div>
 
-            <button
-              @click="filterEnrollees()"
-              class="btn btn-info btn-block btn-lg"
-              :disabled="disabled"
-              style="margin-top: 20px"
-            >
-              Filter
-            </button>
-            <br />
-            <div class="col-md-12" v-if="disabled == true">
-              <p class="text-primary">We are preparing your document</p>
-            </div>
+                  <button
+                    @click="filterEnrollees()"
+                    class="btn btn-info btn-block btn-lg"
+                    :disabled="disabled"
+                    style="margin-top: 20px"
+                  >
+                    Filter
+                  </button>
+                  <br />
+                  <div class="col-md-12" v-if="disabled == true">
+                    <p class="text-primary">We are preparing your document</p>
+                  </div>
 
-              
-                <br />
-               
+                  <br />
 
-                <div v-show="showdownload">
-                  <p class="h5">
-                    Result: {{ results.length }} data filtered
-                    <span class="text-info" @click="inspect = true"
-                      >preview data</span
-                    >
-                  </p>
+                  <div v-show="showdownload">
+                    <p class="h5">
+                      Result: {{ results.length }} data filtered
+                      <span class="text-info" @click="inspect = true"
+                        >preview data</span
+                      >
+                    </p>
 
-                  <p class="btn btn-info">
-                    <i class="fe fe-download"></i>
-                    <download-excel
-                      :data="results"
-                      :fields="json_fields"
-                      type="xls"
-                      :escapeCsv="false"
-                      :name="
-                        sector +
-                        ' _ ' +
-                        category_of_vulnerable_group +
-                        '_' +
-                        from +
-                        '_' +
-                        to +
-                        '.xls'
-                      "
-                    >
-                      Download Data for {{ from }} to {{ to }}
-                      {{ category_of_vulnerable_group }} {{ sector }}
-                    </download-excel>
-                  </p>
+                    <p class="btn btn-info">
+                      <i class="fe fe-download"></i>
+                      <download-excel
+                        :data="results"
+                        :fields="json_fields"
+                        type="xls"
+                        :escapeCsv="false"
+                        :name="
+                          sector +
+                          ' _ ' +
+                          category_of_vulnerable_group +
+                          '_' +
+                          from +
+                          '_' +
+                          to +
+                          '.xls'
+                        "
+                      >
+                        Download Data for {{ from }} to {{ to }}
+                        {{ category_of_vulnerable_group }} {{ sector }}
+                      </download-excel>
+                    </p>
 
-                  <div class="col-lg-12 col-md-12" v-show="inspect">
-                    <div class="card m-b-30">
-                      <div class="card-body">
-                        <div class="table-responsive">
-                          <table class="table align-td-middle table-card">
-                            <thead>
-                              <tr>
-                                <th>NO.</th>
-                                <th>Plan Type</th>
-                                <th>Account Type</th>
-                                <th>Name (KGSHIA Number)</th>
-                                <th>Phone Number</th>
-                                <th>Sector</th>
-                                <th>Facility</th>
-                                <th>Date Enrolled</th>
-                                <th>DOB/ Expiry Date</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr
-                                v-for="(client, index) in results"
-                                v-bind:key="client.id"
-                              >
-                                <td>{{ index + 1 }}</td>
-                                <td>
-                                  <span
-                                    v-if="client.account_type == 'Principal'"
-                                    >{{ client.plan_type }}</span
-                                  >
-                                  <span
-                                    v-if="client.account_type != 'Principal'"
-                                    >{{ client.user.plan_type }}</span
-                                  >
-                                </td>
-                                <td>{{ client.account_type }}</td>
+                    <div class="col-lg-12 col-md-12" v-show="inspect">
+                      <div class="card m-b-30">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table align-td-middle table-card">
+                              <thead>
+                                <tr>
+                                  <th>NO.</th>
+                                  <th>Plan Type</th>
+                                  <th>Account Type</th>
+                                  <th>Name (KGSHIA Number)</th>
+                                  <th>Phone Number</th>
+                                  <th>Sector</th>
+                                  <th>Facility</th>
+                                  <th>Date Enrolled</th>
+                                  <th>DOB/ Expiry Date</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  v-for="(client, index) in results"
+                                  v-bind:key="client.id"
+                                >
+                                  <td>{{ index + 1 }}</td>
+                                  <td>
+                                    <span
+                                      v-if="client.account_type == 'Principal'"
+                                      >{{ client.plan_type }}</span
+                                    >
+                                    <span
+                                      v-if="client.account_type != 'Principal'"
+                                      >{{ client.user.plan_type }}</span
+                                    >
+                                  </td>
+                                  <td>{{ client.account_type }}</td>
 
-                                <td>
-                                  <router-link
-                                    :to="{
-                                      path: '/client/' + client.id,
-                                      params: {},
-                                    }"
-                                  >
-                                    {{ client.firstname }} {{ client.lastname }}
-                                  </router-link>
+                                  <td>
+                                    <router-link
+                                      :to="{
+                                        path: '/client/' + client.id,
+                                        params: {},
+                                      }"
+                                    >
+                                      {{ client.firstname }}
+                                      {{ client.lastname }}
+                                    </router-link>
 
-                                  <!-- <button @click="changeNumberID(client)" class="btn btn-primary"
+                                    <!-- <button @click="changeNumberID(client)" class="btn btn-primary"
                            
                             >change ID {{user.id}} </button> -->
 
-                                  <b> ({{ client.id_card_number }}) </b>
-                                </td>
-                                <td>{{ client.phone_number }}</td>
-                                <td>{{ client.sector }}</td>
-                                <td>
-                                  <span v-if="client.userprovider != null">
-                                    {{ client.userprovider.agency_name }}</span
-                                  >
-                                </td>
-                                <td>
-                                  {{ client.created_at }}
-                                </td>
-                                <td>
-                                  {{ client.dob }}|| {{ client.expiry_date }}
-                                </td>
+                                    <b> ({{ client.id_card_number }}) </b>
+                                  </td>
+                                  <td>{{ client.phone_number }}</td>
+                                  <td>{{ client.sector }}</td>
+                                  <td>
+                                    <span v-if="client.userprovider != null">
+                                      {{
+                                        client.userprovider.agency_name
+                                      }}</span
+                                    >
+                                  </td>
+                                  <td>
+                                    {{ client.created_at }}
+                                  </td>
+                                  <td>
+                                    {{ client.dob }}|| {{ client.expiry_date }}
+                                  </td>
 
-                                <td v-if="user.id == '95930'">
-                                  <button
-                                    class="btn btn-default"
-                                    @click="updateExp(client)"
-                                  >
-                                    update Exp {{ client.id }}
-                                  </button>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                  <td v-if="user.id == '95930'">
+                                    <button
+                                      class="btn btn-default"
+                                      @click="updateExp(client)"
+                                    >
+                                      update Exp {{ client.id }}
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div></div>
+                    <div></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
         </div>
       </section>
     </main>
@@ -355,9 +354,6 @@ export default {
       results: [],
       json_fields: {
         "User Type": "account_type",
-        // 'First Name': 'firstname',
-        // 'Last Name':'lastname',
-        // 'Middle Name':'middlename',
         "Full Name": "full_name",
         "OHIS Number": "id_card_number",
         "User Status": "status",

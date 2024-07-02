@@ -29,7 +29,7 @@
             class="card-body"
           >
             <div class="row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-5">
                 <label>Select Facility </label>
                 <v-select
                   v-model="register.provider_id"
@@ -39,7 +39,7 @@
                 ></v-select>
               </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-5">
                 <label for="inputCity">LGA </label>
                 <select class="form-control" v-model="register.localgovt">
                   <option
@@ -51,10 +51,33 @@
                   </option>
                 </select>
               </div>
+
+              <div class="form-group col-md-2">
+                <label for="inputCity">Rows </label>
+                <select class="form-control" v-model="register.per_page">
+                  <option value="15">15</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option>500</option>
+                  <option>1000</option>
+                </select>
+              </div>
             </div>
             <div class="form-group">
               <button class="btn btn-success btn-block" type="submit">
                 GET DATA
+              </button>
+
+              <button class="btn btn-dark btn-block" type="button">
+                <download-excel
+                  :data="info.data"
+                  :fields="json_fields"
+                  type="xls"
+                  :escapeCsv="false"
+                  name="Data.xls"
+                >
+                  Export to CSV
+                </download-excel>
               </button>
             </div>
           </form>
@@ -249,14 +272,28 @@
         </div>
       </div>
     </main>
+    <div class="vld-parent">
+      <loading
+        :active.sync="isLoading"
+        loader="dots"
+        :can-cancel="true"
+        :is-full-page="fullPage"
+      ></loading>
+    </div>
   </section>
 </template>
 
 <script>
 import Navbar from "@/views/Navbar.vue";
+// Import component
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
+// Init plugin
+
 export default {
   components: {
-    Navbar,
+    Navbar, Loading
   },
   data() {
     return {
@@ -267,6 +304,7 @@ export default {
         localgovt: "",
         provider_id: {
           id: "",
+          per_page: "15",
         },
       },
       lga_states: [],
@@ -278,6 +316,30 @@ export default {
       selected: "",
       date_of_expiry: "",
       seen: true,
+      json_fields: {
+        "Enrollee Type": "account_type",
+        "Full Name": "full_name",
+        "OHIS Number": "id_card_number",
+        "User Status": "status",
+        phone_number: "phone_number",
+        "Sector Category": "sector",
+        "Sector Category(Dependent) ": "user.sector",
+        "Vulnerable Group": "category_of_vulnerable_group",
+        "Date of Birth": "dob",
+        "Local Govt": "localgovt.local_name",
+        Ward: "ward.ward_name",
+        "Card Expiry Date": "expiry_date",
+        "Sector(Principal)": "sectorType",
+        "Sector(Dependent) ": "user.sectorType",
+        gender: "gender",
+        "Date of Appointment": "date_of_entry",
+        "Date Enrolled": "created_at",
+        "NIN Number": "nimc_number",
+        MDA: "place_of_work",
+        "Computer Number": "salary_number",
+        "Enrollee Address": "address1",
+        "Health Facility": "userprovider.agency_name",
+      },
     };
   },
   methods: {
@@ -293,6 +355,8 @@ export default {
         });
     },
     getData(currentPage) {
+      this.isLoading = true;
+
       this.axios
         .post(
           `/api/v1/auth/get-expiry-due/95930`,
@@ -301,14 +365,19 @@ export default {
             page: currentPage,
             provider_id: this.register.provider_id.id,
             localgovt: this.register.localgovt,
+            per_page: this.register.per_page,
           }
         )
         .then((response) => {
           this.info = response.data;
           this.rows = response.data.meta.total;
+          this.isLoading = false;
+
         })
         .catch((error) => {
           console.error(error);
+          this.isLoading = false;
+
         });
     },
     disableUser(selected) {

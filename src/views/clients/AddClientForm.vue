@@ -69,9 +69,7 @@
                             <option value="State Equity Program">
                               State Equity Program
                             </option>
-                            <!-- <option value="Vulnerable Groups">
-                              Vulnerable Groups
-                            </option> -->
+                         
                             <option value="Voluntary Contributor">
                               Voluntary Contributor
                             </option>

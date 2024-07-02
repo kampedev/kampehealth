@@ -1,5 +1,6 @@
 <template>
   <section class="admin-content" id="contact-search">
+    <Navbar />
     <main class="admin-main">
       <div class="m-b-30">
         <div class="container">
@@ -22,34 +23,31 @@
                       <option value="State Equity Program">
                         State Equity Program
                       </option>
-                      <option value="Vulnerable Groups">
-                        Vulnerable Groups
-                      </option>
-
                       <option value="Voluntary Contributor">
                         Voluntary Contributor
                       </option>
 
-                      <option value="Civil Servant">Civil Servant</option>
+                      <option value="State Civil Servant">
+                        State Civil Servant
+                      </option>
                       <option value="State Public Servant">
                         State Public Servant
                       </option>
-                      <!-- <option value="LGA Civil Servant">
+                      <option value="LGA Civil Servant">
                         LGA Civil Servant
-                      </option> -->
-                      <option value="Universal Basic Education Board">
-                        Universal Basic Education Board
                       </option>
-
+                      <option value="Universal Basic Education">
+                        Universal Basic Education
+                      </option>
                       <option value="State Pensioners Plan">
                         State Pensioners Plan
                       </option>
 
-                      <!-- <option
+                      <option
                         value="Tertiary Student Health Insurance Plan (T-SHIP)"
                       >
                         Tertiary Student Health Insurance Plan (T-SHIP)
-                      </option> -->
+                      </option>
                     </select>
                   </div>
                   <div class="form-group col-md-3">
@@ -93,8 +91,8 @@
                     </label>
                     <select class="form-control" v-model="place_of_work">
                       <option
-                        :value="mda.name"
-                        v-for="mda in mdas.data"
+                        :value="mda.place_of_work"
+                        v-for="mda in mdas"
                         v-bind:key="mda.id"
                       >
                         {{ mda.name }}
@@ -151,6 +149,28 @@
                     />
                   </div>
 
+                  <div class="form-group col-md-6">
+                    <label>Rows</label>
+                    <select class="form-control" v-model="per_page">
+                      <option value="100">100</option>
+                      <option value="500">500</option>
+                      <option value="1000">1000</option>
+                      <option value="2000">2000</option>
+                      <option value="5000">5000</option>
+                      <option value="10000">10000</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label>Page</label>
+                    <select class="form-control" v-model="current_page">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
                   <div class="col-md-12">
                     <input
                       type="checkbox"
@@ -163,13 +183,11 @@
 
                   <button
                     @click="filterEnrollees()"
-                    class="btn btn-info btn-block btn-lg"
+                    class="btn btn-info btn-block my-2"
                     :disabled="disabled"
-                    style="margin-top: 20px"
                   >
                     Filter
                   </button>
-                  <br />
                   <div class="col-md-12" v-if="disabled == true">
                     <p class="text-primary">We are preparing your document</p>
                   </div>
@@ -177,35 +195,49 @@
                   <br />
 
                   <div v-show="showdownload">
-                    <p class="h5">
-                      Result: {{ results.length }} data filtered
-                      <span class="text-info" @click="inspect = true"
-                        >preview data</span
-                      >
-                    </p>
+                    <div class="col-md-12">
+                      <button class="btn btn-dark btn-block">
+                        <download-excel
+                          :data="results"
+                          :fields="json_fields"
+                          type="xls"
+                          :escapeCsv="false"
+                          :name="
+                            sector +
+                            ' _ ' +
+                            category_of_vulnerable_group +
+                            '_' +
+                            from +
+                            '_' +
+                            to +
+                            '.xls'
+                          "
+                        >
+                          Download Data for {{ from }} to {{ to }}
+                          {{ category_of_vulnerable_group }} {{ sector }}
+                        </download-excel>
+                      </button>
+                    </div>
 
-                    <p class="btn btn-info">
-                      <i class="fe fe-download"></i>
-                      <download-excel
-                        :data="results"
-                        :fields="json_fields"
-                        type="xls"
-                        :escapeCsv="false"
-                        :name="
-                          sector +
-                          ' _ ' +
-                          category_of_vulnerable_group +
-                          '_' +
-                          from +
-                          '_' +
-                          to +
-                          '.xls'
-                        "
+                    <div class="my-2">
+                      <p class="h6">
+                        Total Result: {{ results.meta.total }} data available
+                      </p>
+                      <p class="h6">
+                        Total Filtered: {{ results.data.length }} data filtered
+                        <strong>
+                          (Page {{ current_page }} of
+                          {{ results.meta.last_page }})
+                        </strong>
+                      </p>
+
+                      <span
+                        class="text-info h6 my-1"
+                        role="button"
+                        @click="inspect = true"
+                        >Preview Data</span
                       >
-                        Download Data for {{ from }} to {{ to }}
-                        {{ category_of_vulnerable_group }} {{ sector }}
-                      </download-excel>
-                    </p>
+                    </div>
 
                     <div class="col-lg-12 col-md-12" v-show="inspect">
                       <div class="card m-b-30">
@@ -217,7 +249,7 @@
                                   <th>NO.</th>
                                   <th>Plan Type</th>
                                   <th>Account Type</th>
-                                  <th>Name (KGSHIA Number)</th>
+                                  <th>Name (Agency Number)</th>
                                   <th>Phone Number</th>
                                   <th>Sector</th>
                                   <th>Facility</th>
@@ -227,7 +259,7 @@
                               </thead>
                               <tbody>
                                 <tr
-                                  v-for="(client, index) in results"
+                                  v-for="(client, index) in results.data"
                                   v-bind:key="client.id"
                                 >
                                   <td>{{ index + 1 }}</td>
@@ -320,12 +352,17 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
 
+// import FormalLgaDataJson from "./zamchema_lga_formal.json";
+// import LgaFacilityJson from "./lga_facility.json";
+
 export default {
   components: {
     Loading,
   },
   data() {
     return {
+      // formal_data: FormalLgaDataJson,
+      // lga_data: LgaFacilityJson,
       loader: true,
       showdownload: false,
       inspect: false,
@@ -339,10 +376,11 @@ export default {
       disabled: false,
       isLoading: false,
       fullPage: false,
-      dependents: true,
       agency_id: "",
       provider_id: "",
       providers: "",
+      gender: "",
+      dependents: false,
       mdas: [],
       state: "",
       category_of_vulnerable_group: "",
@@ -351,12 +389,23 @@ export default {
       from: "",
       to: new Date(),
       date: "",
-      results: [],
+      results: {
+        meta: {
+          total: 0,
+        },
+        data: [],
+      },
+      per_page: "10000",
+      current_page: "1",
       json_fields: {
+        // ID: "id",
         "User Type": "account_type",
+        // 'First Name': 'firstname',
         "Full Name": "full_name",
-        "OHIS Number": "id_card_number",
+        "AGENCY ID": "id_card_number",
+        "AGENCY ID (Dependent) ": "user.id_card_number",
         "User Status": "status",
+        "Picture Available": "picture_available",
         "User Image": {
           field: "user_image",
           callback: (value) => {
@@ -366,29 +415,24 @@ export default {
 
         phone_number: "phone_number",
         "Sector Category": "sector",
-        "Sector Category(Dependent) ": "user.sector",
+        // "Sector Category(Dependent) ": "user.sector",
+        "Computer Number": "salary_number",
+        "Computer Number(Dependent)": "user.salary_number",
+        "LGA (Dependent)": "user.localgovt",
         "Vulnerable Group": "category_of_vulnerable_group",
         "Date of Birth": "dob",
         "Local Govt": "localgovt.local_name",
         Ward: "ward.ward_name",
         "Card Expiry Date": "expiry_date",
         "Sector(Principal) ": "sectorType",
-        "Sector(Dependent) ": "user.sectorType",
+        // "Sector(Dependent) ": "user.sectorType",
         gender: "gender",
         "Date Enrolled": "created_at",
-        "NIN Number": "nimc_number",
+        "Means of ID": "nimc_number",
         "Plan Type": "plan_type",
-        "Plan Type (Dependent)": "user.plan_type",
-        HMO: "usertpa.organization_name",
-        "HMO(Dependent) ": "user.usertpa.organization_name",
-        "Enrolled By": "userenrolledby.full_name",
-        "(Dependent) Enrolled By": "user.userenrolledby.full_name",
-        MDA: "place_of_work",
-        "MDA (Dependent)": "user.place_of_work",
-        "Computer Number": "salary_number",
-        "Computer Number(Dependent)": "user.salary_number",
+        // "Plan Type (Dependent)": "user.plan_type",
+        "Enrollee MDA": "place_of_work",
         "Enrollee Address": "address1",
-
         "Health Facility": "userprovider.agency_name",
       },
       json_data: [],
@@ -427,17 +471,20 @@ export default {
       this.isLoading = true;
       this.axios
         .post(`/api/v1/auth/filtersectordashboardwardlgabydate`, {
-          agency_id: "95930",
+          agency_id: "4",
           sector: this.sector,
+          gender: this.gender,
           category_of_vulnerable_group: this.category_of_vulnerable_group,
           date: this.date,
           from: this.from,
-          to: this.addOneDay,
           dependents: this.dependents,
-          place_of_work: this.place_of_work,
           provider_id: this.provider_id,
+          place_of_work: this.place_of_work,
+          to: this.addOneDay,
           lga_id: this.localgovt.id,
           ward: this.ward.id,
+          per_page: this.per_page,
+          page: this.current_page,
         })
         .then((response) => {
           this.results = response.data;
@@ -490,28 +537,6 @@ export default {
           console.error(error);
         });
     },
-    getProviders() {
-      this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
-        .then((response) => {
-          this.providers = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    getMDAs() {
-      this.axios
-        .get(`/api/v1/auth/ministry/95930`)
-        .then((response) => {
-          this.mdas = response.data;
-          // console.log(response)
-        })
-        .catch(() => {
-          // console.error(error);
-        });
-    },
     fetchWards() {
       this.axios
         .get(`/api/v1/auth/getwards/${this.localgovt.id}`)
@@ -528,6 +553,102 @@ export default {
     },
     pushDate() {
       this.date = "date";
+    },
+    changeNumberID(client) {
+      this.isLoading = true;
+      this.axios
+        .patch(`/api/v1/auth/id-card-number/change/${client.id}`)
+        .then((response) => {
+          console.log(response);
+          this.$toasted.success("Changed Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.$toasted.error("Not Found!", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.isLoading = false;
+        });
+    },
+
+    getProviders() {
+      this.axios
+        .get(`/api/v1/auth/providerAgency/95930`)
+        .then((response) => {
+          this.providers = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getMDAs() {
+      this.axios
+        .get(`/api/v1/auth/ministry/95930`)
+        .then((response) => {
+          this.mdas = response.data.data;
+        })
+        .catch(() => {});
+    },
+
+    cleanUser(client) {
+      let osunlgaarray = this.formal_data; //get file
+      let lgaarray = this.lga_data; //get file
+      let facility_data = 0;
+      let facility_updater = 0;
+
+      let formatter = osunlgaarray.filter(
+        (x) => x.phone_number == client.phone_number
+      );
+
+      facility_updater = formatter[0]; //getting user from json file
+      // console.log(facility_updater);
+
+      if (facility_updater) {
+        let formatters = lgaarray.filter(
+          (x) => x.wordpress_lga == client.localgovt.id
+        );
+        facility_data = formatters[0];
+        // return (facility_data)
+      }
+
+      //update ID
+      this.isLoading = true;
+      this.axios
+        .post(`/api/v1/auth/updatewarduser`, {
+          id: client.id,
+          provider_id: facility_data.facility_id,
+          salary_number: facility_updater.salary_number,
+          localgovt: facility_data.lga,
+          lga_of_origin: facility_data.lga_of_origin,
+        })
+        .then((response) => {
+          console.log(response);
+          this.$toasted.success("Changed Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.$toasted.error("Not Found!", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.isLoading = false;
+        });
+
+      //end of update id
+
+      //update ID
+
+      //end of update id
     },
   },
   created() {

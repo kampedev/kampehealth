@@ -120,7 +120,7 @@
                       <!-- Button trigger modal -->
                       <button
                         type="button"
-                        v-if="user.user_role == 1"
+                        v-if="user.user_role != 0"
                         class="btn btn-outline-dark mx-2"
                         data-toggle="modal"
                         data-target="#exampleModal"
@@ -598,7 +598,6 @@ export default {
   },
 
   methods: {
-    
     addPayment() {
       if (confirm("Are you sure you want to Submit?")) {
         this.isLoading = true;
@@ -614,13 +613,6 @@ export default {
           })
           .then((response) => {
             this.transactionID = response.data.id;
-
-            // this.isLoading = false;
-            // this.$toasted.success("Payment Added Successfully", {
-            //   position: "top-center",
-            //   duration: 3000,
-            // });
-            // this.fetchUser()
           })
           .catch((error) => {
             console.error(error);

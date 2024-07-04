@@ -161,6 +161,7 @@
                           <option value="Single">Single</option>
                           <option value="Separated">Separated</option>
                           <option value="Divorced">Divorced</option>
+                          <option value="Widowed">Widowed</option>
                         </select>
                       </div>
 
@@ -190,7 +191,26 @@
                         </select>
                       </div>
 
-                      <div class="form-group col-md-12">
+                      <div class="form-group col-md-6">
+                        <label for="inputCity"
+                          >LGA <span class="text-danger">*</span></label
+                        >
+                        <select
+                          class="form-control"
+                          required
+                          v-model="register.localgovt"
+                        >
+                          <option
+                            v-for="lga in lga_states"
+                            v-bind:key="lga"
+                            :value="lga.id"
+                          >
+                            {{ lga.local_name }}
+                          </option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-md-6">
                         <label for="inputAddress"
                           >Home Address
 
@@ -401,17 +421,6 @@ export default {
         });
     },
 
-    getTPAs() {
-      this.axios
-        .get(`/api/v1/auth/getorgenrollment/95930/A`)
-        .then((response) => {
-          this.tpas = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
     removeArray(index) {
       if (this.registrations.length != 1) {
         // only splice array when item is found
@@ -476,9 +485,7 @@ export default {
   },
   created() {
     this.fetchLga();
-    // this.getMDAs()
     this.getProviders();
-    this.getTPAs();
   },
 };
 </script>

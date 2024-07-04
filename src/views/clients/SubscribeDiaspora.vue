@@ -17,8 +17,13 @@
 
     <div class="col-md-6 offset-md-3" v-if="showdependent == true">
       <div class="spacer-top-bot">
-        <button class="btn btn-dark btn-block btn-lg" @click="showPayPart">
-          Proceed to Payment
+        <button
+          type="button"
+          class="btn btn-outline-dark mx-2"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          Proceed to Pay
         </button>
       </div>
     </div>
@@ -115,7 +120,7 @@
                   <div class="form-group col-md-12">
                     <!-- <label for="inputPassword4"
                       ><strong>Select Payment Method: </strong></label -->
-                    >
+
                     <!-- <select class="form-control" v-model="payment_type">
                       <option value="online">Pay Online</option>
 
@@ -123,7 +128,7 @@
                     </select>  -->
                     <label for="inputPassword4"
                       ><strong
-                        >Selected Plan: {{ auth_user.plan_type }}
+                        >Selected Plan: 
                       </strong></label
                     >
                     <select
@@ -136,19 +141,9 @@
                         v-bind:key="plan.id"
                         :value="plan.plan_name"
                       >
-                        {{ plan.plan_name }} Plan ${{
-                          plan.plan_cost | numeral(0, 0)
-                        }}
+                        {{ plan.plan_name }} Plan
                       </option>
                     </select>
-                    <p class="h6 mt-4">Fee: $ {{ getPlan.fee }}</p>
-                    <hr />
-                    <p class="h5 mt-4">
-                      <b
-                        >Total: $
-                        {{ (getPlan.plan_cost + getPlan.fee) | numeral(0, 0) }}
-                      </b>
-                    </p>
 
                     <div
                       class="col-lg-12"
@@ -191,84 +186,101 @@
                 </div>
 
                 <div class="col-md-12">
-                  <button class="btn btn-dark btn-block">
-                    <paystack
-                      :amount="totalCost * 100"
-                      :email="auth_user.email"
-                      :paystackkey="paystackkey"
-                      :reference="reference"
-                      :callback="callback"
-                      :first_name="auth_user.firstname"
-                      :last_name="auth_user.lastname"
-                      :phone="auth_user.phone_number"
-                      :close="close"
-                      :embed="false"
-                      v-if="payment_type == 'online'"
-                    >
-                      Proceed to Pay (Online)
-                    </paystack>
-                  </button>
-
                   <button
-                    class="btn btn-dark btn-block btn-lg"
-                    v-if="payment_type == 'offline'"
+                    v-if="payment_type == 'online'"
+                    type="button"
+                    class="btn btn-outline-dark btn-block mx-2"
                     data-toggle="modal"
-                    data-target="#eofflineModal"
+                    data-target="#exampleModal"
                   >
-                    Pay Offline (USSD)
+                    Proceed to Pay
                   </button>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Modal -->
-          <div
-            class="modal fade"
-            id="eofflineModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Enter the USSD Code below into your mobile device
-                  </h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
+                  <!-- Modal -->
+                  <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
                   >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>Virual Account Number: {{ auth_user.virtual_account }}</p>
-                  <p>*BankCode*SchemeCode*BillerId+UserIdentifier+Amount#</p>
-                  <p>
-                    *894*000*506+{{ auth_user.virtual_account }}+
-                    {{ getPlan.plan_cost }}
-                  </p>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-primary">
-                    Save changes
-                  </button>
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title h5" id="exampleModalLabel">
+                            Payment Instruction
+                          </h5>
+                         
+                        </div>
+
+                        <div class="modal-body">
+                          <p class="mb-4">Pay to the Account details below and upload evidence of payment.</p>
+
+                          <div class="h6">
+                           <p class="my-2"> <b>CORRESPONDENT BANK NAME: </b> 
+                            <span>CITIBANK NA</span></p>
+
+                           <p class="my-2">  <b>CORRESPONDENT BANK ADRESS: </b>
+                            <span>NEW YORK, NY 10022-4617</span></p>
+
+                          <p class="my-2">   <b>CORRESPONDENT BANK SWIFT CODE: </b>
+                            <span>CITIUS33</span>  </p>
+                            
+                            
+                            <p class="my-2"> <b>ROUTING NUMBER: </b>
+                            <span>021000089</span> </p>
+                          </div>
+                          <div
+                            class="fileinput fileinput-new"
+                            data-provides="fileinput"
+                          >
+                            <span class="btn btn-file">
+                              <span class="fileinput-new"
+                                >Upload Payment Proof <i class="fe fe-upload"></i
+                              ></span>
+                              <span class="fileinput-exists">Change</span>
+                              <input
+                                type="file"
+                                name="..."
+                                multiple
+                                v-on:change="attachPaymentProof"
+                              />
+                            </span>
+                            <span class="fileinput-filename"></span>
+                            <a
+                              href="#"
+                              class="close fileinput-exists"
+                              data-dismiss="fileinput"
+                              style="float: none"
+                              >&times;</a
+                            >
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-dismiss="modal"
+                            @click="addPayment"
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ENd of Payment Modal -->
                 </div>
               </div>
             </div>
           </div>
-          <!--End of  Modal -->
 
           <div class="vld-parent">
             <loading
@@ -290,21 +302,21 @@ import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
-import paystack from "vue-paystack";
+// import paystack from "vue-paystack";
 import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
   components: {
     Loading,
-    paystack,
+    // paystack,
     AddDependentVoluntary,
   },
   data() {
     return {
-      hmos: "",
+      transactionID: "",
       agency_id: "",
-      provider_id: "",
+      paymentProofFile: "",
       auth_user: "",
       amount: "",
       payment_type: "online",
@@ -316,7 +328,7 @@ export default {
           id: 1,
           plan_name: "Individual",
           description:
-            "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to cheap and qualititative healthcare coverage. It allows no depandent(s).",
+            "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to affordable and qualititative healthcare coverage. It allows no dependent(s).",
           plan_cost: 15,
           fee: 2,
         },
@@ -324,7 +336,7 @@ export default {
           id: 2,
           plan_name: "Family",
           description:
-            " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to cheap and qualititative healthcare coverage. It allows a Maximum of 5-depandent(s).",
+            " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to affordable and qualititative healthcare coverage. It allows a Maximum of 5-dependent(s).",
           plan_cost: 15,
           fee: 2,
         },
@@ -347,17 +359,7 @@ export default {
     };
   },
   beforeMount() {
-    this.windowwith = window.innerWidth * 0.75;
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.axios
-      .get(`/api/v1/user-no-auth/${this.$route.params.id}`)
-      .then((response) => {
-        this.auth_user = response.data.user;
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   },
   computed: {
     getPlan() {
@@ -369,35 +371,50 @@ export default {
     },
 
     totalCost() {
-      //   return this.getPlan.plan_cost + 2 ;
       return 0;
     },
 
-    reference() {
-      let text = "";
-      let possible =
+    randomTransId() {
+      var result = "";
+      var characters =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-      for (let i = 0; i < 100; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-      return text;
+      var charactersLength = characters.length;
+      for (var i = 0; i <50; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      console.log({ result });
+      return result;
     },
   },
   methods: {
+    getUser() {
+      this.axios
+        .get(`/api/v1/user-no-auth/${this.$route.params.id}`)
+        .then((response) => {
+          this.auth_user = response.data.user;
+          console.log(response);
+          this.getShower(this.auth_user);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     showPayPart() {
       this.showpay = true;
       this.showpic = false;
       this.showdependent = false;
     },
-    callback: function (response) {
-      this.sendSMS();
-      this.makeSubscribe();
-      console.log(response);
+    getShower(user) {
+      if (user.user_image == null) {
+        this.showpay = false;
+        this.showpic = true;
+      } else {
+        this.showPayPart();
+      }
     },
-    close: function () {
-      console.log("Payment closed");
-    },
+
     attachPic(event) {
       this.user = JSON.parse(localStorage.getItem("user"));
       console.log(event);
@@ -431,33 +448,6 @@ export default {
             position: "top-center",
             duration: 3000,
           });
-        });
-    },
-
-    makeSubscribe() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.isLoading = true;
-      this.axios
-        .post("/api/v1/make/transaction", {
-          agency_id: 95930,
-          amount: this.getPlan.plan_cost,
-          description: "OHIS Plan Payment",
-          type: "plan_payment",
-          transaction_ref: this.reference,
-          user_id: this.$route.params.id,
-        })
-        .then((response) => {
-          console.log(response);
-          this.$toasted.info(
-            "Congratulations you have successfully enrolled to O'HIS",
-            { position: "top-center", duration: 8000 }
-          );
-          this.isLoading = false;
-          // window.location = "https://www.oshia.ng";
-          this.$router.push(`/subscribe-success/${this.$route.params.id}`);
-        })
-        .catch((error) => {
-          console.log(error.response);
         });
     },
 
@@ -501,30 +491,67 @@ export default {
           this.isLoading = false;
         });
     },
-    sendSMS() {
-      this.isLoading = true;
-      this.axios
-        .post(`https://app.multitexter.com/v2/app/sms`, {
-          email: "wearegrumie@gmail.com",
-          password: "AGYkh.EUddNx4j@",
-          message: this.sms_message,
-          sender_name: "OHIS",
-          recipients: this.auth_user.phone_number,
-        })
-        .then((response) => {
-          console.log(response);
 
+    addPayment() {
+      if (confirm("Are you sure you want to Submit?")) {
+        this.isLoading = true;
+        this.axios
+          .post(`/api/v1/make/transaction`, {
+            user_id: this.$route.params.id,
+            agency_id: 95930,
+            description: "Diaspora Payment",
+            amount: 0.0,
+            type: "offline",
+            status: "approved",
+            transaction_ref: this.randomTransId,
+          })
+          .then((response) => {
+            this.transactionID = response.data.id;
+          })
+          .catch((error) => {
+            console.error(error);
+            this.isLoading = false;
+          });
+      }
+
+      setTimeout(() => {
+        this.uploadPaymentProof();
+      }, 3000);
+    },
+    attachPaymentProof(event) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      console.log(event);
+      this.paymentProofFile = event.target.files[0];
+      console.log(this.paymentProofFile);
+    },
+
+    uploadPaymentProof() {
+      this.isLoading = true;
+      this.user = JSON.parse(localStorage.getItem("user"));
+
+      var formData = new FormData();
+      formData.append("transaction_id", this.transactionID);
+      formData.append("user_id", this.$route.params.id);
+      formData.append("document", this.paymentProofFile);
+
+      this.axios
+        .post("/api/v1/uploadTransactionDocument", formData)
+        .then((response) => {
+          this.paymentProofImage = response.data.document;
+          console.log(response.data.document);
           this.isLoading = false;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading = false;
+          this.$toasted.success("Payment Uploaded Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+
+          this.$router.push(`/subscribe-success/${this.$route.params.id}`);
         });
     },
   },
 
   created() {
-    //
+    this.getUser();
   },
 };
 </script>

@@ -17,7 +17,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-10 offset-md-1">
-              <div class="card m-b-30 bg-info">
+              <div class="card m-b-30">
                 <div class="card-body text-black">
                   <div>
                     <p class="h5">
@@ -107,11 +107,11 @@
                       </p>
                       <hr />
 
-                      <p class="spacer-top-bottom">
+                      <!-- <p class="spacer-top-bottom">
                         <strong>TPA/HMO:</strong>
                         {{ auth_user.usertpa.organization_name }}
                       </p>
-                      <hr />
+                      <hr /> -->
                       <p class="spacer-top-bottom">
                         <strong>Phone Number:</strong>
                         {{ auth_user.phone_number }}

@@ -198,7 +198,7 @@
                     <div class="col-md-12">
                       <button class="btn btn-dark btn-block">
                         <download-excel
-                          :data="results"
+                          :data="results.data"
                           :fields="json_fields"
                           type="xls"
                           :escapeCsv="false"
@@ -471,7 +471,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post(`/api/v1/auth/filtersectordashboardwardlgabydate`, {
-          agency_id: "4",
+          agency_id: "95930",
           sector: this.sector,
           gender: this.gender,
           category_of_vulnerable_group: this.category_of_vulnerable_group,

@@ -13,6 +13,90 @@
       </div>
       <section class="">
         <div class="container">
+          <!-- <div
+            class="row"
+            v-if="user.type == 'shis' || user.type == 'employee'"
+          >
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-info">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-primary rounded-circle">
+                        <i class="fe fe-activity"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">All Claims</p>
+                    <h1 class="fw-400">
+                      {{ metrics.all_claims | numeral(0, 0) }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-default">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-primary rounded-circle">
+                        <i class="fe fe-user-plus"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Pending Claims</p>
+                    <h1 class="fw-400">
+                      {{ metrics.pending_claims | numeral(0, 0) }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-dark">
+                <div class="card-body text-white">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-primary rounded-circle">
+                        <i class="fe fe-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Vetted Claims</p>
+                    <h1 class="fw-400">
+                      {{ metrics.vetted_claims | numeral(0, 0) }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-dark">
+                <div class="card-body text-white">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-primary rounded-circle">
+                        <i class="fe fe-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Verified Claims</p>
+                    <h1 class="fw-400">
+                      {{ metrics.verified_claims | numeral(0, 0) }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
           <div class="col-md-12">
             <div class="card" v-show="filterparams">
               <div class="card-header">
@@ -40,12 +124,12 @@
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label for="inputEmail4">KGSHIA Number</label>
+                    <label for="inputEmail4">OHIS Number</label>
                     <input
                       type="text"
                       class="form-control"
                       v-model="id_card_number"
-                      placeholder="KGSHIA/XX/XXXX"
+                      placeholder="OHIS/XX/XXXX"
                     />
                   </div>
 
@@ -61,12 +145,26 @@
                       :options="providers"
                       @change="getClaims"
                     />
+
+                    <button
+                      class="btn btn-outline-warning btn-sm my-1"
+                      @click="getProviders('pending')"
+                    >
+                      pending
+                    </button>
+
+                    <button
+                      class="btn btn-outline-dark btn-sm my-1 ml-1"
+                      @click="getProviders('vetted')"
+                    >
+                      vetted
+                    </button>
                   </div>
 
                   <div class="form-group col-md-6">
                     <label> Select Status </label>
                     <select class="form-control" v-model="claim_status">
-                      <option value="All">All</option>
+                      <option value="">All</option>
                       <option value="approved">Approved</option>
                       <option value="vetted">Vetted</option>
                       <option value="verified">Verified</option>
@@ -74,28 +172,27 @@
                       <option value="rejected">Rejected</option>
                     </select>
                   </div>
+
+                  <div class="form-group col-md-6">
+                    <label> Select Date Query </label>
+                    <select class="form-control" v-model="date">
+                      <option value="created_at">Created At</option>
+                      <option value="checked_by_date">Vetted Date</option>
+                      <option value="verified_by_date">Verified Date</option>
+                    </select>
+                  </div>
                   <div class="form-group col-md-6">
                     <label for="inputCity"
                       ><i class="fe fe-calendar"></i> Start Date
                     </label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      v-model="from"
-                      @change="pushDate"
-                    />
+                    <input type="date" class="form-control" v-model="from" />
                   </div>
 
                   <div class="form-group col-md-6">
                     <label for="inputCity"
                       ><i class="fe fe-calendar"></i> End Date
                     </label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      v-model="to"
-                      @change="pushDate"
-                    />
+                    <input type="date" class="form-control" v-model="to" />
                   </div>
                   <div class="col-md-12">
                     <button
@@ -114,7 +211,8 @@
           <div class="card row list">
             <div class="card-header">
               <button class="btn btn-outline-dark float-left">
-                {{ claims.length }} {{ provider_id.agency_name }} Claims
+                {{ claims.data.length }} {{ claim_status }}
+                {{ provider_id.agency_name }} Claims
               </button>
 
               <button
@@ -167,41 +265,42 @@
                           >
                             processed for payment
                           </button>
+                        </span>
 
-                          <button
+                        <!-- <button
                             class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
                             v-if="claim.paymentorders[0].status == 'paid'"
                           >
                             <i class="fe fe-check-square"></i>paid
+                          </button> -->
+
+                        <span v-if="claim.status == 1">
+                          <button
+                            type="button"
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                          >
+                            approved
                           </button>
-
-                          <span v-if="claim.status == 1">
-                            <button
-                              type="button"
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
-                            >
-                              approved
-                            </button>
-                          </span>
-
-                          <span v-if="claim.verified_by_id != null">
-                            <button
-                              type="button"
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
-                            >
-                              verified
-                            </button>
-                          </span>
-
-                          <span v-if="claim.checked_by_id != null">
-                            <button
-                              type="button"
-                              class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
-                            >
-                              vetted
-                            </button>
-                          </span>
                         </span>
+
+                        <span v-if="claim.verified_by_id != null">
+                          <button
+                            type="button"
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
+                          >
+                            verified
+                          </button>
+                        </span>
+
+                        <span v-if="claim.checked_by_id != null">
+                          <button
+                            type="button"
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-dark"
+                          >
+                            vetted
+                          </button>
+                        </span>
+
                         <span v-if="claim.status == null">
                           <button
                             type="button"
@@ -238,21 +337,25 @@
                       <td colspan="4">
                         <div
                           class="col-md-12"
-                          v-if="user.job_title == 'Claims Verifier'"
+                          v-if="
+                            user.job_title == 'Claims Verifier' ||
+                            user.job_title == 'Executive Secretary'
+                          "
                         >
                           <b-alert show variant="primary">
-                            To forward claims to the ES for approval, select the
-                            verified facility claims.
+                            To forward claims for approval, select the verified
+                            facility claims.
                           </b-alert>
                         </div>
                       </td>
                     </tr>
                     <tr
                       v-if="
-                        user.job_title == 'Claims Verifier' &&
-                        provider_id != '' &&
-                        claims.data.length > 0 &&
-                        claim_status == 'verified'
+                        user.job_title == 'Claims Verifier' ||
+                        (user.job_title == 'Executive Secretary' &&
+                          provider_id != '' &&
+                          claims.data.length > 0 &&
+                          claim_status == 'verified')
                       "
                     >
                       <td colspan="4">
@@ -260,8 +363,8 @@
                           class="btn btn-outline-success btn-block"
                           @click="forwwardClaims()"
                         >
-                          Forward {{ provider_id.agency_name }}'s Claims to the
-                          ES for Approval
+                          Forward {{ provider_id.agency_name }}'s Claims for
+                          Approval
                           <i class="fe fe-send"></i>
                         </button>
                       </td>
@@ -302,7 +405,10 @@ export default {
   data() {
     return {
       user: null,
-      claims: "",
+      metrics: "",
+      claims: {
+        data: [],
+      },
       selected: "",
       claim_unique_id: "",
       authorization_code: "",
@@ -318,16 +424,20 @@ export default {
       to: new Date(),
       providers: "",
       tpas: "",
-      claim_status: "All",
+      claim_status: "pending",
       org_id: "",
       provider_id: "",
       date: "",
       json_fields: {
-        "Facility Name": "provider.agency_name",
-        "Enrollee Full Name": "patient.full_name",
-        "Enrollee KGSHIA Number": "patient.id_card_number",
+        "Claim ID": "claim_unique_id",
+        "Enrollee Full Name": "enrollee.full_name",
+        "Enrollee OHIS Number": "enrollee.id_card_number",
+        "Enrollee Phone Number": "enrollee.phone_number",
         Diagnosis: "diagnosis.name",
-        HMO: "tpa.organization_name",
+        "Verified Amount": "approved_total_cost",
+        "Authorization Code": "authorization_code",
+        "Date Created": "seen_date",
+        "Facility Name": "provider.agency_name",
       },
       json_meta: [
         [
@@ -366,10 +476,15 @@ export default {
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
               provider_id: this.provider_id.id,
-              // org_id: this.org_id,
-              date: this.date,
+              // paginate_value: "20",
+              created_at: this.date == "created_at" ? "created_at" : null,
+              checked_by_date:
+                this.date == "checked_by_date" ? "checked_by_date" : null,
+              verified_by_date:
+                this.date == "verified_by_date" ? "verified_by_date" : null,
+
               from: this.from,
-              to: this.addOneDay,
+              to: this.to,
             },
           })
           .then((response) => {
@@ -391,14 +506,19 @@ export default {
               claim_unique_id: this.claim_unique_id,
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
-              // org_id: this.org_id,
-              date: this.date,
+              created_at: this.date == "created_at" ? "created_at" : null,
+              checked_by_date:
+                this.date == "checked_by_date" ? "checked_by_date" : null,
+              verified_by_date:
+                this.date == "verified_by_date" ? "verified_by_date" : null,
+
               from: this.from,
-              to: this.addOneDay,
+              to: this.to,
             },
           })
           .then((response) => {
-            this.claims = response.data;
+            this.claims = response.data.data;
+            this.metrics = response.data;
             console.log(response);
             this.isLoading = false;
           })
@@ -417,56 +537,48 @@ export default {
               authorization_code: this.authorization_code,
               id_card_number: this.id_card_number,
               // org_id: this.org_id,
-              date: this.date,
-              from: this.from,
-              to: this.addOneDay,
-            },
-          })
-          .then((response) => {
-            this.claims = response.data;
-            this.isLoading = false;
-            console.log(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
+              created_at: this.date == "created_at" ? "created_at" : null,
+              checked_by_date:
+                this.date == "checked_by_date" ? "checked_by_date" : null,
+              verified_by_date:
+                this.date == "verified_by_date" ? "verified_by_date" : null,
 
-      if (this.user.type == "tpa" || this.user.type == "tpa_employee") {
-        this.isLoading = true;
-        this.axios
-          .get(`/api/v1/auth/claim-org`, {
-            params: {
-              claim_status: this.claim_status,
-              claim_unique_id: this.claim_unique_id,
-              authorization_code: this.authorization_code,
-              id_card_number: this.id_card_number,
-              provider_id: this.provider_id,
-              date: this.date,
               from: this.from,
-              to: this.addOneDay,
+              to: this.to,
             },
           })
           .then((response) => {
             this.claims = response.data;
-            console.log(response);
             this.isLoading = false;
+            console.log(response);
           })
           .catch((error) => {
             console.error(error);
-            this.isLoading = false;
           });
       }
     },
-    getProviders() {
+    getProviders(status) {
+      this.isLoading = true;
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        // .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/getProviderByClaims/95930`, {
+          params: {
+            checked_by_id: status == "pending" ? "pending" : null,
+            verified_by_id: status == "vetted" ? "vetted" : null,
+          },
+        })
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
+          this.isLoading = false;
+          this.$toasted.info("Facility Fetched Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
         })
         .catch((error) => {
           console.error(error);
+          this.isLoading = false;
         });
     },
 
@@ -491,7 +603,6 @@ export default {
   },
   created() {
     this.getClaims();
-    this.getProviders();
   },
 };
 </script>

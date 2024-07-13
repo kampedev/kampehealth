@@ -11,7 +11,7 @@
                            <!-- <div class="avatar">
                              <label class="avatar-input">
                           <span class="avatar avatar-lg">
-                              <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
+                              <img :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`"
                                    class="avatar-img rounded-circle"  v-if="client.user_image != null " >
                           </span>
 
@@ -76,7 +76,7 @@
 
                              <div class="col-md-4" >
                                <vue-initials-img :name="client.firstname+' '+client.lastname" class="img-thumbnail" size="300"  v-if="client.user_image == null "/>
-                               <!-- <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`" class="img-thumbnail" alt="User Photo" width="304" height="210" v-if="client.user_image != null "> -->
+                               <!-- <img :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`" class="img-thumbnail" alt="User Photo" width="304" height="210" v-if="client.user_image != null "> -->
                                <img :src="`http://localhost:8000/image/${client.user_image}`" class="img spacer-top" alt="Cinque Terre"  height="400px" v-if="client.user_image != null ">
                                <!-- <p class="btn btn-default spacer-top-bottom">
                                  <button type="button"  name="button"> Enrollment Card </button>

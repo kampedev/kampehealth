@@ -211,7 +211,7 @@
                     >
                       <img
                         :src="
-                          `https://api.hayokinsurance.com/image/${dependent.image}`
+                          `https://insurance-api.hayokmedicare.ng/image/${dependent.image}`
                         "
                         class="avatar-img avatar-lg rounded"
                         onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -221,8 +221,7 @@
                   </td>
                   <td>
                     <router-link :to="{ path: '/provider-' + dependent.id }">
-                      {{ dependent.firstname }} {{ dependent.middlename }}
-                      {{ dependent.lastname }}
+                      {{ dependent.full_name }} 
                     </router-link>
                   </td>
                   <td>{{ dependent.id_card_number }}</td>

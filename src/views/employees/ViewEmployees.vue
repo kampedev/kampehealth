@@ -48,7 +48,7 @@
                             >
                               <img
                                 :src="
-                                  `https://api.hayokinsurance.com/image/${employee.user_image}`
+                                  `https://insurance-api.hayokmedicare.ng/image/${employee.user_image}`
                                 "
                                 class="avatar-img avatar-sm rounded-circle"
                                 alt=""
@@ -56,7 +56,7 @@
                             </div>
                           </td>
                           <td>
-                            {{ employee.firstname }} {{ employee.lastname }}
+                            {{ employee.full_name }} 
                           </td>
                           <td>
                             {{ employee.email }}

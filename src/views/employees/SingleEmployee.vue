@@ -110,8 +110,7 @@
                           v-bind:key="client.id"
                         >
                           <td>
-                            {{ client.firstname }} {{ client.middlename }}
-                            {{ client.lastname }}
+                            {{ client.full_name }} 
                           </td>
                           <td>{{ client.phone_number }}</td>
                           <td>{{ client.sector }}</td>
@@ -154,7 +153,7 @@
                 <div class="card-body">
                   <p class="my-2">
                     <strong>Contact Name:</strong>
-                    {{ employeee.user.firstname }} {{ employeee.user.lastname }}
+                    {{ employeee.user.full_name }} 
                   </p>
 
                   <p class="my-2">

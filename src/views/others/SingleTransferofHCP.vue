@@ -12,7 +12,7 @@
 
                 </div>
                 <button v-clipboard="client.firstname">
-                  <strong> <span class="h3">{{client.firstname}} {{client.lastname}}</span> </strong>
+                  <strong> <span class="h3">{{client.full_name}}</span> </strong>
                 </button>
 
               </div>

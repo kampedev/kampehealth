@@ -11,14 +11,14 @@
                          <div class="avatar">
                            <label class="avatar-input">
                         <span class="avatar avatar-lg">
-                            <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                            <img :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
                                  class="avatar-img rounded-circle"   >
                         </span>
 
                            </label>
                          </div>
                        </div>
-                       <strong> {{client.firstname}} {{client.lastname}}</strong>
+                       <strong> {{client.full_name}} </strong>
                    </div>
 
                </div>

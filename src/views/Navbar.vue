@@ -253,6 +253,17 @@
                 </a>
               </li>
 
+              <li class="menu-item">
+                <a href="/diaspora-registration" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Diaspora Enrollment</span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-user-plus"></i>
+                  </span>
+                </a>
+              </li>
+
               <!-- <li class="menu-item">
                 <router-link to="/add-client-offline" class=" menu-link">
                   <span class="menu-label">
@@ -308,6 +319,19 @@
                     <i
                       class="icon-placeholder mdi mdi-account-group-outline"
                     ></i>
+                  </span>
+                </a>
+              </li>
+              <li
+                class="menu-item"
+                v-if="user.type == 'shis' || user.user_role == 1"
+              >
+                <a href="/manage-extra" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Manage Expiries </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder mdi mdi-view-day"></i>
                   </span>
                 </a>
               </li>
@@ -468,15 +492,13 @@
               user.type == 'provider_employee' ||
               user.user_role == 1 ||
               user.job_title == 'Claims Vetter' ||
-                user.job_title == 'Claims Verifier'
+              user.job_title == 'Claims Verifier'
             "
           >
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
                 <span class="menu-name"
-                  >Claims
-                 
-                  Manager
+                  >Claims Manager
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -525,7 +547,7 @@
                 </router-link>
               </li> -->
               <li class="menu-item">
-                <router-link to="/all-referrals" class=" menu-link">
+                <router-link to="/all-referrals" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">View Referrals </span>
                   </span>
@@ -535,7 +557,7 @@
                 </router-link>
               </li>
               <li class="menu-item">
-                <router-link to="/authorization-code" class=" menu-link">
+                <router-link to="/authorization-code" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Authorization Code</span>
                   </span>
@@ -544,8 +566,6 @@
                   </span>
                 </router-link>
               </li>
-
-
             </ul>
           </li>
 
@@ -645,9 +665,7 @@
               <li class="menu-item">
                 <router-link to="/manage-services" class="menu-link">
                   <span class="menu-label">
-                    <span class="menu-name"
-                      >Fee for Service
-                    </span>
+                    <span class="menu-name">Fee for Service </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder mdi mdi-view-day"></i>
@@ -692,6 +710,16 @@
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-check-circle"></i>
+                  </span>
+                </router-link>
+              </li>
+              <li class="menu-item">
+                <router-link to="/upload-enrollee/csv" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Enrollee Upload </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-upload"></i>
                   </span>
                 </router-link>
               </li>

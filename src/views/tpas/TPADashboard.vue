@@ -142,11 +142,11 @@
                     <tr v-for="client in employees.data" v-bind:key="client.id">
                       <!-- <td>
                                 <div class="avatar avatar-sm " v-if="client.agent.user_image != null ">
-                                  <img :src="`https://api.hayokinsurance.com/image/${client.agent.user_image}`"
+                                  <img :src="`https://insurance-api.hayokmedicare.ng/image/${client.agent.user_image}`"
                                     class="avatar-img avatar-sm rounded-circle"
                                             alt=""></div>
                             </td> -->
-                      <td>{{ client.firstname }} {{ client.lastname }}</td>
+                      <td>{{ client.full_name }} </td>
                       <td>{{ client.phone_number }}</td>
                       <td>{{ client.email }}</td>
                       <!-- <td> {{client.enrolleduserby_count}} Enrollees</td> -->

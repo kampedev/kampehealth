@@ -10,7 +10,7 @@
 
             <div class="row">
                 <div class="col-12 m-b-20">
-                    <h5 class="spacer-top">Hello, {{auth_user.firstname}} {{auth_user.lastname}}</h5>
+                    <h5 class="spacer-top">Hello, {{auth_user.full_name}} </h5>
                 </div>
 
                 <div class="col-lg-6 col-md-6">

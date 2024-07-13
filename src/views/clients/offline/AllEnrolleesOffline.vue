@@ -59,7 +59,7 @@
                       />
                     </div>
                   </td>
-                  <td>{{ student.firstname }} {{ student.lastname }}
+                  <td>{{ student.full_name }} 
                      <!-- {{student.place_of_work}} -->
                       </td>
                   <td>{{ student.type }}</td>

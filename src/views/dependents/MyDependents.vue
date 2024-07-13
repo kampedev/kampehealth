@@ -187,7 +187,7 @@
                                                                            class="avatar-img avatar-sm rounded-circle"
                                                                            alt=""></div>
                                    </td> -->
-                    <td>{{ dependent.firstname }} {{ dependent.lastname }}</td>
+                    <td>{{ dependent.full_name }} </td>
                     <td>{{ dependent.email }}</td>
                     <td>{{ dependent.phone_number }}</td>
                     <td>{{ dependent.relationShipType }}</td>

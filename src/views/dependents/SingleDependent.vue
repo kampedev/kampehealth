@@ -37,7 +37,16 @@
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
-                <div class="card-header"></div>
+                <div class="card-header">
+                  <a
+                    :href="'/add-dependent/' + dependent.user_id"
+                    v-if="user.type != 'provider_employee'"
+                  >
+                    <button class="btn btn-outline-success mx-2">
+                      Manage Dependents <i class="fe fe-users"></i>
+                    </button>
+                  </a>
+                </div>
 
                 <div class="card-body row">
                   <div class="col-md-4">
@@ -48,7 +57,7 @@
                     /> -->
                     <div class="" v-if="dependent.image != null">
                       <img
-                        :src="`https://api.hayokinsurance.com/image/${dependent.image}`"
+                        :src="`https://insurance-api.hayokmedicare.ng/image/${dependent.image}`"
                         class="img-thumbnail"
                         width="304"
                         height="236"

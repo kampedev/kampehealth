@@ -38,6 +38,8 @@ import loadOfflineExporting from "highcharts/modules/offline-exporting";
 import loadBoost from "highcharts/modules/boost";
 import loadStock from "highcharts/modules/stock";
 import loadMap from "highcharts/modules/map";
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
 
 loadStock(Highcharts);
 loadMap(Highcharts);
@@ -72,9 +74,11 @@ Vue.component("v-select", vSelect);
 Vue.use(HighchartsVue);
 Vue.use(BootstrapVue);
 Vue.use(VueFullscreen);
+defineCustomElements(window);
 
 window.axios = axios;
-axios.defaults.baseURL = "https://api.hayokinsurance.com";
+// axios.defaults.baseURL = "https://insurance-api.hayokmedicare.ng";
+axios.defaults.baseURL = "https://insurance-api.hayokmedicare.ng";
 // axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.headers.common["Content-Type"] = "application/json";
 // axios.defaults.headers.common["Access-Control-Allow-Origin"] = "http://localhost:8080"

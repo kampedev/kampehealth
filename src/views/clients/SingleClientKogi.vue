@@ -9,11 +9,8 @@
               class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image"
             >
               <div class="m-b-10"></div>
-              <button v-clipboard="client.user.firstname">
-                <strong
-                  >{{ client.user.firstname }}
-                  {{ client.user.lastname }}</strong
-                >
+              <button v-clipboard="client.user.full_name">
+                <strong>{{ client.user.full_name }} </strong>
               </button>
             </div>
           </div>
@@ -33,9 +30,7 @@
                   <div class="form-group">
                     <button
                       class="btn btn-outline-success spacer"
-                      @click="startCamera"
-                      data-toggle="modal"
-                      data-target="#example_01"
+                      @click="takePicAndroid"
                     >
                       Take Photo <i class="fe fe-camera"></i>
                     </button>
@@ -74,7 +69,7 @@
                     <button
                       class="btn btn-outline-danger spacer"
                       @click="deleteUser"
-                      v-if="user.user_role == 1"
+                      v-if="user.user_role != 0"
                     >
                       Delete <i class="fe fe-delete"></i>
                     </button>
@@ -125,7 +120,7 @@
                       <!-- Button trigger modal -->
                       <button
                         type="button"
-                        v-if="user.user_role == 1"
+                        v-if="user.user_role != 0"
                         class="btn btn-outline-dark mx-2"
                         data-toggle="modal"
                         data-target="#exampleModal"
@@ -273,7 +268,7 @@
                 <div class="card-body row">
                   <div class="col-md-4">
                     <img
-                      :src="`https://api.hayokinsurance.com/image/${client.user.user_image}`"
+                      :src="`https://insurance-api.hayokmedicare.ng/image/${client.user.user_image}`"
                       class="img"
                       alt="User Photo"
                       onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -282,7 +277,7 @@
 
                   <div class="col-md-8">
                     <p class="h3 spacer-top-bottom">
-                      <strong class="text-primary">NAME :</strong>
+                      <strong class="text-primary">NAME:</strong>
                       <strong>{{ client.user.lastname }}</strong>
                       {{ client.user.firstname }}, {{ client.user.middlename }}
                     </p>
@@ -307,7 +302,9 @@
                       <strong class="text-primary">
                         FACILITY TO ACCESS CARE:</strong
                       >
-                      <strong>{{ client.provider.agency_name }}</strong>
+                      <strong v-if="client.provider">{{
+                        client.provider.agency_name
+                      }}</strong>
                     </p>
 
                     <hr />
@@ -358,7 +355,7 @@
                   <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
                     <p class="spacer-top-bottom">
                       <strong>Dependent Name {{ index + 1 }} :</strong>
-                      {{ dep.firstname }} {{ dep.lastname }}
+                      {{ dep.full_name }}
                     </p>
                     <hr />
                   </div>
@@ -368,8 +365,7 @@
                     v-if="client.enrolled_by != null"
                   >
                     <strong>Enrolled By:</strong>
-                    {{ client.enrolled_by.firstname }}
-                    {{ client.enrolled_by.lastname }}
+                    {{ client.enrolled_by.full_name }}
                   </p>
                   <hr />
                   <p class="spacer-top-bottom">
@@ -504,63 +500,6 @@
               />
             </div>
           </div>
-
-          <!-- Modal for Prescription/Notes -->
-          <div
-            class="modal fade"
-            id="example_01"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="example_02"
-            aria-hidden="true"
-          >
-            <div
-              class="modal-dialog modal-dialog-centered modal-lg"
-              role="document"
-            >
-              <div class="modal-content">
-                <div class="container-fluid">
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <div class="row">
-                    <div class="col-md-12 p-t-20 p-b-20">
-                      <video
-                        id="video"
-                        width="100%"
-                        height="auto"
-                        autoplay
-                      ></video>
-                      <p class="mt-4">
-                        <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
-                        <button @click="takePic" class="bg-navy btn btn-flat">
-                          Snap Photo
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-info ml-2"
-                          name="button"
-                          @click="savePic"
-                        >
-                          Save pic
-                        </button>
-                      </p>
-                      <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
-                      <!-- <p>{{imagefile}}</p> -->
-
-                      <canvas id="canvas" width="750px" height="400px"></canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Modal Ends -->
         </div>
 
         <div class="vld-parent">
@@ -582,8 +521,7 @@ import Navbar from "@/views/Navbar.vue";
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
-// Init plugin
-// import { WebCam } from "vue-web-cam";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
   components: {
@@ -624,21 +562,6 @@ export default {
         amount: "",
       },
       transaction_ref_length: 50,
-      video_settings: {
-        video: {
-          width: {
-            min: 1280,
-            ideal: 1920,
-            max: 2560,
-          },
-          height: {
-            min: 720,
-            ideal: 1080,
-            max: 1440,
-          },
-          facingMode: "environment",
-        },
-      },
     };
   },
   mounted() {
@@ -675,20 +598,6 @@ export default {
   },
 
   methods: {
-    async startCamera() {
-      var video = document.getElementById("video");
-      // Get access to the camera!
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Not adding `{ audio: true }` since we only want video now
-        navigator.mediaDevices
-          .getUserMedia(this.video_settings)
-          .then(function (stream) {
-            //video.src = window.URL.createObjectURL(stream);
-            video.srcObject = stream;
-            video.play();
-          });
-      }
-    },
     addPayment() {
       if (confirm("Are you sure you want to Submit?")) {
         this.isLoading = true;
@@ -704,13 +613,6 @@ export default {
           })
           .then((response) => {
             this.transactionID = response.data.id;
-
-            // this.isLoading = false;
-            // this.$toasted.success("Payment Added Successfully", {
-            //   position: "top-center",
-            //   duration: 3000,
-            // });
-            // this.fetchUser()
           })
           .catch((error) => {
             console.error(error);
@@ -819,22 +721,7 @@ export default {
       };
       this.output = await this.$html2canvas(el, options);
     },
-    streamPic() {
-      console.log("hello pic");
 
-      var video = document.getElementById("video");
-      // Get access to the camera!
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Not adding `{ audio: true }` since we only want video now
-        navigator.mediaDevices
-          .getUserMedia(this.video_settings)
-          .then(function (stream) {
-            //video.src = window.URL.createObjectURL(stream);
-            video.srcObject = stream;
-            video.play();
-          });
-      }
-    },
     printMe() {
       var printContents = document.getElementById("printDiv").innerHTML;
       var originalContents = document.body.innerHTML;
@@ -861,19 +748,17 @@ export default {
         });
     },
 
-    takePic() {
-      var video = document.getElementById("video");
-      var canvas = document.getElementById("canvas");
-      var context = canvas.getContext("2d");
+    async takePicAndroid() {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+      });
 
-      context.drawImage(video, 0, 0, 640, 480);
-
-      // get image
-      var image = new Image();
-      image.src = canvas.toDataURL("image/png");
-      console.log(image);
-      localStorage.setItem("snap", this.imagefile.src);
-      this.imagefile = image.src;
+      var imageUrl = image.base64String;
+      this.imagefile = "data:image/png;base64," + imageUrl;
+      this.savePic();
     },
 
     savePic() {
@@ -1043,7 +928,6 @@ export default {
     // },
   },
   created() {
-    this.startCamera();
     this.fetchUser();
     this.findDependents();
     // this.streamPic();

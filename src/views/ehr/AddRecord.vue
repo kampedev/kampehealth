@@ -117,14 +117,14 @@
                         <div class="row col-md-12" v-show="userDetails">
                           <div class="col-md-6 offset-md-3 my-6">
                             <img
-                              :src="`https://api.hayokinsurance.com/image/${selected_enrollee.user_image}`"
+                              :src="`https://insurance-api.hayokmedicare.ng/image/${selected_enrollee.user_image}`"
                               class="img"
                               alt="User Photo"
                               onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                             />
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputCity">Client Surname  </label>
+                            <label for="inputCity">Client Surname </label>
                             <input
                               type="text"
                               class="form-control"
@@ -335,7 +335,6 @@
                             </button>
                           </div>
                         </div>
-
                       </div>
                     </div>
 

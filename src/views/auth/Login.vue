@@ -1,15 +1,19 @@
 <template>
-  <body class="jumbo-page" style="background-image: url('background/4.jpg');">
-    <main class="admin-main" >
+  <body class="jumbo-page" style="background-image: url('background/4.jpg')">
+    <main class="admin-main">
       <div class="container-fluid">
-        <div class="row"  >
+        <div class="row">
           <div class="container spacer-top">
             <div class="card col-lg-6 offset-lg-3 notscroll">
               <div class="row align-items-center m-h-70">
                 <div class="mx-auto col-md-8">
-                  
                   <div class="text-center">
-                      <img src="assets/img/ohis_logo.png" width="80" alt="" class="rounded mx-auto d-block" />
+                    <img
+                      src="assets/img/ohis_logo.png"
+                      width="80"
+                      alt=""
+                      class="rounded mx-auto d-block"
+                    />
 
                     <p class="admin-brand-content">
                       Osun Health Insurance Agency
@@ -24,7 +28,7 @@
                         type="text"
                         required
                         class="form-control"
-                        v-model="identifier"
+                        v-model="email"
                         placeholder="Email"
                       />
                     </div>
@@ -33,7 +37,7 @@
                       <input
                         type="password"
                         required
-                        class="form-control "
+                        class="form-control"
                         v-model="password"
                         placeholder="password"
                       />
@@ -61,9 +65,7 @@
                     Login <i class="fe fe-send"></i>
                   </button>
                   <p class="text-right p-t-10" v-if="user != null">
-                    <a
-                      href="/offline-home"
-                      class="text-underline"
+                    <a href="/offline-home" class="text-underline"
                       >Offline Access</a
                     >
                   </p>
@@ -103,10 +105,8 @@ export default {
   },
   data() {
     return {
-      identifier: "",
-      reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+      email: "",
       password: "",
-      password_confirmation: "",
       response: "",
       isLoading: false,
       fullPage: true,
@@ -118,81 +118,36 @@ export default {
     this.user = JSON.parse(localStorage.getItem("user"));
   },
   methods: {
-    getUser() {
-      this.axios
-        .get(`/api/v1/auth/user`)
-        .then((response) => {
-          this.auth_user = response.data.data;
-          console.log(response);
-          localStorage.setItem("user", JSON.stringify(response.data.data));
-          // let type = response.data.data.type
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
     logIn() {
       this.isLoading = true;
-      if (this.reg.test(this.identifier)) {
-        this.axios
-          .post("/api/v1/auth/login", {
-            email: this.identifier,
-            password: this.password,
-            password_confirmation: this.password,
-          })
+      this.axios
+        .post("/api/v1/auth/login", {
+          // email: this.email,
+          email: this.email.replace(/\s/g, ""),
+          password: this.password,
+        })
 
-          .then((response) => {
-            console.log(response);
-            // this.$toasted.info('Welcome back!', {position: 'top-center', duration:3000 })
-            let token = response.data.token;
-            let user = response.data.user;
-            if (token) {
-              localStorage.setItem("jwt", token);
-             localStorage.setItem("user", JSON.stringify(user));
+        .then((response) => {
+          console.log(response);
+          let token = response.data.token;
+          let user = response.data.user;
+          if (token) {
+            localStorage.setItem("jwt", token);
+            localStorage.setItem("user", JSON.stringify(user));
 
-              if (localStorage.getItem("jwt") != null) {
-                this.$router.push("/pusher");
-              }
+            if (localStorage.getItem("jwt") != null) {
+              this.$router.push("/pusher");
             }
-          })
-          .catch((error) => {
-            console.log(error.response);
-            this.response = error.response.data.error;
-            this.isLoading = false;
-            // this.$toasted.error('Email or Password Incorrect', {position: 'top-center', duration:3000 })
-            this.$toasted.error(`${this.response}`, {
-              position: "top-center",
-              duration: 3000,
-            });
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+          this.isLoading = false;
+          this.$toasted.error("Username or Password Incorrect", {
+            position: "top-center",
+            duration: 3000,
           });
-      } else {
-        this.axios
-          .post("/api/v1/auth/login", {
-            username: this.identifier,
-            password: this.password,
-          })
-
-          .then((response) => {
-            console.log(response);
-            let token = response.data.token;
-            if (token) {
-              localStorage.setItem("jwt", token);
-              // this.$breadstick.notify("🥞 Welcome to HIP!", {position: "top-right"});
-              if (localStorage.getItem("jwt") != null) {
-                this.$router.push("/pusher");
-              }
-            }
-          })
-          .catch((error) => {
-            console.log(error.response);
-            this.isLoading = false;
-            this.$toasted.error("Username or Password Incorrect", {
-              position: "top-center",
-              duration: 3000,
-            });
-          });
-      }
+        });
     },
   },
   created() {
@@ -205,7 +160,7 @@ export default {
   margin-top: 80px;
   margin-bottom: 180px;
 }
-.notscroll{
+.notscroll {
   overflow: hidden;
 }
 </style>

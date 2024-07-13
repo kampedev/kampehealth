@@ -10,7 +10,7 @@
 
             <div class="row">
                 <div class="col-12 m-b-20">
-                    <h5 class="spacer-top">{{user.firstname}} {{user.lastname}}</h5>
+                    <h5 class="spacer-top">{{user.full_name}} </h5>
                 </div>
 
                 <div class="col-lg-6 col-md-6">
@@ -73,12 +73,12 @@
                           <tr v-for="client in clients.data" v-bind:key="client.id">
                             <td>
                                 <div class="avatar avatar-sm " v-if="client.user_image != null ">
-                                  <img :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
+                                  <img :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`"
                                                          class="avatar-img avatar-sm rounded-circle"
                                                                     alt=""></div>
                             </td>
                               <td>
-                                {{client.firstname}} {{client.lastname}}
+                                {{client.full_name}} 
                               </td>
                               <td>{{client.phone_number}}</td>
                               <td> {{client.sector}}</td>

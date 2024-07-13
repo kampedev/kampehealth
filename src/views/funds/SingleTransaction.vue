@@ -136,8 +136,7 @@
                               Claim ID: #{{ claim.claim_unique_id }}
                             </p>
                             <p class="text-muted">
-                              {{ claim.enrollee.firstname }}
-                              {{ claim.enrollee.lastname }},
+                              {{ claim.enrollee.full_name }}
                               {{ claim.seen_date | moment("D/M/YYYY") }},
                               {{ claim.authorization_code }}
                             </p>

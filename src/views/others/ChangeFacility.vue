@@ -158,7 +158,7 @@
                 <div class="col-md-4 offset-md-4">
                   <img
                     :src="
-                      `https://api.hayokinsurance.com/image/${enrollee_details.user.user_image}`
+                      `https://insurance-api.hayokmedicare.ng/image/${enrollee_details.user.user_image}`
                     "
                     class="img spacer-top"
                     alt="User Photo"

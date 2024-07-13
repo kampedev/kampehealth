@@ -45,14 +45,13 @@
         <div class="user__details--container-main">
           <h1 class="name">
             <span v-if="encounterDetails.enrollee != null">
-              {{ encounterDetails.enrollee.lastname }}
-              {{ encounterDetails.enrollee.firstname }}
+              {{ encounterDetails.enrollee.full_name }}
             </span>
           </h1>
 
           <img
-          v-if="encounterDetails.enrollee != null"
-            :src="`https://api.hayokinsurance.com/image/${encounterDetails.enrollee.user_image}`"
+            v-if="encounterDetails.enrollee != null"
+            :src="`https://insurance-api.hayokmedicare.ng/image/${encounterDetails.enrollee.user_image}`"
             alt="Enrollee Image"
             class="enrollee__img"
             onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -153,8 +152,7 @@
               </p>
               <p class="other__detail">
                 <strong>Desk Officer: </strong>
-                {{ encounterDetails.healthrecord.professional.lastname }}
-                {{ encounterDetails.healthrecord.professional.firstname }}
+                {{ encounterDetails.healthrecord.professional.full_name }}
               </p>
               <p class="other__detail">
                 <strong>Desk Officer's Phone Number: </strong>
@@ -438,7 +436,7 @@ export default {
       let message = `your code requested is successful. Go to https://app.oshia.ng/authorization-code  `;
       this.axios
         .post(
-          `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${message}&recipients=${this.encounterDetails.creator.phone_number}`,
+          `https://api.bulksmslive.com/v2/app/sms?email=info@oshia.ng&password=osun@4141&sender_name=OHIS&message=${message}&recipients=${this.encounterDetails.creator.phone_number}`,
           {}
         )
         .then((response) => {

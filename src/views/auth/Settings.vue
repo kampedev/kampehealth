@@ -34,7 +34,7 @@
                                   <div class="" v-if="auth_user.user_image != null ">
                                       <label class="avatar-input">
                                    <span class="avatar avatar-xl">
-                                       <img :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                                       <img :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
                                             class="avatar-img rounded-circle"   >
                                         <span class="avatar-input-icon rounded-circle">
                                        <i class="mdi mdi-upload mdi-24px"></i>

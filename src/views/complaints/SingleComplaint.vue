@@ -54,7 +54,7 @@
                                <br>
                                <p><strong>Type:</strong>  {{complaint.data.type}}</p>
                                <br>
-                               <p><strong>Sent by:</strong>  {{complaint.enrollee.firstname}} {{complaint.enrollee.lastname}}</p>
+                               <p><strong>Sent by:</strong>  {{complaint.enrollee.full_name}} </p>
                                <br>
                                <p><strong>Date Created:</strong> {{complaint.data.created_at}}</p>
                                <br>

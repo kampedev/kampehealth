@@ -1,169 +1,473 @@
 <template>
-  <section class="admin-content " id="contact-search">
+  <section class="admin-content" id="contact-search">
     <Navbar />
-    <div v-for="provider in singleprovider" v-bind:key="provider.id">
-      <div class="bg-dark m-b-30">
-        <div class="container">
-          <div class="row p-b-60 p-t-60">
-            <div class="col-md-6 text-center mx-auto text-white p-b-30">
-              <div class="m-b-10">
-                <div class="avatar "></div>
+    <main class="admin-main">
+      <div v-for="provider in singleprovider" v-bind:key="provider.id">
+        <div class="bg-success m-b-30">
+          <div class="container">
+            <div class="row p-b-60 p-t-60">
+              <div class="col-md-6 text-center mx-auto text-white p-b-30">
+                <div class="m-b-10">
+                  <div class="avatar"></div>
+                </div>
+                <h3 class="h5">{{ provider.agency_name }}</h3>
               </div>
-              <h3 class="h5">{{ provider.agency_name }}</h3>
             </div>
           </div>
         </div>
-      </div>
-      <section class="pull-up">
-        <div class="container">
-          <div class="row list">
-            <div class="col-lg-12 col-md-8">
-              <div class="card m-b-30">
-                <div class="card-header"></div>
+        <section class="pull-up">
+          <div class="container">
+            <div class="row list">
+              <div class="col-lg-12 col-md-12">
+                <div class="card m-b-30">
+                  <div class="card-header"></div>
 
-                <div class="card-body">
-                  <div class="form-group">
-                    <button
-                      class="btn btn-primary"
-                      @click="acceptProvider"
-                      v-if="provider.status == false"
-                    >
-                      Approve
-                    </button>
-                    <router-link
-                      :to="{ path: '/provider/add-employee/' + provider.id }"
-                    >
-                      <button class="btn btn-info spacer">Add Personnel</button>
-                    </router-link>
-
-                    <router-link
-                      :to="{ path: '/edit-provider/' + provider.id }"
-                    >
-                      <button class="btn btn-primary" style="margin-left:10px;">
-                        Edit Facility
+                  <div class="card-body">
+                    <div class="form-group">
+                      <button
+                        class="btn btn-outline-success"
+                        @click="acceptProvider"
+                        v-if="provider.status == false"
+                      >
+                        Approve
                       </button>
-                    </router-link>
+                      <router-link
+                        :to="{ path: '/provider/add-employee/' + provider.id }"
+                      >
+                        <button class="btn btn-outline-success spacer">
+                          Manage Personnel
+                        </button>
+                      </router-link>
 
-                    <router-link
-                      :to="{ path: '/edit-provider-bank/' + provider.id }"
-                    >
-                      <button class="btn btn-success" style="margin-left:10px;">
-                        Update Bank Details
-                      </button>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-8 col-md-8">
-              <div class="card m-b-30">
-                <div class="card-header">
-                  <h4 class="h4">Facility Enrollees</h4>
-                </div>
-
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table align-td-middle table-card">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Contact</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          v-for="enrollee in providerclients"
-                          v-bind:key="enrollee.id"
+                      <router-link
+                        :to="{ path: '/edit-provider/' + provider.id }"
+                      >
+                        <button
+                          class="btn btn-outline-success"
+                          style="margin-left: 10px"
                         >
-                          <td>
-                            <router-link
-                              :to="{ path: '/provider-' + provider.id }"
-                            >
-                              {{ enrollee.firstname }} {{ enrollee.lastname }}
-                            </router-link>
-                          </td>
-                          <td>{{ enrollee.phone_number }}</td>
-                          <td>{{ enrollee.sector }}</td>
-
-                          <td>
-                            <router-link
-                              :to="{ path: '/client/' + enrollee.id }"
-                            >
-                              <button
-                                type="button"
-                                name="button"
-                                class="btn btn-info"
-                              >
-                                view
-                              </button>
-                            </router-link>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                          Edit Facility
+                        </button>
+                      </router-link>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-4">
-              <div class="card m-b-30">
-                <div class="card-header">
-                  <strong class="h4">Facility Details</strong>
+            <div class="row">
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <router-link :to="{ path: '/view-clients-provider' }">
+                        <div class="avatar avatar-lg">
+                          <div
+                            class="avatar-title bg-soft-success rounded-circle"
+                          >
+                            <i class="mdi mdi-account-group"></i>
+                          </div>
+                        </div>
+                      </router-link>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">
+                        Total Enrollees
+                      </p>
+                      <h1 class="fw-400">
+                        {{ dashboarddata.enrollees | numeral("0,0") }}
+                      </h1>
+                    </div>
+                  </div>
                 </div>
+              </div>
 
-                <div class="card-body">
-                  <p>
-                    <span v-if="provider.status == true">
-                      <button
-                        type="button"
-                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
-                      >
-                        approved
-                      </button>
-                    </span>
-                    <span v-if="provider.status == false">
-                      <button
-                        type="button"
-                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
-                      >
-                        pending
-                      </button>
-                    </span>
-                  </p>
-                  <p>
-                    <strong>Beneficiaries Enrolled:</strong>
-                    {{ providerclients.length }}
-                  </p>
-                  <br />
-                  <p>
-                    <strong>Contact Name:</strong> {{ provider.firstname }}
-                    {{ provider.lastname }}
-                  </p>
-                  <br />
-                  <p><strong>E - Mail:</strong> {{ provider.email }}</p>
-                  <br />
-                  <p>
-                    <strong>Phone Number:</strong> {{ provider.phone_number }}
-                  </p>
-                  <br />
-                  <p>
-                    <strong>Facilty Type:</strong> {{ provider.phc_general }}
-                  </p>
-                  <br />
-                  <p><strong>Website:</strong> {{ provider.website }}</p>
-                  <br />
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-account-multiple"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">Principal</p>
+                      <h1 class="fw-400">
+                        {{ dashboarddata.principal | numeral("0,0") }}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-account-heart"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">Dependents</p>
+                      <h1 class="fw-400">
+                        {{ dashboarddata.dependants | numeral("0,0") }}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-folder-multiple"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">Encounters</p>
+                      <h1 class="fw-400">
+                        {{ dashboarddata.encounters | numeral("0,0") }}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <router-link :to="{ path: '/all-claims' }">
+                        <div class="avatar avatar-lg">
+                          <div
+                            class="avatar-title bg-soft-success rounded-circle"
+                          >
+                            <i class="fe fe-credit-card"></i>
+                          </div>
+                        </div>
+                      </router-link>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">Claims</p>
+                      <h1 class="fw-400">
+                        {{ dashboarddata.claims | numeral("0,0") }}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-bank-transfer-out"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">
+                        Out-going Referrals
+                      </p>
+                      <h1 class="fw-400">
+                        {{ dashboarddata.outgoing_referrals | numeral("0,0") }}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-bank-transfer-in"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">
+                        In-coming Referrals
+                      </p>
+                      <h1 class="fw-400">
+                        {{ dashboarddata.incoming_referrals | numeral("0,0") }}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-account-tie"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">Employees</p>
+                      <h1 class="fw-400">
+                        {{ dashboarddata.employees | numeral("0,0") }}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-folder-multiple"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">
+                        Total Utilization Rate
+                      </p>
+                      <h1 class="fw-400">
+                        {{
+                          dashboarddata.encounter_rate_total
+                            | numeral("0,0.00")
+                        }}%
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-bank-transfer-out"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">
+                        Total Referral Rate
+                      </p>
+                      <h1 class="fw-400">
+                        {{
+                          dashboarddata.referral_rate_total | numeral("0,0.00")
+                        }}%
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-folder-multiple"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">
+                        Utilization Rate (Current Month)
+                      </p>
+                      <h1 class="fw-400">
+                        {{
+                          dashboarddata.encounter_rate_current_month
+                            | numeral("0,0.00")
+                        }}%
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3">
+                <div class="card m-b-30">
+                  <div class="card-body">
+                    <div class="pb-2">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-success rounded-circle"
+                        >
+                          <i class="mdi mdi-bank-transfer-out"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-muted text-overline m-0">
+                        Referral Rate (Current Month)
+                      </p>
+                      <h1 class="fw-400">
+                        {{
+                          dashboarddata.referral_rate_current_month
+                            | numeral("0,0.00")
+                        }}%
+                      </h1>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- <div class="row">
+            <div class="row">
+              <div class="col-lg-8 col-md-8">
+                <div class="card m-b-30">
+                  <div class="card-header">
+                    <h4 class="h4">Facility Enrollees</h4>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table align-td-middle table-card">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>AGENCY ID</th>
+                            <th>Contact</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            v-for="enrollee in providerclients"
+                            v-bind:key="enrollee.id"
+                          >
+                            <td>
+                              <router-link
+                                :to="{ path: '/client/' + enrollee.id }"
+                              >
+                                {{ enrollee.firstname }} {{ enrollee.lastname }}
+                              </router-link>
+                            </td>
+                            <td>{{ enrollee.id_card_number }}</td>
+                            <td>{{ enrollee.phone_number }}</td>
+                            <td>{{ enrollee.sector }}</td>
+
+                            <td>
+                              <router-link
+                                :to="{ path: '/client/' + enrollee.id }"
+                              >
+                                <button
+                                  type="button"
+                                  name="button"
+                                  class="btn btn-outline-success"
+                                >
+                                  <i class="fe fe-eye"></i>
+                                </button>
+                              </router-link>
+
+                              <!-- <button class="btn btn-dark" @click="editUser(enrollee)">change</button> -->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-4">
+                <div class="card m-b-30">
+                  <div class="card-header">
+                    <strong class="h4">Facility Details</strong>
+                  </div>
+
+                  <div class="card-body">
+                    <p>
+                      <span v-if="provider.status == true">
+                        <button
+                          type="button"
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                        >
+                          approved
+                        </button>
+                      </span>
+                      <span v-if="provider.status == false">
+                        <button
+                          type="button"
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+                        >
+                          pending
+                        </button>
+                      </span>
+                    </p>
+                    <p>
+                      <strong>Beneficiaries Enrolled:</strong>
+                      {{ providerclients.length }}
+                    </p>
+                    <br />
+                    <p>
+                      <strong>Contact Name:</strong> {{ provider.firstname }}
+                      {{ provider.lastname }}
+                    </p>
+                    <br />
+                    <p><strong>E - Mail:</strong> {{ provider.email }}</p>
+                    <br />
+                    <p>
+                      <strong>Phone Number:</strong> {{ provider.phone_number }}
+                    </p>
+                    <br />
+                    <p>
+                      <strong>Facilty Type:</strong> {{ provider.phc_general }}
+                    </p>
+                    <br />
+                    <p>
+                      <strong>LGA/Ward:</strong>
+                      <span v-if="provider.user.localgovt">
+                        {{ provider.user.localgovt.local_name }} /
+                      </span>
+                      <span v-if="provider.user.ward">{{
+                        provider.user.ward.ward_name
+                      }}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="row">
                    <div class="col-lg-8 col-md-8">
                        <div class="card m-b-30">
                            <div class="card-header">
@@ -178,18 +482,19 @@
                    </div>
 
                </div> -->
-        </div>
+          </div>
 
-        <div class="vld-parent">
-          <loading
-            :active.sync="isLoading"
-            loader="dots"
-            :can-cancel="true"
-            :is-full-page="fullPage"
-          ></loading>
-        </div>
-      </section>
-    </div>
+          <div class="vld-parent">
+            <loading
+              :active.sync="isLoading"
+              loader="dots"
+              :can-cancel="true"
+              :is-full-page="fullPage"
+            ></loading>
+          </div>
+        </section>
+      </div>
+    </main>
   </section>
 </template>
 
@@ -212,6 +517,7 @@ export default {
       singleprovider: "",
       providerclients: "",
       agencies: "",
+      dashboarddata: "",
       edit: false,
       isLoading: false,
       fullPage: true,
@@ -231,6 +537,18 @@ export default {
       });
   },
   methods: {
+    getData() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .get(`/api/v1/auth/provider-dashboard-data/${this.$route.params.id}`)
+        .then((response) => {
+          this.dashboarddata = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     getProvider() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
@@ -263,7 +581,7 @@ export default {
         this.isLoading = true;
         this.axios
           .post("/api/v1/auth/approveDisapproveProviderByAgency", {
-            agency_id: this.user.id,
+            agency_id: 90,
             provider_id: this.$route.params.id,
             status: 1,
           })
@@ -274,7 +592,6 @@ export default {
             });
             this.isLoading = false;
             this.getProvider();
-            // this.$router.push(`/client/${this.$route.params.id}`)
             this.$router.push(`/my-providers`);
           })
           .catch((error) => {
@@ -310,10 +627,33 @@ export default {
     clearIt() {
       this.agency_id = "";
     },
+    editUser(enrollee) {
+      this.isLoading = true;
+      this.axios
+        .patch(`/api/v1/auth/id-card-number/change/${enrollee.id}`)
+        .then((response) => {
+          console.log(response);
+          // this.getClients()
+          this.$toasted.success("Changed Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.$toasted.error("Error!", {
+            position: "top-center",
+            duration: 3000,
+          });
+          this.isLoading = false;
+        });
+    },
   },
   created() {
     this.getProvider();
     this.getProviderClients();
+    this.getData();
   },
 };
 </script>

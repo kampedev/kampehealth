@@ -35,6 +35,7 @@
                 <option value="Basic Healthcare Provision Fund">
                   Basic Healthcare Provision Fund
                 </option>
+
                 <option value="State Equity Program">
                   State Equity Program
                 </option>
@@ -43,12 +44,16 @@
                   Voluntary Contributor
                 </option>
                 <option value="Civil Servant">Civil Servant</option>
-                <option value="Oganized Private Sector Plan">
-                  Organized Private Sector Plan
+                <option value="State Pensioners Plan">
+                  State Pensioners Plan
                 </option>
-                <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
+
+                <option value="Diaspora Contributor">
+                  Diaspora Contributor
+                </option>
+                <!-- <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
                   Tertiary Student Health Insurance Plan (T-SHIP)
-                </option>
+                </option> -->
               </select>
             </div>
 
@@ -111,23 +116,21 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-                    <label>Special Needs</label>
-                    <select
-                      class="form-control"
-                      v-model="category_of_vulnerable_group"
-                    >
-                      <option value="All">All</option>
-                      <option value="Pregnant Women">Pregnant Women</option>
-                      <option value="Children under 5">Children under 5</option>
-                      <option value="Aged">Aged</option>
-                      <option value="People with Special Needs">
-                        People with Special Needs
-                      </option>
-                      <option value="Poorest of the Poor">
-                        Poorest of the Poor
-                      </option>
-                    </select>
-                  </div>
+              <label>Special Needs</label>
+              <select
+                class="form-control"
+                v-model="category_of_vulnerable_group"
+              >
+                <option value="All">All</option>
+                <option value="Pregnant Women">Pregnant Women</option>
+                <option value="Children under 5">Children under 5</option>
+                <option value="Aged">Aged</option>
+                <option value="People with Special Needs">
+                  People with Special Needs
+                </option>
+                <option value="Poorest of the Poor">Poorest of the Poor</option>
+              </select>
+            </div>
 
             <div class="form-group col-md-3">
               <label for="inputCity"
@@ -139,7 +142,7 @@
                   v-for="emoployee in employees.data"
                   v-bind:key="emoployee.id"
                 >
-                  {{ emoployee.firstname }} {{ emoployee.lastname }}
+                  {{ emoployee.full_name }}
                 </option>
               </select>
             </div>
@@ -223,7 +226,7 @@
                               v-if="client.user_image != null"
                             >
                               <img
-                                :src="`https://api.hayokinsurance.com/image/${client.user_image}`"
+                                :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`"
                                 class="avatar-img avatar-sm rounded-circle"
                                 alt="User Photo"
                                 onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -234,8 +237,7 @@
                             {{ client.account_type }}
                           </td>
                           <td>
-                            {{ client.firstname }}, {{ client.middlename }}
-                            {{ client.lastname }}
+                            {{ client.full_name }}
                           </td>
                           <td>{{ client.phone_number }}</td>
                           <td>{{ client.sector }}</td>
@@ -250,13 +252,7 @@
                               <span v-if="client.status == 'active'">
                                 <button
                                   type="button"
-                                  class="
-                                    btn
-                                    m-b-15
-                                    ml-2
-                                    mr-2
-                                    badge badge-soft-success
-                                  "
+                                  class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
                                 >
                                   active
                                 </button>
@@ -264,13 +260,7 @@
                               <span v-if="client.status == 'inactive'">
                                 <button
                                   type="button"
-                                  class="
-                                    btn
-                                    m-b-15
-                                    ml-2
-                                    mr-2
-                                    badge badge-soft-warning
-                                  "
+                                  class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
                                 >
                                   inactive
                                 </button>
@@ -278,8 +268,9 @@
                             </p>
                           </td>
                           <td>
-                            <router-link :to="{ path: '/client/' + client.id }"
-                            v-if="client.account_type == 'Principal'"
+                            <router-link
+                              :to="{ path: '/client/' + client.id }"
+                              v-if="client.account_type == 'Principal'"
                             >
                               <button
                                 type="button"
@@ -297,7 +288,7 @@
                               :data-target="'#collapseExample' + client.id"
                               aria-expanded="false"
                               aria-controls="collapseExample"
-                                v-if="client.account_type == 'Principal'"
+                              v-if="client.account_type == 'Principal'"
                             >
                               <i class="fe fe-users"></i>
                             </button>
@@ -318,7 +309,7 @@
                                   v-bind:key="dep.id"
                                 >
                                   <td>
-                                    {{ dep.firstname }} {{ dep.lastname }}
+                                    {{ dep.full_name }}
                                   </td>
                                   <td>{{ dep.relationShipType }}</td>
                                   <td>{{ dep.gender }}</td>
@@ -404,7 +395,7 @@ export default {
   beforeMount() {
     this.getClients();
   },
- 
+
   methods: {
     clearFilter() {
       this.ward = "";
@@ -496,7 +487,9 @@ export default {
             from: this.from ? this.from : "",
             to: this.to,
             ward: this.ward ? this.ward : "",
-            category_of_vulnerable_group: this.category_of_vulnerable_group ? this.category_of_vulnerable_group : "",
+            category_of_vulnerable_group: this.category_of_vulnerable_group
+              ? this.category_of_vulnerable_group
+              : "",
           },
         })
         .then((response) => {

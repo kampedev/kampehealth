@@ -21,14 +21,14 @@
             <button
               type="button"
               :class="buttoncolor.formal"
-              @click="showPrimary"
+              @click="showPrimary(currentPage)"
             >
               Primary (Referring) <i class="fe fe-list"></i>
             </button>
             <button
               type="button"
               :class="buttoncolor.informal"
-              @click="showSecondary"
+              @click="showSecondary(currentPage)"
             >
               Secondary (Recipient) <i class="fe fe-grid"></i>
             </button>
@@ -124,7 +124,7 @@
                           </button>
 
                           <button
-                            class="btn btn-outline-success btn-sm ml-2"
+                            class="btn btn-outline-success btn-sm m-1"
                             @click="copyCode(ref)"
                           >
                             {{ ref.code_created }} <i class="fe fe-copy"></i>
@@ -134,7 +134,7 @@
                         <span v-if="ref.status == 'pending'">
                           <button
                             type="button"
-                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+                            class="btn m-b-15 m-1 badge badge-soft-warning"
                           >
                             pending
                           </button>
@@ -142,7 +142,7 @@
                         <span v-if="ref.status == 'rejected'">
                           <button
                             type="button"
-                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger"
+                            class="btn m-b-15 m-1 badge badge-soft-danger"
                           >
                             rejected
                           </button>
@@ -164,6 +164,15 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="text-center">
+                      <b-pagination
+                        v-model="currentPage"
+                        :total-rows="referrals.meta.total"
+                        :per-page="referrals.meta.per_page"
+                        aria-controls="my-table"
+                        @input="getReferrals(currentPage ? currentPage : 1)"
+                      ></b-pagination>
+                    </div>
               </div>
             </div>
           </div>
@@ -210,7 +219,6 @@ export default {
       showsearch: false,
       isLoading: false,
       fullPage: true,
-      current_page: 1,
       buttoncolor: {
         informal: "btn btn-success",
         formal: "btn btn-default",
@@ -231,6 +239,9 @@ export default {
           },
         ],
       ],
+      current_page: 1,
+      rows: "1",
+      perPage: 15,
     };
   },
   beforeMount() {
@@ -249,7 +260,7 @@ export default {
       this.buttoncolor.formal = "btn btn-default";
       this.getReferrals();
     },
-    getReferrals() {
+    getReferrals(currentPage) {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.isLoading = true;
       if (this.user.type == "shis" || this.user.type == "employee") {
@@ -282,7 +293,12 @@ export default {
       if (this.user.type == "provider_employee") {
         this.axios
           .get(
-            `/api/v1/auth/referrals-${this.provider_referral_category}/${this.user.institutional_id}`
+            `/api/v1/auth/referrals-${this.provider_referral_category}/${this.user.institutional_id}`,
+            {
+              params:{
+                page: currentPage,
+              }
+            }
           )
           .then((response) => {
             this.referrals = response.data;

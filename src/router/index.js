@@ -17,6 +17,7 @@ import OnboardClient from "../views/onboarding/OnboardClient.vue";
 import AllDashboard from "../views/Dashboard.vue";
 import Dashboard from "../views/clients/Dashboard.vue";
 import Subscribe from "../views/clients/Subscribe.vue";
+import SubscribeDiaspora from "../views/clients/SubscribeDiaspora.vue";
 import SubscribeSuccess from "../views/clients/SubscribeSuccess.vue";
 import AddClientAgency from "../views/clients/AddClientAgency.vue";
 import AddClientAgencyOffline from "../views/clients/offline/AddClientAgencyOffline.vue";
@@ -26,6 +27,7 @@ import EditOfflineEmployee from "../views/clients/offline/EditOfflineEmployee.vu
 import AddDependentsOffline from "../views/clients/offline/AddDependentsOffline.vue";
 import AddClientFormFormal from "../views/clients/AddClientFormFormal.vue";
 import AddClientFormVoluntary from "../views/clients/AddClientFormVoluntary.vue";
+import AddClientDiaspora from "../views/clients/AddClientDiaspora.vue";
 import EditProvider from "../views/providers/EditProvider.vue";
 import UpdateProviderBank from "../views/providers/UpdateProviderBank.vue";
 import ManageClientsEmployee from "../views/clients/ManageClientsEmployee.vue";
@@ -117,6 +119,7 @@ import DuplicateUsers from "../views/clients/DuplicateUsers.vue";
 import DuplicateDependents from "../views/clients/DuplicateDependents.vue";
 import DuplicateUsersIDcard from "../views/clients/DuplicateUsersIDcard.vue";
 import DBQuery from "../views/shis/DBQuery.vue";
+import extraData from "../views/clients/extraData";
 import SubscriptionRenewal from "../views/clients/SubscriptionRenewal.vue";
 import EcounterPatientPage from "../views/shis/components/EncounterPatientPage.vue";
 import ManageDiagnosis from "../views/shis/ManageDiagnosis.vue";
@@ -125,6 +128,7 @@ import AuthorizationCode from "../views/claims/AuthorizationCode.vue";
 import SingleAuthorizationCode from "../views/claims/SingleAuthorizationCode.vue";
 import FilterUserProvider from "../views/shis/components/FilterUserProvider.vue";
 import FilterUserDate from "../views/shis/components/FilterUserDate.vue";
+import UploadEnrolleesCSV from "../views/clients/UploadEnrolleesCSV.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -232,6 +236,10 @@ const routes = [
     component: Subscribe,
   },
   {
+    path: "/subscribe-diaspora/:id",
+    component: SubscribeDiaspora,
+  },
+  {
     path: "/subscribe-success/:id",
     component: SubscribeSuccess,
   },
@@ -265,6 +273,13 @@ const routes = [
     },
   },
   {
+    path: "/manage-extra",
+    component: extraData,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/add-client/employee-offline",
     component: AddClientEmployeeOffline,
     meta: {
@@ -288,9 +303,10 @@ const routes = [
   {
     path: "/voluntary-registration-form",
     component: AddClientFormVoluntary,
-    // meta: {
-    //     requiresAuth: true,
-    //   },
+  },
+  {
+    path: "/diaspora-registration",
+    component: AddClientDiaspora,
   },
   {
     path: "/manage-clients",
@@ -386,7 +402,6 @@ const routes = [
     },
   },
 
-  
   {
     path: "/hmo-dashboard",
     component: HDashboard,
@@ -551,7 +566,7 @@ const routes = [
   },
   {
     path: "/transaction/:id",
-    component: SingleTransaction, 
+    component: SingleTransaction,
     meta: {
       requiresAuth: true,
     },
@@ -872,7 +887,7 @@ const routes = [
       requiresAuth: true,
     },
   },
- 
+
   // {
   //   path: '/provider-employee',
   //   component: ProviderEmployee,
@@ -981,6 +996,13 @@ const routes = [
   {
     path: "/db-query",
     component: DBQuery,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/upload-enrollee/csv",
+    component: UploadEnrolleesCSV,
     meta: {
       requiresAuth: true,
     },

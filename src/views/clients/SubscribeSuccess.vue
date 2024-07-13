@@ -8,9 +8,7 @@
               <div class="m-b-10">
                 <div class="avatar"></div>
               </div>
-              <strong>
-                {{ auth_user.firstname }} {{ auth_user.lastname }}</strong
-              >
+              <strong> {{ auth_user.full_name }} </strong>
             </div>
           </div>
         </div>
@@ -19,7 +17,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-10 offset-md-1">
-              <div class="card m-b-30 bg-info">
+              <div class="card m-b-30">
                 <div class="card-body text-black">
                   <div>
                     <p class="h5">
@@ -72,7 +70,7 @@
                     <div class="col-md-5">
                       <!-- <img :src="`http://localhost:8000/image/${auth_user.user_image}`" class="img-thumbnail" alt="Cinque Terre" width="350" height="236"> -->
                       <img
-                        :src="`https://api.hayokinsurance.com/image/${auth_user.user_image}`"
+                        :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
                         class="img spacer-top"
                         alt="User Photo"
                         onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
@@ -81,8 +79,8 @@
 
                     <div class="col-md-7">
                       <p class="spacer-top-bottom">
-                        <strong>Name:</strong> {{ auth_user.lastname }}
-                        {{ auth_user.firstname }} {{ auth_user.middlename }}
+                        <strong>Name:</strong>
+                        {{ auth_user.full_name }}
                       </p>
                       <hr />
                       <p class="spacer-top-bottom">
@@ -109,11 +107,11 @@
                       </p>
                       <hr />
 
-                      <p class="spacer-top-bottom">
+                      <!-- <p class="spacer-top-bottom">
                         <strong>TPA/HMO:</strong>
                         {{ auth_user.usertpa.organization_name }}
                       </p>
-                      <hr />
+                      <hr /> -->
                       <p class="spacer-top-bottom">
                         <strong>Phone Number:</strong>
                         {{ auth_user.phone_number }}
@@ -170,7 +168,7 @@
                               <td>
                                 <div class="avatar avatar-md">
                                   <img
-                                    :src="`https://api.hayokinsurance.com/image/${dep.image}`"
+                                    :src="`https://insurance-api.hayokmedicare.ng/image/${dep.image}`"
                                     class="avatar-img avatar-lg rounded"
                                     onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
                                     alt=""

@@ -20,7 +20,7 @@
                   <form @submit.prevent="checkCode">
                     <div class="col-md-12">
                       <div class="row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-2">
                           <p>
                             <label for="inputPassword4">Date of Care</label>
                           </p>
@@ -33,7 +33,7 @@
                           />
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                           <label for="inputCity">Authorization Code </label>
 
                           <select
@@ -47,7 +47,9 @@
                               :value="auth_code.code_created"
                             >
                               {{ auth_code.code_created }} (
-                              {{ auth_code.code_usage }})
+                              {{ auth_code.code_usage }}) - (expires {{
+                                auth_code.expiry_date | moment("from", "now")
+                              }})
                             </option>
                           </select>
                         </div>
@@ -65,24 +67,22 @@
 
                         <div class="row col-md-12">
                           <div class="form-group col-md-6">
-                            <label for="inputCity">Enrollee Surname</label>
+                            <label for="inputCity">Enrollee Full Name</label>
                             <input
                               required
                               type="text"
                               class="form-control"
-                              id="inputEmail4"
-                              :value="summary.enrollee.firstname"
+                              :value="summary.enrollee.full_name"
                               disabled
                             />
                           </div>
 
                           <div class="form-group col-md-6">
-                            <label for="inputCity">Enrollee First Name</label>
+                            <label for="inputCity">Enrollee DOB</label>
                             <input
                               type="text"
                               class="form-control"
-                              id="inputEmail4"
-                              :value="summary.enrollee.lastname"
+                              :value="summary.enrollee.dob"
                               disabled
                             />
                           </div>
@@ -441,7 +441,7 @@ export default {
         .catch((error) => {
           console.error(error);
           //  this.$toasted.info(`${error.message}`, {
-          this.$toasted.error(`Authorization Code not found or already used!`, {
+          this.$toasted.error(`Authorization Code expired or already used!`, {
             position: "top-center",
             duration: 3000,
           });

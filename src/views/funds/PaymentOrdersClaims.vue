@@ -88,7 +88,7 @@
                                         <a
                                           :href="`/transaction/${payment.id}`"
                                           class="btn btn-white"
-                                          >View Payment Order</a
+                                          >View Payment advice</a
                                         >
                                       </div>
                                     </div>

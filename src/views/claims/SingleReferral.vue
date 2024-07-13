@@ -10,7 +10,6 @@
                 <div class="avatar"></div>
               </div>
               <h3 class="h5">Referral Details</h3>
-              
             </div>
           </div>
         </div>
@@ -22,14 +21,12 @@
               <div class="card m-b-30">
                 <div class="card-header">
                   <div class="form-group">
-
                     <button
                       class="btn btn-outline-success spacer"
                       @click="printMe"
                     >
                       Print <i class="fe fe-printer"></i>
                     </button>
-
 
                     <button
                       class="btn btn-outline-success spacer"
@@ -41,7 +38,7 @@
 
                     <button
                       type="button"
-                       v-if="encounter != null"
+                      v-if="encounter != null"
                       class="btn btn-outline-success spacer"
                       data-toggle="modal"
                       data-target="#slideRightModal"
@@ -75,12 +72,12 @@
                       reject <i class="fe fe-x"></i>
                     </button>
 
-                    <button class="btn btn-outline-success spacer" @click="copyCode">
+                    <button
+                      class="btn btn-outline-success spacer"
+                      @click="copyCode"
+                    >
                       Copy Authorization Code <i class="fe fe-copy"></i>
                     </button>
-                    
-                  
-
                   </div>
                 </div>
 
@@ -109,8 +106,6 @@
             </div>
           </div>
 
-        
-
           <div class="row" id="printDiv" ref="printNow">
             <div class="col-lg-8 col-md-8" v-show="shownotes">
               <div class="card m-b-30">
@@ -126,8 +121,8 @@
                         {{ comment.body }}
                       </p>
                       <p class="text-info">
-                        By: {{ comment.user.firstname }}
-                        {{ comment.user.lastname }} -
+                        By: {{ comment.user.full_name }}
+                        -
                         <span>{{ comment.user.type }}</span>
                       </p>
                     </div>
@@ -149,10 +144,7 @@
                     <div class="col-md-6">
                       <p class="h5">
                         <span class="text-primary">Full Name: </span>
-                        {{ singlereferral.client.firstname }}
-                        {{ singlereferral.client.lastname }}
-                        
-                       
+                        {{ singlereferral.client.full_name }}
                       </p>
                       <p class="h5">
                         <span class="text-primary">Phone Number:</span>
@@ -193,8 +185,7 @@
                       </p>
                       <p class="h5">
                         <span class="text-primary">Prepared by:</span>
-                        {{ singlereferral.creator.firstname }}
-                        {{ singlereferral.creator.lastname }}
+                        {{ singlereferral.creator.full_name }}
                       </p>
                       <p class="h5">
                         <span class="text-primary">Date Prepared:</span>
@@ -205,49 +196,47 @@
                         {{ singlereferral.client.address }}
                       </p>
                     </div>
-                    <hr>
+                    <hr />
 
-                      <div class="col-md-12">
-            <span v-if="singlereferral.status == 'approved'">
-              <button
-                type="button"
-                class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
-              >
-                approved
-              </button>
-            </span>
-
-            <span v-if="singlereferral.status == 'rejected'">
-              <button
-                type="button"
-                class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger"
-              >
-                rejected
-              </button>
-            </span>
-
-            <span v-if="singlereferral.status == 'pending'">
-              <button
-                type="button"
-                class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
-              >
-                pending
-              </button>
-            </span>
-          </div>
-
-                    <hr>
                     <div class="col-md-12">
-                      <button class="btn btn-outline-success"  @click="copyCode">
-                          {{ singlereferral.authorization_code }}
+                      <span v-if="singlereferral.status == 'approved'">
+                        <button
+                          type="button"
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                        >
+                          approved
+                        </button>
+                      </span>
+
+                      <span v-if="singlereferral.status == 'rejected'">
+                        <button
+                          type="button"
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-danger"
+                        >
+                          rejected
+                        </button>
+                      </span>
+
+                      <span v-if="singlereferral.status == 'pending'">
+                        <button
+                          type="button"
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+                        >
+                          pending
+                        </button>
+                      </span>
+                    </div>
+
+                    <hr />
+                    <div class="col-md-12">
+                      <button class="btn btn-outline-success" @click="copyCode">
+                        {{ singlereferral.authorization_code }}
                       </button>
-                      
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          
 
             <div class="col-md-12">
               <div class="card m-b-30">
@@ -280,9 +269,9 @@
                 </div>
               </div>
             </div>
+          </div>
         </div>
-        </div>
-        
+
         <!-- Encounter Modal -->
         <!-- Modal -->
         <div
@@ -308,22 +297,20 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body" >
+              <div class="modal-body">
                 <div class="col-md-12" v-if="encounter != null">
                   <p class="h3">{{ encounter.reasonVisit }}</p>
-                 
-                 
 
                   <p class="form-group">
-                    <i class="fe fe-calendar"></i> : {{ encounter.date_of_visit }}
+                    <i class="fe fe-calendar"></i> :
+                    {{ encounter.date_of_visit }}
                   </p>
 
-                   <p class="form-group">
+                  <p class="form-group">
                     <i class="fe fe-monitor"></i> : {{ encounter.medications }}
                   </p>
-
                 </div>
-                <div class="card table-responsive"  v-if="encounter != null">
+                <div class="card table-responsive" v-if="encounter != null">
                   <strong class="h4 text-center card-header">
                     Service/Drugs Administered During Encounter</strong
                   >
@@ -504,7 +491,7 @@ export default {
       }
     },
 
-     copyCode() {
+    copyCode() {
       const copyToClipboard = (text) => navigator.clipboard.writeText(text);
       copyToClipboard(this.singlereferral.authorization_code);
       this.$toasted.info("Copied to clipboard", {

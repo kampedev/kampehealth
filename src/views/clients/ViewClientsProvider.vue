@@ -46,7 +46,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="client in clients" v-bind:key="client.id">
-                          <td>{{ client.firstname }} {{ client.lastname }}</td>
+                          <td>{{ client.full_name }}</td>
                           <td>{{ client.id_card_number }}</td>
                           <td>{{ client.phone_number }}</td>
                           <td>{{ client.sector }}</td>

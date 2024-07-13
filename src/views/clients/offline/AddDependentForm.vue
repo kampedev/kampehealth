@@ -4,16 +4,10 @@
     <main class="admin-main">
       <section>
         <div class="container row">
-         
-
           <div class="col-md-12" v-show="showinput">
             <div class="text-center">
-              <h3 class="h3"> {{ offline_user.firstname }} {{ offline_user.lastname }} Dependent Page</h3>
-              <b>
-                 {{getDep.length}}  Depedents Added 
-                
-               </b
-              >
+              <h3 class="h3">{{ offline_user.full_name }} Dependent Page</h3>
+              <b> {{ getDep.length }} Depedents Added </b>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -60,42 +54,56 @@
               </div>
 
               <div class="form-group col-md-6">
-                <p> <label for="inputCity">Date of Birth</label></p> 
-                  <input type="date" class="form-control"  placeholder="YYYY/MM/DD" v-model="newStudent.dependent_dob" >
+                <p><label for="inputCity">Date of Birth</label></p>
+                <input
+                  type="date"
+                  class="form-control"
+                  placeholder="YYYY/MM/DD"
+                  v-model="newStudent.dependent_dob"
+                />
 
                 <!-- <date-picker
                   v-model="newStudent.dependent_dob"
                   valueType="format"
                 ></date-picker> -->
               </div>
-               <div class="form-group col-md-6">
-                <p> <label for="inputCity">Date of Expiry: {{getExpiry}} </label></p> 
-                  <input type="date" class="form-control"  placeholder="YYYY/MM/DD" v-model="getExpiry" >
-                  <p class="text-success">Principal Expiry: {{offline_user.expiry_date}} </p>
+              <div class="form-group col-md-6">
+                <p>
+                  <label for="inputCity"
+                    >Date of Expiry: {{ getExpiry }}
+                  </label>
+                </p>
+                <input
+                  type="date"
+                  class="form-control"
+                  placeholder="YYYY/MM/DD"
+                  v-model="getExpiry"
+                />
+                <p class="text-success">
+                  Principal Expiry: {{ offline_user.expiry_date }}
+                </p>
 
                 <!-- <date-picker
                   v-model="newStudent.dependent_dob"
                   valueType="format"
                 ></date-picker> -->
               </div>
-             
             </div>
-
-        
 
             <div class="form-group">
               <button
                 class="btn btn-primary btn-block btn-lg"
-                v-if="newStudent.dependent_rel_type != null && newStudent.dependent_dob != null && newStudent.dependent_firstname != null  
-                 && newStudent.dependent_last_name != null && newStudent.dependent_dob != null
-                
-                 "
+                v-if="
+                  newStudent.dependent_rel_type != null &&
+                  newStudent.dependent_dob != null &&
+                  newStudent.dependent_firstname != null &&
+                  newStudent.dependent_last_name != null &&
+                  newStudent.dependent_dob != null
+                "
                 @click="showImage"
               >
                 Proceed to Take Picture
               </button>
-
-             
             </div>
           </div>
 
@@ -127,12 +135,11 @@
                 <button
                   class="btn btn-primary btn-block btn-lg"
                   @click="addUSer"
-                  v-if="getDep.length <= 4 "
+                  v-if="getDep.length <= 4"
                 >
                   Submit
                 </button>
               </div>
-              
 
               <div class="col-md-12 p-t-20 p-b-20">
                 <video id="video" width="100%" height="auto" autoplay></video>
@@ -250,76 +257,66 @@ export default {
     this.provider_id = localStorage.getItem("provider_id");
   },
   computed: {
+    getAge() {
+      var today = new Date();
+      var birthDate = new Date(this.newStudent.dependent_dob);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    },
 
-     getAge(){
-            var today = new Date();
-        var birthDate = new Date (this.newStudent.dependent_dob);
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        return age;
-      },
-
-     getExpiry(){
-
-      if (this.newStudent.dependent_rel_type == 'Spouse A') {
-        return this.offline_user.expiry_date
-        
+    getExpiry() {
+      if (this.newStudent.dependent_rel_type == "Spouse A") {
+        return this.offline_user.expiry_date;
       } else {
         var today = new Date();
-        var principalExpiry = new Date (this.offline_user.expiry_date);
-        var principalExpYear = principalExpiry.getFullYear() 
+        var principalExpiry = new Date(this.offline_user.expiry_date);
+        var principalExpYear = principalExpiry.getFullYear();
 
-        var birthDate = new Date (this.newStudent.dependent_dob);
+        var birthDate = new Date(this.newStudent.dependent_dob);
         // var year = birthDate.getFullYear();
         var month = birthDate.getMonth();
         var day = birthDate.getDate();
         month;
         day;
-        let remainingYears = 18 - this.getAge
-        let finaldate = today.getFullYear() + remainingYears
-          
-          if (finaldate > principalExpYear) {
-            return this.offline_user.expiry_date
-          } else {
-            
-            return  finaldate + '-12-31' 
-          }
-      
-      
-      }
+        let remainingYears = 18 - this.getAge;
+        let finaldate = today.getFullYear() + remainingYears;
 
-  },
-
-    getDep(){
-    let  enrollees = this.students
-    let formatter = enrollees.filter(
-        (x) => x.dependent_identifier ==  this.offline_user.salary_number);
-        return formatter 
-
-    },
-     getsalaryNumber(){
-      if (this.offline_user.salary_number ==  null) {
-          return 'nil'
-      } else {
-        return this.offline_user.salary_number
-        
+        if (finaldate > principalExpYear) {
+          return this.offline_user.expiry_date;
+        } else {
+          return finaldate + "-12-31";
+        }
       }
     },
-    getplaceofWork(){
-      if (this.offline_user.place_of_work ==  null) {
-          return null
+
+    getDep() {
+      let enrollees = this.students;
+      let formatter = enrollees.filter(
+        (x) => x.dependent_identifier == this.offline_user.salary_number
+      );
+      return formatter;
+    },
+    getsalaryNumber() {
+      if (this.offline_user.salary_number == null) {
+        return "nil";
       } else {
-        return this.offline_user.place_of_work.name
-        
+        return this.offline_user.salary_number;
+      }
+    },
+    getplaceofWork() {
+      if (this.offline_user.place_of_work == null) {
+        return null;
+      } else {
+        return this.offline_user.place_of_work.name;
       }
     },
   },
 
   methods: {
-   
     getWards() {
       // let newarr = [1,2, 3].filter(x=> x<2)
       let osunlgaarray = this.osun_lgas.data;
@@ -405,18 +402,19 @@ export default {
           gender: this.offline_user.gender,
           user_image: this.imagefile,
           sector: this.offline_user.sector,
-          sectorType: 'this.offline_user.sectorType',
+          sectorType: "this.offline_user.sectorType",
           marital_status: this.offline_user.marital_status,
           blood: this.offline_user.blood,
           salary_number: this.getsalaryNumber,
           place_of_work: this.getplaceofWork,
-          category_of_vulnerable_group: this.offline_user.category_of_vulnerable_group,
+          category_of_vulnerable_group:
+            this.offline_user.category_of_vulnerable_group,
           genotype: this.offline_user.genotype,
           address1: this.offline_user.address,
           agency_id: 95930,
           enrolled_by: this.user.id,
           org_id: 12,
-           dependent_identifier: this.getsalaryNumber,
+          dependent_identifier: this.getsalaryNumber,
           dependent_firstname: this.newStudent.dependent_firstname,
           dependent_last_name: this.newStudent.dependent_last_name,
           dependent_rel_type: this.newStudent.dependent_rel_type,
@@ -424,7 +422,7 @@ export default {
           dependent_id_number: this.newStudent.dependent_id_number,
           dependent_dob: this.newStudent.dependent_dob,
           dependent_phone_number: this.offline_user.phone_number,
-           dependent_provider: this.provider_id,
+          dependent_provider: this.provider_id,
           dependent_localgovt: this.newStudent.localgovt,
           dependent_image: this.imagefile,
           dependent_state: 2676,
@@ -436,8 +434,8 @@ export default {
           position: "top-center",
           duration: 3000,
         });
-        this.dependents_counter ++
-       } catch (ex) {
+        this.dependents_counter++;
+      } catch (ex) {
         alert(ex.message);
       }
     },
@@ -445,22 +443,22 @@ export default {
       try {
         // const studentsAdded = await this.service.addStudent(this.newStudent);
         const studentsAdded = await this.service.addStudent({
-         firstname: this.newStudent.dependent_firstname,
-         lastname: this.newStudent.dependent_last_name,
+          firstname: this.newStudent.dependent_firstname,
+          lastname: this.newStudent.dependent_last_name,
           middlename: this.offline_user.middlename,
           nimc_number: this.offline_user.nimc_number,
           provider_id: parseInt(this.provider_id, 10),
           localgovt: this.offline_user.localgovt,
           ward: this.offline_user.ward,
           phone_number: this.phone_number,
-         plan_type: this.offline_user.plan_type,
+          plan_type: this.offline_user.plan_type,
           dob: this.offline_user.dob,
           expiry_date: this.getExpiry,
           type: "dependent",
           gender: this.offline_user.gender,
           user_image: this.imagefile,
           sector: this.offline_user.sector,
-          sectorType: 'this.offline_user.sectorType',
+          sectorType: "this.offline_user.sectorType",
           marital_status: this.offline_user.marital_status,
           blood: this.offline_user.blood,
           salary_number: this.getsalaryNumber,
@@ -472,7 +470,7 @@ export default {
           agency_id: 95930,
           enrolled_by: this.user.id,
           org_id: 11,
-            dependent_identifier: this.getsalaryNumber,
+          dependent_identifier: this.getsalaryNumber,
           dependent_firstname: this.newStudent.dependent_firstname,
           dependent_last_name: this.newStudent.dependent_last_name,
           dependent_rel_type: this.newStudent.dependent_rel_type,
@@ -496,12 +494,12 @@ export default {
           position: "top-center",
           duration: 3000,
         });
-        this.dependents_counter ++
+        this.dependents_counter++;
       } catch (ex) {
         alert(ex.message);
       }
     },
-   
+
     closeDep() {
       this.clear();
       this.modalShow = true;
@@ -534,20 +532,18 @@ export default {
         }
       }
     },
-   async getUser(){
-    //    let  salary_number_id = this.offline_user.salary_number
-        // this.offline_user = localStorage.getItem('offline_user')
-        var results = await connection.select({
-            from: "Users",
-            where: {
-                salary_number: this.getSalaryNum(),
-                
-            }
-        });
-    //results will contains no of rows deleted.
-    console.log('results');
-    console.log(results);
-
+    async getUser() {
+      //    let  salary_number_id = this.offline_user.salary_number
+      // this.offline_user = localStorage.getItem('offline_user')
+      var results = await connection.select({
+        from: "Users",
+        where: {
+          salary_number: this.getSalaryNum(),
+        },
+      });
+      //results will contains no of rows deleted.
+      console.log("results");
+      console.log(results);
     },
     async removesync(student) {
       const service = new StudentService();
@@ -575,7 +571,7 @@ export default {
     },
   },
   created() {
-    this.getUser()
+    this.getUser();
   },
 };
 </script>

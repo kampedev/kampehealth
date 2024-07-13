@@ -16,8 +16,6 @@
             </div>
 
             <div class="container col-md-12 mb-4">
-           
-
               <button
                 class="btn btn-success"
                 @click="encounterform = !encounterform"
@@ -66,22 +64,23 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <!-- <div class="form-group col-md-6">
-                      <label for="inputCity">Diagnosis </label>
-                      <v-select
-                    v-model="filter_field.diagnosis"
-                    label="name"
-                    :options="diseases"
-                  />
-                    </div> -->
-
                 <div class="form-group col-md-6">
-                  <label for="inputEmail4">OHIS Number</label>
+                  <label for="inputEmail4">Agency ID</label>
                   <input
                     type="text"
                     class="form-control"
                     v-model="filter_field.enrollee"
-                    placeholder="OHIS/XXX/XXXXX"
+                    placeholder="ID/XXX/XXXXX"
+                  />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Diagnosis </label>
+                  <v-select
+                    v-model="filter_field.diagnosis"
+                    :reduce="(name) => name.id"
+                    label="name"
+                    :options="diseases"
                   />
                 </div>
 
@@ -120,7 +119,7 @@
                   />
                 </div>
 
-                <div class="col-md-12 form-group">
+                <div class="col-md-6">
                   <label for="">Rows</label>
                   <select class="form-control" v-model="paginate_value">
                     <option>30</option>
@@ -160,7 +159,6 @@
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="table-responsive">
-
                     <p class="h4 my-3">
                       <span v-if="encounters != ''">{{
                         encounters.meta.total
@@ -219,7 +217,6 @@
                                 <i class="fe fe-eye"></i>
                               </button>
                             </router-link>
-                           
                           </td>
                         </tr>
                       </tbody>
@@ -270,13 +267,13 @@ export default {
       json_fields: {
         "Encounter ID": "healthrecord.encounter_id",
         "Enrollee Full Name": "patient.full_name",
-        "Enrollee OHIS Number": "patient.id_card_number",
+        "Enrollee AGENCY ID": "patient.id_card_number",
         Diagnosis: "diagnosis.name",
         "Facility Name": "provider.agency_name",
       },
       string_data: "",
       encounters: {
-        meta:{}
+        meta: {},
       },
       filter_field: {
         diagnosis: "",
@@ -290,15 +287,15 @@ export default {
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    // this.axios
-    //   .get(`/api/v1/auth/diagnosis-agency/95930`)
-    //   .then((response) => {
-    //     this.diseases = response.data.data;
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+    this.axios
+      .get(`/api/v1/auth/diagnosis-agency/95930`)
+      .then((response) => {
+        this.diseases = response.data.data;
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
   methods: {
     getEncounters() {
@@ -306,6 +303,7 @@ export default {
         .post(`/api/v1/auth/service_summary-agency`, {
           provider_id: this.filter_field.provider_id.id,
           enrollee: this.filter_field.enrollee,
+          diagnosis: this.filter_field.diagnosis,
           date: this.filter_field.date,
           from: this.filter_field.from,
           to: this.filter_field.to,
@@ -332,7 +330,6 @@ export default {
           .then((response) => {
             console.log(response);
             this.getEncounters();
-            //  this.$router.push(`/encounter/${encounter_id}`);
             this.string_data = "";
             this.isLoading = false;
             this.$toasted.info("Encounted submitted Successfully!", {

@@ -541,7 +541,7 @@ export default {
       type: Array,
     },
   },
-  data: function() {
+  data: function () {
     return {
       selectedDate: "",
       disabled: false,
@@ -602,7 +602,7 @@ export default {
     };
   },
 
-  beforeMount: function() {
+  beforeMount: function () {
     this.clear();
     this.user = JSON.parse(localStorage.getItem("user"));
     this.wards_sync = JSON.parse(localStorage.getItem("wards_data"));
@@ -693,7 +693,7 @@ export default {
         // Not adding `{ audio: true }` since we only want video now
         navigator.mediaDevices
           .getUserMedia(this.video_settings)
-          .then(function(stream) {
+          .then(function (stream) {
             //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
             video.play();
@@ -756,8 +756,8 @@ export default {
           salary_number: this.getsalaryNumber,
           // place_of_work: this.newStudent.place_of_work.name,
           place_of_work: this.getplaceofWork,
-          category_of_vulnerable_group: this.newStudent
-            .category_of_vulnerable_group,
+          category_of_vulnerable_group:
+            this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
           address1: this.newStudent.address,
           agency_id: this.user.id,
@@ -809,8 +809,8 @@ export default {
           salary_number: this.getsalaryNumber,
           // place_of_work: this.newStudent.place_of_work.name,
           place_of_work: this.getplaceofWork,
-          category_of_vulnerable_group: this.newStudent
-            .category_of_vulnerable_group,
+          category_of_vulnerable_group:
+            this.newStudent.category_of_vulnerable_group,
           genotype: this.newStudent.genotype,
           address: this.newStudent.address,
           agency_id: this.user.institutional_id,

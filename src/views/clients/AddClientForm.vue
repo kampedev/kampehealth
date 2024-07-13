@@ -15,7 +15,7 @@
                       <span class="text-danger">*</span> are compulsory)
                     </p>
                   </div>
-                  <form @submit.prevent="submitForm">
+                  <form @submit.prevent="registerUserEmployee">
                     <div class="form-row">
                       <div class="col-md-12">
                         <div class="form-group">
@@ -69,13 +69,13 @@
                             <option value="State Equity Program">
                               State Equity Program
                             </option>
-                            <option value="Vulnerable Groups">
-                              Vulnerable Groups
-                            </option>
+                         
                             <option value="Voluntary Contributor">
                               Voluntary Contributor
                             </option>
-                            <!-- <option  value="Organized Community Healthcare Plan">Organized Community Healthcare Plan</option> -->
+                            <option value="State Pensioners Plan">
+                              State Pensioners Plan
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -129,10 +129,28 @@
                         </select>
                       </div>
 
+                      <div
+                        class="form-group col-md-12"
+                        v-if="register.sector == 'State Pensioners Plan'"
+                      >
+                        <label>Category of Pensioner</label>
+                        <select
+                          class="form-control"
+                          v-model="register.category_of_vulnerable_group"
+                        >
+                          <option value="Contributory">Contributory</option>
+                          <option value="Non-Contributory">
+                            Non-Contributory
+                          </option>
+                        </select>
+                      </div>
+
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">NIN Number</label>
                         <input
                           type="text"
+                          pattern="\d*"
+                          maxlength="11"
                           class="form-control"
                           v-model="register.nimc_number"
                           placeholder="NIN Number"
@@ -151,7 +169,7 @@
                         />
                       </div>
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4"
+                        <label
                           >First Name <span class="text-danger">*</span></label
                         >
                         <input
@@ -185,6 +203,8 @@
                         <input
                           type="date"
                           required
+                          :min="minDate"
+                          :max="maxDate"
                           class="form-control"
                           v-model="register.dob"
                         />
@@ -219,6 +239,8 @@
                         >
                         <input
                           type="text"
+                          pattern="\d*"
+                          maxlength="11"
                           class="form-control"
                           v-model="register.phone_number"
                           placeholder="Phone Number"
@@ -240,7 +262,7 @@
 
                       <div
                         class="form-group col-md-6"
-                        v-if="sector == 'formal'"
+                        v-if="register.sector == 'State Pensioners Plan'"
                       >
                         <label for="inputCity">Select MDA</label>
                         <select
@@ -249,7 +271,7 @@
                         >
                           <option
                             :value="mda.name"
-                            v-for="mda in mdas"
+                            v-for="mda in mdas.data"
                             v-bind:key="mda.id"
                           >
                             {{ mda.name }}
@@ -259,14 +281,14 @@
 
                       <div
                         class="form-group col-md-6"
-                        v-if="sector == 'formal'"
+                        v-if="register.sector == 'State Pensioners Plans'"
                       >
-                        <label for="inputEmail4">Computer Number</label>
+                        <label for="inputEmail4">File Number</label>
                         <input
                           type="text"
                           class="form-control"
                           v-model="register.salary_number"
-                          placeholder="Computer Employment Number"
+                          placeholder="File Number"
                         />
                       </div>
 
@@ -402,11 +424,142 @@
                       <div class="form-group col-md-6">
                         <label for="inputAddress">Home Address</label>
                         <input
+                          required
                           type="text"
                           class="form-control"
                           v-model="register.address"
                           placeholder="1234 Main St"
                         />
+                      </div>
+                      <div
+                        class="col-md-6"
+                        v-if="register.sector == 'State Pensioners Plan'"
+                      >
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Is Dependent Alive
+                            <span class="text-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="register.dependent_alive"
+                          >
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div v-if="register.dependent_alive == '1'">
+                      <h3 class="h3">Add Spouse</h3>
+
+                      <div
+                        v-for="dependent in register.dependants"
+                        v-bind:key="dependent"
+                        class="card my-4"
+                      >
+                        <div class="row card-body">
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">Surname </label>
+                              <input
+                                required
+                                type="text"
+                                class="form-control"
+                                v-model="dependent.lastname"
+                                placeholder="Surname"
+                              />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">First Name</label>
+                              <input
+                                required
+                                type="text"
+                                class="form-control"
+                                placeholder="First Name"
+                                v-model="dependent.firstname"
+                              />
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">Middle Name</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Middle Name"
+                                v-model="dependent.middle_name"
+                              />
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputCity">Gender</label>
+
+                              <select
+                                required
+                                class="form-control"
+                                v-model="dependent.gender"
+                              >
+                                <option id="Male">Male</option>
+                                <option id="Female">Female</option>
+                              </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                              <label for="inputCity">NIN Number </label>
+                              <input
+                                type="text"
+                                pattern="\d*"
+                                maxlength="11"
+                                class="form-control"
+                                placeholder="NIN"
+                                v-model="dependent.nimc_number"
+                              />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                              <label for="inputCity">Date of Birth </label>
+                              <input
+                                required
+                                type="date"
+                                class="form-control"
+                                placeholder="YYYY/MM/DD"
+                                v-model="dependent.dob"
+                              />
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputCity"
+                                  >Is Dependent a Civil Servant
+                                  <span class="text-danger">*</span></label
+                                >
+                                <select
+                                  required
+                                  class="form-control"
+                                  v-model="dependent.is_civil_servant"
+                                >
+                                  <option value="1">Yes</option>
+                                  <option value="0">No</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">Phone Number</label>
+                              <input
+                                required
+                                type="text"
+                                pattern="\d*"
+                                maxlength="11"
+                                class="form-control"
+                                id="inputPassword4"
+                                placeholder="Mobile No"
+                                v-model="dependent.phone_number"
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -499,11 +652,49 @@ export default {
         date_of_entry: "",
         marital_status: "",
         category_of_vulnerable_group: "",
+        dependants: [
+          {
+            relationShipType: "Spouse",
+            is_civil_servant: "",
+            firstname: "",
+            lastname: "",
+            middlename: "",
+            institution_attending: "",
+            provider: "0",
+            agency_id: "95930",
+            state: "2676",
+            email: "",
+            phone_number: "",
+            gender: "",
+            dob: "",
+            id_card_number: "AAA",
+            enrolled_by: "1",
+          },
+        ],
       },
     };
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
+  },
+
+  computed: {
+    minDate() {
+      if (this.register.sector == "State Pensioners Plan") {
+        // const min = new Date(this.currentDate);
+        // min.setFullYear(min.getFullYear() - 60);
+        // return min.toISOString().split("T")[0];
+        return "1920-01-01";
+      }
+      return null;
+    },
+
+    maxDate() {
+      if (this.register.sector == "State Pensioners Plan") {
+        return "1964-01-01";
+      }
+      return null;
+    },
   },
 
   methods: {
@@ -557,7 +748,7 @@ export default {
     },
     getMDAs() {
       this.axios
-        .get(`/api/v1/auth/ministry`)
+        .get(`/api/v1/auth/ministry/95930`)
         .then((response) => {
           this.mdas = response.data;
           console.log(response);
@@ -698,6 +889,7 @@ export default {
           category_of_vulnerable_group:
             this.register.category_of_vulnerable_group,
           enrolled_by: this.user.id,
+          dependants: this.register.dependants,
         })
         .then((response) => {
           console.log(response);

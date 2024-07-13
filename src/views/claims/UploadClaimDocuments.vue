@@ -36,12 +36,12 @@
                   >
                     <td>{{ index + 1 }}</td>
                     <td>{{ doc.name }}</td>
-                    <td>{{ doc.user.firstname }} {{ doc.user.lastname }}</td>
+                    <td>{{ doc.user.full_name }} </td>
                     <td>{{ doc.created_at }}</td>
                     <td>
                       <a
                         :href="
-                          'https://api.hayokinsurance.com/documents/' +
+                          'https://insurance-api.hayokmedicare.ng/documents/' +
                           doc.document
                         "
                         target="_blank"

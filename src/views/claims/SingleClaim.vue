@@ -9,7 +9,7 @@
               <div class="m-b-10">
                 <div class="avatar"></div>
               </div>
-              <h3 class="h5">Claim: {{ claimdetails.claim_unique_id }}</h3>
+              <h3 class="h5">Claim: {{ claimdetails.claim_unique_id }}  </h3>
             </div>
           </div>
         </div>
@@ -33,8 +33,9 @@
                     >
                       mark as verified <i class="fe fe-check"></i>
                     </button>
-                    <router-link :to="`/patient/${claimdetails.enrollee.id}`"
-                    v-if="claimdetails.enrollee != null"
+                    <router-link
+                      :to="`/patient/${claimdetails.enrollee.id}`"
+                      v-if="claimdetails.enrollee != null"
                     >
                       <button class="btn btn-outline-success spacer">
                         enrollee records <i class="fe fe-user"></i>
@@ -178,8 +179,8 @@
                         {{ comment.body }}
                       </p>
                       <p class="text-success">
-                        By: {{ comment.user.firstname }}
-                        {{ comment.user.lastname }} -
+                        By: {{ comment.user.full_name }}
+                        -
                         <span>{{ comment.user.type }}</span>
                       </p>
                       <p class="text-xs">
@@ -271,24 +272,20 @@
                         <br />
                         <p>
                           <strong>Prepared by:</strong>
-                          {{ prepared_by.firstname }}
-                          {{ prepared_by.lastname }}
+                          {{ prepared_by.full_name }}
                         </p>
                         <br />
                         <p>
                           <strong>Enrollee/ Patient Name:</strong>
                           <router-link
-                          v-if="claimdetails.enrollee != null"
+                            v-if="claimdetails.enrollee != null"
                             :to="`/patient/${claimdetails.enrollee.id}`"
                           >
-                            {{ claimdetails.enrollee.firstname }}
-                            {{ claimdetails.enrollee.lastname }}
+                            {{ claimdetails.enrollee.full_name }}
                           </router-link>
                         </p>
                         <br />
-                        <p
-                        v-if="claimdetails.enrollee != null"
-                        >
+                        <p v-if="claimdetails.enrollee != null">
                           <strong>Enrollee/ Patient O'HIS Number:</strong>
                           {{ claimdetails.enrollee.id_card_number }}
                         </p>
@@ -302,16 +299,17 @@
                             No
                           </span>
                         </p>
-
+                        <br />
                         <p>
-                          <strong>Date Seen:</strong>
-                          {{ claimdetails.seen_date }}
+                          <strong>Date Created:</strong>
+                          {{ claimdetails.created_at }}
                         </p>
                         <br />
                         <p>
                           <strong>Diagnosis:</strong>
                           {{ claimdetails.diagnosis.name }}
                         </p>
+                        <br />
                         <p>
                           <strong>Claim Treatment Level:</strong>
                           {{ claimdetails.claim_level }}
@@ -320,30 +318,42 @@
                       </div>
 
                       <div class="col-md-6">
-                        <p class="h4">Reason For Claim:</p>
-                        <p>{{ claimdetails.treatment }}</p>
+                        <p>
+                          <span class="h4">Reason For Claim:</span>
+                          <span class="ml-2">{{ claimdetails.treatment }}</span>
+                        </p>
+                        <br />
 
                         <p v-if="claimdetails.checked_by_id != null">
                           <strong>Vetted By:</strong>
-                          {{ claimdetails.checkeduser.firstname }}
-                          {{ claimdetails.checkeduser.lastname }}
+                          {{ claimdetails.checkeduser.full_name }}
                         </p>
                         <br />
                         <p v-if="claimdetails.verified_by_id != null">
                           <strong>Verified By:</strong>
-                          {{ claimdetails.verfieduser.firstname }}
-                          {{ claimdetails.verfieduser.lastname }}
+                          {{ claimdetails.verfieduser.full_name }}
                         </p>
                         <br />
                         <p v-if="claimdetails.approved_by_id != null">
                           <strong>Approved By:</strong>
-                          {{ claimdetails.approveduser.firstname }}
-                          {{ claimdetails.approveduser.lastname }}
+                          {{ claimdetails.approveduser.full_name }}
                         </p>
                         <br />
                         <p>
-                          <strong>Approved On:</strong>
+                          <strong>Date Approved:</strong>
                           {{ claimdetails.approved_by_date }}
+                        </p>
+                        <br />
+
+                        <p>
+                          <strong>Date Verified:</strong>
+                          {{ claimdetails.verified_by_date }}
+                        </p>
+                        <br />
+
+                        <p>
+                          <strong>Date Vetted:</strong>
+                          {{ claimdetails.checked_by_date }}
                         </p>
                         <br />
 
@@ -653,7 +663,8 @@
                     </p>
                     <br />
                     <p>
-                      <span class="font-weight-bold">Frequency (in a day)</span> :
+                      <span class="font-weight-bold">Frequency (in a day)</span>
+                      :
                       {{ singlservicemodal.frequency }}
                     </p>
                     <br />
@@ -763,13 +774,13 @@
                           <td>{{ index + 1 }}</td>
                           <td>{{ doc.name }}</td>
                           <td>
-                            {{ doc.user.firstname }} {{ doc.user.lastname }}
+                            {{ doc.user.full_name }}
                           </td>
                           <td>{{ doc.created_at }}</td>
                           <td>
                             <a
                               :href="
-                                'https://api.hayokinsurance.com/documents/' +
+                                'https://insurance-api.hayokmedicare.ng/documents/' +
                                 doc.document
                               "
                               target="_blank"

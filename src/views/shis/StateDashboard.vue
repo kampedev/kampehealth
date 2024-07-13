@@ -37,6 +37,10 @@
             <EncounterbyLGA />
           </div>
 
+          <div class="col-md-12" style="margin-top: 20px">
+            <EncounterbyDiagnosis />
+          </div>
+
           <div class="row" style="margin-top: 20px">
             <div class="col-md-12">
               <ClaimsDate />
@@ -143,6 +147,7 @@ import InformalSector from "@/views/shis/components/InformalSector.vue";
 import FormalSector from "@/views/shis/components/FormalSector.vue";
 import ClaimsDate from "@/views/shis/components/ClaimsbyDate";
 import EncounterbyLGA from "@/views/shis/components/EncounterbyLGA";
+import EncounterbyDiagnosis from "@/views/shis/components/EncounterbyDiagnosis";
 import EncountersbyDate from "@/views/shis/components/EncountersbyDate";
 import ClaimsCategory from "@/views/shis/components/ClaimStatusChart";
 import ReferralCategory from "@/views/shis/components/ReferralStatusChart";
@@ -160,6 +165,7 @@ export default {
     ChangeProviderCategory,
     EncountersbyDate,
     EncounterbyLGA,
+    EncounterbyDiagnosis,
   },
 
   data() {

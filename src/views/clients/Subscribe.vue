@@ -445,19 +445,28 @@ export default {
 
     wallxPay() {
       this.axios
-        .get(`https://business.wallx.co/api-v1/claim_paycode`, {
-          merchant_id: "WallX-00000112", // Your business's merchant ID
+        .post(`https://business.wallx.co/api-v1/claim_paycode`, {
+          merchant_id: "WallX-00000220", // Your business's merchant ID
           pin: this.wallx.pin,
           secret: this.wallx.secret,
           amount: 1000,
           currency: "NGN", // Options: NGN, USD, CAD
         })
         .then((response) => {
-          this.states = response.data.data;
+          this.$toasted.info("Payment completed Successfully", {
+            position: "top-center",
+            duration: 3000,
+          });
           console.log(response);
+
+         
         })
         .catch((error) => {
           console.error(error);
+          this.$toasted.error("Insufficient Balance", {
+            position: "top-center",
+            duration: 3000,
+          });
         });
     },
     callback: function (response) {

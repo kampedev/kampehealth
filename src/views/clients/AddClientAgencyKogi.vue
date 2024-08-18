@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar/>
     <main class="admin-main">
-       <div class="bg-success m-b-30">
+       <div class="bg-info m-b-30">
            <div class="container">
                <div class="row p-b-60 p-t-60">
 
@@ -12,7 +12,7 @@
                                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                            </div>
                        </div>
-                       <h3 class="h3">Add Client</h3>
+                       <h3 class="h3">Add Enrollee</h3>
                    </div>
 
                </div>

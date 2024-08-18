@@ -1,20 +1,9 @@
 
-hip droplet: hayok4141@Medicare
 
-Ohis droplet: Hayok@123Ohis
-
-email: info@zamchema.gov.ng
-zamfara: Zam41chema#
+Agency ID: 439078
+email: kampe@gmail.com	
+password: 123456
 
 
-email: kgshia.gov.ng@gmail.com
-password: kgshia@4141
-
-email: info@osun.com
-password: osun@4141
 
 
-test state email: state@gmail.com
-test state password: skrull123
-
-kschma_keys: skrull123

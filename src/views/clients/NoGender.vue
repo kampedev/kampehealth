@@ -54,7 +54,7 @@
                   <th>Account Type</th>
                   <th>Sector Type</th>
                   <th>DOB || Expiry</th>
-                  <th>OHIS Number</th>
+                  <th>KAMPE Number</th>
                   <th>Created</th>
                 </tr>
               </thead>
@@ -150,7 +150,7 @@ export default {
         "Date of Birth": "dob",
         "Local Govt": "localgovt.local_name",
         Ward: "ward.ward_name",
-        "OHIS Number": "id_card_number",
+        "KAMPE Number": "id_card_number",
         "Health Facility": "userprovider.agency_name",
         "Card Expiry Date": "expiry_date",
         Sector: "sectorType",
@@ -194,7 +194,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .post(`/api/v1/auth/null-expiry`, {
-          agency_id: 95930,
+          agency_id: 439078,
         })
         .then((response) => {
           this.clients = response.data;
@@ -280,9 +280,9 @@ export default {
           user_image: this.idcard_offline[this.json_index].user_image,
           plan_type: this.idcard_offline[this.json_index].plan_type,
           nimc_number: this.idcard_offline[this.json_index].nimc_number,
-          agency_id: 95930,
+          agency_id: 439078,
           state: 2676,
-          enrolled_by: 95930,
+          enrolled_by: 439078,
           sector: this.idcard_offline[this.json_index].sector,
           sectorType: this.idcard_offline[this.json_index].sectorType,
           marital_status: this.idcard_offline[this.json_index].marital_status,

@@ -214,7 +214,7 @@
                           `https://insurance-api.hayokmedicare.ng/image/${dependent.image}`
                         "
                         class="avatar-img avatar-lg rounded"
-                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                         alt=""
                       />
                     </div>
@@ -422,10 +422,10 @@ export default {
     },
     getIdNum() {
       if (this.dependent.relationShipType == "Spouse") {
-        return "OHIS/DEP-S/" + this.$route.params.id;
+        return "KAMPE/DEP-S/" + this.$route.params.id;
       } else {
         return (
-          "OHIS/DEP-C" +
+          "KAMPE/DEP-C" +
           this.dependent.relationShipType.slice(-1) +
           "/" +
           this.$route.params.id
@@ -567,7 +567,7 @@ export default {
             dob: this.dependent.dob,
             provider: this.client.provider_id,
             enrolled_by: this.user.id,
-            agency_id: 95930,
+            agency_id: 439078,
             id_card_number:
               this.client.id_card_number +
               "/" +

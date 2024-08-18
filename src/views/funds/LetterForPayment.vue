@@ -11,7 +11,7 @@
                   <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
                 </div>
               </div>
-              <p class="h3 text-dark">Letter from OHIS</p>
+              <p class="h3 text-dark">Letter from KAMPE</p>
             </div>
           </div>
         </div>
@@ -165,7 +165,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post("/api/v1/auth/authorization_code", {
-          agency_id: 95930,
+          agency_id: 439078,
           principal_id:
             this.search_result.type == "client"
               ? this.search_result.data.id

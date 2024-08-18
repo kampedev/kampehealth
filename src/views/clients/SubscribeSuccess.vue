@@ -29,8 +29,8 @@
                     </p>
                     <p class="h5">
                       For further inquries call
-                      <a href="mailto:info.oshia.ng" class="text-link"
-                        >info.oshia.ng</a
+                      <a href="mailto:info.Kampe.ng" class="text-link"
+                        >info.Kampe.ng</a
                       >
                       or Call <a href="tel:0700022556447 ">0700022556447 </a>
                     </p>
@@ -38,7 +38,7 @@
                       <button class="btn btn-dark" @click="printMe">
                         Print Registration Slip
                       </button>
-                      <a href="https://www.oshia.ng" class="btn btn-default"
+                      <a href="https://www.Kampe.ng" class="btn btn-default"
                         >Go to our Website</a
                       >
                     </h1>
@@ -53,7 +53,7 @@
               <div
                 class="card m-b-30"
                 style="
-                  background-image: url('../assets/img/ohis_transparent.png');
+                  background-image: url('../assets/img/KAMPE_transparent.png');
                   background-size: cover;
                   background-repeat: no-repeat;
                 "
@@ -64,7 +64,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
-                      <p class="h3">O'HIS Registration Slip</p>
+                      <p class="h3">KAMPE Registration Slip</p>
                     </div>
 
                     <div class="col-md-5">
@@ -73,7 +73,7 @@
                         :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
                         class="img spacer-top"
                         alt="User Photo"
-                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                       />
                     </div>
 
@@ -84,7 +84,7 @@
                       </p>
                       <hr />
                       <p class="spacer-top-bottom">
-                        <strong>OHIS Number:</strong>
+                        <strong>KAMPE Number:</strong>
                         {{ auth_user.id_card_number }}
                       </p>
                       <hr />
@@ -170,7 +170,7 @@
                                   <img
                                     :src="`https://insurance-api.hayokmedicare.ng/image/${dep.image}`"
                                     class="avatar-img avatar-lg rounded"
-                                    onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                                    onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                                     alt=""
                                   />
                                 </div>

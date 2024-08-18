@@ -111,7 +111,7 @@
                               <th>Name</th>
                               <th>Phone Number</th>
                               <th>Sector</th>
-                              <th>OHIS Number</th>
+                              <th>KAMPE Number</th>
                               <!-- <th>Facility</th> -->
                           </tr>
                           </thead>
@@ -282,7 +282,7 @@ export default {
 
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.axios.get(`/api/v1/auth/providerAgency/95930`)
+      this.axios.get(`/api/v1/auth/providerAgency/439078`)
                   .then(response => {
                       this.providers = response.data.data
                       console.log(response)

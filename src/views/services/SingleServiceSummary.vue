@@ -77,7 +77,7 @@
                    <div class=" col-md-4 card">
                      <div class="card-body">
                        <p><strong>Lookman Hassan</strong> </p>
-                       <p><strong> OHIS/02292</strong></p>
+                       <p><strong> KAMPE/02292</strong></p>
                        <p> <strong>28</strong> </p>
                        <p><strong>13/12/12</strong> </p>
                        <p> <strong> Grand Total:</strong> 17,500</p>

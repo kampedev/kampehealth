@@ -135,7 +135,7 @@ export default {
     getNOtificationsData() {
       this.axios
         .post(`/api/v1/auth/getdashboardnotifications`, {
-          agency_id: 95930,
+          agency_id: 439078,
         })
         .then((response) => {
           this.result = response.data;

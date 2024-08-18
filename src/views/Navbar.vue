@@ -5,7 +5,7 @@
         <!-- begin sidebar branding-->
         <img
           class="admin-brand-logo"
-          src="/assets/img/ohis_logo.png"
+          src="/assets/img/kampe_logo.png"
           width="40"
           alt="atmos Logo"
         />
@@ -170,18 +170,7 @@
                   </span>
                 </router-link>
               </li>
-              <li class="menu-item">
-                <router-link to="/add-client-provider" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Add Other Patient </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i
-                      class="icon-placeholder mdi mdi-account-multiple-plus"
-                    ></i>
-                  </span>
-                </router-link>
-              </li>
+
               <li class="menu-item">
                 <router-link to="/view-clients-provider" class="menu-link">
                   <span class="menu-label">
@@ -222,22 +211,12 @@
               <li class="menu-item">
                 <a href="/add-client-agency" class="menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Add Enrollee (Informal) </span>
+                    <span class="menu-name">Add Enrollee </span>
                   </span>
                   <span class="menu-icon">
                     <i
                       class="icon-placeholder mdi mdi-account-multiple-plus"
                     ></i>
-                  </span>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="/add-client-formal" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Add Enrollee (Formal) </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder fe fe-user-plus"></i>
                   </span>
                 </a>
               </li>
@@ -264,16 +243,6 @@
                 </a>
               </li>
 
-              <!-- <li class="menu-item">
-                <router-link to="/add-client-offline" class=" menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Add Enrollees(Offline) </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder fe fe-cloud-off"></i>
-                  </span>
-                </router-link>
-              </li> -->
               <li class="menu-item" v-if="user.type == 'employee'">
                 <a href="/manage-clients" class="menu-link">
                   <span class="menu-label">
@@ -281,17 +250,6 @@
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-users"></i>
-                  </span>
-                </a>
-              </li>
-
-              <li class="menu-item">
-                <a href="/add-client/employee-offline" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Offline Management </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder fe fe-cloud-off"></i>
                   </span>
                 </a>
               </li>
@@ -319,19 +277,6 @@
                     <i
                       class="icon-placeholder mdi mdi-account-group-outline"
                     ></i>
-                  </span>
-                </a>
-              </li>
-              <li
-                class="menu-item"
-                v-if="user.type == 'shis' || user.user_role == 1"
-              >
-                <a href="/manage-extra" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Manage Expiries </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder mdi mdi-view-day"></i>
                   </span>
                 </a>
               </li>
@@ -876,105 +821,6 @@
             </a>
           </li>
 
-          <li class="menu-item" v-if="user.type == 'shis' || user.role == 1">
-            <a href="/mda-manager" class="menu-link">
-              <span class="menu-label">
-                <span class="menu-name">MDAs</span>
-              </span>
-              <span class="menu-icon">
-                <i class="icon-placeholder fe fe-airplay"></i>
-              </span>
-            </a>
-          </li>
-
-          <!-- <li class="menu-item" >
-                <a href="/my-complaints" class=" menu-link">
-                            <span class="menu-label">
-                                    <span class="menu-name">Complaints/Inquiry
-                                    </span>
-                                  </span>
-                            <span class="menu-icon">
-                          <i class="icon-placeholder  fe fe-thumbs-down"></i>
-                                </span>
-                </a>
-              </li> -->
-
-          <li class="menu-item" v-if="user.type == 'client'">
-            <a href="#" class="open-dropdown menu-link">
-              <span class="menu-label">
-                <span class="menu-name"
-                  >Complaints
-                  <span class="menu-arrow"></span>
-                </span>
-              </span>
-              <span class="menu-icon">
-                <i class="icon-placeholder fe fe-thumbs-down"></i>
-              </span>
-            </a>
-            <!--submenu-->
-            <ul class="sub-menu">
-              <li class="menu-item">
-                <router-link to="/add-complaint" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Make Complaint </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder fe fe-edit"></i>
-                  </span>
-                </router-link>
-              </li>
-
-              <li class="menu-item">
-                <router-link to="/my-complaints" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">View Complaints </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder mdi mdi-view-day"></i>
-                  </span>
-                </router-link>
-              </li>
-            </ul>
-          </li>
-
-          <li class="menu-item" v-if="user.type == 'client'">
-            <a href="#" class="open-dropdown menu-link">
-              <span class="menu-label">
-                <span class="menu-name"
-                  >Complaints
-                  <span class="menu-arrow"></span>
-                </span>
-              </span>
-              <span class="menu-icon">
-                <i class="icon-placeholder fe fe-thumbs-down"></i>
-              </span>
-            </a>
-            <!--submenu-->
-            <ul class="sub-menu">
-              <li class="menu-item">
-                <router-link to="/add-complaint" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Make Complaint </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder fe fe-edit"></i>
-                  </span>
-                </router-link>
-              </li>
-
-              <li class="menu-item">
-                <router-link to="/my-complaints" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">View Complaints </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder mdi mdi-view-day"></i>
-                  </span>
-                </router-link>
-              </li>
-            </ul>
-          </li>
-
           <li
             class="menu-item"
             v-if="user.type == 'provider' || user.type == 'provider_employee'"
@@ -995,7 +841,7 @@
               <li class="menu-item" v-if="user.type == 'provider_employee'">
                 <router-link to="/add-record" class="menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Add Record </span>
+                    <span class="menu-name">Add Record Primary </span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-edit"></i>
@@ -1014,17 +860,6 @@
                 </router-link>
               </li>
 
-              <li class="menu-item" v-if="user.type == 'provider_employee'">
-                <router-link to="/add-record-offline" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Add Record Offline </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder fe fe-cloud-off"></i>
-                  </span>
-                </router-link>
-              </li>
-
               <li class="menu-item">
                 <router-link to="/list-records" class="menu-link">
                   <span class="menu-label">
@@ -1032,17 +867,6 @@
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder mdi mdi-medical-bag"></i>
-                  </span>
-                </router-link>
-              </li>
-
-              <li class="menu-item" v-if="user.type == 'provider_employee'">
-                <router-link to="/offline-home" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Offline Records </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder mdi mdi-cloud-sync"></i>
                   </span>
                 </router-link>
               </li>

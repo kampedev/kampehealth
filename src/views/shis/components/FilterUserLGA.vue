@@ -162,7 +162,7 @@ export default {
     filterEnrollees(){
       this.isLoading = true;
       this.axios.post(`/api/v1/auth/filtersectordashboardwardlga`,{
-      agency_id:'95930',
+      agency_id:'439078',
       sector:this.sector,
       lga_id:this.localgovt.id,
       ward:this.ward.id,

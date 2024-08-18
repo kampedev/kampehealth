@@ -53,12 +53,12 @@
 
             <div class="row">
               <div class="col-lg-8 offset-lg-2" id="printDiv" ref="printNow">
-                <div class="card" style="background-image: url('../assets/img/ohis_transparent.png'); background-size: cover; background-repeat: no-repeat;">
+                <div class="card" style="background-image: url('../assets/img/KAMPE_transparent.png'); background-size: cover; background-repeat: no-repeat;">
                   <div class="card-header ">
                     <div class="row spacer-top">
                       <div class="col-md-2">
                         <span class="avatar avatar-md">
-                          <img src="/assets/img/ohis_logo.png" class=" rounded-circle">
+                          <img src="/assets/img/KAMPE_logo.png" class=" rounded-circle">
                         </span>
                       </div>
                       <div class="col-md-7">
@@ -77,14 +77,14 @@
                       </div>
                         <div class=" col-md-6">
                             <p class="h5"> <strong>Patient Name:</strong> {{transfer.client.firstname}} {{transfer.client.lastname}} </p><br>
-                            <p class="h5"> <strong>OHIS Number:</strong> {{transfer.client.id_card_number}}</p><br>
+                            <p class="h5"> <strong>KAMPE Number:</strong> {{transfer.client.id_card_number}}</p><br>
                             <p class="h5"> <strong>Phone Number:</strong>{{transfer.client.phone_number}} </p><br>
                             <p class="h5"> <strong>Plan:</strong> {{transfer.client.sector}} </p><br>
                         </div>
                         <!-- <div class="col-md-6">
 
                             <p class="h5"> <strong>Patient Name:</strong> {{transfer.client.firstname}} {{transfer.client.lastname}} </p><br>
-                            <p class="h5"> <strong>OHIS Number:</strong> {{transfer.client.id_card_number}}</p><br>
+                            <p class="h5"> <strong>KAMPE Number:</strong> {{transfer.client.id_card_number}}</p><br>
                             <p class="h5"> <strong>Phone Number:</strong>{{transfer.client.phone_number}} </p><br>
                             <p class="h5"> <strong>Plan:</strong> {{transfer.client.sector}} </p><br>
 

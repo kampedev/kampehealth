@@ -41,7 +41,7 @@
                       <div class="avatar avatar-xl avatar-dnd">
                         <img
                           class="avatar-img rounded-circle"
-                          src="/assets/img/ohis_logo.png"
+                          src="/assets/img/KAMPE_logo.png"
                           alt="name"
                         />
                       </div>

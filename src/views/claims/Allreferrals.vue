@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -51,7 +51,7 @@
               <div class="form-group col-md-12">
                 <button
                   type="button"
-                  class="btn btn-success btn-block"
+                  class="btn btn-info btn-block"
                   @click="verifyRef"
                 >
                   Verify Referral
@@ -71,7 +71,7 @@
 
               <button
                 style="margin-top: 10px"
-                class="btn btn-outline-success float-right"
+                class="btn btn-outline-info float-right"
               >
                 <download-excel
                   :data="referrals.data"
@@ -124,7 +124,7 @@
                           </button>
 
                           <button
-                            class="btn btn-outline-success btn-sm m-1"
+                            class="btn btn-outline-info btn-sm m-1"
                             @click="copyCode(ref)"
                           >
                             {{ ref.code_created }} <i class="fe fe-copy"></i>
@@ -155,7 +155,7 @@
                           <button
                             type="button"
                             name="button"
-                            class="btn btn-outline-success"
+                            class="btn btn-outline-info"
                           >
                             <i class="fe fe-eye"></i>
                           </button>
@@ -220,7 +220,7 @@ export default {
       isLoading: false,
       fullPage: true,
       buttoncolor: {
-        informal: "btn btn-success",
+        informal: "btn btn-info",
         formal: "btn btn-default",
       },
       json_fields: {
@@ -250,13 +250,13 @@ export default {
   methods: {
     showPrimary() {
       this.provider_referral_category = "primary";
-      this.buttoncolor.formal = "btn btn-success";
+      this.buttoncolor.formal = "btn btn-info";
       this.buttoncolor.informal = "btn btn-default";
       this.getReferrals();
     },
     showSecondary() {
       this.provider_referral_category = "secondary";
-      this.buttoncolor.informal = "btn btn-success";
+      this.buttoncolor.informal = "btn btn-info";
       this.buttoncolor.formal = "btn btn-default";
       this.getReferrals();
     },
@@ -265,7 +265,7 @@ export default {
       this.isLoading = true;
       if (this.user.type == "shis" || this.user.type == "employee") {
         this.axios
-          .get(`/api/v1/auth/referrals-agency/95930`)
+          .get(`/api/v1/auth/referrals-agency/439078`)
           .then((response) => {
             this.referrals = response.data;
             console.log(response);

@@ -19,7 +19,7 @@
                     </div>
                   </div>
                   <div>
-                    <p class="h4">Total Informal Enrollees</p>
+                    <p class="h4">Total Enrollees</p>
                     <h1 class="fw-400">
                       {{ informaldata.enrollees | numeral(0, 0) }}
                     </h1>
@@ -42,7 +42,7 @@
                     </div>
                   </div>
                   <div>
-                    <p class="h4">Basic Healthcare Provision Fund</p>
+                    <p class="h4"> Kampe Healthcare Plus</p>
                     <h1 class="fw-400">
                       {{ informaldata.bhcpf | numeral(0, 0) }}
                     </h1>
@@ -65,7 +65,7 @@
                     </div>
                   </div>
                   <div>
-                    <p class="h4">State Equity Program</p>
+                    <p class="h4"> Kampe Healthcare</p>
                     <h1 class="fw-400">
                       {{ informaldata.sep | numeral(0, 0) }}
                     </h1>
@@ -88,7 +88,7 @@
                     </router-link>
                   </div>
                   <div>
-                    <p class="h4">Voluntary Contributor</p>
+                    <p class="h4"> Senior Citizens Plus Plan</p>
                     <h1 class="fw-400">
                       {{ informaldata.voluntary | numeral(0, 0) }}
                     </h1>
@@ -156,7 +156,7 @@
                     <!-- </router-link> -->
                   </div>
                   <div>
-                    <p class="h4">State Pensioners Plan</p>
+                    <p class="h4">Superior Plan</p>
                     <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
                   </div>
                 </div>
@@ -206,10 +206,10 @@
             <InformalLga />
           </div>
 
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-12 p-t-20">
               <h5 class="h5">
-                <i class="fe fe-activity"></i>Gender Distribution by LGA
+                <i class="fe fe-activity"></i>Gender Distribution by State
               </h5>
             </div>
 
@@ -220,20 +220,10 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <h5 class="h5">
-            <i class="fe fe-activity"></i> Category of Basic Health Care
-            Provision Fund Data
-          </h5>
-          <div class="row">
-            <div class="col-md-6">
-              <BasicCategory />
-            </div>
-            <div class="col-md-6">
-              <genderCategory />
-            </div>
-          </div>
+         
+       
         </div>
       </section>
     </main>
@@ -242,16 +232,12 @@
 
 <script>
 import InformalLga from "./informallga";
-import GenderbyLGA from "./GenderbyLGA";
-import BasicCategory from "./basicCategory";
-import genderCategory from "./genderCategory";
+// import GenderbyLGA from "./GenderbyLGA";
 
 export default {
   components: {
-    genderCategory,
     InformalLga,
-    GenderbyLGA,
-    BasicCategory,
+    // GenderbyLGA,
   },
 
   data() {
@@ -268,13 +254,16 @@ export default {
       offlineclients: [],
       sectors: [
         {
-          name: "Basic Healthcare Provision Fund",
+          name: "Kampe Healthcare Plus",
         },
         {
-          name: "State Equity Program",
+          name: "Kampe Healthcare",
         },
         {
-          name: "Voluntary Contributor",
+          name: "Senior Citizens Plus Plan",
+        },
+        {
+          name: "Superior Plan",
         },
       ],
       employees: "",
@@ -284,7 +273,7 @@ export default {
   },
   beforeMount() {
     this.axios
-      .get("/api/v1/auth/getinformalsectorenrollees/95930")
+      .get("/api/v1/auth/getinformalsectorenrollees/439078")
       .then((response) => {
         this.informaldata = response.data;
         console.log(response);
@@ -299,7 +288,7 @@ export default {
     getClaims() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/claims/95930`, {
+        .get(`/api/v1/auth/claims/439078`, {
           params: {
             claim_status: "All",
           },

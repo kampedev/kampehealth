@@ -250,7 +250,7 @@ export default {
         "Date of Visit": "healthrecord.date_of_visit",
         "Facility Name": "provider.agency_name",
         "Enrollee Full Name": "enrollee.full_name",
-        "Enrollee OHIS Number": "enrollee.id_card_number",
+        "Enrollee KAMPE Number": "enrollee.id_card_number",
         Diagnosis: "diagnosis.name",
         "Reason for Visit": "healthrecord.reasonVisit",
         "Test Conducted": "healthrecord.testResult",
@@ -316,7 +316,7 @@ export default {
         this.user = JSON.parse(localStorage.getItem("user"));
         this.axios
           .post(`/api/v1/auth/service_summary-agency`, {
-            agency_id: 95930,
+            agency_id: 439078,
             provider_id: this.provider_id,
             paginate_value: this.paginate_value,
             date: this.date,
@@ -334,7 +334,7 @@ export default {
     },
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

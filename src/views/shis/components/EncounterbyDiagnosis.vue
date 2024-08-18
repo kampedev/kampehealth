@@ -52,7 +52,7 @@ export default {
   methods: {
     getDashboardLGA(currentPage) {
       this.axios
-        .get("/api/v1/auth/diagnosisChart/95930?page=" + currentPage)
+        .get("/api/v1/auth/diagnosisChart/439078?page=" + currentPage)
         .then((response) => {
           console.log(response);
           var data = response.data;

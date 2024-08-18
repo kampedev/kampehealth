@@ -44,7 +44,7 @@
         </div>
   </div>
 
-    <button @click="submitForm" class="btn btn-success btn-block">Submit Drug <i class="fe fe-send"></i> </button>
+    <button @click="submitForm" class="btn btn-info btn-block">Submit Drug <i class="fe fe-send"></i> </button>
 
     <div class="col-md-12 m-b-30">
         <h5 class="h4"> <i class="fe fe-droplet"></i>{{drugs.length}} Drugs</h5>
@@ -197,7 +197,7 @@ export default {
         this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
         this.axios.post('/api/v1/auth/drugs',{
-          agency_id : 95930,
+          agency_id : 439078,
           category_id : this.register.category_id,
           sub_category_id : this.register.subcategory_id,
           drug_name : this.register.drug_name,
@@ -227,7 +227,7 @@ export default {
         this.user = JSON.parse(localStorage.getItem('user'))
         this.isLoading = true;
         this.axios.put(`/api/v1/auth/drugs/${this.drug_id}`,{
-          agency_id : 95930,
+          agency_id : 439078,
           category_id : this.register.category_id,
           sub_category_id : this.register.subcategory_id,
           drug_name : this.register.drug_name,
@@ -255,8 +255,8 @@ export default {
     },
     getDrugs(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      // this.axios.get(`/api/v1/auth/drug-agency/95930?page=${this.current_page}`)
-      this.axios.get(`/api/v1/auth/drug-agency/95930`)
+      // this.axios.get(`/api/v1/auth/drug-agency/439078?page=${this.current_page}`)
+      this.axios.get(`/api/v1/auth/drug-agency/439078`)
                   .then(response => {
                       this.drugs = response.data
                       console.log(response)

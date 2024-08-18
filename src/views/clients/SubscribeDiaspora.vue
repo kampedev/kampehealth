@@ -1,6 +1,6 @@
 <template>
   <section class="admin-content" id="contact-search">
-    <div class="bg-dark m-b-30">
+    <div class="bg-info m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -15,20 +15,8 @@
       </div>
     </div>
 
-    <div class="col-md-6 offset-md-3" v-if="showdependent == true">
-      <div class="spacer-top-bot">
-        <button
-          type="button"
-          class="btn btn-outline-dark mx-2"
-          data-toggle="modal"
-          data-target="#exampleModal"
-        >
-          Proceed to Pay
-        </button>
-      </div>
-    </div>
-
-    <section class="" v-show="showpic">
+    
+    <section class="" v-show="false">
       <div class="container">
         <div class="row list">
           <div class="col-lg-8 offset-lg-2">
@@ -88,11 +76,8 @@
         </div>
       </div>
     </section>
-    <section class="" v-show="showdependent">
-      <AddDependentVoluntary />
-    </section>
-
-    <section class="" v-show="showpay">
+   
+    <section class="" >
       <div class="container">
         <div class="row list">
           <div class="col-lg-8 offset-lg-2">
@@ -107,7 +92,7 @@
                     <span class="avatar avatar-lg">
                       <img
                         :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
-                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                         class="avatar-img rounded-circle"
                       />
                     </span>
@@ -127,9 +112,7 @@
                       <option value="offline">Pay Offline</option>
                     </select>  -->
                     <label for="inputPassword4"
-                      ><strong
-                        >Selected Plan: 
-                      </strong></label
+                      ><strong>Selected Plan: </strong></label
                     >
                     <select
                       class="form-control"
@@ -141,7 +124,7 @@
                         v-bind:key="plan.id"
                         :value="plan.plan_name"
                       >
-                        {{ plan.plan_name }} Plan
+                        {{ auth_user.sector }} 
                       </option>
                     </select>
 
@@ -175,8 +158,8 @@
                               our benefit package. Please note that this
                               registration will be void if you do not proceed to
                               make payment. Should you have any difficulty in
-                              making your payment, please call: 0700022556447 or
-                              send us a mail at info@oshia.ng Thank you.
+                              making your payment, please call: 0700xxxxx or
+                              send us a mail at info@kampe.com Thank you.
                             </p>
                           </div>
                         </div>
@@ -210,25 +193,33 @@
                           <h5 class="modal-title h5" id="exampleModalLabel">
                             Payment Instruction
                           </h5>
-                         
                         </div>
 
                         <div class="modal-body">
-                          <p class="mb-4">Pay to the Account details below and upload evidence of payment.</p>
+                          <p class="mb-4">
+                            Pay to the Account details below and upload evidence
+                            of payment.
+                          </p>
 
                           <div class="h6">
-                           <p class="my-2"> <b>CORRESPONDENT BANK NAME: </b> 
-                            <span>CITIBANK NA</span></p>
+                            <p class="my-2">
+                              <b>CORRESPONDENT BANK NAME: </b>
+                              <span>CITIBANK NA</span>
+                            </p>
 
-                           <p class="my-2">  <b>CORRESPONDENT BANK ADRESS: </b>
-                            <span>NEW YORK, NY 10022-4617</span></p>
+                            <p class="my-2">
+                              <b>CORRESPONDENT BANK ADRESS: </b>
+                              <span>NEW YORK, NY 10022-4617</span>
+                            </p>
 
-                          <p class="my-2">   <b>CORRESPONDENT BANK SWIFT CODE: </b>
-                            <span>CITIUS33</span>  </p>
-                            
-                            
-                            <p class="my-2"> <b>ROUTING NUMBER: </b>
-                            <span>021000089</span> </p>
+                            <p class="my-2">
+                              <b>CORRESPONDENT BANK SWIFT CODE: </b>
+                              <span>CITIUS33</span>
+                            </p>
+
+                            <p class="my-2">
+                              <b>ROUTING NUMBER: </b> <span>021000089</span>
+                            </p>
                           </div>
                           <div
                             class="fileinput fileinput-new"
@@ -236,7 +227,8 @@
                           >
                             <span class="btn btn-file">
                               <span class="fileinput-new"
-                                >Upload Payment Proof <i class="fe fe-upload"></i
+                                >Upload Payment Proof
+                                <i class="fe fe-upload"></i
                               ></span>
                               <span class="fileinput-exists">Change</span>
                               <input
@@ -303,14 +295,14 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
 // import paystack from "vue-paystack";
-import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
+// import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
   components: {
     Loading,
     // paystack,
-    AddDependentVoluntary,
+    // AddDependentVoluntary,
   },
   data() {
     return {
@@ -320,15 +312,15 @@ export default {
       auth_user: "",
       amount: "",
       payment_type: "online",
-      showpay: false,
-      showpic: true,
+      showpay: true,
+      showpic: false,
       showdependent: false,
       selected_plan: [
         {
           id: 1,
           plan_name: "Individual",
           description:
-            "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to affordable and qualititative healthcare coverage. It allows no dependent(s).",
+            "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to affordable and qualititative healthcare coverage.",
           plan_cost: 15,
           fee: 2,
         },
@@ -336,7 +328,7 @@ export default {
           id: 2,
           plan_name: "Family",
           description:
-            " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to affordable and qualititative healthcare coverage. It allows a Maximum of 5-dependent(s).",
+            " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to affordable and qualititative healthcare coverage.",
           plan_cost: 15,
           fee: 2,
         },
@@ -351,7 +343,7 @@ export default {
       imagefile: "",
       myplan: "",
       sms_message:
-        "Thank you for choosing OHIS. You can come to our office to collect your ID Card in 3 weeks.",
+        "Thank you for choosing KAMPE. You can come to our office to collect your ID Card in 3 weeks.",
       user: null,
       isLoading: false,
       fullPage: true,
@@ -379,7 +371,7 @@ export default {
       var characters =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
       var charactersLength = characters.length;
-      for (var i = 0; i <50; i++) {
+      for (var i = 0; i < 50; i++) {
         result += characters.charAt(
           Math.floor(Math.random() * charactersLength)
         );
@@ -498,7 +490,7 @@ export default {
         this.axios
           .post(`/api/v1/make/transaction`, {
             user_id: this.$route.params.id,
-            agency_id: 95930,
+            agency_id: 439078,
             description: "Diaspora Payment",
             amount: 0.0,
             type: "offline",

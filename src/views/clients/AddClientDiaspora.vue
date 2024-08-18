@@ -1,6 +1,6 @@
 <template>
   <section class="admin-content" id="contact-search">
-    <div class="bg-success m-b-20">
+    <div class="bg-info m-b-20">
       <div class="container">
         <div class="row p-b-30 p-t-30">
           <div class="text-center mx-auto text-white p-b-30">
@@ -31,21 +31,31 @@
                   </div>
                   <form @submit.prevent="submitForm">
                     <div class="form-row">
-                      <div
-                        class="form-group col-md-6"
-                        v-if="
-                          register.sector == 'Organized Private Sector Plan'
-                        "
-                      >
-                        <label for="inputEmail4">Organization Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="register.place_of_work"
-                          placeholder="example;  Name of Company"
-                        />
-                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Select Plan
+                            <span class="text-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="register.sector"
+                          >
+                            <option value="Diasporan Health Plan (Diamond)">
+                              Diasporan Health Plan (Diamond)
+                            </option>
 
+                            <option value="Diasporan Health Plan (Diamond)">
+                              Diasporan Health Plan (Diamond)
+                            </option>
+
+                            <option value="Diasporan Health Plan (Diamond)">
+                              Diasporan Health Ruby (Diamond)
+                            </option>
+                          </select>
+                        </div>
+                      </div>
                       <div class="form-group col-md-4">
                         <label for="inputPassword4"
                           >Surname <span class="text-danger">*</span></label
@@ -119,7 +129,7 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-6">
                         <label for="inputPassword4"
                           >Phone Number
                           <span class="text-danger">*</span></label
@@ -233,7 +243,7 @@
                         </button>
                       </div> -->
                       <div class="col-md-12">
-                        <button class="btn btn-success btn-block btn-lg">
+                        <button class="btn btn-info btn-block btn-lg">
                           Proceed to Pay <i class="fe fe-send"></i>
                         </button>
                       </div>
@@ -319,7 +329,7 @@ export default {
           plan_type: "Individual",
           phone_number: "",
           type: "client",
-          agency_id: "95930",
+          agency_id: "439078",
           state: "",
           localgovt: "",
           ward: "",
@@ -380,7 +390,7 @@ export default {
         plan_type: "Individual",
         phone_number: "",
         type: "client",
-        agency_id: "95930",
+        agency_id: "439078",
         state: "2676",
         role: 0,
         localgovt: "",
@@ -459,7 +469,7 @@ export default {
 
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -472,7 +482,7 @@ export default {
     getProvidersByWards() {
       this.axios
         .get(
-          `/api/v1/auth/providerAgencies/95930/${this.register.localgovt}/${this.register.ward}`
+          `/api/v1/auth/providerAgencies/439078/${this.register.localgovt}/${this.register.ward}`
         )
         .then((response) => {
           this.providers_wards = response.data.data;

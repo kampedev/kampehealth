@@ -29,10 +29,10 @@
                 <div class="card-body">
                   <div
                     class="form-group"
-                    v-if="user.id == 95930 || user.user_role == 1"
+                    v-if="user.id == 439078 || user.user_role == 1"
                   >
                     <button
-                      class="btn btn-success spacer-left"
+                      class="btn btn-info spacer-left"
                       @click="show = !show"
                     >
                       Change Password

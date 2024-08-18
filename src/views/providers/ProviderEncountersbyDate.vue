@@ -5,7 +5,7 @@
         <button class="btn btn-outline-primary spacer" @click="newfilter = 7">Last 7 days</button>
         <button class="btn btn-outline-primary spacer" @click="currentPage = 30">Last 30 days</button>
         <a href="/list-records">
-        <button class="btn btn-outline-success spacer" >View Encounters</button>
+        <button class="btn btn-outline-info spacer" >View Encounters</button>
          </a>
       </div>
       <div class="card card-body">
@@ -65,7 +65,7 @@ export default {
                             text: 'Hospital Encounters/Visitation Data by Date'
                         },
                         subtitle: {
-                            text: 'Hosptital Visitation Analysis for State Contributory Health Care Scheme'
+                            text: 'Hosptital Visitation Analysis for Kampe Health'
                         },
                         accessibility: {
                             announceNewData: {

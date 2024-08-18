@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -124,12 +124,12 @@
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label for="inputEmail4">OHIS Number</label>
+                    <label for="inputEmail4">KAMPE Number</label>
                     <input
                       type="text"
                       class="form-control"
                       v-model="id_card_number"
-                      placeholder="OHIS/XX/XXXX"
+                      placeholder="KAMPE/XX/XXXX"
                     />
                   </div>
 
@@ -196,7 +196,7 @@
                   </div>
                   <div class="col-md-12">
                     <button
-                      class="btn btn-outline-success btn-block"
+                      class="btn btn-outline-info btn-block"
                       @click="getClaims"
                     >
                       Filter
@@ -326,7 +326,7 @@
                           <button
                             type="button"
                             name="button"
-                            class="btn btn-outline-success"
+                            class="btn btn-outline-info"
                           >
                             <i class="fe fe-eye"></i>
                           </button>
@@ -360,7 +360,7 @@
                     >
                       <td colspan="4">
                         <button
-                          class="btn btn-outline-success btn-block"
+                          class="btn btn-outline-info btn-block"
                           @click="forwwardClaims()"
                         >
                           Forward {{ provider_id.agency_name }}'s Claims for
@@ -431,7 +431,7 @@ export default {
       json_fields: {
         "Claim ID": "claim_unique_id",
         "Enrollee Full Name": "enrollee.full_name",
-        "Enrollee OHIS Number": "enrollee.id_card_number",
+        "Enrollee KAMPE Number": "enrollee.id_card_number",
         "Enrollee Phone Number": "enrollee.phone_number",
         Diagnosis: "diagnosis.name",
         "Verified Amount": "approved_total_cost",
@@ -469,7 +469,7 @@ export default {
       if (this.user.type == "shis" || this.user.type == "employee") {
         this.isLoading = true;
         this.axios
-          .get(`/api/v1/auth/claims/95930`, {
+          .get(`/api/v1/auth/claims/439078`, {
             params: {
               claim_status: this.claim_status,
               claim_unique_id: this.claim_unique_id,
@@ -560,8 +560,8 @@ export default {
     getProviders(status) {
       this.isLoading = true;
       this.axios
-        // .get(`/api/v1/auth/providerAgency/95930`)
-        .get(`/api/v1/auth/getProviderByClaims/95930`, {
+        // .get(`/api/v1/auth/providerAgency/439078`)
+        .get(`/api/v1/auth/getProviderByClaims/439078`, {
           params: {
             checked_by_id: status == "pending" ? "pending" : null,
             verified_by_id: status == "vetted" ? "vetted" : null,

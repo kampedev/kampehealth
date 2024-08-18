@@ -80,7 +80,7 @@
                         }
                     };
 
-                    var pushToHistory = function () {
+                    var pushTKAMPEtory = function () {
                         var index = t.o.plugins.history._index,
                             stack = t.o.plugins.history._stack,
                             latestState = stack.slice(-1)[0] || '<p></p>',
@@ -179,7 +179,7 @@
                         }
                     };
 
-                    t.$c.on('tbwinit tbwchange', pushToHistory);
+                    t.$c.on('tbwinit tbwchange', pushTKAMPEtory);
 
                     t.addBtnDef('historyRedo', btnBuildDefRedo);
                     t.addBtnDef('historyUndo', btnBuildDefUndo);

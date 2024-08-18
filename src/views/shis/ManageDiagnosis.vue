@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-dark m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -25,7 +25,7 @@
                 <div class="card-body">
                   <button
                     type="button"
-                    class="btn btn-success"
+                    class="btn btn-info"
                     @click="showadder = !showadder"
                   >
                     Add Disease <i class="fe fe-plus"></i>
@@ -74,7 +74,7 @@
 
                   <div class="form-group">
                     <button
-                      class="btn btn-success btn-block"
+                      class="btn btn-info btn-block"
                       @click="AddDisease"
                     >
                       Submit
@@ -178,7 +178,7 @@ export default {
     getDiagnoses() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/diagnosis-agency/95930`)
+        .get(`/api/v1/auth/diagnosis-agency/439078`)
         .then((response) => {
           this.diagnoses = response.data;
           console.log(response);
@@ -193,7 +193,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post("/api/v1/auth/diagnosis", {
-          agency_id: 95930,
+          agency_id: 439078,
           name: this.register.name,
           symptoms: this.register.symptoms,
           transmission: this.register.transmission,

@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -110,7 +110,7 @@ export default {
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
-      .get(`/api/v1/auth/getpendingclaimsbyProvider/95930`)
+      .get(`/api/v1/auth/getpendingclaimsbyProvider/439078`)
       .then((response) => {
         this.providers = response.data.data;
         console.log(response);
@@ -133,7 +133,7 @@ export default {
     getProviders() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/getpendingclaimsbyProvider/95930`)
+        .get(`/api/v1/auth/getpendingclaimsbyProvider/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

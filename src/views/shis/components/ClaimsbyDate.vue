@@ -43,7 +43,7 @@ export default {
     methods:{
         getDashboardLGA(){
             // console.log("current page " + currentPage);
-      this.axios.get('/api/v1/auth/claimsdate/95930?date=' + this.currentPage)
+      this.axios.get('/api/v1/auth/claimsdate/439078?date=' + this.currentPage)
       .then(response => {
         console.log(response)
         // var data = response.data.chartData;
@@ -58,7 +58,7 @@ export default {
                             text: 'Claims Chart Data by Date'
                         },
                         subtitle: {
-                            text: 'Claims Analysis for State Contributory Health Care Scheme'
+                            text: 'Claims Analysis for Kampe Health'
                         },
                         accessibility: {
                             announceNewData: {

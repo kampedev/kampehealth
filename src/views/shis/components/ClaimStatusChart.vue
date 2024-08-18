@@ -22,7 +22,7 @@ export default {
   methods: {
     getDashboardLGA() {
       this.axios
-        .get("/api/v1/auth/dashboardClaimsbyStatus/95930")
+        .get("/api/v1/auth/dashboardClaimsbyStatus/439078")
         .then((response) => {
           // console.log(response.data);
           var data = response.data;

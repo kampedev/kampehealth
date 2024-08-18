@@ -80,7 +80,7 @@
                       type="text"
                       class="form-control"
                       id="inputEmail4"
-                      :value="'OHIS/0' + client.id"
+                      :value="'KAMPE/0' + client.id"
                       disabled
                     />
                   </div>
@@ -90,7 +90,7 @@
                       type="text"
                       class="form-control"
                       id="inputEmail4"
-                      :value="'OHIS/0' + client.id"
+                      :value="'KAMPE/0' + client.id"
                       disabled
                     />
                   </div>
@@ -100,7 +100,7 @@
                       type="text"
                       class="form-control"
                       id="inputEmail4"
-                      :value="'OHIS/0' + client.id"
+                      :value="'KAMPE/0' + client.id"
                       disabled
                     />
                   </div>

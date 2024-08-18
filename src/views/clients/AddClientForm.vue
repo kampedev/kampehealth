@@ -17,45 +17,13 @@
                   </div>
                   <form @submit.prevent="registerUserEmployee">
                     <div class="form-row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="inputCity"
-                            >Select Sector
-                            <span class="text-danger">*</span></label
-                          >
-                          <select
-                            class="form-control"
-                            required
-                            v-model="sector"
-                            disabled
-                          >
-                            <option value="formal">Formal Sector</option>
-                            <option value="informal">Informal Sector</option>
-                          </select>
-                        </div>
-                      </div>
+                     
 
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="inputCity"
-                            >Select Plan Type
-                            <span class="text-danger">*</span></label
-                          >
-                          <select
-                            class="form-control"
-                            required
-                            v-model="register.plan_type"
-                          >
-                            <option value="Family">Family</option>
-                            <option value="Individual">Individual</option>
-                          </select>
-                        </div>
-                      </div>
 
                       <div class="col-md-6" v-if="sector == 'informal'">
                         <div class="form-group">
                           <label for="inputCity"
-                            >Select Informal Sector
+                            >Select Plan
                             <span class="text-danger">*</span></label
                           >
                           <select
@@ -63,86 +31,21 @@
                             required
                             v-model="register.sector"
                           >
-                            <option value="Basic Healthcare Provision Fund">
-                              Basic Healthcare Provision Fund
+                            <option value="Kampe Healthcare Plus">
+                              Kampe Healthcare Plus
                             </option>
-                            <option value="State Equity Program">
-                              State Equity Program
+
+                            <option value="Kampe Healthcare">
+                              Kampe Healthcare
                             </option>
-                         
-                            <option value="Voluntary Contributor">
-                              Voluntary Contributor
+
+                            <option value=" Senior Citizens Plus Plan">
+                              Senior Citizens Plus Plan
                             </option>
-                            <option value="State Pensioners Plan">
-                              State Pensioners Plan
-                            </option>
+
+                            <option value="Superior Plan">Superior Plan</option>
                           </select>
                         </div>
-                      </div>
-
-                      <div class="col-md-12" v-if="sector == 'formal'">
-                        <div class="form-group">
-                          <label for="inputCity"
-                            >Select Category<span class="text-danger"
-                              >*</span
-                            ></label
-                          >
-                          <select
-                            class="form-control"
-                            required
-                            v-model="register.sector"
-                          >
-                            <option value="Civil Servant">Civil Servant</option>
-                            <option value="Oganized Private Sector Plan">
-                              Organized Private Sector Plan
-                            </option>
-                            <option
-                              value="Tertiary Student Health Insurance Plan (T-SHIP)"
-                            >
-                              Tertiary Student Health Insurance Plan (T-SHIP)
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div
-                        class="form-group col-md-12"
-                        v-if="
-                          register.sector == 'Basic Healthcare Provision Fund'
-                        "
-                      >
-                        <label>Special Needs</label>
-                        <select
-                          class="form-control"
-                          v-model="register.category_of_vulnerable_group"
-                        >
-                          <option value="Pregnant Women">Pregnant Women</option>
-                          <option value="Children under 5">
-                            Children under 5
-                          </option>
-                          <option value="Aged">Aged</option>
-                          <option value="People with Special Needs">
-                            People with Special Needs
-                          </option>
-                          <option value="Poorest of the Poor">
-                            Poorest of the Poor
-                          </option>
-                        </select>
-                      </div>
-
-                      <div
-                        class="form-group col-md-12"
-                        v-if="register.sector == 'State Pensioners Plan'"
-                      >
-                        <label>Category of Pensioner</label>
-                        <select
-                          class="form-control"
-                          v-model="register.category_of_vulnerable_group"
-                        >
-                          <option value="Contributory">Contributory</option>
-                          <option value="Non-Contributory">
-                            Non-Contributory
-                          </option>
-                        </select>
                       </div>
 
                       <div class="form-group col-md-6">
@@ -156,7 +59,7 @@
                           placeholder="NIN Number"
                         />
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="inputPassword4"
                           >Surname <span class="text-danger">*</span></label
                         >
@@ -168,7 +71,7 @@
                           placeholder="Last Name"
                         />
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label
                           >First Name <span class="text-danger">*</span></label
                         >
@@ -181,7 +84,7 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="inputPassword4">Middle Name</label>
                         <input
                           type="text"
@@ -209,19 +112,7 @@
                           v-model="register.dob"
                         />
                       </div>
-                      <div class="form-group col-md-6">
-                        <p>
-                          <label for="inputPassword4"
-                            >Expiry Date<span class="text-danger">*</span>
-                          </label>
-                        </p>
-                        <input
-                          type="date"
-                          required
-                          class="form-control"
-                          v-model="register.expiry_date"
-                        />
-                      </div>
+                     
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">Email</label>
                         <input
@@ -258,38 +149,6 @@
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
                         </select>
-                      </div>
-
-                      <div
-                        class="form-group col-md-6"
-                        v-if="register.sector == 'State Pensioners Plan'"
-                      >
-                        <label for="inputCity">Select MDA</label>
-                        <select
-                          class="form-control"
-                          v-model="register.place_of_work"
-                        >
-                          <option
-                            :value="mda.name"
-                            v-for="mda in mdas.data"
-                            v-bind:key="mda.id"
-                          >
-                            {{ mda.name }}
-                          </option>
-                        </select>
-                      </div>
-
-                      <div
-                        class="form-group col-md-6"
-                        v-if="register.sector == 'State Pensioners Plans'"
-                      >
-                        <label for="inputEmail4">File Number</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="register.salary_number"
-                          placeholder="File Number"
-                        />
                       </div>
 
                       <div
@@ -339,21 +198,19 @@
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="inputCity"
-                          >Select TPA/HMO
-                          <span class="text-danger">*</span></label
-                        >
+                        <label for="inputCity">State </label>
+
                         <select
                           class="form-control"
-                          required
-                          v-model="register.org_id"
+                          v-model="register.state"
+                          @change="fetchLga(register.state)"
                         >
                           <option
-                            v-for="tpa in tpas"
-                            v-bind:key="tpa"
-                            :value="tpa.id"
+                            v-for="state in states"
+                            v-bind:key="state"
+                            :value="state.id"
                           >
-                            {{ tpa.organization_name }}
+                            {{ state.name }}
                           </option>
                         </select>
                       </div>
@@ -380,11 +237,7 @@
 
                       <div class="form-group col-md-6">
                         <label>Ward </label>
-                        <select
-                          class="form-control"
-                          v-model="register.ward"
-                          @change="getProvidersByWards($event)"
-                        >
+                        <select class="form-control" v-model="register.ward">
                           <option
                             v-for="ward in wards"
                             v-bind:key="ward.id"
@@ -397,7 +250,7 @@
 
                       <div class="form-group col-md-6">
                         <label
-                          >Principal Facility for Accessing Health Care
+                          >Facility for Accessing Health Care
                         </label>
                         <v-select
                           v-model="register.provider_id"
@@ -430,25 +283,6 @@
                           v-model="register.address"
                           placeholder="1234 Main St"
                         />
-                      </div>
-                      <div
-                        class="col-md-6"
-                        v-if="register.sector == 'State Pensioners Plan'"
-                      >
-                        <div class="form-group">
-                          <label for="inputCity"
-                            >Is Dependent Alive
-                            <span class="text-danger">*</span></label
-                          >
-                          <select
-                            class="form-control"
-                            required
-                            v-model="register.dependent_alive"
-                          >
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
-                          </select>
-                        </div>
                       </div>
                     </div>
 
@@ -564,7 +398,7 @@
                     </div>
 
                     <div class="form-group">
-                      <button class="btn btn-success btn-block btn-lg">
+                      <button class="btn btn-info btn-block btn-lg">
                         Submit <i class="fe fe-send"></i>
                       </button>
                     </div>
@@ -628,7 +462,7 @@ export default {
         nimc_number: "",
         email: "",
         phone_number: "",
-        plan_type: "",
+        plan_type: "Individual",
         type: "client",
         agency_id: "",
         state: "",
@@ -661,7 +495,7 @@ export default {
             middlename: "",
             institution_attending: "",
             provider: "0",
-            agency_id: "95930",
+            agency_id: "439078",
             state: "2676",
             email: "",
             phone_number: "",
@@ -720,8 +554,6 @@ export default {
           });
         }
       }
-
-      // console.log(this.register);
     },
     fetchWards() {
       this.axios
@@ -735,9 +567,21 @@ export default {
         });
     },
 
-    fetchLga() {
+    getStates() {
       this.axios
-        .get(`/api/v1/auth/lga/2676`)
+        .get(`/api/v1/auth/states`)
+        .then((response) => {
+          this.states = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    fetchLga(state) {
+      this.axios
+        .get(`/api/v1/auth/lga/${state}`)
         .then((response) => {
           this.lga_states = response.data.data;
           console.log(response);
@@ -746,115 +590,13 @@ export default {
           console.error(error);
         });
     },
-    getMDAs() {
-      this.axios
-        .get(`/api/v1/auth/ministry/95930`)
-        .then((response) => {
-          this.mdas = response.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    getTPAs() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-
-      this.axios
-        .get(`/api/v1/auth/getorgenrollment/95930/A`)
-        .then((response) => {
-          this.tpas = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
-    registerUserTPA() {
-      // console.log(this.selected_provider ? this.selected_provider : this.register.provider_id);
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.isLoading = true;
-      this.axios
-        .post("/api/v1/auth/registerProvider", {
-          nimc_number: this.register.nimc_number,
-          firstname: this.register.firstname.toUpperCase(),
-          lastname: this.register.lastname.toUpperCase(),
-          middlename: this.register.middlename.toUpperCase(),
-          email: this.register.email,
-          phone_number: this.register.phone_number,
-          plan_type: this.register.plan_type,
-          type: this.register.type,
-          sectorType: this.sector,
-          agency_id: 95930,
-          provider_id: this.register.provider_id.id,
-          state: "2676",
-          role: 0,
-          password: "euhler",
-          org_id: this.register.org_id,
-          localgovt: this.register.localgovt,
-          ward: this.register.ward,
-          blood: this.register.blood,
-          dob: this.register.dob,
-          expiry_date: this.register.expiry_date,
-          address1: this.register.address,
-          genotype: this.register.genotype,
-          weight: this.register.weight,
-          gender: this.register.gender,
-          sector: this.register.sector,
-          place_of_work: this.register.place_of_work,
-          point_of_care: this.register.provider_id.id,
-          finger_print: this.register.finger_print,
-          salary_number: this.register.salary_number,
-          grade_level: this.register.grade_level,
-          date_of_entry: this.register.date_of_entry,
-          marital_status: this.register.marital_status,
-          category_of_vulnerable_group:
-            this.register.category_of_vulnerable_group,
-          enrolled_by: this.user.id,
-        })
-        .then((response) => {
-          console.log(response);
-          this.isLoading = false;
-          this.$toasted.info("Client added Successfully", {
-            position: "top-center",
-            duration: 3000,
-          });
-          let user_id = response.data.data.id;
-
-          this.$router.push(`/client/${user_id}`);
-        })
-        .catch((error) => {
-          console.log(error.response);
-          this.isLoading = false;
-          this.response = error.response.data.errors;
-          if (this.response.firstname != null) {
-            this.$toasted.error(`${this.response.firstname}`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
-          if (this.response.lastname != null) {
-            this.$toasted.error(`${this.response.lastname}`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
-          if (this.response.phone_number != null) {
-            this.$toasted.error(`${this.response.phone_number}`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
-        });
-    },
 
     registerUserEmployee() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.isLoading = true;
       this.axios
         .post("/api/v1/auth/registerProvider", {
-          agency_id: 95930,
+          agency_id: 439078,
           nimc_number: this.register.nimc_number,
           firstname: this.register.firstname.toUpperCase(),
           lastname: this.register.lastname.toUpperCase(),
@@ -865,7 +607,7 @@ export default {
           type: this.register.type,
           sectorType: this.sector,
           provider_id: this.register.provider_id.id,
-          state: "2676",
+          state: this.register.state,
           role: 0,
           password: "euhler",
           org_id: this.register.org_id,
@@ -915,7 +657,7 @@ export default {
     getProviders() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -929,7 +671,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .get(
-          `/api/v1/auth/providerAgencies/95930/${this.register.localgovt}/${this.register.ward}`
+          `/api/v1/auth/providerAgencies/439078/${this.register.localgovt}/${this.register.ward}`
         )
         .then((response) => {
           this.providers_wards = response.data.data;
@@ -942,9 +684,8 @@ export default {
   },
   created() {
     this.fetchLga();
-    this.getMDAs();
     this.getProviders();
-    this.getTPAs();
+    this.getStates();
   },
 };
 </script>

@@ -7,7 +7,7 @@
       <h3 class="CTA__prompt">Enter Your Detail Below</h3>
       <input
         type="text"
-        placeholder="OHIS Number, Email or Virtual Account Number"
+        placeholder="KAMPE Number, Email or Virtual Account Number"
         v-model="userIdentifier"
       />
       <button class="btn btn-success" @click="getUserDetails">
@@ -21,7 +21,7 @@
           :src="`https://insurance-api.hayokmedicare.ng/image/${user.user_image}`"
           alt="Enrollee Image"
           class="enrollee__img"
-          onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+          onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
         />
         <div class="primary__detail">
           <i class="fas fa-id-card fa-2x icon"></i>
@@ -316,9 +316,9 @@ export default {
       this.isLoading = true;
       this.axios
         .post("/api/v1/make/transaction", {
-          agency_id: 95930,
+          agency_id: 439078,
           amount: this.getPlan.plan_cost,
-          description: "OHIS Plan Payment",
+          description: "KAMPE Plan Payment",
           type: "plan_payment",
           transaction_ref: this.reference,
           user_id: this.user.id,
@@ -326,11 +326,11 @@ export default {
         .then((response) => {
           console.log(response);
           this.$toasted.info(
-            "Congratulations you have successfully enrolled to O'HIS",
+            "Congratulations you have successfully enrolled to KAMPE",
             { position: "top-center", duration: 8000 }
           );
           this.isLoading = false;
-          // window.location = "https://www.oshia.ng";
+          // window.location = "https://www.Kampe.ng";
           this.$router.push(`/subscribe-success/${this.user.id}`);
         })
         .catch((error) => {
@@ -345,7 +345,7 @@ export default {
           email: "wearegrumie@gmail.com",
           password: "AGYkh.EUddNx4j@",
           message: this.sms_message,
-          sender_name: "OHIS",
+          sender_name: "KAMPE",
           recipients: this.user.phone_number,
         })
         .then((response) => {

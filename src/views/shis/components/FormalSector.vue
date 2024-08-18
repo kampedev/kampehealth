@@ -230,7 +230,7 @@ export default {
   },
   beforeMount() {
     this.axios
-      .get("/api/v1/auth/getformalsectorenrollees/95930")
+      .get("/api/v1/auth/getformalsectorenrollees/439078")
       .then((response) => {
         this.formaldata = response.data;
         this.total = response.data.enrollees + response.data.dependants;
@@ -251,7 +251,7 @@ export default {
     getClaims() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/claims/95930`, {
+        .get(`/api/v1/auth/claims/439078`, {
           params: {
             claim_status: "All",
           },

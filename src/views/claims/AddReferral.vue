@@ -19,7 +19,7 @@
               <div class="card-body">
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="inputCity">Enrollee OHIS Number</label>
+                    <label for="inputCity">Enrollee KAMPE Number</label>
                     <input
                       type="text"
                       class="form-control"
@@ -197,7 +197,7 @@ export default {
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
-      .get(`/api/v1/auth/diagnosis-agency/95930`)
+      .get(`/api/v1/auth/diagnosis-agency/439078`)
       .then((response) => {
         this.diseases = response.data.data;
         console.log(response);
@@ -217,7 +217,7 @@ export default {
   methods: {
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -268,7 +268,7 @@ export default {
           name_of_reffering_personnel: this.user.id,
           client_id: this.search_result.type == 'client' ? this.search_result.data.id : 0,
           dependent_id: this.search_result.type == 'dependent' ? this.search_result.data.id : 0,
-          agency_id: 95930,
+          agency_id: 439078,
           referring_facility: this.search_result.type == 'client' ?  this.search_result.data.provider_id : this.search_result.data.provider,
           recipient_facility: this.referral.recipient_facility.id,
           provisional_diagnosis: this.referral.provisional_diagnosis.id,

@@ -238,7 +238,7 @@ export default {
     getClientsDuplicateID() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/duplicate_id_card_number/95930`)
+        .get(`/api/v1/auth/duplicate_id_card_number/439078`)
         .then((response) => {
           this.clients_dup = response.data;
           console.log(response);

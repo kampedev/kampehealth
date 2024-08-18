@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -83,7 +83,7 @@
                           required
                           type="text"
                           class="form-control"
-                          placeholder="OHIS Number, First Name, Last name, "
+                          placeholder="KAMPE Number, First Name, Last name, "
                           v-model="searchkey"
                           @change="searchIDCard"
                         />
@@ -120,7 +120,7 @@
                               :src="`https://insurance-api.hayokmedicare.ng/image/${selected_enrollee.user_image}`"
                               class="img"
                               alt="User Photo"
-                              onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                              onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                             />
                           </div>
                           <div class="form-group col-md-6">
@@ -319,7 +319,7 @@
                             <button
                               type="button"
                               @click="addArray()"
-                              class="btn btn-outline-success btn-block"
+                              class="btn btn-outline-info btn-block"
                             >
                               <i class="fe fe-plus"></i>
                             </button>
@@ -342,7 +342,7 @@
                       class="form-group mt-8"
                       v-if="record.treatment_type == 'Primary'"
                     >
-                      <button class="btn btn-success btn-block" type="submit">
+                      <button class="btn btn-info btn-block" type="submit">
                         Submit <i class="fe fe-send"></i>
                       </button>
                     </div>
@@ -351,7 +351,7 @@
                       class="form-group mt-8"
                       v-if="record.treatment_type == 'Secondary'"
                     >
-                      <button class="btn btn-success btn-block" type="submit">
+                      <button class="btn btn-info btn-block" type="submit">
                         Proceed to Claims <i class="fe fe-send"></i>
                       </button>
                     </div>
@@ -443,7 +443,7 @@ export default {
       this.record.treatment_type = "Primary";
     }
     this.axios
-      .get(`/api/v1/auth/diagnosis-agency/95930`)
+      .get(`/api/v1/auth/diagnosis-agency/439078`)
       .then((response) => {
         this.diseases = response.data.data;
         console.log(response);
@@ -461,7 +461,7 @@ export default {
       this.axios
         .post(`/api/v1/auth/searchenrollees`, {
           // provider_id: this.user.institutional_id,
-          agency_id: 95930,
+          agency_id: 439078,
           request_query: this.searchkey,
         })
         .then((response) => {
@@ -499,7 +499,7 @@ export default {
                 : null,
             reasonVisit: this.record.reasonVisit,
             testResult: this.record.testResult,
-            agency_id: 95930,
+            agency_id: 439078,
             drVisited: this.user.id,
             professional_id: this.user.id,
             notes: this.record.medications,
@@ -547,7 +547,7 @@ export default {
 
     getDrugs() {
       this.axios
-        .get(`/api/v1/auth/drug-agency/95930`)
+        .get(`/api/v1/auth/drug-agency/439078`)
         .then((response) => {
           this.drugs = response.data;
           console.log(response);
@@ -558,7 +558,7 @@ export default {
     },
     getServices() {
       this.axios
-        .get(`/api/v1/auth/service-agency/95930`)
+        .get(`/api/v1/auth/service-agency/439078`)
         .then((response) => {
           this.services = response.data;
           console.log(response);

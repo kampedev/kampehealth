@@ -9,23 +9,23 @@
           <div class="row">
             <div class="col-md-12 m-b-20">
               <h5 class="spacer-top">
-                Hello, <span v-if="auth_user.job_title == 'Doctor'">Dr.</span>
+                Hello,
                 {{ auth_user.full_name }}
               </h5>
             </div>
 
-            <div class="col-md-12 form-group">
+            <!-- <div class="col-md-12 form-group">
               <button class="btn btn-outline-dark" @click="addRecordOffline">
                 <i class="fe fe-download"></i> Download Hospital Data
               </button>
-            </div>
+            </div> -->
 
             <div class="col-lg-4 col-md-4">
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
                     <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-success rounded-circle">
+                      <div class="avatar-title bg-soft-info rounded-circle">
                         <i class="mdi mdi-medical-bag"></i>
                       </div>
                     </div>
@@ -44,7 +44,7 @@
                   <div class="pb-2">
                     <!-- <router-link :to="{ path: '/manage-clients'}"> -->
                     <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-success rounded-circle">
+                      <div class="avatar-title bg-soft-info rounded-circle">
                         <i class="mdi mdi-account-group-outline"></i>
                       </div>
                     </div>
@@ -64,9 +64,7 @@
                   <div class="pb-2">
                     <router-link :to="{ path: '/all-referrals' }">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-success rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="fe fe-external-link"></i>
                         </div>
                       </div>
@@ -95,23 +93,20 @@
                       <th>Encounter ID</th>
                       <th>Date of Visit</th>
                       <th>Patient Name</th>
-                      <th>Patient OHIS Number</th>
+                      <th>Patient KAMPE Number</th>
                       <!-- <th>Status</th> -->
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="record in records.data" v-bind:key="record.id">
-                      <td
-                      v-if="record.healthrecord != null"
-                      >
+                      <td v-if="record.healthrecord != null">
                         {{ record.healthrecord.encounter_id }}
                       </td>
-                      <td
-                      v-if="record.healthrecord != null"
-                      >
+                      <td v-if="record.healthrecord != null">
                         {{
-                          record.healthrecord.date_of_visit | moment("dddd, MMMM Do YYYY")
+                          record.healthrecord.date_of_visit
+                            | moment("dddd, MMMM Do YYYY")
                         }}
                       </td>
                       <td>
@@ -218,7 +213,7 @@ export default {
           // date: this.filter_field.date,
           // from: this.filter_field.from,
           // to: this.filter_field.to,
-          agency_id: 95930,
+          agency_id: 439078,
           paginate_value: 15,
         })
         .then((response) => {
@@ -240,7 +235,7 @@ export default {
     },
     getDiagnosis() {
       this.axios
-        .get(`/api/v1/auth/diagnosis-agency/95930`)
+        .get(`/api/v1/auth/diagnosis-agency/439078`)
         .then((response) => {
           this.diseases = response.data;
           console.log(response);
@@ -359,7 +354,7 @@ export default {
     },
     getDrugs() {
       this.axios
-        .get(`/api/v1/auth/drug-agency/95930`)
+        .get(`/api/v1/auth/drug-agency/439078`)
         .then((response) => {
           this.drugs = response.data;
           console.log(response);
@@ -370,7 +365,7 @@ export default {
     },
     getServices() {
       this.axios
-        .get(`/api/v1/auth/service-agency/95930`)
+        .get(`/api/v1/auth/service-agency/439078`)
         .then((response) => {
           this.services = response.data;
           console.log(response);

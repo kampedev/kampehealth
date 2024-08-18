@@ -55,7 +55,7 @@
                       </div>
 
                       <!-- <div class="form-group col-md-5" required>
-                      <label for="inputCity">Patient OHIS Number</label>
+                      <label for="inputCity">Patient KAMPE Number</label>
                       <input
                         type="text"
                         class="form-control"
@@ -420,7 +420,7 @@ export default {
 
       let hospital_records = {
         record_type: "encounter",
-        agency_id: 95930,
+        agency_id: 439078,
         patient_id: patient_id,
         provider_id: provider_id,
         reasonVisit: reasonVisit,

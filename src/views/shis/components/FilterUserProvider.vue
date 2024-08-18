@@ -120,7 +120,7 @@ export default {
                 // 'Last Name':'lastname',
                 'Full Name':'full_name',
                 'Middle Name':'middlename',
-                'OHIS Number':'id_card_number',
+                'KAMPE Number':'id_card_number',
                 'User Status':'status',
                 'User Image': {
                   field:'user_image',
@@ -170,7 +170,7 @@ export default {
   },
   beforeMount(){
     this.user = JSON.parse(localStorage.getItem('user'))
-    this.axios.get(`/api/v1/auth/providerAgency/95930`)
+    this.axios.get(`/api/v1/auth/providerAgency/439078`)
                 .then(response => {
                     this.providers = response.data.data
                     console.log(response)
@@ -214,7 +214,7 @@ export default {
     getProviders(){
       this.user = JSON.parse(localStorage.getItem('user'))
 
-      this.axios.get(`/api/v1/auth/providerAgency/95930`)
+      this.axios.get(`/api/v1/auth/providerAgency/439078`)
                   .then(response => {
                       this.providers = response.data.data
                       // console.log(response.data.data)

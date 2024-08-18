@@ -227,7 +227,7 @@ export default {
   methods: {
     getPaymentAgency() {
       this.axios
-        .get(`/api/v1/auth/paymentorder-agency/95930`,{
+        .get(`/api/v1/auth/paymentorder-agency/439078`,{
         params:{
             type:'capitations'
         }})
@@ -241,7 +241,7 @@ export default {
     },
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`,{
+        .get(`/api/v1/auth/providerAgency/439078`,{
         params:{
             type:'capitations'
         }})
@@ -257,7 +257,7 @@ export default {
       if (confirm("Are you sure you want to Submit")) {
         this.axios
           .post(`/api/v1/auth/addcaptitation`, {
-            agency_id: 95930,
+            agency_id: 439078,
             provider_id: this.provider_id,
             type: "capitations",
           })

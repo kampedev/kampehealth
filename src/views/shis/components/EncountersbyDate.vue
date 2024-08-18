@@ -45,7 +45,7 @@ export default {
     methods:{
         getDashboardLGA(){
             // console.log("current page " + currentPage);
-      this.axios.get('/api/v1/auth/encountersdate/95930?date=' + this.currentPage)
+      this.axios.get('/api/v1/auth/encountersdate/439078?date=' + this.currentPage)
       .then(response => {
         console.log(response)
         // var data = response.data.chartData;
@@ -60,7 +60,7 @@ export default {
                             text: 'Hospital Encounters/Visitation Data by Date'
                         },
                         subtitle: {
-                            text: 'Hosptital Visitation Analysis for State Contributory Health Care Scheme'
+                            text: 'Hosptital Visitation Analysis for Kampe Health'
                         },
                         accessibility: {
                             announceNewData: {

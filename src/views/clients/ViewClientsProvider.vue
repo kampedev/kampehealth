@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -38,7 +38,7 @@
                       <thead>
                         <tr>
                           <th>Name</th>
-                          <th>OHIS Number</th>
+                          <th>KAMPE Number</th>
                           <th>Phone Number</th>
                           <th>Plan</th>
                           <th>Action</th>
@@ -110,10 +110,16 @@ export default {
   beforeMount() {},
   methods: {
     getClients() {
-        // condition ? exprIfTrue : exprIfFalse
+      // condition ? exprIfTrue : exprIfFalse
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/getProviderToUser/${this.user.type == 'provider' ? this.user.id : this.user.institutional_id}`)
+        .get(
+          `/api/v1/auth/getProviderToUser/${
+            this.user.type == "provider"
+              ? this.user.id
+              : this.user.institutional_id
+          }`
+        )
         .then((response) => {
           this.clients = response.data;
           console.log(response);

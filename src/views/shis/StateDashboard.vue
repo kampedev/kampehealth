@@ -5,10 +5,10 @@
     <main class="admin-main">
       <!--site header begins-->
       <section class="admin-content">
-        <div class="container">
+        <div class="container mt-8">
          
 
-          <div class="col-md-12 my-8">
+          <!-- <div class="col-md-12 my-8">
             <button
               type="button"
               :class="buttoncolor.formal"
@@ -23,7 +23,7 @@
             >
               Informal <i class="fe fe-grid"></i>
             </button>
-          </div>
+          </div> -->
 
           <div class="" v-show="formal_S">
             <FormalSector />
@@ -70,7 +70,7 @@
                       <th>Name</th>
                       <th>Phone Number</th>
                       <th>Sector</th>
-                      <th>O'HIS Number</th>
+                      <th>KAMPE Number</th>
                       <th>Action</th>
                       <th>Status</th>
                     </tr>

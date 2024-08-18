@@ -26,7 +26,7 @@
                 <div class="card-body">
                   <h3 class="">Bank Details</h3>
                   <p class="text-muted">
-                    OHIS Bank Code: {{ auth_user.recipient_code }}
+                    KAMPE Bank Code: {{ auth_user.recipient_code }}
                   </p>
 
                   <div class="form-row">

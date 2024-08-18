@@ -282,7 +282,7 @@ export default {
   methods: {
     getPaymentAgency() {
       this.axios
-        .get(`/api/v1/auth/paymentorder-agency/95930`, {
+        .get(`/api/v1/auth/paymentorder-agency/439078`, {
           params: {
             type: "claims",
           },
@@ -313,7 +313,7 @@ export default {
     
  getDashboardAgency() {
       this.axios
-        .get(`/api/v1/auth/finance-dashboard-agency/95930`)
+        .get(`/api/v1/auth/finance-dashboard-agency/439078`)
         .then((response) => {
           this.funds_dashboard = response.data;
           console.log(response);

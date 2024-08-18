@@ -24,11 +24,11 @@
               <div class="card-body">
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="inputCity">Enrollee OHIS Number</label>
+                    <label for="inputCity">Enrollee KAMPE Number</label>
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Enter your OHIS Number"
+                      placeholder="Enter your KAMPE Number"
                       v-model="searchkey"
                       @change="searchIDCard"
                     />
@@ -166,7 +166,7 @@
                       enrollee_details != '' &&
                         enrollee_details.user.user_image != null
                     "
-                    onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                    onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                   />
 
                   <div
@@ -207,7 +207,7 @@
                     your current facility pending the approval and
                     implementation of your request. Should you have any further
                     questions or inquiries, please call: 0700022556447 or send
-                    us an email via info@oshia.ng.
+                    us an email via info@Kampe.ng.
                   </p>
                 </span>
 
@@ -382,7 +382,7 @@ export default {
     getProviders() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -394,7 +394,7 @@ export default {
     AllTransfers() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/all/change_providers/95930`)
+        .get(`/api/v1/auth/all/change_providers/439078`)
         .then((response) => {
           this.transfers = response.data;
           console.log(response);
@@ -412,7 +412,7 @@ export default {
           .post("/api/v1/auth/change_providers", {
             client_id: this.search_result.id,
             prepared_by: this.user.id,
-            agency_id: 95930,
+            agency_id: 439078,
             new_health_facility: this.transfer.new_health_facility.id,
             previous_health_facility: this.search_result.provider_id,
             phone_number: this.enrollee_details.user.phone_number,

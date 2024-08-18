@@ -1,9 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12 p-t-20">
-      <h5 class="h5">
-        <i class="fe fe-activity"></i> Informal Sector Enrollment Data
-      </h5>
+      <h5 class="h5">Enrollment Data</h5>
     </div>
 
     <div class="col-md-12">
@@ -13,25 +11,33 @@
             <button
               type="button"
               class="btn btn-outline-primary"
-              @click="getChart('Basic Healthcare Provision Fund')"
+              @click="getChart('Kampe Healthcare Plus')"
             >
-              Basic Healthcare Provision Fund
+              Kampe Healthcare Plus
             </button>
 
             <button
               type="button"
               class="btn btn-outline-success ml-4"
-              @click="getChart('State Equity Program')"
+              @click="getChart('Kampe Healthcare')"
             >
-              State Equity Program
+              Kampe Healthcare
             </button>
 
             <button
               type="button"
               class="btn btn-outline-dark ml-4"
-              @click="getChart('Voluntary Contributor')"
+              @click="getChart('Senior Citizens Plus Plan')"
             >
-              Voluntary Contributor
+              Senior Citizens Plus Plan
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-outline-dark ml-4"
+              @click="getChart('Superior Plan')"
+            >
+              Superior Plan
             </button>
           </div>
         </div>
@@ -67,7 +73,7 @@ export default {
       title: "",
       points: [10, 0, 8, 2, 6, 4, 5, 5],
       chartType: "",
-      sector: "Basic Healthcare Provision Fund",
+      sector: "Kampe Healthcare Plus",
       seriesColor: "#6fcd98",
       colorInputIsSupported: null,
       chartOptions: {},

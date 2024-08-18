@@ -38,7 +38,7 @@
                 <div class="card-body">
                   <strong class="display-4"
                     >{{ client.full_name }} has been successfully enrolled into
-                    Osun Contributory Health Scheme.</strong
+                    Kampe Health.</strong
                   >
                 </div>
               </div>

@@ -264,7 +264,7 @@ export default {
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
-      .get(`/api/v1/auth/service-agency/95930`)
+      .get(`/api/v1/auth/service-agency/439078`)
       .then((response) => {
         this.services = response.data;
         console.log(response);
@@ -310,7 +310,7 @@ export default {
     },
     getDrugs() {
       this.axios
-        .get(`/api/v1/auth/drug-agency/95930`)
+        .get(`/api/v1/auth/drug-agency/439078`)
         .then((response) => {
           this.drugs = response.data;
           console.log(response);

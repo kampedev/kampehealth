@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -180,7 +180,7 @@ export default {
   methods: {
     getPaymentAgency() {
       this.axios
-        .get(`/api/v1/auth/paymentorder-agency/95930`,{
+        .get(`/api/v1/auth/paymentorder-agency/439078`,{
         params:{
             type:'claims'
         }})

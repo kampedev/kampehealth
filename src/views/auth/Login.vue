@@ -1,5 +1,5 @@
 <template>
-  <body class="jumbo-page" style="background-image: url('background/4.jpg')">
+  <body class="jumbo-page" style="background-image: url('background/1.jpg')">
     <main class="admin-main">
       <div class="container-fluid">
         <div class="row">
@@ -9,15 +9,14 @@
                 <div class="mx-auto col-md-8">
                   <div class="text-center">
                     <img
-                      src="assets/img/ohis_logo.png"
+                      src="assets/img/Kampe_logo.png"
                       width="80"
                       alt=""
-                      class="rounded mx-auto d-block"
+                      class="rounded mx-auto d-block mb-4"
                     />
 
-                    <p class="admin-brand-content">
-                      Osun Health Insurance Agency
-                    </p>
+
+                    <p class="admin-brand-content">KAMPE Health</p>
                     <h3 class="h4">Login</h3>
                   </div>
 
@@ -59,16 +58,11 @@
 
                   <button
                     type="submit"
-                    class="btn btn-success btn-block btn-lg"
+                    class="btn btn-info btn-block btn-lg"
                     @click="logIn"
                   >
                     Login <i class="fe fe-send"></i>
                   </button>
-                  <p class="text-right p-t-10" v-if="user != null">
-                    <a href="/offline-home" class="text-underline"
-                      >Offline Access</a
-                    >
-                  </p>
                 </div>
               </div>
             </div>

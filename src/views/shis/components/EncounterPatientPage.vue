@@ -54,7 +54,7 @@
             :src="`https://insurance-api.hayokmedicare.ng/image/${encounterDetails.enrollee.user_image}`"
             alt="Enrollee Image"
             class="enrollee__img"
-            onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+            onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
           />
           <div class="primary__detail">
             <i class="fas fa-id-card fa-2x icon"></i>
@@ -401,7 +401,7 @@ export default {
         this.isLoading = true;
         this.axios
           .post("/api/v1/auth/authorization_code", {
-            agency_id: 95930,
+            agency_id: 439078,
             principal_id: this.encounterDetails.client_id,
             dependent_id: this.encounterDetails.dependent_id,
             provider_id: this.encounterDetails.provider_id,
@@ -433,10 +433,10 @@ export default {
     },
     sendSMS() {
       this.isLoading = true;
-      let message = `your code requested is successful. Go to https://app.oshia.ng/authorization-code  `;
+      let message = `your code requested is successful. Go to https://app.Kampe.ng/authorization-code  `;
       this.axios
         .post(
-          `https://api.bulksmslive.com/v2/app/sms?email=info@oshia.ng&password=osun@4141&sender_name=OHIS&message=${message}&recipients=${this.encounterDetails.creator.phone_number}`,
+          `https://api.bulksmslive.com/v2/app/sms?email=info@Kampe.ng&password=osun@4141&sender_name=KAMPE&message=${message}&recipients=${this.encounterDetails.creator.phone_number}`,
           {}
         )
         .then((response) => {
@@ -462,7 +462,7 @@ export default {
     },
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

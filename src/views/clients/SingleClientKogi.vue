@@ -2,16 +2,13 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div
               class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image"
             >
               <div class="m-b-10"></div>
-              <button v-clipboard="client.user.full_name">
-                <strong>{{ client.user.full_name }} </strong>
-              </button>
             </div>
           </div>
         </div>
@@ -29,10 +26,10 @@
                 <div class="card-body">
                   <div class="form-group">
                     <button
-                      class="btn btn-outline-success spacer"
+                      class="btn btn-outline-info spacer"
                       @click="takePicAndroid"
                     >
-                      Take Photo <i class="fe fe-camera"></i>
+                      Capture Photo <i class="fe fe-camera"></i>
                     </button>
                     <div
                       class="fileinput fileinput-new"
@@ -40,7 +37,7 @@
                     >
                       <span class="btn btn-file">
                         <span class="fileinput-new"
-                          >Upload Picture <i class="fe fe-upload"></i
+                          >Upload Photo <i class="fe fe-upload"></i
                         ></span>
                         <span class="fileinput-exists">Change</span>
                         <input
@@ -73,28 +70,24 @@
                     >
                       Delete <i class="fe fe-delete"></i>
                     </button>
-                    <!-- <button class="btn btn-primary spacer"  @click="changeNumber">Change ID Card Number </button> -->
 
-                    <router-link
+                    <!-- <router-link
                       :to="{ path: '/patient/' + $route.params.id, params: {} }"
                     >
                       <button class="btn btn-outline-info spacer">
                         Medical<i class="mdi mdi-medical-bag"></i>
                       </button>
-                    </router-link>
+                    </router-link> -->
 
                     <router-link
                       :to="{
-                        path: '/add-dependent/' + $route.params.id,
+                        path: '/subscribe/' + $route.params.id,
                         params: {},
                       }"
                       v-if="user.type != 'provider_employee'"
                     >
-                      <button
-                        class="btn btn-outline-info mx-2"
-                        @click="findDependents"
-                      >
-                        Dependents <i class="fe fe-users"></i>
+                      <button class="btn btn-outline-info mx-2">
+                        Payment <i class="fe fe-credit-card"></i>
                       </button>
                     </router-link>
                     <router-link
@@ -118,104 +111,13 @@
                     > -->
                     <span>
                       <!-- Button trigger modal -->
-                      <button
-                        type="button"
-                        v-if="user.user_role != 0"
-                        class="btn btn-outline-dark mx-2"
-                        data-toggle="modal"
-                        data-target="#exampleModal"
-                      >
-                        Add Payment
-                      </button>
-
-                      <!-- Modal -->
-                      <div
-                        class="modal fade"
-                        id="exampleModal"
-                        tabindex="-1"
-                        aria-labelledby="exampleModalLabel"
-                        aria-hidden="true"
-                      >
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">
-                                Add Payment
-                              </h5>
-                              <button
-                                type="button"
-                                class="btn-close"
-                                data-dismiss="modal"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <div class="modal-body">
-                              <input
-                                type="text"
-                                placeholder="Enter Payment Description"
-                                class="form-control mb-4"
-                                v-model="userPayment.description"
-                              />
-                              <input
-                                type="text"
-                                placeholder="Enter Amount"
-                                class="form-control"
-                                v-model="userPayment.amount"
-                              />
-                              <div
-                                class="fileinput fileinput-new"
-                                data-provides="fileinput"
-                              >
-                                <span class="btn btn-file">
-                                  <span class="fileinput-new"
-                                    >Upload Picture <i class="fe fe-upload"></i
-                                  ></span>
-                                  <span class="fileinput-exists">Change</span>
-                                  <input
-                                    type="file"
-                                    accept="image/png, image/gif, image/jpeg"
-                                    name="..."
-                                    multiple
-                                    v-on:change="attachPaymentProof"
-                                  />
-                                </span>
-                                <span class="fileinput-filename"></span>
-                                <a
-                                  href="#"
-                                  class="close fileinput-exists"
-                                  data-dismiss="fileinput"
-                                  style="float: none"
-                                  >&times;</a
-                                >
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-dismiss="modal"
-                              >
-                                Cancel
-                              </button>
-                              <button
-                                type="button"
-                                class="btn btn-primary"
-                                data-dismiss="modal"
-                                @click="addPayment"
-                              >
-                                Submit
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </span>
                     <!-- </router-link> -->
 
                     <span v-if="client.user.status == 'active'">
                       <button
                         type="button"
-                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
                       >
                         active
                       </button>
@@ -239,7 +141,7 @@
               <div
                 class="card"
                 style="
-                  background-image: url('../assets/img/ohis_transparent.png');
+                  background-image: url('../assets/img/KAMPE_transparent.png');
                   background-size: cover;
                   background-repeat: no-repeat;
                 "
@@ -249,18 +151,16 @@
                     <div class="col-md-2">
                       <span class="avatar avatar-xl">
                         <img
-                          src="/assets/img/ohis_logo.png"
+                          src="/assets/img/KAMPE_logo.png"
                           class="rounded-circle"
                         />
                       </span>
                     </div>
                     <div class="col-md-10">
                       <strong
-                        ><h2 class="h1 text-success">
-                          OSUN HEALTH INSURANCE SCHEME
-                        </h2>
+                        ><h2 class="h1 text-info">KAMPE HEALTH</h2>
                       </strong>
-                      <strong><p class="h2 text-center">(O'HIS)</p></strong>
+                      <!-- <strong><p class="h2 text-center">(KAMPE)</p></strong> -->
                     </div>
                   </div>
                 </div>
@@ -271,7 +171,7 @@
                       :src="`https://insurance-api.hayokmedicare.ng/image/${client.user.user_image}`"
                       class="img"
                       alt="User Photo"
-                      onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                      onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                     />
                   </div>
 
@@ -282,10 +182,11 @@
                       {{ client.user.firstname }}, {{ client.user.middlename }}
                     </p>
                     <hr />
-                    <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>OHIS/A-0{{singletpa.tpa_id}}/{{client.user.id_card_number}}</strong></p> -->
+                    <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>KAMPE/A-0{{singletpa.tpa_id}}/{{client.user.id_card_number}}</strong></p> -->
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">ID NUMBER:</strong>
-                      <strong>{{ client.user.id_card_number }}</strong>
+                      <!-- <strong>{{ client.user.id_card_number }}</strong> -->
+                      <strong>KAMPE/A01/000</strong>
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">
@@ -307,21 +208,6 @@
                       }}</strong>
                     </p>
 
-                    <hr />
-                    <p
-                      class="h3 spacer-top-bottom"
-                      v-if="client.user.place_of_work != null"
-                    >
-                      <strong class="text-primary">MDA:</strong>
-                      <strong> {{ client.user.place_of_work }}</strong>
-                    </p>
-                    <hr />
-                    <p class="h3 spacer-top-bottom">
-                      <strong class="text-primary">HMO/TPA:</strong>
-                      <strong v-if="client.tpa != null">
-                        {{ client.tpa.organization_name }}</strong
-                      >
-                    </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">Plan Type:</strong>
@@ -352,13 +238,6 @@
                     {{ client.user.created_at | moment("dddd, MMMM Do YYYY") }}
                   </p>
                   <hr />
-                  <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
-                    <p class="spacer-top-bottom">
-                      <strong>Dependent Name {{ index + 1 }} :</strong>
-                      {{ dep.full_name }}
-                    </p>
-                    <hr />
-                  </div>
 
                   <p
                     class="spacer-top-bottom"
@@ -372,11 +251,7 @@
                     <strong>NIMC Number:</strong> {{ client.user.nimc_number }}
                   </p>
                   <hr />
-                  <p class="spacer-top-bottom">
-                    <strong>Virtual Account Number:</strong>
-                    {{ client.user.virtual_account }}
-                  </p>
-                  <hr />
+
                   <p class="spacer-top-bottom">
                     <strong>Gender:</strong> {{ client.user.gender }}
                   </p>
@@ -418,19 +293,6 @@
                   <p class="spacer-top-bottom">
                     <strong>Marital Status:</strong>
                     {{ client.user.marital_status }}
-                  </p>
-                  <hr />
-                  <p class="spacer-top-bottom">
-                    <strong>MDA:</strong> {{ client.user.place_of_work }}
-                  </p>
-                  <hr />
-                  <p class="spacer-top-bottom">
-                    <strong>Staff ID:</strong> {{ client.user.salary_number }}
-                  </p>
-                  <hr />
-                  <p class="spacer-top-bottom">
-                    <strong>Category of Vulnerable Group:</strong>
-                    {{ client.user.category_of_vulnerable_group }}
                   </p>
                   <hr />
                 </div>
@@ -604,7 +466,7 @@ export default {
         this.axios
           .post(`/api/v1/make/transaction`, {
             user_id: this.$route.params.id,
-            agency_id: 95930,
+            agency_id: 439078,
             description: this.userPayment.description,
             amount: this.userPayment.amount,
             type: "offline",
@@ -846,7 +708,7 @@ export default {
           //get dependents
           this.axios
             .post(`/api/v1/auth/allDependantsUser`, {
-              agency_id: 95930,
+              agency_id: 439078,
               id_card_number: this.client.id_card_number,
               user_id: this.$route.params.id,
             })
@@ -863,25 +725,6 @@ export default {
         .catch((error) => {
           console.error(error);
         });
-    },
-    findDependents() {
-      //get dependents
-      this.axios
-        .post(`/api/v1/auth/allDependantsUser`, {
-          agency_id: 95930,
-          id_card_number: this.client.user.id_card_number,
-          user_id: this.$route.params.id,
-        })
-        .then((response) => {
-          let answers = response.data;
-          answers;
-          this.fetchUser();
-          console.log({ response });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-      //end of get dependents
     },
 
     uploadPic() {
@@ -929,7 +772,6 @@ export default {
   },
   created() {
     this.fetchUser();
-    this.findDependents();
     // this.streamPic();
   },
 };

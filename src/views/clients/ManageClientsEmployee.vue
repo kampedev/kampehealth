@@ -56,7 +56,7 @@
                           <th>Name</th>
                           <th>Phone Number</th>
                           <th>Sector</th>
-                          <th>OHIS Number Number</th>
+                          <th>KAMPE Number Number</th>
                           <th>Date Enrolled</th>
                           <th>Action</th>
                         </tr>

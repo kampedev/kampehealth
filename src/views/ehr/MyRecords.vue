@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -56,20 +56,20 @@
             class="col-md-12 form-group"
             v-if="user.type == 'provider_employee'"
           >
-            <button
+            <!-- <button
               type="button"
               :class="buttoncolor.online"
               @click="showOnline"
             >
               Online <i class="fe fe-wifi"></i>
-            </button>
-            <button
+            </button> -->
+            <!-- <button
               type="button"
               :class="buttoncolor.offline"
               @click="showOffline"
             >
               Offline <i class="fe fe-wifi-off"></i>
-            </button>
+            </button> -->
           </div>
 
           <div class="col-md-12" v-show="online_S">
@@ -122,7 +122,7 @@ export default {
       string_data: "",
       buttoncolor: {
         offline: "btn btn-default",
-        online: "btn btn-success",
+        online: "btn btn-info",
       },
     };
   },
@@ -133,14 +133,14 @@ export default {
     showOnline() {
       this.online_S = true;
       this.offline_S = false;
-      this.buttoncolor.online = "btn btn-success";
+      this.buttoncolor.online = "btn btn-info";
       this.buttoncolor.offline = "btn btn-default";
     },
     showOffline() {
       this.online_S = false;
       this.offline_S = true;
       this.buttoncolor.online = "btn btn-default";
-      this.buttoncolor.offline = "btn btn-success";
+      this.buttoncolor.offline = "btn btn-info";
     },
     sendCode() {
       if (confirm("Are you Sure you want submit")) {
@@ -148,7 +148,7 @@ export default {
         this.axios
           .post(`/api/v1/auth/get-string`, {
             string_data: this.string_data,
-            agency_id: 95930,
+            agency_id: 439078,
           })
           .then((response) => {
             console.log(response);
@@ -204,7 +204,7 @@ export default {
       if (this.user.type == "employee" || this.user.type == "shis") {
         this.user = JSON.parse(localStorage.getItem("user"));
         this.axios
-          .post(`/api/v1/auth/service_summary-agency`, { agency_id: 95930 })
+          .post(`/api/v1/auth/service_summary-agency`, { agency_id: 439078 })
           .then((response) => {
             this.records = response.data.data;
             console.log(response);

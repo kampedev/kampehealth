@@ -1,6 +1,6 @@
 <template>
   <section class="admin-content" id="contact-search">
-    <div class="bg-success m-b-30">
+    <div class="bg-info m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -32,22 +32,7 @@
                   </div>
                   <form @submit.prevent="submitForm">
                     <div class="form-row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="inputCity"
-                            >Sector <span class="text-danger">*</span></label
-                          >
-                          <select
-                            class="form-control"
-                            required
-                            v-model="sector"
-                            disabled
-                          >
-                            <option value="formal">Formal Sector</option>
-                            <option value="informal">Informal Sector</option>
-                          </select>
-                        </div>
-                      </div>
+                    
 
                       <div class="col-md-6" v-if="sector == 'informal'">
                         <div class="form-group">
@@ -58,19 +43,22 @@
                             class="form-control"
                             required
                             v-model="register.sector"
-                            disabled
+                            
                           >
-                            <option value="Basic Healthcare Provision Fund">
-                              Basic Healthcare Provision Fund
+                          <option value="Kampe Healthcare Plus">
+                             Kampe Healthcare Plus
                             </option>
-                            <option value="Vulnerable Groups">
-                              Vulnerable Groups
+
+                            <option value="Kampe Healthcare">
+                             Kampe Healthcare 
                             </option>
-                            <option value="Voluntary Contributor">
-                              Voluntary Contributor
+
+                            <option value=" Senior Citizens Plus Plan">
+                              Senior Citizens Plus Plan
                             </option>
-                            <option value="Organized Community Healthcare Plan">
-                              Organized Community Healthcare Plan
+
+                            <option value="Superior Plan">
+                              Superior Plan
                             </option>
                           </select>
                         </div>
@@ -254,7 +242,7 @@
                         </select>
                       </div>
 
-                      <div class="form-group col-md-12">
+                      <div class="form-group col-md-6">
                         <label
                           >Marital Status
                           <span class="text-danger">*</span></label
@@ -362,7 +350,7 @@
                     </div>
 
                     <div class="form-group">
-                      <button class="btn btn-success btn-block btn-lg">
+                      <button class="btn btn-info btn-block btn-lg">
                         Submit <i class="fe fe-send"></i>
                       </button>
                     </div>
@@ -518,7 +506,7 @@ export default {
     },
     getMDAs() {
       this.axios
-        .get(`/api/v1/auth/ministry/95930`)
+        .get(`/api/v1/auth/ministry/439078`)
         .then((response) => {
           this.mdas = response.data.data;
           console.log(response);
@@ -529,7 +517,7 @@ export default {
     },
     getTPAs() {
       this.axios
-        .get(`/api/v1/auth/getorgenrollment/95930/A`)
+        .get(`/api/v1/auth/getorgenrollment/439078/A`)
         .then((response) => {
           this.tpas = response.data.data;
           console.log(response);
@@ -555,7 +543,7 @@ export default {
           type: this.register.type,
           sectorType: this.sector,
           user_image: snap,
-          agency_id: 95930,
+          agency_id: 439078,
           provider_id: this.selected_provider
             ? this.selected_provider
             : this.register.provider_id,
@@ -623,7 +611,7 @@ export default {
 
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -636,7 +624,7 @@ export default {
     getProvidersByWards() {
       this.axios
         .get(
-          `/api/v1/auth/providerAgencies/95930/${this.register.localgovt}/${this.register.ward}`
+          `/api/v1/auth/providerAgencies/439078/${this.register.localgovt}/${this.register.ward}`
         )
         .then((response) => {
           this.providers_wards = response.data.data;

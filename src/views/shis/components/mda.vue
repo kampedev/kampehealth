@@ -39,7 +39,7 @@ export default {
     methods:{
         getDashboardLGA(currentPage){
             console.log("current page " + currentPage);
-      this.axios.get('/api/v1/auth/dashboardmda/95930?page=' + currentPage)
+      this.axios.get('/api/v1/auth/dashboardmda/439078?page=' + currentPage)
       .then(response => {
         // console.log(response.data);
         var data = response.data.chartData;
@@ -65,7 +65,7 @@ export default {
                             text: 'Ministries Departments and Parastatals'
                         },
                         subtitle: {
-                            text: 'Enrollees Analysis for State Contributory Health Care Scheme'
+                            text: 'Enrollees Analysis for Kampe Health'
                         },
                         accessibility: {
                             announceNewData: {

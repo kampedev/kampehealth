@@ -8,7 +8,7 @@
             <div class="row p-b-60 p-t-60">
 
               <div class="col-md-6 text-center mx-auto text-white p-b-30 spacer-image">
-                <p class="h1 text-dark">O'HIS PATIENT RECORD MANAGEMENT </p>
+                <p class="h1 text-dark">KAMPE PATIENT RECORD MANAGEMENT </p>
 
           
 
@@ -44,12 +44,12 @@
 
             <div class="row">
               <div class="col-lg-8 col-md-12" id="printDiv" ref="printNow">
-                <div class="card" style="background-image: url('../assets/img/ohis_transparent.png'); background-size: cover; background-repeat: no-repeat;">
+                <div class="card" style="background-image: url('../assets/img/KAMPE_transparent.png'); background-size: cover; background-repeat: no-repeat;">
                   <div class="card-header ">
                     <div class="row spacer-top">
                       <div class="col-md-2">
                         <span class="avatar avatar-xl">
-                          <img src="/assets/img/ohis_logo.png" class=" rounded-circle">
+                          <img src="/assets/img/KAMPE_logo.png" class=" rounded-circle">
                         </span>
                       </div>
                       <div class="col-md-10 ">
@@ -65,7 +65,7 @@
 
                     <div class="col-md-4">
                       <img :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`" class="img spacer-top" alt="User Photo"
-                      onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                      onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                       >
                      
                     </div>

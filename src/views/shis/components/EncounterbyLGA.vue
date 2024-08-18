@@ -24,7 +24,7 @@ export default {
     },
     methods:{
         getDashboardLGA(){
-      this.axios.get('/api/v1/auth/encountersbylga/2676')
+      this.axios.get('/api/v1/auth/encountersbylga/2560')
       .then(response => {
         // console.log(response.data);
         var data = response.data;

@@ -277,7 +277,7 @@ export default {
       json_fields: {
         "Facility Name": "provider.agency_name",
         "Enrollee Full Name": "patient.full_name",
-        "Enrollee OHIS Number": "patient.id_card_number",
+        "Enrollee KAMPE Number": "patient.id_card_number",
         Diagnosis: "diagnosis.name",
         HMO: "tpa.organization_name",
       },
@@ -340,7 +340,7 @@ export default {
       // if (confirm("Are you sure you want to Submit")) {
       this.axios
         .post(`/api/v1/auth/paymentorder`, {
-          agency_id: 95930,
+          agency_id: 439078,
           provider_id: this.$route.params.id,
           type: "claims",
           status: "paid",

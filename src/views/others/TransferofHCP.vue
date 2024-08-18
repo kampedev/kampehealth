@@ -367,7 +367,7 @@ export default {
     AllTransfers() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/all/change_providers/95930?page=${this.pageNum}&status=${this.status}`)
+        .get(`/api/v1/auth/all/change_providers/439078?page=${this.pageNum}&status=${this.status}`)
         .then((response) => {
           this.transfers = response.data.data;
           console.log(response);

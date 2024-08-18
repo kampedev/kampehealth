@@ -2,7 +2,7 @@
   <div class="sidebar-pinned">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -22,7 +22,7 @@
                 <div class="card-header">
                   <div class="form-group">
                     <button
-                      class="btn btn-outline-success spacer"
+                      class="btn btn-outline-info spacer"
                       @click="printMe"
                     >
                       Print <i class="fe fe-printer"></i>
@@ -31,14 +31,14 @@
                     <router-link :to="`/encounter/${auth_code.encounter.id}`">
                       <button
                         type="button"
-                        class="btn btn-outline-success spacer"
+                        class="btn btn-outline-info spacer"
                       >
                         view encounter details
                       </button>
                     </router-link>
 
                     <button
-                      class="btn btn-outline-success spacer"
+                      class="btn btn-outline-info spacer"
                       @click="runCheckerForCode"
                       v-if="
                         (auth_code.status != 'approved' &&
@@ -52,7 +52,7 @@
                     <button
                       data-toggle="modal"
                       data-target="#slideRightModalAll"
-                      class="btn spacer btn-outline-success"
+                      class="btn spacer btn-outline-info"
                     >
                       Services <i class="fe fe-thermometer"> </i>
                     </button>
@@ -82,7 +82,7 @@
                     </button> -->
 
                     <button
-                      class="btn btn-outline-success btn-sm spacer"
+                      class="btn btn-outline-info btn-sm spacer"
                       v-if="auth_code.code_created != null"
                       @click="copyCode"
                     >
@@ -103,7 +103,7 @@
                     ></textarea>
                     <button
                       type="button"
-                      class="btn btn-success mt-4"
+                      class="btn btn-info mt-4"
                       @click="addComment"
                     >
                       Submit
@@ -125,7 +125,7 @@
                       <div class="row">
                         <div class="col-md-6">
                           <p class="h5">
-                            <span class="text-success">Full Name: </span>
+                            <span class="text-info">Full Name: </span>
                             <router-link
                               v-if="auth_code.enrollee != null"
                               :to="{
@@ -137,11 +137,11 @@
                             </router-link>
                           </p>
                           <p class="h5" v-if="auth_code.enrollee != null">
-                            <span class="text-success">Phone Number:</span>
+                            <span class="text-info">Phone Number:</span>
                             {{ auth_code.enrollee.phone_number }}
                           </p>
                           <p class="h5" v-if="auth_code.enrollee != null">
-                            <span class="text-success">O'HIS Number:</span>
+                            <span class="text-info">KAMPE Number:</span>
                             {{ auth_code.enrollee.id_card_number }}
                           </p>
                           <p class="h5" v-if="auth_code.enrollee != null">
@@ -727,10 +727,10 @@ export default {
     },
     // sendSMS() {
     //   this.isLoading = true;
-    //   let message = `your code requested is successful. Go to https://app.oshia.ng/authorization-code  `;
+    //   let message = `your code requested is infoful. Go to https://app.Kampe.ng/authorization-code  `;
     //   this.axios
     //     .post(
-    //       `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=OHIS&message=${message}&recipients=${this.auth_code.creator.phone_number}`,
+    //       `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=KAMPE&message=${message}&recipients=${this.auth_code.creator.phone_number}`,
     //       {}
     //     )
     //     .then((response) => {
@@ -862,7 +862,7 @@ export default {
 
     getServices() {
       this.axios
-        .get(`/api/v1/auth/service-agency/95930`)
+        .get(`/api/v1/auth/service-agency/439078`)
         .then((response) => {
           this.services = response.data;
           console.log(response);

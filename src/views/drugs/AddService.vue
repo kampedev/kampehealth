@@ -43,7 +43,7 @@
             />
           </div>
         </div>
-        <button @click="submitForm" class="btn btn-success btn-block my-2">
+        <button @click="submitForm" class="btn btn-info btn-block my-2">
           Submit
         </button>
 
@@ -214,7 +214,7 @@ export default {
     },
     getServices() {
       this.axios
-        .get(`/api/v1/auth/service-agency/95930`, {
+        .get(`/api/v1/auth/service-agency/439078`, {
           params: {
             page: this.current_page,
           },
@@ -240,10 +240,10 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .post("/api/v1/auth/services", {
-          agency_id: 95930,
+          agency_id: 439078,
           service_category_id: this.register.service_category_id,
           price: this.register.price,
-          kgshia_code: "OHIS",
+          kgshia_code: "KAMPE",
           description: this.register.description,
         })
         .then((response) => {
@@ -269,10 +269,10 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .put(`/api/v1/auth/services/${this.service_id}`, {
-          agency_id: 95930,
+          agency_id: 439078,
           service_category_id: this.register.service_category_id,
           price: this.register.price,
-          kgshia_code: "OHIS",
+          kgshia_code: "KAMPE",
           description: this.register.description,
         })
         .then((response) => {

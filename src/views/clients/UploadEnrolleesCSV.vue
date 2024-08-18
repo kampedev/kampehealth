@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -17,7 +17,7 @@
       </div>
 
       <div class="container">
-        <a class="btn btn-dark my-3" href="/Sample_Data.xlsx"
+        <a class="btn btn-info my-3" href="/Sample_Data.xlsx"
           >Download Sample Format</a
         >
         <div class="row list">
@@ -65,7 +65,7 @@
                 </div>
 
                 <p>
-                  <button class="btn btn-dark btn-block" @click="autoUpdate">
+                  <button class="btn btn-info btn-block" @click="autoUpdate">
                     Update All
                   </button>
                 </p>
@@ -204,9 +204,9 @@ export default {
           user_image: this.clients[this.json_index].user_image,
           plan_type: this.clients[this.json_index].plan_type,
           nimc_number: this.clients[this.json_index].nimc_number,
-          agency_id: 95930,
+          agency_id: 439078,
           state: 2676,
-          enrolled_by: 95930,
+          enrolled_by: 439078,
           sector: this.clients[this.json_index].sector,
           sectorType: this.clients[this.json_index].sectorType,
           marital_status: this.clients[this.json_index].marital_status,

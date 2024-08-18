@@ -99,7 +99,7 @@ export default {
     getProviders() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -124,7 +124,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .post(`/api/v1/auth/searchbymultiplevalues`, {
-          agency_id: 95930,
+          agency_id: 439078,
           salary_number: this.salary_number,
           nimc_number: this.nimc_number,
           phone_number: this.phone_number,

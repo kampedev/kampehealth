@@ -645,7 +645,7 @@ export default {
     },
     getMDAs() {
       this.axios
-        .get(`/api/v1/auth/ministry/95930`)
+        .get(`/api/v1/auth/ministry/439078`)
         .then((response) => {
           this.mdas = response.data.data;
           console.log(response);
@@ -658,7 +658,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
 
       this.axios
-        .get(`/api/v1/auth/getorgenrollment/95930/A`)
+        .get(`/api/v1/auth/getorgenrollment/439078/A`)
         .then((response) => {
           this.tpas = response.data.data;
           console.log(response);
@@ -683,7 +683,7 @@ export default {
           plan_type: this.register.plan_type,
           type: this.register.type,
           sectorType: this.sector,
-          agency_id: 95930,
+          agency_id: 439078,
           provider_id: this.selected_provider
             ? this.selected_provider
             : this.register.provider_id,
@@ -811,7 +811,7 @@ export default {
     getProviders() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -825,7 +825,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .get(
-          `/api/v1/auth/providerAgencies/95930/${this.register.localgovt}/${this.register.ward}`
+          `/api/v1/auth/providerAgencies/439078/${this.register.localgovt}/${this.register.ward}`
         )
         .then((response) => {
           this.providers_wards = response.data.data;

@@ -61,7 +61,7 @@
                         class="img-thumbnail"
                         width="304"
                         height="236"
-                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                       />
                     </div>
                   </div>

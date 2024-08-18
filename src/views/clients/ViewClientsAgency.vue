@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -174,7 +174,7 @@
 
           <button
             @click="getClients(currentPage ? currentPage : 1)"
-            class="btn btn-success btn-block btn-lg"
+            class="btn btn-info btn-block btn-lg"
             style="margin-top: 20px"
           >
             <i class="fe fe-filter"></i>
@@ -197,7 +197,7 @@
                 <div class="card-body">
                   <p class="h4">
                     Total Records:
-                    <span class="text-success">{{ rows | numeral(0, 0) }}</span>
+                    <span class="text-info">{{ rows | numeral(0, 0) }}</span>
                   </p>
 
                   <div class="table table-stripe">
@@ -210,7 +210,7 @@
                           <th>Phone Number</th>
                           <th>Sector</th>
                           <th>Enrollment Date</th>
-                          <th>OHIS Number</th>
+                          <th>KAMPE Number</th>
                           <th>Status</th>
                           <th>Action</th>
                         </tr>
@@ -229,7 +229,7 @@
                                 :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`"
                                 class="avatar-img avatar-sm rounded-circle"
                                 alt="User Photo"
-                                onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                                onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                               />
                             </div>
                           </td>
@@ -246,13 +246,14 @@
                               client.created_at | moment("dddd, MMMM Do YYYY")
                             }}
                           </td>
-                          <td>{{ client.id_card_number }}</td>
+                          <!-- <td>{{ client.id_card_number }}</td> -->
+                          <td>KAMPE/A01/000</td>
                           <td>
                             <p>
                               <span v-if="client.status == 'active'">
                                 <button
                                   type="button"
-                                  class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                                  class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
                                 >
                                   active
                                 </button>
@@ -425,7 +426,7 @@ export default {
     },
     getEmployees() {
       this.axios
-        .get(`/api/v1/auth/getEmployee/95930`)
+        .get(`/api/v1/auth/getEmployee/439078`)
         .then((response) => {
           this.employees = response.data;
           console.log(response);
@@ -460,7 +461,7 @@ export default {
 
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -477,7 +478,7 @@ export default {
         .get(`/api/v1/auth/getUsersfilterparams`, {
           params: {
             page: currentPage,
-            agency_id: 95930,
+            agency_id: 439078,
             provider_id: this.provider_id ? this.provider_id : "",
             sector: this.sector ? this.sector : "",
             place_of_work: this.place_of_work ? this.place_of_work : "",
@@ -507,7 +508,7 @@ export default {
 
     getMDAs() {
       this.axios
-        .get(`/api/v1/auth/ministry/95930`)
+        .get(`/api/v1/auth/ministry/439078`)
         .then((response) => {
           this.mdas = response.data.data;
           console.log(response.data);

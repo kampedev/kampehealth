@@ -2,7 +2,7 @@
   <div class="">
     <Navbar />
     <section class="admin-content">
-      <div class="bg-success bg-dots m-b-30">
+      <div class="bg-info bg-dots m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-lg-8 text-center mx-auto text-white p-b-30">
@@ -31,32 +31,6 @@
                   </p>
 
                   <div class="form-row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="inputCity">Sector</label>
-                        <select
-                          class="form-control"
-                          v-model="auth_user.sectorType"
-                        >
-                          <option value="formal">Formal Sector</option>
-                          <option value="informal">Informal Sector</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="inputCity">Plan Type</label>
-                        <select
-                          class="form-control"
-                          v-model="auth_user.plan_type"
-                        >
-                          <option value="Family">Family</option>
-                          <option value="Individual">Individual</option>
-                        </select>
-                      </div>
-                    </div>
-
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="inputCity">Select Sector Type</label>
@@ -119,12 +93,12 @@
                       class="form-group col-md-6"
                       v-if="user.type == 'shis' || user.user_role == 1"
                     >
-                      <label for="inputEmail6">OHIS Number</label>
+                      <label for="inputEmail6">KAMPE Number</label>
                       <input
                         type="text"
                         v-model="auth_user.id_card_number"
                         class="form-control"
-                        placeholder="OHIS Number"
+                        placeholder="KAMPE Number"
                       />
                     </div>
                     <div class="form-group col-md-6">
@@ -182,25 +156,6 @@
                         v-model="auth_user.nimc_number"
                       />
                     </div>
-                    <div class="form-group col-md-6" v-if="user.user_role == 1">
-                      <label for="asd">Computer Number/Salary Number</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Computer Number"
-                        v-model="auth_user.salary_number"
-                      />
-                    </div>
-
-                    <div class="form-group col-md-6">
-                      <label>Place of Work </label>
-                      <v-select
-                        v-model="auth_user.place_of_work"
-                        :options="mdas"
-                        :reduce="(name) => name.name"
-                        label="name"
-                      ></v-select>
-                    </div>
 
                     <div class="form-group col-md-6">
                       <label for="inputCity">Date of Birth </label>
@@ -244,7 +199,7 @@
                     </div>
                     <div class="form-group col-md-6">
                       <label for="inputCity"
-                        >Principal Facility for Accessing Care
+                        >Facility for Accessing Care
                       </label>
                       <select
                         class="form-control"
@@ -302,42 +257,10 @@
                       </select>
                     </div>
 
-                    <div class="form-group col-md-6">
-                      <label for="inputCity"
-                        >Select TPA/HMO
-                        <span class="text-danger">*</span></label
-                      >
-                      <select
-                        class="form-control"
-                        required
-                        v-model="auth_user.org_id"
-                      >
-                        <option
-                          v-for="tpa in tpas"
-                          v-bind:key="tpa"
-                          :value="tpa.id"
-                        >
-                          {{ tpa.organization_name }}
-                        </option>
-                      </select>
-                    </div>
-
-                    <div
-                      class="form-group col-md-12"
-                      v-if="auth_user.type != 'client'"
-                    >
-                      <label for="asd">Company Name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="asd"
-                        placeholder="Company Name"
-                        v-model="auth_user.agency_name"
-                      />
-                    </div>
+                  
                   </div>
 
-                  <div class="form-group" v-if="auth_user.type == 'client'">
+                  <div class="form-group" >
                     <label for="inputAddress">Home Address</label>
                     <input
                       type="text"
@@ -426,7 +349,9 @@ export default {
     autoEmail() {
       if (this.auth_user.email == null) {
         let autogenemail =
-          this.auth_user.phone_number + this.$route.params.id + "@ohisuser.com";
+          this.auth_user.phone_number +
+          this.$route.params.id +
+          "@KAMPEuser.com";
         return autogenemail;
       } else {
         return this.auth_user.email;
@@ -439,7 +364,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
 
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -450,7 +375,7 @@ export default {
     },
     getMDAs() {
       this.axios
-        .get(`/api/v1/auth/ministry/95930`)
+        .get(`/api/v1/auth/ministry/439078`)
         .then((response) => {
           this.mdas = response.data.data;
           console.log(response.data);
@@ -539,7 +464,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
 
       this.axios
-        .get(`/api/v1/auth/getorgenrollment/95930/A`)
+        .get(`/api/v1/auth/getorgenrollment/439078/A`)
         .then((response) => {
           this.tpas = response.data.data;
           console.log(response);

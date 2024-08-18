@@ -22,7 +22,7 @@ export default {
   methods: {
     getDashboardLGA() {
       this.axios
-        .get("/api/v1/auth/dashboardgender/95930/Basic Healthcare Provision Fund")
+        .get("/api/v1/auth/dashboardgender/439078/Basic Healthcare Provision Fund")
         .then((response) => {
           // console.log(response.data);
           var data = response.data;

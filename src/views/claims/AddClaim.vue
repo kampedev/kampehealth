@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="form-group col-md-4">
-                          <label for="inputCity">Enrollee OHIS Number </label>
+                          <label for="inputCity">Enrollee KAMPE Number </label>
                           <input
                             required
                             disabled
@@ -87,7 +87,7 @@
                             />
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputCity">OHIS Number </label>
+                            <label for="inputCity">KAMPE Number </label>
                             <input
                               required
                               type="text"
@@ -327,7 +327,7 @@ export default {
     getDiseases() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/diagnosis-agency/95930`)
+        .get(`/api/v1/auth/diagnosis-agency/439078`)
         .then((response) => {
           this.diseases = response.data.data;
           console.log(response);
@@ -372,7 +372,7 @@ export default {
             .post("/api/v1/auth/claims", {
               provider_id: this.user.institutional_id,
               user_id: this.user.id,
-              agency_id: 95930,
+              agency_id: 439078,
               client_name:
                 this.summary.enrollee.type == "client"
                   ? this.summary.enrollee.id
@@ -404,7 +404,7 @@ export default {
             .post("/api/v1/auth/claims", {
               provider_id: this.user.id,
               user_id: this.user.id,
-              agency_id: 95930,
+              agency_id: 439078,
               client_name: this.enrollee_details.user.id,
               seen_date: this.claim.seen_date,
               diagnosis: this.claim.diagnosis.id,

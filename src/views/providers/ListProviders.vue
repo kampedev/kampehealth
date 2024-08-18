@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-dark m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -21,7 +21,7 @@
                 <div class="card-body">
                   <div class="row">
                     <button
-                      class="btn btn-primary m-2"
+                      class="btn btn-info m-2"
                       @click="show = !show"
                     >
                       Add Facility
@@ -37,9 +37,9 @@
                       :data="providers"
                       :fields="json_fields"
                       class="btn btn-success m-2"
-                      header="Health Facilty Data for OHIS "
+                      header="Health Facilty Data for KAMPE "
                       :escapeCsv="false"
-                      name="Health Facilty Data for OHIS "
+                      name="Health Facilty Data for KAMPE "
                     >
                       Export to CSV <i class="fe fe-file-text"></i>
                     </download-excel>
@@ -119,6 +119,24 @@
                   </div>
 
                   <div class="row">
+
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">State </label>
+
+                        <select
+                          class="form-control"
+                          v-model="register.state"
+                          @change="fetchLga(register.state)"
+                        >
+                          <option
+                            v-for="state in states"
+                            v-bind:key="state"
+                            :value="state.id"
+                          >
+                            {{ state.name }}
+                          </option>
+                        </select>
+                      </div>
                     <div class="form-group col-md-6">
                       <label for="inputCity">LGA</label>
                       <select
@@ -147,15 +165,15 @@
                       </select>
                     </div>
 
-                    <div class="form-group col-md-6 col-sm-12">
+                    <!-- <div class="form-group col-md-6 col-sm-12">
                       <label>Sector</label>
                       <select class="form-control" v-model="sector">
                         <option value="formal">Formal Sector</option>
                         <option value="informal">Informal Sector</option>
                       </select>
-                    </div>
+                    </div> -->
 
-                    <div class="col-md-6 col-sm-12" v-if="sector == 'informal'">
+                   > <!-- <div class="col-md-6 col-sm-12" v-if="sector == 'informal'">
                       <div class="form-group">
                         <label for="inputCity">Select Informal Sector</label>
                         <select class="form-control" v-model="register.sector">
@@ -173,9 +191,9 @@
                           >
                         </select>
                       </div>
-                    </div>
+                    </div -->
 
-                    <div class="col-md-6 col-sm-12" v-if="sector == 'formal'">
+                    <!-- <div class="col-md-6 col-sm-12" v-if="sector == 'formal'">
                       <div class="form-group">
                         <label for="inputCity">Select Formal Sector</label>
                         <select class="form-control" v-model="register.sector">
@@ -203,9 +221,9 @@
                           >
                         </select>
                       </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                       <label>
                         Facility type
                       </label>
@@ -216,13 +234,13 @@
                         <option>Public Hospital</option>
                         <option>Private Hospital</option>
                       </select>
-                    </div>
+                    </div> -->
                     <br />
                   </div>
 
                   <button
                     @click="registerUser"
-                    class="btn btn-primary btn-block btn-lg"
+                    class="btn btn-info btn-block btn-lg"
                     style="margin-top:20px;"
                   >
                     Add Health Facility
@@ -389,7 +407,7 @@ export default {
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
-      .get(`/api/v1/auth/providerAgency/95930`)
+      .get(`/api/v1/auth/providerAgency/439078`)
       .then((response) => {
         this.providers = response.data.data;
         console.log(response);
@@ -399,9 +417,9 @@ export default {
       });
   },
   methods: {
-    fetchLga() {
+    fetchLga(state) {
       this.axios
-        .get(`/api/v1/auth/lga/2676`)
+        .get(`/api/v1/auth/lga/${state}`)
         .then((response) => {
           this.lga_states = response.data.data;
           console.log(response);
@@ -444,7 +462,7 @@ export default {
           this.axios
             .post("/api/v1/auth/providerApply", {
               provider_id: user_id,
-              agency_id: 95930,
+              agency_id: 439078,
               status: true,
             })
 
@@ -477,7 +495,7 @@ export default {
     getProviders() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -497,12 +515,23 @@ export default {
           console.error(error);
         });
     },
+    getStates() {
+      this.axios
+        .get(`/api/v1/auth/states`)
+        .then((response) => {
+          this.states = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     clearIt() {
       this.agency_id = "";
     },
   },
   created() {
-    this.fetchLga();
+    this.getStates();
   },
 };
 </script>

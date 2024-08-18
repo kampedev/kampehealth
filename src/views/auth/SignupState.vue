@@ -240,7 +240,7 @@ export default {
           state: this.state.id,
           localgovt: this.register.localgovt,
           user_role: 1,
-          role: this.register.role,
+          role: 1,
           password: this.register.password,
           enrolled_by: 0,
           password_confirmation: this.register.password_confirmation,

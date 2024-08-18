@@ -29,7 +29,7 @@
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label for="inputCity">Enrollee OHIS Number</label>
+                    <label for="inputCity">Enrollee KAMPE Number</label>
                     <input
                       type="text"
                       class="form-control"
@@ -241,7 +241,7 @@ export default {
           .post("/api/v1/auth/editClaim/" + this.claimdetails.id, {
             provider_id: this.claimdetails.provider_id,
             user_id: this.user.id,
-            agency_id: 95930,
+            agency_id: 439078,
             client_name: this.claimdetails.client_name,
             seen_date: this.claimdetails.seen_date,
             diagnosis: this.claimdetails.diagnosis.id,

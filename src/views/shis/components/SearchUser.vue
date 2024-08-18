@@ -25,13 +25,13 @@
                   type="text"
                   class="form-control"
                   v-model="searchkey"
-                  placeholder="OHIS ID, Phone Number, NIN, First Name, Last Name"
+                  placeholder="KAMPE ID, Phone Number, NIN, First Name, Last Name"
                 />
               </div>
 
               <div class="col-md-12">
                 <button
-                  class="btn btn-success btn-block btn-lg mt-6"
+                  class="btn btn-info btn-block btn-lg mt-6"
                   @click="searchAll"
                 >
                   Search
@@ -87,12 +87,12 @@ export default {
     return {
       user: null,
       providers: "",
-      ohis_number: "",
+      KAMPE_number: "",
       phone_number: "",
       nimc_number: "",
       email: "",
       localgovt: "",
-      search: "ohis_number",
+      search: "KAMPE_number",
       searchkey: "",
       search_result: "",
       edit: false,
@@ -116,7 +116,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post(`/api/v1/auth/searchenrollees`, {
-          agency_id: 95930,
+          agency_id: 439078,
           request_query: this.searchkey,
         })
         .then((response) => {

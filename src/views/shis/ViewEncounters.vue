@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -17,7 +17,7 @@
 
             <div class="container col-md-12 mb-4">
               <button
-                class="btn btn-success"
+                class="btn btn-info"
                 @click="encounterform = !encounterform"
               >
                 <i class="fe fe-plus"></i> Add Encounter code
@@ -51,7 +51,7 @@
               </div>
 
               <div class="form-group">
-                <button class="btn btn-success btn-block btn-lg">Submit</button>
+                <button class="btn btn-info btn-block btn-lg">Submit</button>
               </div>
             </form>
           </div>
@@ -132,7 +132,7 @@
                 </div>
                 <div class="col-md-12">
                   <button
-                    class="btn btn-outline-success btn-block"
+                    class="btn btn-outline-info btn-block"
                     @click="getEncounters"
                   >
                     Filter
@@ -211,7 +211,7 @@
                             >
                               <button
                                 type="button"
-                                class="btn btn-success mr-1"
+                                class="btn btn-info mr-1"
                                 name="button"
                               >
                                 <i class="fe fe-eye"></i>
@@ -288,7 +288,7 @@ export default {
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
-      .get(`/api/v1/auth/diagnosis-agency/95930`)
+      .get(`/api/v1/auth/diagnosis-agency/439078`)
       .then((response) => {
         this.diseases = response.data.data;
         console.log(response);
@@ -307,7 +307,7 @@ export default {
           date: this.filter_field.date,
           from: this.filter_field.from,
           to: this.filter_field.to,
-          agency_id: 95930,
+          agency_id: 439078,
           paginate_value: this.paginate_value,
         })
         .then((response) => {
@@ -325,7 +325,7 @@ export default {
         this.axios
           .post(`/api/v1/auth/get-string`, {
             string_data: this.string_data,
-            agency_id: 95930,
+            agency_id: 439078,
           })
           .then((response) => {
             console.log(response);
@@ -349,7 +349,7 @@ export default {
     },
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

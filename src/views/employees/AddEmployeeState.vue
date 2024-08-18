@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -23,7 +23,7 @@
               <div class="card m-b-30">
                 <div class="card-header">
                   <div class="text-center">
-                    <h3 class="h4">Add Employee OHIS</h3>
+                    <h3 class="h4">Add Employee KAMPE</h3>
                   </div>
                 </div>
 
@@ -71,7 +71,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                       <label for="inputCity">LGA</label>
                       <select
                         class="form-control"
@@ -86,9 +86,9 @@
                           {{ lga.local_name }}
                         </option>
                       </select>
-                    </div>
+                    </div> -->
 
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                       <label>Ward</label>
                       <select
                         class="form-control"
@@ -103,7 +103,7 @@
                           {{ ward.ward_name }}
                         </option>
                       </select>
-                    </div>
+                    </div> -->
                   </div>
 
                   <div class="form-row">
@@ -136,7 +136,7 @@
 
                   <div class="form-group">
                     <button
-                      class="btn btn-success btn-block btn-lg"
+                      class="btn btn-info btn-block btn-lg"
                       @click="registerUser"
                     >
                       Submit
@@ -204,7 +204,7 @@ export default {
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
-      .get(`/api/v1/auth/getEmployee/95930`)
+      .get(`/api/v1/auth/getEmployee/439078`)
       .then((response) => {
         this.employees = response.data.data;
         console.log(response);
@@ -217,7 +217,7 @@ export default {
     getEmployees() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/getEmployee/95930`)
+        .get(`/api/v1/auth/getEmployee/439078`)
         .then((response) => {
           this.employees = response.data.data;
           console.log(response);
@@ -267,7 +267,7 @@ export default {
           localgovt: this.register.localgovt,
           ward: this.register.ward,
           id_card_number: this.register.id_card_number,
-          institutional_id: 95930,
+          institutional_id: 439078,
           job_title: this.register.job_title,
           user_role: this.register.role,
         })

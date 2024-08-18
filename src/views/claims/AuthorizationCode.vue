@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -25,7 +25,7 @@
                 <div class="card-body">
                   <button
                     type="button"
-                    class="btn btn-success"
+                    class="btn btn-info"
                     @click="showadder = !showadder"
                   >
                     Request Code <i class="fe fe-plus"></i>
@@ -110,7 +110,7 @@
                       </div>
 
                       <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block">
+                        <button type="submit" class="btn btn-info btn-block">
                           Filter
                         </button>
 
@@ -157,7 +157,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="OHIS Number, First Name, Last name, "
+                    placeholder="KAMPE Number, First Name, Last name, "
                     v-model="searchkey"
                     @change="searchIDCard"
                   />
@@ -195,7 +195,7 @@
                     :src="`https://insurance-api.hayokmedicare.ng/image/${selected_enrollee.user_image}`"
                     class="img"
                     alt="User Photo"
-                    onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                    onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                   />
                 </div>
                 <div class="form-group col-md-6">
@@ -220,7 +220,7 @@
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputCity">OSHIA Number</label>
+                  <label for="inputCity">Kampe Number</label>
                   <input
                     type="text"
                     class="form-control"
@@ -266,7 +266,7 @@
               </div>
 
               <div class="form-group">
-                <button type="submit" class="btn btn-success btn-block">
+                <button type="submit" class="btn btn-info btn-block">
                   Submit <i class="fe fe-send"></i>
                 </button>
               </div>
@@ -346,7 +346,7 @@
 
                             <span
                               v-if="diag.is_code_used == true"
-                              class="bg-success text-white"
+                              class="bg-info text-white"
                             >
                               code used
                             </span>
@@ -427,7 +427,7 @@ export default {
         "Auth Code": "code_created",
         "Code Usage": "code_usage",
         "Primary Diagnosis": "encounter.diagnosis.name",
-        "Enrollee OHIS Number": "enrollee.id_card_number",
+        "Enrollee KAMPE Number": "enrollee.id_card_number",
         "Intra Referral": "intra_referral",
         "Primary Facility": "provider.agency_name",
         "Secondary Facility": "recipientfacility.agency_name",
@@ -441,7 +441,7 @@ export default {
       },
       codes: "",
       message:
-        "Authorization Code is needed. Go to https://app.oshia.ng/authorization-code  to generate.",
+        "Authorization Code is needed. Go to https://app.Kampe.ng/authorization-code  to generate.",
       searchkey: "",
       selected_enrollee: {},
       enrollee_details: "",
@@ -479,7 +479,7 @@ export default {
     getCodesAgency(currentPage) {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/authorization_code/95930`, {
+        .get(`/api/v1/auth/authorization_code/439078`, {
           params: {
             page: currentPage,
             provider_id: this.query.provider_id.id,
@@ -523,7 +523,7 @@ export default {
       this.axios
         .post(`/api/v1/auth/searchenrollees`, {
           // provider_id: this.user.institutional_id,
-          agency_id: 95930,
+          agency_id: 439078,
           request_query: this.searchkey,
         })
         .then((response) => {
@@ -564,7 +564,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post("/api/v1/auth/authorization_code", {
-          agency_id: 95930,
+          agency_id: 439078,
           principal_id:
             this.selected_enrollee.type == "client"
               ? this.selected_enrollee.id
@@ -602,7 +602,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
         .post(`/api/v1/auth/service_summary-agency`, {
-          agency_id: 95930,
+          agency_id: 439078,
           provider_id: this.user.institutional_id,
           client_id:
             selected_enrollee.type == "client" ? selected_enrollee.id : null,
@@ -627,7 +627,7 @@ export default {
     },
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -640,7 +640,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post(
-          `https://api.bulksmslive.com/v2/app/sms?email=info@oshia.ng&password=osun@4141&sender_name=OHIS&message=${this.message}&recipients=+2348033886362`,
+          `https://api.bulksmslive.com/v2/app/sms?email=info@Kampe.ng&password=osun@4141&sender_name=KAMPE&message=${this.message}&recipients=+2348033886362`,
           {}
         )
         .then((response) => {

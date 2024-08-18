@@ -197,7 +197,7 @@ export default {
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
-      .get(`/api/v1/auth/ministry/95930`)
+      .get(`/api/v1/auth/ministry/439078`)
       .then((response) => {
         this.ministries = response.data;
         console.log(response);
@@ -255,7 +255,7 @@ export default {
       if (this.edit == false) {
         this.axios
           .post("/api/v1/auth/ministry", {
-            agency_id: 95930,
+            agency_id: 439078,
             name: this.register.ministry,
           })
           .then((response) => {

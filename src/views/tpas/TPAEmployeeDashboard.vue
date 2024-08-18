@@ -26,7 +26,7 @@
                               </router-link>
                             </div>
                             <div>
-                                <p class="text-muted text-overline m-0">OHIS</p>
+                                <p class="text-muted text-overline m-0">KAMPE</p>
                                 <h1 class="fw-400">Osogbo, Osun</h1>
                             </div>
                         </div>

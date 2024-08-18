@@ -160,7 +160,7 @@
                       <img
                         :src="`https://insurance-api.hayokmedicare.ng/image/${selected.user_image}`"
                         class="img-thumbnail mt-3"
-                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                       />
                     </div>
 
@@ -319,7 +319,7 @@ export default {
       json_fields: {
         "Enrollee Type": "account_type",
         "Full Name": "full_name",
-        "OHIS Number": "id_card_number",
+        "KAMPE Number": "id_card_number",
         "User Status": "status",
         phone_number: "phone_number",
         "Sector Category": "sector",
@@ -359,7 +359,7 @@ export default {
 
       this.axios
         .post(
-          `/api/v1/auth/get-expiry-due/95930`,
+          `/api/v1/auth/get-expiry-due/439078`,
 
           {
             page: currentPage,
@@ -420,7 +420,7 @@ export default {
     getProviders() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

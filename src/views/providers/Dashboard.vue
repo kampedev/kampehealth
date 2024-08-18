@@ -19,7 +19,7 @@
                     <router-link :to="{ path: '/view-clients-provider' }">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-account-group"></i>
                         </div>
@@ -41,7 +41,7 @@
                 <div class="card-body">
                   <div class="pb-2">
                     <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-success rounded-circle">
+                      <div class="avatar-title bg-soft-info rounded-circle">
                         <i class="mdi mdi-account-multiple"></i>
                       </div>
                     </div>
@@ -61,7 +61,7 @@
                 <div class="card-body">
                   <div class="pb-2">
                     <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-success rounded-circle">
+                      <div class="avatar-title bg-soft-info rounded-circle">
                         <i class="mdi mdi-account-heart"></i>
                       </div>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="avatar avatar-lg">
                       <router-link :to="{ path: '/list-records' }">
 
-                      <div class="avatar-title bg-soft-success rounded-circle">
+                      <div class="avatar-title bg-soft-info rounded-circle">
                         <i class="mdi mdi-medical-bag"></i>
                       </div>
                       </router-link>
@@ -106,7 +106,7 @@
                     <router-link :to="{ path: '/all-claims' }">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="fe fe-credit-card"></i>
                         </div>
@@ -128,7 +128,7 @@
                 <div class="card-body">
                   <div class="pb-2">
                     <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-success rounded-circle">
+                      <div class="avatar-title bg-soft-info rounded-circle">
                         <i class="mdi mdi-bank-transfer-out"></i>
                       </div>
                     </div>
@@ -152,7 +152,7 @@
                     <router-link :to="{ path: '/all-referrals' }">
 
                     <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-success rounded-circle">
+                      <div class="avatar-title bg-soft-info rounded-circle">
                         <i class="mdi mdi-bank-transfer-in"></i>
                       </div>
                     </div>
@@ -175,7 +175,7 @@
                 <div class="card-body">
                   <div class="pb-2">
                     <div class="avatar avatar-lg">
-                      <div class="avatar-title bg-soft-success rounded-circle">
+                      <div class="avatar-title bg-soft-info rounded-circle">
                         <i class="mdi mdi-account-tie"></i>
                       </div>
                     </div>
@@ -215,7 +215,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>OHIS Number</th>
+                                <th>KAMPE Number</th>
                                 <th>Phone Number</th>
                                 <th>Plan</th>
                             </tr>
@@ -261,7 +261,7 @@
                         <span v-if="claim.status == 1">
                           <button
                             type="button"
-                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                            class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
                           >
                             approved
                           </button>
@@ -277,7 +277,7 @@
                       </td>
                       <td>
                         <router-link :to="`/claim/${claim.id}`">
-                          <button class="btn btn-outline-success">
+                          <button class="btn btn-outline-info">
                             <i class="fe fe-eye"></i>
                           </button>
                         </router-link>

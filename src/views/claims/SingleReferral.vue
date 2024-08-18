@@ -151,7 +151,7 @@
                         {{ singlereferral.client.phone_number }}
                       </p>
                       <p class="h5">
-                        <span class="text-primary">O'HIS Number:</span>
+                        <span class="text-primary">KAMPE Number:</span>
                         {{ singlereferral.client.id_card_number }}
                       </p>
                       <p class="h5">

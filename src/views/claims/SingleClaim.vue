@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <div>
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -286,7 +286,7 @@
                         </p>
                         <br />
                         <p v-if="claimdetails.enrollee != null">
-                          <strong>Enrollee/ Patient O'HIS Number:</strong>
+                          <strong>Enrollee/ Patient KAMPE Number:</strong>
                           {{ claimdetails.enrollee.id_card_number }}
                         </p>
                         <br />
@@ -857,7 +857,7 @@ export default {
     };
   },
   beforeMount() {
-    this.axios.get(`/api/v1/auth/remarks/95930`).then((response) => {
+    this.axios.get(`/api/v1/auth/remarks/439078`).then((response) => {
       this.remarks = response.data;
       console.log(response);
     });

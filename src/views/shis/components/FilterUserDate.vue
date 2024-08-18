@@ -308,7 +308,7 @@
                                     {{ client.dob }}|| {{ client.expiry_date }}
                                   </td>
 
-                                  <td v-if="user.id == '95930'">
+                                  <td v-if="user.id == '439078'">
                                     <button
                                       class="btn btn-default"
                                       @click="updateExp(client)"
@@ -471,7 +471,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post(`/api/v1/auth/filtersectordashboardwardlgabydate`, {
-          agency_id: "95930",
+          agency_id: "439078",
           sector: this.sector,
           gender: this.gender,
           category_of_vulnerable_group: this.category_of_vulnerable_group,
@@ -578,7 +578,7 @@ export default {
 
     getProviders() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/95930`)
+        .get(`/api/v1/auth/providerAgency/439078`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -589,7 +589,7 @@ export default {
     },
     getMDAs() {
       this.axios
-        .get(`/api/v1/auth/ministry/95930`)
+        .get(`/api/v1/auth/ministry/439078`)
         .then((response) => {
           this.mdas = response.data.data;
         })

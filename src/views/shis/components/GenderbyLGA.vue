@@ -1,7 +1,6 @@
 <template>
   <div class="card">
     <div class="card-header">
-    
       <div class="row">
         <button
           class="btn btn-outline-primary mx-2 my-2"
@@ -18,13 +17,13 @@
     </div>
 
     <div class="vld-parent">
-              <loading
-                :active.sync="isLoading"
-                loader="dots"
-                :can-cancel="true"
-                :is-full-page="fullPage"
-              ></loading>
-            </div>
+      <loading
+        :active.sync="isLoading"
+        loader="dots"
+        :can-cancel="true"
+        :is-full-page="fullPage"
+      ></loading>
+    </div>
   </div>
 </template>
 
@@ -35,7 +34,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   props: ["sectors"],
-  components:{
+  components: {
     Loading,
   },
   data() {
@@ -45,7 +44,7 @@ export default {
       title: "",
       points: [10, 0, 8, 2, 6, 4, 5, 5],
       chartType: "",
-      selected_sector: "Basic Healthcare Provision Fund",
+      selected_sector: "Kampe Healthcare Plus",
       seriesColor: "#6fcd98",
       colorInputIsSupported: null,
       chartOptions: {},
@@ -60,12 +59,12 @@ export default {
       this.getDashboardLGA();
     },
     getDashboardLGA() {
-      this.isLoading = true
+      this.isLoading = true;
       this.axios
         .get(`/api/v1/auth/enrolleesbylgabygender/2676/${this.selected_sector}`)
         .then((response) => {
           var data = response.data;
-          this.isLoading = false
+          this.isLoading = false;
           data;
           this.chartOptions = {
             chart: {

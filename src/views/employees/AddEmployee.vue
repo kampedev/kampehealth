@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -25,7 +25,7 @@
                 <div class="card-body">
                   <button
                     type="button"
-                    class="btn btn-success"
+                    class="btn btn-info"
                     @click="showadder = !showadder"
                   >
                     Add Personnel <i class="fe fe-plus"></i>
@@ -92,7 +92,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                       <label for="inputCity">LGA</label>
                       <select
                         class="form-control"
@@ -107,9 +107,9 @@
                           {{ lga.local_name }}
                         </option>
                       </select>
-                    </div>
+                    </div> -->
 
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                       <label>Ward</label>
                       <select
                         class="form-control"
@@ -124,7 +124,7 @@
                           {{ ward.ward_name }}
                         </option>
                       </select>
-                    </div>
+                    </div> -->
                   </div>
 
                   <div class="form-row">
@@ -134,21 +134,21 @@
                         <option value="Desk">Desk Officer</option>
                         <!-- <option  value="m_and_e">Monitoring and Evaluation Officer</option> -->
                         <!-- <option  value="qao">Quality Assurance Officer</option> -->
-                        <option value="Doctor">Doctor</option>
-                        <option value="Pharmacist">Pharmacist</option>
-                        <option value="Nurse">Nurse</option>
-                        <option value="Laboratorist">Laboratorist</option>
+                        <!-- <option value="Doctor">Doctor</option> -->
+                        <!-- <option value="Pharmacist">Pharmacist</option> -->
+                        <!-- <option value="Nurse">Nurse</option> -->
+                        <!-- <option value="Laboratorist">Laboratorist</option> -->
                         <!-- <option  value="receptionist">Receptionist</option> -->
-                        <option value="Accountant">Accountant</option>
-                        <option value="Extension Worker">
+                        <!-- <option value="Accountant">Accountant</option> -->
+                        <!-- <option value="Extension Worker">
                           Community health extension workers (CHEWs)
-                        </option>
+                        </option> -->
                       </select>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <button class="btn btn-success" @click="registerUser">
+                    <button class="btn btn-info" @click="registerUser">
                       Submit
                     </button>
                   </div>
@@ -188,7 +188,7 @@
                             <button
                               type="button"
                               name="button"
-                              class="btn btn-success"
+                              class="btn btn-info"
                             >
                               <i class="fe fe-eye"></i>
                             </button>

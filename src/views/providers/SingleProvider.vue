@@ -3,7 +3,7 @@
     <Navbar />
     <main class="admin-main">
       <div v-for="provider in singleprovider" v-bind:key="provider.id">
-        <div class="bg-success m-b-30">
+        <div class="bg-info m-b-30">
           <div class="container">
             <div class="row p-b-60 p-t-60">
               <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -25,7 +25,7 @@
                   <div class="card-body">
                     <div class="form-group">
                       <button
-                        class="btn btn-outline-success"
+                        class="btn btn-outline-info"
                         @click="acceptProvider"
                         v-if="provider.status == false"
                       >
@@ -34,7 +34,7 @@
                       <router-link
                         :to="{ path: '/provider/add-employee/' + provider.id }"
                       >
-                        <button class="btn btn-outline-success spacer">
+                        <button class="btn btn-outline-info spacer">
                           Manage Personnel
                         </button>
                       </router-link>
@@ -43,7 +43,7 @@
                         :to="{ path: '/edit-provider/' + provider.id }"
                       >
                         <button
-                          class="btn btn-outline-success"
+                          class="btn btn-outline-info"
                           style="margin-left: 10px"
                         >
                           Edit Facility
@@ -63,7 +63,7 @@
                       <router-link :to="{ path: '/view-clients-provider' }">
                         <div class="avatar avatar-lg">
                           <div
-                            class="avatar-title bg-soft-success rounded-circle"
+                            class="avatar-title bg-soft-info rounded-circle"
                           >
                             <i class="mdi mdi-account-group"></i>
                           </div>
@@ -88,7 +88,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-account-multiple"></i>
                         </div>
@@ -110,7 +110,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-account-heart"></i>
                         </div>
@@ -132,7 +132,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-folder-multiple"></i>
                         </div>
@@ -155,7 +155,7 @@
                       <router-link :to="{ path: '/all-claims' }">
                         <div class="avatar avatar-lg">
                           <div
-                            class="avatar-title bg-soft-success rounded-circle"
+                            class="avatar-title bg-soft-info rounded-circle"
                           >
                             <i class="fe fe-credit-card"></i>
                           </div>
@@ -178,7 +178,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-bank-transfer-out"></i>
                         </div>
@@ -202,7 +202,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-bank-transfer-in"></i>
                         </div>
@@ -226,7 +226,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-account-tie"></i>
                         </div>
@@ -248,7 +248,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-folder-multiple"></i>
                         </div>
@@ -275,7 +275,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-bank-transfer-out"></i>
                         </div>
@@ -301,7 +301,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-folder-multiple"></i>
                         </div>
@@ -328,7 +328,7 @@
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
                         <div
-                          class="avatar-title bg-soft-success rounded-circle"
+                          class="avatar-title bg-soft-info rounded-circle"
                         >
                           <i class="mdi mdi-bank-transfer-out"></i>
                         </div>
@@ -392,7 +392,7 @@
                                 <button
                                   type="button"
                                   name="button"
-                                  class="btn btn-outline-success"
+                                  class="btn btn-outline-info"
                                 >
                                   <i class="fe fe-eye"></i>
                                 </button>
@@ -419,7 +419,7 @@
                       <span v-if="provider.status == true">
                         <button
                           type="button"
-                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-success"
+                          class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
                         >
                           approved
                         </button>

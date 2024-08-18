@@ -1,6 +1,6 @@
 <template>
   <section class="admin-content" id="contact-search">
-    <div class="bg-dark m-b-30">
+    <div class="bg-info m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -102,7 +102,7 @@
                     <span class="avatar avatar-lg">
                       <img
                         :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
-                        onerror="this.onerror=null; this.src='/assets/img/ohis_logo.png'"
+                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                         class="avatar-img rounded-circle"
                       />
                     </span>
@@ -113,17 +113,14 @@
               <div class="card-body">
                 <div class="form-row">
                   <div class="form-group col-md-12">
-                    <label for="inputPassword4"
-                      ><strong>Select Payment Method: </strong></label
-                    >
-                    <select class="form-control" v-model="payment_type">
+                    <!-- <select class="form-control" v-model="payment_type">
                       <option value="online">Pay Online</option>
 
                       <option value="offline">Pay Offline</option>
-                    </select>
+                    </select> -->
                     <label for="inputPassword4"
                       ><strong
-                        >Selected Plan: {{ auth_user.plan_type }}
+                        >Selected Plan: {{ auth_user.sector }}
                       </strong></label
                     >
                     <select
@@ -136,7 +133,7 @@
                         v-bind:key="plan.id"
                         :value="plan.plan_name"
                       >
-                        {{ plan.plan_name }} Plan (&#8358;
+                        {{ auth_user.sector }} (&#8358;
                         {{ plan.plan_cost | numeral(0, 0) }} )
                       </option>
                     </select>
@@ -181,8 +178,8 @@
                               our benefit package. Please note that this
                               registration will be void if you do not proceed to
                               make payment. Should you have any difficulty in
-                              making your payment, please call: 0700022556447 or
-                              send us a mail at info@oshia.ng Thank you.
+                              making your payment, please call: 070000xxxx or
+                              send us a mail at info@kampe.com Thank you.
                             </p>
                           </div>
                         </div>
@@ -191,24 +188,42 @@
                   </div>
                 </div>
 
-                <div class="col-lg-12">
-                  <paystack
-                    :amount="totalCost * 100"
-                    :email="auth_user.email"
-                    :paystackkey="paystackkey"
-                    :reference="reference"
-                    :callback="callback"
-                    :first_name="auth_user.firstname"
-                    :last_name="auth_user.lastname"
-                    :phone="auth_user.phone_number"
-                    :close="close"
-                    :embed="false"
-                    v-if="payment_type == 'online'"
-                  >
-                    <button class="btn btn-dark btn-block btn-lg">
-                      Proceed to Pay (Online)
+                <div class="row col-lg-12">
+                  <div class="col-md-6">
+                    <button class="btn btn-outline-info btn-block">
+                      <paystack
+                        :amount="totalCost * 100"
+                        :email="auth_user.email"
+                        :paystackkey="paystackkey"
+                        :reference="reference"
+                        :callback="callback"
+                        :first_name="auth_user.firstname"
+                        :last_name="auth_user.lastname"
+                        :phone="auth_user.phone_number"
+                        :close="close"
+                        :embed="false"
+                        v-if="payment_type == 'online'"
+                      >
+                        Pay with Paystack
+                      </paystack>
                     </button>
-                  </paystack>
+                  </div>
+
+                  <div class="col-md-6">
+                    <button
+                      class="btn btn-outline-success btn-block"
+                      data-toggle="modal"
+                      data-target="#eofflineModal"
+                    >
+                      Pay with Wallx
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <!--  <button class="btn btn-dark btn-block btn-lg">
+                      Proceed to Pay (Online)
+                    </button> -->
 
                   <button
                     class="btn btn-dark btn-block btn-lg"
@@ -234,8 +249,8 @@
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Enter the USSD Code below into your mobile device
+                  <h5 class="modal-title h5" id="exampleModalLabel">
+                    Enter your Details
                   </h5>
                   <button
                     type="button"
@@ -247,12 +262,48 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>Virual Account Number: {{ auth_user.virtual_account }}</p>
-                  <p>*BankCode*SchemeCode*BillerId+UserIdentifier+Amount#</p>
-                  <p>
-                    *894*000*506+{{ auth_user.virtual_account }}+
-                    {{ getPlan.plan_cost }}
-                  </p>
+                  <form action="" @submit.prevent="wallxPay">
+                    <div class="form-group col-md-12">
+                      <label>Wallx Pin</label>
+                      <input
+                        type="text"
+                        pattern="\d*"
+                        maxlength="11"
+                        class="form-control"
+                        v-model="wallx.pin"
+                        placeholder="Pin"
+                      />
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label>Wallx Secret </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        required
+                        v-model="wallx.secret"
+                        placeholder="Secret"
+                      />
+                    </div>
+
+                    <div class="form-group col-md-12">
+                      <button class="btn btn-info btn-block" type="submit">
+                        Submit
+                      </button>
+                    </div>
+
+                    <div class="col-md-12 mt-4">
+                      <p>
+                        Go to
+                        <a
+                          href="https://business.wallx.co/create-paycode/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Wallx Portal</a
+                        >
+                        to Create your Pay Code.
+                      </p>
+                    </div>
+                  </form>
                 </div>
                 <div class="modal-footer">
                   <button
@@ -262,9 +313,9 @@
                   >
                     Close
                   </button>
-                  <button type="button" class="btn btn-primary">
+                  <!-- <button type="button" class="btn btn-primary">
                     Save changes
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -309,15 +360,16 @@ export default {
       auth_user: "",
       amount: "",
       payment_type: "online",
-      showpay: false,
-      showpic: true,
+      showpay: true,
+      showpic: false,
       showdependent: false,
+      wallx: {},
       selected_plan: [
         {
           id: 1,
           plan_name: "Individual",
           description:
-            "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to cheap and qualititative healthcare coverage. It allows no depandent(s).",
+            "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to cheap and qualititative healthcare coverage.",
           plan_cost: 12066,
           fee: 280.99,
         },
@@ -325,14 +377,14 @@ export default {
           id: 2,
           plan_name: "Family",
           description:
-            " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to cheap and qualititative healthcare coverage. It allows a Maximum of 5-depandent(s).",
+            " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to cheap and qualititative healthcare coverage.",
           plan_cost: 57600,
           fee: 964.0,
         },
       ],
       plan_id: null,
       // paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
-      paystackkey: "pk_live_1ec7b33187b214721539e421c5c89cd395502361", //paystack public key
+      paystackkey: "pk_test_20ff6d54c8989ced65531801332aa63934c7ce15", //paystack public key
       providers: "",
       singleplan: "",
       plans: "",
@@ -340,7 +392,7 @@ export default {
       imagefile: "",
       myplan: "",
       sms_message:
-        "Thank you for choosing OHIS. You can come to our office to collect your ID Card in 3 weeks.",
+        "Thank you for choosing KAMPE. You can come to our office to collect your ID Card in 3 weeks.",
       user: null,
       isLoading: false,
       fullPage: true,
@@ -389,6 +441,24 @@ export default {
       this.showpay = true;
       this.showpic = false;
       this.showdependent = false;
+    },
+
+    wallxPay() {
+      this.axios
+        .get(`https://business.wallx.co/api-v1/claim_paycode`, {
+          merchant_id: "WallX-00000112", // Your business's merchant ID
+          pin: this.wallx.pin,
+          secret: this.wallx.secret,
+          amount: 1000,
+          currency: "NGN", // Options: NGN, USD, CAD
+        })
+        .then((response) => {
+          this.states = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     callback: function (response) {
       this.sendSMS();
@@ -439,9 +509,9 @@ export default {
       this.isLoading = true;
       this.axios
         .post("/api/v1/make/transaction", {
-          agency_id: 95930,
+          agency_id: 439078,
           amount: this.getPlan.plan_cost,
-          description: "OHIS Plan Payment",
+          description: "KAMPE Plan Payment",
           type: "plan_payment",
           transaction_ref: this.reference,
           user_id: this.$route.params.id,
@@ -449,11 +519,11 @@ export default {
         .then((response) => {
           console.log(response);
           this.$toasted.info(
-            "Congratulations you have successfully enrolled to O'HIS",
+            "Congratulations you have successfully enrolled to KAMPE",
             { position: "top-center", duration: 8000 }
           );
           this.isLoading = false;
-          // window.location = "https://www.oshia.ng";
+          // window.location = "https://www.Kampe.ng";
           this.$router.push(`/subscribe-success/${this.$route.params.id}`);
         })
         .catch((error) => {
@@ -509,7 +579,7 @@ export default {
           email: "wearegrumie@gmail.com",
           password: "AGYkh.EUddNx4j@",
           message: this.sms_message,
-          sender_name: "OHIS",
+          sender_name: "KAMPE",
           recipients: this.auth_user.phone_number,
         })
         .then((response) => {

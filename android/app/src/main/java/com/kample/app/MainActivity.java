@@ -1,4 +1,4 @@
-package com.oshia.app;
+package com.kample.app;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -123,6 +123,6 @@ const router = createRouter({
 });
 
 const port = process.env.PORT || 8080;
-server.listen(port);
+app.listen(port);
 
 export default router;

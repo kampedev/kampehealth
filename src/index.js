@@ -122,4 +122,7 @@ const router = createRouter({
   routes,
 });
 
+const port = process.env.PORT || 1337;
+server.listen(port);
+
 export default router;

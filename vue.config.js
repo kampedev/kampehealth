@@ -50,7 +50,7 @@ module.exports = {
     devServer: {
       // host: 'smartmedicare',
       // proxy: 'http://localhost:8000',
-      port: 8080,
+      port: 8080 || process.env.PORT
     },
   
     publicPath: ''

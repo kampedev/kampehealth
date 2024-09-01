@@ -235,7 +235,7 @@
                         </select>
                       </div>
 
-                      <div class="form-group col-md-6">
+                      <!-- <div class="form-group col-md-6">
                         <label>Ward </label>
                         <select class="form-control" v-model="register.ward">
                           <option
@@ -246,7 +246,7 @@
                             {{ ward.ward_name }}
                           </option>
                         </select>
-                      </div>
+                      </div> -->
 
                       <div class="form-group col-md-6">
                         <label
@@ -683,7 +683,7 @@ export default {
     },
   },
   created() {
-    this.fetchLga();
+    // this.fetchLga();
     this.getProviders();
     this.getStates();
   },

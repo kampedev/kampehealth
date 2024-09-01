@@ -114,22 +114,7 @@
                     </span>
                     <!-- </router-link> -->
 
-                    <span v-if="client.user.status == 'active'">
-                      <button
-                        type="button"
-                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
-                      >
-                        active
-                      </button>
-                    </span>
-                    <span v-if="client.user.status == 'inactive'">
-                      <button
-                        type="button"
-                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
-                      >
-                        inactive
-                      </button>
-                    </span>
+                   
                   </div>
                 </div>
               </div>
@@ -185,8 +170,8 @@
                     <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>KAMPE/A-0{{singletpa.tpa_id}}/{{client.user.id_card_number}}</strong></p> -->
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">ID NUMBER:</strong>
-                      <!-- <strong>{{ client.user.id_card_number }}</strong> -->
-                      <strong>KAMPE/A01/000</strong>
+                      <strong>{{ client.user.id_card_number }}</strong>
+                      <!-- <strong>KAMPE/A01/000</strong> -->
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">
@@ -207,12 +192,7 @@
                         client.provider.agency_name
                       }}</strong>
                     </p>
-
-                    <hr />
-                    <p class="h3 spacer-top-bottom">
-                      <strong class="text-primary">Plan Type:</strong>
-                      <strong>{{ client.user.plan_type }} </strong>
-                    </p>
+                   
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">SECTOR:</strong>
@@ -394,7 +374,6 @@ export default {
     return {
       user: null,
       trx_image: false,
-      auth_user: "",
       client: "",
       trx_doc: null,
       notes: "",
@@ -598,18 +577,7 @@ export default {
       this.uploadSign();
     },
 
-    authUser() {
-      this.axios
-        .get(`/api/v1/auth/user`)
-        .then((response) => {
-          this.auth_user = response.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
+   
     async takePicAndroid() {
       const image = await Camera.getPhoto({
         quality: 90,
@@ -703,24 +671,6 @@ export default {
         .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
         .then((response) => {
           this.client = response.data;
-          this.dependents = response.data.dependents;
-
-          //get dependents
-          this.axios
-            .post(`/api/v1/auth/allDependantsUser`, {
-              agency_id: 439078,
-              id_card_number: this.client.id_card_number,
-              user_id: this.$route.params.id,
-            })
-            .then((response) => {
-              let answers = response.data;
-              answers;
-              console.log(response);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //end of get dependents
         })
         .catch((error) => {
           console.error(error);

@@ -496,12 +496,7 @@
             </div>
           </div>
 
-          <!-- <div class="card-body" v-for="student in students" v-bind:key="student.id">
-                              <p>{{student.firstname}}</p>
-                              <p>{{student.gender}}</p>
-                              <p>{{student.user_image}}</p>
-                              <button @click="remove(student.id)" class="btn btn-primary">Delete</button>
-                             </div> -->
+        
 
           <div class="vld-parent">
             <loading

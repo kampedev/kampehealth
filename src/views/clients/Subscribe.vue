@@ -105,25 +105,21 @@
               <div class="card-body">
                 <div class="form-row">
                   <div class="form-group col-md-12">
-  
                     <label for="inputPassword4"
                       ><strong
-                        >Selected Plan: {{ auth_user.sector }}
+                        >Selected Plan: {{ singleplan.name }}
                       </strong></label
                     >
-                    <!-- <select
-                      class="form-control"
-                      v-model="auth_user.plan_type"
-                    >
+                    <select class="form-control" v-model="singleplan">
                       <option
                         v-for="plan in plans"
                         v-bind:key="plan.id"
-                        :value="plan.plan_name"
+                        :value="plan"
                       >
-                        {{ auth_user.sector }} (&#8358;
+                        {{ plan.name }} (&#8358;
                         {{ plan.price | numeral(0, 0) }} )
                       </option>
-                    </select> -->
+                    </select>
                     <!-- <p class="h6 spacer-top-bot">
                       Fee: &#8358; {{ getPlan.fee }}
                     </p> -->
@@ -132,9 +128,8 @@
                       <b
                         >Total: &#8358;
 
-                        {{ plans[0].price | numeral(0, 0) }}
-                        
-                        
+                        {{ singleplan.price | numeral(0, 0) }}
+
                         <!-- {{ (getPlan.plan_cost + getPlan.fee) | numeral(0, 0) }} -->
                       </b>
                     </p>
@@ -156,7 +151,6 @@
                           </div>
 
                           <div class="text-center">
-                           
                             <p>
                               <!-- Thank you for enrolling under the Osun Health
                               Insurance Scheme. The plan you selected covers
@@ -181,7 +175,7 @@
                   <div class="col-md-6">
                     <button class="btn btn-outline-info btn-block">
                       <paystack
-                        :amount="plans[0].price * 100"
+                        :amount="singleplan.price * 100"
                         :email="auth_user.email"
                         :paystackkey="paystackkey"
                         :reference="reference"
@@ -351,6 +345,7 @@ export default {
       auth_user: "",
       amount: "",
       plans: plansJSON,
+      singleplan: "",
       payment_type: "online",
       showpay: true,
       showpic: false,
@@ -360,7 +355,6 @@ export default {
       // paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
       paystackkey: "pk_test_20ff6d54c8989ced65531801332aa63934c7ce15", //paystack public key
       providers: "",
-      singleplan: "",
       image: "",
       imagefile: "",
       myplan: "",
@@ -369,7 +363,6 @@ export default {
       user: null,
       isLoading: false,
       fullPage: true,
-      windowwith: "",
     };
   },
   beforeMount() {
@@ -431,8 +424,6 @@ export default {
             duration: 3000,
           });
           console.log(response);
-
-         
         })
         .catch((error) => {
           console.error(error);

@@ -10,7 +10,7 @@
               </div>
             </div>
             <p class="h4">
-              <strong>Voluntary Contributor Registration Form </strong>
+              <strong>KAMPE Registration Form </strong>
             </p>
           </div>
         </div>

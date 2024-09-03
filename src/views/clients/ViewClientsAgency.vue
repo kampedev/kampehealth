@@ -246,8 +246,7 @@
                               client.created_at | moment("dddd, MMMM Do YYYY")
                             }}
                           </td>
-                          <!-- <td>{{ client.id_card_number }}</td> -->
-                          <td>KAMPE/A01/000</td>
+                          <td>{{ client.id_card_number }}</td>
                           <td>
                             <p>
                               <span v-if="client.status == 'active'">

@@ -42,16 +42,12 @@
                             required
                             v-model="register.sector"
                           >
-                            <option value="Diasporan Health Plan (Diamond)">
-                              Diasporan Health Plan (Diamond)
-                            </option>
-
-                            <option value="Diasporan Health Plan (Diamond)">
-                              Diasporan Health Plan (Diamond)
-                            </option>
-
-                            <option value="Diasporan Health Plan (Diamond)">
-                              Diasporan Health Ruby (Diamond)
+                            <option
+                              :value="plan.name"
+                              v-for="plan in plans"
+                              :key="plan.id"
+                            >
+                              {{ plan.name }}
                             </option>
                           </select>
                         </div>
@@ -201,7 +197,7 @@
                         </select>
                       </div>
 
-                      <div class="form-group col-md-6">
+                      <!-- <div class="form-group col-md-6">
                         <label for="inputCity"
                           >LGA <span class="text-danger">*</span></label
                         >
@@ -218,7 +214,7 @@
                             {{ lga.local_name }}
                           </option>
                         </select>
-                      </div>
+                      </div> -->
 
                       <div class="form-group col-md-6">
                         <label for="inputAddress"
@@ -291,8 +287,7 @@
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
-// import tpaLGAJson from "./../../public/offline/lga_tpa.json";
-import tpaLGAJson from "@/views/clients/lga_tpa.json";
+import plansJSON from "@/jsons/diaspora_plans.json";
 
 export default {
   components: {
@@ -317,7 +312,7 @@ export default {
       imagefile: null,
       lga_states: "",
       response: "",
-      tpa_Lga: tpaLGAJson,
+      plans: plansJSON,
       registrations: [
         {
           firstname: "",
@@ -494,7 +489,7 @@ export default {
     },
   },
   created() {
-    this.fetchLga();
+    // this.fetchLga();
     this.getProviders();
   },
 };

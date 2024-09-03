@@ -15,14 +15,6 @@
       </div>
     </div>
 
-    <div class="col-md-6 offset-md-3" v-if="showdependent == true">
-      <div class="spacer-top-bot">
-        <button class="btn btn-dark btn-block btn-lg" @click="showPayPart">
-          Proceed to Payment
-        </button>
-      </div>
-    </div>
-
     <section class="" v-show="showpic">
       <div class="container">
         <div class="row list">
@@ -113,38 +105,37 @@
               <div class="card-body">
                 <div class="form-row">
                   <div class="form-group col-md-12">
-                    <!-- <select class="form-control" v-model="payment_type">
-                      <option value="online">Pay Online</option>
-
-                      <option value="offline">Pay Offline</option>
-                    </select> -->
+  
                     <label for="inputPassword4"
                       ><strong
                         >Selected Plan: {{ auth_user.sector }}
                       </strong></label
                     >
-                    <select
+                    <!-- <select
                       class="form-control"
                       v-model="auth_user.plan_type"
-                      disabled
                     >
                       <option
-                        v-for="plan in selected_plan"
+                        v-for="plan in plans"
                         v-bind:key="plan.id"
                         :value="plan.plan_name"
                       >
                         {{ auth_user.sector }} (&#8358;
-                        {{ plan.plan_cost | numeral(0, 0) }} )
+                        {{ plan.price | numeral(0, 0) }} )
                       </option>
-                    </select>
-                    <p class="h6 spacer-top-bot">
+                    </select> -->
+                    <!-- <p class="h6 spacer-top-bot">
                       Fee: &#8358; {{ getPlan.fee }}
-                    </p>
+                    </p> -->
                     <hr />
                     <p class="h5 spacer-top-bot">
                       <b
                         >Total: &#8358;
-                        {{ (getPlan.plan_cost + getPlan.fee) | numeral(0, 0) }}
+
+                        {{ plans[0].price | numeral(0, 0) }}
+                        
+                        
+                        <!-- {{ (getPlan.plan_cost + getPlan.fee) | numeral(0, 0) }} -->
                       </b>
                     </p>
 
@@ -165,9 +156,7 @@
                           </div>
 
                           <div class="text-center">
-                            <p class="h6">
-                              {{ getPlan.description }}
-                            </p>
+                           
                             <p>
                               <!-- Thank you for enrolling under the Osun Health
                               Insurance Scheme. The plan you selected covers
@@ -192,7 +181,7 @@
                   <div class="col-md-6">
                     <button class="btn btn-outline-info btn-block">
                       <paystack
-                        :amount="totalCost * 100"
+                        :amount="plans[0].price * 100"
                         :email="auth_user.email"
                         :paystackkey="paystackkey"
                         :reference="reference"
@@ -297,6 +286,7 @@
                         <a
                           href="https://business.wallx.co/create-paycode/"
                           target="_blank"
+                          class="text-info font-bold"
                           rel="noopener noreferrer"
                           >Wallx Portal</a
                         >
@@ -345,6 +335,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import paystack from "vue-paystack";
 import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+import plansJSON from "@/jsons/nigerian_plans.json";
 
 export default {
   components: {
@@ -359,35 +350,17 @@ export default {
       provider_id: "",
       auth_user: "",
       amount: "",
+      plans: plansJSON,
       payment_type: "online",
       showpay: true,
       showpic: false,
       showdependent: false,
       wallx: {},
-      selected_plan: [
-        {
-          id: 1,
-          plan_name: "Individual",
-          description:
-            "This Plan type is a General Plan package with a 12-month duration. It only covers one person (Principal). It grants you access to cheap and qualititative healthcare coverage.",
-          plan_cost: 12066,
-          fee: 280.99,
-        },
-        {
-          id: 2,
-          plan_name: "Family",
-          description:
-            " This Plan type is a General Plan package with a 12-month duration. It covers 6 people (One Principal and 5 Dependents). It grants you access to cheap and qualititative healthcare coverage.",
-          plan_cost: 57600,
-          fee: 964.0,
-        },
-      ],
       plan_id: null,
       // paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
       paystackkey: "pk_test_20ff6d54c8989ced65531801332aa63934c7ce15", //paystack public key
       providers: "",
       singleplan: "",
-      plans: "",
       image: "",
       imagefile: "",
       myplan: "",
@@ -413,17 +386,17 @@ export default {
       });
   },
   computed: {
-    getPlan() {
-      let formatter = this.selected_plan.filter(
-        (x) => x.plan_name == this.auth_user.plan_type
-      );
-      console.log(formatter);
-      return formatter[0];
-    },
+    // getPlan() {
+    //   let formatter = this.selected_plan.filter(
+    //     (x) => x.plan_name == this.auth_user.plan_type
+    //   );
+    //   console.log(formatter);
+    //   return formatter[0];
+    // },
 
-    totalCost() {
-      return this.getPlan.plan_cost + this.getPlan.fee;
-    },
+    // totalCost() {
+    //   return this.getPlan.plan_cost + this.getPlan.fee;
+    // },
 
     reference() {
       let text = "";
@@ -519,7 +492,7 @@ export default {
       this.axios
         .post("/api/v1/make/transaction", {
           agency_id: 439078,
-          amount: this.getPlan.plan_cost,
+          amount: this.plans[0].price,
           description: "KAMPE Plan Payment",
           type: "plan_payment",
           transaction_ref: this.reference,

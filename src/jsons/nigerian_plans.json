@@ -1,0 +1,23 @@
+[
+
+    {
+        "name": "Kampe Healthcare Basic Plan",
+        "price": 21600,
+        "description": ""
+    },
+    {
+        "name": "Kampe Healthcare Plus Plan",
+        "price": 31200,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Citizens Standard Plan",
+        "price": 75000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Citizens Plus Plan",
+        "price": 150000,
+        "description": ""
+    }
+]

@@ -32,8 +32,6 @@
                   </div>
                   <form @submit.prevent="submitForm">
                     <div class="form-row">
-                    
-
                       <div class="col-md-6" v-if="sector == 'informal'">
                         <div class="form-group">
                           <label for="inputCity"
@@ -43,28 +41,19 @@
                             class="form-control"
                             required
                             v-model="register.sector"
-                            
                           >
-                          <option value="Kampe Healthcare Plus">
-                             Kampe Healthcare Plus
-                            </option>
-
-                            <option value="Kampe Healthcare">
-                             Kampe Healthcare 
-                            </option>
-
-                            <option value=" Senior Citizens Plus Plan">
-                              Senior Citizens Plus Plan
-                            </option>
-
-                            <option value="Superior Plan">
-                              Superior Plan
+                            <option
+                              :value="plan.name"
+                              v-for="plan in plans"
+                              :key="plan.id"
+                            >
+                              {{ plan.name }}
                             </option>
                           </select>
                         </div>
                       </div>
 
-                      <div class="col-md-6">
+                      <!-- <div class="col-md-6">
                         <div class="form-group">
                           <label for="inputCity"
                             >Select Plan Type
@@ -79,7 +68,7 @@
                             <option value="Individual">Individual</option>
                           </select>
                         </div>
-                      </div>
+                      </div> -->
 
                       <div
                         class="form-group col-md-6"
@@ -192,17 +181,6 @@
                       </div>
 
                       <div class="form-group col-md-6">
-                        <p><label for="inputPassword4">Expiry Date:</label></p>
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="addYear"
-                          placeholder=""
-                          disabled
-                        />
-                      </div>
-
-                      <div class="form-group col-md-6">
                         <label for="inputEmail4"
                           >Email <span class="text-danger">*</span></label
                         >
@@ -261,6 +239,24 @@
                       </div>
 
                       <div class="form-group col-md-6">
+                        <label for="inputCity">State </label>
+
+                        <select
+                          class="form-control"
+                          v-model="register.state"
+                          @change="fetchLga(register.state)"
+                        >
+                          <option
+                            v-for="state in states"
+                            v-bind:key="state"
+                            :value="state.id"
+                          >
+                            {{ state.name }}
+                          </option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-md-6">
                         <label for="inputCity"
                           >LGA <span class="text-danger">*</span></label
                         >
@@ -281,46 +277,13 @@
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label>Ward </label>
-                        <select
-                          class="form-control"
-                          v-model="register.ward"
-                          @change="getProvidersByWards($event)"
-                        >
-                          <option
-                            v-for="ward in wards"
-                            v-bind:key="ward.id"
-                            :value="ward.id"
-                          >
-                            {{ ward.ward_name }}
-                          </option>
-                        </select>
-                      </div>
-
-                      <div
-                        class="form-group col-md-12"
-                        v-if="register.localgovt != ''"
-                      >
-                        <label for="inputAddress">TPA/HMO</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          :value="getTPA.tpa_name"
-                          disabled
-                        />
-                      </div>
-
-                      <div class="form-group col-md-6">
-                        <label
-                          >Principal Facility for Accessing Health Care
-                        </label>
+                        <label>Facility for Accessing Healthcare </label>
                         <v-select
                           v-model="register.provider_id"
                           required
                           :options="providers"
                           label="agency_name"
                           :value="register.provider_id"
-                          @input="selected"
                         ></v-select>
                       </div>
 
@@ -341,6 +304,7 @@
                       <div class="form-group col-md-12">
                         <label for="inputAddress">Home Address</label>
                         <input
+                          required
                           type="text"
                           class="form-control"
                           v-model="register.address"
@@ -379,8 +343,7 @@
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
-// import tpaLGAJson from "./../../public/offline/lga_tpa.json";
-import tpaLGAJson from "@/views/clients/lga_tpa.json";
+import plansJSON from "@/jsons/nigerian_plans.json";
 
 export default {
   components: {
@@ -402,13 +365,11 @@ export default {
       state: "",
       OfficerDetails: "",
       current_page: "",
-      selected_provider: "",
-      selected_provider_dependents: "",
       image: "",
       imagefile: null,
       lga_states: "",
       response: "",
-      tpa_Lga: tpaLGAJson,
+      plans: plansJSON,
       register: {
         firstname: "",
         lastname: "",
@@ -469,23 +430,17 @@ export default {
   },
 
   methods: {
-    selected(value) {
-      this.selected_provider = value.id;
-    },
-    selectedPointocare(value) {
-      this.selected_provider_dependents = value.agency_name;
-    },
     submitForm() {
       if (confirm("Are you sure you want to submit?")) {
         this.registerUserAdmin();
       }
     },
 
-    fetchWards() {
+    getStates() {
       this.axios
-        .get(`/api/v1/auth/getwards/${event.target.value}`)
+        .get(`/api/v1/auth/states`)
         .then((response) => {
-          this.wards = response.data.data;
+          this.states = response.data.data;
           console.log(response);
         })
         .catch((error) => {
@@ -493,33 +448,11 @@ export default {
         });
     },
 
-    fetchLga() {
+    fetchLga(state) {
       this.axios
-        .get(`/api/v1/auth/lga/2676`)
+        .get(`/api/v1/auth/lga/${state}`)
         .then((response) => {
           this.lga_states = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    getMDAs() {
-      this.axios
-        .get(`/api/v1/auth/ministry/439078`)
-        .then((response) => {
-          this.mdas = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    getTPAs() {
-      this.axios
-        .get(`/api/v1/auth/getorgenrollment/439078/A`)
-        .then((response) => {
-          this.tpas = response.data.data;
           console.log(response);
         })
         .catch((error) => {
@@ -538,19 +471,17 @@ export default {
           lastname: this.register.lastname.toUpperCase(),
           middlename: this.register.middlename.toUpperCase(),
           email: this.register.email,
-          plan_type: this.register.plan_type,
+          plan_type: "Individual",
           phone_number: this.register.phone_number,
           type: this.register.type,
           sectorType: this.sector,
           user_image: snap,
           agency_id: 439078,
-          provider_id: this.selected_provider
-            ? this.selected_provider
-            : this.register.provider_id,
-          state: "2676",
+          provider_id: this.register.provider_id.id,
+          state: this.register.state,
           role: 0,
           password: "jacobi",
-          org_id: parseInt(this.getTPA.tpa_id),
+          org_id: 0,
           localgovt: this.register.localgovt,
           ward: this.register.ward,
           blood: this.register.blood,
@@ -561,9 +492,7 @@ export default {
           gender: this.register.gender,
           sector: this.register.sector,
           place_of_work: this.register.place_of_work,
-          point_of_care: this.selected_provider
-            ? this.selected_provider
-            : this.register.provider_id,
+          point_of_care: this.register.provider_id.id,
           finger_print: this.register.finger_print,
           salary_number: this.register.salary_number,
           grade_level: this.register.grade_level,
@@ -620,26 +549,10 @@ export default {
           console.error(error);
         });
     },
-
-    getProvidersByWards() {
-      this.axios
-        .get(
-          `/api/v1/auth/providerAgencies/439078/${this.register.localgovt}/${this.register.ward}`
-        )
-        .then((response) => {
-          this.providers_wards = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
   },
   created() {
-    this.fetchLga();
-    // this.getMDAs()
     this.getProviders();
-    this.getTPAs();
+    this.getStates();
   },
 };
 </script>

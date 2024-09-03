@@ -167,11 +167,9 @@
                       {{ client.user.firstname }}, {{ client.user.middlename }}
                     </p>
                     <hr />
-                    <!-- <p class="h2 spacer-top-bottom"> <strong class="text-primary">ID NUMBER:</strong>  <strong>KAMPE/A-0{{singletpa.tpa_id}}/{{client.user.id_card_number}}</strong></p> -->
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">ID NUMBER:</strong>
                       <strong>{{ client.user.id_card_number }}</strong>
-                      <!-- <strong>KAMPE/A01/000</strong> -->
                     </p>
                     <hr />
                     <p class="h3 spacer-top-bottom">

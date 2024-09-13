@@ -230,14 +230,25 @@
                           placeholder="1234 Main St"
                         />
                       </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputCity"> Select Marketer</label>
+                        <select
+                          class="form-control"
+                          v-model="register.enrolled_by"
+                        >
+                          <option
+                            :value="emoployee.id"
+                            v-for="emoployee in employees.data"
+                            v-bind:key="emoployee.id"
+                          >
+                            {{ emoployee.full_name }}
+                          </option>
+                        </select>
+                      </div>
                     </div>
 
                     <div class="form-row my-3">
-                      <!-- <div class="col-md-6">
-                        <button class="btn btn-dark btn-block btn-lg">
-                          Add More <i class="fe fe-plus"></i>
-                        </button>
-                      </div> -->
                       <div class="col-md-12">
                         <button class="btn btn-info btn-block btn-lg">
                           Proceed to Pay <i class="fe fe-send"></i>
@@ -313,6 +324,7 @@ export default {
       lga_states: "",
       response: "",
       plans: plansJSON,
+      employees: "",
       registrations: [
         {
           firstname: "",
@@ -474,13 +486,15 @@ export default {
         });
     },
 
-    getProvidersByWards() {
+    getEmployees() {
       this.axios
-        .get(
-          `/api/v1/auth/providerAgencies/439078/${this.register.localgovt}/${this.register.ward}`
-        )
+        .get(`/api/v1/auth/getEmployee/439078`, {
+          params: {
+            job_title: "marketer",
+          },
+        })
         .then((response) => {
-          this.providers_wards = response.data.data;
+          this.employees = response.data;
           console.log(response);
         })
         .catch((error) => {
@@ -489,7 +503,7 @@ export default {
     },
   },
   created() {
-    // this.fetchLga();
+    this.getEmployees();
     this.getProviders();
   },
 };

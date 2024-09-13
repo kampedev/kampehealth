@@ -301,7 +301,7 @@
                         </select>
                       </div>
 
-                      <div class="form-group col-md-12">
+                      <div class="form-group col-md-6">
                         <label for="inputAddress">Home Address</label>
                         <input
                           required
@@ -310,6 +310,22 @@
                           v-model="register.address"
                           placeholder="1234 Main St"
                         />
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputCity"> Select Marketer</label>
+                        <select
+                          class="form-control"
+                          v-model="register.enrolled_by"
+                        >
+                          <option
+                            :value="emoployee.id"
+                            v-for="emoployee in employees.data"
+                            v-bind:key="emoployee.id"
+                          >
+                            {{ emoployee.full_name }}
+                          </option>
+                        </select>
                       </div>
                     </div>
 
@@ -370,6 +386,7 @@ export default {
       lga_states: "",
       response: "",
       plans: plansJSON,
+      employees: "",
       register: {
         firstname: "",
         lastname: "",
@@ -500,7 +517,7 @@ export default {
           marital_status: this.register.marital_status,
           category_of_vulnerable_group:
             this.register.category_of_vulnerable_group,
-          // enrolled_by: this.user.id,
+          enrolled_by: this.register.enrolled_by,
         })
         .then((response) => {
           console.log(response);
@@ -549,10 +566,26 @@ export default {
           console.error(error);
         });
     },
+    getEmployees() {
+      this.axios
+        .get(`/api/v1/auth/getEmployee/439078`, {
+          params: {
+            job_title: "marketer",
+          },
+        })
+        .then((response) => {
+          this.employees = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
   created() {
     this.getProviders();
     this.getStates();
+    this.getEmployees();
   },
 };
 </script>

@@ -119,7 +119,7 @@
             </a>
             <!--submenu-->
             <ul class="sub-menu">
-              <li class="menu-item">
+              <!-- <li class="menu-item">
                 <router-link to="/add-client-agency" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Add Client </span>
@@ -128,7 +128,7 @@
                     <i class="icon-placeholder fe fe-edit"></i>
                   </span>
                 </router-link>
-              </li>
+              </li> -->
 
               <li class="menu-item">
                 <router-link to="/view-clients-agency" class="menu-link">
@@ -208,7 +208,7 @@
             </a>
             <!--submenu-->
             <ul class="sub-menu">
-              <li class="menu-item">
+              <!-- <li class="menu-item">
                 <a href="/add-client-agency" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Add Enrollee </span>
@@ -219,12 +219,12 @@
                     ></i>
                   </span>
                 </a>
-              </li>
+              </li> -->
 
               <li class="menu-item">
                 <a href="/voluntary-registration-form" class="menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Voluntary Enrollment</span>
+                    <span class="menu-name">Self Registration (Local)</span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-user-plus"></i>
@@ -235,7 +235,7 @@
               <li class="menu-item">
                 <a href="/diaspora-registration" class="menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Diaspora Enrollment</span>
+                    <span class="menu-name">Self Registration (Diaspora)</span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-user-plus"></i>

@@ -110,10 +110,6 @@
                     <div class="form-group col-md-6">
                       <label for="inputCity">Job Title/Depatment</label>
                       <select class="form-control" v-model="register.job_title">
-                        <option value="Administrative Officer">
-                          Administrative Staff
-                        </option>
-                        <!-- <option  value="ICT">ICT Department</option> -->
                         <option value="Claims Vetter">Claims Vetter</option>
                         <option value="Claims Verifier">Claims Verifier</option>
                         <option value="Enrollment Officer">
@@ -122,6 +118,7 @@
                         <option value="Quality Assurance">
                           Quality Assurance
                         </option>
+                        <option value="marketer">Marketer</option>
                       </select>
                     </div>
 

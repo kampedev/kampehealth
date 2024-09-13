@@ -257,7 +257,7 @@
                     <tr>
                       <th>Serial Number</th>
                       <th>Facility Name</th>
-                      <th>Type</th>
+                      <th>Facility Code</th>
                       <!-- <th>LGA</th> -->
                       <th>E mail</th>
                       <th>Contact</th>
@@ -276,7 +276,7 @@
                           {{ provider.agency_name }}
                         </router-link>
                       </td>
-                      <td>{{ provider.phc_general }}</td>
+                      <td>{{ provider.facility_code }}</td>
                       <!-- <td>{{provider.local_name}}</td> -->
                       <td>{{ provider.email }}</td>
                       <td>{{ provider.phone_number }}</td>

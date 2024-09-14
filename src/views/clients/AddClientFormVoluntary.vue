@@ -262,9 +262,7 @@
                         >
                         <select
                           class="form-control"
-                          required
                           v-model="register.localgovt"
-                          @change="fetchWards($event)"
                         >
                           <option
                             v-for="lga in lga_states"
@@ -528,7 +526,7 @@ export default {
           );
           let user_id = response.data.data.id;
 
-          this.$router.push(`/subscribe/${user_id}`);
+          this.$router.push(`/subscribe-${user_id}`);
         })
         .catch((error) => {
           console.log(error.response);

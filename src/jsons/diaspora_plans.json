@@ -1,18 +1,43 @@
 [
 
     {
-        "name": "Diasporan Health Plan (Diamond)",
-        "price": 625,
+        "name": "Kampe Basic Diaspora",
+        "price": 32,
         "description": ""
     },
     {
-        "name": "Diasporan Health Plan (Gold)",
+        "name": "Kampe Plus Diaspora",
+        "price": 44,
+        "description": ""
+    },
+    {
+        "name": "Kampe Superior Diaspora",
+        "price": 62,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Diaspora",
+        "price": 225,
+        "description": ""
+    },
+    {
+        "name": "Kampe Ruby",
+        "price": 325,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gold",
         "price": 425,
         "description": ""
     },
     {
-        "name": "Diasporan Health Plan (Ruby)",
-        "price": 325,
+        "name": "Kampe Diamond",
+        "price": 625,
+        "description": ""
+    },
+    {
+        "name": "Kampe Travel Plan",
+        "price": 225,
         "description": ""
     }
 ]

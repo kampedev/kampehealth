@@ -465,7 +465,7 @@ export default {
           );
           let user_id = response.data.data.id;
 
-          this.$router.push(`/subscribe-diaspora/${user_id}`);
+          this.$router.push(`/subscribediaspora-${user_id}`);
         })
         .catch((error) => {
           console.log(error.response);

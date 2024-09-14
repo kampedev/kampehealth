@@ -232,15 +232,15 @@ const routes = [
     },
   },
   {
-    path: "/subscribe/:id",
+    path: "/subscribe-:id",
     component: Subscribe,
   },
   {
-    path: "/subscribe-diaspora/:id",
+    path: "/subscribediaspora-:id",
     component: SubscribeDiaspora,
   },
   {
-    path: "/subscribe-success/:id",
+    path: "/subscribe-success-:id",
     component: SubscribeSuccess,
   },
   {

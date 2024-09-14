@@ -497,7 +497,7 @@ export default {
           );
           this.isLoading = false;
           // window.location = "https://www.Kampe.ng";
-          this.$router.push(`/subscribe-success/${this.$route.params.id}`);
+          this.$router.push(`/subscribe-success-${this.$route.params.id}`);
         })
         .catch((error) => {
           console.log(error.response);

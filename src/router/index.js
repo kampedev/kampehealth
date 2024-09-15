@@ -240,7 +240,7 @@ const routes = [
     component: SubscribeDiaspora,
   },
   {
-    path: "/subscribe-success-:id",
+    path: "/subscribesuccess-:id",
     component: SubscribeSuccess,
   },
   {

@@ -415,7 +415,7 @@ export default {
           merchant_id: "WallX-00000220", // Your business's merchant ID
           pin: this.wallx.pin,
           secret: this.wallx.secret,
-          amount: 1000,
+          amount: this.singleplan.price,
           currency: "NGN", // Options: NGN, USD, CAD
         })
         .then((response) => {
@@ -424,6 +424,8 @@ export default {
             duration: 3000,
           });
           console.log(response);
+          this.sendSMS();
+          this.makeSubscribe();
         })
         .catch((error) => {
           console.error(error);
@@ -483,9 +485,9 @@ export default {
       this.axios
         .post("/api/v1/make/transaction", {
           agency_id: 439078,
-          amount: this.plans[0].price,
-          description: "KAMPE Plan Payment",
-          type: "plan_payment",
+          amount: this.singleplan.price,
+          description: this.singleplan.name,
+          type: "subscription",
           transaction_ref: this.reference,
           user_id: this.$route.params.id,
         })
@@ -497,7 +499,7 @@ export default {
           );
           this.isLoading = false;
           // window.location = "https://www.Kampe.ng";
-          this.$router.push(`/subscribe-success-${this.$route.params.id}`);
+          this.$router.push(`/subscribesuccess-${this.$route.params.id}`);
         })
         .catch((error) => {
           console.log(error.response);

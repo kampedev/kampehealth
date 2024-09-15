@@ -10,7 +10,7 @@
               </div>
             </div>
             <p class="h4">
-              <strong>KAMPE Registration Form </strong>
+              <strong>Kampe Enrollment (Nigeria) </strong>
             </p>
           </div>
         </div>

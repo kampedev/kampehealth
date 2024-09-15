@@ -5,7 +5,7 @@
         <div class="row p-b-30 p-t-30">
           <div class="text-center mx-auto text-white p-b-30">
             <p class="h4">
-              <strong>Diaspora Registration Form </strong>
+              <strong> Kampe Enrollment (Diaspora) </strong>
             </p>
           </div>
         </div>

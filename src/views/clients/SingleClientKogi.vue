@@ -81,7 +81,7 @@
 
                     <router-link
                       :to="{
-                        path: '/subscribe/' + $route.params.id,
+                        path: '/subscribe-' + $route.params.id,
                         params: {},
                       }"
                       v-if="user.type != 'provider_employee'"
@@ -113,8 +113,6 @@
                       <!-- Button trigger modal -->
                     </span>
                     <!-- </router-link> -->
-
-                   
                   </div>
                 </div>
               </div>
@@ -190,7 +188,7 @@
                         client.provider.agency_name
                       }}</strong>
                     </p>
-                   
+
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">SECTOR:</strong>
@@ -575,7 +573,6 @@ export default {
       this.uploadSign();
     },
 
-   
     async takePicAndroid() {
       const image = await Camera.getPhoto({
         quality: 90,

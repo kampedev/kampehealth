@@ -27,69 +27,30 @@
       <div class="card m-b-30 container">
         <div class="card-body">
           <div class="row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label for="inputCity"
-                ><i class="fe fe-credit-card"></i> Select Sector</label
+                ><i class="fe fe-credit-card"></i> Select Plan</label
               >
               <select class="form-control" v-model="sector">
-                <option value="Basic Healthcare Provision Fund">
-                  Basic Healthcare Provision Fund
-                </option>
-
-                <option value="State Equity Program">
-                  State Equity Program
-                </option>
-                <option value="Vulnerable Groups">Vulnerable Groups</option>
-                <option value="Voluntary Contributor">
-                  Voluntary Contributor
-                </option>
-                <option value="Civil Servant">Civil Servant</option>
-                <option value="State Pensioners Plan">
-                  State Pensioners Plan
-                </option>
-
-                <option value="Diaspora Contributor">
-                  Diaspora Contributor
-                </option>
-                <!-- <option value="Tertiary Student Health Insurance Plan (T-SHIP)">
-                  Tertiary Student Health Insurance Plan (T-SHIP)
-                </option> -->
+                <option value=""></option>
               </select>
             </div>
 
-            <div class="form-group col-md-4">
-              <label for="inputCity"
-                ><i class="fe fe-map-pin"></i> Select LGA</label
-              >
-              <select
-                class="form-control"
-                v-model="localgovt"
-                @change="fetchWards($event)"
-              >
+            <div class="form-group col-md-6">
+              <label for="inputCity">State </label>
+
+              <select class="form-control" v-model="state">
                 <option
-                  v-for="lga in lga_states"
-                  v-bind:key="lga"
-                  :value="lga.id"
+                  v-for="state in states"
+                  v-bind:key="state"
+                  :value="state.id"
                 >
-                  {{ lga.local_name }}
+                  {{ state.name }}
                 </option>
               </select>
             </div>
 
-            <div class="form-group col-md-4">
-              <label><i class="fe fe-navigation"></i> Ward</label>
-              <select class="form-control" v-model="ward">
-                <option
-                  v-for="ward in wards"
-                  v-bind:key="ward.id"
-                  :value="ward.id"
-                >
-                  {{ ward.ward_name }}
-                </option>
-              </select>
-            </div>
-
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <label><i class="fe fe-activity"></i> Select Facility </label>
               <select class="form-control" required v-model="provider_id">
                 <option
@@ -101,25 +62,8 @@
                 </option>
               </select>
             </div>
-           
-            <div class="form-group col-md-3">
-              <label>Special Needs</label>
-              <select
-                class="form-control"
-                v-model="category_of_vulnerable_group"
-              >
-                <option value="All">All</option>
-                <option value="Pregnant Women">Pregnant Women</option>
-                <option value="Children under 5">Children under 5</option>
-                <option value="Aged">Aged</option>
-                <option value="People with Special Needs">
-                  People with Special Needs
-                </option>
-                <option value="Poorest of the Poor">Poorest of the Poor</option>
-              </select>
-            </div>
 
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <label for="inputCity"
                 ><i class="fe fe-user-plus"></i> Select Employee</label
               >
@@ -359,8 +303,8 @@ export default {
       clients: "",
       providers: "",
       wards: "",
+      states: "",
       state: "",
-      lga_states: "",
       employees: "",
       provider_id: "",
       sector: "",
@@ -394,18 +338,7 @@ export default {
       this.place_of_work = "";
       this.enrolled_by = "";
     },
-    getLGA() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.axios
-        .get(`/api/v1/auth/lga/2676`)
-        .then((response) => {
-          this.lga_states = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+
     pushDate() {
       this.date = "date";
     },
@@ -420,23 +353,11 @@ export default {
           console.error(error);
         });
     },
-    fetchWards() {
+    getStates() {
       this.axios
-        .get(`/api/v1/auth/getwards/${this.localgovt}`)
+        .get(`/api/v1/auth/states`)
         .then((response) => {
-          this.wards = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    getDependents(client) {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.axios
-        .get(`/api/v1/auth/allDependantUser/${client.id}`)
-        .then((response) => {
-          this.dependents = response.data.data;
+          this.states = response.data.data;
           console.log(response);
         })
         .catch((error) => {
@@ -490,11 +411,9 @@ export default {
           console.error(error);
         });
     },
-
-   
   },
   created() {
-    this.getLGA();
+    this.getStates();
     this.getProviders();
     this.getEmployees();
   },

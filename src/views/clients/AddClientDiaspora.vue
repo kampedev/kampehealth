@@ -473,6 +473,10 @@ export default {
           console.log(error.response);
           this.isLoading = false;
           this.response = error.response.data.errors;
+          this.$toasted.error(`${JSON.stringify(this.response)}`, {
+            position: "top-center",
+            duration: 3000,
+          });
         });
     },
 

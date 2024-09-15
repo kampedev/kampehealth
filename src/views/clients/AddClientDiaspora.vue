@@ -89,7 +89,9 @@
 
                       <div class="form-group col-md-4">
                         <p>
-                          <label for="inputPassword4">Date of Birth <span class="text-danger">*</span> </label>
+                          <label for="inputPassword4"
+                            >Date of Birth <span class="text-danger">*</span>
+                          </label>
                         </p>
 
                         <input
@@ -221,8 +223,6 @@
                       <div class="form-group col-md-6">
                         <label for="inputAddress"
                           >Home Address <span class="text-danger">*</span>
-
-                          <span class="text-danger">*</span>
                         </label>
                         <input
                           required
@@ -351,6 +351,7 @@ export default {
           provider_id: "",
           org_id: "1",
           marital_status: "",
+          enrolled_by: 0,
         },
       ],
     };
@@ -394,7 +395,7 @@ export default {
         lastname: "",
         middlename: "",
         email: "",
-        sector: "Voluntary Contributor",
+        sector: "",
         sectorType: "informal",
         plan_type: "Individual",
         phone_number: "",

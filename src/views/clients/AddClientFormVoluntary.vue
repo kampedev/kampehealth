@@ -168,7 +168,9 @@
                                                          <div class="form-row"> -->
                       <div class="form-group col-md-6">
                         <p>
-                          <label for="inputPassword4">Date of Birth: </label>
+                          <label for="inputPassword4"
+                            >Date of Birth <span class="text-danger">*</span>
+                          </label>
                         </p>
 
                         <input
@@ -199,7 +201,9 @@
                           <span class="text-danger">*</span></label
                         >
                         <input
-                          type="tel"
+                          type="text"
+                          pattern="\d*"
+                          maxlength="11"
                           class="form-control"
                           required
                           v-model="register.phone_number"
@@ -300,7 +304,10 @@
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="inputAddress">Home Address</label>
+                        <label for="inputAddress"
+                          >Home Address
+                          <span class="text-danger">*</span></label
+                        >
                         <input
                           required
                           type="text"
@@ -414,7 +421,7 @@ export default {
         grade_level: "",
         date_of_entry: "",
         marital_status: "",
-        category_of_vulnerable_group: "",
+        enrolled_by: 0,
       },
     };
   },
@@ -515,7 +522,8 @@ export default {
           marital_status: this.register.marital_status,
           category_of_vulnerable_group:
             this.register.category_of_vulnerable_group,
-          enrolled_by: this.register.enrolled_by,
+          enrolled_by:
+            this.register.enrolled_by == null ? 0 : this.register.enrolled_by,
         })
         .then((response) => {
           console.log(response);
@@ -532,24 +540,10 @@ export default {
           console.log(error.response);
           this.isLoading = false;
           this.response = error.response.data.errors;
-          if (this.response.firstname != null) {
-            this.$toasted.error(`${this.response.firstname}`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
-          if (this.response.lastname != null) {
-            this.$toasted.error(`${this.response.lastname}`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
-          if (this.response.phone_number != null) {
-            this.$toasted.error(`${this.response.phone_number}`, {
-              position: "top-center",
-              duration: 3000,
-            });
-          }
+          this.$toasted.error(`${JSON.stringify(this.response)}`, {
+            position: "top-center",
+            duration: 3000,
+          });
         });
     },
 

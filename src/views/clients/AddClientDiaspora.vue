@@ -89,7 +89,7 @@
 
                       <div class="form-group col-md-4">
                         <p>
-                          <label for="inputPassword4">Date of Birth: </label>
+                          <label for="inputPassword4">Date of Birth <span class="text-danger">*</span> </label>
                         </p>
 
                         <input
@@ -131,7 +131,9 @@
                           <span class="text-danger">*</span></label
                         >
                         <input
-                          type="tel"
+                          type="text"
+                          pattern="\d*"
+                          maxlength="15"
                           class="form-control"
                           required
                           v-model="register.phone_number"
@@ -218,7 +220,7 @@
 
                       <div class="form-group col-md-6">
                         <label for="inputAddress"
-                          >Home Address
+                          >Home Address <span class="text-danger">*</span>
 
                           <span class="text-danger">*</span>
                         </label>
@@ -471,6 +473,10 @@ export default {
           console.log(error.response);
           this.isLoading = false;
           this.response = error.response.data.errors;
+          this.$toasted.error(`${JSON.stringify(this.response)}`, {
+            position: "top-center",
+            duration: 3000,
+          });
         });
     },
 

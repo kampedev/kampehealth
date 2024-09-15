@@ -33,60 +33,11 @@
                   <div class="form-row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="inputCity">Select Sector Type</label>
+                        <label for="inputCity">Select Plan</label>
                         <select class="form-control" v-model="auth_user.sector">
-                          <option value="Basic Healthcare Provision Fund">
-                            Basic Healthcare Provision Fund
-                          </option>
-                          <option value="State Equity Program">
-                            State Equity Program
-                          </option>
-                          <option value="Vulnerable Groups">
-                            Vulnerable Groups
-                          </option>
-                          <option value="Voluntary Contributor">
-                            Voluntary Contributor
-                          </option>
-
-                          <option value="Civil Servant">Civil Servant</option>
-                          <option value="State Pensioners Plan">
-                            State Pensioners Plan
-                          </option>
-
-                          <!-- <option
-                            value="Tertiary Student Health Insurance Plan (T-SHIP)"
-                          >
-                            Tertiary Student Health Insurance Plan (T-SHIP)
-                          </option> -->
+                          <option value=""></option>
                         </select>
                       </div>
-                    </div>
-
-                    <div
-                      class="form-group col-md-6"
-                      v-if="auth_user.sectorType == 'informal'"
-                    >
-                      <label>Special Needs</label>
-                      <select
-                        class="form-control"
-                        v-model="auth_user.category_of_vulnerable_group"
-                      >
-                        <option value="Pregnant Women">Pregnant Women</option>
-                        <option value="Children under 5">
-                          Children under 5
-                        </option>
-                        <option value="Aged">Aged</option>
-                        <option value="IDP">IDP</option>
-                        <option value="Physically Challenged">
-                          Physically Challenged
-                        </option>
-                        <option value="People with Special Needs">
-                          People with Special Needs
-                        </option>
-                        <option value="Poorest of the Poor">
-                          Poorest of the Poor
-                        </option>
-                      </select>
                     </div>
 
                     <div
@@ -189,7 +140,6 @@
                         class="form-control"
                         v-model="auth_user.marital_status"
                       >
-                        <!-- <option  :value="auth_user.marital_status">{{auth_user.marital_status}}</option> -->
                         <option value="Married">Married</option>
                         <option value="Widow">Widow</option>
                         <option value="Single">Single</option>
@@ -214,12 +164,7 @@
                         </option>
                       </select>
                     </div>
-                    <!-- <div class="form-group col-md-12">
-                                        <label for="inputCity">Dependents Facility for Accessing Care</label>
-                                          <select class="form-control"  v-model="auth_user.point_of_care">
-                                            <option v-for="facility in providers" v-bind:key="facility.agency_name" :value="facility.agency_name">{{facility.agency_name}}</option>
-                                         </select>
-                                      </div> -->
+
                     <div class="form-group col-md-6">
                       <label for="inputCity">Blood Group</label>
                       <select class="form-control" v-model="auth_user.blood">
@@ -256,11 +201,9 @@
                         </option>
                       </select>
                     </div>
-
-                  
                   </div>
 
-                  <div class="form-group" >
+                  <div class="form-group">
                     <label for="inputAddress">Home Address</label>
                     <input
                       type="text"
@@ -314,7 +257,6 @@ export default {
       image: "",
       sector: "",
       wards: "",
-      mdas: "",
       tpas: "",
       lga_states: "",
       isLoading: false,
@@ -373,17 +315,7 @@ export default {
           console.error(error);
         });
     },
-    getMDAs() {
-      this.axios
-        .get(`/api/v1/auth/ministry/439078`)
-        .then((response) => {
-          this.mdas = response.data.data;
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+
     getUser() {
       this.axios
         .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
@@ -477,7 +409,6 @@ export default {
   created() {
     this.fetchLga();
     this.getProviders();
-    this.getMDAs();
     this.getTPAs();
   },
 };

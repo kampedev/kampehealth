@@ -101,20 +101,7 @@
                 </option>
               </select>
             </div>
-            <div class="form-group col-md-3">
-              <label for="inputCity"
-                ><i class="fe fe-briefcase"></i> Select MDA
-              </label>
-              <select class="form-control" v-model="place_of_work">
-                <option
-                  :value="mda.name"
-                  v-for="mda in mdas"
-                  v-bind:key="mda.id"
-                >
-                  {{ mda.name }}
-                </option>
-              </select>
-            </div>
+           
             <div class="form-group col-md-3">
               <label>Special Needs</label>
               <select
@@ -371,7 +358,6 @@ export default {
       fullPage: true,
       clients: "",
       providers: "",
-      mdas: "",
       wards: "",
       state: "",
       lga_states: "",
@@ -505,22 +491,11 @@ export default {
         });
     },
 
-    getMDAs() {
-      this.axios
-        .get(`/api/v1/auth/ministry/439078`)
-        .then((response) => {
-          this.mdas = response.data.data;
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+   
   },
   created() {
     this.getLGA();
     this.getProviders();
-    this.getMDAs();
     this.getEmployees();
   },
 };

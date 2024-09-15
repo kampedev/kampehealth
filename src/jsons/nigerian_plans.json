@@ -1,23 +1,23 @@
 [
 
     {
-        "name": "Kampe Healthcare Basic Plan",
-        "price": 21600,
+        "name": "Kampe Basic",
+        "price": 26600,
         "description": ""
     },
     {
-        "name": "Kampe Healthcare Plus Plan",
-        "price": 31200,
+        "name": "Kampe Plus",
+        "price": 36500,
         "description": ""
     },
     {
-        "name": "Kampe Senior Citizens Standard Plan",
-        "price": 75000,
+        "name": "Kampe Senior Basic",
+        "price": 175000,
         "description": ""
     },
     {
-        "name": "Kampe Senior Citizens Plus Plan",
-        "price": 150000,
+        "name": "Kampe Senior Plus",
+        "price": 337000,
         "description": ""
     }
 ]

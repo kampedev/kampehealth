@@ -20,14 +20,14 @@
               <div class="card m-b-30">
                 <div class="card-body text-black">
                   <div>
-                    <p class="h5">
+                    <p class="h6">
                       Congratulations on your Successful Registration. Your ID
                       Card will be available in 3 Weeks
                     </p>
-                    <p class="h5">
+                    <p class="h6">
                       You can walk up to our office and collect your ID Card.
                     </p>
-                    <p class="h5">
+                    <p class="h6">
                       For further inquries call
                       <a href="mailto:info.Kampe.ng" class="text-link"
                         >info.Kampe.ng</a
@@ -38,7 +38,7 @@
                       <button class="btn btn-dark" @click="printMe">
                         Print Registration Slip
                       </button>
-                      <a href="https://www.Kampe.ng" class="btn btn-default"
+                      <a href="https://www.kampehealth.ng" class="btn btn-default"
                         >Go to our Website</a
                       >
                     </h1>

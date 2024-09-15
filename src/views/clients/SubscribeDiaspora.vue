@@ -391,14 +391,16 @@ export default {
           merchant_id: "WallX-00000220", // Your business's merchant ID
           pin: this.wallx.pin,
           secret: this.wallx.secret,
-          amount: 1000,
-          currency: "NGN", // Options: NGN, USD, CAD
+          amount: this.singleplan.price,
+          currency: "USD", // Options: NGN, USD, CAD
         })
         .then((response) => {
           this.$toasted.info("Payment completed Successfully", {
             position: "top-center",
             duration: 3000,
           });
+          this.sendSMS();
+          this.makeSubscribe();
           console.log(response);
         })
         .catch((error) => {
@@ -459,9 +461,9 @@ export default {
       this.axios
         .post("/api/v1/make/transaction", {
           agency_id: 439078,
-          amount: this.plans[0].price,
-          description: "KAMPE Plan Payment",
-          type: "plan_payment",
+          amount: this.singleplan.price,
+          description: this.singleplan.name,
+          type: "subscription",
           transaction_ref: this.reference,
           user_id: this.$route.params.id,
         })

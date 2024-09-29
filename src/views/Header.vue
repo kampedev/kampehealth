@@ -18,7 +18,7 @@
             </li> -->
 
           <li class="nav-item">
-            <SearchUser />
+            <SearchUser v-if="auth_user.type != 'client'" />
           </li>
         </ul>
       </nav>
@@ -26,7 +26,6 @@
         <ul class="nav align-items-center">
           <NotificationsHeader />
 
-       
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -245,7 +244,7 @@ export default {
     };
   },
   beforeMount() {
-    this.  auth_user = JSON.parse(localStorage.getItem("user"));
+    this.auth_user = JSON.parse(localStorage.getItem("user"));
 
     // this.axios
     //   .get(`/api/v1/auth/user`)
@@ -263,7 +262,6 @@ export default {
       localStorage.removeItem("user");
       this.$router.push("/");
     },
-   
   },
   created() {},
 };

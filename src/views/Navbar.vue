@@ -22,7 +22,8 @@
       </div>
       <div class="admin-sidebar-wrapper js-scrollbar">
         <ul class="menu">
-          <li class="menu-item active" v-if="user.type == 'client'">
+          <!-- Client or Patient Sidebar -->
+          <li class="menu-item " v-if="user.type == 'client'">
             <router-link to="/client-dashboard" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Dashboard </span>
@@ -32,6 +33,79 @@
               </span>
             </router-link>
           </li>
+
+          <li class="menu-item" v-if="user.type == 'client'">
+            <router-link to="/add-complaint" class="menu-link">
+              <span class="menu-label">
+                <span class="menu-name">New Ticket </span>
+              </span>
+              <span class="menu-icon">
+                <i class="icon-placeholder fe fe-message-square"></i>
+              </span>
+            </router-link>
+          </li>
+
+          <li class="menu-item " v-if="user.type == 'client'">
+            <router-link :to="`/subscribe-${user.id}`" class="menu-link">
+              <span class="menu-label">
+                <span class="menu-name">Subscribe Nigeria </span>
+              </span>
+              <span class="menu-icon">
+                <i class="icon-placeholder fe fe-credit-card"></i>
+              </span>
+            </router-link>
+          </li>
+
+          <li class="menu-item" v-if="user.type == 'client'">
+            <router-link :to="`/subscribediaspora-${user.id}`" class="menu-link">
+              <span class="menu-label">
+                <span class="menu-name">Subscribe Diaspora </span>
+              </span>
+              <span class="menu-icon">
+                <i class="icon-placeholder fe fe-dollar-sign"></i>
+              </span>
+            </router-link>
+          </li>
+
+          <li class="menu-item" v-show="false">
+            <a href="#" class="open-dropdown menu-link">
+              <span class="menu-label">
+                <span class="menu-name"
+                  >Dependents
+                  <span class="menu-arrow"></span>
+                </span>
+              </span>
+              <span class="menu-icon">
+                <i class="icon-placeholder fe fe-users"></i>
+              </span>
+            </a>
+            <!--submenu-->
+            <ul class="sub-menu">
+              <li class="menu-item">
+                <router-link to="/add-dependents" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">Add Dependents </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder fe fe-edit"></i>
+                  </span>
+                </router-link>
+              </li>
+
+              <li class="menu-item">
+                <router-link to="/my-dependents" class="menu-link">
+                  <span class="menu-label">
+                    <span class="menu-name">View Dependents </span>
+                  </span>
+                  <span class="menu-icon">
+                    <i class="icon-placeholder mdi mdi-view-day"></i>
+                  </span>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+
+          <!--End of Client or Patient Sidebar -->
 
           <li class="menu-item active" v-if="user.type == 'tpa'">
             <router-link to="/tpa-dashboard" class="menu-link">
@@ -279,43 +353,6 @@
                     ></i>
                   </span>
                 </a>
-              </li>
-            </ul>
-          </li>
-          <li class="menu-item" v-if="user.type == 'client'">
-            <a href="#" class="open-dropdown menu-link">
-              <span class="menu-label">
-                <span class="menu-name"
-                  >Dependents
-                  <span class="menu-arrow"></span>
-                </span>
-              </span>
-              <span class="menu-icon">
-                <i class="icon-placeholder fe fe-users"></i>
-              </span>
-            </a>
-            <!--submenu-->
-            <ul class="sub-menu">
-              <li class="menu-item">
-                <router-link to="/add-dependents" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">Add Dependents </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder fe fe-edit"></i>
-                  </span>
-                </router-link>
-              </li>
-
-              <li class="menu-item">
-                <router-link to="/my-dependents" class="menu-link">
-                  <span class="menu-label">
-                    <span class="menu-name">View Dependents </span>
-                  </span>
-                  <span class="menu-icon">
-                    <i class="icon-placeholder mdi mdi-view-day"></i>
-                  </span>
-                </router-link>
               </li>
             </ul>
           </li>

@@ -9,10 +9,10 @@
         <div class="container">
           <div class="row">
             <div class="col-12 m-b-20">
-              <h5 class="spacer-top">Hello, {{ auth_user.firstname }}</h5>
+              <h5 class="spacer-top">Hello, {{ auth_user.user.full_name }}</h5>
             </div>
 
-            <div class="row col-md-12" v-if="myplan.length < 1">
+            <div class="row col-md-12" v-if="transactions.length < 1">
               <div class="col-md-6">
                 <div
                   class="alert alert-border-warning alert-dismissible fade show"
@@ -45,21 +45,20 @@
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
-                    <router-link :to="{ path: '/my-funds' }">
+                    <router-link :to="{ path: '#' }">
                       <div class="avatar avatar-lg">
                         <div
                           class="avatar-title bg-soft-primary rounded-circle"
                         >
-                          <i class="fe fe-database"></i>
+                          <i class="fe fe-activity"></i>
                         </div>
                       </div>
                     </router-link>
                   </div>
                   <div>
-                    <p class="text-muted text-overline m-0">Wallet</p>
+                    <p class="text-muted text-overline m-0">My Provider</p>
                     <h1 class="fw-400">
-                      <i class="mdi mdi-currency-ngn"></i
-                      >{{ wallet.amount | numeral("0,0.00") }}
+                      {{ auth_user.provider.agency_name }}
                     </h1>
                   </div>
                 </div>
@@ -70,29 +69,7 @@
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="pb-2">
-                    <router-link :to="{ path: '/my-dependents' }">
-                      <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-primary rounded-circle"
-                        >
-                          <i class="fe fe-users"></i>
-                        </div>
-                      </div>
-                    </router-link>
-                  </div>
-                  <div>
-                    <p class="text-muted text-overline m-0">Dependents</p>
-                    <h1 class="fw-400">{{ dependents.length }}</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-              <div class="card m-b-30">
-                <div class="card-body">
-                  <div class="pb-2">
-                    <router-link :to="{ path: '/subscribe' }">
+                    <router-link :to="{ path: '#' }">
                       <div class="avatar avatar-lg">
                         <div
                           class="avatar-title bg-soft-primary rounded-circle"
@@ -104,14 +81,34 @@
                   </div>
                   <div>
                     <p class="text-muted text-overline m-0">Plan</p>
-                    <h1
-                      class="fw-400"
-                      v-for="plan in myplan"
-                      v-bind:key="plan.id"
-                    >
-                      {{ plan.title }}
+                    <h1 class="fw-400">
+                      {{ auth_user.user.sector }}
                     </h1>
-                    <p v-if="myplan.length < 1">No active Subscription</p>
+                    <p v-if="transactions.length < 1">No active Subscription</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="card m-b-30">
+                <div class="card-body">
+                  <div class="pb-2">
+                    <router-link :to="{ path: '/add-complaint' }">
+                      <div class="avatar avatar-lg">
+                        <div
+                          class="avatar-title bg-soft-primary rounded-circle"
+                        >
+                          <i class="fe fe-message-square"></i>
+                        </div>
+                      </div>
+                    </router-link>
+                  </div>
+                  <div>
+                    <p class="text-muted text-overline m-0">
+                      Complaints/Inquiries
+                    </p>
+                    <h1 class="fw-400">{{ 0 }}</h1>
                   </div>
                 </div>
               </div>
@@ -119,62 +116,86 @@
           </div>
 
           <div class="row">
-            <div class="col-md-12 m-b-30">
-              <h5><i class="fe fe-users"></i> Dependents</h5>
-              <div class="table-responsive">
-                <table class="table align-td-middle table-card">
-                  <thead>
-                    <tr>
-                      <!-- <th>Avatar</th> -->
-                      <th>Name</th>
-                      <th>E mail</th>
-                      <th>Phone Number</th>
-                      <th>Relationship</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="dependent in dependents"
-                      v-bind:key="dependent.id"
-                    >
-                      <!-- <td>
-                                    <div class="avatar avatar-sm "><img src="assets/img/users/user-1.jpg"
-                                                                        class="avatar-img avatar-sm rounded-circle"
-                                                                        alt=""></div>
-                                </td> -->
-                      <td>{{ dependent.full_name }}</td>
-                      <td>{{ dependent.email }}</td>
-                      <td>{{ dependent.phone_number }}</td>
-                      <td>{{ dependent.relationShipType }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5>
+                    <i class="fe fe-credit-card mr-3"></i>
+                    {{ transactions.length }} Transactions
+                  </h5>
+                </div>
+
+                <div class="card-body table-responsive">
+                  <table class="table align-td-middle">
+                    <thead>
+                      <tr>
+                        <th>S/N</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Date Created</th>
+                        <!-- <th>Action</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="(trx, index) in transactions"
+                        v-bind:key="trx.id"
+                      >
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ trx.type }}</td>
+                        <td>&#8358;{{ trx.amount | numeral(0, 0.0) }}</td>
+
+                        <td>{{ trx.description }}</td>
+                        <td>
+                          {{ trx.created_at | moment("dddd, MMMM Do YYYY") }}
+                        </td>
+                        <!-- <td>
+                          <button class="btn btn-danger" name="button">
+                            <i class="fe fe-delete"></i>
+                          </button>
+                        </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
+
             <div class="col-md-12 m-b-30">
-              <h5><i class="fe fe-alert-circle"></i> Complaints</h5>
-              <div class="table-responsive">
-                <table class="table align-td-middle table-card">
-                  <thead>
-                    <tr>
-                      <th>Complain Number</th>
-                      <th>Title</th>
-                      <th>Type</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="complaint in complaints"
-                      v-bind:key="complaint.id"
-                    >
-                      <td>122333932</td>
-                      <td>{{ complaint.title }}</td>
-                      <td>{{ complaint.type }}</td>
-                      <td>{{ complaint.status }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="card">
+                <div class="card-header">
+                  <h5><i class="fe fe-message-circle"></i> Ticket</h5>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table align-td-middle table-card">
+                    <thead>
+                      <tr>
+                        <th>Ticket ID</th>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="complaint in complaints"
+                        v-bind:key="complaint.id"
+                      >
+                        <td>#{{ complaint.id }}</td>
+                        <td>{{ complaint.title }}</td>
+                        <td>{{ complaint.type }}</td>
+                        <td>
+                          <span
+                            class="btn ml-2 mr-2 badge badge-soft-warning"
+                            >{{ complaint.status }}</span
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -193,19 +214,21 @@ export default {
   },
   data() {
     return {
+      user: null,
       auth_user: "",
-      dependents: "",
+      transactions: "",
       myplan: "",
       wallet: "",
       complaints: "",
-      user: null,
     };
   },
   beforeMount() {
+    this.user = JSON.parse(localStorage.getItem("user"));
     this.axios
-      .get(`/api/v1/auth/user`)
+      .get(`/api/v1/auth/user/zam/${this.user.id}`)
       .then((response) => {
-        this.auth_user = response.data.data;
+        this.auth_user = response.data;
+        this.transactions = response.data.transactions;
         console.log(response);
       })
       .catch((error) => {
@@ -213,22 +236,8 @@ export default {
       });
   },
   methods: {
-    getDependents() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-
-      this.axios
-        .get(`/api/v1/auth/allDependantUser/${this.user.id}`)
-        .then((response) => {
-          this.dependents = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
     getPlan() {
       this.user = JSON.parse(localStorage.getItem("user"));
-
       this.axios
         .get(`/api/v1/auth/userSubscribedPlan`)
         .then((response) => {
@@ -241,7 +250,6 @@ export default {
     },
     getComplaints() {
       this.user = JSON.parse(localStorage.getItem("user"));
-
       this.axios
         .get(`/api/v1/auth/complaints/${this.user.id}`)
         .then((response) => {
@@ -254,7 +262,6 @@ export default {
     },
     getWallet() {
       this.user = JSON.parse(localStorage.getItem("user"));
-
       this.axios
         .get(`/api/v1/auth/getUserWallet`)
         .then((response) => {
@@ -267,7 +274,6 @@ export default {
     },
   },
   created() {
-    this.getDependents();
     this.getComplaints();
     this.getPlan();
     this.getWallet();

@@ -260,7 +260,29 @@
                           rel="noopener noreferrer"
                           >Google Playstore</a
                         >
+                        or
+                        <a
+                          href="#"
+                          target="_blank"
+                          class="text-info font-bold"
+                          rel="noopener noreferrer"
+                          >Apple Store</a
+                        >
                         to Create your Pay Code.
+                      </p>
+
+                      <p class="mt-2">
+                        New to Wallx? Download our
+                        <a
+                          href="/wallx-pay-guide.pdf"
+                          target="_blank"
+
+                          download="download"
+                          class="text-info font-bold"
+                          rel="noopener noreferrer"
+                          >Guide</a
+                        >
+                        to get started
                       </p>
                     </div>
                   </form>

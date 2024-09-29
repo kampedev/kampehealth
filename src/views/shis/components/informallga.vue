@@ -9,35 +9,13 @@
         <div class="card-header">
           <div class="row">
             <button
+              v-for="plan in plans"
+              :key="plan"
               type="button"
-              class="btn btn-outline-primary"
-              @click="getChart('Kampe Healthcare Plus')"
+              class="btn btn-outline-primary m-2"
+              @click="getChart(plan)"
             >
-              Kampe Healthcare Plus
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-outline-success ml-4"
-              @click="getChart('Kampe Healthcare')"
-            >
-              Kampe Healthcare
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-outline-dark ml-4"
-              @click="getChart('Senior Citizens Plus Plan')"
-            >
-              Senior Citizens Plus Plan
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-outline-dark ml-4"
-              @click="getChart('Superior Plan')"
-            >
-              Superior Plan
+              {{ plan }}
             </button>
           </div>
         </div>
@@ -70,6 +48,7 @@ export default {
     return {
       isLoading: false,
       fullPage: true,
+      plans: "",
       title: "",
       points: [10, 0, 8, 2, 6, 4, 5, 5],
       chartType: "",
@@ -117,7 +96,7 @@ export default {
             },
             yAxis: {
               title: {
-                text: "NUMBERS OF VULNERABLE ENROLLED",
+                text: "NUMBER OF ENROLLEES",
               },
             },
             legend: {
@@ -146,6 +125,21 @@ export default {
           };
         });
     },
+
+    getPlans() {
+      this.axios
+        .get(`/api/v1/auth/plans-from-users/439078`)
+        .then((response) => {
+          this.plans = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
+  created() {
+    this.getPlans();
   },
 };
 </script>

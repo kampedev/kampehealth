@@ -7,7 +7,7 @@
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
               <div class="m-b-10"></div>
-              <p class="h4" >Add Ticket</p>
+              <p class="h4">Add Ticket</p>
             </div>
           </div>
         </div>
@@ -82,6 +82,62 @@
                   :is-full-page="fullPage"
                 ></loading>
               </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 mt-6">
+            <h5>Complaints</h5>
+            <div class="table-responsive">
+              <table class="table align-td-middle table-card">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="complaint in complaints" v-bind:key="complaint.id">
+                    <td>{{ complaint.title }}</td>
+                    <td>{{ complaint.type }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-secondary"
+                        v-if="complaint.status == 'pending'"
+                      >
+                        unanswered
+                      </button>
+                      <button
+                        type="button"
+                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-warning"
+                        v-if="complaint.status == 'open'"
+                      >
+                        open
+                      </button>
+                      <button
+                        type="button"
+                        class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
+                        v-if="complaint.status == 'closed'"
+                      >
+                        closed
+                      </button>
+                    </td>
+                    <td>
+                      <router-link :to="{ path: '#' }">
+                        <button
+                          type="button"
+                          class="btn btn-info"
+                          name="button"
+                        >
+                          <i class="fe fe-eye"></i>
+                        </button>
+                      </router-link>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

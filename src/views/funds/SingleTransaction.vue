@@ -190,9 +190,7 @@
                     </table>
                   </div>
                   <div class="p-t-10 p-b-20">
-                    <p class="font-weight-bold">
-                      Powered by Osun State Health Insurance Agency
-                    </p>
+                    <p class="font-weight-bold">Powered by Kampe Health</p>
                     <hr />
                     <div class="text-center opacity-75">&copy; 2024</div>
                   </div>

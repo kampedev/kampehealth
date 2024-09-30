@@ -43,7 +43,7 @@
 
                       <td>
                         <router-link
-                          :to="{ path: '/all-claims/' + provider.id }"
+                          :to="{ path: '/all-claimsprovider-' + provider.id }"
                         >
                           <button
                             type="button"

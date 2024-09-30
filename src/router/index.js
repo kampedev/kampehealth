@@ -586,7 +586,7 @@ const routes = [
     },
   },
   {
-    path: "/all-claims/:id",
+    path: "/all-claimsprovider-:id",
     component: ClaimsbyProvider,
     meta: {
       requiresAuth: true,

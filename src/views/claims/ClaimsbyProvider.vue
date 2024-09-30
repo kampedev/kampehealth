@@ -1,8 +1,8 @@
 <template>
   <section class="admin-content" id="contact-search">
     <Navbar />
-    <main class="admin-main" v-if="user.job_title == 'Executive Secretary'">
-      <div class="bg-success m-b-30">
+    <main class="admin-main" v-if="user.job_title == 'Director'">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30"></div>
@@ -191,15 +191,14 @@
                     </tr>
                     <tr>
                       <td colspan="6">
-                        <!-- <button
+                        <button
                           class="btn btn-outline-dark btn-block"
                           @click="createPaymentOrder()"
                         >
-                          Make Payment
-                          <i class="mdi mdi-credit-card"></i>
-                        </button> -->
+                          Approve for Payment
+                        </button>
 
-                        <button class="btn btn-dark btn-block btn-lg">
+                        <!-- <button class="btn btn-dark btn-block btn-lg">
                           <paystack
                             :amount="claims.total_sum * 100"
                             :email="email"
@@ -216,7 +215,7 @@
 
 
                           </paystack>
-                        </button>
+                        </button> -->
                       </td>
                     </tr>
                   </tbody>
@@ -246,12 +245,12 @@ import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
-import paystack from "vue-paystack";
+// import paystack from "vue-paystack";
 
 export default {
   components: {
     Navbar,
-    paystack,
+    // paystack,
     Loading,
   },
   data() {
@@ -277,7 +276,7 @@ export default {
       json_fields: {
         "Facility Name": "provider.agency_name",
         "Enrollee Full Name": "patient.full_name",
-        "Enrollee KAMPE Number": "patient.id_card_number",
+        "Enrollee OHIS Number": "patient.id_card_number",
         Diagnosis: "diagnosis.name",
         HMO: "tpa.organization_name",
       },
@@ -344,7 +343,7 @@ export default {
           provider_id: this.$route.params.id,
           type: "claims",
           status: "paid",
-          payment_method: "online",
+          payment_method: "offline",
           claims: this.cleaned_array,
         })
         .then((response) => {

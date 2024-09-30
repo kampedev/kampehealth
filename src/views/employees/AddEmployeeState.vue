@@ -108,13 +108,12 @@
 
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="inputCity">Job Title/Depatment</label>
+                      <label for="inputCity">Job Department</label>
                       <select class="form-control" v-model="register.job_title">
-                        <option value="Claims Vetter">Claims Vetter</option>
+                        <option value="Director">Director</option>
+                        <option value="Finance">Finance</option>
                         <option value="Claims Verifier">Claims Verifier</option>
-                        <option value="Enrollment Officer">
-                          Enrollment Officer
-                        </option>
+                        <option value="Claims Vetter">Claims Vetter</option>
                         <option value="Quality Assurance">
                           Quality Assurance
                         </option>

@@ -32,7 +32,9 @@
                 ><i class="fe fe-credit-card"></i> Select Plan</label
               >
               <select class="form-control" v-model="sector">
-                <option value=""></option>
+                <option :value="plan" v-for="plan in plans" :key="plan.id">
+                  {{ plan }}
+                </option>
               </select>
             </div>
 
@@ -63,7 +65,10 @@
               </select>
             </div>
 
-            <div class="form-group col-md-6">
+            <div
+              class="form-group col-md-6"
+              v-if="user.job_title != 'marketer'"
+            >
               <label for="inputCity"
                 ><i class="fe fe-user-plus"></i> Select Employee</label
               >
@@ -300,6 +305,7 @@ export default {
     return {
       isLoading: false,
       fullPage: true,
+      plans: "",
       clients: "",
       providers: "",
       wards: "",
@@ -411,11 +417,23 @@ export default {
           console.error(error);
         });
     },
+    getPlans() {
+      this.axios
+        .get(`/api/v1/auth/plans-from-users/439078`)
+        .then((response) => {
+          this.plans = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
   created() {
     this.getStates();
     this.getProviders();
     this.getEmployees();
+    this.getPlans();
   },
 };
 </script>

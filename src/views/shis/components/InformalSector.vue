@@ -42,7 +42,7 @@
                     </div>
                   </div>
                   <div>
-                    <p class="h4"> Kampe Healthcare Plus</p>
+                    <p class="h4">Kampe Basic</p>
                     <h1 class="fw-400">
                       {{ informaldata.bhcpf | numeral(0, 0) }}
                     </h1>
@@ -65,7 +65,7 @@
                     </div>
                   </div>
                   <div>
-                    <p class="h4"> Kampe Healthcare</p>
+                    <p class="h4">Kampe Plus</p>
                     <h1 class="fw-400">
                       {{ informaldata.sep | numeral(0, 0) }}
                     </h1>
@@ -88,7 +88,7 @@
                     </router-link>
                   </div>
                   <div>
-                    <p class="h4"> Senior Citizens Plus Plan</p>
+                    <p class="h4">Kampe Senior Basic</p>
                     <h1 class="fw-400">
                       {{ informaldata.voluntary | numeral(0, 0) }}
                     </h1>
@@ -112,7 +112,7 @@
                     </router-link>
                   </div>
                   <div>
-                    <p class="h4 text-white">Dependents</p>
+                    <p class="h4 text-white">Kampe Senior Plus</p>
                     <h1 class="fw-400 text-white">
                       {{ informaldata.dependants | numeral(0, 0) }}
                     </h1>
@@ -147,16 +147,140 @@
               <div class="card m-b-30 bg-success">
                 <div class="card-body text-dark">
                   <div class="pb-2">
-                    <!-- <router-link :to="{ path: '/my-tpas' }"> -->
-                      <div class="avatar avatar-lg">
-                        <div class="avatar-title bg-soft-dark rounded-circle">
-                          <i class="fe fe-briefcase"></i>
-                        </div>
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-dark rounded-circle">
+                        <i class="fe fe-briefcase"></i>
                       </div>
-                    <!-- </router-link> -->
+                    </div>
                   </div>
                   <div>
-                    <p class="h4">Superior Plan</p>
+                    <p class="h4">Kampe Basic Diaspora</p>
+                    <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-info">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-dark rounded-circle">
+                        <i class="fe fe-briefcase"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Kampe Plus Diaspora</p>
+                    <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-secondary">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-dark rounded-circle">
+                        <i class="fe fe-briefcase"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Kampe Superior Diaspora</p>
+                    <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-success">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-dark rounded-circle">
+                        <i class="fe fe-briefcase"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Kampe Senior Diaspora</p>
+                    <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-white">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-dark rounded-circle">
+                        <i class="fe fe-briefcase"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Kampe Ruby</p>
+                    <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-success">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-dark rounded-circle">
+                        <i class="fe fe-briefcase"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Kampe Gold</p>
+                    <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-primary">
+                <div class="card-body text-white">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-dark rounded-circle">
+                        <i class="fe fe-briefcase"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Kampe Diamond</p>
+                    <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+              <div class="card m-b-30 bg-info">
+                <div class="card-body text-dark">
+                  <div class="pb-2">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-dark rounded-circle">
+                        <i class="fe fe-briefcase"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="h4">Kampe Travel Plan</p>
                     <h1 class="fw-400">{{ informaldata.pensioners }}</h1>
                   </div>
                 </div>
@@ -221,9 +345,6 @@
               </div>
             </div>
           </div> -->
-
-         
-       
         </div>
       </section>
     </main>

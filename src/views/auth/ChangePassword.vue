@@ -35,7 +35,7 @@
                   </div>
                   <button
                     type="submit"
-                    class="btn btn-success btn-block btn-lg"
+                    class="btn btn-info btn-block btn-lg"
                     @click="changePassword"
                   >
                     Submit

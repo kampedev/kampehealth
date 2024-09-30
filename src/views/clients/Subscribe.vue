@@ -94,7 +94,7 @@
                     <span class="avatar avatar-lg">
                       <img
                         :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
-                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
+                        onerror="this.onerror=null; this.src='/assets/img/kampe_logo.png'"
                         class="avatar-img rounded-circle"
                       />
                     </span>
@@ -185,6 +185,7 @@
                         :phone="auth_user.phone_number"
                         :close="close"
                         :embed="false"
+                        class="col-md-12"
                         v-if="payment_type == 'online'"
                       >
                         Pay with Paystack
@@ -278,13 +279,35 @@
                       <p>
                         Go to
                         <a
-                          href="https://business.wallx.co/create-paycode/"
+                          href="https://play.google.com/store/apps/details?id=co.wallx.android&pcampaignid=web_share"
                           target="_blank"
                           class="text-info font-bold"
                           rel="noopener noreferrer"
-                          >Wallx Portal</a
+                          >Google Playstore</a
+                        >
+                        or
+                        <a
+                          href="#"
+                          target="_blank"
+                          class="text-info font-bold"
+                          rel="noopener noreferrer"
+                          >Apple Store</a
                         >
                         to Create your Pay Code.
+                      </p>
+
+                      <p class="mt-2">
+                        New to Wallx? Download our
+                        <a
+                          href="/wallx-pay-guide.pdf"
+                          target="_blank"
+
+                          download="download"
+                          class="text-info font-bold"
+                          rel="noopener noreferrer"
+                          >Guide</a
+                        >
+                        to get started
                       </p>
                     </div>
                   </form>
@@ -297,9 +320,6 @@
                   >
                     Close
                   </button>
-                  <!-- <button type="button" class="btn btn-primary">
-                    Save changes
-                  </button> -->
                 </div>
               </div>
             </div>
@@ -366,12 +386,16 @@ export default {
     };
   },
   beforeMount() {
-    this.windowwith = window.innerWidth * 0.75;
-    this.user = JSON.parse(localStorage.getItem("user"));
+    // this.windowwith = window.innerWidth * 0.75;
+    // this.user = JSON.parse(localStorage.getItem("user"));
+
     this.axios
       .get(`/api/v1/user-no-auth/${this.$route.params.id}`)
       .then((response) => {
         this.auth_user = response.data.user;
+
+        this.singleplan = this.auth_user.sector;
+
         console.log(response);
       })
       .catch((error) => {

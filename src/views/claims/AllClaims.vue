@@ -146,7 +146,7 @@
                       @change="getClaims"
                     />
 
-                    <button
+                    <!-- <button
                       class="btn btn-outline-warning btn-sm my-1"
                       @click="getProviders('pending')"
                     >
@@ -158,7 +158,7 @@
                       @click="getProviders('vetted')"
                     >
                       vetted
-                    </button>
+                    </button> -->
                   </div>
 
                   <div class="form-group col-md-6">
@@ -339,7 +339,7 @@
                           class="col-md-12"
                           v-if="
                             user.job_title == 'Claims Verifier' ||
-                            user.job_title == 'Executive Secretary'
+                            user.job_title == 'Director'
                           "
                         >
                           <b-alert show variant="primary">
@@ -352,7 +352,7 @@
                     <tr
                       v-if="
                         user.job_title == 'Claims Verifier' ||
-                        (user.job_title == 'Executive Secretary' &&
+                        (user.job_title == 'Director' &&
                           provider_id != '' &&
                           claims.data.length > 0 &&
                           claim_status == 'verified')
@@ -557,24 +557,19 @@ export default {
           });
       }
     },
-    getProviders(status) {
+    getProviders() {
       this.isLoading = true;
       this.axios
-        // .get(`/api/v1/auth/providerAgency/439078`)
-        .get(`/api/v1/auth/getProviderByClaims/439078`, {
-          params: {
-            checked_by_id: status == "pending" ? "pending" : null,
-            verified_by_id: status == "vetted" ? "vetted" : null,
-          },
-        })
+        .get(`/api/v1/auth/providerAgency/439078`)
+      
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
           this.isLoading = false;
-          this.$toasted.info("Facility Fetched Successfully", {
-            position: "top-center",
-            duration: 3000,
-          });
+          // this.$toasted.info("Facility Fetched Successfully", {
+          //   position: "top-center",
+          //   duration: 3000,
+          // });
         })
         .catch((error) => {
           console.error(error);
@@ -603,6 +598,7 @@ export default {
   },
   created() {
     this.getClaims();
+    this.getProviders();
   },
 };
 </script>

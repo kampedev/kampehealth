@@ -17,15 +17,12 @@
                     <div class="form-group col-md-12">
                       <label for="inputCity">Job Title</label>
                       <select class="form-control" v-model="job_title">
-                        <option value="Executive Secretary">
-                          Executive Secretary
-                        </option>
+                        <option value="Director">Director</option>
                         <option value="Finance">Finance</option>
                         <option value="Claims Vetter">Claims Vetter</option>
                         <option value="Claims Verifier">Claims Verifier</option>
-                        <option value="Enrollment Officer">
-                          Enrollment Officer
-                        </option>
+                        <option value="marketer">Marketer</option>
+
                       </select>
                     </div>
                   </div>
@@ -41,8 +38,6 @@
               </div>
             </div>
           </div>
-
-        
         </div>
       </div>
     </main>

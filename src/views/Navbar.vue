@@ -23,7 +23,7 @@
       <div class="admin-sidebar-wrapper js-scrollbar">
         <ul class="menu">
           <!-- Client or Patient Sidebar -->
-          <li class="menu-item " v-if="user.type == 'client'">
+          <li class="menu-item" v-if="user.type == 'client'">
             <router-link to="/client-dashboard" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Dashboard </span>
@@ -45,7 +45,7 @@
             </router-link>
           </li>
 
-          <li class="menu-item " v-if="user.type == 'client'">
+          <li class="menu-item" v-if="user.type == 'client'">
             <router-link :to="`/subscribe-${user.id}`" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Subscribe Nigeria </span>
@@ -57,7 +57,10 @@
           </li>
 
           <li class="menu-item" v-if="user.type == 'client'">
-            <router-link :to="`/subscribediaspora-${user.id}`" class="menu-link">
+            <router-link
+              :to="`/subscribediaspora-${user.id}`"
+              class="menu-link"
+            >
               <span class="menu-label">
                 <span class="menu-name">Subscribe Diaspora </span>
               </span>
@@ -298,7 +301,7 @@
               <li class="menu-item">
                 <a href="/voluntary-registration-form" class="menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Self Registration (Local)</span>
+                    <span class="menu-name"> Registration (Local)</span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-user-plus"></i>
@@ -309,7 +312,7 @@
               <li class="menu-item">
                 <a href="/diaspora-registration" class="menu-link">
                   <span class="menu-label">
-                    <span class="menu-name">Self Registration (Diaspora)</span>
+                    <span class="menu-name">Registration (Diaspora)</span>
                   </span>
                   <span class="menu-icon">
                     <i class="icon-placeholder fe fe-user-plus"></i>
@@ -490,10 +493,7 @@
             </a>
             <!--submenu-->
             <ul class="sub-menu">
-              <li
-                class="menu-item"
-                v-if="user.job_title == 'Executive Secretary'"
-              >
+              <li class="menu-item" v-if="user.job_title == 'Director'">
                 <router-link to="/all-claims-facility" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Approve Claims </span>
@@ -556,7 +556,7 @@
             v-if="
               user.job_title == 'Finance' ||
               user.type == 'provider' ||
-              user.job_title == 'Executive Secretary' ||
+              user.job_title == 'Director' ||
               user.type == 'shis'
             "
           >

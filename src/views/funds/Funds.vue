@@ -142,17 +142,7 @@
                           <h4 class="m-0">Summary</h4>
                         </div>
 
-                        <!-- <div class="col-md-6 text-right my-auto">
-                                                  <div class="btn-group" role="group" aria-label="Basic example">
-                                                      <button type="button" class="btn btn-white shadow-none js-datepicker"><i
-                                                                  class="mdi mdi-calendar"></i> Pick Date
-                                                      </button>
-
-                                                      <button type="button" class="btn btn-white shadow-none">All</button>
-                                                      <button type="button" class="btn btn-white shadow-none">Paid</button>
-                                                      <button type="button" class="btn btn-white shadow-none">UnPaid</button>
-                                                  </div>
-                                              </div> -->
+                       
                       </div>
                       <div class="row ">
                         <div class="col-md-12 p-0">

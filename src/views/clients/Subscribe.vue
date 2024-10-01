@@ -372,8 +372,8 @@ export default {
       showdependent: false,
       wallx: {},
       plan_id: null,
-      // paystackkey: "pk_test_551e6fe55f1f3051de41069797574751b1f65c49", //paystack public key
-      paystackkey: "pk_test_20ff6d54c8989ced65531801332aa63934c7ce15", //paystack public key
+      paystackkey: "pk_live_11b52d817e3fed4b0a9c84292cdf8a751309350d", //paystack public key
+      // paystackkey: "pk_test_20ff6d54c8989ced65531801332aa63934c7ce15", //paystack public key
       providers: "",
       image: "",
       imagefile: "",

@@ -273,7 +273,7 @@
                       <td>{{ index + 1 }}</td>
                       <td>
                         <router-link :to="{ path: '/provider-' + provider.id }">
-                          {{ provider.agency_name }}
+                          {{ provider.agency_name }}  
                         </router-link>
                       </td>
                       <td>{{ provider.facility_code }}</td>
@@ -439,7 +439,7 @@ export default {
           phone_number: this.register.phone_number,
           agency_name: this.register.agency_name,
           type: this.register.type,
-          state: "2676",
+          state: this.register.state,
           localgovt: this.register.localgovt,
           services_offered: this.register.services_offered,
           address1: this.register.address1,

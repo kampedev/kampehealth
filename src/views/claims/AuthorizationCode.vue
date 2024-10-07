@@ -587,7 +587,7 @@ export default {
           });
 
           this.clearIt();
-          this.sendSMS();
+          // this.sendSMS();
         })
         .catch((error) => {
           console.log(error.response);

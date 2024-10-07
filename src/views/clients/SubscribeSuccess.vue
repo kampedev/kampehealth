@@ -21,16 +21,16 @@
                 <div class="card-body text-black">
                   <div>
                     <p class="h6">
-                      Congratulations on your Successful Registration. Your ID
-                      Card will be available in 3 Weeks
+                      Congratulations on your Successful Registration. You
+                       will be able to access care in 4 Weeks which is your waiting period.
                     </p>
-                    <p class="h6">
+                    <!-- <p class="h6">
                       You can walk up to our office and collect your ID Card.
-                    </p>
+                    </p> -->
                     <p class="h6">
                       For further inquries call
                       <a href="mailto:info.Kampe.ng" class="text-link"
-                        >info.Kampe.ng</a
+                        >support.Kampe.ng</a
                       >
                       or Call <a href="tel:0700022556447 ">0700022556447 </a>
                     </p>

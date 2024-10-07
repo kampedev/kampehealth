@@ -475,6 +475,7 @@ export default {
         .get(`/api/v1/auth/lga/${state}`)
         .then((response) => {
           this.lga_states = response.data.data;
+          this.getProvidersByState()
           console.log(response);
         })
         .catch((error) => {
@@ -547,9 +548,21 @@ export default {
         });
     },
 
-    getProviders() {
+    // getProviders() {
+    //   this.axios
+    //     .get(`/api/v1/auth/providerAgency/439078`)
+    //     .then((response) => {
+    //       this.providers = response.data.data;
+    //       console.log(response);
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // },
+
+    getProvidersByState() {
       this.axios
-        .get(`/api/v1/auth/providerAgency/439078`)
+        .get(`/api/v1/auth/providerAgencyStates/439078/${this.register.state}`)
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);
@@ -575,7 +588,7 @@ export default {
     },
   },
   created() {
-    this.getProviders();
+    // this.getProviders();
     this.getStates();
     this.getEmployees();
   },

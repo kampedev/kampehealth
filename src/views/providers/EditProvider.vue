@@ -58,7 +58,7 @@
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <label >Contact Email</label>
+                      <label>Contact Email</label>
                       <input
                         type="email"
                         class="form-control"
@@ -77,8 +77,25 @@
                       />
                     </div>
 
+                    <div class="col-md-6">
+                      <label>State </label>
+                      <select
+                        class="form-control"
+                        v-model="auth_user.state"
+                        @change="fetchLga"
+                      >
+                        <option
+                          v-for="sta in states"
+                          v-bind:key="sta.id"
+                          :value="sta.id"
+                        >
+                          {{ sta.name }}
+                        </option>
+                      </select>
+                    </div>
+
                     <div class="form-group col-md-6">
-                      <label for="inputCity">LGA</label>
+                      <label for="inputCity">LGA </label>
                       <select
                         class="form-control"
                         v-model="auth_user.localgovt"
@@ -101,16 +118,6 @@
                         placeholder="Company Name"
                         v-model="auth_user.agency_name"
                       />
-                    </div>
-                    <div class="col-md-6">
-                      <label> Facility type </label>
-                      <select
-                        class="form-control"
-                        v-model="auth_user.phc_general"
-                      >
-                        <option>Public Hospital</option>
-                        <option>Private Hospital</option>
-                      </select>
                     </div>
                   </div>
 
@@ -176,21 +183,14 @@ export default {
       user: null,
       image: "",
       sector: "",
+      states: "",
       lga_states: "",
       isLoading: false,
       fullPage: true,
     };
   },
   beforeMount() {
-    this.axios
-      .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
-      .then((response) => {
-        this.auth_user = response.data.user;
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+   
   },
   methods: {
     getProviders() {
@@ -211,6 +211,7 @@ export default {
         .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
         .then((response) => {
           this.auth_user = response.data.user;
+          this.fetchLga();
           console.log(response);
         })
         .catch((error) => {
@@ -220,7 +221,7 @@ export default {
 
     fetchLga() {
       this.axios
-        .get(`/api/v1/auth/lga/2676`)
+        .get(`/api/v1/auth/lga/${this.auth_user.state}`)
         .then((response) => {
           this.lga_states = response.data.data;
           console.log(response);
@@ -230,6 +231,17 @@ export default {
         });
     },
 
+    getStates() {
+      this.axios
+        .get(`/api/v1/auth/states`)
+        .then((response) => {
+          this.states = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     editUser() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.isLoading = true;
@@ -239,7 +251,7 @@ export default {
           lastname: this.auth_user.lastname,
           email: this.auth_user.email,
           type: this.auth_user.type,
-          state: "2676",
+          state: this.auth_user.state,
           localgovt: this.auth_user.localgovt,
           ward: this.auth_user.ward,
           dob: this.auth_user.dob,
@@ -255,8 +267,6 @@ export default {
           phone_number: this.auth_user.phone_number,
           agency_name: this.auth_user.agency_name,
           address1: this.auth_user.address1,
-          //    agencyAddress: this.auth_user.agencyAddress,
-          //    agencyWebsite: this.auth_user.agencyWebsite
         })
         .then((response) => {
           console.log(response);
@@ -274,7 +284,8 @@ export default {
     },
   },
   created() {
-    this.fetchLga();
+    this.getUser();
+    this.getStates();
     this.getProviders();
   },
 };

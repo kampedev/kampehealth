@@ -28,7 +28,10 @@
           <div class="text-overline m-b-5">today</div>
 
           <div v-if="result.total != 0">
-            <a href="/all-claims" class="d-block m-b-10">
+            <a href="/all-claims" class="d-block m-b-10"
+            v-if="user.type == 'shis' || user.type == 'employee'"
+
+            >
               <div class="card">
                 <div class="card-body">
                   <i class="mdi mdi-circle text-warning"></i

@@ -124,7 +124,7 @@ export default {
                 'User Image': {
                   field:'user_image',
                 callback: (value) => {
-                return `https://insurance-api.hayokmedicare.ng/image/${value}`;
+                return `https://kampe.hayokmedicare.ng/image/${value}`;
             }
           },
                 'Blood Group':'blood',

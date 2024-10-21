@@ -12,35 +12,6 @@
               <h5 class="spacer-top">Hello, {{ auth_user.user.firstname }}</h5>
             </div>
 
-            <div class="row col-md-12" v-if="transactions.length < 1">
-              <div class="col-md-6">
-                <div
-                  class="alert alert-border-warning alert-dismissible fade show"
-                  role="alert"
-                >
-                  <div class="d-flex">
-                    <div class="icon">
-                      <i class="icon mdi mdi-alert-circle-outline"></i>
-                    </div>
-                    <div class="content">
-                      <strong>No active Plan</strong>
-                      <router-link :to="{ path: '/subscribe' }">
-                        click to subscribe to a plan
-                      </router-link>
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="alert"
-                        aria-label="Close"
-                      >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="col-lg-3 col-md-3">
               <div class="card m-b-30">
                 <div class="card-body">
@@ -56,7 +27,9 @@
                   <div>
                     <p class="text-muted text-overline m-0">My Provider</p>
                     <h1 class="fw-400">
-                      {{ auth_user.provider.agency_name }}
+                      <span v-if="auth_user.provider">
+                        {{ auth_user.provider.agency_name }}
+                      </span>
                     </h1>
                   </div>
                 </div>
@@ -70,17 +43,26 @@
                     <router-link :to="{ path: '#' }">
                       <div class="avatar avatar-lg">
                         <div class="avatar-title bg-soft-info rounded-circle">
-                          <i class="fe fe-credit-card"></i>
+                          <i class="mdi mdi-credit-card"></i>
                         </div>
                       </div>
                     </router-link>
                   </div>
                   <div>
-                    <p class="text-muted text-overline m-0">Plan</p>
+                    <p class="text-muted text-overline m-0">
+                      <i class="mdi mdi-currency-ngn"></i
+                      >{{ auth_user.utilization_primary | numeral(0, 0.0) }}
+                    </p>
                     <h1 class="fw-400">
                       {{ auth_user.user.sector }}
                     </h1>
-                    <p v-if="transactions.length < 1">No active Subscription</p>
+                    <p v-if="transactions.length > 1">
+                      Last payment:
+                      {{
+                        transactions[0].created_at
+                          | moment("dddd, MMMM Do YYYY,  h:mm:ss a")
+                      }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -101,6 +83,15 @@
                   <div>
                     <p class="text-muted text-overline m-0">Encounters</p>
                     <h1 class="fw-400">{{ encounters.length }}</h1>
+                    <p class="text-sm">
+                      Total Utilization:
+                      <i class="icon mdi mdi-currency-ngn"></i
+                      >{{
+                        (auth_user.utilization_primary +
+                          auth_user.utilization_secondary)
+                          | numeral(0, 0)
+                      }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -198,6 +189,24 @@
                           <span v-if="ecc.healthrecord">
                             {{ ecc.healthrecord.encounter_id }}
                           </span>
+
+                          <span v-if="ecc.is_confirmed == true">
+                            <button
+                              type="button"
+                              class="btn  m-1 badge badge-soft-success"
+                            >
+                              confirmed
+                            </button>
+                          </span>
+
+                          <span v-if="ecc.is_confirmed == false">
+                            <button
+                              type="button"
+                              class="btn  m-1 badge badge-soft-danger"
+                            >
+                              rejected
+                            </button>
+                          </span>
                         </td>
                         <td>
                           <span v-if="ecc.provider">
@@ -210,6 +219,27 @@
                           </span>
                         </td>
                         <td>
+                          <button
+                            v-if="ecc.is_confirmed == null"
+                            @click="updateEncounterStatus(ecc, true)"
+                            type="button"
+                            class="btn btn-outline-success m-1"
+                            name="button"
+                          >
+                            I received this treatment
+                            <i class="fe fe-check"></i>
+                          </button>
+
+                          <button
+                            v-if="ecc.is_confirmed == null"
+                            @click="updateEncounterStatus(ecc, false)"
+                            type="button"
+                            class="btn btn-outline-danger m-1"
+                            name="button"
+                          >
+                            I didnot receive this treatment
+                            <i class="fe fe-x"></i>
+                          </button>
                           <router-link :to="{ path: '/encounter/' + ecc.id }">
                             <button
                               type="button"
@@ -251,21 +281,22 @@ export default {
       complaints: "",
     };
   },
-  beforeMount() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-    this.axios
-      .get(`/api/v1/auth/user/zam/${this.user.id}`)
-      .then((response) => {
-        this.auth_user = response.data;
-        this.transactions = response.data.transactions;
-        this.encounters = response.data.encounters;
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  },
+  beforeMount() {},
   methods: {
+    getUser() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .get(`/api/v1/auth/user/zam/${this.user.id}`)
+        .then((response) => {
+          this.auth_user = response.data;
+          this.transactions = response.data.transactions;
+          this.encounters = response.data.encounters;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     getPlan() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
@@ -302,11 +333,29 @@ export default {
           console.error(error);
         });
     },
+
+    updateEncounterStatus(ecc, status) {
+      if (confirm("Are you Sure?")) {
+        this.axios
+          .post(`/api/v1/auth/updateEncounterStatus`, {
+            id: ecc.id,
+            is_confirmed: status,
+          })
+          .then((response) => {
+            this.getUser();
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
   },
   created() {
     this.getComplaints();
     this.getPlan();
     this.getWallet();
+    this.getUser();
   },
 };
 </script>

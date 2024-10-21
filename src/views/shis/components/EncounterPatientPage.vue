@@ -22,6 +22,24 @@
             Print <i class="fe fe-printer"></i>
           </button>
 
+          <span v-if="encounterDetails.is_confirmed == true">
+            <button
+              type="button"
+              class="btn  m-1 badge badge-soft-success"
+            >
+              confirmed
+            </button>
+          </span>
+
+          <span v-if="encounterDetails.is_confirmed == false">
+            <button
+              type="button"
+              class="btn  m-1 badge badge-soft-danger"
+            >
+              rejected
+            </button>
+          </span>
+
           <!-- <button
             class="btn btn-outline-success spacer"
             data-toggle="modal"
@@ -51,7 +69,7 @@
 
           <img
             v-if="encounterDetails.enrollee != null"
-            :src="`https://insurance-api.hayokmedicare.ng/image/${encounterDetails.enrollee.user_image}`"
+            :src="`https://kampe.hayokmedicare.ng/image/${encounterDetails.enrollee.user_image}`"
             alt="Enrollee Image"
             class="enrollee__img"
             onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"

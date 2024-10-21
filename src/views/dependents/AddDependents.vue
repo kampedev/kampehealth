@@ -211,7 +211,7 @@
                     >
                       <img
                         :src="
-                          `https://insurance-api.hayokmedicare.ng/image/${dependent.image}`
+                          `https://kampe.hayokmedicare.ng/image/${dependent.image}`
                         "
                         class="avatar-img avatar-lg rounded"
                         onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"

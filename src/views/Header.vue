@@ -47,7 +47,7 @@
                   <label class="avatar-input">
                     <span class="avatar avatar-sm">
                       <img
-                        :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
+                        :src="`https://kampe.hayokmedicare.ng/image/${auth_user.user_image}`"
                         class="avatar-img rounded-circle"
                       />
                       <span class="avatar-input-icon rounded-circle">

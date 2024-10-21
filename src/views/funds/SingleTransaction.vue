@@ -25,6 +25,17 @@
                     <i class="mdi mdi-printer"></i>
                     Print
                   </button>
+
+                  <button class="btn btn-outline-primary ml-2">
+                    <download-excel
+                      :data="paymentorder.data.claims"
+                      :fields="json_fields"
+                      type="csv"
+                      :escapeCsv="false"
+                      :name="'export' + '.csv'"
+                    >
+                    </download-excel>
+                  </button>
                   <!-- <a
                     :href="`/letter/${paymentorder.data.id}`"
                     class="btn btn-white-translucent spacer-left"
@@ -229,6 +240,25 @@ export default {
   },
   data() {
     return {
+      json_fields: {
+        "Claim ID": "claim_unique_id",
+        "Enrollee Full Name": "enrollee.full_name",
+        "Enrollee KAMPE Number": "enrollee.id_card_number",
+        "Enrollee Phone Number": "enrollee.phone_number",
+        Diagnosis: "diagnosis.name",
+        "Verified Amount": "approved_total_cost",
+        "Authorization Code": "authorization_code",
+        "Date Created": "seen_date",
+        "Facility Name": "provider.agency_name",
+      },
+      json_meta: [
+        [
+          {
+            key: "charset",
+            value: "utf-8",
+          },
+        ],
+      ],
       user: null,
       paymentorder: "",
       agencies: "",

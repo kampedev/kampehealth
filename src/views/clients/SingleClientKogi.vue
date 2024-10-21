@@ -151,7 +151,7 @@
                 <div class="card-body row">
                   <div class="col-md-4">
                     <img
-                      :src="`https://insurance-api.hayokmedicare.ng/image/${client.user.user_image}`"
+                      :src="`https://kampe.hayokmedicare.ng/image/${client.user.user_image}`"
                       class="img"
                       alt="User Photo"
                       onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
@@ -269,6 +269,41 @@
                   <p class="spacer-top-bottom">
                     <strong>Marital Status:</strong>
                     {{ client.user.marital_status }}
+                  </p>
+                  <hr />
+
+                  <div class="form-group my-4">
+                    <button class="btn btn-outline-dark">Plan & Utilization</button>
+                  </div>
+
+
+                  <p class="spacer-top-bottom">
+                    <strong>Total Payment:</strong>
+                    <i class="mdi mdi-currency-ngn"></i
+                    >{{ client.utilization_primary | numeral(0, 0) }}
+                  </p>
+                  <hr />
+
+
+                  <p class="spacer-top-bottom">
+                    <strong>Primary Utilization:</strong>
+                    <i class="mdi mdi-currency-ngn"></i
+                    >{{ client.utilization_primary | numeral(0, 0) }}
+                  </p>
+                  <hr />
+
+                  <p class="spacer-top-bottom">
+                    <strong>Secondary Utilization:</strong>
+                    <i class="mdi mdi-currency-ngn"></i>
+                    {{ client.utilization_secondary | numeral(0, 0) }}
+                  </p>
+                  <hr />
+
+
+                  <p class="spacer-top-bottom">
+                    <strong>Total Utilization:</strong>
+                    <i class="mdi mdi-currency-ngn"></i>
+                    {{ client.utilization_primary + client.utilization_secondary | numeral(0, 0) }}
                   </p>
                   <hr />
                 </div>

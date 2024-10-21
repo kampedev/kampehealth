@@ -250,6 +250,16 @@
                       </div>
                     </div>
 
+                    <div class="form-group col-md-6">
+                      <button
+                        class="btn btn-outline-info"
+                        type="button"
+                        @click="takePicAndroid"
+                      >
+                        Capture Photo <i class="fe fe-camera"></i>
+                      </button>
+                    </div>
+
                     <div class="form-row my-3">
                       <div class="col-md-12">
                         <button class="btn btn-info btn-block btn-lg">
@@ -301,6 +311,7 @@ import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 import plansJSON from "@/jsons/diaspora_plans.json";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
   components: {
@@ -348,6 +359,7 @@ export default {
           genotype: "",
           dob: "",
           expiry_date: new Date(),
+          user_image: "",
           provider_id: "",
           org_id: "1",
           marital_status: "",
@@ -383,6 +395,22 @@ export default {
   },
 
   methods: {
+    async takePicAndroid() {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+      });
+
+      var imageUrl = image.base64String;
+      this.registrations[0].user_image = "data:image/png;base64," + imageUrl;
+
+      this.$toasted.info("Image taken Successfully!", {
+        position: "top-center",
+        duration: 8000,
+      });
+    },
     submitForm() {
       if (confirm("Are you sure you want to submit?")) {
         this.registerUserAdmin();

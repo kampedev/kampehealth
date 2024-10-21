@@ -192,7 +192,7 @@
               <div class="row col-md-12" v-show="userDetails">
                 <div class="col-md-6 offset-md-3 my-6">
                   <img
-                    :src="`https://insurance-api.hayokmedicare.ng/image/${selected_enrollee.user_image}`"
+                    :src="`https://kampe.hayokmedicare.ng/image/${selected_enrollee.user_image}`"
                     class="img"
                     alt="User Photo"
                     onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
@@ -640,7 +640,7 @@ export default {
       this.isLoading = true;
       this.axios
         .post(
-          `https://api.bulksmslive.com/v2/app/sms?email=info@Kampe.ng&password=osun@4141&sender_name=KAMPE&message=${this.message}&recipients=+2348033886362`,
+          `https://api.bulksmslive.com/v2/app/sms?email=faisalnas7@gmail.com&password=skrull123&sender_name=KAMPE&message=${this.message}&recipients=+2348033886362`,
           {}
         )
         .then((response) => {

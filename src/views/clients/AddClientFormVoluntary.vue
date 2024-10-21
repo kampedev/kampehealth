@@ -334,6 +334,16 @@
                       </div>
                     </div>
 
+                    <div class="form-group col-md-6">
+                      <button
+                        class="btn btn-outline-info"
+                        type="button"
+                        @click="takePicAndroid"
+                      >
+                        Capture Photo <i class="fe fe-camera"></i>
+                      </button>
+                    </div>
+
                     <div class="form-group">
                       <button class="btn btn-info btn-block btn-lg">
                         Submit <i class="fe fe-send"></i>
@@ -365,6 +375,7 @@ import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 import plansJSON from "@/jsons/nigerian_plans.json";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
   components: {
@@ -392,6 +403,7 @@ export default {
       response: "",
       plans: plansJSON,
       employees: "",
+      Imagefile: "",
       register: {
         firstname: "",
         lastname: "",
@@ -421,6 +433,7 @@ export default {
         grade_level: "",
         date_of_entry: "",
         marital_status: "",
+        user_image: "",
         enrolled_by: 0,
       },
     };
@@ -452,6 +465,23 @@ export default {
   },
 
   methods: {
+    async takePicAndroid() {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+      });
+
+      var imageUrl = image.base64String;
+      this.register.user_image = "data:image/png;base64," + imageUrl;
+
+      this.$toasted.info(
+            "Image taken Successfully!",
+            { position: "top-center", duration: 8000 }
+          );
+    },
+
     submitForm() {
       if (confirm("Are you sure you want to submit?")) {
         this.registerUserAdmin();
@@ -475,7 +505,7 @@ export default {
         .get(`/api/v1/auth/lga/${state}`)
         .then((response) => {
           this.lga_states = response.data.data;
-          this.getProvidersByState()
+          this.getProvidersByState();
           console.log(response);
         })
         .catch((error) => {
@@ -485,7 +515,6 @@ export default {
 
     registerUserAdmin() {
       this.isLoading = true;
-      let snap = localStorage.getItem("voluntary_snap");
 
       this.axios
         .post("/api/v1/auth/register", {
@@ -498,7 +527,7 @@ export default {
           phone_number: this.register.phone_number,
           type: this.register.type,
           sectorType: this.sector,
-          user_image: snap,
+          user_image: this.register.user_image,
           agency_id: 439078,
           provider_id: this.register.provider_id.id,
           state: this.register.state,

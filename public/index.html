@@ -1,78 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-touch-fullscreen" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>KAMPE - HIP</title>
-    <link rel="icon" type="<%= BASE_URL %>image/x-icon" href="<%= BASE_URL %>assets/img/kampe_logo.png"/>
-<link rel="icon" href="<%= BASE_URL %>assets/img/kampe_logo.png" type="image/png" sizes="16x16">
-<link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/pace/pace.css">
-<!-- <link rel="stylesheet" href="<%= BASE_URL %>mycsss/modalcss.css"> -->
-<script src="<%= BASE_URL %>assets/vendor/pace/pace.min.js"></script>
-<!--vendors-->
-<link rel="stylesheet" type="text/css" href="<%= BASE_URL %>assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
-<link rel="stylesheet" type="text/css" href="<%= BASE_URL %>assets/vendor/jquery-scrollbar/jquery.scrollbar.css">
-<link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/select2/css/select2.min.css">
-<link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/jquery-ui/jquery-ui.min.css">
-<link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/daterangepicker/daterangepicker.css">
-<link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/timepicker/bootstrap-timepicker.min.css">
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600" rel="stylesheet">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/css/jasny-bootstrap.min.css">
+  <title>KAMPE - HIP</title>
+  <link rel="icon" type="<%= BASE_URL %>image/x-icon" href="<%= BASE_URL %>assets/img/kampe_logo.png" />
+  <link rel="icon" href="<%= BASE_URL %>assets/img/kampe_logo.png" type="image/png" sizes="16x16">
+  <link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/pace/pace.css">
+  <!-- <link rel="stylesheet" href="<%= BASE_URL %>mycsss/modalcss.css"> -->
+  <script src="<%= BASE_URL %>assets/vendor/pace/pace.min.js"></script>
+  <!--vendors-->
+  <link rel="stylesheet" type="text/css"
+    href="<%= BASE_URL %>assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+  <link rel="stylesheet" type="text/css" href="<%= BASE_URL %>assets/vendor/jquery-scrollbar/jquery.scrollbar.css">
+  <link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/select2/css/select2.min.css">
+  <link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/jquery-ui/jquery-ui.min.css">
+  <link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/timepicker/bootstrap-timepicker.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600" rel="stylesheet">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/css/jasny-bootstrap.min.css">
 
 
-<!--Material Icons-->
-<link rel="stylesheet" type="text/css" href="<%= BASE_URL %>assets/fonts/materialdesignicons/materialdesignicons.min.css">
-<!--Material Icons-->
-<link rel="stylesheet" type="text/css" href="<%= BASE_URL %>assets/fonts/feather/feather-icons.css">
-<!--Bootstrap + atmos Admin CSS-->
-<link rel="stylesheet" type="text/css" href="<%= BASE_URL %>assets/css/atmos.min.css">
-<!-- Additional library for page -->
-<!-- Additional library for page -->
-    <link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/datedropper/datedropper.min.css">
-    <link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/dropzone/dropzone.css">
+  <!--Material Icons-->
+  <link rel="stylesheet" type="text/css"
+    href="<%= BASE_URL %>assets/fonts/materialdesignicons/materialdesignicons.min.css">
+  <!--Material Icons-->
+  <link rel="stylesheet" type="text/css" href="<%= BASE_URL %>assets/fonts/feather/feather-icons.css">
+  <!--Bootstrap + atmos Admin CSS-->
+  <link rel="stylesheet" type="text/css" href="<%= BASE_URL %>assets/css/atmos.min.css">
+  <!-- Additional library for page -->
+  <!-- Additional library for page -->
+  <link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/datedropper/datedropper.min.css">
+  <link rel="stylesheet" href="<%= BASE_URL %>assets/vendor/dropzone/dropzone.css">
 
-  </head>
-  <body>
+</head>
 
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-    <script src="capacitor.js"></script>
-    <script src="your/app.js"></script>
-<script src="<%= BASE_URL %>assets/vendor/jquery/jquery.min.js"   ></script>
-<script src="<%= BASE_URL %>assets/vendor/jquery-ui/jquery-ui.min.js"   ></script>
-<script src="<%= BASE_URL %>assets/vendor/popper/popper.js"   ></script>
-<script src="<%= BASE_URL %>assets/vendor/bootstrap/js/bootstrap.min.js"   ></script>
-<script src="<%= BASE_URL %>assets/vendor/select2/js/select2.full.min.js"   ></script>
-<script src="<%= BASE_URL %>assets/vendor/jquery-scrollbar/jquery.scrollbar.min.js"   ></script>
-<script src="<%= BASE_URL %>assets/vendor/listjs/listjs.min.js"   ></script>
-<script src="<%= BASE_URL %>assets/vendor/moment/moment.min.js"></script>
-<script src="<%= BASE_URL %>assets/vendor/daterangepicker/daterangepicker.js"></script>
-<script src="<%= BASE_URL %>assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="<%= BASE_URL %>assets/vendor/bootstrap-notify/bootstrap-notify.min.js"   ></script>
-<script src="<%= BASE_URL %>assets/js/atmos.min.js"></script>
-<!--page specific scripts for demo-->
-<!--page specific scripts for demo-->
-<script src="<%= BASE_URL %>assets/vendor/timepicker/bootstrap-timepicker.min.js"></script>
-<script src="<%= BASE_URL %>assets/vendor/datedropper/datedropper.min.js"></script>
-<script src="<%= BASE_URL %>assets/vendor/dropzone/dropzone.js"   ></script>
-<script src="<%= BASE_URL %>assets/vendor/jquery.mask/jquery.mask.min.js"></script>
-<script src="<%= BASE_URL %>assets/js/form-data.js"></script>
+<body>
 
-<!--Additional Page includes-->
-<script src="<%= BASE_URL %>assets/vendor/apexchart/apexcharts.min.js"></script>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script src="capacitor.js"></script>
+  <script src="your/app.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/jquery/jquery.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/popper/popper.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/select2/js/select2.full.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/listjs/listjs.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/moment/moment.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/daterangepicker/daterangepicker.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
+  <script src="<%= BASE_URL %>assets/js/atmos.min.js"></script>
+  <!--page specific scripts for demo-->
+  <!--page specific scripts for demo-->
+  <script src="<%= BASE_URL %>assets/vendor/timepicker/bootstrap-timepicker.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/datedropper/datedropper.min.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/dropzone/dropzone.js"></script>
+  <script src="<%= BASE_URL %>assets/vendor/jquery.mask/jquery.mask.min.js"></script>
+  <script src="<%= BASE_URL %>assets/js/form-data.js"></script>
 
-<!--chart data for current dashboard-->
-<!-- <script src="assets/js/dashboard-01.js" ></script> -->
-<script src="<%= BASE_URL %>assets/js/dashboard-03.js"></script>
-<!-- <script src="assets/js/jasny-bootstrap.min.js"></script> -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/js/jasny-bootstrap.min.js"></script>
+  <!--Additional Page includes-->
+  <script src="<%= BASE_URL %>assets/vendor/apexchart/apexcharts.min.js"></script>
 
-  </body>
+  <!--chart data for current dashboard-->
+  <!-- <script src="assets/js/dashboard-01.js" ></script> -->
+  <script src="<%= BASE_URL %>assets/js/dashboard-03.js"></script>
+  <!-- <script src="assets/js/jasny-bootstrap.min.js"></script> -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/js/jasny-bootstrap.min.js"></script>
+
+</body>
+
 </html>

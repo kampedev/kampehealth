@@ -117,7 +117,7 @@
                         <div class="row col-md-12" v-show="userDetails">
                           <div class="col-md-6 offset-md-3 my-6">
                             <img
-                              :src="`https://insurance-api.hayokmedicare.ng/image/${selected_enrollee.user_image}`"
+                              :src="`https://kampe.hayokmedicare.ng/image/${selected_enrollee.user_image}`"
                               class="img"
                               alt="User Photo"
                               onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"

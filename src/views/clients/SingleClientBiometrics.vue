@@ -11,7 +11,7 @@
                          <!-- <div class="avatar">
                            <label class="avatar-input">
                         <span class="avatar avatar-lg">
-                            <img :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`"
+                            <img :src="`https://kampe.hayokmedicare.ng/image/${client.user_image}`"
                                  class="avatar-img rounded-circle"   >
                         </span>
                            </label>
@@ -100,7 +100,7 @@
                            </div>
                            <div class="card-body">
                              <!-- <img :src="`http://localhost:8000/image/${clientfinger.leftfour}`"> -->
-                             <img :src="`https://insurance-api.hayokmedicare.ng/image/${clientfinger.leftfour}`">
+                             <img :src="`https://kampe.hayokmedicare.ng/image/${clientfinger.leftfour}`">
                            </div>
 
                            <div class="card-header">
@@ -108,7 +108,7 @@
                            </div>
                            <div class="card-body">
                              <!-- <img :src="`http://localhost:8000/image/${clientfinger.rightfour}`"> -->
-                             <img :src="`https://insurance-api.hayokmedicare.ng/image/${clientfinger.rightfour}`">
+                             <img :src="`https://kampe.hayokmedicare.ng/image/${clientfinger.rightfour}`">
                            </div>
 
                            <div class="card-header">
@@ -116,7 +116,7 @@
                            </div>
                            <div class="card-body">
                              <!-- <img :src="`http://localhost:8000/image/${clientfinger.thumbs}`"> -->
-                             <img :src="`https://insurance-api.hayokmedicare.ng/image/${clientfinger.thumbs}`">
+                             <img :src="`https://kampe.hayokmedicare.ng/image/${clientfinger.thumbs}`">
                            </div>
 
                            <img :src="output">

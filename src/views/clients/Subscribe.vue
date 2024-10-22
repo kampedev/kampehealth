@@ -93,7 +93,7 @@
                   <label class="avatar-input">
                     <span class="avatar avatar-lg">
                       <img
-                        :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
+                        :src="`https://kampe.hayokmedicare.ng/image/${auth_user.user_image}`"
                         onerror="this.onerror=null; this.src='/assets/img/kampe_logo.png'"
                         class="avatar-img rounded-circle"
                       />

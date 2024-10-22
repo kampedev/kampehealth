@@ -158,7 +158,7 @@
                   <div class="" v-if="selected != ''">
                     <div class="col-md-12">
                       <img
-                        :src="`https://insurance-api.hayokmedicare.ng/image/${selected.user_image}`"
+                        :src="`https://kampe.hayokmedicare.ng/image/${selected.user_image}`"
                         class="img-thumbnail mt-3"
                         onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                       />

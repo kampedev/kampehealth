@@ -48,7 +48,7 @@
                             >
                               <img
                                 :src="
-                                  `https://insurance-api.hayokmedicare.ng/image/${employee.user_image}`
+                                  `https://kampe.hayokmedicare.ng/image/${employee.user_image}`
                                 "
                                 class="avatar-img avatar-sm rounded-circle"
                                 alt=""

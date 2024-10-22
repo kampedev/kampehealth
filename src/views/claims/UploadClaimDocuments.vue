@@ -41,7 +41,7 @@
                     <td>
                       <a
                         :href="
-                          'https://insurance-api.hayokmedicare.ng/documents/' +
+                          'https://kampe.hayokmedicare.ng/documents/' +
                           doc.document
                         "
                         target="_blank"

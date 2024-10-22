@@ -23,7 +23,7 @@
           </div>
 
           <img
-            :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
+            :src="`https://kampe.hayokmedicare.ng/image/${auth_user.user_image}`"
             class="rounded col-md-6 offset-md-3"
             alt="Cinque Terre"
             width="200px"
@@ -64,7 +64,7 @@
                 <div class="card-body">
                   <div class="col-md-12">
                     <img
-                      :src="`https://insurance-api.hayokmedicare.ng/image/${auth_user.user_image}`"
+                      :src="`https://kampe.hayokmedicare.ng/image/${auth_user.user_image}`"
                       class="rounded mx-auto d-block"
                       style="width: 248px; height: 250px"
                     />
@@ -73,7 +73,7 @@
                   <div class="row">
                     <div class="col-md-4">
                       <img
-                        :src="`https://insurance-api.hayokmedicare.ng/image/${client.user_image}`"
+                        :src="`https://kampe.hayokmedicare.ng/image/${client.user_image}`"
                         class="rounded mx-auto d-block"
                         style="width: 300px; height: 175px"
                       />

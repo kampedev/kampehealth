@@ -310,8 +310,7 @@
                       <th>Serial Number</th>
                       <th>Facility Name</th>
                       <th>Facility Code</th>
-                      <!-- <th>LGA</th> -->
-                      <th>E mail</th>
+                      <th>Address</th>
                       <th>Contact</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -329,8 +328,14 @@
                         </router-link>
                       </td>
                       <td>{{ provider.facility_code }}</td>
-                      <!-- <td>{{provider.local_name}}</td> -->
-                      <td>{{ provider.email }}</td>
+                      <td>
+
+                        <span
+                        v-if="provider.user"
+                        >
+                          {{ provider.user.state.name }} ({{ provider.user.address1 }})
+                        </span>
+                      </td>
                       <td>{{ provider.phone_number }}</td>
                       <td>
                         <span v-if="provider.status == 1">

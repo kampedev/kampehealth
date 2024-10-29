@@ -14,7 +14,7 @@
       <section class="pull-up">
         <div class="container">
           <div class="row list">
-            <div class="col-lg-12 col-md-8">
+            <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
                 <div class="card-header"></div>
 
@@ -30,13 +30,13 @@
                       class="btn btn-info m-2"
                       @click="showsearch = !showsearch"
                     >
-                      Search Facility
+                      Filter Facility
                     </button>
 
                     <download-excel
                       :data="providers"
                       :fields="json_fields"
-                      class="btn btn-success m-2"
+                      class="btn btn-info m-2"
                       header="Health Facilty Data for KAMPE "
                       :escapeCsv="false"
                       name="Health Facilty Data for KAMPE "
@@ -49,7 +49,59 @@
             </div>
 
             <div class="col-md-12" v-show="showsearch">
-              <SearchProvider />
+              <div class="card m-b-30">
+                <div class="card-header">
+                  <div class="text-center">
+                    <strong>Filter Facility</strong>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="inputCity">Care Level</label>
+                        <select
+                          class="form-control"
+                          v-model="register.phc_type"
+                        >
+                          <option value="">All</option>
+                          <option>Primary</option>
+                          <option>Secondary</option>
+                          <option>Tertiary</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label> Facility type </label>
+                      <select
+                        class="form-control"
+                        v-model="register.phc_general"
+                      >
+                        <option value="">All</option>
+                        <option>Public Hospital</option>
+                        <option>Private Hospital</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label> Status</label>
+                      <select class="form-control" v-model="register.status">
+                        <option value="">All</option>
+                        <option value="1">Approved</option>
+                        <option :value="false">Pending</option>
+                      </select>
+                    </div>
+
+                    <button
+                      class="btn btn-info btn-block"
+                      @click="getProviders"
+                    >
+                      Filter
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="col-md-12" v-show="show">
@@ -173,7 +225,7 @@
                       </select>
                     </div> -->
 
-                   > <!-- <div class="col-md-6 col-sm-12" v-if="sector == 'informal'">
+                    <!-- <div class="col-md-6 col-sm-12" v-if="sector == 'informal'">
                       <div class="form-group">
                         <label for="inputCity">Select Informal Sector</label>
                         <select class="form-control" v-model="register.sector">
@@ -249,7 +301,7 @@
               </div>
             </div>
 
-            <div class="col-md-10 m-b-30">
+            <div class="col-md-12 m-b-30">
               <h5><i class="fe fe-activity"></i> Providers</h5>
               <div class="table-responsive">
                 <table class="table align-td-middle table-card">
@@ -258,8 +310,7 @@
                       <th>Serial Number</th>
                       <th>Facility Name</th>
                       <th>Facility Code</th>
-                      <!-- <th>LGA</th> -->
-                      <th>E mail</th>
+                      <th>Address</th>
                       <th>Contact</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -277,8 +328,14 @@
                         </router-link>
                       </td>
                       <td>{{ provider.facility_code }}</td>
-                      <!-- <td>{{provider.local_name}}</td> -->
-                      <td>{{ provider.email }}</td>
+                      <td>
+
+                        <span
+                        v-if="provider.user"
+                        >
+                          {{ provider.user.state.name }} ({{ provider.user.address1 }})
+                        </span>
+                      </td>
                       <td>{{ provider.phone_number }}</td>
                       <td>
                         <span v-if="provider.status == 1">
@@ -332,7 +389,7 @@
 
 <script>
 import Navbar from "@/views/Navbar.vue";
-import SearchProvider from "@/views/providers/SearchProvider.vue";
+// import SearchProvider from "@/views/providers/SearchProvider.vue";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -343,7 +400,7 @@ export default {
   components: {
     Navbar,
     Loading,
-    SearchProvider,
+    // SearchProvider,
   },
   data() {
     return {
@@ -495,7 +552,13 @@ export default {
     getProviders() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/providerAgency/439078`)
+        .get(`/api/v1/auth/providerAgency/439078`, {
+          params: {
+            phc_type: this.register.phc_type,
+            phc_general: this.register.phc_general,
+            status: this.register.status,
+          },
+        })
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

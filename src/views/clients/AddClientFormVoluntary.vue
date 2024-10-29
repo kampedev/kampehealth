@@ -280,13 +280,26 @@
 
                       <div class="form-group col-md-6">
                         <label>Facility for Accessing Healthcare </label>
-                        <v-select
+                        <!-- <v-select
                           v-model="register.provider_id"
                           required
                           :options="providers"
                           label="agency_name"
                           :value="register.provider_id"
-                        ></v-select>
+                        ></v-select> -->
+
+                        <select
+                          class="form-control"
+                          v-model="register.provider_id"
+                        >
+                          <option
+                            v-for="provider in providers"
+                            v-bind:key="provider"
+                            :value="provider"
+                          >
+                            <span class="h2">{{ provider.agency_name }} </span> <span class="text-sm"> ({{provider.address1  }})</span>
+                          </option>
+                        </select>
                       </div>
 
                       <div class="form-group col-md-6">
@@ -591,7 +604,11 @@ export default {
 
     getProvidersByState() {
       this.axios
-        .get(`/api/v1/auth/providerAgencyStates/439078/${this.register.state}`)
+        .get(`/api/v1/auth/providerAgencyStates/439078/${this.register.state}`, {
+          params: {
+            status: 1,
+          },
+        })
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

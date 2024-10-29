@@ -657,7 +657,11 @@ export default {
     getProviders() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios
-        .get(`/api/v1/auth/providerAgency/439078`)
+        .get(`/api/v1/auth/providerAgency/439078`, {
+          params: {
+            status: 1,
+          },
+        })
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

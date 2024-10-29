@@ -26,10 +26,17 @@
                     <div class="form-group">
                       <button
                         class="btn btn-outline-info"
-                        @click="acceptProvider"
+                        @click="acceptProvider(1)"
                         v-if="provider.status == false"
                       >
                         Approve
+                      </button>
+                      <button
+                        class="btn btn-outline-danger"
+                        @click="acceptProvider(0)"
+                        v-if="provider.status == true"
+                      >
+                        Disapprove
                       </button>
                       <router-link
                         :to="{ path: '/provider/add-employee/' + provider.id }"
@@ -62,9 +69,7 @@
                     <div class="pb-2">
                       <router-link :to="{ path: '/view-clients-provider' }">
                         <div class="avatar avatar-lg">
-                          <div
-                            class="avatar-title bg-soft-info rounded-circle"
-                          >
+                          <div class="avatar-title bg-soft-info rounded-circle">
                             <i class="mdi mdi-account-group"></i>
                           </div>
                         </div>
@@ -87,9 +92,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-account-multiple"></i>
                         </div>
                       </div>
@@ -109,9 +112,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-account-heart"></i>
                         </div>
                       </div>
@@ -131,9 +132,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-folder-multiple"></i>
                         </div>
                       </div>
@@ -154,9 +153,7 @@
                     <div class="pb-2">
                       <router-link :to="{ path: '/all-claims' }">
                         <div class="avatar avatar-lg">
-                          <div
-                            class="avatar-title bg-soft-info rounded-circle"
-                          >
+                          <div class="avatar-title bg-soft-info rounded-circle">
                             <i class="fe fe-credit-card"></i>
                           </div>
                         </div>
@@ -177,9 +174,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-bank-transfer-out"></i>
                         </div>
                       </div>
@@ -201,9 +196,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-bank-transfer-in"></i>
                         </div>
                       </div>
@@ -225,9 +218,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-account-tie"></i>
                         </div>
                       </div>
@@ -247,9 +238,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-folder-multiple"></i>
                         </div>
                       </div>
@@ -274,9 +263,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-bank-transfer-out"></i>
                         </div>
                       </div>
@@ -300,9 +287,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-folder-multiple"></i>
                         </div>
                       </div>
@@ -327,9 +312,7 @@
                   <div class="card-body">
                     <div class="pb-2">
                       <div class="avatar avatar-lg">
-                        <div
-                          class="avatar-title bg-soft-info rounded-circle"
-                        >
+                        <div class="avatar-title bg-soft-info rounded-circle">
                           <i class="mdi mdi-bank-transfer-out"></i>
                         </div>
                       </div>
@@ -575,19 +558,19 @@ export default {
         });
     },
 
-    acceptProvider() {
-      if (confirm("Are You Sure You Want to Approve Provider?")) {
+    acceptProvider(status) {
+      if (confirm("Are You Sure You Want to Update Provider?")) {
         this.user = JSON.parse(localStorage.getItem("user"));
         this.isLoading = true;
         this.axios
           .post("/api/v1/auth/approveDisapproveProviderByAgency", {
-            agency_id: 90,
+            agency_id: 439078,
             provider_id: this.$route.params.id,
-            status: 1,
+            status: status,
           })
           .then((response) => {
             console.log(response);
-            this.$breadstick.notify("Provider Approved!", {
+            this.$breadstick.notify("Provider Updated!", {
               position: "top-right",
             });
             this.isLoading = false;

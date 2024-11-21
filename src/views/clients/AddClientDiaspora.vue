@@ -31,7 +31,31 @@
                   </div>
                   <form @submit.prevent="submitForm">
                     <div class="form-row">
-                      <div class="col-md-4">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Select Category
+                            <span class="text-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="register.plan_type"
+                          >
+                            <option value="Diaspora Plans">
+                              Diaspora Plans
+                            </option>
+                            <option value="Diaspora HDPTC Plans">
+                              Kampe Diaspora HDPTC
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-md-6"
+                        v-if="register.plan_type == 'Diaspora Plans'"
+                      >
                         <div class="form-group">
                           <label for="inputCity"
                             >Select Plan
@@ -44,7 +68,32 @@
                           >
                             <option
                               :value="plan.name"
-                              v-for="plan in plans"
+                              v-for="plan in diaspora_plans"
+                              :key="plan.id"
+                            >
+                              {{ plan.name }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-md-6"
+                        v-if="register.plan_type == 'Diaspora HDPTC Plans'"
+                      >
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Select Plan
+                            <span class="text-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="register.sector"
+                          >
+                            <option
+                              :value="plan.name"
+                              v-for="plan in diaspora_hdptc_plans"
                               :key="plan.id"
                             >
                               {{ plan.name }}
@@ -327,6 +376,8 @@ import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 import plansJSON from "@/jsons/diaspora_plans.json";
+import diasporaHDPTCPlansJSON from "@/jsons/hdptc_diaspora_plans.json";
+
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
@@ -352,7 +403,8 @@ export default {
       imagefile: null,
       lga_states: "",
       response: "",
-      plans: plansJSON,
+      diaspora_plans: plansJSON,
+      diaspora_hdptc_plans: diasporaHDPTCPlansJSON,
       employees: "",
       registrations: [
         {

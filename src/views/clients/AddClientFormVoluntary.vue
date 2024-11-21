@@ -32,10 +32,35 @@
                   </div>
                   <form @submit.prevent="submitForm">
                     <div class="form-row">
-                      <div class="col-md-6" v-if="sector == 'informal'">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label for="inputCity"
-                            >Category<span class="text-danger">*</span></label
+                            >Select Category
+                            <span class="text-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="register.plan_type"
+                          >
+                            <option value="Domestic Plans">
+                              Domestic Plans
+                            </option>
+                            <option value="HDPTC Plans">HDPTC Plans</option>
+                            <option value="School Plans">School Plans</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-md-6"
+                        v-if="register.plan_type == 'Domestic Plans'"
+                      >
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Select Plan<span class="text-danger"
+                              >*</span
+                            ></label
                           >
                           <select
                             class="form-control"
@@ -44,7 +69,7 @@
                           >
                             <option
                               :value="plan.name"
-                              v-for="plan in plans"
+                              v-for="plan in nigerian_plans"
                               :key="plan.id"
                             >
                               {{ plan.name }}
@@ -53,70 +78,44 @@
                         </div>
                       </div>
 
-                      <!-- <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="inputCity"
-                            >Select Plan Type
-                            <span class="text-danger">*</span></label
-                          >
-                          <select
-                            class="form-control"
-                            required
-                            v-model="register.plan_type"
-                          >
-                            <option value="Family">Family</option>
-                            <option value="Individual">Individual</option>
-                          </select>
-                        </div>
-                      </div> -->
-
                       <div
                         class="form-group col-md-6"
-                        v-if="register.sector == 'Civil Servant'"
+                        v-if="register.plan_type == 'HDPTC Plans'"
                       >
-                        <label for="inputCity">Select MDA</label>
+                        <label for="inputCity">Select Plan</label>
                         <select
                           class="form-control"
-                          v-model="register.place_of_work"
+                          v-model="register.sector"
                           required
                         >
                           <option
-                            :value="mda.name"
-                            v-for="mda in mdas"
-                            v-bind:key="mda.id"
+                            :value="plan.name"
+                            v-for="plan in hdptc_plans"
+                            v-bind:key="plan.id"
                           >
-                            {{ mda.name }}
+                            {{ plan.name }}
                           </option>
                         </select>
                       </div>
+
                       <div
                         class="form-group col-md-6"
-                        v-if="
-                          register.sector ==
-                          'Tertiary Student Health Insurance Plan (T-SHIP)'
-                        "
+                        v-if="register.plan_type == 'School Plans'"
                       >
-                        <label for="inputEmail4">Institution Name</label>
-                        <input
-                          type="text"
+                        <label for="inputCity">Select Plan</label>
+                        <select
                           class="form-control"
-                          v-model="register.place_of_work"
-                          placeholder="example; University of Ife"
-                        />
-                      </div>
-                      <div
-                        class="form-group col-md-6"
-                        v-if="
-                          register.sector == 'Organized Private Sector Plan'
-                        "
-                      >
-                        <label for="inputEmail4">Organization Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="register.place_of_work"
-                          placeholder="example;  Name of Company"
-                        />
+                          v-model="register.sector"
+                          required
+                        >
+                          <option
+                            :value="plan.name"
+                            v-for="plan in school_plans"
+                            v-bind:key="plan.id"
+                          >
+                            {{ plan.name }}
+                          </option>
+                        </select>
                       </div>
 
                       <div class="form-group col-md-6">
@@ -297,7 +296,10 @@
                             v-bind:key="provider"
                             :value="provider"
                           >
-                            <span class="h2">{{ provider.agency_name }} </span> <span class="text-sm"> ({{provider.address1  }})</span>
+                            <span class="h2">{{ provider.agency_name }} </span>
+                            <span class="text-sm">
+                              ({{ provider.address1 }})</span
+                            >
                           </option>
                         </select>
                       </div>
@@ -387,7 +389,9 @@
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
-import plansJSON from "@/jsons/nigerian_plans.json";
+import nigeriaPlansJSON from "@/jsons/nigerian_plans.json";
+import HDPTCPlansJSON from "@/jsons/hdptc_nigerian_plans.json";
+import schoolPlansJSON from "@/jsons/school_plans.json";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
@@ -414,7 +418,9 @@ export default {
       imagefile: null,
       lga_states: "",
       response: "",
-      plans: plansJSON,
+      nigerian_plans: nigeriaPlansJSON,
+      hdptc_plans: HDPTCPlansJSON,
+      school_plans: schoolPlansJSON,
       employees: "",
       Imagefile: "",
       register: {
@@ -489,10 +495,10 @@ export default {
       var imageUrl = image.base64String;
       this.register.user_image = "data:image/png;base64," + imageUrl;
 
-      this.$toasted.info(
-            "Image taken Successfully!",
-            { position: "top-center", duration: 8000 }
-          );
+      this.$toasted.info("Image taken Successfully!", {
+        position: "top-center",
+        duration: 8000,
+      });
     },
 
     submitForm() {
@@ -536,7 +542,7 @@ export default {
           lastname: this.register.lastname.toUpperCase(),
           middlename: this.register.middlename.toUpperCase(),
           email: this.register.email,
-          plan_type: "Individual",
+          plan_type: this.register.plan_type,
           phone_number: this.register.phone_number,
           type: this.register.type,
           sectorType: this.sector,
@@ -604,11 +610,14 @@ export default {
 
     getProvidersByState() {
       this.axios
-        .get(`/api/v1/auth/providerAgencyStates/439078/${this.register.state}`, {
-          params: {
-            status: 1,
-          },
-        })
+        .get(
+          `/api/v1/auth/providerAgencyStates/439078/${this.register.state}`,
+          {
+            params: {
+              status: 1,
+            },
+          }
+        )
         .then((response) => {
           this.providers = response.data.data;
           console.log(response);

@@ -1,0 +1,33 @@
+[
+
+    {
+        "name": "Kampe Gems A (IN-SEASON/HOLIDAY)",
+        "price": 8400,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems B (IN-SEASON/HOLIDAY)",
+        "price": 5000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems C (SPECIAL PLANS)",
+        "price": 15000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems D (IN-SEASON/HOLIDAY)",
+        "price": 70000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems E (IN-SEASON/HOLIDAY)",
+        "price": 120000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems F (SPECIAL PLANS)",
+        "price": 250000,
+        "description": ""
+    }
+]

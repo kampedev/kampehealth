@@ -24,6 +24,17 @@
                 <div class="card-body">
                   <div class="form-group">
                     <button
+                      class="btn btn-warning spacer"
+                      @click="verifyClaim"
+                      v-if="
+                        claimdetails.verified_by_id == null &&
+                        user.job_title == 'Claims Verifier'
+                      "
+                    >
+                      revert for vetting <i class="fe fe-check"></i>
+                    </button>
+
+                    <button
                       class="btn btn-success spacer"
                       @click="verifyClaim"
                       v-if="
@@ -33,6 +44,8 @@
                     >
                       mark as verified <i class="fe fe-check"></i>
                     </button>
+
+
                     <router-link
                       :to="`/patient/${claimdetails.enrollee.id}`"
                       v-if="claimdetails.enrollee != null"

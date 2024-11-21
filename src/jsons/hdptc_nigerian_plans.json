@@ -1,0 +1,23 @@
+[
+
+    {
+        "name": "Kampe Basic",
+        "price": 26600,
+        "description": ""
+    },
+    {
+        "name": "Kampe Plus",
+        "price": 36500,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Basic",
+        "price": 175000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Plus",
+        "price": 337000,
+        "description": ""
+    }
+]

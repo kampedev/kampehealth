@@ -1,0 +1,23 @@
+[
+
+    {
+        "name": "Kampe Ruby",
+        "price": 325,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gold",
+        "price": 425,
+        "description": ""
+    },
+    {
+        "name": "Kampe Diamond",
+        "price": 625,
+        "description": ""
+    },
+    {
+        "name": "Kampe Travel Plan",
+        "price": 225,
+        "description": ""
+    }
+]

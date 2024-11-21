@@ -107,30 +107,16 @@
                   <div class="form-group col-md-12">
                     <label for="inputPassword4"
                       ><strong
-                        >Selected Plan: {{ singleplan.name }}
+                        >Selected Plan: {{ auth_user.sector }}
                       </strong></label
                     >
-                    <select class="form-control" v-model="singleplan">
-                      <option
-                        v-for="plan in plans"
-                        v-bind:key="plan.id"
-                        :value="plan"
-                      >
-                        {{ plan.name }} (&#8358;
-                        {{ plan.price | numeral(0, 0) }} )
-                      </option>
-                    </select>
-                    <!-- <p class="h6 spacer-top-bot">
-                      Fee: &#8358; {{ getPlan.fee }}
-                    </p> -->
+
                     <hr />
                     <p class="h5 spacer-top-bot">
                       <b
                         >Total: &#8358;
 
-                        {{ singleplan.price | numeral(0, 0) }}
-
-                        <!-- {{ (getPlan.plan_cost + getPlan.fee) | numeral(0, 0) }} -->
+                        {{ getPlan.price | numeral(0, 0.0) }}
                       </b>
                     </p>
 
@@ -175,7 +161,7 @@
                   <div class="col-md-6">
                     <button class="btn btn-outline-info btn-block">
                       <paystack
-                        :amount="singleplan.price * 100"
+                        :amount="getPlan.price * 100"
                         :email="auth_user.email"
                         :paystackkey="paystackkey"
                         :reference="reference"
@@ -301,7 +287,6 @@
                         <a
                           href="/wallx-pay-guide.pdf"
                           target="_blank"
-
                           download="download"
                           class="text-info font-bold"
                           rel="noopener noreferrer"
@@ -349,7 +334,10 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import paystack from "vue-paystack";
 import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
-import plansJSON from "@/jsons/nigerian_plans.json";
+
+import nigeriaPlansJSON from "@/jsons/nigerian_plans.json";
+import HDPTCPlansJSON from "@/jsons/hdptc_nigerian_plans.json";
+import schoolPlansJSON from "@/jsons/school_plans.json";
 
 export default {
   components: {
@@ -364,8 +352,9 @@ export default {
       provider_id: "",
       auth_user: "",
       amount: "",
-      plans: plansJSON,
-      singleplan: "",
+      nigerian_plans: nigeriaPlansJSON,
+      hdptc_plans: HDPTCPlansJSON,
+      school_plans: schoolPlansJSON,
       payment_type: "online",
       showpay: true,
       showpic: false,
@@ -386,16 +375,10 @@ export default {
     };
   },
   beforeMount() {
-    // this.windowwith = window.innerWidth * 0.75;
-    // this.user = JSON.parse(localStorage.getItem("user"));
-
     this.axios
       .get(`/api/v1/user-no-auth/${this.$route.params.id}`)
       .then((response) => {
         this.auth_user = response.data.user;
-
-        this.singleplan = this.auth_user.sector;
-
         console.log(response);
       })
       .catch((error) => {
@@ -403,17 +386,16 @@ export default {
       });
   },
   computed: {
-    // getPlan() {
-    //   let formatter = this.selected_plan.filter(
-    //     (x) => x.plan_name == this.auth_user.plan_type
-    //   );
-    //   console.log(formatter);
-    //   return formatter[0];
-    // },
+    getPlan() {
+      let plans = this.nigerian_plans.concat(
+        this.hdptc_plans,
+        this.school_plans
+      );
 
-    // totalCost() {
-    //   return this.getPlan.plan_cost + this.getPlan.fee;
-    // },
+      let formatter = plans.filter((x) => x.name == this.auth_user.sector);
+      console.log(formatter);
+      return formatter[0];
+    },
 
     reference() {
       let text = "";
@@ -439,7 +421,7 @@ export default {
           merchant_id: "WallX-00000220", // Your business's merchant ID
           pin: this.wallx.pin,
           secret: this.wallx.secret,
-          amount: this.singleplan.price,
+          amount: this.getPlan.price,
           currency: "NGN", // Options: NGN, USD, CAD
         })
         .then((response) => {
@@ -509,8 +491,8 @@ export default {
       this.axios
         .post("/api/v1/make/transaction", {
           agency_id: 439078,
-          amount: this.singleplan.price,
-          description: this.singleplan.name,
+          amount: this.getPlan.price,
+          description: this.getPlan.name,
           type: "subscription",
           transaction_ref: this.reference,
           user_id: this.$route.params.id,

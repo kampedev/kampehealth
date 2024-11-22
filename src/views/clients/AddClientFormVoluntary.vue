@@ -4,11 +4,7 @@
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
-            <div class="m-b-10">
-              <div class="avatar">
-                <!-- <div class="avatar-title rounded-circle fe fe-briefcase"></div> -->
-              </div>
-            </div>
+           
             <p class="h4">
               <strong>Kampe Enrollment (Nigeria) </strong>
             </p>

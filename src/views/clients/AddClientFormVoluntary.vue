@@ -72,7 +72,7 @@
                               v-for="plan in nigerian_plans"
                               :key="plan.id"
                             >
-                              {{ plan.name }}
+                              {{ plan.name }} (₦{{ plan.price  | numeral(0,0)}})
                             </option>
                           </select>
                         </div>
@@ -93,7 +93,7 @@
                             v-for="plan in hdptc_plans"
                             v-bind:key="plan.id"
                           >
-                            {{ plan.name }}
+                            {{ plan.name }} (₦{{ plan.price  | numeral(0,0)}})
                           </option>
                         </select>
                       </div>
@@ -113,7 +113,7 @@
                             v-for="plan in school_plans"
                             v-bind:key="plan.id"
                           >
-                            {{ plan.name }}
+                            {{ plan.name }} (₦{{ plan.price | numeral(0,0) }})
                           </option>
                         </select>
                       </div>
@@ -162,9 +162,7 @@
                         />
                       </div>
 
-                      <!-- </div>
-
-                                                         <div class="form-row"> -->
+                     
                       <div class="form-group col-md-6">
                         <p>
                           <label for="inputPassword4"

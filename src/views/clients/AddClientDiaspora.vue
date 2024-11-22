@@ -71,7 +71,9 @@
                               v-for="plan in diaspora_plans"
                               :key="plan.id"
                             >
-                              {{ plan.name }}
+                              {{ plan.name }} (${{
+                                plan.price | numeral(0, 0)
+                              }})
                             </option>
                           </select>
                         </div>
@@ -96,7 +98,9 @@
                               v-for="plan in diaspora_hdptc_plans"
                               :key="plan.id"
                             >
-                              {{ plan.name }}
+                              {{ plan.name }} (${{
+                                plan.price | numeral(0, 0)
+                              }})
                             </option>
                           </select>
                         </div>
@@ -136,7 +140,7 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-6">
                         <p>
                           <label for="inputPassword4"
                             >Date of Birth <span class="text-danger">*</span>
@@ -163,7 +167,7 @@
                         />
                       </div>
 
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-6">
                         <label for="inputEmail4"
                           >Email <span class="text-danger">*</span></label
                         >

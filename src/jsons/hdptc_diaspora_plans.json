@@ -1,22 +1,22 @@
 [
 
     {
-        "name": "Kampe Ruby",
-        "price": 325,
+        "name": "Kampe Basic HDPTC",
+        "price": 132,
         "description": ""
     },
     {
-        "name": "Kampe Gold",
-        "price": 425,
+        "name": "Kampe Plus HDPTC",
+        "price": 144,
         "description": ""
     },
     {
-        "name": "Kampe Diamond",
-        "price": 625,
+        "name": "Kampe Superior HDPTC",
+        "price": 162,
         "description": ""
     },
     {
-        "name": "Kampe Travel Plan",
+        "name": "Kampe Senior",
         "price": 225,
         "description": ""
     }

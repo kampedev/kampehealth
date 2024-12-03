@@ -605,9 +605,9 @@ export default {
             "Submited Successfully. Make Payment to complete your registration.",
             { position: "top-center", duration: 8000 }
           );
-          // let user_id = response.data.data.id;
+          let user_id = response.data.data.id;
 
-          // this.$router.push(`/subscribe-${user_id}`);
+          this.$router.push(`/subscribe-${user_id}`);
         })
         .catch((error) => {
           console.log(error.response);

@@ -4,7 +4,6 @@
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
-           
             <p class="h4">
               <strong>Kampe Enrollment (Nigeria) </strong>
             </p>
@@ -68,7 +67,9 @@
                               v-for="plan in nigerian_plans"
                               :key="plan.id"
                             >
-                              {{ plan.name }} (₦{{ plan.price  | numeral(0,0)}})
+                              {{ plan.name }} (₦{{
+                                plan.price | numeral(0, 0)
+                              }})
                             </option>
                           </select>
                         </div>
@@ -89,7 +90,7 @@
                             v-for="plan in hdptc_plans"
                             v-bind:key="plan.id"
                           >
-                            {{ plan.name }} (₦{{ plan.price  | numeral(0,0)}})
+                            {{ plan.name }} (₦{{ plan.price | numeral(0, 0) }})
                           </option>
                         </select>
                       </div>
@@ -109,7 +110,7 @@
                             v-for="plan in school_plans"
                             v-bind:key="plan.id"
                           >
-                            {{ plan.name }} (₦{{ plan.price | numeral(0,0) }})
+                            {{ plan.name }} (₦{{ plan.price | numeral(0, 0) }})
                           </option>
                         </select>
                       </div>
@@ -158,7 +159,6 @@
                         />
                       </div>
 
-                     
                       <div class="form-group col-md-6">
                         <p>
                           <label for="inputPassword4"
@@ -343,7 +343,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                       <button
                         class="btn btn-outline-info"
                         type="button"
@@ -351,6 +351,43 @@
                       >
                         Capture Photo <i class="fe fe-camera"></i>
                       </button>
+
+                      <div
+                        class="fileinput fileinput-new"
+                        data-provides="fileinput"
+                      >
+                        <span class="btn btn-file">
+                          <span class="fileinput-new"
+                            >Upload Photo <i class="fe fe-upload"></i
+                          ></span>
+                          <span class="fileinput-exists">Change</span>
+                          <input
+                            type="file"
+                            name="..."
+                            multiple
+                            v-on:change="attachPic"
+                          />
+                          <pre id="output"></pre>
+                        </span>
+                        <span class="fileinput-filename"></span>
+                        <a
+                          href="#"
+                          class="close fileinput-exists"
+                          data-dismiss="fileinput"
+                          style="float: none"
+                          >&times;</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <img
+                      v-if="register.user_image"
+                        :src="`${register.user_image}`"
+                        class="rounded"
+                        alt="User Photo"
+                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
+                      />
                     </div>
 
                     <div class="form-group">
@@ -439,7 +476,7 @@ export default {
         salary_number: "",
         provider_id: "",
         point_of_care: "",
-        sector: "Voluntary Contributor",
+        sector: "",
         finger_print: "",
         place_of_work: "",
         org_id: "",
@@ -454,28 +491,6 @@ export default {
   beforeMount() {
     //
   },
-  computed: {
-    addYear() {
-      var d = new Date();
-      var year = d.getFullYear();
-      var month = d.getMonth();
-      var day = d.getDate();
-      var c = new Date(year + 1, month, day);
-      // var c = new Date(year + 1);
-      console.log(c);
-      return c;
-    },
-
-    getTPA() {
-      let osunlgaarray = this.tpa_Lga.lgas;
-      // return osunlgaarray
-      let formatter = osunlgaarray.filter(
-        (x) => x.id == this.register.localgovt
-      );
-      console.log(formatter);
-      return formatter[0];
-    },
-  },
 
   methods: {
     async takePicAndroid() {
@@ -488,11 +503,26 @@ export default {
 
       var imageUrl = image.base64String;
       this.register.user_image = "data:image/png;base64," + imageUrl;
-
       this.$toasted.info("Image taken Successfully!", {
         position: "top-center",
         duration: 8000,
       });
+    },
+    attachPic(event) {
+      let imageFile = event.target.files[0];
+
+      if (imageFile) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          // The result contains the Base64 string
+          let base64Data = e.target.result;
+          console.log(base64Data); // You can use the Base64 string here
+          this.register.user_image = base64Data;
+        };
+
+        reader.readAsDataURL(imageFile);
+      }
     },
 
     submitForm() {
@@ -590,18 +620,6 @@ export default {
         });
     },
 
-    // getProviders() {
-    //   this.axios
-    //     .get(`/api/v1/auth/providerAgency/439078`)
-    //     .then((response) => {
-    //       this.providers = response.data.data;
-    //       console.log(response);
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // },
-
     getProvidersByState() {
       this.axios
         .get(
@@ -635,9 +653,9 @@ export default {
           console.error(error);
         });
     },
+
   },
   created() {
-    // this.getProviders();
     this.getStates();
     this.getEmployees();
   },

@@ -319,7 +319,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                       <button
                         class="btn btn-outline-info"
                         type="button"
@@ -327,6 +327,42 @@
                       >
                         Capture Photo <i class="fe fe-camera"></i>
                       </button>
+                      <div
+                        class="fileinput fileinput-new"
+                        data-provides="fileinput"
+                      >
+                        <span class="btn btn-file">
+                          <span class="fileinput-new"
+                            >Upload Photo <i class="fe fe-upload"></i
+                          ></span>
+                          <span class="fileinput-exists">Change</span>
+                          <input
+                            type="file"
+                            name="..."
+                            multiple
+                            v-on:change="attachPic"
+                          />
+                          <pre id="output"></pre>
+                        </span>
+                        <span class="fileinput-filename"></span>
+                        <a
+                          href="#"
+                          class="close fileinput-exists"
+                          data-dismiss="fileinput"
+                          style="float: none"
+                          >&times;</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <img
+                      v-if="register.user_image"
+                        :src="`${register.user_image}`"
+                        class="rounded"
+                        alt="User Photo"
+                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
+                      />
                     </div>
 
                     <div class="form-row my-3">
@@ -482,6 +518,21 @@ export default {
         position: "top-center",
         duration: 8000,
       });
+    },
+    attachPic(event) {
+      let imageFile = event.target.files[0];
+
+      if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          // The result contains the Base64 string
+          let base64Data = e.target.result;
+          console.log(base64Data); // You can use the Base64 string here
+          this.register.user_image = base64Data;
+        };
+
+        reader.readAsDataURL(imageFile);
+      }
     },
     submitForm() {
       if (confirm("Are you sure you want to submit?")) {

@@ -14,8 +14,7 @@
                   ></div>
                 </div>
                 <div class="media-body">
-                  <!-- <div class="opacity-75">To,</div>
-                                   <h4 class="m-b-0">N  </h4> -->
+                 
                   <p class="opacity-75">
                     Payment ID #{{ paymentorder.data.payment_number }} <br />
                     Invoice Date :
@@ -200,6 +199,7 @@
                       </tbody>
                     </table>
                   </div>
+                  
                   <div class="p-t-10 p-b-20">
                     <p class="font-weight-bold">Powered by Kampe Health</p>
                     <hr />

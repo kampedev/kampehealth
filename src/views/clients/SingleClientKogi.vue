@@ -214,6 +214,13 @@
                     {{ client.user.created_at | moment("dddd, MMMM Do YYYY") }}
                   </p>
                   <hr />
+                  <div v-for="(dep, index) in dependents" v-bind:key="dep.id">
+                    <p class="spacer-top-bottom">
+                      <strong>Related User Name {{ index + 1 }} :</strong>
+                      {{ dep.full_name }}
+                    </p>
+                    <hr />
+                  </div>
 
                   <p
                     class="spacer-top-bottom"
@@ -503,28 +510,6 @@ export default {
       }, 3000);
     },
 
-    changeNumber() {
-      this.isLoading = true;
-      this.axios
-        .patch(`/api/v1/auth/id-card-number/change/${this.$route.params.id}`)
-        .then((response) => {
-          console.log(response);
-          // this.getClients()
-          this.$toasted.success("Changed Successfully", {
-            position: "top-center",
-            duration: 3000,
-          });
-          this.isLoading = false;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.$toasted.error("Error!", {
-            position: "top-center",
-            duration: 3000,
-          });
-          this.isLoading = false;
-        });
-    },
     attachPic(event) {
       this.user = JSON.parse(localStorage.getItem("user"));
       console.log(event);
@@ -660,6 +645,18 @@ export default {
       }
     },
 
+    getDependents(){
+      this.axios
+        .get(`/api/v1/auth/allDependantUser/${this.$route.params.id}`)
+        .then((response) => {
+          this.dependents = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
     deleteTrx(trx) {
       if (confirm("Are you Sure you want to delete?")) {
         this.axios
@@ -752,7 +749,7 @@ export default {
   },
   created() {
     this.fetchUser();
-    // this.streamPic();
+    this.getDependents();
   },
 };
 </script>

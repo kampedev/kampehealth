@@ -1,0 +1,59 @@
+[
+
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Asthma",
+        "diagnosis": 60 , 
+        "is_underlying" : true
+    },
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Hypertension",
+        "diagnosis": 115,
+        "is_underlying" : true
+    },
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Cardiac Failure",
+        "diagnosis": 72550,
+        "is_underlying" : true
+    },
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Epilepsy",
+        "diagnosis": 72759,
+        "is_underlying" : true
+    },
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Diabetes",
+        "diagnosis": 91,
+        "is_underlying" : true
+    },
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Tuberculosis",
+        "diagnosis": 173,
+        "is_underlying" : true
+    },
+
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Tumor",
+        "diagnosis": 72760,
+        "is_underlying" : true
+    },
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Arthritis",
+        "diagnosis": 72505,
+        "is_underlying" : true
+    },
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Psychiatric/Mental Illness",
+        "diagnosis": 72761,
+        "is_underlying" : true
+    }
+
+]

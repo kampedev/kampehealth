@@ -1,314 +1,185 @@
 <template>
   <section class="admin-content" id="contact-search">
-    <Navbar />
-
-    <!-- <div class="bg-dark m-b-30">
-           <div class="container">
-               <div class="row p-b-60 p-t-60">
-
-                   <div class="col-md-6 text-center mx-auto text-white p-b-10">
-                       <div class="m-b-10">
-
-                       </div>
-                       <strong class="h4" style="margin-top:10px">Manage Dependents </strong>
-                       <p class="h5">{{client.firstname}} {{client.lastname}} </p>
-
-                   </div>
-
-               </div>
-           </div>
-       </div> -->
-    <div class="col-md-6 text-center mx-auto text-dark p-b-10">
-      <div class="m-b-10"></div>
-      <strong class="h4" style="margin-top: 10px">Manage Dependents </strong>
-      <p class="h5">{{ client.full_name }}</p>
-    </div>
+   
     <section>
       <div class="container">
         <div class="row list">
           <div class="col-lg-12 col-md-12">
-            <div class="card m-b-30" v-if="dependents.length <= 4">
-              <div class="card-header text-center">
-                <strong>Add Dependent </strong>
+            <div class="card m-b-30">
+              <div class="card-header">
+                <button
+                  type="button"
+                  @click="addArray()"
+                  class="btn btn-text"
+                >
+                Add User(s)  <i class="fe fe-users"></i>
+                </button>
+
               </div>
 
-              <div class="card-body">
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputCity">Relationship Type</label>
-
-                    <select
-                      class="form-control"
-                      v-model="dependent.relationShipType"
-                    >
-                      <option value="Spouse A">Spouse</option>
-                      <option value="Child B">Child 1</option>
-                      <option value="Child C">Child 2</option>
-                      <option value="Child D">Child 3</option>
-                      <option value="Child E">Child 4</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputCity">Gender</label>
-
-                    <select class="form-control" v-model="dependent.gender">
-                      <option id="Male">Male</option>
-                      <option id="Female">Female</option>
-                    </select>
-                  </div>
-
-                  <div
-                    class="form-group col-md-6"
-                    v-if="dependent.relationShipType != 'Spouse'"
+              <div
+                class="card-body"
+                v-for="(dependent, index) in dependents"
+                :key="dependent"
+              >
+                <div class="row">
+                  <div class="col-md-3"
+                  v-show="false"
                   >
-                    <label for="inputPassword4">Surname </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="dependent.lastname"
-                      placeholder="Surname"
-                    />
-                  </div>
-
-                  <div
-                    class="form-group col-md-6"
-                    v-if="dependent.relationShipType == 'Spouse'"
-                  >
-                    <label for="inputPassword4">Surname </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="dependent.lastname"
-                      placeholder="Surname"
-                    />
-                  </div>
-
-                  <div class="form-group col-md-6">
-                    <label for="inputEmail4">First Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="First Name"
-                      v-model="dependent.firstname"
-                    />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputPassword4">Middle Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Middle Name"
-                      v-model="dependent.middle_name"
-                    />
-                  </div>
-
-                  <div class="form-group col-md-6">
-                    <label for="inputCity">Date of Birth </label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      placeholder="YYYY/MM/DD"
-                      v-model="dependent.dob"
-                    />
-                  </div>
-
-                  <div class="form-group col-md-6">
-                    <label for="inputCity"
-                      >Date of Expiry: <b>{{ getExpiry }}</b>
-                    </label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      disabled
-                      placeholder="YYYY/MM/DD"
-                      v-model="getExpiry"
-                    />
-                    <p class="text-success">
-                      Principal Expiry: {{ client.expiry_date }}
-                    </p>
-                  </div>
-
-                  <div class="form-group col-md-6">
-                    <label for="inputPassword4">Phone Number</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="inputPassword4"
-                      placeholder="Mobile No"
-                      :value="client.phone_number"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-row">
-                  <!-- <button class="btn btn-success spacer" @click="streamPic" data-toggle="modal" data-target="#example_02">
-                                     Snap Photo <i class="fe fe-camera"></i> </button> -->
-
-                  <div
-                    class="fileinput fileinput-new"
-                    data-provides="fileinput"
-                  >
-                    <span class="btn btn-file">
-                      <span class="fileinput-new"
-                        >Upload Picture <i class="fe fe-upload"></i
-                      ></span>
-                      <span class="fileinput-exists">Change</span>
-                      <input
-                        type="file"
-                        name="..."
-                        multiple
-                        v-on:change="attachPic"
-                      />
-                    </span>
-                    <span class="fileinput-filename"></span>
-                    <a
-                      href="#"
-                      class="close fileinput-exists"
-                      data-dismiss="fileinput"
-                      style="float: none"
-                      >&times;</a
-                    >
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <button
-                    class="btn btn-primary btn-block btn-lg"
-                    @click="submitForm"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-12 m-b-30">
-          <h5>
-            <i class="fe fe-activity"></i>{{ dependents.length }} Dependents
-          </h5>
-          <div class="table-responsive">
-            <table class="table align-td-middle table-card">
-              <thead>
-                <tr>
-                  <th>Avatar</th>
-                  <th>Name</th>
-                  <th>ID Number</th>
-                  <th>DOB / Date of Expiry</th>
-                  <th>Gender</th>
-                  <th>Relationship</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="dependent in dependents" v-bind:key="dependent.id">
-                  <td>
-                    <vue-initials-img
-                      :name="dependent.firstname + ' ' + dependent.lastname"
-                      class="img-thumbnail"
-                      size="25"
-                      v-if="dependent.image == null"
-                    />
-
-                    <div
-                      class="avatar avatar-md"
-                      v-if="dependent.image != null"
-                    >
+                    <div class="form-row">
                       <img
-                        :src="`https://kampe.hayokmedicare.ng/image/${dependent.image}`"
-                        class="avatar-img avatar-lg rounded"
+                        :src="`${dependent.user_image}`"
+                        class="rounded"
+                        alt="User Photo"
                         onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
-                        alt=""
+                      />
+
+                      <div class="form-group col-md-12 mt-2 text-center  mx-auto ">
+                        <button
+                          class="btn btn-outline-dark"
+                          type="button"
+                          @click="takePicAndroid(index)"
+                        >
+                          Capture <i class="fe fe-camera"></i>
+                        </button>
+
+                        <div
+                          class="fileinput fileinput-new"
+                          data-provides="fileinput"
+                        >
+                          <span class="btn btn-file">
+                            <span class="fileinput-new"
+                              >Upload <i class="fe fe-upload"></i
+                            ></span>
+                            <span class="fileinput-exists">Change</span>
+                            <input
+                              type="file"
+                              name="..."
+                              multiple
+                              v-on:change="attachPic($event, index)"
+                            />
+                          </span>
+                          <span class="fileinput-filename"></span>
+                          <a
+                            href="#"
+                            class="close fileinput-exists"
+                            data-dismiss="fileinput"
+                            style="float: none"
+                            >&times;</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 row">
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">Surname </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="dependent.lastname"
+                        placeholder="Surname"
                       />
                     </div>
-                  </td>
-                  <td>
-                    <router-link :to="{ path: '/provider-' + dependent.id }">
-                      {{ dependent.full_name }}
-                    </router-link>
-                  </td>
-                  <td>{{ dependent.id_card_number }}</td>
-                  <td>
-                    {{ dependent.dob }} <b>/</b> {{ dependent.expiry_date }}
-                  </td>
-                  <td>{{ dependent.gender }}</td>
-                  <td>{{ dependent.relationShipType }}</td>
-                  <td>
-                    <!-- <router-link :to="{ path: '/dependent/' + dependent.id }">
-                                   <button class="btn btn-default" name="button" ><i class="fe fe-eye"></i> </button>
-                               </router-link> -->
 
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4">First Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="First Name"
+                        v-model="dependent.firstname"
+                      />
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">Middle Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Middle Name"
+                        v-model="dependent.middle_name"
+                      />
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="inputCity">Gender</label>
+
+                      <select class="form-control" v-model="dependent.gender">
+                        <option id="Male">Male</option>
+                        <option id="Female">Female</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="inputCity">Date of Birth </label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        placeholder="YYYY/MM/DD"
+                        v-model="dependent.dob"
+                      />
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">Phone Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputPassword4"
+                        placeholder="Mobile No"
+                        :value="dependent.phone_number"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                      <p class="h4">Underlying Health Conditions </p>
+                      <label
+                        class="cstm-switch"
+                        v-for="condition in conditions"
+                        :key="condition"
+                      >
+                        <input
+                          type="checkbox"
+                      
+                          v-model="dependent.conditions"
+                          :value="condition"
+                          class="cstm-switch-input"
+                        />
+                        <span class="cstm-switch-indicator"></span>
+                        <span class="cstm-switch-description mr-4">
+                          {{ condition.encounter_outcome }}
+                        </span>
+                      </label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="row col-md-6">
                     <button
-                      class="btn btn-info"
-                      name="button"
-                      @click="editDep(dependent)"
+                      type="button"
+                      @click="addArray()"
+                      class="btn btn-outline-info btn-block"
                     >
-                      <i class="fe fe-edit"></i>
+                      <i class="fe fe-plus"></i>
                     </button>
+                  </div>
+
+                  <div class="col-md-6">
                     <button
-                      class="btn btn-danger"
-                      name="button"
-                      @click="deleteDep(dependent)"
+                      type="button"
+                      @click="removeArray(index)"
+                      class="btn btn-outline-danger btn-block"
                     >
                       <i class="fe fe-delete"></i>
                     </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Modal for Streaming Picture -->
-        <div
-          class="modal fade"
-          id="example_02"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="example_02"
-          aria-hidden="true"
-        >
-          <div
-            class="modal-dialog modal-dialog-centered modal-lg"
-            role="document"
-          >
-            <div class="modal-content">
-              <div class="container-fluid">
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="row">
-                  <div class="col-md-12 p-t-20 p-b-20">
-                    <video
-                      id="video"
-                      width="100%"
-                      height="auto"
-                      autoplay
-                    ></video>
-                    <p>
-                      <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
-                      <button @click="takePic" class="bg-navy btn btn-flat">
-                        Snap Photo
-                      </button>
-                      <!-- <button type="button" class="btn btn-info" name="button" @click="savePic">Save pic</button> -->
-                    </p>
-                    <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
-                    <!-- <p>{{imagefile}}</p> -->
-
-                    <canvas id="canvas" width="720px" height="550px"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Modal Ends -->
       </div>
 
       <div class="vld-parent">
@@ -324,23 +195,22 @@
 </template>
 
 <script>
-import Navbar from "@/views/Navbar.vue";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
-// import Datepicker from 'vuejs-datepicker';
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+import conditionsJSON from "@/jsons/conditions.json";
+
 
 export default {
   components: {
-    Navbar,
     Loading,
   },
   data() {
     return {
       user: null,
-      dependents: "",
       client: "",
       edit: false,
       isLoading: false,
@@ -353,34 +223,10 @@ export default {
       imagefile: "",
       image: "",
       upload_pic: false,
-      dependent: {
-        firstname: "",
-        lastname: "",
-        middlename: "",
-        institution_attending: "",
-        email: "",
-        phone_number: "",
-        relationShipType: "",
-        gender: "",
-        lga: "",
-        dob: "",
-        provider: "",
-      },
-      video_settings: {
-        video: {
-          width: {
-            min: 1280,
-            ideal: 1920,
-            max: 2560,
-          },
-          height: {
-            min: 720,
-            ideal: 1080,
-            max: 1440,
-          },
-          facingMode: "environment",
-        },
-      },
+      conditions: conditionsJSON,
+      dependents: [
+       
+      ],
     };
   },
   beforeMount() {
@@ -436,30 +282,62 @@ export default {
     },
   },
   methods: {
-    //   showPayPart(){
-    //       this.showpi
-    //   },
-    attachPic(event) {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      console.log(event);
-      this.image = event.target.files[0];
-      this.upload_pic = true;
+    addArray() {
+      this.dependents.push({
+        firstname: "",
+        lastname: "",
+        middlename: "",
+        institution_attending: "",
+        email: "",
+        phone_number: "",
+        relationShipType: "None",
+        gender: "",
+        lga: "",
+        dob: "",
+        provider: "",
+        user_image: "",
+        conditions: [],
+      });
+      this.$emit('clicked', this.dependents);  
+
     },
-    streamPic() {
-      this.upload_pic = false;
-      var video = document.getElementById("video");
-      // Get access to the camera!
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Not adding `{ audio: true }` since we only want video now
-        navigator.mediaDevices
-          .getUserMedia(this.video_settings)
-          .then(function (stream) {
-            //video.src = window.URL.createObjectURL(stream);
-            video.srcObject = stream;
-            video.play();
-          });
+    removeArray(index) {
+      this.dependents.splice(index, 1); // 2nd parameter means remove one item only
+      this.$emit('clicked', this.dependents);  
+
+      console.log(this.dependents);
+    },
+
+    attachPic(event,index) {
+      let imageFile = event.target.files[0];
+      console.log(index)
+      if (imageFile) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          // The result contains the Base64 string
+          let base64Data = e.target.result;
+          console.log(base64Data); // You can use the Base64 string here
+          this.dependents[index].user_image = base64Data;
+        };
+
+        reader.readAsDataURL(imageFile);
       }
     },
+
+    async takePicAndroid(index) {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+      });
+
+      var imageUrl = image.base64String;
+      this.dependents[index].user_image = "data:image/png;base64," + imageUrl;
+     
+    },
+
     uploadPicture(dependent_id) {
       this.isLoading = true;
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -482,31 +360,6 @@ export default {
         });
     },
 
-    getSurname() {
-      if (this.dependent.relationShipType == "Spouse") {
-        return this.dependent.lastname;
-      } else {
-        if (this.client.gender == "male") {
-          return this.client.firstname;
-        } else {
-          return this.dependent.lastname;
-        }
-      }
-    },
-    takePic() {
-      var video = document.getElementById("video");
-      var canvas = document.getElementById("canvas");
-      var context = canvas.getContext("2d");
-
-      context.drawImage(video, 0, 0, 480, 400);
-      // get image
-      var image = new Image();
-      image.src = canvas.toDataURL("image/png");
-      console.log(image);
-      localStorage.setItem("snap", this.imagefile.src);
-      this.imagefile = image.src;
-      this.upload_pic = false;
-    },
     savePic(dependent_id) {
       this.isLoading = true;
       this.axios
@@ -524,197 +377,11 @@ export default {
           this.isLoading = false;
         });
     },
-    getDependents() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.axios
-        .get(`/api/v1/allDependantUser/${this.$route.params.id}`)
-        .then((response) => {
-          this.dependents = response.data.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
 
-    submitForm() {
-      if (this.getAge >= 18 && this.dependent.relationShipType != "Spouse A") {
-        this.$toasted.error("Dependent older than 18 years", {
-          position: "top-center",
-          duration: 3000,
-        });
-      } else {
-        this.addDependant();
-      }
-    },
+  
 
-    addDependant() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      console.log(this.client);
-      if (this.edit === false) {
-        // Add dependent
-        this.isLoading = true;
-        this.axios
-          .post("/api/v1/addDependant", {
-            firstname: this.dependent.firstname,
-            // lastname: this.getSurname ? this.getSurname : this.dependent.lastname,
-            lastname: this.dependent.lastname,
-            middle_name: this.dependent.middle_name,
-            institution_attending: this.dependent.institution_attending,
-            relationShipType: this.dependent.relationShipType.slice(0, -1),
-            user_id: this.$route.params.id,
-            email: this.dependent.email,
-            expiry_date: this.getExpiry,
-            phone_number: this.client.phone_number,
-            gender: this.dependent.gender,
-            state: 2676,
-            lga: this.client.localgovt,
-            dob: this.dependent.dob,
-            provider: this.client.provider_id,
-            enrolled_by: this.client.id,
-            agency_id: 439078,
-            id_card_number:
-              this.client.id_card_number +
-              "/" +
-              this.dependent.relationShipType.slice(
-                this.dependent.relationShipType.length - 1
-              ),
-          })
-
-          .then((response) => {
-            console.log(response);
-            let dependent_id = response.data.dependent.id;
-            this.clearIt();
-
-            if (this.upload_pic == true) {
-              this.uploadPicture(dependent_id);
-            } else {
-              this.savePic(dependent_id);
-            }
-
-            this.isLoading = false;
-            this.$toasted.success("Dependent added Successfully", {
-              position: "top-center",
-              duration: 3000,
-            });
-            this.getDependents();
-          })
-          .catch((error) => {
-            this.isLoading = false;
-            this.$toasted.error(
-              "duplicate relationship type or incomplete fields",
-              { position: "top-center", duration: 3000 }
-            );
-            console.log(error.response);
-          });
-      } else {
-        // Update
-        this.isLoading = true;
-        this.axios
-          .put(`/api/v1/editDependant/${this.dependent_id}`, {
-            firstname: this.dependent.firstname,
-            // lastname: this.getSurname ? this.getSurname : this.dependent.lastname,
-            lastname: this.dependent.lastname,
-            middle_name: this.dependent.middle_name,
-            institution_attending: this.dependent.institution_attending,
-            relationShipType: this.dependent.relationShipType.slice(0, -1),
-            user_id: this.$route.params.id,
-            email: this.dependent.email,
-            phone_number: this.client.phone_number,
-            gender: this.dependent.gender,
-            expiry_date: this.dependent.expiry_date,
-            dob: this.dependent.dob,
-            state: 2683,
-            lga: this.client.localgovt,
-            provider: this.client.provider_id,
-          })
-
-          .then((response) => {
-            console.log(response);
-            let dependent_id = this.dependent_id;
-            this.savePic(dependent_id);
-            this.edit = false;
-            this.isLoading = false;
-            this.$toasted.success("Dependent Updated Successfully!", {
-              position: "top-center",
-              duration: 3000,
-            });
-            this.getDependents();
-            this.clearIt();
-          })
-          .catch((error) => {
-            console.log(error.response);
-            this.$toasted.error("Error!", {
-              position: "top-center",
-              duration: 3000,
-            });
-          });
-      }
-    },
-    deleteDep(dependent) {
-      if (confirm("Are you sure you want to delete?")) {
-        this.axios
-          .delete(`/api/v1/deletedependent/${dependent.id}`)
-          .then((response) => {
-            console.log(response);
-            this.$toasted.success("Dependent deleted Successfully!", {
-              position: "top-center",
-              duration: 3000,
-            });
-            this.getDependents();
-          })
-          .catch((error) => {
-            console.error(error);
-            this.$toasted.error("Error!", {
-              position: "top-center",
-              duration: 3000,
-            });
-          });
-      }
-    },
-    editDep(dependent) {
-      this.edit = true;
-      this.dependent_id = dependent.id;
-      this.dependent.firstname = dependent.firstname;
-      this.dependent.lastname = dependent.lastname;
-      this.dependent.middle_name = dependent.middle_name;
-      this.dependent.relationShipType =
-        dependent.relationShipType +
-        " " +
-        dependent.id_card_number.slice(dependent.id_card_number.length - 1);
-      this.dependent.gender = dependent.gender;
-      this.dependent.dob = dependent.dob;
-      this.dependent.expiry_date = dependent.expiry_date;
-      this.client.phone_number = dependent.phone_number;
-    },
-    clearIt() {
-      this.dependent.firstname = "";
-      this.dependent.lastname = "";
-      this.dependent.middle_name = "";
-      this.dependent.email = "";
-      this.dependent.phone_number = "";
-      this.dependent.relationShipType = "";
-      this.dependent.gender = "";
-      this.dependent.middlename = "";
-      this.dependent.institution_attending = "";
-      this.dependent.dob = "";
-      this.dependent.expiry_date = "";
-    },
-    singleClient() {
-      this.axios
-        .get(`/api/v1/user-no-auth/${this.$route.params.id}`)
-        .then((response) => {
-          this.client = response.data.user;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+   
   },
-  created() {
-    this.getDependents();
-    this.singleClient();
-  },
+  created() {},
 };
 </script>

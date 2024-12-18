@@ -344,6 +344,27 @@
                     </div>
 
                     <div class="form-group col-md-12">
+                      <p class="h4">Underlying Health Conditions </p>
+                      <label
+                        class="cstm-switch"
+                        v-for="condition in conditions"
+                        :key="condition"
+                      >
+                        <input
+                          type="checkbox"
+                      
+                          v-model="register.conditions"
+                          :value="condition"
+                          class="cstm-switch-input"
+                        />
+                        <span class="cstm-switch-indicator"></span>
+                        <span class="cstm-switch-description mr-4">
+                          {{ condition.encounter_outcome }}
+                        </span>
+                      </label>
+                    </div>
+
+                    <div class="form-group col-md-12">
                       <button
                         class="btn btn-outline-info"
                         type="button"
@@ -379,15 +400,20 @@
                         >
                       </div>
                     </div>
+                  
 
                     <div class="form-group col-md-6">
                       <img
-                      v-if="register.user_image"
+                        v-if="register.user_image"
                         :src="`${register.user_image}`"
                         class="rounded"
                         alt="User Photo"
                         onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                       />
+                    </div>
+
+                    <div class="col-md-12">
+                      <AddDependentVoluntary @clicked="onClickChild" />
                     </div>
 
                     <div class="form-group">
@@ -420,19 +446,24 @@
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
+import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
 import nigeriaPlansJSON from "@/jsons/nigerian_plans.json";
 import HDPTCPlansJSON from "@/jsons/hdptc_nigerian_plans.json";
 import schoolPlansJSON from "@/jsons/school_plans.json";
+import conditionsJSON from "@/jsons/conditions.json";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+// import { register } from "register-service-worker";
 
 export default {
   components: {
     Loading,
+    AddDependentVoluntary,
   },
   data() {
     return {
       isLoading: false,
       fullPage: true,
+      dependents: "",
       states: "",
       show: false,
       clients: "",
@@ -452,6 +483,7 @@ export default {
       nigerian_plans: nigeriaPlansJSON,
       hdptc_plans: HDPTCPlansJSON,
       school_plans: schoolPlansJSON,
+      conditions: conditionsJSON,
       employees: "",
       Imagefile: "",
       register: {
@@ -485,6 +517,7 @@ export default {
         marital_status: "",
         user_image: "",
         enrolled_by: 0,
+        conditions: [],
       },
     };
   },
@@ -493,6 +526,9 @@ export default {
   },
 
   methods: {
+    onClickChild(value) {
+      this.dependents = value;
+    },
     async takePicAndroid() {
       const image = await Camera.getPhoto({
         quality: 90,
@@ -597,6 +633,8 @@ export default {
             this.register.category_of_vulnerable_group,
           enrolled_by:
             this.register.enrolled_by == null ? 0 : this.register.enrolled_by,
+          dependents: this.dependents,
+          conditions: this.register.conditions,
         })
         .then((response) => {
           console.log(response);
@@ -653,7 +691,6 @@ export default {
           console.error(error);
         });
     },
-
   },
   created() {
     this.getStates();

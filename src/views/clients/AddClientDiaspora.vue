@@ -12,6 +12,7 @@
       </div>
     </div>
 
+
     <main class="admin-main">
       <section class="container">
         <div class="">
@@ -320,6 +321,27 @@
                     </div>
 
                     <div class="form-group col-md-12">
+                      <p class="h4">Underlying Health Conditions </p>
+                      <label
+                        class="cstm-switch"
+                        v-for="condition in conditions"
+                        :key="condition"
+                      >
+                        <input
+                          type="checkbox"
+                      
+                          v-model="register.conditions"
+                          :value="condition"
+                          class="cstm-switch-input"
+                        />
+                        <span class="cstm-switch-indicator"></span>
+                        <span class="cstm-switch-description mr-4">
+                          {{ condition.encounter_outcome }}
+                        </span>
+                      </label>
+                    </div>
+
+                    <div class="form-group col-md-12">
                       <button
                         class="btn btn-outline-info"
                         type="button"
@@ -363,6 +385,9 @@
                         alt="User Photo"
                         onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                       />
+                    </div>
+                    <div class="col-md-12">
+                      <AddDependentVoluntary @clicked="onClickChild" />
                     </div>
 
                     <div class="form-row my-3">
@@ -415,19 +440,21 @@
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
+import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
 import plansJSON from "@/jsons/diaspora_plans.json";
 import diasporaHDPTCPlansJSON from "@/jsons/hdptc_diaspora_plans.json";
-
+import conditionsJSON from "@/jsons/conditions.json";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
   components: {
-    Loading,
+    Loading, AddDependentVoluntary
   },
   data() {
     return {
       isLoading: false,
       fullPage: true,
+      dependents: "",
       states: "",
       show: false,
       clients: "",
@@ -445,6 +472,7 @@ export default {
       response: "",
       diaspora_plans: plansJSON,
       diaspora_hdptc_plans: diasporaHDPTCPlansJSON,
+      conditions: conditionsJSON,
       employees: "",
       registrations: [
         {
@@ -472,6 +500,8 @@ export default {
           org_id: "1",
           marital_status: "",
           enrolled_by: 0,
+          conditions: [],
+          dependents: [],
         },
       ],
     };
@@ -479,30 +509,11 @@ export default {
   beforeMount() {
     //
   },
-  computed: {
-    addYear() {
-      var d = new Date();
-      var year = d.getFullYear();
-      var month = d.getMonth();
-      var day = d.getDate();
-      var c = new Date(year + 1, month, day);
-      // var c = new Date(year + 1);
-      console.log(c);
-      return c;
-    },
-
-    getTPA() {
-      let osunlgaarray = this.tpa_Lga.lgas;
-      // return osunlgaarray
-      let formatter = osunlgaarray.filter(
-        (x) => x.id == this.register.localgovt
-      );
-      console.log(formatter);
-      return formatter[0];
-    },
-  },
-
+  
   methods: {
+    onClickChild(value) {
+      this.registrations[0].dependents = value;
+    },
     async takePicAndroid() {
       const image = await Camera.getPhoto({
         quality: 90,
@@ -566,6 +577,8 @@ export default {
         org_id: "24",
         marital_status: "",
         enrolled_by: 0,
+        dependents: [],
+        conditions: [],
       });
     },
 

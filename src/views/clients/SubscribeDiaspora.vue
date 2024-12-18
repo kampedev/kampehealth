@@ -15,71 +15,10 @@
       </div>
     </div>
 
-    <section class="" v-show="showpic">
-      <div class="container">
-        <div class="row list">
-          <div class="col-lg-8 offset-lg-2">
-            <div class="card m-b-30">
-              <div class="card-header">
-                <p class="h5 text-center">
-                  {{ auth_user.full_name }}
-                </p>
-              </div>
+  
+   
 
-              <div class="card-body">
-                <div class="form-row col-lg-8 offset-lg-2">
-                  <button
-                    class="btn btn-outline-success mx-2"
-                    @click="takePicAndroid"
-                  >
-                    Take Photo <i class="fe fe-camera"></i>
-                  </button>
-                  <div
-                    class="fileinput fileinput-new"
-                    data-provides="fileinput"
-                  >
-                    <span class="btn btn-file">
-                      <span class="fileinput-new"
-                        >Upload Picture <i class="fe fe-upload"></i
-                      ></span>
-                      <span class="fileinput-exists">Change</span>
-                      <input
-                        type="file"
-                        name="..."
-                        multiple
-                        v-on:change="attachPic"
-                      />
-                    </span>
-                    <span class="fileinput-filename"></span>
-                    <a
-                      href="#"
-                      class="close fileinput-exists"
-                      data-dismiss="fileinput"
-                      style="float: none"
-                      >&times;</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="vld-parent">
-            <loading
-              :active.sync="isLoading"
-              loader="dots"
-              :can-cancel="true"
-              :is-full-page="fullPage"
-            ></loading>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="" v-show="showdependent">
-      <AddDependentVoluntary />
-    </section>
-
-    <section class="" v-show="showpay">
+    <section class="">
       <div class="container">
         <div class="row list">
           <div class="col-lg-8 offset-lg-2">
@@ -103,56 +42,59 @@
               </div>
 
               <div class="card-body">
-                <div class="form-row">
-                  <div class="form-group col-md-12">
-                    <label for="inputPassword4"
-                      ><strong
-                        >Selected Plan: {{ auth_user.sector }}
-                      </strong></label
-                    >
+                <div class="table-responsive">
+                  <table class="table m-t-50">
+                    <thead>
+                      <tr>
+                        <th class="">Enrollee(s)</th>
 
-                    <hr />
-                    <p class="h5 spacer-top-bot">
-                      <b
-                        >Total: $
+                        <th class="text-right">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="">
+                          <p class="text-black m-0">
+                            {{ auth_user.full_name }}
+                          </p>
+                          <p class="text-muted">
+                            {{ auth_user.sector }}
+                          </p>
+                        </td>
 
-                        {{ getPlan.price | numeral(0, 0) }}
+                        <td class="text-right">
+                          <i class="mdi mdi-currency-usd"></i
+                          >{{ getPlan.price | numeral(0, 0) }}
+                        </td>
+                      </tr>
+                      <tr
+                        v-for="dep in auth_user.dependents"
+                        v-bind:key="dep.id"
+                      >
+                        <td class="">
+                          <p class="text-black m-0">
+                            {{ dep.full_name }}
+                          </p>
+                          <p class="text-muted">
+                            {{ auth_user.sector }}
+                          </p>
+                        </td>
 
-                        <!-- {{ (getPlan.plan_cost + getPlan.fee) | numeral(0, 0) }} -->
-                      </b>
-                    </p>
+                        <td class="text-right">
+                          <i class="mdi mdi-currency-usd"></i
+                          >{{ getPlan.price | numeral(0, 0) }}
+                        </td>
+                      </tr>
 
-                    <div
-                      class="col-lg-12"
-                      style="margin-top: 15px; margin-bottom: 15px"
-                    >
-                      <div class="card m-b-30 bg-dark">
-                        <div class="card-body text-white">
-                          <div class="pb-2 text-center">
-                            <div class="avatar avatar-lg">
-                              <div
-                                class="avatar-title bg-soft-primary rounded-circle"
-                              >
-                                <i class="fe fe-credit-card"></i>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="text-center">
-                            <p>
-                              Upon payment, you will be able to access robust,
-                              qualitative healthcare services as contained in
-                              our benefit package. Please note that this
-                              registration will be void if you do not proceed to
-                              make payment. Should you have any difficulty in
-                              making your payment, please call: 070000xxxx or
-                              send us a mail at info@kampe.com Thank you.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                      <tr class="bg-light">
+                        <td class=""><strong>Total</strong></td>
+                        <td class="text-right">
+                          <i class="mdi mdi-currency-usd"></i>
+                          <strong> {{ totalAmount | numeral(0, 0) }}</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
                 <div class="row col-md-12">
@@ -177,6 +119,29 @@
                 </div>
               </div>
             </div>
+
+            <div class="card m-b-30 bg-dark">
+                <div class="card-body text-white">
+                  <div class="pb-2 text-center">
+                    <div class="avatar avatar-lg">
+                      <div class="avatar-title bg-soft-primary rounded-circle">
+                        <i class="fe fe-credit-card"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <p>
+                      Upon payment, you will be able to access robust,
+                      qualitative healthcare services as contained in our
+                      benefit package. Please note that this registration will
+                      be void if you do not proceed to make payment. Should you
+                      have any difficulty in making your payment, please call:
+                      070000xxxx or send us a mail at info@kampe.com Thank you.
+                    </p>
+                  </div>
+                </div>
+              </div>
           </div>
 
           <!-- Modal -->
@@ -305,8 +270,6 @@ import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
-// import paystack from "vue-paystack";
-import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import plansJSON from "@/jsons/diaspora_plans.json";
 import diasporaHDPTCPlansJSON from "@/jsons/hdptc_diaspora_plans.json";
@@ -315,7 +278,6 @@ export default {
   components: {
     Loading,
     // paystack,
-    AddDependentVoluntary,
   },
   data() {
     return {
@@ -327,8 +289,7 @@ export default {
       diaspora_plans: plansJSON,
       diaspora_hdptc_plans: diasporaHDPTCPlansJSON,
       payment_type: "online",
-      showpay: true,
-      showpic: false,
+     
       showdependent: false,
       wallx: {},
       plan_id: null,
@@ -366,6 +327,9 @@ export default {
       console.log(formatter);
       return formatter[0];
     },
+    totalAmount() {
+      return (this.auth_user.dependents.length + 1) * this.getPlan.price;
+    },
 
     reference() {
       let text = "";
@@ -379,11 +343,7 @@ export default {
     },
   },
   methods: {
-    showPayPart() {
-      this.showpay = true;
-      this.showpic = false;
-      this.showdependent = false;
-    },
+  
 
     wallxPay() {
       this.axios
@@ -391,7 +351,7 @@ export default {
           merchant_id: "WallX-00000220", // Your business's merchant ID
           pin: this.wallx.pin,
           secret: this.wallx.secret,
-          amount: this.getPlan.price,
+          amount: this.totalAmount,
           currency: "USD", // Options: NGN, USD, CAD
         })
         .then((response) => {
@@ -419,41 +379,8 @@ export default {
     close: function () {
       console.log("Payment closed");
     },
-    attachPic(event) {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      console.log(event);
-      this.image = event.target.files[0];
-      this.uploadPicture();
-    },
-    uploadPicture() {
-      this.isLoading = true;
-      this.user = JSON.parse(localStorage.getItem("user"));
-      var formData = new FormData();
-      formData.append("user_image", this.image);
-      formData.append("user_id", this.$route.params.id);
-      this.axios
-        .post("/api/v1/uploadUserImage", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          if (this.auth_user.plan_type == "Individual") {
-            this.showpay = true;
-            this.showpic = false;
-          } else {
-            this.showpay = false;
-            this.showdependent = true;
-            this.showpic = false;
-          }
-          this.isLoading = false;
-          this.$toasted.info("Image added Successfully!", {
-            position: "top-center",
-            duration: 3000,
-          });
-        });
-    },
+  
+   
 
     makeSubscribe() {
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -461,7 +388,7 @@ export default {
       this.axios
         .post("/api/v1/make/transaction", {
           agency_id: 439078,
-          amount: this.getPlan.price,
+          amount: this.totalAmount,
           description: this.getPlan.name,
           type: "subscription",
           transaction_ref: this.reference,
@@ -495,34 +422,7 @@ export default {
       this.savePic();
     },
 
-    savePic() {
-      this.isLoading = true;
-      this.axios
-        .post(`/api/v1/uploadcustomerpicImage`, {
-          user_image: this.imagefile,
-          user_id: this.$route.params.id,
-        })
-        .then((response) => {
-          console.log(response);
-          this.$toasted.success("Picture uploaded Successfully", {
-            position: "top-center",
-            duration: 3000,
-          });
-          if (this.auth_user.plan_type == "Individual") {
-            this.showpay = true;
-            this.showpic = false;
-          } else {
-            this.showpay = false;
-            this.showdependent = true;
-            this.showpic = false;
-          }
-          this.isLoading = false;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading = false;
-        });
-    },
+   
     sendSMS() {
       this.isLoading = true;
       this.axios
@@ -550,7 +450,7 @@ export default {
         .post(`/api/v1/pay-squareup`, {
           user_id: this.$route.params.id,
           name: this.getPlan.name,
-          amount: this.getPlan.price * 100,
+          amount: this.totalAmount * 100,
         })
         .then((response) => {
           console.log(response);

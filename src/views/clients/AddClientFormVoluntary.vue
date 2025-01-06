@@ -344,7 +344,7 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                      <p class="h4">Underlying Health Conditions </p>
+                      <p class="h4">Underlying Health Conditions</p>
                       <label
                         class="cstm-switch"
                         v-for="condition in conditions"
@@ -352,7 +352,6 @@
                       >
                         <input
                           type="checkbox"
-                      
                           v-model="register.conditions"
                           :value="condition"
                           class="cstm-switch-input"
@@ -400,7 +399,6 @@
                         >
                       </div>
                     </div>
-                  
 
                     <div class="form-group col-md-6">
                       <img
@@ -414,6 +412,111 @@
 
                     <div class="col-md-12">
                       <AddDependentVoluntary @clicked="onClickChild" />
+                    </div>
+
+                    <div>
+                      <p class="mb-2">
+                        <strong>
+                          Declaration & warranty on behalf of all persons
+                          proposed to be insured</strong
+                        >
+                      </p>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input
+                          required
+                          class="form-check-input"
+                          type="checkbox"
+                          id="checkbox1"
+                        />
+                        <label class="form-check-label" for="checkbox1">
+                          I/We hereby declare, on my behalf and on behalf of all
+                          persons proposed to be insured that the above
+                          statements, answers and/or particulars given by me are
+                          true and complete in all respects to the best of my
+                          knowledge and that I/We am/ are authorized to propose
+                          on behalf of these other persons.
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input
+                          required
+                          class="form-check-input"
+                          type="checkbox"
+                          id="checkbox1"
+                        />
+                        <label class="form-check-label" for="checkbox1">
+                          I understand that the information provided by me will
+                          form the basis of insurance policy, is subject to the
+                          Board approved underwriting policy of the Insurance
+                          Company and that the policy will come into force only
+                          after full receipt of the premium chargeable.
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input
+                          required
+                          class="form-check-input"
+                          type="checkbox"
+                          id="checkbox1"
+                        />
+                        <label class="form-check-label" for="checkbox1">
+                          I/ We further declare that I/We will notify in writing
+                          any change occurring in the occupation or general
+                          health of the life to be insured/ proposer after the
+                          proposal has been submitted but before communication
+                          of the risk acceptance by the company.
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input
+                          required
+                          class="form-check-input"
+                          type="checkbox"
+                          id="checkbox1"
+                        />
+                        <label class="form-check-label" for="checkbox1">
+                          I/We declare and consent to the company seeking
+                          medical information from any hospital who at any time
+                          has attended on the life to be insured/ proposer or
+                          from any past or present employer concerning anything
+                          which affects the physical and mental health of the
+                          life to be assured/proposer and seeking information
+                          from any insurance company to which an application for
+                          insurance on the life to be assured/ proposer has been
+                          made for the purpose of underwriting the proposal
+                          and/or claim settlement.
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input
+                          required
+                          class="form-check-input"
+                          type="checkbox"
+                          id="checkbox1"
+                        />
+                        <label class="form-check-label" for="checkbox1">
+                          I/ We authorize the company to share information
+                          pertaining to my proposal including the medical
+                          records for the sole purpose of proposal underwriting
+                          and/or claims settlement and with any Governmental
+                          and/or Regulatory Authority.
+                        </label>
+                      </div>
                     </div>
 
                     <div class="form-group">

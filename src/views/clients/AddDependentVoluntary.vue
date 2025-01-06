@@ -12,7 +12,7 @@
                   @click="addArray()"
                   class="btn btn-text"
                 >
-                Add User(s)  <i class="fe fe-users"></i>
+                Add User(s)<i class="fe fe-users"></i>
                 </button>
 
               </div>

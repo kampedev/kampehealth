@@ -12,7 +12,6 @@
       </div>
     </div>
 
-
     <main class="admin-main">
       <section class="container">
         <div class="">
@@ -321,7 +320,7 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                      <p class="h4">Underlying Health Conditions </p>
+                      <p class="h4">Underlying Health Conditions</p>
                       <label
                         class="cstm-switch"
                         v-for="condition in conditions"
@@ -329,7 +328,6 @@
                       >
                         <input
                           type="checkbox"
-                      
                           v-model="register.conditions"
                           :value="condition"
                           class="cstm-switch-input"
@@ -379,7 +377,7 @@
 
                     <div class="form-group col-md-6">
                       <img
-                      v-if="register.user_image"
+                        v-if="register.user_image"
                         :src="`${register.user_image}`"
                         class="rounded"
                         alt="User Photo"
@@ -388,6 +386,21 @@
                     </div>
                     <div class="col-md-12">
                       <AddDependentVoluntary @clicked="onClickChild" />
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input
+                          required
+                          class="form-check-input"
+                          type="checkbox"
+                          id="checkbox1"
+                        />
+                        <label class="form-check-label" for="checkbox1">
+                          I declare that all the information provided are
+                          correct
+                        </label>
+                      </div>
                     </div>
 
                     <div class="form-row my-3">
@@ -448,7 +461,8 @@ import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
   components: {
-    Loading, AddDependentVoluntary
+    Loading,
+    AddDependentVoluntary,
   },
   data() {
     return {
@@ -509,7 +523,7 @@ export default {
   beforeMount() {
     //
   },
-  
+
   methods: {
     onClickChild(value) {
       this.registrations[0].dependents = value;

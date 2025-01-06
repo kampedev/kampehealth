@@ -54,6 +54,12 @@
         "encounter_outcome": "Psychiatric/Mental Illness",
         "diagnosis": 72761,
         "is_underlying" : true
+    },
+    {
+        "agency_id" :439078,
+        "encounter_outcome": "Pregnancy",
+        "diagnosis": 72762,
+        "is_underlying" : true
     }
-
+    
 ]

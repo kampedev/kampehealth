@@ -344,7 +344,7 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                      <p class="h4">Underlying Health Conditions </p>
+                      <p class="h4">Underlying Health Conditions</p>
                       <label
                         class="cstm-switch"
                         v-for="condition in conditions"
@@ -352,7 +352,6 @@
                       >
                         <input
                           type="checkbox"
-                      
                           v-model="register.conditions"
                           :value="condition"
                           class="cstm-switch-input"
@@ -400,7 +399,6 @@
                         >
                       </div>
                     </div>
-                  
 
                     <div class="form-group col-md-6">
                       <img
@@ -415,6 +413,22 @@
                     <div class="col-md-12">
                       <AddDependentVoluntary @clicked="onClickChild" />
                     </div>
+
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input
+                          required
+                          class="form-check-input"
+                          type="checkbox"
+                          id="checkbox1"
+                        />
+                        <label class="form-check-label" for="checkbox1">
+                          I declare that all the information provided are correct
+                        </label>
+                      </div>
+                    </div>
+
+
 
                     <div class="form-group">
                       <button class="btn btn-info btn-block btn-lg">

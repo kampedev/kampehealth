@@ -30,6 +30,7 @@
                     Use this page to update your contact information and change
                     your password.
                   </p>
+
                   <div class="" v-if="auth_user.user_image != null">
                     <label class="avatar-input">
                       <span class="avatar avatar-xl">
@@ -139,6 +140,65 @@
                   </button>
                 </div>
               </div>
+
+              <div class="card py-3 m-b-30" v-if="auth_user.type != 'client'">
+                <div class="card-header">
+                  <p class="h5">Share your Enrolment Link</p>
+                </div>
+                <div class="row card-body">
+                  <div class="col-md-6">
+                    <label for="">Local Enrolment</label>
+                    <div class="input-group">
+                      <input
+                        disabled
+                        type="text"
+                        :placeholder="`https://kamplehealthplans.com/registration-local/${auth_user.id}`"
+                        class="form-control"
+                        aria-describedby="validatedInputGroupPrepend"
+                        required
+                      />
+                      <div class="input-group-prepend">
+                        <span
+                          class="input-group-text"
+                          id="validatedInputGroupPrepend"
+                          ><i
+                            class="fe fe-copy"
+                            role="button"
+                            @click="writeToClipboard('local')"
+                          ></i
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="">Diaspora Enrolment</label>
+
+                    <div class="input-group">
+                      <input
+                        disabled
+                        :placeholder="`https://kamplehealthplans.com/registration-diaspora/${auth_user.id}`"
+                        type="text"
+                        class="form-control"
+                        aria-describedby="validatedInputGroupPrepend"
+                        required
+                      />
+                      <div class="input-group-prepend">
+                        <span
+                          class="input-group-text"
+                          id="validatedInputGroupPrepend"
+                          ><i
+                            class="fe fe-copy"
+                            role="button"
+                            @click="writeToClipboard('diaspora')"
+                          ></i
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <ChangePassword />
             </div>
           </div>
@@ -162,6 +222,8 @@
 import Navbar from "@/views/Navbar.vue";
 import ChangePassword from "@/views/auth/ChangePassword.vue";
 import Loading from "vue-loading-overlay";
+import { Clipboard } from "@capacitor/clipboard";
+
 export default {
   // name: 'Home',
   components: {
@@ -191,6 +253,17 @@ export default {
       });
   },
   methods: {
+    async writeToClipboard(payload) {
+      await Clipboard.write({
+        string: `https://kamplehealthplans.com/registration-${payload}-${this.auth_user.id}`,
+      });
+
+      this.$toasted.info("Copied to Clipboard!", {
+        position: "top-center",
+        duration: 3000,
+      });
+    },
+
     getUser() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.axios

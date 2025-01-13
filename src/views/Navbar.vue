@@ -299,7 +299,11 @@
               </li> -->
 
               <li class="menu-item">
-                <a href="/voluntary-registration-form" class="menu-link">
+                <a
+                  href="/registration-local"
+                  target="_blank"
+                  class="menu-link"
+                >
                   <span class="menu-label">
                     <span class="menu-name"> Registration (Local)</span>
                   </span>
@@ -310,7 +314,11 @@
               </li>
 
               <li class="menu-item">
-                <a href="/diaspora-registration" class="menu-link">
+                <a
+                  href="/registration-diaspora"
+                  target="_blank"
+                  class="menu-link"
+                >
                   <span class="menu-label">
                     <span class="menu-name">Registration (Diaspora)</span>
                   </span>

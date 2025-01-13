@@ -1,20 +1,14 @@
 <template>
   <section class="admin-content" id="contact-search">
-   
     <section>
       <div class="container">
         <div class="row list">
           <div class="col-lg-12 col-md-12">
             <div class="card m-b-30">
               <div class="card-header">
-                <button
-                  type="button"
-                  @click="addArray()"
-                  class="btn btn-text"
-                >
-                Add User(s)<i class="fe fe-users"></i>
+                <button type="button" @click="addArray()" class="btn btn-text">
+                  Add User(s)<i class="fe fe-users"></i>
                 </button>
-
               </div>
 
               <div
@@ -23,18 +17,18 @@
                 :key="dependent"
               >
                 <div class="row">
-                  <div class="col-md-3"
-                  v-show="false"
-                  >
+                  <div class="col-md-3">
                     <div class="form-row">
                       <img
-                        :src="`${dependent.user_image}`"
+                        :src="`${dependent.image}`"
                         class="rounded"
                         alt="User Photo"
                         onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                       />
 
-                      <div class="form-group col-md-12 mt-2 text-center  mx-auto ">
+                      <div
+                        class="form-group col-md-12 mt-2 text-center mx-auto"
+                      >
                         <button
                           class="btn btn-outline-dark"
                           type="button"
@@ -134,26 +128,42 @@
                   </div>
 
                   <div class="form-group col-md-12">
-                      <p class="h4">Underlying Health Conditions </p>
-                      <label
-                        class="cstm-switch"
-                        v-for="condition in conditions"
-                        :key="condition"
-                      >
-                        <input
-                          type="checkbox"
-                      
-                          v-model="dependent.conditions"
-                          :value="condition"
-                          class="cstm-switch-input"
-                        />
-                        <span class="cstm-switch-indicator"></span>
-                        <span class="cstm-switch-description mr-4">
-                          {{ condition.encounter_outcome }}
-                        </span>
-                      </label>
-                    </div>
+                    <p class="h4">Underlying Health Conditions</p>
+                    <label
+                      class="cstm-switch"
+                      v-for="condition in conditions"
+                      :key="condition"
+                    >
+                      <input
+                        type="checkbox"
+                        v-model="dependent.conditions"
+                        :value="condition"
+                        class="cstm-switch-input"
+                      />
+                      <span class="cstm-switch-indicator"></span>
+                      <span class="cstm-switch-description mr-4">
+                        {{ condition.encounter_outcome }}
+                      </span>
+                    </label>
+                  </div>
                 </div>
+
+                <div class="form-group col-md-12">
+                      <label for="">
+                        Has any application for life, health or critical illness
+                        insurance ever been declined, postponed, loaded or been
+                        made subject to any special conditions by any insurance
+                        company?   
+                      </label>
+
+                      <select
+                        class="form-control"
+                        v-model="dependent.quality_assurance.response.response"
+                      >
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </div>
 
                 <div class="form-group row">
                   <div class="row col-md-6">
@@ -203,7 +213,6 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import conditionsJSON from "@/jsons/conditions.json";
 
-
 export default {
   components: {
     Loading,
@@ -224,9 +233,8 @@ export default {
       image: "",
       upload_pic: false,
       conditions: conditionsJSON,
-      dependents: [
-       
-      ],
+      dependents: [],
+      quality_assurance: {},
     };
   },
   beforeMount() {
@@ -295,22 +303,36 @@ export default {
         lga: "",
         dob: "",
         provider: "",
-        user_image: "",
+        image: "",
         conditions: [],
+        quality_assurance: {
+          facility_id: 0,
+          form_id: 1,
+          accreditation_category: "",
+          quality_assurance_type: "dependent",
+          name_of_contact_person: "",
+          team_leader: "",
+          agency_id: 0,
+          response: {
+            quality_assurance_id: "",
+            quality_assurance_item_id: "1",
+            response: "",
+            score: 0,
+          },
+        },
       });
-      this.$emit('clicked', this.dependents);  
-
+      this.$emit("clicked", this.dependents);
     },
     removeArray(index) {
       this.dependents.splice(index, 1); // 2nd parameter means remove one item only
-      this.$emit('clicked', this.dependents);  
+      this.$emit("clicked", this.dependents);
 
       console.log(this.dependents);
     },
 
-    attachPic(event,index) {
+    attachPic(event, index) {
       let imageFile = event.target.files[0];
-      console.log(index)
+      console.log(index);
       if (imageFile) {
         const reader = new FileReader();
 
@@ -318,7 +340,7 @@ export default {
           // The result contains the Base64 string
           let base64Data = e.target.result;
           console.log(base64Data); // You can use the Base64 string here
-          this.dependents[index].user_image = base64Data;
+          this.dependents[index].image = base64Data;
         };
 
         reader.readAsDataURL(imageFile);
@@ -334,15 +356,14 @@ export default {
       });
 
       var imageUrl = image.base64String;
-      this.dependents[index].user_image = "data:image/png;base64," + imageUrl;
-     
+      this.dependents[index].image = "data:image/png;base64," + imageUrl;
     },
 
     uploadPicture(dependent_id) {
       this.isLoading = true;
       this.user = JSON.parse(localStorage.getItem("user"));
       var formData = new FormData();
-      formData.append("user_image", this.image);
+      formData.append("image", this.image);
       formData.append("dependant_id", dependent_id);
       this.axios
         .post("/api/v1/uploadDependantImage", formData, {
@@ -377,10 +398,6 @@ export default {
           this.isLoading = false;
         });
     },
-
-  
-
-   
   },
   created() {},
 };

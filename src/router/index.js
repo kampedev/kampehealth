@@ -25,7 +25,7 @@ import AddClientEmployeeOffline from "../views/clients/offline/AddClientEmployee
 import ALLEnrolleesOfflineEmployee from "../views/clients/offline/ALLEnrolleesOfflineEmployee.vue";
 import EditOfflineEmployee from "../views/clients/offline/EditOfflineEmployee.vue";
 import AddDependentsOffline from "../views/clients/offline/AddDependentsOffline.vue";
-import AddClientFormFormal from "../views/clients/AddClientFormFormal.vue";
+// import AddClientFormFormal from "../views/clients/AddClientFormFormal.vue";
 import AddClientFormVoluntary from "../views/clients/AddClientFormVoluntary.vue";
 import AddClientDiaspora from "../views/clients/AddClientDiaspora.vue";
 import EditProvider from "../views/providers/EditProvider.vue";
@@ -294,14 +294,12 @@ const routes = [
     },
   },
   {
-    path: "/add-client-formal",
-    component: AddClientFormFormal,
-    meta: {
-      requiresAuth: true,
-    },
+    path: "/registration-:type",
+    component: AddClientFormVoluntary,
   },
+ 
   {
-    path: "/voluntary-registration-form",
+    path: "/registration-:type-:employee",
     component: AddClientFormVoluntary,
   },
   {

@@ -5,7 +5,7 @@
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
             <p class="h4">
-              <strong>Kampe Enrollment (Nigeria) </strong>
+              <strong>Kampe Enrollment  </strong>
             </p>
           </div>
         </div>
@@ -38,11 +38,13 @@
                             required
                             v-model="register.plan_type"
                           >
-                            <option value="Domestic Plans">
-                              Domestic Plans
+                            <option
+                              :value="plan"
+                              v-for="plan in plan_categories"
+                              :key="plan"
+                            >
+                              {{ plan }}
                             </option>
-                            <option value="HDPTC Plans">HDPTC Plans</option>
-                            <option value="School Plans">School Plans</option>
                           </select>
                         </div>
                       </div>
@@ -93,6 +95,60 @@
                             {{ plan.name }} (₦{{ plan.price | numeral(0, 0) }})
                           </option>
                         </select>
+                      </div>
+
+                      <div
+                        class="col-md-6"
+                        v-if="register.plan_type == 'Diaspora Plans'"
+                      >
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Select Plan
+                            <span class="text-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="register.sector"
+                          >
+                            <option
+                              :value="plan.name"
+                              v-for="plan in diaspora_plans"
+                              :key="plan.id"
+                            >
+                              {{ plan.name }} (${{
+                                plan.price | numeral(0, 0)
+                              }})
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-md-6"
+                        v-if="register.plan_type == 'Diaspora HDPTC Plans'"
+                      >
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Select Plan
+                            <span class="text-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="register.sector"
+                          >
+                            <option
+                              :value="plan.name"
+                              v-for="plan in diaspora_hdptc_plans"
+                              :key="plan.id"
+                            >
+                              {{ plan.name }} (${{
+                                plan.price | numeral(0, 0)
+                              }})
+                            </option>
+                          </select>
+                        </div>
                       </div>
 
                       <div
@@ -344,6 +400,25 @@
                     </div>
 
                     <div class="form-group col-md-12">
+                      <label for="">
+                        Has any application for life, health or critical illness
+                        insurance ever been declined, postponed, loaded or been
+                        made subject to any special conditions by any insurance
+                        company?
+                      </label>
+
+                      <!-- pp:{{ register.quality_assurance.response.response }} -->
+
+                      <select
+                        class="form-control"
+                        v-model="register.quality_assurance.response.response"
+                      >
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-12">
                       <p class="h4">Underlying Health Conditions</p>
                       <label
                         class="cstm-switch"
@@ -551,11 +626,12 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import AddDependentVoluntary from "@/views/clients/AddDependentVoluntary.vue";
 import nigeriaPlansJSON from "@/jsons/nigerian_plans.json";
+import diasporaPlansJSON from "@/jsons/diaspora_plans.json";
+import diasporaHDPTCPlansJSON from "@/jsons/hdptc_diaspora_plans.json";
 import HDPTCPlansJSON from "@/jsons/hdptc_nigerian_plans.json";
 import schoolPlansJSON from "@/jsons/school_plans.json";
 import conditionsJSON from "@/jsons/conditions.json";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
-// import { register } from "register-service-worker";
 
 export default {
   components: {
@@ -583,11 +659,17 @@ export default {
       imagefile: null,
       lga_states: "",
       response: "",
+      plan_categories: "",
+      plan_categories_local: ["Domestic Plans", "HDPTC Plans", "School Plans"],
+      plan_categories_diaspora: ["Diaspora Plans", "Diaspora HDPTC Plans"],
       nigerian_plans: nigeriaPlansJSON,
+      diaspora_plans: diasporaPlansJSON,
       hdptc_plans: HDPTCPlansJSON,
+      diaspora_hdptc_plans: diasporaHDPTCPlansJSON,
       school_plans: schoolPlansJSON,
       conditions: conditionsJSON,
       employees: "",
+      selected_employee: "",
       Imagefile: "",
       register: {
         firstname: "",
@@ -621,11 +703,30 @@ export default {
         user_image: "",
         enrolled_by: 0,
         conditions: [],
+        quality_assurance: {
+          facility_id: 0,
+          form_id: 1,
+          accreditation_category: "",
+          quality_assurance_type: "principal",
+          name_of_contact_person: "",
+          team_leader: "",
+          agency_id: 0,
+          response: {
+            quality_assurance_id: "",
+            quality_assurance_item_id: "1",
+            response: "",
+            score: 0,
+          },
+        },
       },
     };
   },
   beforeMount() {
-    //
+    if (this.$route.params.type == "local") {
+      this.plan_categories = this.plan_categories_local;
+    } else {
+      this.plan_categories = this.plan_categories_diaspora;
+    }
   },
 
   methods: {
@@ -738,6 +839,7 @@ export default {
             this.register.enrolled_by == null ? 0 : this.register.enrolled_by,
           dependents: this.dependents,
           conditions: this.register.conditions,
+          quality_assurance: this.register.quality_assurance,
         })
         .then((response) => {
           console.log(response);
@@ -747,7 +849,6 @@ export default {
             { position: "top-center", duration: 8000 }
           );
           let user_id = response.data.data.id;
-
           this.$router.push(`/subscribe-${user_id}`);
         })
         .catch((error) => {
@@ -788,6 +889,16 @@ export default {
         })
         .then((response) => {
           this.employees = response.data;
+
+          // Auto Select Marketer
+          let employees = this.employees.data;
+          let formatter = employees.filter(
+            (x) => x.id == this.$route.params.employee
+          );
+          this.register.enrolled_by = formatter[0].id;
+          console.log(this.register.enrolled_by);
+
+          // End of Function
           console.log(response);
         })
         .catch((error) => {

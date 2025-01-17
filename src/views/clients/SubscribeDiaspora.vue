@@ -343,7 +343,6 @@ export default {
     },
   },
   methods: {
-  
 
     wallxPay() {
       this.axios

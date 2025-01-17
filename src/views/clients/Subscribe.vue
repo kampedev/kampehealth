@@ -103,7 +103,9 @@
                   </table>
                 </div>
 
-                <div class="row col-lg-12">
+                <div class="row col-md-12"
+                v-if="plan.category.is_local == true"
+                >
                   <div class="col-md-6">
                     <button class="btn btn-outline-info btn-block">
                       <paystack
@@ -118,7 +120,6 @@
                         :close="close"
                         :embed="false"
                         class="col-md-12"
-                        v-if="payment_type == 'online'"
                       >
                         Pay with Paystack
                       </paystack>
@@ -136,20 +137,30 @@
                   </div>
                 </div>
 
-                <div class="col-lg-12">
-                  <!--  <button class="btn btn-dark btn-block btn-lg">
-                      Proceed to Pay (Online)
-                    </button> -->
+                <div class="row col-md-12"
+                v-else
+                >
+                  <div class="col-md-6">
+                    <button
+                      class="btn btn-outline-info btn-block"
+                      data-toggle="modal"
+                      data-target="#eofflineModal"
+                    >
+                      Pay with Wallx
+                    </button>
+                  </div>
 
-                  <button
-                    class="btn btn-dark btn-block btn-lg"
-                    v-if="payment_type == 'offline'"
-                    data-toggle="modal"
-                    data-target="#eofflineModal"
-                  >
-                    Pay Offline (USSD)
-                  </button>
+                  <div class="col-md-6">
+                    <button
+                      class="btn btn-outline-dark btn-block"
+                      @click="squareupPay"
+                    >
+                      Pay with Square Up
+                    </button>
+                  </div>
                 </div>
+
+
               </div>
             </div>
 
@@ -319,6 +330,7 @@ export default {
       provider_id: "",
       auth_user: "",
       amount: "",
+      plan: "",
       nigerian_plans: nigeriaPlansJSON,
       hdptc_plans: HDPTCPlansJSON,
       school_plans: schoolPlansJSON,
@@ -344,6 +356,7 @@ export default {
       .get(`/api/v1/user-no-auth/${this.$route.params.id}`)
       .then((response) => {
         this.auth_user = response.data.user;
+        this.plan = response.data.user.enrolleeplan;
         console.log(response);
       })
       .catch((error) => {
@@ -382,7 +395,7 @@ export default {
           pin: this.wallx.pin,
           secret: this.wallx.secret,
           amount: this.totalAmount,
-          currency: "NGN", // Options: NGN, USD, CAD
+          currency: this.plan.category.is_local == true ? "NGN" : "USD" , // Options: NGN, USD, CAD
         })
         .then((response) => {
           this.$toasted.info("Payment completed Successfully", {
@@ -496,6 +509,25 @@ export default {
         .catch((error) => {
           console.error(error);
           this.isLoading = false;
+        });
+    },
+
+    squareupPay() {
+      this.isLoading = true;
+      this.axios
+        .post(`/api/v1/pay-squareup`, {
+          user_id: this.$route.params.id,
+          name: this.auth_user.enrolleeplan.title,
+          amount: this.totalAmount * 100,
+        })
+        .then((response) => {
+          console.log(response);
+          this.isLoading = false;
+          window.open(response.data.payment_link.long_url, "_blank");
+          this.$toasted.info("Link Created Successfully!", {
+            position: "top-center",
+            duration: 3000,
+          });
         });
     },
   },

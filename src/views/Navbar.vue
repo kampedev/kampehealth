@@ -300,7 +300,7 @@
 
               <li class="menu-item">
                 <a
-                  href="/registration-local"
+                  href="/registration-nigeria"
                   target="_blank"
                   class="menu-link"
                 >

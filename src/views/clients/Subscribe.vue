@@ -54,14 +54,20 @@
                           <p class="text-black m-0">
                             {{ auth_user.full_name }}
                           </p>
-                          <p class="text-muted">
-                            {{ auth_user.sector }}
+                          <p
+                            class="text-muted"
+                            v-if="auth_user.enrolleeplan != null"
+                          >
+                            {{ auth_user.enrolleeplan.title }}
                           </p>
                         </td>
 
                         <td class="text-right">
-                          <i class="mdi mdi-currency-ngn"></i
-                          >{{ getPlan.price | numeral(0, 0) }}
+                          <i class="mdi mdi-currency-ngn"></i>
+
+                          <span v-if="auth_user.enrolleeplan != null">
+                            {{ auth_user.enrolleeplan.cost | numeral(0, 0) }}
+                          </span>
                         </td>
                       </tr>
                       <tr
@@ -72,14 +78,17 @@
                           <p class="text-black m-0">
                             {{ dep.full_name }}
                           </p>
-                          <p class="text-muted">
-                            {{ auth_user.sector }}
+                          <p class="text-muted" v-if="dep.enrolleeplan != null">
+                            {{ dep.plan.title }}
                           </p>
                         </td>
 
                         <td class="text-right">
-                          <i class="mdi mdi-currency-ngn"></i
-                          >{{ getPlan.price | numeral(0, 0) }}
+                          <i class="mdi mdi-currency-ngn"></i>
+
+                          <span v-if="dep.plan != null">
+                            {{ dep.plan.cost | numeral(0, 0) }}
+                          </span>
                         </td>
                       </tr>
 
@@ -342,19 +351,16 @@ export default {
       });
   },
   computed: {
-    getPlan() {
-      let plans = this.nigerian_plans.concat(
-        this.hdptc_plans,
-        this.school_plans
-      );
-
-      let formatter = plans.filter((x) => x.name == this.auth_user.sector);
-      console.log(formatter);
-      return formatter[0];
-    },
-
     totalAmount() {
-      return (this.auth_user.dependents.length + 1) * this.getPlan.price;
+      if (this.auth_user.dependents != null) {
+        let sumDep = this.auth_user.dependents.reduce(
+          (sum, item) => sum + item.plan.cost,
+          0
+        );
+        return sumDep + this.auth_user.enrolleeplan.cost;
+      } else {
+        return this.auth_user.enrolleeplan.cost;
+      }
     },
 
     reference() {
@@ -411,7 +417,7 @@ export default {
         .post("/api/v1/make/transaction", {
           agency_id: 439078,
           amount: this.totalAmount,
-          description: this.getPlan.name,
+          description: this.auth_user.enrolleeplan.title,
           type: "subscription",
           transaction_ref: this.reference,
           user_id: this.$route.params.id,

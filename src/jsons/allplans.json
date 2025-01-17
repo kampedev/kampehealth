@@ -1,0 +1,166 @@
+[{
+        "name": "Kampe Basic Diaspora",
+        "type": "diaspora",
+        "price": 32,
+        "description": ""
+    },
+    {
+        "name": "Kampe Plus Diaspora",
+        "type": "diaspora",
+
+        "price": 44,
+        "description": ""
+    },
+    {
+        "name": "Kampe Superior Diaspora",
+        "type": "diaspora",
+
+        "price": 62,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Diaspora",
+        "type": "diaspora",
+
+        "price": 225,
+        "description": ""
+    },
+    {
+        "name": "Kampe Ruby",
+        "type": "diaspora",
+
+        "price": 325,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gold",
+        "type": "diaspora",
+
+        "price": 425,
+        "description": ""
+    },
+    {
+        "name": "Kampe Diamond",
+        "type": "diaspora",
+
+        "price": 625,
+        "description": ""
+    },
+    {
+        "name": "Kampe Travel Plan",
+        "type": "diaspora",
+
+        "price": 225,
+        "description": ""
+    },
+    {
+        "name": "Kampe Basic HDPTC",
+        "type": "diaspora_hdptc",
+        "price": 132,
+        "description": ""
+    },
+    {
+        "name": "Kampe Plus HDPTC",
+        "type": "diaspora_hdptc",
+        "price": 144,
+        "description": ""
+    },
+    {
+        "name": "Kampe Superior HDPTC",
+        "type": "diaspora_hdptc",
+        "price": 162,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior",
+        "type": "diaspora_hdptc",
+        "price": 225,
+        "description": ""
+    },
+    {
+        "name": "Kampe Basic",
+        "type": "nigerian_hdptc",
+        "price": 26600,
+        "description": ""
+    },
+    {
+        "name": "Kampe Plus",
+        "type": "nigerian_hdptc",
+        "price": 36500,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Basic",
+        "type": "nigerian_hdptc",
+        "price": 175000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Plus",
+        "type": "nigerian_hdptc",
+        "price": 337000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Basic",
+        "type": "nigerian",
+        "price": 26600,
+        "description": ""
+    },
+    {
+        "name": "Kampe Plus",
+        "type": "nigerian",
+        "price": 36500,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Basic",
+        "type": "nigerian",
+        "price": 175000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Senior Plus",
+        "type": "nigerian",
+        "price": 337000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems A (IN-SEASON/HOLIDAY)",
+        "type": "nigerian_school",
+        "price": 8400,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems B (IN-SEASON/HOLIDAY)",
+        "type": "nigerian_school",
+        "price": 5000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems C (SPECIAL PLANS)",
+        "type": "nigerian_school",
+        "price": 15000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems D (IN-SEASON/HOLIDAY)",
+        "type": "nigerian_school",
+        "price": 70000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems E (IN-SEASON/HOLIDAY)",
+        "type": "nigerian_school",
+        "price": 120000,
+        "description": ""
+    },
+    {
+        "name": "Kampe Gems F (SPECIAL PLANS)",
+        "type": "nigerian_school",
+        "price": 250000,
+        "description": ""
+    }
+
+
+]

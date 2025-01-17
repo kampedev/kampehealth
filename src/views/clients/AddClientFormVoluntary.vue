@@ -5,7 +5,7 @@
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-30">
             <p class="h4">
-              <strong>Kampe Enrollment  </strong>
+              <strong>Kampe Enrollment </strong>
             </p>
           </div>
         </div>
@@ -35,15 +35,47 @@
                           >
                           <select
                             class="form-control"
+                            @change="fetchPlans"
                             required
                             v-model="register.plan_type"
                           >
                             <option
-                              :value="plan"
+                              :value="plan.id"
                               v-for="plan in plan_categories"
                               :key="plan"
                             >
-                              {{ plan }}
+                              {{ plan.name }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="inputCity"
+                            >Select Plan
+                            <span class="text-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            required
+                            v-model="register.sector"
+                          >
+                            <option
+                              :value="plan.id"
+                              v-for="plan in plans"
+                              :key="plan.id"
+                            >
+                              {{ plan.title }}
+
+                              (
+                              <i
+                                class="mdi mdi-currency-ngn"
+                                v-if="$route.params.type == 'nigeria'"
+                              ></i>
+                              <i class="mdi mdi-currency-usd" v-else></i>
+
+                              {{ plan.cost | numeral(0, 0) }})
                             </option>
                           </select>
                         </div>
@@ -658,7 +690,7 @@ export default {
       image: "",
       imagefile: null,
       lga_states: "",
-      response: "",
+      plans: "",
       plan_categories: "",
       plan_categories_local: ["Domestic Plans", "HDPTC Plans", "School Plans"],
       plan_categories_diaspora: ["Diaspora Plans", "Diaspora HDPTC Plans"],
@@ -722,11 +754,11 @@ export default {
     };
   },
   beforeMount() {
-    if (this.$route.params.type == "local") {
-      this.plan_categories = this.plan_categories_local;
-    } else {
-      this.plan_categories = this.plan_categories_diaspora;
-    }
+    // if (this.$route.params.type == "nigeria") {
+    //   this.plan_categories = this.plan_categories_local;
+    // } else {
+    //   this.plan_categories = this.plan_categories_diaspora;
+    // }
   },
 
   methods: {
@@ -905,10 +937,43 @@ export default {
           console.error(error);
         });
     },
+
+    fetchPlanCategories() {
+      this.axios
+        .get(`/api/v1/plan_categories`, {
+          params: {
+            is_local: this.$route.params.type == "nigeria" ? 1 : 0,
+          },
+        })
+        .then((response) => {
+          this.plan_categories = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    fetchPlans() {
+      this.axios
+        .get(`/api/v1/plans`, {
+          params: {
+            plan_category_id: this.register.plan_type,
+          },
+        })
+        .then((response) => {
+          this.plans = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
   created() {
     this.getStates();
     this.getEmployees();
+    this.fetchPlanCategories();
   },
 };
 </script>

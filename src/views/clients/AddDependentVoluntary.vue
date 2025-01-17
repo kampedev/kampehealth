@@ -67,9 +67,62 @@
                   </div>
 
                   <div class="col-md-12 row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="inputCity"
+                          >Select Category
+                          <span class="text-danger">*</span></label
+                        >
+                        <select
+                          class="form-control"
+                          @change="fetchPlans(index)"
+                          required
+                          v-model="dependent.relationShipType"
+                        >
+                          <option
+                            :value="plan.id"
+                            v-for="plan in plan_categories"
+                            :key="plan"
+                          >
+                            {{ plan.name }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="inputCity"
+                          >Select Plan <span class="text-danger">*</span></label
+                        >
+                        <select
+                          class="form-control"
+                          required
+                          v-model="dependent.sector"
+                        >
+                          <option
+                            :value="plan.id"
+                            v-for="plan in plans"
+                            :key="plan.id"
+                          >
+                            {{ plan.title }}
+
+                            (
+                            <i
+                              class="mdi mdi-currency-ngn"
+                              v-if="$route.params.type == 'nigeria'"
+                            ></i>
+                            <i class="mdi mdi-currency-usd" v-else></i>
+
+                            {{ plan.cost | numeral(0, 0) }})
+                          </option>
+                        </select>
+                      </div>
+                    </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Surname </label>
                       <input
+                        required
                         type="text"
                         class="form-control"
                         v-model="dependent.lastname"
@@ -80,6 +133,7 @@
                     <div class="form-group col-md-4">
                       <label for="inputEmail4">First Name</label>
                       <input
+                        required
                         type="text"
                         class="form-control"
                         placeholder="First Name"
@@ -99,7 +153,11 @@
                     <div class="form-group col-md-4">
                       <label for="inputCity">Gender</label>
 
-                      <select class="form-control" v-model="dependent.gender">
+                      <select
+                        class="form-control"
+                        v-model="dependent.gender"
+                        required
+                      >
                         <option id="Male">Male</option>
                         <option id="Female">Female</option>
                       </select>
@@ -108,6 +166,7 @@
                     <div class="form-group col-md-4">
                       <label for="inputCity">Date of Birth </label>
                       <input
+                        required
                         type="date"
                         class="form-control"
                         placeholder="YYYY/MM/DD"
@@ -118,6 +177,7 @@
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Phone Number</label>
                       <input
+                        required
                         type="text"
                         class="form-control"
                         id="inputPassword4"
@@ -149,21 +209,20 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                      <label for="">
-                        Has any application for life, health or critical illness
-                        insurance ever been declined, postponed, loaded or been
-                        made subject to any special conditions by any insurance
-                        company?   
-                      </label>
+                  <label for="">
+                    Has any application for life, health or critical illness
+                    insurance ever been declined, postponed, loaded or been made
+                    subject to any special conditions by any insurance company?
+                  </label>
 
-                      <select
-                        class="form-control"
-                        v-model="dependent.quality_assurance.response.response"
-                      >
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                      </select>
-                    </div>
+                  <select
+                    class="form-control"
+                    v-model="dependent.quality_assurance.response.response"
+                  >
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
 
                 <div class="form-group row">
                   <div class="row col-md-6">
@@ -221,9 +280,10 @@ export default {
     return {
       user: null,
       client: "",
-      edit: false,
       isLoading: false,
       fullPage: true,
+      plans: "",
+      plan_categories: "",
       states: "",
       providers: "",
       state: "",
@@ -241,41 +301,6 @@ export default {
     //
   },
   computed: {
-    getAge() {
-      var today = new Date();
-      var birthDate = new Date(this.dependent.dob);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      return age;
-    },
-    getExpiry() {
-      if (this.dependent.relationShipType == "Spouse A") {
-        return this.client.expiry_date;
-      } else {
-        var today = new Date();
-        var principalExpiry = new Date(this.client.expiry_date);
-        var principalExpYear = principalExpiry.getFullYear();
-
-        var birthDate = new Date(this.dependent.dob);
-        // var year = birthDate.getFullYear();
-        var month = birthDate.getMonth();
-        var day = birthDate.getDate();
-        month;
-        day;
-        let remainingYears = 18 - this.getAge;
-        let finaldate = today.getFullYear() + remainingYears;
-        // return  year  + '/' + principalExpYear + '/' + month + '/' + day + '/'+ finaldate
-        if (finaldate > principalExpYear) {
-          return this.client.expiry_date;
-        } else {
-          // return  finaldate + '-' + month + '-' + day
-          return finaldate + "-12-31";
-        }
-      }
-    },
     getIdNum() {
       if (this.dependent.relationShipType == "Spouse") {
         return "KAMPE/DEP-S/" + this.$route.params.id;
@@ -298,7 +323,7 @@ export default {
         institution_attending: "",
         email: "",
         phone_number: "",
-        relationShipType: "None",
+        relationShipType: "",
         gender: "",
         lga: "",
         dob: "",
@@ -398,7 +423,39 @@ export default {
           this.isLoading = false;
         });
     },
+
+    fetchPlanCategories() {
+      this.axios
+        .get(`/api/v1/plan_categories`, {
+          params: {},
+        })
+        .then((response) => {
+          this.plan_categories = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    fetchPlans(index) {
+      this.axios
+        .get(`/api/v1/plans`, {
+          params: {
+            plan_category_id: this.dependents[index].relationShipType,
+          },
+        })
+        .then((response) => {
+          this.plans = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
-  created() {},
+  created() {
+    this.fetchPlanCategories();
+  },
 };
 </script>

@@ -427,7 +427,10 @@ export default {
     fetchPlanCategories() {
       this.axios
         .get(`/api/v1/plan_categories`, {
-          params: {},
+          params: {
+            is_local: this.$route.params.type == "nigeria" ? 1 : false,
+
+          },
         })
         .then((response) => {
           this.plan_categories = response.data.data;

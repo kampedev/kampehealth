@@ -152,7 +152,7 @@
                       <input
                         disabled
                         type="text"
-                        :placeholder="`https://kamplehealthplans.com/registration-local/${auth_user.id}`"
+                        :placeholder="`https://kampehealthplans.com/registration-nigeria/${auth_user.id}`"
                         class="form-control"
                         aria-describedby="validatedInputGroupPrepend"
                         required
@@ -177,7 +177,7 @@
                     <div class="input-group">
                       <input
                         disabled
-                        :placeholder="`https://kamplehealthplans.com/registration-diaspora/${auth_user.id}`"
+                        :placeholder="`https://kampehealthplans.com/registration-diaspora/${auth_user.id}`"
                         type="text"
                         class="form-control"
                         aria-describedby="validatedInputGroupPrepend"
@@ -255,7 +255,7 @@ export default {
   methods: {
     async writeToClipboard(payload) {
       await Clipboard.write({
-        string: `https://kamplehealthplans.com/registration-${payload}-${this.auth_user.id}`,
+        string: `https://kampehealthplans.com/registration-${payload}-${this.auth_user.id}`,
       });
 
       this.$toasted.info("Copied to Clipboard!", {

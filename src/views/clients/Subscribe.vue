@@ -39,6 +39,7 @@
               </div>
 
               <div class="card-body">
+                
                 <div class="table-responsive">
                   <table class="table m-t-50">
                     <thead>
@@ -63,7 +64,11 @@
                         </td>
 
                         <td class="text-right">
-                          <i class="mdi mdi-currency-ngn"></i>
+                          <i
+                            class="mdi mdi-currency-ngn"
+                            v-if="plan.category.is_local === true"
+                          ></i>
+                          <i class="mdi mdi-currency-usd" v-else></i>
 
                           <span v-if="auth_user.enrolleeplan != null">
                             {{ auth_user.enrolleeplan.cost | numeral(0, 0) }}
@@ -84,18 +89,27 @@
                         </td>
 
                         <td class="text-right">
-                          <i class="mdi mdi-currency-ngn"></i>
+                          <i
+                            class="mdi mdi-currency-ngn"
+                            v-if="plan.category.is_local === true"
+                          ></i>
+                          <i class="mdi mdi-currency-usd" v-else></i>
 
                           <span v-if="dep.plan != null">
                             {{ dep.plan.cost | numeral(0, 0) }}
                           </span>
                         </td>
                       </tr>
+                      
 
-                      <tr class="bg-light">
+                      <tr class="bg-light h4">
                         <td class=""><strong>Total</strong></td>
                         <td class="text-right">
-                          <i class="mdi mdi-currency-ngn"></i>
+                          <i
+                            class="mdi mdi-currency-ngn"
+                            v-if="plan.category.is_local === true"
+                          ></i>
+                          <i class="mdi mdi-currency-usd" v-else></i>
                           <strong> {{ totalAmount | numeral(0, 0) }}</strong>
                         </td>
                       </tr>
@@ -103,7 +117,36 @@
                   </table>
                 </div>
 
-                <div class="row col-lg-12">
+                <div class="col-md-6 mb-3">
+                  <label class="h5">Share Payment Link</label>
+                  <div class="input-group">
+                    <input
+                      disabled
+                      type="text"
+                      :placeholder="`https://kampehealthplans.com/subscribe-${auth_user.id}`"
+                      class="form-control"
+                      aria-describedby="validatedInputGroupPrepend"
+                      required
+                    />
+                    <div class="input-group-prepend">
+                      <span
+                      @click="writeToClipboard()"
+
+                        class="input-group-text text-info"
+                        id="validatedInputGroupPrepend"
+                        ><i
+                          class="fe fe-copy mr-1 "
+                          role="button"
+                        ></i
+                      > Copy</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="row col-md-12"
+                  v-if="plan.category.is_local === true"
+                >
                   <div class="col-md-6">
                     <button class="btn btn-outline-info btn-block">
                       <paystack
@@ -118,7 +161,6 @@
                         :close="close"
                         :embed="false"
                         class="col-md-12"
-                        v-if="payment_type == 'online'"
                       >
                         Pay with Paystack
                       </paystack>
@@ -136,19 +178,25 @@
                   </div>
                 </div>
 
-                <div class="col-lg-12">
-                  <!--  <button class="btn btn-dark btn-block btn-lg">
-                      Proceed to Pay (Online)
-                    </button> -->
+                <div class="row col-md-12" v-else>
+                  <div class="col-md-6">
+                    <button
+                      class="btn btn-outline-info btn-block"
+                      data-toggle="modal"
+                      data-target="#eofflineModal"
+                    >
+                      Pay with Wallx
+                    </button>
+                  </div>
 
-                  <button
-                    class="btn btn-dark btn-block btn-lg"
-                    v-if="payment_type == 'offline'"
-                    data-toggle="modal"
-                    data-target="#eofflineModal"
-                  >
-                    Pay Offline (USSD)
-                  </button>
+                  <div class="col-md-6">
+                    <button
+                      class="btn btn-outline-dark btn-block"
+                      @click="squareupPay"
+                    >
+                      Pay with Square Up
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -306,6 +354,7 @@ import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import nigeriaPlansJSON from "@/jsons/nigerian_plans.json";
 import HDPTCPlansJSON from "@/jsons/hdptc_nigerian_plans.json";
 import schoolPlansJSON from "@/jsons/school_plans.json";
+import { Clipboard } from "@capacitor/clipboard";
 
 export default {
   components: {
@@ -319,6 +368,7 @@ export default {
       provider_id: "",
       auth_user: "",
       amount: "",
+      plan: "",
       nigerian_plans: nigeriaPlansJSON,
       hdptc_plans: HDPTCPlansJSON,
       school_plans: schoolPlansJSON,
@@ -344,6 +394,7 @@ export default {
       .get(`/api/v1/user-no-auth/${this.$route.params.id}`)
       .then((response) => {
         this.auth_user = response.data.user;
+        this.plan = response.data.user.enrolleeplan;
         console.log(response);
       })
       .catch((error) => {
@@ -382,7 +433,7 @@ export default {
           pin: this.wallx.pin,
           secret: this.wallx.secret,
           amount: this.totalAmount,
-          currency: "NGN", // Options: NGN, USD, CAD
+          currency: this.plan.category.is_local == true ? "NGN" : "USD", // Options: NGN, USD, CAD
         })
         .then((response) => {
           this.$toasted.info("Payment completed Successfully", {
@@ -497,6 +548,35 @@ export default {
           console.error(error);
           this.isLoading = false;
         });
+    },
+
+    squareupPay() {
+      this.isLoading = true;
+      this.axios
+        .post(`/api/v1/pay-squareup`, {
+          user_id: this.$route.params.id,
+          name: this.auth_user.enrolleeplan.title,
+          amount: this.totalAmount * 100,
+        })
+        .then((response) => {
+          console.log(response);
+          this.isLoading = false;
+          window.open(response.data.payment_link.long_url, "_blank");
+          this.$toasted.info("Link Created Successfully!", {
+            position: "top-center",
+            duration: 3000,
+          });
+        });
+    },
+    async writeToClipboard() {
+      await Clipboard.write({
+        string: `https://kampehealthplans.com/subscribe-${this.auth_user.id}`,
+      });
+
+      this.$toasted.info("Copied to Clipboard!", {
+        position: "top-center",
+        duration: 3000,
+      });
     },
   },
 

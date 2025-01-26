@@ -143,16 +143,16 @@
 
               <div class="card py-3 m-b-30" v-if="auth_user.type != 'client'">
                 <div class="card-header">
-                  <p class="h5">Share your Enrolment Link</p>
+                  <p class="h5">Share your Enrollment Link</p>
                 </div>
                 <div class="row card-body">
                   <div class="col-md-6">
-                    <label for="">Local Enrolment</label>
+                    <label for="">Local Enrollment</label>
                     <div class="input-group">
                       <input
                         disabled
                         type="text"
-                        :placeholder="`https://kampehealthplans.com/registration-nigeria/${auth_user.id}`"
+                        :placeholder="`https://kampehealthplans.com/registration-nigeria-${auth_user.id}`"
                         class="form-control"
                         aria-describedby="validatedInputGroupPrepend"
                         required
@@ -164,7 +164,7 @@
                           ><i
                             class="fe fe-copy"
                             role="button"
-                            @click="writeToClipboard('local')"
+                            @click="writeToClipboard('nigeria')"
                           ></i
                         ></span>
                       </div>
@@ -177,7 +177,7 @@
                     <div class="input-group">
                       <input
                         disabled
-                        :placeholder="`https://kampehealthplans.com/registration-diaspora/${auth_user.id}`"
+                        :placeholder="`https://kampehealthplans.com/registration-diaspora-${auth_user.id}`"
                         type="text"
                         class="form-control"
                         aria-describedby="validatedInputGroupPrepend"

@@ -96,6 +96,7 @@
                           >Select Plan <span class="text-danger">*</span></label
                         >
                         <select
+                        @change="updateParent"
                           class="form-control"
                           required
                           v-model="dependent.sector"
@@ -123,6 +124,7 @@
                       <label for="inputPassword4">Surname </label>
                       <input
                         required
+                        @change="updateParent"
                         type="text"
                         class="form-control"
                         v-model="dependent.lastname"
@@ -134,6 +136,7 @@
                       <label for="inputEmail4">First Name</label>
                       <input
                         required
+                        @change="updateParent"
                         type="text"
                         class="form-control"
                         placeholder="First Name"
@@ -144,6 +147,7 @@
                       <label for="inputPassword4">Middle Name</label>
                       <input
                         type="text"
+                        @change="updateParent"
                         class="form-control"
                         placeholder="Middle Name"
                         v-model="dependent.middle_name"
@@ -155,6 +159,7 @@
 
                       <select
                         class="form-control"
+                        @change="updateParent"
                         v-model="dependent.gender"
                         required
                       >
@@ -167,6 +172,7 @@
                       <label for="inputCity">Date of Birth </label>
                       <input
                         required
+                        @change="updateParent"
                         type="date"
                         class="form-control"
                         placeholder="YYYY/MM/DD"
@@ -178,6 +184,7 @@
                       <label for="inputPassword4">Phone Number</label>
                       <input
                         required
+                        @change="updateParent"
                         type="text"
                         class="form-control"
                         id="inputPassword4"
@@ -196,6 +203,7 @@
                     >
                       <input
                         type="checkbox"
+                         @change="updateParent"
                         v-model="dependent.conditions"
                         :value="condition"
                         class="cstm-switch-input"
@@ -217,6 +225,7 @@
 
                   <select
                     class="form-control"
+                    @click="updateParent"
                     v-model="dependent.quality_assurance.response.response"
                   >
                     <option value="Yes">Yes</option>
@@ -353,6 +362,10 @@ export default {
       this.$emit("clicked", this.dependents);
 
       console.log(this.dependents);
+    },
+    updateParent(){
+      this.$emit("clicked", this.dependents);
+
     },
 
     attachPic(event, index) {

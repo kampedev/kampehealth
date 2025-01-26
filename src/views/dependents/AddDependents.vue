@@ -2,7 +2,7 @@
   <section class="admin-content " id="contact-search">
     <Navbar />
 
-    <div class="bg-success m-b-30">
+    <div class="bg-info m-b-30">
       <div class="container">
         <div class="row p-b-60 p-t-60">
           <div class="col-md-6 text-center mx-auto text-white p-b-10">
@@ -111,7 +111,7 @@
                       placeholder="YYYY/MM/DD"
                       v-model="getExpiry"
                     />
-                    <p class="text-success">
+                    <p class="text-info">
                       Principal Expiry: {{ client.expiry_date }}
                     </p>
                   </div>
@@ -130,7 +130,7 @@
 
                 <div class="form-row">
                   <button
-                    class="btn btn-success spacer"
+                    class="btn btn-info spacer"
                     @click="streamPic"
                     data-toggle="modal"
                     data-target="#example_01"
@@ -167,7 +167,7 @@
 
                 <div class="form-group">
                   <button
-                    class="btn btn-success btn-block btn-lg"
+                    class="btn btn-info btn-block btn-lg"
                     @click="submitForm"
                   >
                     Submit <i class="fe fe-send"></i>

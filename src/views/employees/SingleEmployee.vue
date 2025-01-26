@@ -71,6 +71,14 @@
                     >
                       Unblock
                     </button>
+
+                    <button
+                      type="button"
+                      class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
+                      v-if="employeee.user.role == 1"
+                    >
+                      admin
+                    </button>
                   </div>
                 </div>
               </div>
@@ -110,7 +118,7 @@
                           v-bind:key="client.id"
                         >
                           <td>
-                            {{ client.full_name }} 
+                            {{ client.full_name }}
                           </td>
                           <td>{{ client.phone_number }}</td>
                           <td>{{ client.sector }}</td>
@@ -153,7 +161,7 @@
                 <div class="card-body">
                   <p class="my-2">
                     <strong>Contact Name:</strong>
-                    {{ employeee.user.full_name }} 
+                    {{ employeee.user.full_name }}
                   </p>
 
                   <p class="my-2">
@@ -168,15 +176,65 @@
                     {{ employeee.user.phone_number }}
                   </p>
                   <br />
-
-                  <button
-                    type="button"
-                    class="btn m-b-15 ml-2 mr-2 badge badge-soft-info"
-                    v-if="employeee.user.role == 1"
+                  <div
+                    class="card py-3 m-b-30"
                   >
-                    admin
-                  </button>
-                  <br />
+                    <div class="card-header">
+                      <p class="h5">Share your Enrollment Link</p>
+                    </div>
+                    <div class="row card-body">
+                      <div class="col-md-6">
+                        <label for="">Local Enrollment</label>
+                        <div class="input-group">
+                          <input
+                            disabled
+                            type="text"
+                            :placeholder="`https://kampehealthplans.com/registration-nigeria-${$route.params.id}`"
+                            class="form-control"
+                            aria-describedby="validatedInputGroupPrepend"
+                            required
+                          />
+                          <div class="input-group-prepend">
+                            <span
+                              class="input-group-text"
+                              id="validatedInputGroupPrepend"
+                              ><i
+                                class="fe fe-copy"
+                                role="button"
+                                @click="writeToClipboard('nigeria')"
+                              ></i
+                            ></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label for="">Diaspora Enrolment</label>
+
+                        <div class="input-group">
+                          <input
+                            disabled
+                            :placeholder="`https://kampehealthplans.com/registration-diaspora-${$route.params.id}`"
+                            type="text"
+                            class="form-control"
+                            aria-describedby="validatedInputGroupPrepend"
+                            required
+                          />
+                          <div class="input-group-prepend">
+                            <span
+                              class="input-group-text"
+                              id="validatedInputGroupPrepend"
+                              ><i
+                                class="fe fe-copy"
+                                role="button"
+                                @click="writeToClipboard('diaspora')"
+                              ></i
+                            ></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -205,6 +263,8 @@ import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
+
+import { Clipboard } from "@capacitor/clipboard";
 
 export default {
   components: {
@@ -242,6 +302,17 @@ export default {
       });
   },
   methods: {
+    async writeToClipboard(payload) {
+      await Clipboard.write({
+        string: `https://kampehealthplans.com/registration-${payload}-${this.$route.params.id}`,
+      });
+
+      this.$toasted.info("Copied to Clipboard!", {
+        position: "top-center",
+        duration: 3000,
+      });
+    },
+
     blockUnblock() {
       if (this.employeee.user.blocked_at == null) {
         this.axios

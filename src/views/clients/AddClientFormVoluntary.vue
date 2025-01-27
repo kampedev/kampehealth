@@ -928,10 +928,9 @@ export default {
             (x) => x.id == this.$route.params.employee
           );
           this.register.enrolled_by = formatter[0].id;
-          console.log(this.register.enrolled_by);
+          console.log(this.register.enrolled_by );
 
           // End of Function
-          console.log(response);
         })
         .catch((error) => {
           console.error(error);

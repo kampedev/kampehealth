@@ -14,7 +14,7 @@
                   type="button"
                   class="btn btn-outline-info"
                   name="button"
-                  @click="getClients(currentPage ? currentPage : 1)"
+                  @click="getUserData(currentPage ? currentPage : 1)"
                 >
                   <i class="fe fe-refresh-cw"></i>
                 </button>
@@ -109,7 +109,7 @@
           </div>
 
           <button
-            @click="getClients(currentPage ? currentPage : 1)"
+            @click="getUserData(currentPage ? currentPage : 1)"
             class="btn btn-info btn-block btn-lg"
             style="margin-top: 20px"
           >
@@ -322,14 +322,14 @@ export default {
       ward: "",
       date: "",
       from: "",
-      to: new Date(),
+      to: "",
       current_page: 1,
       rows: "1",
       perPage: 15,
     };
   },
   beforeMount() {
-    this.getClients();
+    this.getUserData();
   },
 
   methods: {
@@ -382,7 +382,7 @@ export default {
           console.error(error);
         });
     },
-    getClients(currentPage) {
+    getUserData(currentPage) {
       this.isLoading = true;
 
       this.user = JSON.parse(localStorage.getItem("user"));
@@ -391,14 +391,17 @@ export default {
           params: {
             page: currentPage,
             agency_id: 439078,
+            perPage: this.perPage ? this.perPage : null,
             provider_id: this.provider_id ? this.provider_id : "",
             sector: this.sector ? this.sector : "",
+            gender: this.gender ? this.gender : "",
+            enabled_user: this.enabled_user,
             place_of_work: this.place_of_work ? this.place_of_work : "",
             localgovt: this.localgovt ? this.localgovt : "",
             enrolled_by: this.enrolled_by ? this.enrolled_by : "",
             date: this.date ? this.date : "",
             from: this.from ? this.from : "",
-            to: this.to,
+            to: this.to ? this.to : "",
             ward: this.ward ? this.ward : "",
             category_of_vulnerable_group: this.category_of_vulnerable_group
               ? this.category_of_vulnerable_group
@@ -408,7 +411,7 @@ export default {
         .then((response) => {
           this.clients = response.data;
           console.log(response);
-          this.rows = response.data.meta.total;
+          this.rows = response.data.meta.total_principal;
           this.isLoading = false;
         })
         .catch((error) => {

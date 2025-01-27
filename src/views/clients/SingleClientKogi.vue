@@ -79,6 +79,14 @@
                       </button>
                     </router-link> -->
 
+                     <router-link
+                      :to="{ path: '/add-dependent/' + $route.params.id, params: {} }"
+                    >
+                      <button class="btn btn-outline-info spacer">
+                        Dependents<i class="mdi mdi-user-multiple"></i>
+                      </button>
+                    </router-link> 
+
                     <router-link
                       :to="{
                         path: '/subscribe-' + $route.params.id,

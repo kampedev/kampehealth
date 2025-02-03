@@ -2,7 +2,7 @@
   <section class="admin-content" id="contact-search">
     <Navbar />
     <div>
-      <div class="bg-success m-b-30">
+      <div class="bg-info m-b-30">
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
@@ -37,31 +37,22 @@
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="card m-b-30">
-                <div class="card-header">
-                  <a
-                    :href="'/add-dependent/' + dependent.user_id"
-                    v-if="user.type != 'provider_employee'"
-                  >
-                    <button class="btn btn-outline-success mx-2">
-                      Manage Dependents <i class="fe fe-users"></i>
-                    </button>
-                  </a>
-                </div>
+                <div class="card-header"></div>
 
                 <div class="card-body row">
                   <div class="col-md-4">
-                    <!-- <vue-initials-img
+                    <vue-initials-img
                       :name="dependent.firstname + ' ' + dependent.lastname"
                       class="text-center rounded-circle"
                       v-if="dependent.image == null"
-                    /> -->
+                    />
+
                     <div class="" v-if="dependent.image != null">
                       <img
-                        :src="`https://kampe.hayokmedicare.ng/image/${dependent.image}`"
+                        :src="`https://insurance-api.hayokmedicare.ng/image/${dependent.image}`"
                         class="img-thumbnail"
                         width="304"
                         height="236"
-                        onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                       />
                     </div>
                   </div>
@@ -73,11 +64,11 @@
                     </p>
                     <hr />
                     <p class="spacer-top-bottom">
-                      <strong>KGSHIA ID:</strong> {{ dependent.id_card_number }}
+                      <strong>KAMPE ID:</strong> {{ dependent.id_card_number }}
                     </p>
 
                     <hr />
-                    <p class="spacer-top-bottom" v-if="dependent.user != null">
+                    <p class="spacer-top-bottom">
                       <strong>Principal:</strong>
                       {{ dependent.user.full_name }} (
                       {{ dependent.user.id_card_number }} )
@@ -88,10 +79,7 @@
                       {{ dependent.phone_number }}
                     </p>
                     <hr />
-                    <p
-                      class="spacer-top-bottom"
-                      v-if="dependent.localgovt != null"
-                    >
+                    <p class="spacer-top-bottom">
                       <strong>LGA:</strong> {{ dependent.localgovt.local_name }}
                     </p>
                     <hr />
@@ -104,10 +92,10 @@
                       <strong>Gender:</strong> {{ dependent.gender }}
                     </p>
                     <hr />
-                    <p class="spacer-top-bottom">
+                    <!-- <p class="spacer-top-bottom">
                       <strong>Relationship Type:</strong>
                       {{ dependent.relationShipType }}
-                    </p>
+                    </p> -->
                     <hr />
 
                     <p class="spacer-top-bottom">

@@ -10,8 +10,7 @@ import { BreadstickBakery } from "breadstick";
 import VueFilterDateFormat from "vue-filter-date-format";
 import vueNumeralFilterInstaller from "vue-numeral-filter";
 import VueInitialsImg from "vue-initials-img";
-// import "zingchart/es6";
-// import zingchartVue from "zingchart-vue";
+
 import Toasted from "vue-toasted";
 import Vuelidate from "vuelidate";
 import VueHtml2Canvas from "vue-html2canvas";
@@ -24,9 +23,7 @@ import "vue-select/dist/vue-select.css";
 import Highcharts from "highcharts";
 import VueHighcharts from "vue-highcharts";
 import { BootstrapVue } from "bootstrap-vue";
-import "@fortawesome/fontawesome-free/css/all.css";
-import "@fortawesome/fontawesome-free/js/all.js";
-import VueFullscreen from "vue-fullscreen";
+
 
 import HighchartsVue from "highcharts-vue";
 import loadDrilldown from "highcharts/modules/drilldown";
@@ -73,7 +70,7 @@ Vue.component("apexchart", VueApexCharts);
 Vue.component("v-select", vSelect);
 Vue.use(HighchartsVue);
 Vue.use(BootstrapVue);
-Vue.use(VueFullscreen);
+// Vue.use(VueFullscreen);
 defineCustomElements(window);
 
 window.axios = axios;

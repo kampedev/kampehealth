@@ -875,25 +875,24 @@
     "lodash" "^4.17.13"
     "to-fast-properties" "^2.0.0"
 
-"@capacitor/android@^6.1.2":
-  "integrity" "sha512-Yh0gQDY1bgRrL25J6ecIlvvs2kF8iNSwIPXjyw6Yz9mnwYxBazF5KZbjpKtGPnJgicJhFkYGsqOkEtxrve0EoQ=="
-  "resolved" "https://registry.npmjs.org/@capacitor/android/-/android-6.1.2.tgz"
-  "version" "6.1.2"
+"@capacitor/android@^5.4.2":
+  "integrity" "sha512-ooWclwcuW0dy3YfqgoozkHkjatX8H2fb2/RwRsJa3cew1P1lUXIXri3Dquuy4LdqFAJA7UHcJ19Bl/6UKdsZYA=="
+  "resolved" "https://registry.npmjs.org/@capacitor/android/-/android-5.7.8.tgz"
+  "version" "5.7.8"
 
 "@capacitor/camera@^6.0.2":
-  "integrity" "sha512-bC2xxCcNTyfKYuLNLbGIyLlK9fok2MDhF4v8s01jusYAxoBI7LaKWQMQoGBA1MY/Ec6x/2pjIr+7k89Kmdr74g=="
-  "resolved" "https://registry.npmjs.org/@capacitor/camera/-/camera-6.0.2.tgz"
-  "version" "6.0.2"
-
-"@capacitor/cli@^6.1.2":
-  "integrity" "sha512-HKCNGE0RP8U7aiEF2vg5wTivJROS8BVfu8a3yYJb1mRQvzv+czpmtHNsTWS/WukvwoxUjyjRmsNQSAACHfMTmQ=="
-  "resolved" "https://registry.npmjs.org/@capacitor/cli/-/cli-6.1.2.tgz"
+  "integrity" "sha512-UH5srvOHDzIM1o4yFkRZCsP7WfQQOvyn+aS7ycqHFbgofr/xBTqPQUdwN+COtwaZYCwnDunPFYIGQAwSdzq6jg=="
+  "resolved" "https://registry.npmjs.org/@capacitor/camera/-/camera-6.1.2.tgz"
   "version" "6.1.2"
+
+"@capacitor/cli@^5.4.2":
+  "integrity" "sha512-qN8LDlREMhrYhOvVXahoJVNkP8LP55/YPRJrzTAFrMqlNJC18L3CzgWYIblFPnuwfbH/RxbfoZT/ydkwgVpMrw=="
+  "resolved" "https://registry.npmjs.org/@capacitor/cli/-/cli-5.7.8.tgz"
+  "version" "5.7.8"
   dependencies:
     "@ionic/cli-framework-output" "^2.2.5"
     "@ionic/utils-fs" "^3.1.6"
-    "@ionic/utils-process" "^2.1.11"
-    "@ionic/utils-subprocess" "2.1.11"
+    "@ionic/utils-subprocess" "^2.1.11"
     "@ionic/utils-terminal" "^2.3.3"
     "commander" "^9.3.0"
     "debug" "^4.3.4"
@@ -914,26 +913,18 @@
   "resolved" "https://registry.npmjs.org/@capacitor/clipboard/-/clipboard-6.0.2.tgz"
   "version" "6.0.2"
 
-"@capacitor/core@^6.0.0", "@capacitor/core@^6.1.0", "@capacitor/core@^6.1.2":
-  "integrity" "sha512-xFy1/4qLFLp5WCIzIhtwUuVNNoz36+V7/BzHmLqgVJcvotc4MMjswW/TshnPQaLLujEOaLkA4h8ZJ0uoK3ImGg=="
-  "resolved" "https://registry.npmjs.org/@capacitor/core/-/core-6.1.2.tgz"
-  "version" "6.1.2"
+"@capacitor/core@^5.4.2", "@capacitor/core@^5.7.0", "@capacitor/core@^6.0.0":
+  "integrity" "sha512-rrZcm/2vJM0WdWRQup1TUidbjQV9PfIadSkV4rAGLD7R6PuzZSMPGT0gmoZzCRlXkqrazrWWDkurei3ozU02FA=="
+  "resolved" "https://registry.npmjs.org/@capacitor/core/-/core-5.7.8.tgz"
+  "version" "5.7.8"
   dependencies:
     "tslib" "^2.1.0"
-
-"@capacitor/ios@^6.1.2":
-  "integrity" "sha512-HaeW68KisBd/7TmavzPDlL2bpoDK5AjR2ZYrqU4TlGwM88GtQfvduBCAlSCj20X0w/4+rWMkseD9dAAkacjiyQ=="
-  "resolved" "https://registry.npmjs.org/@capacitor/ios/-/ios-6.1.2.tgz"
-  "version" "6.1.2"
 
 "@ckeditor/ckeditor5-build-classic@^18.0.0":
   "version" "18.0.0"
 
 "@ckeditor/ckeditor5-vue@^1.0.1":
   "version" "1.0.1"
-
-"@fortawesome/fontawesome-free@^5.15.4":
-  "version" "5.15.4"
 
 "@hapi/address@2.x.x":
   "version" "2.1.4"
@@ -1014,26 +1005,6 @@
     "debug" "^4.0.0"
     "tslib" "^2.0.1"
 
-"@ionic/utils-object@2.1.6":
-  "integrity" "sha512-vCl7sl6JjBHFw99CuAqHljYJpcE88YaH2ZW4ELiC/Zwxl5tiwn4kbdP/gxi2OT3MQb1vOtgAmSNRtusvgxI8ww=="
-  "resolved" "https://registry.npmjs.org/@ionic/utils-object/-/utils-object-2.1.6.tgz"
-  "version" "2.1.6"
-  dependencies:
-    "debug" "^4.0.0"
-    "tslib" "^2.0.1"
-
-"@ionic/utils-process@^2.1.11":
-  "integrity" "sha512-Jqkgyq7zBs/v/J3YvKtQQiIcxfJyplPgECMWgdO0E1fKrrH8EF0QGHNJ9mJCn6PYe2UtHNS8JJf5G21e09DfYg=="
-  "resolved" "https://registry.npmjs.org/@ionic/utils-process/-/utils-process-2.1.12.tgz"
-  "version" "2.1.12"
-  dependencies:
-    "@ionic/utils-object" "2.1.6"
-    "@ionic/utils-terminal" "2.3.5"
-    "debug" "^4.0.0"
-    "signal-exit" "^3.0.3"
-    "tree-kill" "^1.2.2"
-    "tslib" "^2.0.1"
-
 "@ionic/utils-process@2.1.10":
   "integrity" "sha512-mZ7JEowcuGQK+SKsJXi0liYTcXd2bNMR3nE0CyTROpMECUpJeAvvaBaPGZf5ERQUPeWBVuwqAqjUmIdxhz5bxw=="
   "resolved" "https://registry.npmjs.org/@ionic/utils-process/-/utils-process-2.1.10.tgz"
@@ -1054,7 +1025,7 @@
     "debug" "^4.0.0"
     "tslib" "^2.0.1"
 
-"@ionic/utils-subprocess@2.1.11":
+"@ionic/utils-subprocess@^2.1.11":
   "integrity" "sha512-6zCDixNmZCbMCy5np8klSxOZF85kuDyzZSTTQKQP90ZtYNCcPYmuFSzaqDwApJT4r5L3MY3JrqK1gLkc6xiUPw=="
   "resolved" "https://registry.npmjs.org/@ionic/utils-subprocess/-/utils-subprocess-2.1.11.tgz"
   "version" "2.1.11"
@@ -2699,13 +2670,6 @@
     "safe-buffer" "^5.0.1"
     "sha.js" "^2.4.8"
 
-"cross-env@^7.0.3":
-  "integrity" "sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw=="
-  "resolved" "https://registry.npmjs.org/cross-env/-/cross-env-7.0.3.tgz"
-  "version" "7.0.3"
-  dependencies:
-    "cross-spawn" "^7.0.1"
-
 "cross-spawn@^5.0.1":
   "version" "5.1.0"
   dependencies:
@@ -2724,15 +2688,6 @@
 
 "cross-spawn@^7.0.0":
   "version" "7.0.1"
-  dependencies:
-    "path-key" "^3.1.0"
-    "shebang-command" "^2.0.0"
-    "which" "^2.0.1"
-
-"cross-spawn@^7.0.1":
-  "integrity" "sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w=="
-  "resolved" "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz"
-  "version" "7.0.3"
   dependencies:
     "path-key" "^3.1.0"
     "shebang-command" "^2.0.0"
@@ -2917,6 +2872,11 @@
 
 "de-indent@^1.0.2":
   "version" "1.0.2"
+
+"debounce@^1.1.0":
+  "integrity" "sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug=="
+  "resolved" "https://registry.npmjs.org/debounce/-/debounce-1.2.1.tgz"
+  "version" "1.2.1"
 
 "debug@^2.2.0":
   "version" "2.6.9"
@@ -3184,6 +3144,11 @@
 
 "downloadjs@^1.4.7":
   "version" "1.4.7"
+
+"dropzone@^5.5.1":
+  "integrity" "sha512-Azk8kD/2/nJIuVPK+zQ9sjKMRIpRvNyqn9XwbBHNq+iNuSccbJS6hwm1Woy0pMST0erSo0u4j+KJaodndDk4vA=="
+  "resolved" "https://registry.npmjs.org/dropzone/-/dropzone-5.9.3.tgz"
+  "version" "5.9.3"
 
 "duplexer@^0.1.1":
   "version" "0.1.1"
@@ -5545,7 +5510,7 @@
   dependencies:
     "minimist" "0.0.8"
 
-"moment@^2.19.2", "moment@^2.29.1":
+"moment@^2.19.2":
   "version" "2.29.1"
 
 "move-concurrently@^1.0.1":
@@ -7121,9 +7086,6 @@
     "unicode-match-property-ecmascript" "^1.0.4"
     "unicode-match-property-value-ecmascript" "^1.2.0"
 
-"register-service-worker@^1.7.1":
-  "version" "1.7.2"
-
 "registry-auth-token@^3.0.1":
   "version" "3.3.2"
   dependencies:
@@ -7363,9 +7325,6 @@
   dependencies:
     "ajv" "^6.12.0"
     "ajv-keywords" "^3.4.1"
-
-"screenfull@^5.1.0":
-  "version" "5.1.0"
 
 "select-hose@^2.0.0":
   "version" "2.0.0"
@@ -8478,8 +8437,10 @@
 "vue-apexcharts@^1.6.0":
   "version" "1.6.0"
 
-"vue-avatar@^2.2.0":
-  "version" "2.2.0"
+"vue-avatar@^2.3.3":
+  "integrity" "sha512-Z57ILRTkFIAuCH9JiFBxX74C5zua5ub/jRDM/KZ+QKXNfscvmUOgWBs3kA2+wrpZMowIvfLHIT0gvQu1z+zpLg=="
+  "resolved" "https://registry.npmjs.org/vue-avatar/-/vue-avatar-2.3.3.tgz"
+  "version" "2.3.3"
 
 "vue-axios@^2.1.5":
   "version" "2.1.5"
@@ -8499,11 +8460,6 @@
 
 "vue-filter-date-format@^1.3.1":
   "version" "1.3.1"
-
-"vue-fullscreen@^2.5.1":
-  "version" "2.5.1"
-  dependencies:
-    "screenfull" "^5.1.0"
 
 "vue-functional-data-merge@^3.1.0":
   "version" "3.1.0"
@@ -8574,6 +8530,13 @@
     "signature_pad" "^3.0.0-beta.3"
     "vue" "^2.6.11"
 
+"vue-star-rating@^1.7.0":
+  "integrity" "sha512-2qdONqnIlvFzJoallfr7VuFRB6hBzYgBVEbXC3yYZz2TfMhx36WtYQ5p7JRjW+pzZx2PGQYZ75UFoBE0jwIANw=="
+  "resolved" "https://registry.npmjs.org/vue-star-rating/-/vue-star-rating-1.7.0.tgz"
+  "version" "1.7.0"
+  dependencies:
+    "vue" "^2.3.3"
+
 "vue-stepper@^1.4.2":
   "version" "1.4.2"
   dependencies:
@@ -8586,7 +8549,7 @@
     "hash-sum" "^1.0.2"
     "loader-utils" "^1.0.2"
 
-"vue-template-compiler@^2.0.0", "vue-template-compiler@^2.6.14":
+"vue-template-compiler@^2.0.0", "vue-template-compiler@^2.6.11":
   "version" "2.6.14"
   dependencies:
     "de-indent" "^1.0.2"
@@ -8598,7 +8561,16 @@
 "vue-toasted@^1.1.28":
   "version" "1.1.28"
 
-"vue@^2.0.0", "vue@^2.5.0", "vue@^2.5.16", "vue@^2.5.18", "vue@^2.6.10", "vue@^2.6.11", "vue@^2.6.5", "vue@^2.6.7", "vue@>= 1.0.0", "vue@>=1.0.0", "vue@>=1.x.x", "vue@>=3", "vue@2.x":
+"vue-wysiwyg@^1.7.2":
+  "integrity" "sha512-ypj9vqmGJTuM/YYC30+vRPWm6+UizBqvNHnIJr1l6k92eHA33q5ubE+WPfij8Qr8mK+wbaCwaVBO7dQqvxzSTQ=="
+  "resolved" "https://registry.npmjs.org/vue-wysiwyg/-/vue-wysiwyg-1.7.2.tgz"
+  "version" "1.7.2"
+  dependencies:
+    "debounce" "^1.1.0"
+    "vue" "^2.5.13"
+    "vue2-dropzone" "^3.0.4"
+
+"vue@^2.0.0", "vue@^2.3.3", "vue@^2.5.0", "vue@^2.5.13", "vue@^2.5.16", "vue@^2.5.18", "vue@^2.6.10", "vue@^2.6.11", "vue@^2.6.5", "vue@^2.6.7", "vue@>= 1.0.0", "vue@>=1.0.0", "vue@>=1.x.x", "vue@>=3", "vue@2.x":
   "version" "2.6.14"
 
 "vue2-datepicker@^3.6.0":
@@ -8606,6 +8578,13 @@
   dependencies:
     "date-fns" "^2.0.1"
     "date-format-parse" "^0.2.5"
+
+"vue2-dropzone@^3.0.4":
+  "integrity" "sha512-YXC1nCWIZvfa98e/i6h+EshZCkFSxFEh0Sxr9ODfThAPPDVhAzLLlz/4XIx0NGO1QeSy6htwSstte47R7vVhLQ=="
+  "resolved" "https://registry.npmjs.org/vue2-dropzone/-/vue2-dropzone-3.6.0.tgz"
+  "version" "3.6.0"
+  dependencies:
+    "dropzone" "^5.5.1"
 
 "vue2-timepicker@^1.1.3":
   "version" "1.1.3"

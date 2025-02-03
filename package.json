@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider  vue-cli-service build",
+    "lint": "NODE_OPTIONS=--openssl-legacy-provider  vue-cli-service lint"
   },
   "main": "background.js",
   "dependencies": {

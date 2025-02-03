@@ -1,5 +1,5 @@
 <template>
-  <section class="admin-content " id="contact-search">
+  <section class="admin-content" id="contact-search">
     <Navbar />
 
     <div class="bg-info m-b-30">
@@ -191,7 +191,7 @@
                   <th>ID Number</th>
                   <th>DOB / Date of Expiry</th>
                   <th>Gender</th>
-                  <th>Relationship</th>
+                  <!-- <th>Relationship</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -206,13 +206,11 @@
                     />
 
                     <div
-                      class="avatar avatar-md "
+                      class="avatar avatar-md"
                       v-if="dependent.image != null"
                     >
                       <img
-                        :src="
-                          `https://kampe.hayokmedicare.ng/image/${dependent.image}`
-                        "
+                        :src="`https://kampe.hayokmedicare.ng/image/${dependent.image}`"
                         class="avatar-img avatar-lg rounded"
                         onerror="this.onerror=null; this.src='/assets/img/KAMPE_logo.png'"
                         alt=""
@@ -220,8 +218,8 @@
                     </div>
                   </td>
                   <td>
-                    <router-link :to="{ path: '/provider-' + dependent.id }">
-                      {{ dependent.full_name }} 
+                    <router-link :to="{ path: '/dependent/' + dependent.id }">
+                      {{ dependent.full_name }}
                     </router-link>
                   </td>
                   <td>{{ dependent.id_card_number }}</td>
@@ -229,7 +227,7 @@
                     {{ dependent.dob }} <b>/</b> {{ dependent.expiry_date }}
                   </td>
                   <td>{{ dependent.gender }}</td>
-                  <td>{{ dependent.relationShipType }}</td>
+                  <!-- <td>{{ dependent.relationShipType }}</td> -->
                   <td>
                     <router-link :to="{ path: '/dependent/' + dependent.id }">
                       <button class="btn btn-default" name="button">
@@ -260,7 +258,7 @@
 
         <!-- Modal for Prescription/Notes -->
         <div
-          class="modal fade "
+          class="modal fade"
           id="example_01"
           tabindex="-1"
           role="dialog"
@@ -271,8 +269,8 @@
             class="modal-dialog modal-dialog-centered modal-lg"
             role="document"
           >
-            <div class="modal-content ">
-              <div class="container-fluid ">
+            <div class="modal-content">
+              <div class="container-fluid">
                 <button
                   type="button"
                   class="close"
@@ -281,7 +279,7 @@
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <div class="row ">
+                <div class="row">
                   <div class="col-md-12 p-t-20 p-b-20">
                     <video
                       id="video"
@@ -358,7 +356,7 @@ export default {
         institution_attending: "",
         email: "",
         phone_number: "",
-        relationShipType: "",
+        relationShipType: "Spouse A",
         gender: "",
         lga: "",
         dob: "",
@@ -448,7 +446,7 @@ export default {
         // Not adding `{ audio: true }` since we only want video now
         navigator.mediaDevices
           .getUserMedia(this.video_settings)
-          .then(function(stream) {
+          .then(function (stream) {
             //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
             video.play();

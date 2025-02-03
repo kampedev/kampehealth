@@ -365,6 +365,7 @@ export default {
     },
     updateParent(){
       this.$emit("clicked", this.dependents);
+      console.log(this.dependents)
 
     },
 

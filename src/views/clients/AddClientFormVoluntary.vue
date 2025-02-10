@@ -924,11 +924,14 @@ export default {
 
           // Auto Select Marketer
           let employees = this.employees.data;
-          let formatter = employees.filter(
-            (x) => x.id == this.$route.params.employee
-          );
+
+          let url = this.$route.params.type;
+
+          let employeeId = url.substring(url.lastIndexOf("-") + 1);
+
+          let formatter = employees.filter((x) => x.id == employeeId);
           this.register.enrolled_by = formatter[0].id;
-          console.log(this.register.enrolled_by );
+          console.log(this.register.enrolled_by);
 
           // End of Function
         })

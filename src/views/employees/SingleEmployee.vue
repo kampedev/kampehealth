@@ -176,14 +176,17 @@
                     {{ employeee.user.phone_number }}
                   </p>
                   <br />
-                  <div
-                    class="card py-3 m-b-30"
-                  >
+                  <div class="card py-3 m-b-30">
                     <div class="card-header">
                       <p class="h5">Share your Enrollment Link</p>
                     </div>
                     <div class="row card-body">
                       <div class="col-md-6">
+                        <qrcode-vue
+                          :value="`https://kampehealthplans.com/registration-nigeria-${$route.params.id}`"
+                          :size="200"
+                          :level="'H'"
+                        ></qrcode-vue>
                         <label for="">Local Enrollment</label>
                         <div class="input-group">
                           <input
@@ -209,6 +212,12 @@
                       </div>
 
                       <div class="col-md-6">
+                        <qrcode-vue
+                          :value="`https://kampehealthplans.com/registration-nigeria-${$route.params.id}`"
+                          :size="200"
+                          :level="'H'"
+                        ></qrcode-vue>
+
                         <label for="">Diaspora Enrolment</label>
 
                         <div class="input-group">

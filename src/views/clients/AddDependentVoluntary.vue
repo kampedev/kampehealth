@@ -356,6 +356,7 @@ export default {
         },
       });
       this.$emit("clicked", this.dependents);
+      console.log('parentus')
     },
     removeArray(index) {
       this.dependents.splice(index, 1); // 2nd parameter means remove one item only
@@ -365,7 +366,7 @@ export default {
     },
     updateParent(){
       this.$emit("clicked", this.dependents);
-      console.log(this.dependents)
+      console.log( JSON.stringify (this.dependents.length) +'parentus')
 
     },
 
@@ -465,6 +466,7 @@ export default {
         .then((response) => {
           this.plans = response.data.data;
           console.log(response);
+          this.updateParent()
         })
         .catch((error) => {
           console.error(error);

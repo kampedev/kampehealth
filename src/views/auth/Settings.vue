@@ -142,11 +142,17 @@
               </div>
 
               <div class="card py-3 m-b-30" v-if="auth_user.type != 'client'">
-                <div class="card-header">
+                <div class="card-header text-center">
                   <p class="h5">Share your Enrollment Link</p>
                 </div>
                 <div class="row card-body">
+                  <div class="col-md-12"></div>
                   <div class="col-md-6">
+                    <qrcode-vue
+                      :value="`https://kampehealthplans.com/registration-nigeria-${auth_user.id}`"
+                      :size="200"
+                      :level="'H'"
+                    ></qrcode-vue>
                     <label for="">Local Enrollment</label>
                     <div class="input-group">
                       <input
@@ -172,6 +178,12 @@
                   </div>
 
                   <div class="col-md-6">
+                    <qrcode-vue
+                      :value="`https://kampehealthplans.com/registration-nigeria-${auth_user.id}`"
+                      :size="200"
+                      :level="'H'"
+                    ></qrcode-vue>
+
                     <label for="">Diaspora Enrolment</label>
 
                     <div class="input-group">
@@ -217,8 +229,8 @@
   </div>
 </template>
 <script>
-// @ is an alias to /src
-// import Settings from '@/components/Settings.vue'
+import QRCodeVue from "qrcode.vue";
+
 import Navbar from "@/views/Navbar.vue";
 import ChangePassword from "@/views/auth/ChangePassword.vue";
 import Loading from "vue-loading-overlay";
@@ -230,6 +242,7 @@ export default {
     Navbar,
     Loading,
     ChangePassword,
+    qrcodeVue: QRCodeVue,
   },
   data() {
     return {
@@ -240,6 +253,7 @@ export default {
       fullPage: true,
     };
   },
+
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.axios

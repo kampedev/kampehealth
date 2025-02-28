@@ -561,7 +561,8 @@ export default {
         .then((response) => {
           console.log(response);
           this.isLoading = false;
-          window.open(response.data.payment_link.long_url, "_blank");
+          //window.open(response.data.payment_link.long_url, "_blank");
+          window.open(response.data.payment_link.long_url);
           this.$toasted.info("Link Created Successfully!", {
             position: "top-center",
             duration: 3000,

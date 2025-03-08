@@ -181,7 +181,7 @@
                 <div class="row col-md-12" v-else>
                   <div class="col-md-6">
                     <button
-                      class="btn btn-outline-info btn-block"
+                      class="btn btn-outline-info btn-block m-1"
                       data-toggle="modal"
                       data-target="#eofflineModal"
                     >
@@ -191,10 +191,10 @@
 
                   <div class="col-md-6">
                     <button
-                      class="btn btn-outline-dark btn-block"
+                      class="btn btn-outline-dark btn-block m-1"
                       @click="squareupPay"
                     >
-                      Pay with Square Up
+                      Pay with Square Up v
                     </button>
                   </div>
                 </div>
@@ -355,6 +355,10 @@ import nigeriaPlansJSON from "@/jsons/nigerian_plans.json";
 import HDPTCPlansJSON from "@/jsons/hdptc_nigerian_plans.json";
 import schoolPlansJSON from "@/jsons/school_plans.json";
 import { Clipboard } from "@capacitor/clipboard";
+
+// const redirectToPage = (redirect_url) => {
+//     window.open(redirect_url, '_blank');
+//   };
 
 export default {
   components: {
@@ -561,14 +565,21 @@ export default {
         .then((response) => {
           console.log(response);
           this.isLoading = false;
-          //window.open(response.data.payment_link.long_url, "_blank");
-          window.open(response.data.payment_link.long_url);
+
+          // redirectToPage(response.data.payment_link.long_url)
+          // redirectToPage('/')
+
+
+          // window.open(response.data.payment_link.long_url, "_blank");
+          window.location.href =response.data.payment_link.long_url ;
           this.$toasted.info("Link Created Successfully!", {
             position: "top-center",
             duration: 3000,
           });
         });
     },
+
+    // redirectLi
     async writeToClipboard() {
       await Clipboard.write({
         string: `https://kampehealthplans.com/subscribe-${this.auth_user.id}`,

@@ -194,7 +194,7 @@
                       class="btn btn-outline-dark btn-block m-1"
                       @click="squareupPay"
                     >
-                      Pay with Square Up v
+                      Pay with Square Up
                     </button>
                   </div>
                 </div>

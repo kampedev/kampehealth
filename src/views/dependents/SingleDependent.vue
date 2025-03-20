@@ -49,7 +49,7 @@
 
                     <div class="" v-if="dependent.image != null">
                       <img
-                        :src="`https://insurance-api.hayokmedicare.ng/image/${dependent.image}`"
+                        :src="`https://kampe.hayokmedicare.ng/image/${dependent.image}`"
                         class="img-thumbnail"
                         width="304"
                         height="236"

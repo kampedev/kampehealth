@@ -132,7 +132,7 @@
               <div
                 class="card"
                 style="
-                  background-image: url('../assets/img/KAMPE_transparent.png');
+                  background-image: url('../assets/img/kampe_transparent.png');
                   background-size: cover;
                   background-repeat: no-repeat;
                 "
@@ -142,7 +142,7 @@
                     <div class="col-md-2">
                       <span class="avatar avatar-xl">
                         <img
-                          src="/assets/img/KAMPE_logo.png"
+                          src="/assets/img/kampe_logo.png"
                           class="rounded-circle"
                         />
                       </span>

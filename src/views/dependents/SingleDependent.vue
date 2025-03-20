@@ -27,12 +27,26 @@
                     inactive
                   </button>
                 </span>
+
+                <router-link
+                  :to="{
+                    path: '/add-dependent/' + dependent.user_id,
+                    params: {},
+                  }"
+                  class="btn btn-outline-dark mx-2"
+                >
+                  Go to Edit
+                </router-link>
+
+                <button class="btn btn-outline-primary spacer" @click="printMe">
+                  Print <i class="fe fe-printer"></i>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <section class="pull-up">
+      <section class="" id="printDiv" ref="printNow">
         <div class="container">
           <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -328,6 +342,13 @@ export default {
           });
           // this.getUser()
         });
+    },
+    printMe() {
+      var printContents = document.getElementById("printDiv").innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
     },
   },
   created() {

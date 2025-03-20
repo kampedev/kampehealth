@@ -103,13 +103,13 @@
 
                   <div class="form-group col-md-6">
                     <label for="inputCity"
-                      >Date of Expiry: <b>{{ getExpiry }}</b>
+                      >Date of Expiry: 
                     </label>
                     <input
                       type="date"
                       class="form-control"
                       placeholder="YYYY/MM/DD"
-                      v-model="getExpiry"
+                      v-model="dependent.expiry_date"
                     />
                     <p class="text-info">
                       Principal Expiry: {{ client.expiry_date }}
@@ -189,7 +189,7 @@
                   <th>Avatar</th>
                   <th>Name</th>
                   <th>ID Number</th>
-                  <th>DOB / Date of Expiry</th>
+                  <th>DOB (Date of Expiry)</th>
                   <th>Gender</th>
                   <!-- <th>Relationship</th> -->
                   <th>Action</th>
@@ -224,7 +224,7 @@
                   </td>
                   <td>{{ dependent.id_card_number }}</td>
                   <td>
-                    {{ dependent.dob }} <b>/</b> {{ dependent.expiry_date }}
+                    {{ dependent.dob }} ({{ dependent.expiry_date }})
                   </td>
                   <td>{{ dependent.gender }}</td>
                   <!-- <td>{{ dependent.relationShipType }}</td> -->
@@ -555,7 +555,7 @@ export default {
             relationShipType: this.dependent.relationShipType.slice(0, -1),
             user_id: this.$route.params.id,
             email: this.dependent.email,
-            expiry_date: this.getExpiry,
+            expiry_date: this.dependent.expiry_date,
             phone_number: this.client.phone_number,
             gender: this.dependent.gender,
             state: 2676,

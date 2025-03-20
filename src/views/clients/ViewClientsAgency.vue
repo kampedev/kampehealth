@@ -234,7 +234,6 @@
                               :id="'collapseExample' + client.id"
                             >
                               <table class="table table-responsive">
-                                <!-- <tbody> -->
                                 <tr>
                                   <th>Name</th>
                                   <th>Relationship</th>
@@ -245,7 +244,13 @@
                                   v-bind:key="dep.id"
                                 >
                                   <td>
-                                    {{ dep.full_name }}
+                                    <router-link
+                                    class="text-info"
+                                    :to="`dependent/${dep.id}`"
+                                    >
+                                      {{ dep.full_name }}
+
+                                    </router-link>
                                   </td>
                                   <td>{{ dep.relationShipType }}</td>
                                   <td>{{ dep.gender }}</td>
@@ -431,6 +436,19 @@ export default {
           console.error(error);
         });
     },
+    getDependents(client) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .get(`/api/v1/auth/allDependantUser/${client.id}`)
+        .then((response) => {
+          this.dependents = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
   },
   created() {
     this.getStates();

@@ -16,9 +16,9 @@
       <div class="container">
         <div class="row list">
           <div class="col-lg-12 col-md-12">
-            <div class="card m-b-30" v-if="dependents.length <= 4">
+            <div class="card m-b-30">
               <div class="card-header text-center">
-                <strong>Add Dependent {{ client.id_card_number }} </strong>
+                <strong>Add Dependent ({{ client.id_card_number }}) </strong>
               </div>
 
               <div class="card-body">
@@ -231,19 +231,19 @@
                   <td>
                     <router-link :to="{ path: '/dependent/' + dependent.id }">
                       <button class="btn btn-default" name="button">
-                        <i class="fe fe-eye"></i>
+                        <i class="fe fe-eye m-1"></i>
                       </button>
                     </router-link>
 
                     <button
-                      class="btn btn-outline-info"
+                      class="btn btn-outline-info m-1"
                       name="button"
                       @click="editDep(dependent)"
                     >
                       <i class="fe fe-edit"></i>
                     </button>
                     <button
-                      class="btn btn-outline-danger"
+                      class="btn btn-outline-danger m-1"
                       name="button"
                       @click="deleteDep(dependent)"
                     >
@@ -256,7 +256,7 @@
           </div>
         </div>
 
-        <!-- Modal for Prescription/Notes -->
+        <!-- Modal for Capture Picture -->
         <div
           class="modal fade"
           id="example_01"
@@ -288,18 +288,27 @@
                       autoplay
                     ></video>
                     <p>
-                      <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
-                      <button @click="takePic" class="bg-navy btn btn-flat">
+                      <button @click="takePic" class="bg-navy btn btn-flat my-1">
                         Snap Photo
                       </button>
-                      <!-- <button type="button" class="btn btn-info" name="button" @click="savePic">Save pic</button> -->
                     </p>
-                    <!-- <p> i am image  <img :src="imagefile" alt=""> </p> -->
-                    <!-- <p>{{imagefile}}</p> -->
 
                     <canvas id="canvas" width="720px" height="550px"></canvas>
                   </div>
+
+                  <!-- <div class="col-md-12 mt-2"> -->
+                  <button
+                    type="button"
+                    class="btn btn-outline-info btn-block"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    Continue
+                  </button>
+                <!-- </div> -->
                 </div>
+
+               
               </div>
             </div>
           </div>
@@ -327,6 +336,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 // Init plugin
 // import Datepicker from 'vuejs-datepicker';
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export default {
   components: {
@@ -475,17 +485,6 @@ export default {
         });
     },
 
-    getSurname() {
-      if (this.dependent.relationShipType == "Spouse") {
-        return this.dependent.lastname;
-      } else {
-        if (this.client.gender == "male") {
-          return this.client.firstname;
-        } else {
-          return this.dependent.lastname;
-        }
-      }
-    },
     takePic() {
       var video = document.getElementById("video");
       var canvas = document.getElementById("canvas");
@@ -550,7 +549,6 @@ export default {
         this.axios
           .post("/api/v1/auth/addDependant", {
             firstname: this.dependent.firstname,
-            // lastname: this.getSurname ? this.getSurname : this.dependent.lastname,
             lastname: this.dependent.lastname,
             middle_name: this.dependent.middle_name,
             institution_attending: this.dependent.institution_attending,
@@ -693,6 +691,7 @@ export default {
       this.dependent.dob = "";
       this.dependent.expiry_date = "";
     },
+
     singleClient() {
       this.axios
         .get(`/api/v1/auth/user/zam/${this.$route.params.id}`)
@@ -703,6 +702,18 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+
+    async takePicAndroid(index) {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+      });
+
+      var imageUrl = image.base64String;
+      this.dependents[index].image = "data:image/png;base64," + imageUrl;
     },
   },
   created() {

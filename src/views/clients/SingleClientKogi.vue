@@ -83,7 +83,7 @@
                       :to="{ path: '/add-dependent/' + $route.params.id, params: {} }"
                     >
                       <button class="btn btn-outline-info spacer">
-                        Dependents<i class="mdi mdi-user-multiple"></i>
+                        My Enrollees<i class="mdi mdi-user-multiple"></i>
                       </button>
                     </router-link> 
 
@@ -134,7 +134,6 @@
                 style="
                   background-image: url('../assets/img/kampe_transparent.png');
                   background-size: cover;
-                  background-repeat: no-repeat;
                 "
               >
                 <div class="card-header">
@@ -149,9 +148,8 @@
                     </div>
                     <div class="col-md-10">
                       <strong
-                        ><h2 class="h1 text-info">KAMPE HEALTH</h2>
+                        ><h2 class="h1 text-info text-center">KAMPE HEALTH</h2>
                       </strong>
-                      <!-- <strong><p class="h2 text-center">(KAMPE)</p></strong> -->
                     </div>
                   </div>
                 </div>
@@ -199,7 +197,7 @@
 
                     <hr />
                     <p class="h3 spacer-top-bottom">
-                      <strong class="text-primary">SECTOR:</strong>
+                      <strong class="text-primary">Plan: </strong>
                       <strong> {{ client.user.sector }}</strong>
                     </p>
                     <hr />

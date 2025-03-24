@@ -50,8 +50,31 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12 col-md-12">
-              <div class="card m-b-30">
-                <div class="card-header"></div>
+              <div
+                class="card"
+                style="
+                  background-image: url('../assets/img/kampe_transparent.png');
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                "
+              >
+              <div class="card-header">
+                  <div class="row spacer-top">
+                    <div class="col-md-2">
+                      <span class="avatar avatar-xl">
+                        <img
+                          src="/assets/img/kampe_logo.png"
+                          class="rounded-circle"
+                        />
+                      </span>
+                    </div>
+                    <div class="col-md-10">
+                      <strong
+                        ><h2 class="h1 text-info text-center">KAMPE HEALTH</h2>
+                      </strong>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="card-body row">
                   <div class="col-md-4">
@@ -79,19 +102,14 @@
                     </p>
 
                     <hr />
-                    <p class="spacer-top-bottom">
-                      <strong>Principal:</strong>
-                      {{ dependent.user.full_name }} (
-                      {{ dependent.user.id_card_number }} )
-                    </p>
-                    <hr />
+                   
                     <p class="spacer-top-bottom">
                       <strong>Phone Number:</strong>
                       {{ dependent.phone_number }}
                     </p>
                     <hr />
                     <p class="spacer-top-bottom">
-                      <strong>LGA:</strong> {{ dependent.localgovt.local_name }}
+                      <strong>Plan:</strong> {{ dependent.user.sector }}
                     </p>
                     <hr />
                     <p class="spacer-top-bottom">

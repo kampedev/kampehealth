@@ -101,7 +101,7 @@
                     />
                   </div>
 
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
                     <label for="inputCity"
                       >Date of Expiry: 
                     </label>
@@ -116,15 +116,28 @@
                     </p>
                   </div>
 
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
                     <label for="inputPassword4">Phone Number</label>
                     <input
                       type="text"
                       class="form-control"
                       id="inputPassword4"
                       placeholder="Mobile No"
-                      :value="client.phone_number"
+                      :value="dependent.phone_number"
                     />
+                  </div>
+
+                  <div class="form-group col-md-4">
+                    <label for="inputCity"
+                      >Kampe ID: 
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="KMPE/XX/XXX"
+                      v-model="dependent.id_card_number"
+                    />
+                    
                   </div>
                 </div>
 
@@ -180,7 +193,7 @@
 
         <div class="col-md-12 m-b-30">
           <h5>
-            <i class="fe fe-activity"></i>{{ dependents.length }} Dependents
+            <i class="fe fe-users"></i>{{ dependents.length }} Dependents
           </h5>
           <div class="table-responsive">
             <table class="table align-td-middle table-card">
@@ -371,6 +384,7 @@ export default {
         lga: "",
         dob: "",
         provider: "",
+        id_card_number: "",
       },
       video_settings: {
         video: {
@@ -614,6 +628,7 @@ export default {
             phone_number: this.client.phone_number,
             gender: this.dependent.gender,
             expiry_date: this.dependent.expiry_date,
+            id_card_number: this.dependent.id_card_number,
             dob: this.dependent.dob,
             state: 2676,
             lga: this.client.localgovt,
@@ -635,6 +650,8 @@ export default {
           })
           .catch((error) => {
             console.log(error.response);
+            this.isLoading = false;
+
             this.$toasted.error("Error!", {
               position: "top-center",
               duration: 3000,
@@ -676,7 +693,8 @@ export default {
       this.dependent.gender = dependent.gender;
       this.dependent.dob = dependent.dob;
       this.dependent.expiry_date = dependent.expiry_date;
-      this.client.phone_number = dependent.phone_number;
+      this.dependent.phone_number = dependent.phone_number;
+      this.dependent.id_card_number = dependent.id_card_number;
     },
     clearIt() {
       this.dependent.firstname = "";

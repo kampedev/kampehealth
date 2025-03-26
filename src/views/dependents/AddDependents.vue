@@ -102,9 +102,7 @@
                   </div>
 
                   <div class="form-group col-md-4">
-                    <label for="inputCity"
-                      >Date of Expiry: 
-                    </label>
+                    <label for="inputCity">Date of Expiry: </label>
                     <input
                       type="date"
                       class="form-control"
@@ -128,16 +126,13 @@
                   </div>
 
                   <div class="form-group col-md-4">
-                    <label for="inputCity"
-                      >Kampe ID: 
-                    </label>
+                    <label for="inputCity">Kampe ID: </label>
                     <input
                       type="text"
                       class="form-control"
                       placeholder="KMPE/XX/XXX"
                       v-model="dependent.id_card_number"
                     />
-                    
                   </div>
                 </div>
 
@@ -192,9 +187,7 @@
         </div>
 
         <div class="col-md-12 m-b-30">
-          <h5>
-            <i class="fe fe-users"></i>{{ dependents.length }} Dependents
-          </h5>
+          <h5><i class="fe fe-users"></i>{{ dependents.length }} Dependents</h5>
           <div class="table-responsive">
             <table class="table align-td-middle table-card">
               <thead>
@@ -236,9 +229,7 @@
                     </router-link>
                   </td>
                   <td>{{ dependent.id_card_number }}</td>
-                  <td>
-                    {{ dependent.dob }} ({{ dependent.expiry_date }})
-                  </td>
+                  <td>{{ dependent.dob }} ({{ dependent.expiry_date }})</td>
                   <td>{{ dependent.gender }}</td>
                   <!-- <td>{{ dependent.relationShipType }}</td> -->
                   <td>
@@ -301,7 +292,10 @@
                       autoplay
                     ></video>
                     <p>
-                      <button @click="takePic" class="bg-navy btn btn-flat my-1">
+                      <button
+                        @click="takePic"
+                        class="bg-navy btn btn-flat my-1"
+                      >
                         Snap Photo
                       </button>
                     </p>
@@ -318,10 +312,8 @@
                   >
                     Continue
                   </button>
-                <!-- </div> -->
+                  <!-- </div> -->
                 </div>
-
-               
               </div>
             </div>
           </div>
@@ -545,14 +537,7 @@ export default {
     },
 
     submitForm() {
-      if (this.getAge >= 18 && this.dependent.relationShipType != "Spouse A") {
-        this.$toasted.error("Dependent older than 18 years", {
-          position: "top-center",
-          duration: 3000,
-        });
-      } else {
-        this.addDependant();
-      }
+      this.addDependant();
     },
 
     addDependant() {

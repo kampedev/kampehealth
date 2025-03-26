@@ -144,7 +144,7 @@
                           <th>Type</th>
                           <th>Name</th>
                           <th>Phone Number</th>
-                          <th>Sector</th>
+                          <th>Plan</th>
                           <th>Enrollment Date</th>
                           <th>KAMPE Number</th>
                           <th>Status</th>
@@ -176,7 +176,7 @@
                             {{ client.full_name }}
                           </td>
                           <td>{{ client.phone_number }}</td>
-                          <td>{{ client.sector }}</td>
+                          <td>{{ client.plan }}</td>
                           <td>
                             {{
                               client.created_at | moment("dddd, MMMM Do YYYY")

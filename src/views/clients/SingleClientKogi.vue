@@ -16,7 +16,7 @@
       <section class="pull-up">
         <div class="container">
           <div class="row list">
-            <div class="col-lg-12 col-md-12">
+            <div class="col-md-12">
               <div
                 class="card m-b-30"
                 v-if="user.type == 'employee' || user.type == 'shis'"
@@ -198,7 +198,7 @@
                     <hr />
                     <p class="h3 spacer-top-bottom">
                       <strong class="text-primary">Plan: </strong>
-                      <strong> {{ client.user.sector }}</strong>
+                      <strong> {{ client.user.plan }}</strong>
                     </p>
                     <hr />
                   </div>

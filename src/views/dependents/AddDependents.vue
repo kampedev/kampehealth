@@ -385,6 +385,7 @@ export default {
         dob: "",
         provider: "",
         id_card_number: "",
+        expiry_date: "",
       },
       video_settings: {
         video: {

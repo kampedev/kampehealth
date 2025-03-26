@@ -6,11 +6,10 @@
         <div class="container">
           <div class="row p-b-60 p-t-60">
             <div class="col-md-6 text-center mx-auto text-white p-b-30">
-              <div class="m-b-10">
-                <div class="avatar"></div>
-              </div>
-              <div class="h5">
-                {{ dependent.full_name }}
+              <div class="mt-10">
+                <span class="h4">
+                  {{ dependent.full_name }}
+                </span>
                 <span v-if="dependent.status == 'active'">
                   <button
                     type="button"
@@ -27,38 +26,84 @@
                     inactive
                   </button>
                 </span>
-
-                <router-link
-                  :to="{
-                    path: '/add-dependent/' + dependent.user_id,
-                    params: {},
-                  }"
-                  class="btn btn-outline-dark mx-2"
-                >
-                  Go to Edit
-                </router-link>
-
-                <button class="btn btn-outline-primary spacer" @click="printMe">
-                  Print <i class="fe fe-printer"></i>
-                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <section class="" id="printDiv" ref="printNow">
+
+      <section class="">
         <div class="container">
           <div class="row">
-            <div class="col-lg-12 col-md-12">
+            <div class="col-md-12">
+              <div class="card my-6">
+                <div class="card-body">
+                  <button
+                    class="btn btn-outline-success spacer"
+                    @click="streamPic"
+                    data-toggle="modal"
+                    data-target="#example_01"
+                  >
+                    Take Photo <i class="fe fe-camera"></i>
+                  </button>
+                  <div
+                    class="fileinput fileinput-new"
+                    data-provides="fileinput"
+                  >
+                    <span class="btn btn-file">
+                      <span class="fileinput-new"
+                        >Upload Picture <i class="fe fe-upload"></i
+                      ></span>
+                      <span class="fileinput-exists">Change</span>
+                      <input
+                        type="file"
+                        name="..."
+                        multiple
+                        v-on:change="attachPic"
+                      />
+                    </span>
+                    <span class="fileinput-filename"></span>
+                    <a
+                      href="#"
+                      class="close fileinput-exists"
+                      data-dismiss="fileinput"
+                      style="float: none"
+                      >&times;</a
+                    >
+                  </div>
+
+                  <router-link
+                    :to="{
+                      path: '/add-dependent/' + dependent.user_id,
+                      params: {},
+                    }"
+                    class="btn btn-outline-dark mx-2"
+                  >
+                    Go to Edit
+                  </router-link>
+
+                  <button
+                    class="btn btn-outline-primary spacer"
+                    @click="printMe"
+                  >
+                    Print <i class="fe fe-printer"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
               <div
                 class="card"
+                id="printDiv"
+                ref="printNow"
                 style="
                   background-image: url('../assets/img/kampe_transparent.png');
                   background-size: cover;
                   background-repeat: no-repeat;
                 "
               >
-              <div class="card-header">
+                <div class="card-header">
                   <div class="row spacer-top">
                     <div class="col-md-2">
                       <span class="avatar avatar-xl">
@@ -102,14 +147,14 @@
                     </p>
 
                     <hr />
-                   
+
                     <p class="spacer-top-bottom">
                       <strong>Phone Number:</strong>
                       {{ dependent.phone_number }}
                     </p>
                     <hr />
                     <p class="spacer-top-bottom">
-                      <strong>Plan:</strong> {{ dependent.user.sector }}
+                      <strong>Plan:</strong> {{ dependent.user.plan }}
                     </p>
                     <hr />
                     <p class="spacer-top-bottom">
@@ -170,12 +215,15 @@
                       ></video>
                       <p>
                         <!-- <button id="snap" class="bg-navy btn btn-flat">Snap Photo</button> -->
-                        <button @click="takePic" class="bg-navy btn btn-flat">
+                        <button
+                          @click="takePic"
+                          class="bg-navy btn btn-flat m-4"
+                        >
                           Snap Photo
                         </button>
                         <button
                           type="button"
-                          class="btn btn-info"
+                          class="btn btn-info m-4"
                           name="button"
                           @click="savePic"
                         >
@@ -235,6 +283,22 @@ export default {
       agency_id: "",
       imagefile: "",
       pictureShower: true,
+      upload_pic: true,
+      video_settings: {
+        video: {
+          width: {
+            min: 1280,
+            ideal: 1920,
+            max: 2560,
+          },
+          height: {
+            min: 720,
+            ideal: 1080,
+            max: 1440,
+          },
+          facingMode: "environment",
+        },
+      },
     };
   },
   mounted() {
@@ -242,21 +306,38 @@ export default {
   },
   beforeMount() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.axios
-      .get(`/api/v1/auth/getSpeicifDependant/${this.$route.params.id}`)
-      .then((response) => {
-        this.dependent = response.data.data;
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   },
 
   methods: {
+    getDep() {
+      this.axios
+        .get(`/api/v1/auth/getSpeicifDependant/${this.$route.params.id}`)
+        .then((response) => {
+          this.dependent = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    streamPic() {
+      this.upload_pic = false;
+      var video = document.getElementById("video");
+      // Get access to the camera!
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices
+          .getUserMedia(this.video_settings)
+          .then(function (stream) {
+            //video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+          });
+      }
+    },
+
     attachPic(event) {
       this.user = JSON.parse(localStorage.getItem("user"));
-
       console.log(event);
       // let files = event.target.files
       // let filename = event.target.files[0].name
@@ -287,7 +368,11 @@ export default {
           this.$breadstick.notify("Profile Image changed Successfully!", {
             position: "top-right",
           });
-          this.fetchUser();
+          this.get();
+        })
+        .catch((error) => {
+          console.error(error);
+          this.isLoading = false;
         });
     },
     takePic() {
@@ -310,20 +395,25 @@ export default {
     },
 
     savePic() {
+      this.isLoading = true;
+
       this.axios
-        .post(`/api/v1/auth/uploadcustomerpicImage`, {
-          user_image: this.imagefile,
-          user_id: this.$route.params.id,
+        .post(`/api/v1/auth/uploadDependantImage/canvas`, {
+          image: this.imagefile,
+          dependant_id: this.$route.params.id,
         })
         .then((response) => {
           console.log(response);
           this.$breadstick.notify("Profile Image changed Successfully!", {
             position: "top-right",
           });
-          this.fetchUser();
+          this.isLoading = false;
+
+          this.getDep();
         })
         .catch((error) => {
           console.error(error);
+          this.isLoading = false;
         });
     },
 
@@ -340,27 +430,6 @@ export default {
         });
     },
 
-    uploadPicSnapped() {
-      this.isLoading = true;
-      let snap = localStorage.getItem("snap");
-
-      var formData = new FormData();
-      formData.append("user_image", snap);
-      this.axios
-        .post("/api/v1/auth/uploadUserImage", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          this.isLoading = false;
-          this.$breadstick.notify("Profile Image changed Successfully!", {
-            position: "top-right",
-          });
-          // this.getUser()
-        });
-    },
     printMe() {
       var printContents = document.getElementById("printDiv").innerHTML;
       var originalContents = document.body.innerHTML;
@@ -370,6 +439,7 @@ export default {
     },
   },
   created() {
+    this.getDep();
     this.fetchUser();
   },
 };

@@ -231,12 +231,12 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                  <label for="inputCity">Sector</label>
+                  <label for="inputCity">Plan</label>
                   <input
                     type="text"
                     class="form-control"
                     id="inputEmail4"
-                    :value="selected_enrollee.sector"
+                    :value="selected_enrollee.plan"
                     disabled
                   />
                 </div>

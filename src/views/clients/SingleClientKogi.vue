@@ -111,6 +111,100 @@
                         Edit <i class="fe fe-edit"></i>
                       </button>
                     </router-link>
+
+
+                     <button
+                        type="button"
+                        class="btn btn-outline-dark spacer"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                      >
+                        Add Payment
+                      </button>
+
+                      <!-- Modal -->
+                      <div
+                        class="modal fade"
+                        id="exampleModal"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">
+                                Add Payment
+                              </h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <input
+                                type="text"
+                                placeholder="Enter Payment Description"
+                                class="form-control mb-4"
+                                v-model="userPayment.description"
+                              />
+                              <input
+                                type="text"
+                                placeholder="Enter Amount"
+                                class="form-control"
+                                v-model="userPayment.amount"
+                              />
+                              <div
+                                class="fileinput fileinput-new"
+                                data-provides="fileinput"
+                              >
+                                <span class="btn btn-file">
+                                  <span class="fileinput-new"
+                                    >Upload Picture <i class="fe fe-upload"></i
+                                  ></span>
+                                  <span class="fileinput-exists">Change</span>
+                                  <input
+                                    type="file"
+                                    accept="image/png, image/gif, image/jpeg"
+                                    name="..."
+                                    multiple
+                                    v-on:change="attachPaymentProof"
+                                  />
+                                </span>
+                                <span class="fileinput-filename"></span>
+                                <a
+                                  href="#"
+                                  class="close fileinput-exists"
+                                  data-dismiss="fileinput"
+                                  style="float: none"
+                                  >&times;</a
+                                >
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-dismiss="modal"
+                                @click="addPayment"
+                              >
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <!-- </router-link> -->
+
                     <!-- <router-link
                       :to="{
                         path: '/edit-user/' + $route.params.id,

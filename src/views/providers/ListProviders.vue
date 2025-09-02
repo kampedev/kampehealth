@@ -1,5 +1,5 @@
 <template>
-  <section class="admin-content " id="contact-search">
+  <section class="admin-content" id="contact-search">
     <Navbar />
     <main class="admin-main">
       <div class="bg-info m-b-30">
@@ -20,10 +20,7 @@
 
                 <div class="card-body">
                   <div class="row">
-                    <button
-                      class="btn btn-info m-2"
-                      @click="show = !show"
-                    >
+                    <button class="btn btn-info m-2" @click="show = !show">
                       Add Facility
                     </button>
                     <button
@@ -171,24 +168,23 @@
                   </div>
 
                   <div class="row">
-
                     <div class="form-group col-md-6">
-                        <label for="inputCity">State </label>
+                      <label for="inputCity">State </label>
 
-                        <select
-                          class="form-control"
-                          v-model="register.state"
-                          @change="fetchLga(register.state)"
+                      <select
+                        class="form-control"
+                        v-model="register.state"
+                        @change="fetchLga(register.state)"
+                      >
+                        <option
+                          v-for="state in states"
+                          v-bind:key="state"
+                          :value="state.id"
                         >
-                          <option
-                            v-for="state in states"
-                            v-bind:key="state"
-                            :value="state.id"
-                          >
-                            {{ state.name }}
-                          </option>
-                        </select>
-                      </div>
+                          {{ state.name }}
+                        </option>
+                      </select>
+                    </div>
                     <div class="form-group col-md-6">
                       <label for="inputCity">LGA</label>
                       <select
@@ -200,20 +196,22 @@
                           v-for="lga in lga_states"
                           v-bind:key="lga"
                           :value="lga.id"
-                          >{{ lga.local_name }}</option
                         >
+                          {{ lga.local_name }}
+                        </option>
                       </select>
                     </div>
 
-                    <div class="form-group  col-md-6 col-sm-12">
+                    <div class="form-group col-md-6 col-sm-12">
                       <label>Ward</label>
                       <select class="form-control" v-model="register.ward">
                         <option
                           v-for="ward in wards"
                           v-bind:key="ward.id"
                           :value="ward.id"
-                          >{{ ward.ward_name }}</option
                         >
+                          {{ ward.ward_name }}
+                        </option>
                       </select>
                     </div>
 
@@ -293,7 +291,7 @@
                   <button
                     @click="registerUser"
                     class="btn btn-info btn-block btn-lg"
-                    style="margin-top:20px;"
+                    style="margin-top: 20px"
                   >
                     Add Health Facility
                   </button>
@@ -324,16 +322,15 @@
                       <td>{{ index + 1 }}</td>
                       <td>
                         <router-link :to="{ path: '/provider-' + provider.id }">
-                          {{ provider.agency_name }}  
+                          {{ provider.agency_name }}
                         </router-link>
                       </td>
                       <td>{{ provider.facility_code }}</td>
                       <td>
-
-                        <span
-                        v-if="provider.user"
-                        >
-                          {{ provider.user.state.name }} ({{ provider.user.address1 }})
+                        <span v-if="provider.user.state != null">
+                          {{ provider.user.state.name }} ({{
+                            provider.user.address1
+                          }})
                         </span>
                       </td>
                       <td>{{ provider.phone_number }}</td>

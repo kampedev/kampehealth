@@ -3,19 +3,11 @@
     <aside class="admin-sidebar">
       <div class="admin-sidebar-brand">
         <!-- begin sidebar branding-->
-        <img
-          class="admin-brand-logo"
-          src="/assets/img/kampe_logo.png"
-          width="40"
-          alt="atmos Logo"
-        />
+        <img class="admin-brand-logo" src="/assets/img/kampe_logo.png" width="40" alt="atmos Logo" />
         <!-- end sidebar branding-->
         <div class="ml-auto">
           <!-- sidebar pin-->
-          <a
-            href="#"
-            class="admin-pin-sidebar btn-ghost btn btn-rounded-circle"
-          ></a>
+          <a href="#" class="admin-pin-sidebar btn-ghost btn btn-rounded-circle"></a>
           <!-- sidebar close for mobile device-->
           <a href="#" class="admin-close-sidebar"></a>
         </div>
@@ -57,10 +49,7 @@
           </li>
 
           <li class="menu-item" v-if="user.type == 'client'">
-            <router-link
-              :to="`/subscribediaspora-${user.id}`"
-              class="menu-link"
-            >
+            <router-link :to="`/subscribediaspora-${user.id}`" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Subscribe Diaspora </span>
               </span>
@@ -73,8 +62,7 @@
           <li class="menu-item" v-show="false">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >Dependents
+                <span class="menu-name">Dependents
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -143,10 +131,7 @@
             </router-link>
           </li>
 
-          <li
-            class="menu-item active"
-            v-if="user.type == 'shis' || user.user_role == 1"
-          >
+          <li class="menu-item active" v-if="user.type == 'shis' || user.user_role == 1">
             <a href="/state-dashboard" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Dashboard </span>
@@ -157,10 +142,7 @@
             </a>
           </li>
 
-          <li
-            class="menu-item active"
-            v-if="user.type == 'employee' && user.user_role == 0"
-          >
+          <li class="menu-item active" v-if="user.type == 'employee' && user.user_role == 0">
             <a href="/employee-dashboard" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Dashboard </span>
@@ -185,8 +167,7 @@
           <li class="menu-item" v-if="user.type == 'hmo'">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >Clients
+                <span class="menu-name">Clients
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -220,14 +201,10 @@
             </ul>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="user.type == 'provider' || user.type == 'provider_employee'"
-          >
+          <li class="menu-item" v-if="user.type == 'provider' || user.type == 'provider_employee'">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >Facility Data
+                <span class="menu-name">Facility Data
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -254,28 +231,22 @@
                     <span class="menu-name">View Enrollees </span>
                   </span>
                   <span class="menu-icon">
-                    <i
-                      class="icon-placeholder mdi mdi-account-group-outline"
-                    ></i>
+                    <i class="icon-placeholder mdi mdi-account-group-outline"></i>
                   </span>
                 </router-link>
               </li>
             </ul>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="
+          <li class="menu-item" v-if="
               user.type == 'employee' ||
               user.type == 'tpa' ||
               user.type == 'tpa_employee' ||
               user.type == 'shis'
-            "
-          >
+            ">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >Clients
+                <span class="menu-name">Clients
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -299,11 +270,7 @@
               </li> -->
 
               <li class="menu-item">
-                <a
-                  href="/registration-nigeria"
-                  target="_blank"
-                  class="menu-link"
-                >
+                <a href="/registration-nigeria" target="_blank" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name"> Registration (Local)</span>
                   </span>
@@ -314,11 +281,7 @@
               </li>
 
               <li class="menu-item">
-                <a
-                  href="/registration-diaspora"
-                  target="_blank"
-                  class="menu-link"
-                >
+                <a href="/registration-diaspora" target="_blank" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Registration (Diaspora)</span>
                   </span>
@@ -350,18 +313,13 @@
                 </a>
               </li>
 
-              <li
-                class="menu-item"
-                v-if="user.type == 'employee' || user.type == 'shis'"
-              >
+              <li class="menu-item" v-if="user.type == 'employee' || user.type == 'shis'">
                 <a href="/view-clients-agency" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">View Clients </span>
                   </span>
                   <span class="menu-icon">
-                    <i
-                      class="icon-placeholder mdi mdi-account-group-outline"
-                    ></i>
+                    <i class="icon-placeholder mdi mdi-account-group-outline"></i>
                   </span>
                 </a>
               </li>
@@ -371,8 +329,7 @@
           <li class="menu-item" v-if="user.type == 'hmo'">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >HR Management
+                <span class="menu-name">HR Management
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -406,14 +363,10 @@
             </ul>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="user.type == 'shis' || user.user_role == 1"
-          >
+          <li class="menu-item" v-if="user.type == 'shis' || user.user_role == 1">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >HR Management
+                <span class="menu-name">HR Management
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -450,8 +403,7 @@
           <li class="menu-item" v-if="user.type == 'provider'">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >HR Management
+                <span class="menu-name">HR Management
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -462,10 +414,7 @@
             <!--submenu-->
             <ul class="sub-menu">
               <li class="menu-item">
-                <router-link
-                  :to="{ path: '/provider/add-employee/' + user.id }"
-                  class="menu-link"
-                >
+                <router-link :to="{ path: '/provider/add-employee/' + user.id }" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Manage Employees </span>
                   </span>
@@ -477,21 +426,17 @@
             </ul>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="
+          <li class="menu-item" v-if="
               user.type == 'shis' ||
               user.type == 'provider' ||
               user.type == 'provider_employee' ||
               user.user_role == 1 ||
               user.job_title == 'Claims Vetter' ||
               user.job_title == 'Claims Verifier'
-            "
-          >
+            ">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >Claims Manager
+                <span class="menu-name">Claims Manager
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -519,9 +464,7 @@
                   </span>
 
                   <span class="menu-icon">
-                    <i
-                      class="icon-placeholder mdi mdi-file-document-outline"
-                    ></i>
+                    <i class="icon-placeholder mdi mdi-file-document-outline"></i>
                   </span>
                 </router-link>
               </li>
@@ -559,19 +502,15 @@
             </ul>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="
+          <li class="menu-item" v-if="
               user.job_title == 'Finance' ||
               user.type == 'provider' ||
               user.job_title == 'Director' ||
               user.type == 'shis'
-            "
-          >
+            ">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >Finance Manager
+                <span class="menu-name">Finance Manager
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -615,14 +554,10 @@
             </ul>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="user.type == 'shis' || user.user_role == 1"
-          >
+          <li class="menu-item" v-if="user.type == 'shis' || user.user_role == 1">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >Services Manager
+                <span class="menu-name">Services Manager
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -676,14 +611,10 @@
             </ul>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="user.type == 'shis' || user.user_role == 1"
-          >
+          <li class="menu-item" v-if="user.type == 'shis' || user.user_role == 1">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >Others
+                <span class="menu-name">Others
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -768,10 +699,7 @@
             </router-link>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="user.type == 'shis' || user.user_role == 1"
-          >
+          <li class="menu-item" v-if="user.type == 'shis' || user.user_role == 1">
             <a href="/my-providers" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Health Facilities</span>
@@ -783,16 +711,14 @@
           </li>
 
 
-           <li
-            class="menu-item"
-            v-if="user.type == 'shis' || user.user_role == 1"
-          >
+          <li class="menu-item" v-if="user.type == 'shis' || user.user_role == 1">
             <a href="/mda-manager" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Organizations</span>
               </span>
               <span class="menu-icon">
-                <i class="icon-placeholder fe fe-activity"></i>
+                <i class="icon-placeholder fe fe-airplay"></i>
+
               </span>
             </a>
           </li>
@@ -853,10 +779,7 @@
               </span>
             </a>
           </li>
-          <li
-            class="menu-item"
-            v-if="user.type == 'tpa' || user.type == 'tpa_employee'"
-          >
+          <li class="menu-item" v-if="user.type == 'tpa' || user.type == 'tpa_employee'">
             <a href="/all-claims" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Claims Management </span>
@@ -867,10 +790,7 @@
             </a>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="user.type == 'tpa' || user.type == 'tpa_employee'"
-          >
+          <li class="menu-item" v-if="user.type == 'tpa' || user.type == 'tpa_employee'">
             <a href="/authorization-code" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Authorization Code </span>
@@ -881,14 +801,10 @@
             </a>
           </li>
 
-          <li
-            class="menu-item"
-            v-if="user.type == 'provider' || user.type == 'provider_employee'"
-          >
+          <li class="menu-item" v-if="user.type == 'provider' || user.type == 'provider_employee'">
             <a href="#" class="open-dropdown menu-link">
               <span class="menu-label">
-                <span class="menu-name"
-                  >EMR
+                <span class="menu-name">EMR
                   <span class="menu-arrow"></span>
                 </span>
               </span>
@@ -941,35 +857,35 @@
 </template>
 
 <script>
-import Header from "@/views/Header.vue";
+  import Header from "@/views/Header.vue";
 
-export default {
-  components: {
-    Header,
-  },
-  data() {
-    return {
-      user: null,
-    };
-  },
-  beforeMount() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-  },
-  methods: {},
-  created() {},
-};
+  export default {
+    components: {
+      Header,
+    },
+    data() {
+      return {
+        user: null,
+      };
+    },
+    beforeMount() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+    },
+    methods: {},
+    created() { },
+  };
 </script>
 
 <style scoped>
-.sidebar-pinned {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  height: 100vh;
-}
+  .sidebar-pinned {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
+  }
 
-.admin-sidebar .admin-sidebar-wrapper {
-  overflow-y: scroll;
-}
+  .admin-sidebar .admin-sidebar-wrapper {
+    overflow-y: scroll;
+  }
 </style>

@@ -1,5 +1,3 @@
-CATEGORY,firstname,lastname,middlename,id_card_number,plan_type,sector,dob,sectorType,expiry_date,nimc_number,marital_status,gender,provider_id
-PRINCIPAL,Basiru,Idaya,Asake,KAMPE/A-08/67221,Family,Basic Healthcare Provision Fund,1970-01-01,formal,2026-12-31 0:00:00,1000000000,Single,Female,Facility ID
-PRINCIPAL,Tiamiyu,Amori,Ayisat,KAMPE/A-08/67222,Individual,Basic Healthcare Provision Fund,1960-12-31,informal,2026-12-31 0:00:00,100000000,Married,Female,Facility ID
-DEPENDENT,Salawu,Amosa,Adewole,KAMPE/A-08/67223/A,Family,Basic Healthcare Provision Fund,1943-05-08,formal,2026-12-31 0:00:00,10000000000,Divorced,Male,Facility ID
-DEPENDENT,Oyewale,Ayoka,Musili,KAMPE/A-08/67224/B,Individual,Basic Healthcare Provision Fund,1950-01-01,informal,2026-12-31 0:00:00,10000000000,Separated,Female,Facility ID
+CATEGORY,firstname,lastname,middlename,sector,dob,nimc_number,marital_status,gender,provider_id,phone_number,place_of_work
+PRINCIPAL,Basiru,Idaya,Asake,Kampe Basic,1970-01-01,1000000000,Single,Female,Facility ID,09000000000,Test organization
+PRINCIPAL,Tiamiyu,Amori,Ayisat,Kampe Basic,1960-12-31,100000000,Married,Female,Facility ID,7000000000,Test organization

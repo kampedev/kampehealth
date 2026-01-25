@@ -12,7 +12,7 @@
                 </div>
               </div>
               <h3></h3>
-              <strong> Ministries Departments and Parastatals</strong>
+              <strong> Organization's Manager</strong>
             </div>
           </div>
         </div>
@@ -23,23 +23,18 @@
             <div class="col-md-12">
               <div class="card m-b-30">
                 <div class="card-header">
-                  <h3 class="h5 text-center">{{ ministries.length }} MDAs</h3>
+                  <h3 class="h5 text-center">{{ ministries.length }} Organizations</h3>
                 </div>
 
                 <div class="card-body">
                   <div class="form-group">
-                    <button class="btn btn-success" @click="show = !show">
+                    <button class="btn btn-info" @click="show = !show">
                       Add MDA
                     </button>
                   </div>
 
-                  <download-excel
-                    :data="ministries.data"
-                    :fields="json_fields"
-                    class="btn btn-success"
-                    :escapeCsv="false"
-                    name="mda.xls"
-                  >
+                  <download-excel :data="ministries.data" :fields="json_fields" class="btn btn-info" :escapeCsv="false"
+                    name="mda.xls">
                     <span class="fe fe-download"></span>
                     Export Data for MDA
                   </download-excel>
@@ -51,52 +46,25 @@
               <div class="card m-b-30">
                 <div class="card-body">
                   <div class="form-row">
-                    <div
-                      class="form-group floating-label col-md-12 col-sm-12"
-                      v-if="selector == 'ministry'"
-                    >
+                    <div class="form-group floating-label col-md-12 col-sm-12" v-if="selector == 'ministry'">
                       <label>MDA</label>
-                      <input
-                        type="text"
-                        required
-                        class="form-control"
-                        placeholder="Name of MDA"
-                        v-model="register.ministry"
-                      />
+                      <input type="text" required class="form-control" placeholder="Name of MDA"
+                        v-model="register.ministry" />
                     </div>
 
-                    <div
-                      class="form-group floating-label col-md-12 col-sm-12"
-                      v-if="selector == 'department'"
-                    >
+                    <div class="form-group floating-label col-md-12 col-sm-12" v-if="selector == 'department'">
                       <label>Name of Department</label>
-                      <input
-                        type="text"
-                        required
-                        class="form-control"
-                        placeholder="Name of Department"
-                        v-model="register.department"
-                      />
+                      <input type="text" required class="form-control" placeholder="Name of Department"
+                        v-model="register.department" />
                     </div>
-                    <div
-                      class="form-group floating-label col-md-12"
-                      v-if="selector == 'parastatal'"
-                    >
+                    <div class="form-group floating-label col-md-12" v-if="selector == 'parastatal'">
                       <label>Name of Parastatal</label>
-                      <input
-                        type="text"
-                        required
-                        class="form-control"
-                        placeholder="Name of Parastatal"
-                        v-model="register.parastatal"
-                      />
+                      <input type="text" required class="form-control" placeholder="Name of Parastatal"
+                        v-model="register.parastatal" />
                     </div>
                   </div>
 
-                  <button
-                    @click="registerMDA"
-                    class="btn btn-success btn-block btn-lg"
-                  >
+                  <button @click="registerMDA" class="btn btn-info btn-block ">
                     Submit
                   </button>
                 </div>
@@ -117,13 +85,16 @@
                       <td>{{ mda.name }}</td>
 
                       <td>
-                        <button
-                          type="button"
-                          class="btn btn-info"
-                          name="button"
-                          @click="editMin(mda)"
-                        >
-                          edit
+
+                        <router-link :to="{ path: '/organization-' + mda.id }">
+                          <button type="button" name="button" class="btn btn-outline-info m-1">
+                            <i class="fe fe-eye"></i>
+                          </button>
+                        </router-link>
+
+
+                        <button type="button" class="btn btn-outline-info m-1" name="button" @click="editMin(mda)">
+                          <i class="fe fe-edit"></i>
                         </button>
                       </td>
                     </tr>
@@ -135,12 +106,7 @@
         </div>
 
         <div class="vld-parent">
-          <loading
-            :active.sync="isLoading"
-            loader="dots"
-            :can-cancel="true"
-            :is-full-page="fullPage"
-          ></loading>
+          <loading :active.sync="isLoading" loader="dots" :can-cancel="true" :is-full-page="fullPage"></loading>
         </div>
       </section>
     </main>
@@ -148,167 +114,167 @@
 </template>
 
 <script>
-import Navbar from "@/views/Navbar.vue";
-// Import component
-import Loading from "vue-loading-overlay";
-// Import stylesheet
-import "vue-loading-overlay/dist/vue-loading.css";
-// Init plugin
+  import Navbar from "@/views/Navbar.vue";
+  // Import component
+  import Loading from "vue-loading-overlay";
+  // Import stylesheet
+  import "vue-loading-overlay/dist/vue-loading.css";
+  // Init plugin
 
-export default {
-  components: {
-    Navbar,
-    Loading,
-  },
-  data() {
-    return {
-      user: null,
-      ministries: "",
-      departments: "",
-      parastatals: "",
-      current_page: 1,
-      edit: false,
-      show: false,
-      selector: "ministry",
-      isLoading: false,
-      fullPage: true,
-      agency_id: "",
-      provider_id: "",
-      ministry_id: "",
-      register: {
-        ministry: "",
-        department: "",
-        parastatal: "",
-      },
-      json_fields: {
-        "MDA Name": "name",
-      },
-      json_data: [],
-      json_meta: [
-        [
-          {
-            key: "charset",
-            value: "utf-8",
-          },
+  export default {
+    components: {
+      Navbar,
+      Loading,
+    },
+    data() {
+      return {
+        user: null,
+        ministries: "",
+        departments: "",
+        parastatals: "",
+        current_page: 1,
+        edit: false,
+        show: false,
+        selector: "ministry",
+        isLoading: false,
+        fullPage: true,
+        agency_id: "",
+        provider_id: "",
+        ministry_id: "",
+        register: {
+          ministry: "",
+          department: "",
+          parastatal: "",
+        },
+        json_fields: {
+          "MDA Name": "name",
+        },
+        json_data: [],
+        json_meta: [
+          [
+            {
+              key: "charset",
+              value: "utf-8",
+            },
+          ],
         ],
-      ],
-    };
-  },
-  beforeMount() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-    this.axios
-      .get(`/api/v1/auth/ministry/439078`)
-      .then((response) => {
-        this.ministries = response.data;
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  },
-
-  methods: {
-    // gotoNext() {
-    //   if (this.ministries.meta.current_page != this.ministries.meta.last_page) {
-    //     this.current_page++;
-    //     this.getDepts();
-    //   } else {
-    //     this.$toasted.info("You have reached the Last Page", {
-    //       position: "top-center",
-    //       duration: 3000,
-    //     });
-    //   }
-    // },
-    // gotoPrevious() {
-    //   if (this.ministries.meta.current_page != 1) {
-    //     this.current_page--;
-    //     this.getDepts();
-    //   } else {
-    //     this.$toasted.info("You have reached the First Page", {
-    //       position: "top-center",
-    //       duration: 3000,
-    //     });
-    //   }
-    // },
-    // getDepts() {
-    //   this.axios
-    //     .get(`/api/v1/auth/ministry`)
-    //     .then((response) => {
-    //       this.ministries = response.data;
-    //       this.json_data = this.ministries;
-
-    //       console.log(response);
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // },
-    editMin(mda) {
-      this.show = true;
-      this.edit = true;
-      this.register.ministry = mda.name;
-      this.ministry_id = mda.id;
+      };
+    },
+    beforeMount() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.axios
+        .get(`/api/v1/auth/ministry/439078`)
+        .then((response) => {
+          this.ministries = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
 
-    registerMDA() {
-      this.isLoading = true;
-      if (this.edit == false) {
-        this.axios
-          .post("/api/v1/auth/ministry", {
-            agency_id: 439078,
-            name: this.register.ministry,
-          })
-          .then((response) => {
-            console.log(response);
-            this.isLoading = false;
-            // this.getDepts();
-            // this.clearIt();
-            this.$toasted.info("MDA Added", {
-              position: "top-center",
-              duration: 5000,
-            });
-          })
-          .catch((error) => {
-            console.log(error.response);
-            this.isLoading = false;
-            this.$toasted.error("Error", {
-              position: "top-left",
-              duration: 5000,
-            });
-          });
-      } else {
-        this.axios
-          .put("/api/v1/auth/ministry", {
-            id: this.ministry_id,
-            name: this.register.ministry,
-          })
-          .then((response) => {
-            console.log(response);
-            this.isLoading = false;
-            // this.getDepts();
-            // this.clearIt();
-            this.$toasted.info("MDA Updated", {
-              position: "top-center",
-              duration: 5000,
-            });
-          })
-          .catch((error) => {
-            console.log(error.response);
-            this.isLoading = false;
-            this.$toasted.error("Error", {
-              position: "top-left",
-              duration: 5000,
-            });
-          });
-      }
-    },
+    methods: {
+      // gotoNext() {
+      //   if (this.ministries.meta.current_page != this.ministries.meta.last_page) {
+      //     this.current_page++;
+      //     this.getDepts();
+      //   } else {
+      //     this.$toasted.info("You have reached the Last Page", {
+      //       position: "top-center",
+      //       duration: 3000,
+      //     });
+      //   }
+      // },
+      // gotoPrevious() {
+      //   if (this.ministries.meta.current_page != 1) {
+      //     this.current_page--;
+      //     this.getDepts();
+      //   } else {
+      //     this.$toasted.info("You have reached the First Page", {
+      //       position: "top-center",
+      //       duration: 3000,
+      //     });
+      //   }
+      // },
+      // getDepts() {
+      //   this.axios
+      //     .get(`/api/v1/auth/ministry`)
+      //     .then((response) => {
+      //       this.ministries = response.data;
+      //       this.json_data = this.ministries;
 
-    clearIt() {
-      this.register.ministry = "";
+      //       console.log(response);
+      //     })
+      //     .catch((error) => {
+      //       console.error(error);
+      //     });
+      // },
+      editMin(mda) {
+        this.show = true;
+        this.edit = true;
+        this.register.ministry = mda.name;
+        this.ministry_id = mda.id;
+      },
+
+      registerMDA() {
+        this.isLoading = true;
+        if (this.edit == false) {
+          this.axios
+            .post("/api/v1/auth/ministry", {
+              agency_id: 439078,
+              name: this.register.ministry,
+            })
+            .then((response) => {
+              console.log(response);
+              this.isLoading = false;
+              this.getDepts();
+              this.clearIt();
+              this.$toasted.info("MDA Added", {
+                position: "top-center",
+                duration: 5000,
+              });
+            })
+            .catch((error) => {
+              console.log(error.response);
+              this.isLoading = false;
+              this.$toasted.error("Error", {
+                position: "top-left",
+                duration: 5000,
+              });
+            });
+        } else {
+          this.axios
+            .put("/api/v1/auth/ministry", {
+              id: this.ministry_id,
+              name: this.register.ministry,
+            })
+            .then((response) => {
+              console.log(response);
+              this.isLoading = false;
+              // this.getDepts();
+              // this.clearIt();
+              this.$toasted.info("MDA Updated", {
+                position: "top-center",
+                duration: 5000,
+              });
+            })
+            .catch((error) => {
+              console.log(error.response);
+              this.isLoading = false;
+              this.$toasted.error("Error", {
+                position: "top-left",
+                duration: 5000,
+              });
+            });
+        }
+      },
+
+      clearIt() {
+        this.register.ministry = "";
+      },
     },
-  },
-  created() {
-    // this.getDepts();
-  },
-};
+    created() {
+      // this.getDepts();
+    },
+  };
 </script>

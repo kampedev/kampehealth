@@ -103,6 +103,7 @@ import Accountant from "../views/employees/Accountant.vue";
 import Appointments from "../views/appointments/Appointments.vue";
 import SingleAppointment from "../views/appointments/SingleAppointment.vue";
 import MDApage from "../views/shis/MDApage.vue";
+import SingleMDA from "../views/shis/SingleMDA.vue";
 import WardManager from "../views/shis/WardManager.vue";
 import SingleLGA from "../views/shis/SingleLGA.vue";
 import SingleWard from "../views/shis/SingleWard.vue";
@@ -417,6 +418,14 @@ const routes = [
   {
     path: "/provider-:id",
     component: SingleProvider,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
+   {
+    path: "/organization-:id",
+    component: SingleMDA,
     meta: {
       requiresAuth: true,
     },
@@ -999,7 +1008,7 @@ const routes = [
     },
   },
   {
-    path: "/upload-enrollee/csv",
+    path: "/upload-enrollees",
     component: UploadEnrolleesCSV,
     meta: {
       requiresAuth: true,

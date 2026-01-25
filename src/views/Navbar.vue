@@ -704,7 +704,7 @@
                 </router-link>
               </li>
               <li class="menu-item">
-                <router-link to="/upload-enrollee/csv" class="menu-link">
+                <router-link to="/upload-enrollees" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Enrollee Upload </span>
                   </span>
@@ -775,6 +775,21 @@
             <a href="/my-providers" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Health Facilities</span>
+              </span>
+              <span class="menu-icon">
+                <i class="icon-placeholder fe fe-activity"></i>
+              </span>
+            </a>
+          </li>
+
+
+           <li
+            class="menu-item"
+            v-if="user.type == 'shis' || user.user_role == 1"
+          >
+            <a href="/mda-manager" class="menu-link">
+              <span class="menu-label">
+                <span class="menu-name">Organizations</span>
               </span>
               <span class="menu-icon">
                 <i class="icon-placeholder fe fe-activity"></i>

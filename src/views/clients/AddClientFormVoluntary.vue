@@ -733,7 +733,7 @@ export default {
         date_of_entry: "",
         marital_status: "",
         user_image: "",
-        enrolled_by: 0,
+        enrolled_by: 1,
         conditions: [],
         quality_assurance: {
           facility_id: 0,
@@ -868,7 +868,7 @@ export default {
           category_of_vulnerable_group:
             this.register.category_of_vulnerable_group,
           enrolled_by:
-            this.register.enrolled_by == null ? 0 : this.register.enrolled_by,
+            this.register.enrolled_by == null ? 1 : this.register.enrolled_by,
           dependents: this.dependents,
           conditions: this.register.conditions,
           quality_assurance: this.register.quality_assurance,

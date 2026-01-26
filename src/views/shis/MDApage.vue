@@ -29,14 +29,14 @@
                 <div class="card-body">
                   <div class="form-group">
                     <button class="btn btn-info" @click="show = !show">
-                      Add MDA
+                      Add Organization
                     </button>
                   </div>
 
                   <download-excel :data="ministries.data" :fields="json_fields" class="btn btn-info" :escapeCsv="false"
                     name="mda.xls">
                     <span class="fe fe-download"></span>
-                    Export Data for MDA
+                    Export Data for Organization
                   </download-excel>
                 </div>
               </div>
@@ -227,7 +227,7 @@
             .then((response) => {
               console.log(response);
               this.isLoading = false;
-              this.getDepts();
+              //this.getDepts();
               this.clearIt();
               this.$toasted.info("MDA Added", {
                 position: "top-center",

@@ -377,7 +377,7 @@
             <!--submenu-->
             <ul class="sub-menu">
               <li class="menu-item">
-                <a href="/#/#/add-employee-state" class="menu-link">
+                <a href="/#/add-employee-state" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Add Employee </span>
                   </span>
@@ -388,7 +388,7 @@
               </li>
 
               <li class="menu-item">
-                <a href="/#/#/my-employees" class="menu-link">
+                <a href="/#/my-employees" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">My Employees </span>
                   </span>
@@ -700,7 +700,7 @@
           </li>
 
           <li class="menu-item" v-if="user.type == 'shis' || user.user_role == 1">
-            <a href="/#/#/my-providers" class="menu-link">
+            <a href="/#/my-providers" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Health Facilities</span>
               </span>
@@ -712,7 +712,7 @@
 
 
           <li class="menu-item" v-if="user.type == 'shis' || user.user_role == 1">
-            <a href="/#/#/mda-manager" class="menu-link">
+            <a href="/#/mda-manager" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Organizations</span>
               </span>

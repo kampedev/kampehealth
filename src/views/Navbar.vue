@@ -132,7 +132,7 @@
           </li>
 
           <li class="menu-item active" v-if="user.type == 'shis' || user.user_role == 1">
-            <a href="/state-dashboard" class="menu-link">
+            <a href="/#/state-dashboard" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Dashboard </span>
               </span>
@@ -143,7 +143,7 @@
           </li>
 
           <li class="menu-item active" v-if="user.type == 'employee' && user.user_role == 0">
-            <a href="/employee-dashboard" class="menu-link">
+            <a href="/#/employee-dashboard" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Dashboard </span>
               </span>
@@ -154,7 +154,7 @@
           </li>
 
           <li class="menu-item" v-if="user.type == 'provider_employee'">
-            <a href="/personnel" class="menu-link">
+            <a href="/#/personnel" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">My Dashboard </span>
               </span>
@@ -257,7 +257,7 @@
             <!--submenu-->
             <ul class="sub-menu">
               <!-- <li class="menu-item">
-                <a href="/add-client-agency" class="menu-link">
+                <a href="/#/add-client-agency" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Add Enrollee </span>
                   </span>
@@ -270,7 +270,7 @@
               </li> -->
 
               <li class="menu-item">
-                <a href="/registration-nigeria" target="_blank" class="menu-link">
+                <a href="/#/registration-nigeria" target="_blank" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name"> Registration (Local)</span>
                   </span>
@@ -281,7 +281,7 @@
               </li>
 
               <li class="menu-item">
-                <a href="/registration-diaspora" target="_blank" class="menu-link">
+                <a href="/#/registration-diaspora" target="_blank" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Registration (Diaspora)</span>
                   </span>
@@ -292,7 +292,7 @@
               </li>
 
               <li class="menu-item" v-if="user.type == 'employee'">
-                <a href="/manage-clients" class="menu-link">
+                <a href="/#/manage-clients" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Manage Enrollees </span>
                   </span>
@@ -303,7 +303,7 @@
               </li>
 
               <li class="menu-item" v-if="user.type == 'employee'">
-                <a href="/change-facility-requests" class="menu-link">
+                <a href="/#/change-facility-requests" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Change Facility Requests</span>
                   </span>
@@ -314,7 +314,7 @@
               </li>
 
               <li class="menu-item" v-if="user.type == 'employee' || user.type == 'shis'">
-                <a href="/view-clients-agency" class="menu-link">
+                <a href="/#/view-clients-agency" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">View Clients </span>
                   </span>
@@ -377,7 +377,7 @@
             <!--submenu-->
             <ul class="sub-menu">
               <li class="menu-item">
-                <a href="/add-employee-state" class="menu-link">
+                <a href="/#/#/add-employee-state" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">Add Employee </span>
                   </span>
@@ -388,7 +388,7 @@
               </li>
 
               <li class="menu-item">
-                <a href="/my-employees" class="menu-link">
+                <a href="/#/#/my-employees" class="menu-link">
                   <span class="menu-label">
                     <span class="menu-name">My Employees </span>
                   </span>
@@ -700,7 +700,7 @@
           </li>
 
           <li class="menu-item" v-if="user.type == 'shis' || user.user_role == 1">
-            <a href="/my-providers" class="menu-link">
+            <a href="/#/#/my-providers" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Health Facilities</span>
               </span>
@@ -712,7 +712,7 @@
 
 
           <li class="menu-item" v-if="user.type == 'shis' || user.user_role == 1">
-            <a href="/mda-manager" class="menu-link">
+            <a href="/#/#/mda-manager" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Organizations</span>
               </span>
@@ -726,7 +726,7 @@
             class="menu-item"
             v-if="user.type == 'shis' || user.user_role == 1"
           >
-            <a href="/my-tpas" class="menu-link">
+            <a href="/#/my-tpas" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">TPAs/ HMOs</span>
               </span>
@@ -737,7 +737,7 @@
           </li> -->
 
           <li class="menu-item" v-if="user.type == 'tpa'">
-            <a href="/view-clients-tpa" class="menu-link">
+            <a href="/#/view-clients-tpa" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">View Enrollees </span>
               </span>
@@ -748,7 +748,7 @@
           </li>
 
           <li class="menu-item" v-if="user.type == 'tpa_employee'">
-            <a href="/view-clients-tpa" class="menu-link">
+            <a href="/#/view-clients-tpa" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">View Enrollees </span>
               </span>
@@ -759,7 +759,7 @@
           </li>
 
           <li class="menu-item" v-if="user.type == 'tpa'">
-            <a href="/add-officers" class="menu-link">
+            <a href="/#/add-officers" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Add Agents </span>
               </span>
@@ -770,7 +770,7 @@
           </li>
 
           <li class="menu-item" v-if="user.type == 'tpa_employee'">
-            <a href="/add-client-tpa" class="menu-link">
+            <a href="/#/add-client-tpa" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Add Enrollee </span>
               </span>
@@ -780,7 +780,7 @@
             </a>
           </li>
           <li class="menu-item" v-if="user.type == 'tpa' || user.type == 'tpa_employee'">
-            <a href="/all-claims" class="menu-link">
+            <a href="/#/all-claims" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Claims Management </span>
               </span>
@@ -791,7 +791,7 @@
           </li>
 
           <li class="menu-item" v-if="user.type == 'tpa' || user.type == 'tpa_employee'">
-            <a href="/authorization-code" class="menu-link">
+            <a href="/#/authorization-code" class="menu-link">
               <span class="menu-label">
                 <span class="menu-name">Authorization Code </span>
               </span>

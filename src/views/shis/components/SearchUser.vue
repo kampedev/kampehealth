@@ -47,7 +47,7 @@
                 class="my-2"
               >
                 <span>{{ index + 1 }}. </span>
-                <a :href="`/${search.type}/${search.id}`">
+                <a :href="`/#/${search.type}/${search.id}`">
                   {{ search.full_name }} {{ search.id_card_number }}
 
                   <button class="btn mx-2 badge badge-soft-info">

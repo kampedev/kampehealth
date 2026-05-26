@@ -34,7 +34,7 @@
     invariant "^2.2.4"
     semver "^5.5.0"
 
-"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.8.4":
+"@babel/core@^7.8.4":
   version "7.8.7"
   resolved "https://registry.npmjs.org/@babel/core/-/core-7.8.7.tgz"
   integrity sha512-rBlqF3Yko9cynC5CCFy6+K/w2N+Sq/ff2BPy+Krp7rHlABIr5epbA7OxVeKoMHB39LZOp1UY5SuLjy6uWi35yA==
@@ -913,7 +913,7 @@
   resolved "https://registry.npmjs.org/@capacitor/clipboard/-/clipboard-6.0.2.tgz"
   integrity sha512-jQ6UeFra5NP58THNZNb7HtzOZU7cHsjgrbQGVuMTgsK1uTILZpNeh+pfqHbKggba6KaNh5DAsJvEVQGpIR1VBA==
 
-"@capacitor/core@^5.4.2", "@capacitor/core@^5.7.0", "@capacitor/core@^6.0.0":
+"@capacitor/core@^5.4.2":
   version "5.7.8"
   resolved "https://registry.npmjs.org/@capacitor/core/-/core-5.7.8.tgz"
   integrity sha512-rrZcm/2vJM0WdWRQup1TUidbjQV9PfIadSkV4rAGLD7R6PuzZSMPGT0gmoZzCRlXkqrazrWWDkurei3ozU02FA==
@@ -1232,7 +1232,7 @@
 "@vue/cli-plugin-vuex@^4.2.3":
   version "4.2.3"
 
-"@vue/cli-service@^3.0.0 || ^4.0.0-0", "@vue/cli-service@^4.2.0":
+"@vue/cli-service@^4.2.0":
   version "4.2.3"
   dependencies:
     "@intervolga/optimize-cssnano-plugin" "^1.0.5"
@@ -1460,7 +1460,7 @@ acorn-jsx@^5.2.0:
 acorn-walk@^7.0.0, acorn-walk@^7.1.1:
   version "7.1.1"
 
-"acorn@^6.0.0 || ^7.0.0", acorn@^6.2.1:
+acorn@^6.2.1:
   version "6.4.1"
 
 acorn@^7.1.0:
@@ -1512,7 +1512,7 @@ ajv@^5.1.0:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.3.0"
 
-ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.0, ajv@^6.5.5, ajv@^6.9.1, ajv@>=5.0.0:
+ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.0, ajv@^6.5.5:
   version "6.12.0"
   dependencies:
     fast-deep-equal "^3.1.1"
@@ -1595,7 +1595,7 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
-apexcharts@^3.22.3, apexcharts@^3.6.6:
+apexcharts@^3.22.3:
   version "3.22.3"
   dependencies:
     svg.draggable.js "^2.2.2"
@@ -2755,7 +2755,7 @@ css-line-break@1.1.1:
   dependencies:
     base64-arraybuffer "^0.2.0"
 
-css-loader@*, css-loader@^3.4.2:
+css-loader@^3.4.2:
   version "3.4.2"
   dependencies:
     camelcase "^5.3.1"
@@ -3366,7 +3366,7 @@ eslint-utils@^1.4.3:
 eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0:
   version "1.1.0"
 
-"eslint@^5.0.0 || ^6.0.0", eslint@^6.7.2, "eslint@>= 1.6.0", "eslint@>= 4.12.1", "eslint@>=1.6.0 <7.0.0", eslint@>=5.0.0:
+eslint@^6.7.2:
   version "6.8.0"
   dependencies:
     "@babel/code-frame" "^7.0.0"
@@ -3647,7 +3647,7 @@ file-entry-cache@^5.0.1:
   dependencies:
     flat-cache "^2.0.1"
 
-file-loader@*, file-loader@^4.2.0:
+file-loader@^4.2.0:
   version "4.3.0"
   dependencies:
     loader-utils "^1.2.3"
@@ -4166,7 +4166,7 @@ highcharts-vue@^1.3.5:
   resolved "https://registry.npmjs.org/highcharts-vue/-/highcharts-vue-1.4.3.tgz"
   integrity sha512-qIy9EFuLIgOw+reNkTvu0pvMBcSE0BAPtONAqZoEl0qaAIpGxiyXqhRNPDufWieSC0YlybpCznxE8EK19Kcg+A==
 
-highcharts@^9.0.0, highcharts@>=4.2.0, highcharts@>=5.0.0:
+highcharts@^9.0.0:
   version "9.3.3"
   resolved "https://registry.npmjs.org/highcharts/-/highcharts-9.3.3.tgz"
   integrity sha512-QeOvm6cifeZYYdTLm4IxZsXcOE9c4xqfs0z0OJJ0z7hhA9WG0rmcVAyuIp5HBl/znjA/ayYHmpYjBYD/9PG4Fg==
@@ -4227,7 +4227,7 @@ html-minifier@^3.2.3:
 html-tags@^2.0.0:
   version "2.0.0"
 
-html-webpack-plugin@^3.2.0, html-webpack-plugin@>=2.26.0:
+html-webpack-plugin@^3.2.0:
   version "3.2.0"
   dependencies:
     html-minifier "^3.2.3"
@@ -4800,11 +4800,6 @@ jest-worker@^25.1.0:
   dependencies:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
-
-"jquery@1.9.1 - 3":
-  version "3.7.1"
-  resolved "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz"
-  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 js-message@1.0.5:
   version "1.0.5"
@@ -7159,30 +7154,6 @@ request-promise-native@^1.0.8:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.34, request@^2.87.0:
-  version "2.88.2"
-  dependencies:
-    aws-sign2 "~0.7.0"
-    aws4 "^1.8.0"
-    caseless "~0.12.0"
-    combined-stream "~1.0.6"
-    extend "~3.0.2"
-    forever-agent "~0.6.1"
-    form-data "~2.3.2"
-    har-validator "~5.1.3"
-    http-signature "~1.2.0"
-    is-typedarray "~1.0.0"
-    isstream "~0.1.2"
-    json-stringify-safe "~5.0.1"
-    mime-types "~2.1.19"
-    oauth-sign "~0.9.0"
-    performance-now "^2.1.0"
-    qs "~6.5.2"
-    safe-buffer "^5.1.2"
-    tough-cookie "~2.5.0"
-    tunnel-agent "^0.6.0"
-    uuid "^3.3.2"
-
 request@^2.74.0, request@^2.85.0, request@2:
   version "2.85.0"
   dependencies:
@@ -7208,6 +7179,30 @@ request@^2.74.0, request@^2.85.0, request@2:
     tough-cookie "~2.3.3"
     tunnel-agent "^0.6.0"
     uuid "^3.1.0"
+
+request@^2.87.0:
+  version "2.88.2"
+  dependencies:
+    aws-sign2 "~0.7.0"
+    aws4 "^1.8.0"
+    caseless "~0.12.0"
+    combined-stream "~1.0.6"
+    extend "~3.0.2"
+    forever-agent "~0.6.1"
+    form-data "~2.3.2"
+    har-validator "~5.1.3"
+    http-signature "~1.2.0"
+    is-typedarray "~1.0.0"
+    isstream "~0.1.2"
+    json-stringify-safe "~5.0.1"
+    mime-types "~2.1.19"
+    oauth-sign "~0.9.0"
+    performance-now "^2.1.0"
+    qs "~6.5.2"
+    safe-buffer "^5.1.2"
+    tough-cookie "~2.5.0"
+    tunnel-agent "^0.6.0"
+    uuid "^3.3.2"
 
 require-directory@^2.1.1:
   version "2.1.1"
@@ -8570,7 +8565,7 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.0.0, vue-template-compiler@^2.6.11:
+vue-template-compiler@^2.6.11:
   version "2.6.14"
   dependencies:
     de-indent "^1.0.2"
@@ -8591,7 +8586,7 @@ vue-wysiwyg@^1.7.2:
     vue "^2.5.13"
     vue2-dropzone "^3.0.4"
 
-vue@^2.0.0, vue@^2.3.3, vue@^2.5.0, vue@^2.5.13, vue@^2.5.16, vue@^2.5.18, vue@^2.6.10, vue@^2.6.11, vue@^2.6.5, vue@^2.6.7, "vue@>= 1.0.0", vue@>=1.0.0, vue@>=1.x.x, vue@>=3, vue@2.x:
+vue@^2.3.3, vue@^2.5.13, vue@^2.5.16, vue@^2.6.11, vue@^2.6.7:
   version "2.6.14"
 
 vue2-datepicker@^3.6.0:
@@ -8727,7 +8722,7 @@ webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-sources@^1.4.1, webpack-
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-"webpack@^1.0.0 || ^2.0.0 || ^3.0.0 || ^4.0.0", "webpack@^2.0.0 || ^3.0.0 || ^4.0.0", "webpack@^3.0.0 || ^4.1.0 || ^5.0.0-0", webpack@^4.0.0, "webpack@^4.0.0 || ^5.0.0", webpack@^4.4.0, webpack@>=2, "webpack@>=2.0.0 <5.0.0", webpack@>=4.0.0:
+webpack@^4.0.0:
   version "4.42.0"
   dependencies:
     "@webassemblyjs/ast" "1.8.5"
